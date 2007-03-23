@@ -1,0 +1,62 @@
+
+Applet
+- Rewrite
+- Update action icons on global settings change
+
+Compilation Fixes
+- Make sure all singnal.h, stdlib.h (systemconfig.cpp), sys/types.h (appobserver.h) are included
+
+Extras
+- Rewrite
+- Recent items
+- "Beep Warning"
+- Mute and quit kdetv/tvtime
+- Application observer: http://ariya.blogspot.com/2006/03/resize-pop-up-list-of-combo-box_15.html
+- Support for more media players (Xine, MPlayer, KMPlayer, MythTV, KRec, etc.)
+
+Improved "Restart Computer"
+- http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
+
+Misc.
+- Command line support, execute shell command
+- Notifications
+- Global/local shortcuts
+- Port and re-add missing features
+- Credits
+- Warn before action
+- DCOP/DBUS
+- Confirmation dialog
+- Plasmoid
+- KDE Kiosk
+- Include in KDE 4
+- "K" menu integration
+- http://sourceforge.net/forum/forum.php?thread_id=1073402&forum_id=324058
+- http://sourceforge.net/forum/forum.php?thread_id=1366875&forum_id=324058
+- http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
+- Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
+- Support for GNOME/GDM
+- Grayed-out background [by zero]
+- Console mode [by DigitalCyanide]
+- Custom messages
+- Rewrite link creator
+- Rewrite progress bar
+- Add test button for "Close CD"
+- Remember last settings page
+- KDM configurator, auto configuration
+- Optionally force application exit
+- Save KDE session if possible
+- Remote reboot or shutdown (via SSH)
+- "Shutdown every day on the same time"
+- Option to hide main window
+
+System Tray
+- Rewrite
+- Check if tray icon isn't too small
+- Mouse button configuration
+
+Triggers
+- Activate action when the CPU usage goes under a certain level [by aaron-koensgen]
+- Activate action when selected window disapear
+
+Usability
+- http://sourceforge.net/forum/forum.php?thread_id=1639947&forum_id=324058
