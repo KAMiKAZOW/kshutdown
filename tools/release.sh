@@ -18,7 +18,7 @@ fi
 
 # /
 mkdir "$KS_DIR"
-cp ChangeLog CMakeLists.txt README.html Setup.sh TODO "$KS_DIR"
+cp ChangeLog CMakeLists.txt LICENSE README.html Setup.sh TODO "$KS_DIR"
 
 # /src
 mkdir "$KS_DIR/src"
