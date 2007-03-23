@@ -12,12 +12,14 @@ Extras
 - "Beep Warning"
 - Mute and quit kdetv/tvtime
 - Application observer: http://ariya.blogspot.com/2006/03/resize-pop-up-list-of-combo-box_15.html
-- Support for more media players (Xine, MPlayer, KMPlayer, MythTV, KRec, etc.)
+- Support for more media players (Xine, MPlayer, KMPlayer, MythTV, KRec, RealPlayer, etc.)
 
 Improved "Restart Computer"
 - http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
 
 Misc.
+- Optionally mute sound (master mixer) before lock screen
+- Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
 - Command line support, execute shell command
 - Notifications
 - Global/local shortcuts
@@ -25,7 +27,7 @@ Misc.
 - Credits
 - Warn before action
 - DCOP/DBUS
-- Confirmation dialog
+- Confirmation dialog (and option to disable it)
 - Plasmoid
 - KDE Kiosk
 - Include in KDE 4
@@ -48,11 +50,13 @@ Misc.
 - Remote reboot or shutdown (via SSH)
 - "Shutdown every day on the same time"
 - Option to hide main window
+- Detect unsaved documents (is there any KDE API to do this?)
 
 System Tray
 - Rewrite
 - Check if tray icon isn't too small
 - Mouse button configuration
+- Menu side image
 
 Triggers
 - Activate action when the CPU usage goes under a certain level [by aaron-koensgen]
