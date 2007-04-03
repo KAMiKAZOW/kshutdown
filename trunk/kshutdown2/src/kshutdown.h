@@ -15,7 +15,7 @@
 
 class QDateTimeEdit;
 
-namespace KShutDown {
+namespace KShutdown {
 
 class KDE_EXPORT Base {
 public:
@@ -173,6 +173,6 @@ public:
 	ShutDownAction();
 };
 
-} // KShutDown
+} // KShutdown
 
 #endif // __KSHUTDOWN_H__

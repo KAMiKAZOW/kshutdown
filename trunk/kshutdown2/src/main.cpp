@@ -1,5 +1,5 @@
 //
-// main.cpp - An advanced shut down utility
+// main.cpp - An advanced shutdown utility
 // Copyright (C) 2007  Konrad Twardowski
 //
 // This program is free software; you can redistribute it and/or modify
@@ -27,9 +27,9 @@
 int main(int argc, char **argv) {
 	KAboutData about(
 		"kshutdown", // internal name - do not modify
-		"KShutDown", // no i18n
+		"KShutdown", // no i18n
 		KS_VERSION " (" KS_BUILD ")",
-		I18N_NOOP("An advanced shut down utility"),
+		I18N_NOOP("An advanced shutdown utility"),
 		KAboutData::License_GPL_V2,
 		"(C) 2003-3000 Konrad Twardowski",
 		0, // no extra text
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 	KUniqueApplication::addCmdLineOptions();
 
 	if (!KUniqueApplication::start()) {
-		kDebug() << "KShutDown is already running" << endl;
+		kDebug() << "KShutdown is already running" << endl;
 // FIXME: show and raise main window
 		return 0;
 	}
