@@ -192,7 +192,7 @@ void MainWindow::pluginConfig(const bool read) {
 	KConfig *config = KGlobal::config().data();//!!!
 
 	foreach (Action *i, m_actionHash) {
-		config->setGroup("KShutDown Action " + i->id());
+		config->setGroup("KShutdown Action " + i->id());
 		if (read)
 			i->readConfig(config);
 		else
@@ -200,7 +200,7 @@ void MainWindow::pluginConfig(const bool read) {
 	}
 
 	foreach (Trigger *i, m_triggerHash) {
-		config->setGroup("KShutDown Trigger " + i->id());
+		config->setGroup("KShutdown Trigger " + i->id());
 		if (read)
 			i->readConfig(config);
 		else

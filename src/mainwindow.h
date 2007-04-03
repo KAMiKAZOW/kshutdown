@@ -14,7 +14,7 @@ class QGroupBox;
 class KComboBox;
 class KPushButton;
 
-using namespace KShutDown;
+using namespace KShutdown;
 
 class MainWindow: public KMainWindow {
 	Q_OBJECT

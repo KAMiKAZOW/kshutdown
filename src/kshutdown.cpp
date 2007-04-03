@@ -11,7 +11,7 @@
 #include "kshutdown.h"
 #include "kshutdown.moc"
 
-using namespace KShutDown;
+using namespace KShutdown;
 
 LockAction *LockAction::m_instance = 0;
 
