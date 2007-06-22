@@ -1,15 +1,32 @@
+//
+// kshutdown.cpp - KShutdown base library
+// Copyright (C) 2007  Konrad Twardowski
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-//!!!cleanup
+#include "pureqt.h"
 
 #include <QDateTimeEdit>
 #include <QDBusInterface>
 #include <QDBusReply>
 
-#include <KLocale>
-#include <KMessageBox>
+#ifdef KS_NATIVE_KDE
+	//!!!#include "kshutdown.moc"
+#endif // KS_NATIVE_KDE
 
 #include "kshutdown.h"
-#include "kshutdown.moc"
 
 using namespace KShutdown;
 
@@ -32,7 +49,7 @@ QWidget *Base::getWidget() {
 	return 0;
 }
 
-void Base::readConfig(KConfig *config) {
+void Base::readConfig(U_CONFIG *config) {
 	Q_UNUSED(config)
 }
 
@@ -40,7 +57,7 @@ void Base::setState(const State state) {
 	Q_UNUSED(state)
 }
 
-void Base::writeConfig(KConfig *config) {
+void Base::writeConfig(U_CONFIG *config) {
 	Q_UNUSED(config)
 }
 
@@ -50,10 +67,10 @@ void Base::writeConfig(KConfig *config) {
 
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
 // FIXME: 0 parent - is this OK?
-	KAction(0),
+	U_ACTION(0),
 	Base(id) {
 	m_originalText = text;
-	setIcon(KIcon(iconName));
+	setIcon(U_ICON(iconName));
 	setText(text);
 	connect(this, SIGNAL(activated()), SLOT(slotFire()));
 }
@@ -61,12 +78,14 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 // private slots
 
 void Action::slotFire() {
+#ifdef KS_NATIVE_KDE
 	kDebug() << "Action::slotFire() [ id=" << m_id << " ]" << endl;
+#endif // KS_NATIVE_KDE
 
 	m_error = QString::null;
 	if (!onAction()) {
 		QString text = m_error.isEmpty() ? i18n("Unknown error") : m_error;
-		KMessageBox::error(0, m_error);
+		U_ERROR_MESSAGE(0, m_error);
 	}
 }
 
@@ -77,7 +96,7 @@ void Action::slotFire() {
 Trigger::Trigger(const QString &text, const QString &iconName, const QString &id) :
 	Base(id),
 	m_checkTimeout(500),
-	m_icon(KIcon(iconName)),
+	m_icon(U_ICON(iconName)),
 	m_text(text) {
 }
 
@@ -120,13 +139,21 @@ QWidget *DateTimeTriggerBase::getWidget() {
 	return m_edit;
 }
 
-void DateTimeTriggerBase::readConfig(KConfig *config) {
+void DateTimeTriggerBase::readConfig(U_CONFIG *config) {
+#ifdef KS_NATIVE_KDE
 	m_dateTime = config->readEntry("Date Time", m_dateTime);
+#else
+	Q_UNUSED(config)
+#endif // KS_NATIVE_KDE
 }
 
-void DateTimeTriggerBase::writeConfig(KConfig *config) {
+void DateTimeTriggerBase::writeConfig(U_CONFIG *config) {
+#ifdef KS_NATIVE_KDE
 	if (m_edit)
 		config->writeEntry("Date Time", m_edit->dateTime());
+#else
+	Q_UNUSED(config)
+#endif // KS_NATIVE_KDE
 }
 
 // private slots
@@ -208,7 +235,7 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 
 bool PowerAction::onAction() {
 	// lock screen before hibernate/suspend
-	LockAction::self()->activate(KAction::Trigger);
+	LockAction::self()->activate(U_ACTION::Trigger);
 
 	QDBusInterface i(
 		"org.freedesktop.Hal",
@@ -243,7 +270,11 @@ bool PowerAction::isAvailable(const QString &feature) const {
 		return reply.value();
 
 	//!!!
+#ifdef KS_NATIVE_KDE
 	kError() << reply.error() << endl;
+#else
+	//!!!qWarning(reply.error());
+#endif // KS_NATIVE_KDE
 
 	return false;
 }
@@ -290,16 +321,17 @@ bool LockAction::onAction() {
 	return true;
 }
 
-// StandardKDEAction
+// StandardAction
 
 // public
 
-StandardKDEAction::StandardKDEAction(const QString &text, const QString &iconName, const QString &id, const KWorkSpace::ShutdownType type) :
+StandardAction::StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type) :
 	Action(text, iconName, id),
 	m_type(type) {
 }
 
-bool StandardKDEAction::onAction() {
+bool StandardAction::onAction() {
+#ifdef KS_NATIVE_KDE
 	if (KWorkSpace::requestShutDown(
 		KWorkSpace::ShutdownConfirmNo,
 		m_type,
@@ -313,6 +345,9 @@ bool StandardKDEAction::onAction() {
 	);
 
 	return false;
+#else
+	return false;//!!!
+#endif // KS_NATIVE_KDE
 }
 
 // LogoutAction
@@ -320,7 +355,7 @@ bool StandardKDEAction::onAction() {
 // public
 
 LogoutAction::LogoutAction() :
-	StandardKDEAction(i18n("End Current Session"), "undo", "logout", KWorkSpace::ShutdownTypeNone) {
+	StandardAction(i18n("End Current Session"), "undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
 }
 
 // RebootAction
@@ -328,7 +363,7 @@ LogoutAction::LogoutAction() :
 // public
 
 RebootAction::RebootAction() :
-	StandardKDEAction(i18n("Restart Computer"), "reload", "reboot", KWorkSpace::ShutdownTypeReboot) {
+	StandardAction(i18n("Restart Computer"), "reload", "reboot", U_SHUTDOWN_TYPE_REBOOT) {
 }
 
 // ShutDownAction
@@ -336,5 +371,5 @@ RebootAction::RebootAction() :
 // public
 
 ShutDownAction::ShutDownAction() :
-	StandardKDEAction(i18n("Turn Off Computer"), "exit", "shutdown", KWorkSpace::ShutdownTypeHalt) {
+	StandardAction(i18n("Turn Off Computer"), "exit", "shutdown", U_SHUTDOWN_TYPE_HALT) {
 }
