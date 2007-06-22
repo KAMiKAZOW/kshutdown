@@ -69,9 +69,21 @@ void Base::writeConfig(U_CONFIG *config) {
 // protected
 
 #ifdef Q_WS_WIN
+// CREDITS: http://lists.trolltech.com/qt-solutions/2005-05/msg00005.html
 void Base::setLastError() {
-	m_error = ::GetLastError();
-	//!!!
+	char *buffer = 0;
+	::FormatMessageA(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+		0,
+		::GetLastError(),
+		0,
+		(char *)&buffer,
+		0,
+		0
+	);
+	m_error = QString::fromLocal8Bit(buffer);
+	if (buffer)
+		::LocalFree(buffer);
 }
 #endif // Q_WS_WIN
 
@@ -375,6 +387,44 @@ bool StandardAction::onAction() {
 	}
 	
 	//!!!shutdown priv.
+	
+	// adjust privileges
+
+	HANDLE hToken = 0;
+	if (::OpenProcessToken(::GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken)) {
+		TOKEN_PRIVILEGES tp;
+		if (!::LookupPrivilegeValue(NULL, SE_SHUTDOWN_NAME, &tp.Privileges[0].Luid)) {
+			setLastError();
+		
+			return false;
+		}
+	
+		tp.PrivilegeCount = 1;
+		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+		if (!::AdjustTokenPrivileges(
+			hToken,
+			FALSE,
+			&tp,
+			sizeof(TOKEN_PRIVILEGES),
+			(PTOKEN_PRIVILEGES)NULL,
+			(PDWORD)NULL
+		)) {
+			setLastError();
+		
+			return false;
+		}
+		
+		if (::GetLastError() == ERROR_NOT_ALL_ASSIGNED) {
+			m_error = "ERROR_NOT_ALL_ASSIGNED";//!!!
+			
+			return false;
+		}
+	}
+	else {
+		setLastError();
+		
+		return false;
+	}
 	
 	flags += EWX_FORCEIFHUNG;
 	#define SHTDN_REASON_MAJOR_APPLICATION 0x00040000
