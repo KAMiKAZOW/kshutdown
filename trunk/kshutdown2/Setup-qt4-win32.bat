@@ -5,4 +5,5 @@ call make clean
 call make
 cd ..
 REM FIXME: check last error
-REM "C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
+"C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
+kshutdown-2.0alpha1-win32.exe
