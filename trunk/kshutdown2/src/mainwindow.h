@@ -1,22 +1,43 @@
-
-//!!!cleanup
+//
+// mainwindow.h - The main window
+// Copyright (C) 2007  Konrad Twardowski
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #ifndef __MAINWINDOW_H__
 #define __MAINWINDOW_H__
 
-// TODO: use KDialog instead?
-#include <KMainWindow>
+// TODO: use XDialog instead of XMainWindow?
+#ifdef KS_PURE_QT
+	#include <QHash>
+	#include <QMainWindow>
+	class QComboBox;
+	class QPushButton;
+#else
+	#include <KMainWindow>
+	class KComboBox;
+	class KPushButton;
+#endif // KS_PURE_QT
 
 #include "kshutdown.h"
 
 class QGroupBox;
 
-class KComboBox;
-class KPushButton;
-
 using namespace KShutdown;
 
-class MainWindow: public KMainWindow {
+class MainWindow: public U_MAIN_WINDOW {
 	Q_OBJECT
 public:
 	virtual ~MainWindow();
@@ -29,10 +50,6 @@ public:
 private:
 	bool m_active;
 	bool m_forceQuit;
-	KComboBox *m_actions;
-	KComboBox *m_triggers;
-	KPushButton *m_configureActionButton;
-	KPushButton *m_okCancelButton;
 	static MainWindow *m_instance;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;
@@ -41,6 +58,10 @@ private:
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
+	U_COMBO_BOX *m_actions;
+	U_COMBO_BOX *m_triggers;
+	U_PUSH_BUTTON *m_configureActionButton;
+	U_PUSH_BUTTON *m_okCancelButton;
 	MainWindow();
 	void addAction(Action *action);
 	void addTrigger(Trigger *trigger);
@@ -55,7 +76,7 @@ private:
 	void initWidgets();
 	void pluginConfig(const bool read);
 	void readConfig();
-	int selectById(KComboBox *comboBox, const QString &id);
+	int selectById(U_COMBO_BOX *comboBox, const QString &id);
 	void setActive(const bool yes);
 	void updateWidgets();
 	void writeConfig();
