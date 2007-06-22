@@ -86,10 +86,8 @@ void MainWindow::addTrigger(Trigger *trigger) {
 	m_triggers->addItem(trigger->icon(), trigger->text(), trigger->id());
 	m_triggerHash[trigger->id()] = trigger;
 
-#ifdef KS_NATIVE_KDE
 	int index = m_triggers->count() - 1;
-	kDebug() << "\tMainWindow::addTrigger( \"" << trigger->text() << "\" ) [ id=" << trigger->id() << ", index=" << index << " ]" << endl;
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "\tMainWindow::addTrigger( \"" << trigger->text() << "\" ) [ id=" << trigger->id() << ", index=" << index << " ]";
 }
 
 Action *MainWindow::getSelectedAction() const {
@@ -97,9 +95,7 @@ Action *MainWindow::getSelectedAction() const {
 }
 
 void MainWindow::setSelectedAction(const QString &id) {
-#ifdef KS_NATIVE_KDE
-	kDebug() << "MainWindow::setSelectedAction( " << id << " )" << endl;
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )";
 
 	onActionActivated(selectById(m_actions, id));
 }
@@ -109,9 +105,7 @@ Trigger *MainWindow::getSelectedTrigger() const {
 }
 
 void MainWindow::setSelectedTrigger(const QString &id) {
-#ifdef KS_NATIVE_KDE
-	kDebug() << "MainWindow::setSelectedTrigger( " << id << " )" << endl;
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )";
 
 	onTriggerActivated(selectById(m_triggers, id));
 }
@@ -282,9 +276,7 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 }
 
 void MainWindow::setActive(const bool yes) {
-#ifdef KS_NATIVE_KDE
-	kDebug() << "MainWindow::setActive( " << yes << " )" << endl;
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "MainWindow::setActive( " << yes << " )";
 
 	if (m_active == yes)
 		return;
@@ -294,10 +286,8 @@ void MainWindow::setActive(const bool yes) {
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
 
-#ifdef KS_NATIVE_KDE
-	kDebug() << "\tMainWindow::getSelectedAction() == " << action->id() << endl;
-	kDebug() << "\tMainWindow::getSelectedTrigger() == " << trigger->id() << endl;
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id();
+	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id();
 
 	if (m_active) {
 		m_triggerTimer->start(trigger->checkTimeout());
@@ -379,11 +369,7 @@ void MainWindow::writeConfig() {
 // private slots
 
 void MainWindow::onActionActivated(int index) {
-#ifdef KS_NATIVE_KDE
-	kDebug() << "MainWindow::onActionActivated( " << index << " )" << endl;
-#else
-	Q_UNUSED(index)
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "MainWindow::onActionActivated( " << index << " )";
 
 	if (m_currentActionWidget) {
 		m_actionBox->layout()->removeWidget(m_currentActionWidget);
@@ -451,11 +437,7 @@ void MainWindow::onQuit() {
 }
 
 void MainWindow::onTriggerActivated(int index) {
-#ifdef KS_NATIVE_KDE
-	kDebug() << "MainWindow::onTriggerActivated( " << index << " )" << endl;
-#else
-	Q_UNUSED(index)
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "MainWindow::onTriggerActivated( " << index << " )";
 
 	if (m_currentTriggerWidget) {
 		m_triggerBox->layout()->removeWidget(m_currentTriggerWidget);
