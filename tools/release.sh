@@ -1,12 +1,12 @@
 #!/bin/bash
 
+# version
+./tools/make-version.sh
+
 KS_VERSION=`cat tools/VERSION`
 KS_DIR="kshutdown-$KS_VERSION"
 KS_DIST_DIR="dist.tmp"
 KS_ZIP="kshutdown-src-$KS_VERSION.zip"
-
-# version
-./tools/make-version.sh
 
 # clean
 rm -fR "$KS_DIR"
@@ -18,11 +18,11 @@ fi
 
 # /
 mkdir "$KS_DIR"
-cp ChangeLog CMakeLists.txt LICENSE README.html Setup.sh TODO "$KS_DIR"
+cp ChangeLog CMakeLists.txt kshutdown.nsi LICENSE README.html TODO *.bat *.sh "$KS_DIR"
 
 # /src
 mkdir "$KS_DIR/src"
-cp src/CMakeLists.txt src/*.cpp src/*.h "$KS_DIR/src"
+cp src/CMakeLists.txt src/src.pro src/*.cpp src/*.h "$KS_DIR/src"
 
 # /tools
 mkdir "$KS_DIR/tools"
