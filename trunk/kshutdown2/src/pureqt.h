@@ -22,6 +22,7 @@
 #ifdef KS_PURE_QT
 	// common includes
 	#include <QAction>
+	#include <QDebug>
 	#include <QMessageBox>
 	#include <QSettings>
 
@@ -29,8 +30,8 @@
 	#define U_ACTION QAction
 	#define U_COMBO_BOX QComboBox
 	#define U_CONFIG QSettings
-	//!!! change U_DEBUG
-	#define U_DEBUG(text) qDebug(text);
+	#define U_DEBUG qDebug()
+	#define U_ERROR qCritical()
 	#define U_ERROR_MESSAGE(parent, text) \
 		QMessageBox::critical((parent), i18n("Error"), (text));
 	#define U_EXPORT Q_DECL_EXPORT
@@ -60,7 +61,8 @@
 	#define U_ACTION KAction
 	#define U_COMBO_BOX KComboBox
 	#define U_CONFIG KConfig
-	#define U_DEBUG(text) kDebug() << text << endl;
+	#define U_DEBUG() kDebug()
+	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \
 		KMessageBox::error((parent), (text));
 	#define U_EXPORT KDE_EXPORT

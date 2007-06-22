@@ -42,7 +42,7 @@ MainWindow *MainWindow::m_instance = 0;
 // public
 
 MainWindow::~MainWindow() {
-	U_DEBUG("MainWindow::~MainWindow()")
+	U_DEBUG << "MainWindow::~MainWindow()";
 
 	writeConfig();
 }
@@ -59,7 +59,7 @@ MainWindow::MainWindow() :
 	m_currentActionWidget(0),
 	m_currentTriggerWidget(0) {
 
-	U_DEBUG("MainWindow::MainWindow()")
+	U_DEBUG << "MainWindow::MainWindow()";
 
 	setObjectName("MainWindow::MainWindow");
 
@@ -78,10 +78,8 @@ void MainWindow::addAction(Action *action) {
 	m_actions->addItem(action->icon(), action->text(), action->id());
 	m_actionHash[action->id()] = action;
 
-#ifdef KS_NATIVE_KDE
 	int index = m_actions->count() - 1;
-	kDebug() << "\tMainWindow::addAction( \"" << action->text() << "\" ) [ id=" << action->id() << ", index=" << index << " ]" << endl;
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "\tMainWindow::addAction( \"" << action->text() << "\" ) [ id=" << action->id() << ", index=" << index << " ]";
 }
 
 void MainWindow::addTrigger(Trigger *trigger) {
@@ -119,7 +117,7 @@ void MainWindow::setSelectedTrigger(const QString &id) {
 }
 
 void MainWindow::initActions() {
-	U_DEBUG("MainWindow::initActions()")
+	U_DEBUG << "MainWindow::initActions()";
 
 	addAction(LockAction::self());
 	addAction(new LogoutAction());
@@ -132,7 +130,7 @@ void MainWindow::initActions() {
 // TODO: action/trigger presets
 
 void MainWindow::initMenuBar() {
-	U_DEBUG("MainWindow::initMenuBar()")
+	U_DEBUG << "MainWindow::initMenuBar()";
 
 	U_MENU_BAR *menuBar = new U_MENU_BAR();
 
@@ -172,11 +170,11 @@ void MainWindow::initMenuBar() {
 
 // TODO: plugins
 void MainWindow::initPlugins() {
-	U_DEBUG("MainWindow::initPlugins()")
+	U_DEBUG << "MainWindow::initPlugins()";
 }
 
 void MainWindow::initTriggers() {
-	U_DEBUG("MainWindow::initTriggers()")
+	U_DEBUG << "MainWindow::initTriggers()";
 
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
 
@@ -262,7 +260,7 @@ void MainWindow::pluginConfig(const bool read) {
 }
 
 void MainWindow::readConfig() {
-	U_DEBUG("MainWindow::readConfig()")
+	U_DEBUG << "MainWindow::readConfig()";
 #ifdef KS_NATIVE_KDE
 	KConfig *config = KGlobal::config().data();
 
@@ -323,7 +321,7 @@ void MainWindow::setActive(const bool yes) {
 }
 
 void MainWindow::updateWidgets() {
-	U_DEBUG("MainWindow::updateWidgets()")
+	U_DEBUG << "MainWindow::updateWidgets()";
 
 	bool enabled = !m_active;
 	m_actions->setEnabled(enabled);
@@ -364,7 +362,7 @@ void MainWindow::updateWidgets() {
 }
 
 void MainWindow::writeConfig() {
-	U_DEBUG("MainWindow::writeConfig()")
+	U_DEBUG << "MainWindow::writeConfig()";
 #ifdef KS_NATIVE_KDE
 	KConfig *config = KGlobal::config().data();
 
@@ -403,7 +401,7 @@ void MainWindow::onActionActivated(int index) {
 
 void MainWindow::onCheckTrigger() {
 	if (!m_active) {
-		U_DEBUG("MainWindow::onCheckTrigger(): INTERNAL ERROR #1")
+		U_DEBUG << "MainWindow::onCheckTrigger(): INTERNAL ERROR #1";
 
 		return;
 	}
@@ -435,18 +433,18 @@ void MainWindow::onCheckTrigger() {
 }
 
 void MainWindow::onConfigureAction() {
-	U_DEBUG("MainWindow::onConfigureAction()")
+	U_DEBUG << "MainWindow::onConfigureAction()";
 	//!!!
 }
 
 void MainWindow::onOKCancel() {
-	U_DEBUG("MainWindow::onOKCancel()")
+	U_DEBUG << "MainWindow::onOKCancel()";
 
 	setActive(!m_active);
 }
 
 void MainWindow::onQuit() {
-	U_DEBUG("MainWindow::onQuit()")
+	U_DEBUG << "MainWindow::onQuit()";
 
 	m_forceQuit = true;//!!!not used
 	close();

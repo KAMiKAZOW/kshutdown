@@ -269,12 +269,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 	if (reply.isValid())
 		return reply.value();
 
-	//!!!
-#ifdef KS_NATIVE_KDE
-	kError() << reply.error() << endl;
-#else
-	//!!!qWarning(reply.error());
-#endif // KS_NATIVE_KDE
+	U_ERROR << reply.error();
 
 	return false;
 }
