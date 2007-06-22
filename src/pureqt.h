@@ -20,8 +20,10 @@
 #define __PUREQT_H__
 
 #ifdef KS_PURE_QT
+	// common includes
 	#include <QAction>
 	#include <QMessageBox>
+	#include <QSettings>
 
 	#undef KS_NATIVE_KDE
 	#define U_ACTION QAction
@@ -48,7 +50,9 @@
 	#define U_SHUTDOWN_TYPE_REBOOT 2
 	#define U_SHUTDOWN_TYPE_HALT 3
 #else
+	// common includes
 	#include <KAction>
+	#include <KConfig>
 	#include <KLocale>
 	#include <KMessageBox>
 

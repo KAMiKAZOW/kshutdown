@@ -25,12 +25,6 @@
 
 #include <QDateTime>
 
-#ifdef KS_PURE_QT
-	class QSettings;
-#else
-	class KConfig;
-#endif // KS_PURE_QT
-
 class QDateTimeEdit;
 
 namespace KShutdown {

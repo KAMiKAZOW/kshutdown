@@ -16,15 +16,25 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <KAboutData>
-#include <KLocale>
-#include <KCmdLineArgs>
-#include <KUniqueApplication>
+#ifdef KS_PURE_QT
+	#include <QApplication>
+#else
+	#include <KAboutData>
+	#include <KCmdLineArgs>
+	#include <KUniqueApplication>
+#endif // KS_PURE_QT
 
 #include "mainwindow.h"
 #include "version.h"
 
 int main(int argc, char **argv) {
+#ifdef KS_PURE_QT
+	QApplication a(argc, argv);
+	MainWindow::self()->show();
+
+	return a.exec();
+	//!!!
+#else
 	KAboutData about(
 		"kshutdown", // internal name - do not modify
 		"KShutdown", // no i18n
@@ -51,4 +61,5 @@ int main(int argc, char **argv) {
 	MainWindow::self()->show();
 
 	return a.exec();
+#endif // KS_PURE_QT
 }
