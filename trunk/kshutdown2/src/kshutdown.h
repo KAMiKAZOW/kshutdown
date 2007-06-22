@@ -61,6 +61,9 @@ protected:
 	QString m_originalText;
 
 	QString m_status;
+#ifdef Q_WS_WIN
+	void setLastError();
+#endif // Q_WS_WIN
 };
 
 class U_EXPORT Action: public U_ACTION, public Base {

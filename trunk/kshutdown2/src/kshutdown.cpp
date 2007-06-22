@@ -19,7 +19,10 @@
 #include "pureqt.h"
 
 #include <QDateTimeEdit>
-#ifndef Q_WS_WIN
+#ifdef Q_WS_WIN
+	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
+	#include <windows.h>
+#else
 	#include <QDBusInterface>
 	#include <QDBusReply>
 #endif // Q_WS_WIN
@@ -62,6 +65,15 @@ void Base::setState(const State state) {
 void Base::writeConfig(U_CONFIG *config) {
 	Q_UNUSED(config)
 }
+
+// protected
+
+#ifdef Q_WS_WIN
+void Base::setLastError() {
+	m_error = ::GetLastError();
+	//!!!
+}
+#endif // Q_WS_WIN
 
 // Action
 
@@ -311,7 +323,14 @@ LockAction::LockAction() :
 
 bool LockAction::onAction() {
 #ifdef Q_WS_WIN
-	return false;//!!!
+	BOOL result = ::LockWorkStation();
+	if (result == 0) {
+		setLastError();//!!!test
+	
+		return false;
+	}
+
+	return true;
 #else
 	QDBusInterface i("org.kde.krunner", "/ScreenSaver");
 	i.call("lock");
@@ -337,23 +356,55 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 }
 
 bool StandardAction::onAction() {
-#ifdef KS_NATIVE_KDE
-	if (KWorkSpace::requestShutDown(
-		KWorkSpace::ShutdownConfirmNo,
-		m_type,
-		KWorkSpace::ShutdownModeForceNow
-	))
-		return true;
+#ifdef Q_WS_WIN
+	UINT flags = 0;
+	switch (m_type) {
+		case U_SHUTDOWN_TYPE_LOGOUT:
+			flags = EWX_LOGOFF;
+			break;
+		case U_SHUTDOWN_TYPE_REBOOT:
+			flags = EWX_REBOOT;
+			break;
+		case U_SHUTDOWN_TYPE_HALT:
+			flags = EWX_POWEROFF;
+			break;
+		default:
+			U_ERROR << "WTF? Unknown m_type: " << m_type;
 
-	m_error = i18n(
-		"Could not logout properly.\n" \
-		"The session manager cannot be contacted."
-	);
-
-	return false;
+			return false; // do nothing
+	}
+	
+	//!!!shutdown priv.
+	
+	flags += EWX_FORCEIFHUNG;
+	#define SHTDN_REASON_MAJOR_APPLICATION 0x00040000
+	#define SHTDN_REASON_FLAG_PLANNED 0x80000000
+	if (::ExitWindowsEx(flags, SHTDN_REASON_MAJOR_APPLICATION | SHTDN_REASON_FLAG_PLANNED) == 0) {
+		setLastError();
+		
+		return false;
+	}
+	
+	return true;
 #else
-	return false;//!!!
-#endif // KS_NATIVE_KDE
+	#ifdef KS_NATIVE_KDE
+		if (KWorkSpace::requestShutDown(
+			KWorkSpace::ShutdownConfirmNo,
+			m_type,
+			KWorkSpace::ShutdownModeForceNow
+		))
+			return true;
+
+		m_error = i18n(
+			"Could not logout properly.\n" \
+			"The session manager cannot be contacted."
+		);
+
+		return false;
+	#else
+		return false;//!!!
+	#endif // KS_NATIVE_KDE
+#endif // Q_WS_WIN
 }
 
 // LogoutAction
