@@ -1,10 +1,7 @@
 
-Applet
-- Rewrite
-- Update action icons on global settings change
-
 Compilation Fixes
 - Make sure all singnal.h, stdlib.h (systemconfig.cpp), sys/types.h (appobserver.h) are included
+  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301
 
 Extras
 - Rewrite
@@ -18,6 +15,8 @@ Improved "Restart Computer"
 - http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
 
 Misc.
+- Windows port: https://sourceforge.net/tracker/?func=detail&atid=605273&aid=1738603&group_id=93707
+- Suspend to RAM, Suspend to disk
 - Optionally mute sound (master mixer) before lock screen
 - Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
 - Command line support, execute shell command
@@ -51,6 +50,7 @@ Misc.
 - "Shutdown every day on the same time"
 - Option to hide main window
 - Detect unsaved documents (is there any KDE API to do this?)
+- "Switch User" menu functionality
 
 System Tray
 - Rewrite
