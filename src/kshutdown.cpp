@@ -19,8 +19,10 @@
 #include "pureqt.h"
 
 #include <QDateTimeEdit>
-#include <QDBusInterface>
-#include <QDBusReply>
+#ifndef Q_WS_WIN
+	#include <QDBusInterface>
+	#include <QDBusReply>
+#endif // Q_WS_WIN
 
 #ifdef KS_NATIVE_KDE
 	//!!!#include "kshutdown.moc"
@@ -234,7 +236,9 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 bool PowerAction::onAction() {
 	// lock screen before hibernate/suspend
 	LockAction::self()->activate(U_ACTION::Trigger);
-
+#ifdef Q_WS_WIN
+	return false;//!!!
+#else
 	QDBusInterface i(
 		"org.freedesktop.Hal",
 		"/org/freedesktop/Hal/devices/computer",
@@ -251,11 +255,15 @@ bool PowerAction::onAction() {
 	}
 
 	return true;
+#endif // Q_WS_WIN
 }
 
 // protected
 
 bool PowerAction::isAvailable(const QString &feature) const {
+#ifdef Q_WS_WIN
+	return false;//!!!
+#else
 	QDBusInterface *i = new QDBusInterface(
 		"org.freedesktop.Hal",
 		"/org/freedesktop/Hal/devices/computer",
@@ -270,6 +278,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 	U_ERROR << reply.error();
 
 	return false;
+#endif // Q_WS_WIN
 }
 
 // HibernateAction
@@ -301,6 +310,9 @@ LockAction::LockAction() :
 }
 
 bool LockAction::onAction() {
+#ifdef Q_WS_WIN
+	return false;//!!!
+#else
 	QDBusInterface i("org.kde.krunner", "/ScreenSaver");
 	i.call("lock");
 
@@ -312,6 +324,7 @@ bool LockAction::onAction() {
 	}
 
 	return true;
+#endif // Q_WS_WIN
 }
 
 // StandardAction
