@@ -18,6 +18,7 @@
 
 #include "pureqt.h"
 
+#include <QFile>
 #include <QGroupBox>
 #include <QLayout>
 #include <QTimer>
@@ -64,7 +65,7 @@ MainWindow::MainWindow() :
 
 	U_DEBUG << "MainWindow::MainWindow()";
 
-	setObjectName("MainWindow::MainWindow");
+	setObjectName("mainWindow");
 
 	// NOTE: do not change the "init" order,
 	// or your computer will explode
@@ -75,6 +76,8 @@ MainWindow::MainWindow() :
 	initMenuBar();
 
 	readConfig();
+
+	setTheme("dark");//!!!
 
 	setTitle(QString::null);
 	updateWidgets();
@@ -195,12 +198,14 @@ void MainWindow::initTriggers() {
 
 void MainWindow::initWidgets() {
 	QWidget *mainWidget = new QWidget();
+	mainWidget->setObjectName("mainWidget");
 	QVBoxLayout *mainWidgetLayout = new QVBoxLayout();
 	mainWidgetLayout->setMargin(5);
 	mainWidgetLayout->setSpacing(5);
 	mainWidget->setLayout(mainWidgetLayout);
 
 	m_actionBox = new QGroupBox(i18n("Select an &action"), mainWidget);
+	m_actionBox->setObjectName("actionBox");
 	m_actionBox->setLayout(new QVBoxLayout());
 
 	QWidget *hBox = new QWidget();
@@ -211,9 +216,11 @@ void MainWindow::initWidgets() {
 	m_actionBox->layout()->addWidget(hBox);
 
 	m_actions = new U_COMBO_BOX(hBox);
+	m_actions->setObjectName("actions");
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
 
 	m_configureActionButton = new U_PUSH_BUTTON(hBox);
+	m_configureActionButton->setObjectName("configureActionButton");
 #ifdef KS_NATIVE_KDE
 	m_configureActionButton->setGuiItem(KStandardGuiItem::configure());
 #else
@@ -226,14 +233,17 @@ void MainWindow::initWidgets() {
 	hBoxLayout->addWidget(m_configureActionButton);
 
 	m_triggerBox = new QGroupBox(i18n("S&elect a time"), mainWidget);
+	m_triggerBox->setObjectName("triggerBox");
 	m_triggerBox->setLayout(new QVBoxLayout());
 
 	m_triggers = new U_COMBO_BOX();
+	m_triggers->setObjectName("triggers");
 	connect(m_triggers, SIGNAL(activated(int)), SLOT(onTriggerActivated(int)));
 	m_triggerBox->layout()->addWidget(m_triggers);
 
 // TODO: align center
 	m_okCancelButton = new U_PUSH_BUTTON(mainWidget);
+	m_okCancelButton->setObjectName("okCancelButton");
 	m_okCancelButton->setDefault(true);
 	connect(m_okCancelButton, SIGNAL(clicked()), SLOT(onOKCancel()));
 
@@ -317,6 +327,12 @@ void MainWindow::setActive(const bool yes) {
 
 	setTitle(QString::null);
 	updateWidgets();
+}
+
+void MainWindow::setTheme(const QString &name) {
+	QFile style("themes/" + name + "/style.css");
+	if (style.open(QFile::ReadOnly | QFile::Text))
+		qApp->setStyleSheet(QTextStream(&style).readAll());
 }
 
 void MainWindow::setTitle(const QString &title) {

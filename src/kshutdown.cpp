@@ -158,6 +158,7 @@ QWidget *DateTimeTriggerBase::getWidget() {
 		m_edit = new QDateTimeEdit();
 		connect(m_edit, SIGNAL(dateChanged(const QDate &)), SLOT(syncDateTime()));
 		connect(m_edit, SIGNAL(timeChanged(const QTime &)), SLOT(syncDateTime()));
+		m_edit->setObjectName("dateTimeEdit");
 	}
 
 	return m_edit;
@@ -338,7 +339,7 @@ bool LockAction::onAction() {
 	BOOL result = ::LockWorkStation();
 	if (result == 0) {
 		setLastError();//!!!test
-	
+
 		return false;
 	}
 
@@ -385,9 +386,9 @@ bool StandardAction::onAction() {
 
 			return false; // do nothing
 	}
-	
+
 	//!!!shutdown priv.
-	
+
 	// adjust privileges
 
 	HANDLE hToken = 0;
@@ -395,10 +396,10 @@ bool StandardAction::onAction() {
 		TOKEN_PRIVILEGES tp;
 		if (!::LookupPrivilegeValue(NULL, SE_SHUTDOWN_NAME, &tp.Privileges[0].Luid)) {
 			setLastError();
-		
+
 			return false;
 		}
-	
+
 		tp.PrivilegeCount = 1;
 		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 		if (!::AdjustTokenPrivileges(
@@ -410,31 +411,31 @@ bool StandardAction::onAction() {
 			(PDWORD)NULL
 		)) {
 			setLastError();
-		
+
 			return false;
 		}
-		
+
 		if (::GetLastError() == ERROR_NOT_ALL_ASSIGNED) {
 			m_error = "ERROR_NOT_ALL_ASSIGNED";//!!!
-			
+
 			return false;
 		}
 	}
 	else {
 		setLastError();
-		
+
 		return false;
 	}
-	
+
 	flags += EWX_FORCEIFHUNG;
 	#define SHTDN_REASON_MAJOR_APPLICATION 0x00040000
 	#define SHTDN_REASON_FLAG_PLANNED 0x80000000
 	if (::ExitWindowsEx(flags, SHTDN_REASON_MAJOR_APPLICATION | SHTDN_REASON_FLAG_PLANNED) == 0) {
 		setLastError();
-		
+
 		return false;
 	}
-	
+
 	return true;
 #else
 	#ifdef KS_NATIVE_KDE

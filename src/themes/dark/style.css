@@ -1,0 +1,101 @@
+/*
+!!!
+FIXME: disabled widgets
+FIXME: dateTimeEdit
+*/
+
+/*
+CREDITS: http://www.colourlovers.com/palette/77155/land_of_1000_dances
+#213435
+#46685B
+#648A64
+#A6B985
+#E1E3AC
+*/
+
+* {
+	selection-color: white;
+	selection-background-color: black;
+}
+
+QComboBox {
+	background-color: #46685B;
+	color: #E1E3AC;
+}
+
+QComboBox::drop-down {
+	background-image: url(themes/dark/arrow-down-double.png);
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+
+QComboBox::drop-down:hover {
+	background-color: #648A64;
+	color: #E1E3AC;
+}
+
+QMenuBar, QMenu {
+	background-color: #213435;
+	color: #648A64;
+	background-image: url(themes/dark/bg.png);
+}
+
+QMenuBar:hover {
+	background-color: #213435;
+	color: #A6B985;
+}
+
+#dateTimeEdit {
+	background-color: #A6B985;
+	color: #213435;
+	font-size: 16pt;
+}
+
+/*
+#dateTimeEdit::down-button, #dateTimeEdit::up-button {
+	background-color: #A6B985;
+	color: #213435;
+}
+*/
+
+#mainWidget {
+	background-image: url(themes/dark/application-exit.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+#mainWindow {
+	background-color: #213435;
+	color: #E1E3AC;
+	font-weight: bold;
+}
+
+QPushButton:pressed {
+	padding-left: 2px;
+	padding-top: 2px;
+}
+
+QPushButton#configureActionButton {
+	background-color: transparent;
+	color: #648A64;
+}
+
+QPushButton#configureActionButton:hover {
+	background-color: transparent;
+	color: #A6B985;
+}
+
+QPushButton#okCancelButton {
+	background-color: #A6B985;
+	color: #213435;
+}
+
+QPushButton#okCancelButton:hover {
+	background-color: #E1E3AC;
+	color: #213435;
+}
+
+QPushButton#okCancelButton:pressed {
+	background-color: #648A64;
+	color: #213435;
+}

@@ -83,6 +83,7 @@ private:
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
 	void setActive(const bool yes);
+	void setTheme(const QString &name);
 	void setTitle(const QString &title);
 	void updateWidgets();
 	void writeConfig();
