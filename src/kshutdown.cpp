@@ -78,9 +78,7 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 // private slots
 
 void Action::slotFire() {
-#ifdef KS_NATIVE_KDE
-	kDebug() << "Action::slotFire() [ id=" << m_id << " ]" << endl;
-#endif // KS_NATIVE_KDE
+	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]";
 
 	m_error = QString::null;
 	if (!onAction()) {
