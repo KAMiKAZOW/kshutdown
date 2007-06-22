@@ -72,6 +72,9 @@ MainWindow::MainWindow() :
 	initMenuBar();
 
 	readConfig();
+
+	setTitle(QString::null);
+	updateWidgets();
 }
 
 void MainWindow::addAction(Action *action) {
@@ -79,7 +82,7 @@ void MainWindow::addAction(Action *action) {
 	m_actionHash[action->id()] = action;
 
 	int index = m_actions->count() - 1;
-	U_DEBUG << "\tMainWindow::addAction( \"" << action->text() << "\" ) [ id=" << action->id() << ", index=" << index << " ]";
+	U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << action->id() << ", index=" << index << " ]";
 }
 
 void MainWindow::addTrigger(Trigger *trigger) {
@@ -87,7 +90,7 @@ void MainWindow::addTrigger(Trigger *trigger) {
 	m_triggerHash[trigger->id()] = trigger;
 
 	int index = m_triggers->count() - 1;
-	U_DEBUG << "\tMainWindow::addTrigger( \"" << trigger->text() << "\" ) [ id=" << trigger->id() << ", index=" << index << " ]";
+	U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]";
 }
 
 Action *MainWindow::getSelectedAction() const {
@@ -175,7 +178,6 @@ void MainWindow::initTriggers() {
 	addTrigger(new NoDelayTrigger());
 	addTrigger(new TimeFromNowTrigger());
 	addTrigger(new DateTimeTrigger());
-	//!!!
 }
 
 void MainWindow::initWidgets() {
@@ -300,14 +302,19 @@ void MainWindow::setActive(const bool yes) {
 		trigger->setState(Base::STOP);
 	}
 
-	// clear status
-#ifdef KS_NATIVE_KDE
-	setCaption(QString::null);
-#else
-	//!!!
-#endif // KS_NATIVE_KDE
-
+	setTitle(QString::null);
 	updateWidgets();
+}
+
+void MainWindow::setTitle(const QString &title) {
+#ifdef KS_NATIVE_KDE
+	setCaption(title);
+#else
+	if (title.isEmpty())
+		setWindowTitle("KShutdown");
+	else
+		setWindowTitle(title + " - KShutdown");
+#endif // KS_NATIVE_KDE
 }
 
 void MainWindow::updateWidgets() {
@@ -346,8 +353,6 @@ void MainWindow::updateWidgets() {
 // TODO: show solution dialog
 		m_okCancelButton->setText(i18n("Action not available: %0").arg(action->originalText()));
 	}
-
-
 // FIXME: adjust window to its minimum/preferred size
 }
 
@@ -410,11 +415,7 @@ void MainWindow::onCheckTrigger() {
 				title += " - ";
 			title += actionStatus;
 		}
-#ifdef KS_NATIVE_KDE
-		setCaption(title);
-#else
-		//!!!setTitle(title + " - KShutdown");
-#endif // KS_NATIVE_KDE
+		setTitle(title);
 	}
 }
 
