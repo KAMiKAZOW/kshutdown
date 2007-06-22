@@ -19,6 +19,11 @@
 #ifndef __MAINWINDOW_H__
 #define __MAINWINDOW_H__
 
+// used in both main.cpp and mainwindow.cpp
+#define KS_CONTACT "kdtonline@poczta.onet.pl"
+#define KS_COPYRIGHT "(C) 2003-3000 Konrad Twardowski"
+#define KS_HOME_PAGE "http://kshutdown.sf.net"
+
 // TODO: use XDialog instead of XMainWindow?
 #ifdef KS_PURE_QT
 	#include <QHash>
@@ -82,6 +87,9 @@ private:
 	void updateWidgets();
 	void writeConfig();
 private slots:
+#ifdef KS_PURE_QT
+	void onAbout();
+#endif // KS_PURE_QT
 	void onActionActivated(int index);
 	void onCheckTrigger();
 	void onConfigureAction();

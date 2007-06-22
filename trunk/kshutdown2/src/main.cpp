@@ -41,11 +41,11 @@ int main(int argc, char **argv) {
 		KS_VERSION " (" KS_BUILD ")",
 		I18N_NOOP("An advanced shutdown utility"),
 		KAboutData::License_GPL_V2,
-		"(C) 2003-3000 Konrad Twardowski",
+		KS_COPYRIGHT,
 		0, // no extra text
-		"http://kshutdown.sf.net",
+		KS_HOME_PAGE,
 // FIXME: show address in GUI
-		"kdtonline@poczta.onet.pl"
+		KS_CONTACT
 	);
 
 	KCmdLineArgs::init(argc, argv, &about);

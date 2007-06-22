@@ -23,9 +23,12 @@
 #include <QTimer>
 
 #ifdef KS_PURE_QT
+	#include <QApplication>
 	#include <QComboBox>
 	#include <QMenuBar>
 	#include <QPushButton>
+
+	#include "version.h"
 #else
 	#include <KComboBox>
 	#include <KMenuBar>
@@ -131,10 +134,13 @@ void MainWindow::initMenuBar() {
 
 	U_MENU_BAR *menuBar = new U_MENU_BAR();
 
-	U_MENU *fileMenu = new U_MENU(i18n("&File"));
+	// file menu
 
+	U_MENU *fileMenu = new U_MENU(i18n("&File"));
 #ifdef KS_NATIVE_KDE
 	fileMenu->addTitle(U_ICON("messagebox_warning"), i18n("No Delay"));
+#else
+	//!!!
 #endif // KS_NATIVE_KDE
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
@@ -143,23 +149,30 @@ void MainWindow::initMenuBar() {
 		if ((id == "logout") || (id == "reboot"))
 			fileMenu->addSeparator();
 	}
-
 	fileMenu->addSeparator();
 #ifdef KS_NATIVE_KDE
 	fileMenu->addAction(KStandardAction::quit(this, SLOT(onQuit()), this));
 #else
-	//!!!
+	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Q"));
 #endif // KS_NATIVE_KDE
-
 	menuBar->addMenu(fileMenu);
 
-// FIXME: too many menu items
-#ifdef KS_NATIVE_KDE
+	// settings menu
+
 	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
 	//!!!
 	menuBar->addMenu(settingsMenu);
 
+	// help menu
+
+// FIXME: too many menu items
+#ifdef KS_NATIVE_KDE
 	menuBar->addMenu(helpMenu());
+#else
+	U_MENU *helpMenu = new U_MENU(i18n("&Help"));
+	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
+	helpMenu->addAction(i18n("About Qt"), qApp, SLOT(aboutQt()));
+	menuBar->addMenu(helpMenu);
 #endif // KS_NATIVE_KDE
 
 	setMenuBar(menuBar);
@@ -372,6 +385,18 @@ void MainWindow::writeConfig() {
 }
 
 // private slots
+
+#ifdef KS_PURE_QT
+void MainWindow::onAbout() {
+	QMessageBox::about(
+		this,
+		i18n("About"),
+		"KShutdown " KS_VERSION "\n\n" \
+		KS_HOME_PAGE "\n" \
+		KS_CONTACT
+	);
+}
+#endif // KS_PURE_QT
 
 void MainWindow::onActionActivated(int index) {
 	U_DEBUG << "MainWindow::onActionActivated( " << index << " )";
