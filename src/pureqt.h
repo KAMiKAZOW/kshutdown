@@ -20,6 +20,9 @@
 #define __PUREQT_H__
 
 #ifdef KS_PURE_QT
+	#include <QAction>
+	#include <QMessageBox>
+
 	#undef KS_NATIVE_KDE
 	#define U_ACTION QAction
 	#define U_COMBO_BOX QComboBox
@@ -45,6 +48,10 @@
 	#define U_SHUTDOWN_TYPE_REBOOT 2
 	#define U_SHUTDOWN_TYPE_HALT 3
 #else
+	#include <KAction>
+	#include <KLocale>
+	#include <KMessageBox>
+
 	#define KS_NATIVE_KDE
 	#define U_ACTION KAction
 	#define U_COMBO_BOX KComboBox
@@ -58,6 +65,9 @@
 	#define U_MENU KMenu
 	#define U_MENU_BAR KMenuBar
 	#define U_PUSH_BUTTON KPushButton
+
+	#include <kdemacros.h>
+	#include <libworkspace/kworkspace.h>
 
 	// shutdown types
 

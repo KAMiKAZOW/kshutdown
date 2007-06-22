@@ -1,23 +1,41 @@
-
-//!!!cleanup
+//
+// kshutdown.h - KShutdown base library
+// Copyright (C) 2007  Konrad Twardowski
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #ifndef __KSHUTDOWN_H__
 #define __KSHUTDOWN_H__
+
+#include "pureqt.h"
 
 // TODO: libkshutdown
 
 #include <QDateTime>
 
-#include <KAction>
-#include <KConfig>
-#include <kdemacros.h>
-#include <libworkspace/kworkspace.h>
+#ifdef KS_PURE_QT
+	class QSettings;
+#else
+	class KConfig;
+#endif // KS_PURE_QT
 
 class QDateTimeEdit;
 
 namespace KShutdown {
 
-class KDE_EXPORT Base {
+class U_EXPORT Base {
 public:
 // TODO: ENABLE, DISABLE, SELECTED, UNSELECTED
 	enum State { START, STOP };
@@ -33,12 +51,12 @@ public:
 	inline QString originalText() const {
 		return m_originalText;
 	}
-	virtual void readConfig(KConfig *config);
+	virtual void readConfig(U_CONFIG *config);
 	virtual void setState(const State state);
 	inline QString status() const {
 		return m_status;
 	}
-	virtual void writeConfig(KConfig *config);
+	virtual void writeConfig(U_CONFIG *config);
 protected:
 	QString m_error;
 	QString m_id;
@@ -51,7 +69,7 @@ protected:
 	QString m_status;
 };
 
-class KDE_EXPORT Action: public KAction, public Base {
+class U_EXPORT Action: public U_ACTION, public Base {
 	Q_OBJECT
 public:
 	Action(const QString &text, const QString &iconName, const QString &id);
@@ -60,11 +78,11 @@ private slots:
 	void slotFire();
 };
 
-class KDE_EXPORT Trigger: public QObject, public Base {
+class U_EXPORT Trigger: public QObject, public Base {
 	Q_OBJECT
 public:
 	Trigger(const QString &text, const QString &iconName, const QString &id);
-	inline KIcon icon() const {
+	inline U_ICON icon() const {
 		return m_icon;
 	}
 	virtual bool canActivateAction() = 0;
@@ -77,18 +95,18 @@ public:
 protected:
 	int m_checkTimeout;
 private:
-	KIcon m_icon;
+	U_ICON m_icon;
 	QString m_text;
 };
 
-class KDE_EXPORT DateTimeTriggerBase: public Trigger {
+class U_EXPORT DateTimeTriggerBase: public Trigger {
 	Q_OBJECT
 public:
 	DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
-	virtual void readConfig(KConfig *config);
-	virtual void writeConfig(KConfig *config);
+	virtual void readConfig(U_CONFIG *config);
+	virtual void writeConfig(U_CONFIG *config);
 protected:
 	QDateTime m_dateTime;
 	QDateTime m_endDateTime;
@@ -97,27 +115,27 @@ private slots:
 	void syncDateTime();
 };
 
-class KDE_EXPORT DateTimeTrigger: public DateTimeTriggerBase {
+class U_EXPORT DateTimeTrigger: public DateTimeTriggerBase {
 public:
 	DateTimeTrigger();
 	virtual QWidget *getWidget();
 	virtual void setState(const State state);
 };
 
-class KDE_EXPORT NoDelayTrigger: public Trigger {
+class U_EXPORT NoDelayTrigger: public Trigger {
 public:
 	NoDelayTrigger();
 	virtual bool canActivateAction();
 };
 
-class KDE_EXPORT TimeFromNowTrigger: public DateTimeTriggerBase {
+class U_EXPORT TimeFromNowTrigger: public DateTimeTriggerBase {
 public:
 	TimeFromNowTrigger();
 	virtual QWidget *getWidget();
 	virtual void setState(const State state);
 };
 
-class KDE_EXPORT PowerAction: public Action {
+class U_EXPORT PowerAction: public Action {
 public:
 	PowerAction(const QString &text, const QString &iconName, const QString &id);
 	virtual bool onAction();
@@ -126,17 +144,17 @@ protected:
 	bool isAvailable(const QString &feature) const;
 };
 
-class KDE_EXPORT HibernateAction: public PowerAction {
+class U_EXPORT HibernateAction: public PowerAction {
 public:
 	HibernateAction();
 };
 
-class KDE_EXPORT SuspendAction: public PowerAction {
+class U_EXPORT SuspendAction: public PowerAction {
 public:
 	SuspendAction();
 };
 
-class KDE_EXPORT LockAction: public Action {
+class U_EXPORT LockAction: public Action {
 public:
 	virtual bool onAction();
 	inline static LockAction *self() {
@@ -150,25 +168,25 @@ private:
 	LockAction();
 };
 
-class KDE_EXPORT StandardKDEAction: public Action {
+class U_EXPORT StandardAction: public Action {
 public:
-	StandardKDEAction(const QString &text, const QString &iconName, const QString &id, const KWorkSpace::ShutdownType type);
+	StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
 	virtual bool onAction();
 private:
-	KWorkSpace::ShutdownType m_type;
+	UShutdownType m_type;
 };
 
-class KDE_EXPORT LogoutAction: public StandardKDEAction {
+class U_EXPORT LogoutAction: public StandardAction {
 public:
 	LogoutAction();
 };
 
-class KDE_EXPORT RebootAction: public StandardKDEAction {
+class U_EXPORT RebootAction: public StandardAction {
 public:
 	RebootAction();
 };
 
-class KDE_EXPORT ShutDownAction: public StandardKDEAction {
+class U_EXPORT ShutDownAction: public StandardAction {
 public:
 	ShutDownAction();
 };
