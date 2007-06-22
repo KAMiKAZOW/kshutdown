@@ -9,7 +9,9 @@ INCLUDEPATH += .
 
 # KShutDown:
 DEFINES += KS_PURE_QT
-CONFIG += qdbus
+unix {
+	CONFIG += qdbus
+}
 
 # Input
 HEADERS += kshutdown.h mainwindow.h pureqt.h version.h
