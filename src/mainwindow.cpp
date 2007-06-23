@@ -19,7 +19,6 @@
 #include "pureqt.h"
 
 #include <QCloseEvent>
-#include <QFile>
 #include <QGroupBox>
 #include <QLayout>
 #include <QTimer>
@@ -41,6 +40,7 @@
 #endif // KS_PURE_QT
 
 #include "mainwindow.h"
+#include "theme.h"
 
 MainWindow *MainWindow::m_instance = 0;
 
@@ -50,6 +50,31 @@ MainWindow::~MainWindow() {
 	U_DEBUG << "MainWindow::~MainWindow()";
 
 	writeConfig();
+}
+
+QWidget *MainWindow::getElementById(const QString &id) {
+	if (id.isEmpty())
+		return 0;
+
+	if (!m_elements) {
+		m_elements = new QMap<QString, QWidget*>();
+
+		m_elements->insert("main-window", this);
+		m_elements->insert("menu-bar", menuBar());
+		m_elements->insert("main-widget", centralWidget());
+
+		m_elements->insert("actions", m_actions);
+		m_elements->insert("action-box", m_actionBox);
+		m_elements->insert("configure-button", m_configureActionButton);
+
+		m_elements->insert("triggers", m_triggers);
+		m_elements->insert("trigger-box", m_triggerBox);
+
+		m_elements->insert("ok-cancel-button", m_okCancelButton);
+// TODO: date-time-edit
+	}
+
+	return m_elements->value(id);
 }
 
 // protected
@@ -85,13 +110,15 @@ MainWindow::MainWindow() :
 	m_showMinimizeInfo(true),
 	m_actionHash(QHash<QString, Action*>()),
 	m_triggerHash(QHash<QString, Trigger*>()),
+	m_elements(0),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
-	m_currentTriggerWidget(0) {
+	m_currentTriggerWidget(0),
+	m_theme(new Theme(this)) {
 
 	U_DEBUG << "MainWindow::MainWindow()";
 
-	setObjectName("mainWindow");
+	setObjectName("main-window");
 #ifdef KS_PURE_QT
 	setWindowIcon(U_STOCK_ICON("kshutdown"));
 #endif // KS_PURE_QT
@@ -107,7 +134,7 @@ MainWindow::MainWindow() :
 
 	readConfig();
 
-	//setTheme("dark");//!!!
+	m_theme->load(this, "dark");//!!!
 
 	setTitle(QString::null);
 	updateWidgets();
@@ -239,14 +266,14 @@ void MainWindow::initTriggers() {
 
 void MainWindow::initWidgets() {
 	QWidget *mainWidget = new QWidget();
-	mainWidget->setObjectName("mainWidget");
+	mainWidget->setObjectName("main-widget");
 	QVBoxLayout *mainWidgetLayout = new QVBoxLayout();
 	mainWidgetLayout->setMargin(5);
 	mainWidgetLayout->setSpacing(5);
 	mainWidget->setLayout(mainWidgetLayout);
 
 	m_actionBox = new QGroupBox(i18n("Select an &action"), mainWidget);
-	m_actionBox->setObjectName("actionBox");
+	m_actionBox->setObjectName("action-box");
 	m_actionBox->setLayout(new QVBoxLayout());
 
 	QWidget *hBox = new QWidget();
@@ -261,7 +288,7 @@ void MainWindow::initWidgets() {
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
 
 	m_configureActionButton = new U_PUSH_BUTTON(hBox);
-	m_configureActionButton->setObjectName("configureActionButton");
+	m_configureActionButton->setObjectName("configure-button");
 #ifdef KS_NATIVE_KDE
 	m_configureActionButton->setGuiItem(KStandardGuiItem::configure());
 #else
@@ -274,7 +301,7 @@ void MainWindow::initWidgets() {
 	hBoxLayout->addWidget(m_configureActionButton);
 
 	m_triggerBox = new QGroupBox(i18n("S&elect a time"), mainWidget);
-	m_triggerBox->setObjectName("triggerBox");
+	m_triggerBox->setObjectName("trigger-box");
 	m_triggerBox->setLayout(new QVBoxLayout());
 
 	m_triggers = new U_COMBO_BOX();
@@ -284,7 +311,7 @@ void MainWindow::initWidgets() {
 
 // TODO: align center
 	m_okCancelButton = new U_PUSH_BUTTON(mainWidget);
-	m_okCancelButton->setObjectName("okCancelButton");
+	m_okCancelButton->setObjectName("ok-cancel-button");
 	m_okCancelButton->setDefault(true);
 	connect(m_okCancelButton, SIGNAL(clicked()), SLOT(onOKCancel()));
 
@@ -368,13 +395,6 @@ void MainWindow::setActive(const bool yes) {
 
 	setTitle(QString::null);
 	updateWidgets();
-}
-
-void MainWindow::setTheme(const QString &name) {
-//!!!disable for 4.2-
-	QFile style("themes/" + name + "/style.css");
-	if (style.open(QFile::ReadOnly | QFile::Text))
-		setStyleSheet(QTextStream(&style).readAll());
 }
 
 void MainWindow::setTitle(const QString &title) {

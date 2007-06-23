@@ -1,7 +1,7 @@
 /*
 !!!
 FIXME: disabled widgets
-FIXME: dateTimeEdit
+FIXME: date-time-edit
 */
 
 /*
@@ -49,14 +49,14 @@ QMenuBar:hover {
 	color: #A6B985;
 }
 
-#dateTimeEdit {
+#date-time-edit {
 	background-color: #A6B985;
 	border: none;
 	color: #213435;
 	font-size: 16pt;
 }
 
-#mainWidget {
+#main-widget {
 	background: #213435;
 	background-image: url(themes/dark/application-exit.png);
 	background-position: center center;
@@ -75,30 +75,30 @@ QPushButton:pressed {
 	padding-top: 2px;
 }
 
-QPushButton#configureActionButton {
+QPushButton#configure-button {
 	background-color: transparent;
 	color: #648A64;
 	border: none;
 }
 
-QPushButton#configureActionButton:hover {
+QPushButton#configure-button:hover {
 	background-color: transparent;
 	color: #A6B985;
 }
 
-QPushButton#okCancelButton {
+QPushButton#ok-cancel-button {
 	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #648A64, stop:1 #A6B985);
 	color: #213435;
 	border: none;
 	min-height: 24px;
 }
 
-QPushButton#okCancelButton:hover {
+QPushButton#ok-cancel-button:hover {
 	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #A6B985, stop:1 #E1E3AC);
 	color: #213435;
 }
 
-QPushButton#okCancelButton:pressed {
+QPushButton#ok-cancel-button:pressed {
 	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #E1E3AC, stop:1 #A6B985);
 	color: #213435;
 }
