@@ -221,7 +221,7 @@ void MainWindow::initSystemTray() {
 	U_DEBUG << "MainWindow::initSystemTray()";
 
 	m_systemTray = new U_SYSTEM_TRAY(this);
-	//!!!m_systemTray->setIcon(windowIcon());
+	m_systemTray->setIcon(windowIcon());
 	m_systemTray->setToolTip("KShutdown");
 	m_systemTray->show();
 	connect(m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(onRestore(QSystemTrayIcon::ActivationReason)));
@@ -527,7 +527,12 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 	switch (reason) {
 		case QSystemTrayIcon::Trigger:
 // TODO: bring to front and show on the current desktop
-			show();
+			if (isVisible()) {
+				hide();
+			}
+			else {
+				show();
+			}
 			break;
 		default:
 			break;
