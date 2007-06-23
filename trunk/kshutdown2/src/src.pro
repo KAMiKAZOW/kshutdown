@@ -19,6 +19,6 @@ win32 {
 }
 
 # Input
-HEADERS += kshutdown.h mainwindow.h pureqt.h version.h
-SOURCES += kshutdown.cpp main.cpp mainwindow.cpp
+HEADERS += kshutdown.h mainwindow.h pureqt.h theme.h version.h
+SOURCES += kshutdown.cpp main.cpp mainwindow.cpp theme.cpp
 RESOURCES = kshutdown.qrc

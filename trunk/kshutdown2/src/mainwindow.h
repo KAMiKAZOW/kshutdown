@@ -41,12 +41,15 @@
 
 class QGroupBox;
 
+class Theme;
+
 using namespace KShutdown;
 
 class MainWindow: public U_MAIN_WINDOW {
 	Q_OBJECT
 public:
 	virtual ~MainWindow();
+	QWidget *getElementById(const QString &id);
 	inline static MainWindow *self() {
 		if (!m_instance)
 			m_instance = new MainWindow();
@@ -65,9 +68,11 @@ private:
 	QGroupBox *m_triggerBox;
 	QHash<QString, Action*> m_actionHash;
 	QHash<QString, Trigger*> m_triggerHash;
+	QMap<QString, QWidget*> *m_elements;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
+	Theme *m_theme;
 	U_COMBO_BOX *m_actions;
 	U_COMBO_BOX *m_triggers;
 	U_PUSH_BUTTON *m_configureActionButton;
@@ -90,7 +95,6 @@ private:
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
 	void setActive(const bool yes);
-	void setTheme(const QString &name);
 	void setTitle(const QString &title);
 	void updateWidgets();
 	void writeConfig();

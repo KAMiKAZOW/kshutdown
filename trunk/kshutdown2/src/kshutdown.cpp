@@ -161,7 +161,7 @@ QWidget *DateTimeTriggerBase::getWidget() {
 		m_edit = new QDateTimeEdit();
 		connect(m_edit, SIGNAL(dateChanged(const QDate &)), SLOT(syncDateTime()));
 		connect(m_edit, SIGNAL(timeChanged(const QTime &)), SLOT(syncDateTime()));
-		m_edit->setObjectName("dateTimeEdit");
+		m_edit->setObjectName("date-time-edit");
 	}
 
 	return m_edit;
