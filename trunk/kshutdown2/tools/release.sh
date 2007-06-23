@@ -22,7 +22,11 @@ cp ChangeLog CMakeLists.txt kshutdown.nsi LICENSE README.html TODO *.bat *.sh "$
 
 # /src
 mkdir "$KS_DIR/src"
-cp src/CMakeLists.txt src/src.pro src/*.cpp src/*.h "$KS_DIR/src"
+cp src/CMakeLists.txt src/kshutdown.qrc src/src.pro src/*.cpp src/*.h "$KS_DIR/src"
+
+# /src/images
+mkdir "$KS_DIR/src/images"
+cp src/images/*.png "$KS_DIR/src/images"
 
 # /tools
 mkdir "$KS_DIR/tools"

@@ -40,7 +40,7 @@
 	#define U_MENU QMenu
 	#define U_MENU_BAR QMenuBar
 	#define U_PUSH_BUTTON QPushButton
-	#define U_STOCK_ICON(name) QIcon(":/icons/" + QString((name)) + ".png")
+	#define U_STOCK_ICON(name) QIcon(":/images/" + QString((name)) + ".png")
 	#define U_SYSTEM_TRAY QSystemTrayIcon
 
 // FIXME: fake i18n

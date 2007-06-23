@@ -16,3 +16,4 @@ unix {
 # Input
 HEADERS += kshutdown.h mainwindow.h pureqt.h version.h
 SOURCES += kshutdown.cpp main.cpp mainwindow.cpp
+RESOURCES = kshutdown.qrc
