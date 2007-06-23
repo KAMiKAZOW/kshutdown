@@ -9,8 +9,13 @@ INCLUDEPATH += .
 
 # KShutDown:
 DEFINES += KS_PURE_QT
+
 unix {
 	CONFIG += qdbus
+}
+
+win32 {
+	LIBS += -lpowrprof
 }
 
 # Input

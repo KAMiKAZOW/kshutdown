@@ -22,6 +22,7 @@
 #ifdef Q_WS_WIN
 	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
 	#include <windows.h>
+	#include <powrprof.h>
 #else
 	#include <QDBusInterface>
 	#include <QDBusReply>
@@ -262,7 +263,15 @@ bool PowerAction::onAction() {
 	// lock screen before hibernate/suspend
 	LockAction::self()->activate(U_ACTION::Trigger);
 #ifdef Q_WS_WIN
-	return false;//!!!
+	BOOL hibernate = (m_methodName == "power_management.can_suspend_to_disk");
+	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE);
+	if (result == 0) {
+		setLastError();
+		
+		return false;
+	}
+	
+	return true;
 #else
 	QDBusInterface i(
 		"org.freedesktop.Hal",
@@ -287,7 +296,13 @@ bool PowerAction::onAction() {
 
 bool PowerAction::isAvailable(const QString &feature) const {
 #ifdef Q_WS_WIN
-	return false;//!!!
+	if (feature == "power_management.can_suspend_to_disk")
+		return ::IsPwrHibernateAllowed();
+
+	if (feature == "power_management.can_suspend_to_ram")
+		return ::IsPwrSuspendAllowed();
+
+	return false;
 #else
 	QDBusInterface *i = new QDBusInterface(
 		"org.freedesktop.Hal",
@@ -480,4 +495,9 @@ RebootAction::RebootAction() :
 
 ShutDownAction::ShutDownAction() :
 	StandardAction(i18n("Turn Off Computer"), "exit", "shutdown", U_SHUTDOWN_TYPE_HALT) {
+/* TODO: IsPwrShutdownAllowed()
+#ifdef Q_WS_WIN
+	setEnabled();
+#endif // Q_WS_WIN
+*/
 }
