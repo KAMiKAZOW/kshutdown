@@ -16,6 +16,8 @@ InstallDirRegKey HKCU "Software\KShutdown" ""
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
 
+!insertmacro MUI_LANGUAGE "English"
+
 Section "Install"
 	SetOutPath "$INSTDIR"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
@@ -31,6 +33,7 @@ Section "Install"
 	File C:\Qt\4.3.0\bin\mingwm10.dll
 	File C:\Qt\4.3.0\bin\QtCore4.dll
 	File C:\Qt\4.3.0\bin\QtGui4.dll
+	File C:\Qt\4.3.0\bin\QtXml4.dll
 	
 	SetShellVarContext all
 	#!!!kshutdown.ico
@@ -45,6 +48,7 @@ Section "Uninstall"
 	Delete "$INSTDIR\mingwm10.dll"
 	Delete "$INSTDIR\QtCore4.dll"
 	Delete "$INSTDIR\QtGui4.dll"
+	Delete "$INSTDIR\QtXml4.dll"
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 
