@@ -9,6 +9,7 @@ INCLUDEPATH += .
 
 # KShutDown:
 DEFINES += KS_PURE_QT
+QT += xml
 
 unix {
 	CONFIG += qdbus
