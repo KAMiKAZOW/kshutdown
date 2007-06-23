@@ -19,7 +19,7 @@
 #ifndef __THEME_H__
 #define __THEME_H__
 
-#include <QObject>
+#include <QXmlStreamReader>
 
 class MainWindow;
 
@@ -28,6 +28,11 @@ public:
 	Theme(QObject *parent);
 	virtual ~Theme();
 	void load(MainWindow *mainWindow, const QString &name);
+private:
+	bool m_inElement;
+	bool processElement(QXmlStreamReader &xml, QWidget *widget);
+	bool processProperty(QXmlStreamReader &xml, QWidget *widget);
+	bool processStyle(QXmlStreamReader &xml, QWidget *widget);
 };
 
 #endif // __THEME_H__

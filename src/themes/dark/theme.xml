@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme>
+	<!-- TEST THEME -->
+	<!--
+	<name>Dark</name>
+	<description>A cool dark theme</description>
+	<copyright>(C) 2007 Konrad Twardowski</copyright>
+	<version>0.0.1</version>
+
+	<window>
+	</window>
+	-->
+
+	<style href="style.css" />
+
+	<element id="configure-button">
+		<property name="visible" value="false" />
+	</element>
+
+	<element id="menu-bar">
+		<!--<property name="visible" value="false" />-->
+	</element>
+
+	<element id="main-window">
+		<property name="windowFlags" value="12" />
+	</element>
+
+	<element id="ok-cancel-button">
+		<property name="x" value="5" />
+		<property name="flat" value="true" />
+		<property name="whatsThis" value="WTF?" />
+		<style>
+		<![CDATA[
+		color: red;
+		font-size: 16pt;
+		font-weight: bold;
+		]]>
+		</style>
+	</element>
+</theme>

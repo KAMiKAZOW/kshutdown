@@ -63,12 +63,11 @@ QMenuBar:hover {
 	background-repeat: no-repeat;
 }
 
-QGroupBox {
-	border-color: transparent;
-	border-style: solid;
-	border-width: 10px;
+/*
+QGroupBox#trigger-box {
 	color: #E1E3AC;
 }
+*/
 
 QPushButton:pressed {
 	padding-left: 2px;
