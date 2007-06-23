@@ -28,6 +28,7 @@
 #ifdef KS_PURE_QT
 	#include <QHash>
 	#include <QMainWindow>
+	#include <QSystemTrayIcon>
 	class QComboBox;
 	class QPushButton;
 #else
@@ -52,9 +53,13 @@ public:
 
 		return m_instance;
 	}
+protected:
+	virtual void closeEvent(QCloseEvent *e);
 private:
 	bool m_active;
 	bool m_forceQuit;
+	bool m_showActiveWarning;
+	bool m_showMinimizeInfo;
 	static MainWindow *m_instance;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;
@@ -67,6 +72,7 @@ private:
 	U_COMBO_BOX *m_triggers;
 	U_PUSH_BUTTON *m_configureActionButton;
 	U_PUSH_BUTTON *m_okCancelButton;
+	U_SYSTEM_TRAY *m_systemTray;
 	MainWindow();
 	void addAction(Action *action);
 	void addTrigger(Trigger *trigger);
@@ -77,6 +83,7 @@ private:
 	void initActions();
 	void initMenuBar();
 	void initPlugins();
+	void initSystemTray();
 	void initTriggers();
 	void initWidgets();
 	void pluginConfig(const bool read);
@@ -96,6 +103,7 @@ private slots:
 	void onConfigureAction();
 	void onOKCancel();
 	void onQuit();
+	void onRestore(QSystemTrayIcon::ActivationReason reason);
 	void onTriggerActivated(int index);
 };
 

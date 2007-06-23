@@ -40,6 +40,7 @@
 	#define U_MENU QMenu
 	#define U_MENU_BAR QMenuBar
 	#define U_PUSH_BUTTON QPushButton
+	#define U_SYSTEM_TRAY QSystemTrayIcon
 
 // FIXME: fake i18n
 	#define i18n QString
@@ -56,6 +57,8 @@
 	#include <KConfig>
 	#include <KLocale>
 	#include <KMessageBox>
+	#include <kdemacros.h> // for KDE_EXPORT
+	#include <libworkspace/kworkspace.h>
 
 	#define KS_NATIVE_KDE
 	#define U_ACTION KAction
@@ -71,9 +74,6 @@
 	#define U_MENU KMenu
 	#define U_MENU_BAR KMenuBar
 	#define U_PUSH_BUTTON KPushButton
-
-	#include <kdemacros.h>
-	#include <libworkspace/kworkspace.h>
 
 	// shutdown types
 

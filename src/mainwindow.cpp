@@ -18,18 +18,19 @@
 
 #include "pureqt.h"
 
+#include <QCloseEvent>
 #include <QFile>
 #include <QGroupBox>
 #include <QLayout>
 #include <QTimer>
 
 #ifdef KS_PURE_QT
-	#include <QApplication>
+	#include <QApplication> // for aboutQt()
 	#include <QComboBox>
 	#include <QMenuBar>
 	#include <QPushButton>
 
-	#include "version.h"
+	#include "version.h" // for about()
 #else
 	#include <KComboBox>
 	#include <KMenuBar>
@@ -51,12 +52,37 @@ MainWindow::~MainWindow() {
 	writeConfig();
 }
 
+// protected
+
+void MainWindow::closeEvent(QCloseEvent *e) {
+	// hide in system tray instead of close
+	if (!m_forceQuit) {
+		e->ignore();
+		hide();
+
+		if (m_active) {
+			if (m_showActiveWarning) {
+				m_showActiveWarning = false;
+				m_systemTray->showMessage("KShutdown", i18n("KShutdown is still active!"), QSystemTrayIcon::Warning);
+			}
+		}
+		else {
+			if (m_showMinimizeInfo) {
+				m_showMinimizeInfo = false;
+				m_systemTray->showMessage("KShutdown", i18n("KShutdown has been minimized"));
+			}
+		}
+	}
+}
+
 // private
 
 MainWindow::MainWindow() :
 	U_MAIN_WINDOW(),
 	m_active(false),
 	m_forceQuit(false),
+	m_showActiveWarning(true),
+	m_showMinimizeInfo(true),
 	m_actionHash(QHash<QString, Action*>()),
 	m_triggerHash(QHash<QString, Trigger*>()),
 	m_triggerTimer(new QTimer(this)),
@@ -73,11 +99,12 @@ MainWindow::MainWindow() :
 	initActions();
 	initTriggers();
 	initPlugins();
+	initSystemTray();
 	initMenuBar();
 
 	readConfig();
 
-	setTheme("dark");//!!!
+	//setTheme("dark");//!!!
 
 	setTitle(QString::null);
 	updateWidgets();
@@ -159,6 +186,7 @@ void MainWindow::initMenuBar() {
 	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Q"));
 #endif // KS_NATIVE_KDE
 	menuBar->addMenu(fileMenu);
+	m_systemTray->setContextMenu(fileMenu);
 
 	// settings menu
 
@@ -184,6 +212,15 @@ void MainWindow::initMenuBar() {
 // TODO: plugins
 void MainWindow::initPlugins() {
 	U_DEBUG << "MainWindow::initPlugins()";
+}
+
+void MainWindow::initSystemTray() {
+	U_DEBUG << "MainWindow::initSystemTray()";
+
+	m_systemTray = new U_SYSTEM_TRAY(this);
+	m_systemTray->setToolTip("KShutdown");
+	m_systemTray->show();
+	connect(m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(onRestore(QSystemTrayIcon::ActivationReason)));
 }
 
 void MainWindow::initTriggers() {
@@ -330,9 +367,10 @@ void MainWindow::setActive(const bool yes) {
 }
 
 void MainWindow::setTheme(const QString &name) {
+//!!!disable for 4.2-
 	QFile style("themes/" + name + "/style.css");
 	if (style.open(QFile::ReadOnly | QFile::Text))
-		qApp->setStyleSheet(QTextStream(&style).readAll());
+		setStyleSheet(QTextStream(&style).readAll());
 }
 
 void MainWindow::setTitle(const QString &title) {
@@ -474,8 +512,23 @@ void MainWindow::onOKCancel() {
 void MainWindow::onQuit() {
 	U_DEBUG << "MainWindow::onQuit()";
 
-	m_forceQuit = true;//!!!not used
+	m_forceQuit = true;
+	m_systemTray->hide();
 	close();
+}
+
+void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
+	U_DEBUG << "MainWindow::onRestore()";
+
+	switch (reason) {
+		case QSystemTrayIcon::Trigger:
+// TODO: bring to front and show on the current desktop
+			show();
+			break;
+		default:
+			break;
+			// ignore
+	}
 }
 
 void MainWindow::onTriggerActivated(int index) {
