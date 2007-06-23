@@ -263,7 +263,7 @@ bool PowerAction::onAction() {
 	// lock screen before hibernate/suspend
 	LockAction::self()->activate(U_ACTION::Trigger);
 #ifdef Q_WS_WIN
-	BOOL hibernate = (m_methodName == "power_management.can_suspend_to_disk");
+	BOOL hibernate = (m_methodName == "Hibernate");
 	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE);
 	if (result == 0) {
 		setLastError();
