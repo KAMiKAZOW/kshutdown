@@ -92,6 +92,9 @@ MainWindow::MainWindow() :
 	U_DEBUG << "MainWindow::MainWindow()";
 
 	setObjectName("mainWindow");
+#ifdef KS_PURE_QT
+	setWindowIcon(U_STOCK_ICON("kshutdown"));
+#endif // KS_PURE_QT
 
 	// NOTE: do not change the "init" order,
 	// or your computer will explode
@@ -168,7 +171,7 @@ void MainWindow::initMenuBar() {
 
 	U_MENU *fileMenu = new U_MENU(i18n("&File"));
 #ifdef KS_NATIVE_KDE
-	fileMenu->addTitle(U_ICON("messagebox_warning"), i18n("No Delay"));
+	fileMenu->addTitle(U_STOCK_ICON("messagebox_warning"), i18n("No Delay"));
 #else
 	//!!!
 #endif // KS_NATIVE_KDE
@@ -218,6 +221,7 @@ void MainWindow::initSystemTray() {
 	U_DEBUG << "MainWindow::initSystemTray()";
 
 	m_systemTray = new U_SYSTEM_TRAY(this);
+	//!!!m_systemTray->setIcon(windowIcon());
 	m_systemTray->setToolTip("KShutdown");
 	m_systemTray->show();
 	connect(m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(onRestore(QSystemTrayIcon::ActivationReason)));
@@ -416,7 +420,7 @@ void MainWindow::updateWidgets() {
 	}
 	else {
 		m_okCancelButton->setEnabled(false);
-		m_okCancelButton->setIcon(U_ICON("messagebox_critical"));
+		m_okCancelButton->setIcon(U_STOCK_ICON("messagebox_critical"));
 // TODO: show solution dialog
 		m_okCancelButton->setText(i18n("Action not available: %0").arg(action->originalText()));
 	}
