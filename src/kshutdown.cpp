@@ -96,7 +96,7 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	U_ACTION(0),
 	Base(id) {
 	m_originalText = text;
-	setIcon(U_ICON(iconName));
+	setIcon(U_STOCK_ICON(iconName));
 	setText(text);
 	connect(this, SIGNAL(activated()), SLOT(slotFire()));
 }
@@ -120,7 +120,7 @@ void Action::slotFire() {
 Trigger::Trigger(const QString &text, const QString &iconName, const QString &id) :
 	Base(id),
 	m_checkTimeout(500),
-	m_icon(U_ICON(iconName)),
+	m_icon(U_STOCK_ICON(iconName)),
 	m_text(text) {
 }
 
