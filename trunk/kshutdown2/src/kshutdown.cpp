@@ -36,6 +36,7 @@
 
 using namespace KShutdown;
 
+bool Action::m_totalExit = false;
 LockAction *LockAction::m_instance = 0;
 
 // Base
@@ -109,6 +110,7 @@ void Action::slotFire() {
 
 	m_error = QString::null;
 	if (!onAction()) {
+		m_totalExit = false;
 		QString text = m_error.isEmpty() ? i18n("Unknown error") : m_error;
 		U_ERROR_MESSAGE(0, m_error);
 	}
@@ -267,10 +269,10 @@ bool PowerAction::onAction() {
 	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE);
 	if (result == 0) {
 		setLastError();
-		
+
 		return false;
 	}
-	
+
 	return true;
 #else
 	QDBusInterface i(
@@ -384,6 +386,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 }
 
 bool StandardAction::onAction() {
+	m_totalExit = true;
 #ifdef Q_WS_WIN
 	UINT flags = 0;
 	switch (m_type) {

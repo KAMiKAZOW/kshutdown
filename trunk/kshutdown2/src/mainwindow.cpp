@@ -56,7 +56,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 	// hide in system tray instead of close
-	if (!m_forceQuit) {
+	if (!m_forceQuit && !Action::totalExit()) {
 		e->ignore();
 		hide();
 
@@ -449,9 +449,11 @@ void MainWindow::onAbout() {
 	QMessageBox::about(
 		this,
 		i18n("About"),
-		"KShutdown " KS_VERSION "\n\n" \
-		KS_HOME_PAGE "\n" \
-		KS_CONTACT
+		"<qt>" \
+		"<h1>KShutdown " KS_VERSION "</h1>" \
+		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
+		"<a href=\"mailto:" KS_CONTACT "\">" KS_CONTACT "</a>" \
+		"</qt>"
 	);
 }
 #endif // KS_PURE_QT
