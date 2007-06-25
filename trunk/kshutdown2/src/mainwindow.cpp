@@ -249,7 +249,6 @@ void MainWindow::initSystemTray() {
 
 	m_systemTray = new U_SYSTEM_TRAY(this);
 	m_systemTray->setIcon(windowIcon());
-	m_systemTray->setToolTip("KShutdown");
 	m_systemTray->show();
 	connect(m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(onRestore(QSystemTrayIcon::ActivationReason)));
 }
@@ -400,11 +399,15 @@ void MainWindow::setActive(const bool yes) {
 void MainWindow::setTitle(const QString &title) {
 #ifdef KS_NATIVE_KDE
 	setCaption(title);
+	m_systemTray->setToolTip(title);
 #else
+	QString newTitle;
 	if (title.isEmpty())
-		setWindowTitle("KShutdown");
+		newTitle = "KShutdown";
 	else
-		setWindowTitle(title + " - KShutdown");
+		newTitle = (title + " - KShutdown");
+	setWindowTitle(newTitle);
+	m_systemTray->setToolTip(newTitle);
 #endif // KS_NATIVE_KDE
 }
 
