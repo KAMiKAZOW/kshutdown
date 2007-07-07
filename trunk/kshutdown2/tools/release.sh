@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -f "./tools/make-version.sh" ]; then
+	echo "Usage: ./tools/release.sh [clean]"
+	exit 1
+fi
+
 # version
 ./tools/make-version.sh
 
@@ -11,6 +16,10 @@ KS_ZIP="kshutdown-src-$KS_VERSION.zip"
 # clean
 rm -fR "$KS_DIR"
 rm -fR "$KS_DIST_DIR"
+
+cd src
+make clean
+cd ..
 
 if [ "$1" == "clean" ]; then
 	exit

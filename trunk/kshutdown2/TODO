@@ -15,6 +15,7 @@ Improved "Restart Computer"
 - http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
 
 Misc.
+- Port language translations from KShutdown 1.0.x
 - Windows port: https://sourceforge.net/tracker/?func=detail&atid=605273&aid=1738603&group_id=93707
 - Suspend to RAM, Suspend to disk
 - Optionally mute sound (master mixer) before lock screen
