@@ -171,16 +171,18 @@ void DateTimeTriggerBase::readConfig(U_CONFIG *config) {
 #ifdef KS_NATIVE_KDE
 	m_dateTime = config->readEntry("Date Time", m_dateTime);
 #else
-	Q_UNUSED(config)
+	m_dateTime = config->value("Date Time", m_dateTime).toDateTime();
 #endif // KS_NATIVE_KDE
 }
 
 void DateTimeTriggerBase::writeConfig(U_CONFIG *config) {
+	if (!m_edit)
+		return;
+
 #ifdef KS_NATIVE_KDE
-	if (m_edit)
-		config->writeEntry("Date Time", m_edit->dateTime());
+	config->writeEntry("Date Time", m_edit->dateTime());
 #else
-	Q_UNUSED(config)
+	config->setValue("Date Time", m_edit->dateTime());
 #endif // KS_NATIVE_KDE
 }
 

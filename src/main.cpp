@@ -29,6 +29,8 @@
 
 int main(int argc, char **argv) {
 #ifdef KS_PURE_QT
+	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
+	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
 	MainWindow::self()->show();
 
