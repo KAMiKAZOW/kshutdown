@@ -48,8 +48,6 @@ MainWindow *MainWindow::m_instance = 0;
 
 MainWindow::~MainWindow() {
 	U_DEBUG << "MainWindow::~MainWindow()";
-
-	writeConfig();
 }
 
 QWidget *MainWindow::getElementById(const QString &id) {
@@ -80,6 +78,8 @@ QWidget *MainWindow::getElementById(const QString &id) {
 // protected
 
 void MainWindow::closeEvent(QCloseEvent *e) {
+	writeConfig();
+
 	// hide in system tray instead of close
 	if (!m_forceQuit && !Action::totalExit()) {
 		e->ignore();
@@ -322,40 +322,43 @@ void MainWindow::initWidgets() {
 }
 
 void MainWindow::pluginConfig(const bool read) {
-#ifdef KS_NATIVE_KDE
-	KConfig *config = KGlobal::config().data();//!!!
+	U_CONFIG *config = U_CONFIG_USER;
 
 	foreach (Action *i, m_actionHash) {
-		config->setGroup("KShutdown Action " + i->id());
+		U_CONFIG_BEGIN(config, "KShutdown Action " + i->id())
 		if (read)
 			i->readConfig(config);
 		else
 			i->writeConfig(config);
+		U_CONFIG_END(config)
 	}
 
 	foreach (Trigger *i, m_triggerHash) {
-		config->setGroup("KShutdown Trigger " + i->id());
+		U_CONFIG_BEGIN(config, "KShutdown Trigger " + i->id())
 		if (read)
 			i->readConfig(config);
 		else
 			i->writeConfig(config);
+		U_CONFIG_END(config)
 	}
-#else
-	Q_UNUSED(read)
-#endif // KS_NATIVE_KDE
 }
 
 void MainWindow::readConfig() {
 	U_DEBUG << "MainWindow::readConfig()";
-#ifdef KS_NATIVE_KDE
-	KConfig *config = KGlobal::config().data();
 
 	pluginConfig(true); // read
 
-	config->setGroup("General");
+	U_CONFIG *config = U_CONFIG_USER;
+
+	U_CONFIG_BEGIN(config, "General");
+#ifdef KS_NATIVE_KDE
 	setSelectedAction(config->readEntry("Selected Action"));
 	setSelectedTrigger(config->readEntry("Selected Trigger"));
+#else
+	setSelectedAction(config->value("Selected Action").toString());
+	setSelectedTrigger(config->value("Selected Trigger").toString());
 #endif // KS_NATIVE_KDE
+	U_CONFIG_END(config)
 }
 
 int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
@@ -452,17 +455,22 @@ void MainWindow::updateWidgets() {
 
 void MainWindow::writeConfig() {
 	U_DEBUG << "MainWindow::writeConfig()";
-#ifdef KS_NATIVE_KDE
-	KConfig *config = KGlobal::config().data();
 
 	pluginConfig(false); // write
 
-	config->setGroup("General");
+	U_CONFIG *config = U_CONFIG_USER;
+
+	U_CONFIG_BEGIN(config, "General")
+#ifdef KS_NATIVE_KDE
 	config->writeEntry("Selected Action", getSelectedAction()->id());
 	config->writeEntry("Selected Trigger", getSelectedTrigger()->id());
+#else
+	config->setValue("Selected Action", getSelectedAction()->id());
+	config->setValue("Selected Trigger", getSelectedTrigger()->id());
+#endif // KS_NATIVE_KDE
+	U_CONFIG_END(config)
 
 	config->sync();
-#endif // KS_NATIVE_KDE
 }
 
 // private slots
@@ -474,6 +482,7 @@ void MainWindow::onAbout() {
 		i18n("About"),
 		"<qt>" \
 		"<h1>KShutdown " KS_VERSION "</h1>" \
+		KS_COPYRIGHT "<br>" \
 		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
 		"<a href=\"mailto:" KS_CONTACT "\">" KS_CONTACT "</a>" \
 		"</qt>"
