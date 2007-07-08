@@ -2,7 +2,7 @@
 Name "KShutdown for Windows"
 OutFile "kshutdown-2.0alpha2-win32.exe"
 InstallDir "$PROGRAMFILES\KShutdown"
-InstallDirRegKey HKCU "Software\KShutdown" ""
+InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
 
 !define APP_UNINSTALL_REG "Software\Microsoft\Windows\CurrentVersion\Uninstall\KShutdown"
 
@@ -22,7 +22,7 @@ Section "Install"
 	SetOutPath "$INSTDIR"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 
-	WriteRegStr HKCU "Software\KShutdown" "" $INSTDIR	
+	WriteRegStr HKCU "Software\kshutdown.sf.net" "" $INSTDIR	
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayIcon" "$INSTDIR\kshutdown.ico"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayName" "KShutdown"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "UninstallString" '"$INSTDIR\uninstall.exe"'
@@ -52,7 +52,7 @@ Section "Uninstall"
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 
-	DeleteRegKey HKCU "Software\KShutdown"
+	DeleteRegKey HKCU "Software\kshutdown.sf.net"
 	DeleteRegKey HKLM "${APP_UNINSTALL_REG}"
 
 	SetShellVarContext all
