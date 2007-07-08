@@ -352,11 +352,11 @@ void MainWindow::readConfig() {
 
 	U_CONFIG_BEGIN(config, "General");
 #ifdef KS_NATIVE_KDE
-	setSelectedAction(config->readEntry("Selected Action"));
-	setSelectedTrigger(config->readEntry("Selected Trigger"));
+	setSelectedAction(config->readEntry("Selected Action", "shutdown"));
+	setSelectedTrigger(config->readEntry("Selected Trigger", "time-from-now"));
 #else
-	setSelectedAction(config->value("Selected Action").toString());
-	setSelectedTrigger(config->value("Selected Trigger").toString());
+	setSelectedAction(config->value("Selected Action", "shutdown").toString());
+	setSelectedTrigger(config->value("Selected Trigger", "time-from-now").toString());
 #endif // KS_NATIVE_KDE
 	U_CONFIG_END(config)
 }

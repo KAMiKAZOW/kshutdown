@@ -1,5 +1,13 @@
 
-2007/06/!!! 2.0 Alpha 1
+2007/07/08  2.0 Alpha 2
+
+- Select "Turn Off Computer" and "Time From Now" by default
+
+- Fixed configuration reading/writing in Qt build
+
+- Minor fixes
+
+2007/06/24  2.0 Alpha 1
 
 - NEW: KShutDown -> KShutdown (note lower case "d")
 
