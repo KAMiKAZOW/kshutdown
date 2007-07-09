@@ -483,6 +483,7 @@ void MainWindow::onAbout() {
 		"<qt>" \
 		"<h1>KShutdown " KS_VERSION "</h1>" \
 		KS_COPYRIGHT "<br>" \
+		"<br>" \
 		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
 		"<a href=\"mailto:" KS_CONTACT "\">" KS_CONTACT "</a>" \
 		"</qt>"
