@@ -1,6 +1,6 @@
 !include "MUI.nsh"
 Name "KShutdown for Windows"
-OutFile "kshutdown-2.0alpha2-win32.exe"
+OutFile "kshutdown-2.0alpha3-win32.exe"
 InstallDir "$PROGRAMFILES\KShutdown"
 InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
 
