@@ -39,6 +39,7 @@
 
 #include "kshutdown.h"
 
+class QCheckBox;
 class QGroupBox;
 
 class Theme;
@@ -64,6 +65,7 @@ private:
 	bool m_showActiveWarning;
 	bool m_showMinimizeInfo;
 	static MainWindow *m_instance;
+	QCheckBox *m_force;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;
 	QHash<QString, Action*> m_actionHash;
