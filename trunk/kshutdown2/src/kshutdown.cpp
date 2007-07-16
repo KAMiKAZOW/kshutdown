@@ -96,11 +96,17 @@ void Base::setLastError() {
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
 // FIXME: 0 parent - is this OK?
 	U_ACTION(0),
-	Base(id) {
+	Base(id),
+	m_force(false) {
 	m_originalText = text;
 	setIcon(U_STOCK_ICON(iconName));
 	setText(text);
 	connect(this, SIGNAL(activated()), SLOT(slotFire()));
+}
+
+void Action::activate(const bool force) {
+	m_force = force;
+	U_ACTION::activate(Trigger);
 }
 
 // private slots
@@ -264,8 +270,6 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 }
 
 bool PowerAction::onAction() {
-	// lock screen before hibernate/suspend
-	LockAction::self()->activate(U_ACTION::Trigger);
 #ifdef Q_WS_WIN
 	BOOL hibernate = (m_methodName == "Hibernate");
 	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE);
@@ -277,6 +281,9 @@ bool PowerAction::onAction() {
 
 	return true;
 #else
+	// lock screen before hibernate/suspend
+	LockAction::self()->activate(false);
+
 	QDBusInterface i(
 		"org.freedesktop.Hal",
 		"/org/freedesktop/Hal/devices/computer",
@@ -448,6 +455,10 @@ bool StandardAction::onAction() {
 	}
 
 	flags += EWX_FORCEIFHUNG;
+	if (m_force) {
+		flags += EWX_FORCE;
+		m_force = false;
+	}
 	#define SHTDN_REASON_MAJOR_APPLICATION 0x00040000
 	#define SHTDN_REASON_FLAG_PLANNED 0x80000000
 	if (::ExitWindowsEx(flags, SHTDN_REASON_MAJOR_APPLICATION | SHTDN_REASON_FLAG_PLANNED) == 0) {

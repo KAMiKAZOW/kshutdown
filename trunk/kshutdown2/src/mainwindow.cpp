@@ -18,6 +18,7 @@
 
 #include "pureqt.h"
 
+#include <QCheckBox>
 #include <QCloseEvent>
 #include <QGroupBox>
 #include <QLayout>
@@ -299,6 +300,14 @@ void MainWindow::initWidgets() {
 	hBoxLayout->addWidget(m_actions);
 	hBoxLayout->addWidget(m_configureActionButton);
 
+#ifdef Q_WS_WIN
+	m_force = new QCheckBox(i18n("Force"), m_actionBox);
+	m_force->setObjectName("force");
+	m_actionBox->layout()->addWidget(m_force);
+#else
+	m_force = 0;
+#endif // Q_WS_WIN
+
 	m_triggerBox = new QGroupBox(i18n("S&elect a time"), mainWidget);
 	m_triggerBox->setObjectName("trigger-box");
 	m_triggerBox->setLayout(new QVBoxLayout());
@@ -518,10 +527,14 @@ void MainWindow::onCheckTrigger() {
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
 
+	// activate action
 	if (trigger->canActivateAction()) {
 		setActive(false);
-		if (action->isEnabled())
-			action->activate(Action::Trigger);
+		if (action->isEnabled()) {
+			bool force = (m_force && m_force->isChecked());
+			U_DEBUG << "Activate action: force=" << force;
+			action->activate(force);
+		}
 	}
 	// update status
 	else {

@@ -70,11 +70,13 @@ class U_EXPORT Action: public U_ACTION, public Base {
 	Q_OBJECT
 public:
 	Action(const QString &text, const QString &iconName, const QString &id);
+	void activate(const bool force);
 	virtual bool onAction() = 0;
 	inline static bool totalExit() {
 		return m_totalExit;
 	}
 protected:
+	bool m_force;
 	static bool m_totalExit;
 private slots:
 	void slotFire();
