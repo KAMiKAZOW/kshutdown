@@ -29,7 +29,7 @@
 #endif // Q_WS_WIN
 
 #ifdef KS_NATIVE_KDE
-	//!!!#include "kshutdown.moc"
+	#include "kshutdown.moc"
 #endif // KS_NATIVE_KDE
 
 #include "kshutdown.h"

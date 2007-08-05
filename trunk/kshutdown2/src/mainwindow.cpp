@@ -33,11 +33,12 @@
 	#include "version.h" // for about()
 #else
 	#include <KComboBox>
+	#include <KMenu>
 	#include <KMenuBar>
 	#include <KPushButton>
 	#include <KStandardAction>
 	#include <KStandardGuiItem>
-	//!!!#include "mainwindow.moc"
+	#include "mainwindow.moc"
 #endif // KS_PURE_QT
 
 #include "mainwindow.h"
@@ -435,6 +436,8 @@ void MainWindow::updateWidgets() {
 	if (m_currentTriggerWidget)
 		m_currentTriggerWidget->setEnabled(enabled);
 
+	if (m_force)
+		m_force->setEnabled(enabled);
 
 	Action *action = getSelectedAction();
 	if (action->isEnabled()) {

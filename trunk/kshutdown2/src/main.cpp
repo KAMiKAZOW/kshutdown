@@ -37,18 +37,28 @@ int main(int argc, char **argv) {
 	return a.exec();
 	//!!!
 #else
-	KAboutData about(
+/*	KAboutData about(
 		"kshutdown", // internal name - do not modify
 		"KShutdown", // no i18n
-		KS_VERSION " (" KS_BUILD ")",
-		I18N_NOOP("An advanced shutdown utility"),
+		KS_VERSION,//!!!KS_VERSION " (" KS_BUILD ")",
+		"",//!!!I18N_NOOP("An advanced shutdown utility"),
 		KAboutData::License_GPL_V2,
 		KS_COPYRIGHT,
 		0, // no extra text
 		KS_HOME_PAGE,
 // FIXME: show address in GUI
 		KS_CONTACT
+	);*/
+
+	KAboutData about(
+		"KShutdown",
+		"kshutdown", // internal name - do not modify
+		ki18n("KShutdown"), // no i18n
+		"2.0 Alpha"//!!!KS_VERSION " (" KS_BUILD ")",
+		//""//!!!I18N_NOOP("An advanced shutdown utility"),
 	);
+
+
 
 	KCmdLineArgs::init(argc, argv, &about);
 	KUniqueApplication::addCmdLineOptions();
