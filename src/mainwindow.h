@@ -33,6 +33,7 @@
 	class QPushButton;
 #else
 	#include <KMainWindow>
+	#include <KSystemTrayIcon>
 	class KComboBox;
 	class KPushButton;
 #endif // KS_PURE_QT
@@ -109,7 +110,7 @@ private slots:
 	void onConfigureAction();
 	void onOKCancel();
 	void onQuit();
-	void onRestore(QSystemTrayIcon::ActivationReason reason);
+	void onRestore(U_SYSTEM_TRAY::ActivationReason reason);
 	void onTriggerActivated(int index);
 };
 

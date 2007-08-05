@@ -4,6 +4,7 @@ set(
 	kshutdown.cpp
 	main.cpp
 	mainwindow.cpp
+	theme.cpp
 )
 
 qt4_automoc(${kshutdown_SRC})

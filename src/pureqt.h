@@ -62,6 +62,7 @@
 	// common includes
 	#include <KAction>
 	#include <KConfig>
+	#include <KDebug>
 	#include <KLocale>
 	#include <KMessageBox>
 	#include <kdemacros.h> // for KDE_EXPORT
@@ -76,7 +77,7 @@
 	#define U_CONFIG_END(config)
 	//!!!
 	#define U_CONFIG_USER KGlobal::config().data()
-	#define U_DEBUG() kDebug()
+	#define U_DEBUG kDebug()
 	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \
 		KMessageBox::error((parent), (text));
@@ -87,6 +88,7 @@
 	#define U_MENU_BAR KMenuBar
 	#define U_PUSH_BUTTON KPushButton
 	#define U_STOCK_ICON(name) KIcon((name))
+	#define U_SYSTEM_TRAY KSystemTrayIcon
 
 	// shutdown types
 
