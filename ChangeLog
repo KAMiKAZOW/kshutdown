@@ -1,3 +1,14 @@
+// svn log -r 130:HEAD|tac|xsel -i -b
+
+
+2007/09/!!!  2.0 Alpha 3
+
+- Fixed compilation for KDE4
+
+- NEW: Win32: Added "Force" option
+
+- Fixed about box
+
 
 2007/07/08  2.0 Alpha 2
 
@@ -7,16 +18,17 @@
 
 - Minor fixes
 
+
 2007/06/24  2.0 Alpha 1
 
 - NEW: KShutDown -> KShutdown (note lower case "d")
 
-- NEW: KShutDown has been rewritten from scratch
+- NEW: KShutdown has been rewritten from scratch
 
-- NEW: KShutDown 2.x requires KDE 4.x or Qt 4.3
+- NEW: KShutdown 2.x requires KDE 4.x or Qt 4.3
 
-- NEW: Now KShutDown uses "CMake" to build from sources.
-  Simply run "./Setup-kde4.sh" to automatically compile and install KShutDown...
+- NEW: Now KShutdown uses "CMake" to build from sources.
+  Simply run "./Setup-kde4.sh" to automatically compile and install KShutdown...
 
 - NEW: Added "Hibernate Computer" and "Suspend Computer" actions
 
