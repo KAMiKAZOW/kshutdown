@@ -110,7 +110,7 @@ private slots:
 	void onConfigureAction();
 	void onOKCancel();
 	void onQuit();
-	void onRestore(U_SYSTEM_TRAY::ActivationReason reason);
+	void onRestore(QSystemTrayIcon::ActivationReason reason);
 	void onTriggerActivated(int index);
 };
 
