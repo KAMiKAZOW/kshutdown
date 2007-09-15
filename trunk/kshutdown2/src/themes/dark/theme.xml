@@ -13,10 +13,6 @@
 
 	<style href="style.css" />
 
-	<element id="configure-button">
-		<property name="visible" value="false" />
-	</element>
-
 	<element id="menu-bar">
 		<!--<property name="visible" value="false" />-->
 	</element>

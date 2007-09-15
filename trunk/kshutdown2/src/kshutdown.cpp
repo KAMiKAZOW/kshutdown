@@ -199,7 +199,7 @@ void DateTimeTriggerBase::syncDateTime() {
 // public
 
 DateTimeTrigger::DateTimeTrigger() :
-	DateTimeTriggerBase(i18n("At Date/Time"), "date", "date-time") {
+	DateTimeTriggerBase(i18n("At Date/Time"), "calendar-today", "date-time") {
 }
 
 QWidget *DateTimeTrigger::getWidget() {
@@ -224,7 +224,7 @@ void DateTimeTrigger::setState(const State state) {
 // public
 
 NoDelayTrigger::NoDelayTrigger() :
-	Trigger(i18n("No Delay"), "messagebox_warning", "no-delay") {
+	Trigger(i18n("No Delay"), "dialog-warning", "no-delay") {
 }
 
 bool NoDelayTrigger::canActivateAction() {
@@ -236,7 +236,7 @@ bool NoDelayTrigger::canActivateAction() {
 // public
 
 TimeFromNowTrigger::TimeFromNowTrigger() :
-	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "clock", "time-from-now") {
+	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "alarmclock", "time-from-now") {
 }
 
 QWidget *TimeFromNowTrigger::getWidget() {
@@ -334,7 +334,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 // public
 
 HibernateAction::HibernateAction() :
-	PowerAction(i18n("Hibernate Computer"), "hibernate", "hibernate") {
+	PowerAction(i18n("Hibernate Computer"), "system-hibernate", "hibernate") {
 	m_methodName = "Hibernate";
 	setEnabled(isAvailable("power_management.can_suspend_to_disk"));
 }
@@ -344,7 +344,7 @@ HibernateAction::HibernateAction() :
 // public
 
 SuspendAction::SuspendAction() :
-	PowerAction(i18n("Suspend Computer"), "suspend", "suspend") {
+	PowerAction(i18n("Suspend Computer"), "system-suspend", "suspend") {
 	m_methodName = "Suspend";
 	setEnabled(isAvailable("power_management.can_suspend_to_ram"));
 }
@@ -354,7 +354,7 @@ SuspendAction::SuspendAction() :
 // public
 
 LockAction::LockAction() :
-	Action(i18n("Lock Session"), "lock", "lock") {
+	Action(i18n("Lock Session"), "system-lock-screen", "lock") {
 }
 
 bool LockAction::onAction() {
@@ -491,15 +491,15 @@ bool StandardAction::onAction() {
 // public
 
 LogoutAction::LogoutAction() :
-	StandardAction(i18n("End Current Session"), "undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
-}
+	StandardAction(i18n("End Current Session"), "edit-undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
+}//!!!system-log-out
 
 // RebootAction
 
 // public
 
 RebootAction::RebootAction() :
-	StandardAction(i18n("Restart Computer"), "reload", "reboot", U_SHUTDOWN_TYPE_REBOOT) {
+	StandardAction(i18n("Restart Computer"), "view-refresh", "reboot", U_SHUTDOWN_TYPE_REBOOT) {
 }
 
 // ShutDownAction
@@ -507,7 +507,7 @@ RebootAction::RebootAction() :
 // public
 
 ShutDownAction::ShutDownAction() :
-	StandardAction(i18n("Turn Off Computer"), "exit", "shutdown", U_SHUTDOWN_TYPE_HALT) {
+	StandardAction(i18n("Turn Off Computer"), "application-exit", "shutdown", U_SHUTDOWN_TYPE_HALT) {
 /* TODO: IsPwrShutdownAllowed()
 #ifdef Q_WS_WIN
 	setEnabled();

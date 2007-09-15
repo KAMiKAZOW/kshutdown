@@ -64,7 +64,6 @@ QWidget *MainWindow::getElementById(const QString &id) {
 
 		m_elements->insert("actions", m_actions);
 		m_elements->insert("action-box", m_actionBox);
-		m_elements->insert("configure-button", m_configureActionButton);
 
 		m_elements->insert("triggers", m_triggers);
 		m_elements->insert("trigger-box", m_triggerBox);
@@ -199,7 +198,7 @@ void MainWindow::initMenuBar() {
 
 	U_MENU *fileMenu = new U_MENU(i18n("&File"));
 #ifdef KS_NATIVE_KDE
-	fileMenu->addTitle(U_STOCK_ICON("messagebox_warning"), i18n("No Delay"));
+	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
 #else
 	//!!!
 #endif // KS_NATIVE_KDE
@@ -276,29 +275,10 @@ void MainWindow::initWidgets() {
 	m_actionBox->setObjectName("action-box");
 	m_actionBox->setLayout(new QVBoxLayout());
 
-	QWidget *hBox = new QWidget();
-	QHBoxLayout *hBoxLayout = new QHBoxLayout();
-	hBoxLayout->setMargin(5);
-	hBoxLayout->setSpacing(5);
-	hBox->setLayout(hBoxLayout);
-	m_actionBox->layout()->addWidget(hBox);
-
-	m_actions = new U_COMBO_BOX(hBox);
+	m_actions = new U_COMBO_BOX();
 	m_actions->setObjectName("actions");
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
-
-	m_configureActionButton = new U_PUSH_BUTTON(hBox);
-	m_configureActionButton->setObjectName("configure-button");
-#ifdef KS_NATIVE_KDE
-	m_configureActionButton->setGuiItem(KStandardGuiItem::configure());
-#else
-	m_configureActionButton->setText(i18n("Configure..."));
-#endif // KS_NATIVE_KDE
-	m_configureActionButton->setToolTip(i18n("Configure selected action"));
-	connect(m_configureActionButton, SIGNAL(clicked()), SLOT(onConfigureAction()));
-
-	hBoxLayout->addWidget(m_actions);
-	hBoxLayout->addWidget(m_configureActionButton);
+	m_actionBox->layout()->addWidget(m_actions);
 
 #ifdef Q_WS_WIN
 	m_force = new QCheckBox(i18n("Force"), m_actionBox);
@@ -430,7 +410,6 @@ void MainWindow::updateWidgets() {
 	m_actions->setEnabled(enabled);
 	if (m_currentActionWidget)
 		m_currentActionWidget->setEnabled(enabled);
-	m_configureActionButton->setEnabled(enabled);
 	m_triggers->setEnabled(enabled);
 	if (m_currentTriggerWidget)
 		m_currentTriggerWidget->setEnabled(enabled);
@@ -457,7 +436,7 @@ void MainWindow::updateWidgets() {
 	}
 	else {
 		m_okCancelButton->setEnabled(false);
-		m_okCancelButton->setIcon(U_STOCK_ICON("messagebox_critical"));
+		m_okCancelButton->setIcon(U_STOCK_ICON("dialog-warning"));
 // TODO: show solution dialog
 		m_okCancelButton->setText(i18n("Action not available: %0").arg(action->originalText()));
 	}
@@ -550,11 +529,6 @@ void MainWindow::onCheckTrigger() {
 		}
 		setTitle(title);
 	}
-}
-
-void MainWindow::onConfigureAction() {
-	U_DEBUG << "MainWindow::onConfigureAction()" U_END;
-	//!!!
 }
 
 void MainWindow::onOKCancel() {
