@@ -368,8 +368,8 @@ bool LockAction::onAction() {
 
 	return true;
 #else
-	QDBusInterface i("org.kde.krunner", "/ScreenSaver");
-	i.call("lock");
+	QDBusInterface i("org.freedesktop.ScreenSaver", "/ScreenSaver");
+	i.call("Lock");
 
 	QDBusError error = i.lastError();
 	if (error.type() != QDBusError::NoError) {
