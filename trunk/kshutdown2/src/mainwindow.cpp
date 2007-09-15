@@ -38,7 +38,6 @@
 	#include <KPushButton>
 	#include <KStandardAction>
 	#include <KStandardGuiItem>
-	#include "mainwindow.moc"
 #endif // KS_PURE_QT
 
 #include "mainwindow.h"

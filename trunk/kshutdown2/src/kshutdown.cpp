@@ -28,10 +28,6 @@
 	#include <QDBusReply>
 #endif // Q_WS_WIN
 
-#ifdef KS_NATIVE_KDE
-	#include "kshutdown.moc"
-#endif // KS_NATIVE_KDE
-
 #include "kshutdown.h"
 
 using namespace KShutdown;
@@ -270,6 +266,7 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 }
 
 bool PowerAction::onAction() {
+// TODO: KDE: use Solid API (?)
 #ifdef Q_WS_WIN
 	BOOL hibernate = (m_methodName == "Hibernate");
 	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE);
