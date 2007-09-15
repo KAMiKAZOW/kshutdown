@@ -37,6 +37,7 @@
 		//!!!
 	#define U_CONFIG_USER new QSettings()
 	#define U_DEBUG qDebug()
+	#define U_END
 	#define U_ERROR qCritical()
 	#define U_ERROR_MESSAGE(parent, text) \
 		QMessageBox::critical((parent), i18n("Error"), (text));
@@ -78,6 +79,7 @@
 	//!!!
 	#define U_CONFIG_USER KGlobal::config().data()
 	#define U_DEBUG kDebug()
+	#define U_END << endl
 	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \
 		KMessageBox::error((parent), (text));

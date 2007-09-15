@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
 	KUniqueApplication::addCmdLineOptions();
 
 	if (!KUniqueApplication::start()) {
-		U_DEBUG << "KShutdown is already running";
+		U_DEBUG << "KShutdown is already running" U_END;
 // FIXME: show and raise main window
 		return 0;
 	}

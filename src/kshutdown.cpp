@@ -108,7 +108,7 @@ void Action::activate(const bool force) {
 // private slots
 
 void Action::slotFire() {
-	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]";
+	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]" U_END;
 
 	m_error = QString::null;
 	if (!onAction()) {
@@ -323,7 +323,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 	if (reply.isValid())
 		return reply.value();
 
-	U_ERROR << reply.error();
+	U_ERROR << reply.error() U_END;
 
 	return false;
 #endif // Q_WS_WIN
@@ -406,7 +406,7 @@ bool StandardAction::onAction() {
 			flags = EWX_POWEROFF;
 			break;
 		default:
-			U_ERROR << "WTF? Unknown m_type: " << m_type;
+			U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
 
 			return false; // do nothing
 	}

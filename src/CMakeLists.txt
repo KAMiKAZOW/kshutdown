@@ -1,4 +1,6 @@
 
+# DOC: http://qtnode.net/wiki/Qt_with_cmake
+
 set(
 	kshutdown_SRC
 	kshutdown.cpp
@@ -7,9 +9,14 @@ set(
 	theme.cpp
 )
 
-qt4_automoc(${kshutdown_SRC})
+set(
+	kshutdown_MOC_HEADERS
+	kshutdown.h
+	mainwindow.h
+)
+qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 
-add_executable(kshutdown ${kshutdown_SRC})
+add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 target_link_libraries(kshutdown ${QT_LIBRARIES} kdeui kworkspace)

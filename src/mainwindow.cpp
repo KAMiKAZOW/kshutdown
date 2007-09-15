@@ -48,7 +48,7 @@ MainWindow *MainWindow::m_instance = 0;
 // public
 
 MainWindow::~MainWindow() {
-	U_DEBUG << "MainWindow::~MainWindow()";
+	U_DEBUG << "MainWindow::~MainWindow()" U_END;
 }
 
 QWidget *MainWindow::getElementById(const QString &id) {
@@ -117,7 +117,7 @@ MainWindow::MainWindow() :
 	m_currentTriggerWidget(0),
 	m_theme(new Theme(this)) {
 
-	U_DEBUG << "MainWindow::MainWindow()";
+	U_DEBUG << "MainWindow::MainWindow()" U_END;
 
 	setObjectName("main-window");
 #ifdef KS_PURE_QT
@@ -146,7 +146,7 @@ void MainWindow::addAction(Action *action) {
 	m_actionHash[action->id()] = action;
 
 	int index = m_actions->count() - 1;
-	U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << action->id() << ", index=" << index << " ]";
+	U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << action->id() << ", index=" << index << " ]" U_END;
 }
 
 void MainWindow::addTrigger(Trigger *trigger) {
@@ -154,7 +154,7 @@ void MainWindow::addTrigger(Trigger *trigger) {
 	m_triggerHash[trigger->id()] = trigger;
 
 	int index = m_triggers->count() - 1;
-	U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]";
+	U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]" U_END;
 }
 
 Action *MainWindow::getSelectedAction() const {
@@ -162,7 +162,7 @@ Action *MainWindow::getSelectedAction() const {
 }
 
 void MainWindow::setSelectedAction(const QString &id) {
-	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )";
+	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
 
 	onActionActivated(selectById(m_actions, id));
 }
@@ -172,13 +172,13 @@ Trigger *MainWindow::getSelectedTrigger() const {
 }
 
 void MainWindow::setSelectedTrigger(const QString &id) {
-	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )";
+	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
 
 	onTriggerActivated(selectById(m_triggers, id));
 }
 
 void MainWindow::initActions() {
-	U_DEBUG << "MainWindow::initActions()";
+	U_DEBUG << "MainWindow::initActions()" U_END;
 
 	addAction(LockAction::self());
 	addAction(new LogoutAction());
@@ -191,7 +191,7 @@ void MainWindow::initActions() {
 // TODO: action/trigger presets
 
 void MainWindow::initMenuBar() {
-	U_DEBUG << "MainWindow::initMenuBar()";
+	U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
 	U_MENU_BAR *menuBar = new U_MENU_BAR();
 
@@ -242,11 +242,11 @@ void MainWindow::initMenuBar() {
 
 // TODO: plugins
 void MainWindow::initPlugins() {
-	U_DEBUG << "MainWindow::initPlugins()";
+	U_DEBUG << "MainWindow::initPlugins()" U_END;
 }
 
 void MainWindow::initSystemTray() {
-	U_DEBUG << "MainWindow::initSystemTray()";
+	U_DEBUG << "MainWindow::initSystemTray()" U_END;
 
 	m_systemTray = new U_SYSTEM_TRAY(this);
 	m_systemTray->setIcon(windowIcon());
@@ -255,7 +255,7 @@ void MainWindow::initSystemTray() {
 }
 
 void MainWindow::initTriggers() {
-	U_DEBUG << "MainWindow::initTriggers()";
+	U_DEBUG << "MainWindow::initTriggers()" U_END;
 
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
 
@@ -353,7 +353,7 @@ void MainWindow::pluginConfig(const bool read) {
 }
 
 void MainWindow::readConfig() {
-	U_DEBUG << "MainWindow::readConfig()";
+	U_DEBUG << "MainWindow::readConfig()" U_END;
 
 	pluginConfig(true); // read
 
@@ -380,7 +380,7 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 }
 
 void MainWindow::setActive(const bool yes) {
-	U_DEBUG << "MainWindow::setActive( " << yes << " )";
+	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
 
 	if (m_active == yes)
 		return;
@@ -390,8 +390,8 @@ void MainWindow::setActive(const bool yes) {
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
 
-	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id();
-	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id();
+	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
+	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
 
 	if (m_active) {
 		m_triggerTimer->start(trigger->checkTimeout());
@@ -424,7 +424,7 @@ void MainWindow::setTitle(const QString &title) {
 }
 
 void MainWindow::updateWidgets() {
-	U_DEBUG << "MainWindow::updateWidgets()";
+	U_DEBUG << "MainWindow::updateWidgets()" U_END;
 
 	bool enabled = !m_active;
 	m_actions->setEnabled(enabled);
@@ -465,7 +465,7 @@ void MainWindow::updateWidgets() {
 }
 
 void MainWindow::writeConfig() {
-	U_DEBUG << "MainWindow::writeConfig()";
+	U_DEBUG << "MainWindow::writeConfig()" U_END;
 
 	pluginConfig(false); // write
 
@@ -503,7 +503,7 @@ void MainWindow::onAbout() {
 #endif // KS_PURE_QT
 
 void MainWindow::onActionActivated(int index) {
-	U_DEBUG << "MainWindow::onActionActivated( " << index << " )";
+	U_DEBUG << "MainWindow::onActionActivated( " << index << " )" U_END;
 
 	if (m_currentActionWidget) {
 		m_actionBox->layout()->removeWidget(m_currentActionWidget);
@@ -521,7 +521,7 @@ void MainWindow::onActionActivated(int index) {
 
 void MainWindow::onCheckTrigger() {
 	if (!m_active) {
-		U_DEBUG << "MainWindow::onCheckTrigger(): INTERNAL ERROR #1";
+		U_DEBUG << "MainWindow::onCheckTrigger(): INTERNAL ERROR"  U_END;
 
 		return;
 	}
@@ -534,7 +534,7 @@ void MainWindow::onCheckTrigger() {
 		setActive(false);
 		if (action->isEnabled()) {
 			bool force = (m_force && m_force->isChecked());
-			U_DEBUG << "Activate action: force=" << force;
+			U_DEBUG << "Activate action: force=" << force U_END;
 			action->activate(force);
 		}
 	}
@@ -553,18 +553,18 @@ void MainWindow::onCheckTrigger() {
 }
 
 void MainWindow::onConfigureAction() {
-	U_DEBUG << "MainWindow::onConfigureAction()";
+	U_DEBUG << "MainWindow::onConfigureAction()" U_END;
 	//!!!
 }
 
 void MainWindow::onOKCancel() {
-	U_DEBUG << "MainWindow::onOKCancel()";
+	U_DEBUG << "MainWindow::onOKCancel()" U_END;
 
 	setActive(!m_active);
 }
 
 void MainWindow::onQuit() {
-	U_DEBUG << "MainWindow::onQuit()";
+	U_DEBUG << "MainWindow::onQuit()" U_END;
 
 	m_forceQuit = true;
 	m_systemTray->hide();
@@ -572,7 +572,7 @@ void MainWindow::onQuit() {
 }
 
 void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
-	U_DEBUG << "MainWindow::onRestore()";
+	U_DEBUG << "MainWindow::onRestore()" U_END;
 
 	switch (reason) {
 		case QSystemTrayIcon::Trigger:
@@ -591,7 +591,7 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 }
 
 void MainWindow::onTriggerActivated(int index) {
-	U_DEBUG << "MainWindow::onTriggerActivated( " << index << " )";
+	U_DEBUG << "MainWindow::onTriggerActivated( " << index << " )" U_END;
 
 	if (m_currentTriggerWidget) {
 		m_triggerBox->layout()->removeWidget(m_currentTriggerWidget);
