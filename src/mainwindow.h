@@ -78,7 +78,6 @@ private:
 	Theme *m_theme;
 	U_COMBO_BOX *m_actions;
 	U_COMBO_BOX *m_triggers;
-	U_PUSH_BUTTON *m_configureActionButton;
 	U_PUSH_BUTTON *m_okCancelButton;
 	U_SYSTEM_TRAY *m_systemTray;
 	MainWindow();
@@ -107,7 +106,6 @@ private slots:
 #endif // KS_PURE_QT
 	void onActionActivated(int index);
 	void onCheckTrigger();
-	void onConfigureAction();
 	void onOKCancel();
 	void onQuit();
 	void onRestore(QSystemTrayIcon::ActivationReason reason);
