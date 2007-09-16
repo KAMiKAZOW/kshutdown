@@ -78,6 +78,7 @@ public:
 protected:
 	bool m_force;
 	static bool m_totalExit;
+	bool launch(const QString &program, const QStringList &args);
 private slots:
 	void slotFire();
 };

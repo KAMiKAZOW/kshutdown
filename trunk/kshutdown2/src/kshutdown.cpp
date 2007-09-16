@@ -26,6 +26,7 @@
 #else
 	#include <QDBusInterface>
 	#include <QDBusReply>
+	#include <QProcess>
 #endif // Q_WS_WIN
 
 #include "kshutdown.h"
@@ -105,6 +106,17 @@ void Action::activate(const bool force) {
 	U_ACTION::activate(Trigger);
 }
 
+// protected
+
+bool Action::launch(const QString &program, const QStringList &args) {
+	U_DEBUG << "Launching \"" << program << "\" with \"" << args << "\" arguments" U_END;
+
+	int exitCode = QProcess::execute(program, args);
+	U_DEBUG << "Exit code: " << exitCode U_END;
+
+	return (exitCode != 255);//!!!
+}
+
 // private slots
 
 void Action::slotFire() {
@@ -164,7 +176,7 @@ QWidget *DateTimeTriggerBase::getWidget() {
 		connect(m_edit, SIGNAL(dateChanged(const QDate &)), SLOT(syncDateTime()));
 		connect(m_edit, SIGNAL(timeChanged(const QTime &)), SLOT(syncDateTime()));
 		m_edit->setObjectName("date-time-edit");
-		
+
 		// larger font
 		QFont newFont(m_edit->font());
 		newFont.setBold(true);
@@ -301,10 +313,17 @@ bool PowerAction::onAction() {
 		"org.freedesktop.Hal.Device.SystemPowerManagement",
 		QDBusConnection::systemBus()
 	);
-	i.call(m_methodName, 0);
+	if (m_methodName == "Suspend")
+		i.call(m_methodName, 0);
+	else
+		i.call(m_methodName); // no args
 
 	QDBusError error = i.lastError();
-	if (error.type() != QDBusError::NoError) {
+	if (
+		(error.type() != QDBusError::NoError) &&
+		// ignore missing reply after resume from suspend/hibernation
+		(error.type() != QDBusError::NoReply)
+	) {
 		m_error = error.message();
 
 		return false;
@@ -382,14 +401,25 @@ bool LockAction::onAction() {
 
 	return true;
 #else
+	// 1. try DBus
 	QDBusInterface i("org.freedesktop.ScreenSaver", "/ScreenSaver");
 	i.call("Lock");
-
 	QDBusError error = i.lastError();
 	if (error.type() != QDBusError::NoError) {
-		m_error = error.message();
+		// 2. try "xdg-screensaver" command
+		QStringList args;
+		args << "lock";
+		if (!launch("xdg-screensaver", args)) {
+			// 3. try "xscreensaver-command" command
+			args.clear();
+			args << "-lock";
+			if (!launch("xscreensaver-command", args)) {
+				// do not set "m_error" because it may block auto shutdown
+				U_ERROR << "Could not lock the screen" U_END;
 
-		return false;
+				return false;
+			}
+		}
 	}
 
 	return true;
