@@ -164,6 +164,19 @@ QWidget *DateTimeTriggerBase::getWidget() {
 		connect(m_edit, SIGNAL(dateChanged(const QDate &)), SLOT(syncDateTime()));
 		connect(m_edit, SIGNAL(timeChanged(const QTime &)), SLOT(syncDateTime()));
 		m_edit->setObjectName("date-time-edit");
+		
+		// larger font
+		QFont newFont(m_edit->font());
+		newFont.setBold(true);
+		int size = newFont.pointSize();
+		if (size != -1) {
+			newFont.setPointSize(size + 4);
+		}
+		else {
+			size = newFont.pixelSize();
+			newFont.setPixelSize(size + 4);
+		}
+		m_edit->setFont(newFont);
 	}
 
 	return m_edit;
