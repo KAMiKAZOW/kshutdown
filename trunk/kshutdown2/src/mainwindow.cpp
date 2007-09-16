@@ -134,7 +134,7 @@ MainWindow::MainWindow() :
 
 	readConfig();
 
-	m_theme->load(this, "dark");//!!!
+	//m_theme->load(this, "dark");//!!!
 
 	setTitle(QString::null);
 	updateWidgets();
@@ -179,12 +179,12 @@ void MainWindow::setSelectedTrigger(const QString &id) {
 void MainWindow::initActions() {
 	U_DEBUG << "MainWindow::initActions()" U_END;
 
-	addAction(LockAction::self());
-	addAction(new LogoutAction());
 	addAction(new ShutDownAction());
 	addAction(new RebootAction());
-	addAction(new SuspendAction());
 	addAction(new HibernateAction());
+	addAction(new SuspendAction());
+	addAction(LockAction::self());
+	addAction(new LogoutAction());
 }
 
 // TODO: action/trigger presets
@@ -206,7 +206,7 @@ void MainWindow::initMenuBar() {
 	for (int i = 0; i < m_actions->count(); ++i) {
 		id = m_actions->itemData(i).toString();
 		fileMenu->addAction(m_actionHash[id]);
-		if ((id == "logout") || (id == "reboot"))
+		if ((id == "reboot") || (id == "suspend"))
 			fileMenu->addSeparator();
 	}
 	fileMenu->addSeparator();
@@ -226,8 +226,8 @@ void MainWindow::initMenuBar() {
 
 	// help menu
 
-// FIXME: too many menu items
 #ifdef KS_NATIVE_KDE
+// FIXME: too many menu items
 	menuBar->addMenu(helpMenu());
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"));
