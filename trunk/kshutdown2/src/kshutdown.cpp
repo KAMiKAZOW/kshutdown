@@ -294,13 +294,14 @@ bool PowerAction::onAction() {
 	// lock screen before hibernate/suspend
 	LockAction::self()->activate(false);
 
+	// DOC: http://people.freedesktop.org/~david/hal-spec/hal-spec.html
 	QDBusInterface i(
 		"org.freedesktop.Hal",
 		"/org/freedesktop/Hal/devices/computer",
 		"org.freedesktop.Hal.Device.SystemPowerManagement",
 		QDBusConnection::systemBus()
 	);
-	i.call(m_methodName);
+	i.call(m_methodName, 0);
 
 	QDBusError error = i.lastError();
 	if (error.type() != QDBusError::NoError) {
