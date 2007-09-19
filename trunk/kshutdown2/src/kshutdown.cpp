@@ -130,6 +130,26 @@ void Action::slotFire() {
 	}
 }
 
+// ConfirmAction
+
+// public
+
+ConfirmAction::ConfirmAction(Action *action) :
+	U_ACTION(0),
+	m_impl(action) {
+	setEnabled(action->isEnabled());
+	setIcon(action->icon());
+	setText(action->text());
+	connect(this, SIGNAL(activated()), SLOT(slotFire()));
+}
+
+// private
+
+void ConfirmAction::slotFire() {
+	if (U_CONFIRM(0, m_impl->originalText(), i18n("Are you sure?")))
+		m_impl->activate(false);
+}
+
 // Trigger
 
 // public

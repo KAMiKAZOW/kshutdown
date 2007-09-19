@@ -205,7 +205,7 @@ void MainWindow::initMenuBar() {
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
 		id = m_actions->itemData(i).toString();
-		fileMenu->addAction(m_actionHash[id]);
+		fileMenu->addAction(new ConfirmAction(m_actionHash[id]));
 		if ((id == "reboot") || (id == "suspend"))
 			fileMenu->addSeparator();
 	}

@@ -83,6 +83,16 @@ private slots:
 	void slotFire();
 };
 
+class ConfirmAction: public U_ACTION {
+	Q_OBJECT
+public:
+	ConfirmAction(Action *action);
+private:
+	Action *m_impl;
+private slots:
+	void slotFire();
+};
+
 class U_EXPORT Trigger: public QObject, public Base {
 	Q_OBJECT
 public:
