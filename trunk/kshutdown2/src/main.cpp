@@ -51,14 +51,17 @@ int main(int argc, char **argv) {
 	);*/
 
 	KAboutData about(
-		"KShutdown",
+		"KShutdown", // app name
 		"kshutdown", // internal name - do not modify
-		ki18n("KShutdown"), // no i18n
-		"2.0 Alpha"//!!!KS_VERSION " (" KS_BUILD ")",
-		//""//!!!I18N_NOOP("An advanced shutdown utility"),
+		ki18n("KShutdown"),
+		KS_VERSION,
+		ki18n("An advanced shutdown utility"),
+		KAboutData::License_GPL_V2,
+		ki18n(KS_COPYRIGHT),
+		KLocalizedString(), // no extra test
+		KS_HOME_PAGE,
+		KS_CONTACT
 	);
-
-
 
 	KCmdLineArgs::init(argc, argv, &about);
 	KUniqueApplication::addCmdLineOptions();
