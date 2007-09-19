@@ -36,6 +36,14 @@
 		(config)->endGroup();
 		//!!!
 	#define U_CONFIG_USER new QSettings()
+	#define U_CONFIRM(parent, title, text) \
+		(QMessageBox::question( \
+			(parent), \
+			(title), \
+			(text), \
+			QMessageBox::Ok | QMessageBox::Cancel, \
+			QMessageBox::Ok \
+		) == QMessageBox::Ok)
 	#define U_DEBUG qDebug()
 	#define U_END
 	#define U_ERROR qCritical()
@@ -78,6 +86,12 @@
 	#define U_CONFIG_END(config)
 	//!!!
 	#define U_CONFIG_USER KGlobal::config().data()
+	#define U_CONFIRM(parent, title, text) \
+		(KMessageBox::questionYesNo( \
+			(parent), \
+			(text), \
+			(title) \
+		) == KMessageBox::Yes)
 	#define U_DEBUG kDebug()
 	#define U_END << endl
 	#define U_ERROR kError()
