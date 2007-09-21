@@ -19,6 +19,7 @@
 #include "pureqt.h"
 
 #include <QDateTimeEdit>
+#include <QProcess>
 #ifdef Q_WS_WIN
 	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
 	#include <windows.h>
@@ -26,7 +27,6 @@
 #else
 	#include <QDBusInterface>
 	#include <QDBusReply>
-	#include <QProcess>
 #endif // Q_WS_WIN
 
 #include "kshutdown.h"
