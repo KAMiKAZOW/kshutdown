@@ -342,7 +342,9 @@ bool PowerAction::onAction() {
 	if (
 		(error.type() != QDBusError::NoError) &&
 		// ignore missing reply after resume from suspend/hibernation
-		(error.type() != QDBusError::NoReply)
+		(error.type() != QDBusError::NoReply) &&
+		// ignore unknown errors
+		(error.type() != QDBusError::Other)
 	) {
 		m_error = error.message();
 
