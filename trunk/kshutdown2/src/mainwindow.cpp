@@ -188,9 +188,8 @@ void MainWindow::initActions() {
 	addAction(new LogoutAction());
 }
 
-// TODO: action/trigger presets
+// TODO: customizable action/trigger presets
 
-// FIXME: windows: menu bar layout is broken (Qt 4.3.0)
 void MainWindow::initMenuBar() {
 	U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
