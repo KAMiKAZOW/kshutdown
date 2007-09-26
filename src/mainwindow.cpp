@@ -88,13 +88,14 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		if (m_active) {
 			if (m_showActiveWarning) {
 				m_showActiveWarning = false;
-				m_systemTray->showMessage("KShutdown", i18n("KShutdown is still active!"), QSystemTrayIcon::Warning);
+// TODO: common code (showMessage)
+				m_systemTray->showMessage("KShutdown", i18n("KShutdown is still active!"), QSystemTrayIcon::Warning, 2000);
 			}
 		}
 		else {
 			if (m_showMinimizeInfo) {
 				m_showMinimizeInfo = false;
-				m_systemTray->showMessage("KShutdown", i18n("KShutdown has been minimized"));
+				m_systemTray->showMessage("KShutdown", i18n("KShutdown has been minimized"), QSystemTrayIcon::Information, 2000);
 			}
 		}
 	}
@@ -103,7 +104,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 // private
 
 MainWindow::MainWindow() :
-	U_MAIN_WINDOW(),
+	U_MAIN_WINDOW(0, Qt::Dialog),
 	m_active(false),
 	m_forceQuit(false),
 	m_showActiveWarning(true),
@@ -189,6 +190,7 @@ void MainWindow::initActions() {
 
 // TODO: action/trigger presets
 
+// FIXME: windows: menu bar layout is broken (Qt 4.3.0)
 void MainWindow::initMenuBar() {
 	U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
@@ -220,9 +222,9 @@ void MainWindow::initMenuBar() {
 
 	// settings menu
 
-	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
+	//U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
 	//!!!
-	menuBar->addMenu(settingsMenu);
+	//menuBar->addMenu(settingsMenu);
 
 	// help menu
 
