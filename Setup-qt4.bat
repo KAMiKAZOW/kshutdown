@@ -1,6 +1,6 @@
 call C:\Qt\4.3.1\bin\qtvars.bat
 cd src
-qmake
+qmake -config release
 call make clean
 call make
 cd ..

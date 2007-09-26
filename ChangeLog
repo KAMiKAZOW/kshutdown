@@ -3,6 +3,8 @@
 
 2007/09/!!!  2.0 Alpha 3
 
+- Windows: Updated installer to version 2.30
+
 - Fixed compilation for KDE4
 
 - NEW: Win32: Added "Force" option
