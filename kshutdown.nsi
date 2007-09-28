@@ -31,9 +31,9 @@ Section "Install"
 	File src\release\kshutdown.exe
 	File LICENSE
 	File C:\Qt\4.3.1\bin\mingwm10.dll
-	File C:\Qt\4.3.1\bin\QtCore4.dll
-	File C:\Qt\4.3.1\bin\QtGui4.dll
-	File C:\Qt\4.3.1\bin\QtXml4.dll
+	#File C:\Qt\4.3.1\bin\QtCore4.dll
+	#File C:\Qt\4.3.1\bin\QtGui4.dll
+	#File C:\Qt\4.3.1\bin\QtXml4.dll
 	
 	SetShellVarContext all
 	#!!!kshutdown.ico
@@ -46,9 +46,9 @@ Section "Uninstall"
 	Delete "$INSTDIR\kshutdown.exe"
 	Delete "$INSTDIR\LICENSE"
 	Delete "$INSTDIR\mingwm10.dll"
-	Delete "$INSTDIR\QtCore4.dll"
-	Delete "$INSTDIR\QtGui4.dll"
-	Delete "$INSTDIR\QtXml4.dll"
+	#Delete "$INSTDIR\QtCore4.dll"
+	#Delete "$INSTDIR\QtGui4.dll"
+	#Delete "$INSTDIR\QtXml4.dll"
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 
