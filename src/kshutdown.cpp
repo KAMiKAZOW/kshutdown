@@ -98,7 +98,7 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	m_originalText = text;
 	setIcon(U_STOCK_ICON(iconName));
 	setText(text);
-	connect(this, SIGNAL(activated()), SLOT(slotFire()));
+	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 
 void Action::activate(const bool force) {
@@ -140,13 +140,16 @@ ConfirmAction::ConfirmAction(Action *action) :
 	setEnabled(action->isEnabled());
 	setIcon(action->icon());
 	setText(action->text());
-	connect(this, SIGNAL(activated()), SLOT(slotFire()));
+	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 
 // private
 
 void ConfirmAction::slotFire() {
-	if (U_CONFIRM(0, m_impl->originalText(), i18n("Are you sure?")))
+	if (
+		(m_impl == LockAction::self()) || // lock action - no confirmation
+		U_CONFIRM(0, m_impl->originalText(), i18n("Are you sure?"))
+	)
 		m_impl->activate(false);
 }
 
