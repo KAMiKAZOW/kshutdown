@@ -75,6 +75,35 @@ QWidget *MainWindow::getElementById(const QString &id) {
 	return m_elements->value(id);
 }
 
+void MainWindow::setActive(const bool yes) {
+	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
+
+	if (m_active == yes)
+		return;
+
+	m_active = yes;
+
+	Action *action = getSelectedAction();
+	Trigger *trigger = getSelectedTrigger();
+
+	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
+	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
+
+	if (m_active) {
+		m_triggerTimer->start(trigger->checkTimeout());
+		action->setState(Base::START);
+		trigger->setState(Base::START);
+	}
+	else {
+		m_triggerTimer->stop();
+		action->setState(Base::STOP);
+		trigger->setState(Base::STOP);
+	}
+
+	setTitle(QString::null);
+	updateWidgets();
+}
+
 // protected
 
 void MainWindow::closeEvent(QCloseEvent *e) {
@@ -358,35 +387,6 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 	comboBox->setCurrentIndex(index);
 
 	return index;
-}
-
-void MainWindow::setActive(const bool yes) {
-	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
-
-	if (m_active == yes)
-		return;
-
-	m_active = yes;
-
-	Action *action = getSelectedAction();
-	Trigger *trigger = getSelectedTrigger();
-
-	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
-	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
-
-	if (m_active) {
-		m_triggerTimer->start(trigger->checkTimeout());
-		action->setState(Base::START);
-		trigger->setState(Base::START);
-	}
-	else {
-		m_triggerTimer->stop();
-		action->setState(Base::STOP);
-		trigger->setState(Base::STOP);
-	}
-
-	setTitle(QString::null);
-	updateWidgets();
 }
 
 void MainWindow::setTitle(const QString &title) {

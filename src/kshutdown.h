@@ -72,6 +72,12 @@ public:
 	Action(const QString &text, const QString &iconName, const QString &id);
 	void activate(const bool force);
 	virtual bool onAction() = 0;
+	inline bool shouldStopTimer() const {
+		return m_shouldStopTimer;
+	}
+	inline void setShouldStopTimer(const bool value) {
+		m_shouldStopTimer = value;
+	}
 	inline static bool totalExit() {
 		return m_totalExit;
 	}
@@ -79,6 +85,8 @@ protected:
 	bool m_force;
 	static bool m_totalExit;
 	bool launch(const QString &program, const QStringList &args);
+private:
+	bool m_shouldStopTimer;
 private slots:
 	void slotFire();
 };
