@@ -16,6 +16,7 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "mainwindow.h"
 #include "pureqt.h"
 
 #include <QDateTimeEdit>
@@ -94,7 +95,8 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 // FIXME: 0 parent - is this OK?
 	U_ACTION(0),
 	Base(id),
-	m_force(false) {
+	m_force(false),
+	m_shouldStopTimer(true) {
 	m_originalText = text;
 	setIcon(U_STOCK_ICON(iconName));
 	setText(text);
@@ -146,6 +148,9 @@ ConfirmAction::ConfirmAction(Action *action) :
 // private
 
 void ConfirmAction::slotFire() {
+	if (m_impl->shouldStopTimer())
+		MainWindow::self()->setActive(false);
+
 	if (
 		(m_impl == LockAction::self()) || // lock action - no confirmation
 		U_CONFIRM(0, m_impl->originalText(), i18n("Are you sure?"))
@@ -413,6 +418,7 @@ SuspendAction::SuspendAction() :
 
 LockAction::LockAction() :
 	Action(i18n("Lock Session"), "system-lock-screen", "lock") {
+	setShouldStopTimer(false);
 }
 
 bool LockAction::onAction() {
