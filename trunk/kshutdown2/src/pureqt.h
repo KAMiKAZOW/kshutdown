@@ -22,12 +22,14 @@
 #ifdef KS_PURE_QT
 	// common includes
 	#include <QAction>
+	#include <QApplication>
 	#include <QDebug>
 	#include <QMessageBox>
 	#include <QSettings>
 
 	#undef KS_NATIVE_KDE
 	#define U_ACTION QAction
+	#define U_APP qApp
 	#define U_COMBO_BOX QComboBox
 	#define U_CONFIG QSettings
 	#define U_CONFIG_BEGIN(config, group) \
