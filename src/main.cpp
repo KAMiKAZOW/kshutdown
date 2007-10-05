@@ -35,21 +35,9 @@ int main(int argc, char **argv) {
 	MainWindow::self()->show();
 
 	return a.exec();
-	//!!!
+	//!!!single instance
 #else
-/*	KAboutData about(
-		"kshutdown", // internal name - do not modify
-		"KShutdown", // no i18n
-		KS_VERSION,//!!!KS_VERSION " (" KS_BUILD ")",
-		"",//!!!I18N_NOOP("An advanced shutdown utility"),
-		KAboutData::License_GPL_V2,
-		KS_COPYRIGHT,
-		0, // no extra text
-		KS_HOME_PAGE,
-// FIXME: show address in GUI
-		KS_CONTACT
-	);*/
-
+// FIXME: show email address in GUI
 	KAboutData about(
 		"KShutdown", // app name
 		"kshutdown", // internal name - do not modify

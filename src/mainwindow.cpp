@@ -229,7 +229,7 @@ void MainWindow::initMenuBar() {
 #ifdef KS_NATIVE_KDE
 	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
 #else
-	//!!!
+// FIXME: Qt: warning title
 #endif // KS_NATIVE_KDE
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
@@ -249,14 +249,14 @@ void MainWindow::initMenuBar() {
 
 	// settings menu
 
-	//U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
+	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
 	//!!!
-	//menuBar->addMenu(settingsMenu);
+	menuBar->addMenu(settingsMenu);
 
 	// help menu
 
 #ifdef KS_NATIVE_KDE
-// FIXME: too many menu items
+// FIXME: KDE: too many menu items
 	menuBar->addMenu(helpMenu());
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"));
@@ -326,7 +326,6 @@ void MainWindow::initWidgets() {
 	connect(m_triggers, SIGNAL(activated(int)), SLOT(onTriggerActivated(int)));
 	m_triggerBox->layout()->addWidget(m_triggers);
 
-// TODO: align center
 	m_okCancelButton = new U_PUSH_BUTTON(mainWidget);
 	m_okCancelButton->setObjectName("ok-cancel-button");
 	m_okCancelButton->setDefault(true);
