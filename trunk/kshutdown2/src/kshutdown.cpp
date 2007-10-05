@@ -486,8 +486,6 @@ bool StandardAction::onAction() {
 			return false; // do nothing
 	}
 
-	//!!!shutdown priv.
-
 	// adjust privileges
 
 	HANDLE hToken = 0;

@@ -24,7 +24,6 @@
 #define KS_COPYRIGHT "(C) 2003-3000 Konrad Twardowski"
 #define KS_HOME_PAGE "http://kshutdown.sf.net"
 
-// TODO: use XDialog instead of XMainWindow?
 #ifdef KS_PURE_QT
 	#include <QHash>
 	#include <QMainWindow>
