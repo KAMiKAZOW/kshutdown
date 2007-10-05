@@ -16,8 +16,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-//!!! U_APP
-#include <QApplication>
 #include <QFile>
 
 #include "mainwindow.h"
@@ -78,7 +76,7 @@ void Theme::load(MainWindow *mainWindow, const QString &name) {
 
 						break; // while
 					}
-					qApp->setStyleSheet(QTextStream(&style).readAll());
+					U_APP->setStyleSheet(QTextStream(&style).readAll());
 				}
 			}
 			else if (inTheme && (xml.name() == "element")) {

@@ -25,7 +25,6 @@
 #include <QTimer>
 
 #ifdef KS_PURE_QT
-	#include <QApplication> // for aboutQt()
 	#include <QComboBox>
 	#include <QMenuBar>
 	#include <QPushButton>
@@ -262,7 +261,7 @@ void MainWindow::initMenuBar() {
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"));
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
-	helpMenu->addAction(i18n("About Qt"), qApp, SLOT(aboutQt()));
+	helpMenu->addAction(i18n("About Qt"), U_APP, SLOT(aboutQt()));
 	menuBar->addMenu(helpMenu);
 #endif // KS_NATIVE_KDE
 
