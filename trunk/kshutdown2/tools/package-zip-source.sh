@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -f "./tools/make-version.sh" ]; then
-	echo "Usage: ./tools/release.sh [clean]"
+	echo "Usage: $0"
 	exit 1
 fi
 
@@ -21,10 +21,6 @@ cd src
 make clean
 cd ..
 
-if [ "$1" == "clean" ]; then
-	exit
-fi
-
 # /
 mkdir "$KS_DIR"
 cp ChangeLog CMakeLists.txt kshutdown.nsi LICENSE README.html TODO *.bat *.sh "$KS_DIR"
@@ -39,7 +35,7 @@ cp src/images/*.png "$KS_DIR/src/images"
 
 # /tools
 mkdir "$KS_DIR/tools"
-cp tools/*.sh tools/VERSION "$KS_DIR/tools"
+cp tools/VERSION tools/*.sh "$KS_DIR/tools"
 
 # zip and checksum
 mkdir "$KS_DIST_DIR"
