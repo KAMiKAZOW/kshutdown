@@ -1,4 +1,4 @@
-call C:\Qt\4.3.1\bin\qtvars.bat
+call C:\Qt\4.3.2\bin\qtvars.bat
 cd src
 qmake -config release
 call make clean
