@@ -30,7 +30,7 @@ Section "Install"
 	
 	File src\release\kshutdown.exe
 	File LICENSE
-	File C:\Qt\4.3.1\bin\mingwm10.dll
+	File C:\Qt\4.3.2\bin\mingwm10.dll
 	#File C:\Qt\4.3.1\bin\QtCore4.dll
 	#File C:\Qt\4.3.1\bin\QtGui4.dll
 	#File C:\Qt\4.3.1\bin\QtXml4.dll
