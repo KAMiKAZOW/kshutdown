@@ -279,7 +279,9 @@ void MainWindow::initSystemTray() {
 	m_systemTray = new U_SYSTEM_TRAY(this);
 	m_systemTray->setIcon(windowIcon());
 	m_systemTray->show();
+#ifdef KS_PURE_QT
 	connect(m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(onRestore(QSystemTrayIcon::ActivationReason)));
+#endif // KS_PURE_QT
 }
 
 void MainWindow::initTriggers() {
@@ -545,6 +547,7 @@ void MainWindow::onQuit() {
 	close();
 }
 
+#ifdef KS_PURE_QT
 void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 	U_DEBUG << "MainWindow::onRestore()" U_END;
 
@@ -563,6 +566,7 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 			// ignore
 	}
 }
+#endif // KS_PURE_QT
 
 void MainWindow::onTriggerActivated(int index) {
 	U_DEBUG << "MainWindow::onTriggerActivated( " << index << " )" U_END;
