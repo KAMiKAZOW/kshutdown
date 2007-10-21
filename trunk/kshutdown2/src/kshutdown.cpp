@@ -425,7 +425,7 @@ SuspendAction::SuspendAction() :
 // public
 
 LockAction::LockAction() :
-	Action(i18n("Lock Session"), "system-lock-screen", "lock") {
+	Action(i18n("Lock Screen"), "system-lock-screen", "lock") {
 	setShouldStopTimer(false);
 }
 
@@ -572,7 +572,7 @@ bool StandardAction::onAction() {
 // public
 
 LogoutAction::LogoutAction() :
-	StandardAction(i18n("End Current Session"), "edit-undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
+	StandardAction(i18n("Logout"), "edit-undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
 }//!!!system-log-out
 
 // RebootAction
