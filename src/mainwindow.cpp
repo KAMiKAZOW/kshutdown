@@ -340,23 +340,22 @@ void MainWindow::initWidgets() {
 
 void MainWindow::pluginConfig(const bool read) {
 	U_CONFIG *config = U_CONFIG_USER;
+	QString group;
 
 	foreach (Action *i, m_actionHash) {
-		U_CONFIG_BEGIN(config, "KShutdown Action " + i->id())
+		group = "KShutdown Action " + i->id();
 		if (read)
-			i->readConfig(config);
+			i->readConfig(group, config);
 		else
-			i->writeConfig(config);
-		U_CONFIG_END(config)
+			i->writeConfig(group, config);
 	}
 
 	foreach (Trigger *i, m_triggerHash) {
-		U_CONFIG_BEGIN(config, "KShutdown Trigger " + i->id())
+		group = "KShutdown Trigger " + i->id();
 		if (read)
-			i->readConfig(config);
+			i->readConfig(group, config);
 		else
-			i->writeConfig(config);
-		U_CONFIG_END(config)
+			i->writeConfig(group, config);
 	}
 }
 
@@ -367,15 +366,16 @@ void MainWindow::readConfig() {
 
 	U_CONFIG *config = U_CONFIG_USER;
 
-	U_CONFIG_BEGIN(config, "General");
 #ifdef KS_NATIVE_KDE
-	setSelectedAction(config->readEntry("Selected Action", "shutdown"));
-	setSelectedTrigger(config->readEntry("Selected Trigger", "time-from-now"));
+	KConfigGroup g = config->group("General");
+	setSelectedAction(g.readEntry("Selected Action", "shutdown"));
+	setSelectedTrigger(g.readEntry("Selected Trigger", "time-from-now"));
 #else
+	config->beginGroup("General");
 	setSelectedAction(config->value("Selected Action", "shutdown").toString());
 	setSelectedTrigger(config->value("Selected Trigger", "time-from-now").toString());
+	config->endGroup();
 #endif // KS_NATIVE_KDE
-	U_CONFIG_END(config)
 }
 
 int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
@@ -449,15 +449,16 @@ void MainWindow::writeConfig() {
 
 	U_CONFIG *config = U_CONFIG_USER;
 
-	U_CONFIG_BEGIN(config, "General")
 #ifdef KS_NATIVE_KDE
-	config->writeEntry("Selected Action", getSelectedAction()->id());
-	config->writeEntry("Selected Trigger", getSelectedTrigger()->id());
+	KConfigGroup g = config->group("General");
+	g.writeEntry("Selected Action", getSelectedAction()->id());
+	g.writeEntry("Selected Trigger", getSelectedTrigger()->id());
 #else
+	config->beginGroup("General");
 	config->setValue("Selected Action", getSelectedAction()->id());
 	config->setValue("Selected Trigger", getSelectedTrigger()->id());
+	config->endGroup();
 #endif // KS_NATIVE_KDE
-	U_CONFIG_END(config)
 
 	config->sync();
 }

@@ -39,8 +39,8 @@ int main(int argc, char **argv) {
 #else
 // FIXME: show email address in GUI
 	KAboutData about(
-		"KShutdown", // app name
-		"kshutdown", // internal name - do not modify
+		"kshutdown", // app name - used in config file name etc.
+		"kshutdown",
 		ki18n("KShutdown"),
 		KS_VERSION,
 		ki18n("An advanced shutdown utility"),

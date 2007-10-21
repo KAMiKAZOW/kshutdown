@@ -54,7 +54,8 @@ QWidget *Base::getWidget() {
 	return 0;
 }
 
-void Base::readConfig(U_CONFIG *config) {
+void Base::readConfig(const QString &group, U_CONFIG *config) {
+	Q_UNUSED(group)
 	Q_UNUSED(config)
 }
 
@@ -62,7 +63,8 @@ void Base::setState(const State state) {
 	Q_UNUSED(state)
 }
 
-void Base::writeConfig(U_CONFIG *config) {
+void Base::writeConfig(const QString &group, U_CONFIG *config) {
+	Q_UNUSED(group)
 	Q_UNUSED(config)
 }
 
@@ -222,22 +224,28 @@ QWidget *DateTimeTriggerBase::getWidget() {
 	return m_edit;
 }
 
-void DateTimeTriggerBase::readConfig(U_CONFIG *config) {
+void DateTimeTriggerBase::readConfig(const QString &group, U_CONFIG *config) {
 #ifdef KS_NATIVE_KDE
-	m_dateTime = config->readEntry("Date Time", m_dateTime);
+	KConfigGroup g = config->group(group);
+	m_dateTime = g.readEntry("Date Time", m_dateTime);
 #else
+	config->beginGroup(group);
 	m_dateTime = config->value("Date Time", m_dateTime).toDateTime();
+	config->endGroup();
 #endif // KS_NATIVE_KDE
 }
 
-void DateTimeTriggerBase::writeConfig(U_CONFIG *config) {
+void DateTimeTriggerBase::writeConfig(const QString &group, U_CONFIG *config) {
 	if (!m_edit)
 		return;
 
 #ifdef KS_NATIVE_KDE
-	config->writeEntry("Date Time", m_edit->dateTime());
+	KConfigGroup g = config->group(group);
+	g.writeEntry("Date Time", m_edit->dateTime());
 #else
+	config->beginGroup(group);
 	config->setValue("Date Time", m_edit->dateTime());
+	config->endGroup();
 #endif // KS_NATIVE_KDE
 }
 

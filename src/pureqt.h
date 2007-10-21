@@ -32,11 +32,6 @@
 	#define U_APP qApp
 	#define U_COMBO_BOX QComboBox
 	#define U_CONFIG QSettings
-	#define U_CONFIG_BEGIN(config, group) \
-		(config)->beginGroup((group));
-	#define U_CONFIG_END(config) \
-		(config)->endGroup();
-		//!!!
 	#define U_CONFIG_USER new QSettings()
 	#define U_CONFIRM(parent, title, text) \
 		(QMessageBox::question( \
@@ -72,7 +67,9 @@
 #else
 	// common includes
 	#include <KAction>
+	#include <KApplication>
 	#include <KConfig>
+	#include <KConfigGroup>
 	#include <KDebug>
 	#include <KLocale>
 	#include <KMessageBox>
@@ -81,12 +78,9 @@
 
 	#define KS_NATIVE_KDE
 	#define U_ACTION KAction
+	#define U_APP kapp
 	#define U_COMBO_BOX KComboBox
 	#define U_CONFIG KConfig
-	#define U_CONFIG_BEGIN(config, group) \
-		(config)->setGroup((group));
-	#define U_CONFIG_END(config)
-	//!!!
 	#define U_CONFIG_USER KGlobal::config().data()
 	#define U_CONFIRM(parent, title, text) \
 		(KMessageBox::questionYesNo( \
