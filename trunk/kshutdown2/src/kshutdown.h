@@ -45,12 +45,12 @@ public:
 	inline QString originalText() const {
 		return m_originalText;
 	}
-	virtual void readConfig(U_CONFIG *config);
+	virtual void readConfig(const QString &group, U_CONFIG *config);
 	virtual void setState(const State state);
 	inline QString status() const {
 		return m_status;
 	}
-	virtual void writeConfig(U_CONFIG *config);
+	virtual void writeConfig(const QString &group, U_CONFIG *config);
 protected:
 	QString m_error;
 	QString m_id;
@@ -128,8 +128,8 @@ public:
 	DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
-	virtual void readConfig(U_CONFIG *config);
-	virtual void writeConfig(U_CONFIG *config);
+	virtual void readConfig(const QString &group, U_CONFIG *config);
+	virtual void writeConfig(const QString &group, U_CONFIG *config);
 protected:
 	QDateTime m_dateTime;
 	QDateTime m_endDateTime;
