@@ -24,7 +24,7 @@
 	<element id="ok-cancel-button">
 		<property name="x" value="5" />
 		<property name="flat" value="true" />
-		<property name="whatsThis" value="WTF?" />
+		<property name="whatsThis" value="Test ;)" />
 		<style>
 		<![CDATA[
 		color: red;
