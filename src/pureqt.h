@@ -76,7 +76,7 @@
 	#include <KLocale>
 	#include <KMessageBox>
 	#include <kdemacros.h> // for KDE_EXPORT
-	#include <libworkspace/kworkspace.h>
+	#include <kworkspace/kworkspace.h>
 
 	#define KS_NATIVE_KDE
 
