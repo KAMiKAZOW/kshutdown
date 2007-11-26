@@ -1,15 +1,50 @@
-// svn log -r 130:HEAD|tac|xsel -i -b
+// svn log -r 166:HEAD|tac|xsel -i -b
+
+2007/12/!!!  2.0 Alpha 4
 
 
-2007/09/!!!  2.0 Alpha 3
+2007/11/25  2.0 Alpha 3
 
-- Windows: Updated installer to version 2.30
+KDE
 
-- Fixed compilation for KDE4
+* Fixed compilation error on KDE 4.0 RC 1
+* Changed action names to match KDE workspace
+* Fixed system tray
+* Fixed about box
 
-- NEW: Win32: Added "Force" option
+Windows
 
-- Fixed about box
+* Updated Qt libraries to version 4.3.2
+* NEW: KShutdown is now statically linked with Qt library
+  (smaller download size)
+* Updated installer to version 2.33
+* NEW: Added "Force" option
+
+Qt/Linux
+
+* Fixed "Hibernate Computer" action
+* Fixed "Lock Screen" action (added support for xdg-screensaver and xscreensaver)
+
+Misc.
+
+* Fixed "Lock Session" action
+* NEW: Added confirmation message
+* Disabled confirmation for "Lock" action
+* Improved system tray messages
+* Fixed main window
+* Fixed "COMPAT" warnings
+* Smaller date/time font size
+* Fixed suspend to RAM (need testing)
+* Use larger font in date/time editor
+* Changed order of menu/combo box items
+* + Minor updates and fixes
+
+Source and API
+
+* Source clean up
+* Updated TODO list
+* Added "U_APP" macro
+* Setup-qt4-win32.bat -> Setup-qt4.bat
 
 
 2007/07/08  2.0 Alpha 2
