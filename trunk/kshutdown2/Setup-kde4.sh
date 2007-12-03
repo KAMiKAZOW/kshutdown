@@ -16,6 +16,7 @@ if ! cmake -DCMAKE_INSTALL_PREFIX="$PREFIX" ..; then
 fi
 
 if make; then
+	#!!! kde4
 	kdesu -c "make install"
 fi
 
