@@ -28,6 +28,7 @@ Section "Install"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "UninstallString" '"$INSTDIR\uninstall.exe"'
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "http://sourceforge.net/project/showfiles.php?group_id=93707"
 	
+	File src\images\kshutdown.ico
 	File src\release\kshutdown.exe
 	File LICENSE
 	File C:\Qt\4.3.2\bin\mingwm10.dll
@@ -36,14 +37,14 @@ Section "Install"
 	#File C:\Qt\4.3.1\bin\QtXml4.dll
 	
 	SetShellVarContext all
-	#!!!kshutdown.ico
-	CreateShortCut "$DESKTOP\KShutdown.lnk" "$INSTDIR\kshutdown.exe"
-	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe"
+	CreateShortCut "$DESKTOP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "kshutdown.ico"
+	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "kshutdown.ico"
 # TODO: support for silent mode
 SectionEnd
 
 Section "Uninstall"
 	Delete "$INSTDIR\kshutdown.exe"
+	Delete "$INSTDIR\kshutdown.ico"
 	Delete "$INSTDIR\LICENSE"
 	Delete "$INSTDIR\mingwm10.dll"
 	#Delete "$INSTDIR\QtCore4.dll"
