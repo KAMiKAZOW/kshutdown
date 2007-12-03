@@ -31,7 +31,7 @@ cp src/CMakeLists.txt src/kshutdown.qrc src/src.pro src/*.cpp src/*.h "$KS_DIR/s
 
 # /src/images
 mkdir "$KS_DIR/src/images"
-cp src/images/*.png "$KS_DIR/src/images"
+cp src/images/*.ico src/images/*.png src/images/*.svg "$KS_DIR/src/images"
 
 # /tools
 mkdir "$KS_DIR/tools"
