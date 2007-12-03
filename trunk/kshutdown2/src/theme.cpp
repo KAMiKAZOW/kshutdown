@@ -38,7 +38,7 @@ void Theme::load(MainWindow *mainWindow, const QString &name) {
 	QFile theme("themes/" + name + "/theme.xml");
 
 	if (!theme.open(QFile::ReadOnly | QFile::Text)) {
-		U_ERROR << "Cannot open theme file: " + theme.fileName() U_END;
+		U_ERROR << "Cannot open theme file: " << theme.fileName() U_END;
 
 		return;
 	}

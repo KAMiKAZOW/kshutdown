@@ -22,10 +22,11 @@
 	#include <KAboutData>
 	#include <KCmdLineArgs>
 	#include <KUniqueApplication>
+
+	#include "version.h"
 #endif // KS_PURE_QT
 
 #include "mainwindow.h"
-#include "version.h"
 
 int main(int argc, char **argv) {
 #ifdef KS_PURE_QT
@@ -35,7 +36,6 @@ int main(int argc, char **argv) {
 	MainWindow::self()->show();
 
 	return a.exec();
-	//!!!single instance
 #else
 // FIXME: show email address in GUI
 	KAboutData about(
