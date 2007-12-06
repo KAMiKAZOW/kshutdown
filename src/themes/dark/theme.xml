@@ -6,9 +6,6 @@
 	<description>A cool dark theme</description>
 	<copyright>(C) 2007 Konrad Twardowski</copyright>
 	<version>0.0.1</version>
-
-	<window>
-	</window>
 	-->
 
 	<style href="style.css" />
@@ -18,7 +15,6 @@
 	</element>
 
 	<element id="main-window">
-		<property name="windowFlags" value="12" />
 	</element>
 
 	<element id="ok-cancel-button">
