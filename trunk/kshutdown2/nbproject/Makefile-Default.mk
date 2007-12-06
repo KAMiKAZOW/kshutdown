@@ -18,7 +18,7 @@ CXX=g++
 FC=
 
 # Include project Makefile
-include kshutdown2-Makefile.mk
+include KShutdown-Makefile.mk
 
 # Object Directory
 OBJECTDIR=build/Default/GNU-Linux-x86

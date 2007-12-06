@@ -18,11 +18,11 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
-      <itemPath>kshutdown2-Makefile.mk</itemPath>
+      <itemPath>KShutdown-Makefile.mk</itemPath>
       <itemPath>src/Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <projectmakefile>kshutdown2-Makefile.mk</projectmakefile>
+  <projectmakefile>KShutdown-Makefile.mk</projectmakefile>
   <confs>
     <conf name="Default" type="0">
       <toolsSet>
