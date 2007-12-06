@@ -23,11 +23,11 @@ cd ..
 
 # /
 mkdir "$KS_DIR"
-cp ChangeLog CMakeLists.txt kshutdown.nsi LICENSE README.html TODO *.bat *.mk *.sh "$KS_DIR"
+cp ChangeLog CMakeLists.txt kshutdown.nsi LICENSE README.html TODO *.bat *.sh "$KS_DIR"
 
 # /nbproject
-mkdir "$KS_DIR/nbproject"
-cp nbproject/* "$KS_DIR/nbproject"
+#mkdir "$KS_DIR/nbproject"
+#cp nbproject/* "$KS_DIR/nbproject"
 
 # /src
 mkdir "$KS_DIR/src"
