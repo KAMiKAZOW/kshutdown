@@ -28,6 +28,8 @@
 #else
 	#include <QDBusInterface>
 	#include <QDBusReply>
+
+	#include <unistd.h> // for sleep
 #endif // Q_WS_WIN
 
 #include "kshutdown.h"
@@ -341,6 +343,9 @@ bool PowerAction::onAction() {
 #else
 	// lock screen before hibernate/suspend
 	LockAction::self()->activate(false);
+
+	// wait for screensaver
+	::sleep(2);
 
 	// DOC: http://people.freedesktop.org/~david/hal-spec/hal-spec.html
 	QDBusInterface i(
