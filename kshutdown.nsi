@@ -37,11 +37,10 @@ Section "Install"
 	#File C:\Qt\4.3.1\bin\QtXml4.dll
 	
 	SetShellVarContext all
-	CreateShortCut "$DESKTOP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
 	
 	CreateDirectory "$SMSTARTUP"
-	CreateShortCut "$SMSTARTUP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "--init" "kshutdown.ico"
+	CreateShortCut "$SMSTARTUP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "--init" "$INSTDIR\kshutdown.ico"
 # TODO: support for silent mode
 SectionEnd
 
