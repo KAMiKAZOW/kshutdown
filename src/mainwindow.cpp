@@ -111,12 +111,6 @@ void MainWindow::setActive(const bool yes) {
 // protected
 
 void MainWindow::closeEvent(QCloseEvent *e) {
-// FIXME: if main window is hidden,
-//        application silently quits after
-//        closing the confirmation message (ConfirmAction).
-
-	//U_DEBUG << "MainWindow::closeEvent: m_forceQuit=" << m_forceQuit U_END;
-
 	writeConfig();
 
 	// hide in system tray instead of close
@@ -158,6 +152,11 @@ MainWindow::MainWindow() :
 	m_theme(new Theme(this)) {
 
 	U_DEBUG << "MainWindow::MainWindow()" U_END;
+
+	// HACK: It seems that the "quit on last window closed"
+	// does not work correctly if main window is hidden
+	// "in" the system tray..
+	U_APP->setQuitOnLastWindowClosed(false);
 
 	setObjectName("main-window");
 #ifdef KS_PURE_QT
@@ -567,6 +566,7 @@ void MainWindow::onQuit() {
 	m_forceQuit = true;
 	m_systemTray->hide();
 	close();
+	U_APP->quit();
 }
 
 #ifdef KS_PURE_QT
