@@ -106,6 +106,12 @@ void MainWindow::setActive(const bool yes) {
 // protected
 
 void MainWindow::closeEvent(QCloseEvent *e) {
+// FIXME: if main window is hidden,
+//        application silently quits after
+//        closing the confirmation message (ConfirmAction).
+
+	//U_DEBUG << "MainWindow::closeEvent: m_forceQuit=" << m_forceQuit U_END;
+
 	writeConfig();
 
 	// hide in system tray instead of close
@@ -311,12 +317,12 @@ void MainWindow::initWidgets() {
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
 	m_actionBox->layout()->addWidget(m_actions);
 
-#ifdef Q_WS_WIN
-	m_force = new QCheckBox(i18n("Force"), m_actionBox);
+	m_force = new QCheckBox(i18n("Do not save session"), m_actionBox);
 	m_force->setObjectName("force");
+	connect(m_force, SIGNAL(clicked()), SLOT(onForceClick()));
 	m_actionBox->layout()->addWidget(m_force);
-#else
-	m_force = 0;
+#ifndef Q_WS_WIN
+	m_force->hide();
 #endif // Q_WS_WIN
 
 	m_triggerBox = new QGroupBox(i18n("S&elect a time"), mainWidget);
@@ -415,8 +421,7 @@ void MainWindow::updateWidgets() {
 	if (m_currentTriggerWidget)
 		m_currentTriggerWidget->setEnabled(enabled);
 
-	if (m_force)
-		m_force->setEnabled(enabled);
+	m_force->setEnabled(enabled);
 
 	Action *action = getSelectedAction();
 	if (action->isEnabled()) {
@@ -514,9 +519,8 @@ void MainWindow::onCheckTrigger() {
 	if (trigger->canActivateAction()) {
 		setActive(false);
 		if (action->isEnabled()) {
-			bool force = (m_force && m_force->isChecked());
-			U_DEBUG << "Activate action: force=" << force U_END;
-			action->activate(force);
+			U_DEBUG << "Activate action: force=" << m_force->isChecked() U_END;
+			action->activate(m_force->isChecked());
 		}
 	}
 	// update status
@@ -531,6 +535,14 @@ void MainWindow::onCheckTrigger() {
 		}
 		setTitle(title);
 	}
+}
+
+void MainWindow::onForceClick() {
+	if (
+		m_force->isChecked() &&
+		!U_CONFIRM(this, i18n("Confirm"), i18n("Are you sure you want to enable this option?\n\nData in all unsaved documents will be lost!"))
+	)
+		m_force->setChecked(false);
 }
 
 void MainWindow::onOKCancel() {

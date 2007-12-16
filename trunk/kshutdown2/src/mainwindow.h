@@ -105,6 +105,7 @@ private slots:
 #endif // KS_PURE_QT
 	void onActionActivated(int index);
 	void onCheckTrigger();
+	void onForceClick();
 	void onOKCancel();
 	void onQuit();
 #ifdef KS_PURE_QT
