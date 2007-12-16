@@ -39,6 +39,9 @@ Section "Install"
 	SetShellVarContext all
 	CreateShortCut "$DESKTOP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
+	
+	CreateDirectory "$SMSTARTUP"
+	CreateShortCut "$SMSTARTUP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "--init" "kshutdown.ico"
 # TODO: support for silent mode
 SectionEnd
 
@@ -59,4 +62,5 @@ Section "Uninstall"
 	SetShellVarContext all
 	Delete "$DESKTOP\KShutdown.lnk"
 	Delete "$SMPROGRAMS\KShutdown.lnk"
+	Delete "$SMSTARTUP\KShutdown.lnk"
 SectionEnd

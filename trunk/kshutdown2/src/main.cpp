@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
-	MainWindow::self()->show();
+	MainWindow::self()->maybeShow();
 
 	return a.exec();
 #else
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
 	}
 
 	KUniqueApplication a;
-	MainWindow::self()->show();
+	MainWindow::self()->maybeShow();
 
 	return a.exec();
 #endif // KS_PURE_QT
