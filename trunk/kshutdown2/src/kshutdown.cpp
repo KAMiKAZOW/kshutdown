@@ -46,6 +46,7 @@ LockAction *LockAction::m_instance = 0;
 Base::Base(const QString &id) :
 	m_error(QString::null),
 	m_id(id),
+	m_originalText(QString::null),
 	m_status(QString::null) {
 }
 
