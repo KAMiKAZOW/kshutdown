@@ -33,7 +33,7 @@ Theme::~Theme() {
 	U_DEBUG << "Theme::~Theme()" U_END;
 }
 
-//!!!review, doc, and test
+// TODO: review, document, and test all themes stuff
 void Theme::load(MainWindow *mainWindow, const QString &name) {
 	QFile theme("themes/" + name + "/theme.xml");
 
@@ -129,7 +129,8 @@ bool Theme::processElement(QXmlStreamReader &xml, QWidget *widget) {
 				if (!processProperty(xml, widget))
 					return false;
 			}
-			else if (xml.name() == "style") {//!!!
+// FIXME: review "style" tag
+			else if (xml.name() == "style") {
 				if (!processStyle(xml, widget))
 					return false;
 			}
@@ -175,7 +176,7 @@ bool Theme::processProperty(QXmlStreamReader &xml, QWidget *widget) {
 bool Theme::processStyle(QXmlStreamReader &xml, QWidget *widget) {
 	U_DEBUG << "\tProcessing style" U_END;
 
-//!!!clear all styles before load
+// TODO: clear all styles before load
 	QString style = xml.readElementText();
 	if (!style.isEmpty())
 		widget->setStyleSheet(style);

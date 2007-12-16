@@ -439,7 +439,8 @@ bool LockAction::onAction() {
 #ifdef Q_WS_WIN
 	BOOL result = ::LockWorkStation();
 	if (result == 0) {
-		setLastError();//!!!test
+// TODO: test error message
+		setLastError();
 
 		return false;
 	}
@@ -578,8 +579,9 @@ bool StandardAction::onAction() {
 // public
 
 LogoutAction::LogoutAction() :
+// FIXME: "system-log-out" icon?
 	StandardAction(i18n("Logout"), "edit-undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
-}//!!!system-log-out
+}
 
 // RebootAction
 

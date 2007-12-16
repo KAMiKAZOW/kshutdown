@@ -174,7 +174,7 @@ MainWindow::MainWindow() :
 
 	readConfig();
 
-	//m_theme->load(this, "dark");//!!!
+// TODO: themes: m_theme->load(this, "dark");
 
 	setTitle(QString::null);
 	updateWidgets();
