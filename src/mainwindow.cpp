@@ -74,6 +74,11 @@ QWidget *MainWindow::getElementById(const QString &id) {
 	return m_elements->value(id);
 }
 
+void MainWindow::maybeShow() {
+	if (!isArg("init"))
+		show();
+}
+
 void MainWindow::setActive(const bool yes) {
 	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
 
@@ -146,6 +151,7 @@ MainWindow::MainWindow() :
 	m_actionHash(QHash<QString, Action*>()),
 	m_triggerHash(QHash<QString, Trigger*>()),
 	m_elements(0),
+	m_args(U_APP->arguments()),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
 	m_currentTriggerWidget(0),
@@ -344,6 +350,10 @@ void MainWindow::initWidgets() {
 	mainWidgetLayout->addStretch();
 	mainWidgetLayout->addWidget(m_okCancelButton);
 	setCentralWidget(mainWidget);
+}
+
+bool MainWindow::isArg(const QString &name) {
+	return (m_args.contains("-" + name) || m_args.contains("--" + name));
 }
 
 void MainWindow::pluginConfig(const bool read) {

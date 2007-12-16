@@ -57,6 +57,7 @@ public:
 
 		return m_instance;
 	}
+	void maybeShow();
 	void setActive(const bool yes);
 protected:
 	virtual void closeEvent(QCloseEvent *e);
@@ -72,6 +73,7 @@ private:
 	QHash<QString, Action*> m_actionHash;
 	QHash<QString, Trigger*> m_triggerHash;
 	QMap<QString, QWidget*> *m_elements;
+	QStringList m_args;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
@@ -93,6 +95,7 @@ private:
 	void initSystemTray();
 	void initTriggers();
 	void initWidgets();
+	bool isArg(const QString &name);
 	void pluginConfig(const bool read);
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
