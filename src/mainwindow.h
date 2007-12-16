@@ -85,6 +85,7 @@ private:
 	MainWindow();
 	void addAction(Action *action);
 	void addTrigger(Trigger *trigger);
+	QString getArg(const QString &name);
 	Action *getSelectedAction() const;
 	void setSelectedAction(const QString &id);
 	Trigger *getSelectedTrigger() const;
