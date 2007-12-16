@@ -174,7 +174,10 @@ MainWindow::MainWindow() :
 
 	readConfig();
 
-// TODO: themes: m_theme->load(this, "dark");
+	// load theme
+	QString theme = getArg("theme");
+	if (!theme.isNull())
+		m_theme->load(this, theme);
 
 	setTitle(QString::null);
 	updateWidgets();
@@ -194,6 +197,30 @@ void MainWindow::addTrigger(Trigger *trigger) {
 
 	int index = m_triggers->count() - 1;
 	U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]" U_END;
+}
+
+QString MainWindow::getArg(const QString &name) {
+	int i = m_args.indexOf("-" + name, 1);
+	if (i == -1) {
+		i = m_args.indexOf("--" + name, 1);
+		if (i == -1) {
+			U_DEBUG << "Argument not found: " << name U_END;
+
+			return QString::null;
+		}
+	}
+
+	int argIndex = (i + 1);
+
+	if (argIndex < m_args.size()) {
+		U_DEBUG << "Value of " << name << " is " << m_args[argIndex] U_END;
+
+		return m_args[argIndex];
+	}
+
+	U_DEBUG << "Argument value is not set: " << name U_END;
+
+	return QString::null;
 }
 
 Action *MainWindow::getSelectedAction() const {
