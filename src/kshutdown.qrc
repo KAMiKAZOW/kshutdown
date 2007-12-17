@@ -1,6 +1,8 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
 <qresource>
-	<file>images/kshutdown.png</file>
+	<file>images/kshutdown-24.png</file>
+	<file alias="images/kshutdown.png">images/kshutdown-32.png</file>
+	<file>images/kshutdown-48.png</file>
 </qresource>
 </RCC>
