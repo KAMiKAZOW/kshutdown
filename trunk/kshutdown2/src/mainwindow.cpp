@@ -598,6 +598,7 @@ void MainWindow::onPreferences() {
 	if (p->exec() == U_DIALOG::Accepted) {
 		//!!!
 	}
+	p->apply();
 	delete p;
 }
 
