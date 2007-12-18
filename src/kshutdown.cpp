@@ -16,9 +16,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "mainwindow.h"
-#include "pureqt.h"
-
 #include <QDateTimeEdit>
 #include <QProcess>
 #ifdef Q_WS_WIN
@@ -33,6 +30,8 @@
 #endif // Q_WS_WIN
 
 #include "kshutdown.h"
+#include "mainwindow.h"
+#include "pureqt.h"
 
 using namespace KShutdown;
 
