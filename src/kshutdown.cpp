@@ -31,6 +31,7 @@
 
 #include "kshutdown.h"
 #include "mainwindow.h"
+#include "preferences.h"
 #include "pureqt.h"
 
 using namespace KShutdown;
@@ -155,7 +156,10 @@ void ConfirmAction::slotFire() {
 	if (m_impl->shouldStopTimer())
 		MainWindow::self()->setActive(false);
 
+// TODO: show confirmation message near the system tray icon
+// if main window is hidden
 	if (
+		!Preferences::confirmAction() ||
 		(m_impl == LockAction::self()) || // lock action - no confirmation
 		U_CONFIRM(0, m_impl->originalText(), i18n("Are you sure?"))
 	)

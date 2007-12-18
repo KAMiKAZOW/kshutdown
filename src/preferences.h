@@ -21,11 +21,18 @@
 
 #include "pureqt.h"
 
+class QCheckBox;
+
 class Preferences: public U_DIALOG {
 	Q_OBJECT
 public:
 	Preferences(QWidget *parent);
 	virtual ~Preferences();
+	void apply();
+	static bool confirmAction();
+	static void setConfirmAction(const bool value);
+private:
+	QCheckBox *m_confirmAction;
 };
 
 #endif // __PREFERENCES_H__
