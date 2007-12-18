@@ -19,11 +19,11 @@
 #ifndef __KSHUTDOWN_H__
 #define __KSHUTDOWN_H__
 
-#include "pureqt.h"
-
 // TODO: libkshutdown
 
 #include <QDateTime>
+
+#include "pureqt.h"
 
 class QDateTimeEdit;
 
