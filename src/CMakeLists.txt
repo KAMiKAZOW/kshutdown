@@ -6,6 +6,7 @@ set(
 	kshutdown.cpp
 	main.cpp
 	mainwindow.cpp
+	preferences.cpp
 	theme.cpp
 )
 
@@ -13,6 +14,7 @@ set(
 	kshutdown_MOC_HEADERS
 	kshutdown.h
 	mainwindow.h
+	preferences.h
 )
 qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 

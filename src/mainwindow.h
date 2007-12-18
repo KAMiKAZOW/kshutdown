@@ -111,6 +111,7 @@ private slots:
 	void onCheckTrigger();
 	void onForceClick();
 	void onOKCancel();
+	void onPreferences();
 	void onQuit();
 #ifdef KS_PURE_QT
 	void onRestore(QSystemTrayIcon::ActivationReason reason);

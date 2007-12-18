@@ -16,8 +16,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "pureqt.h"
-
 #include <QCheckBox>
 #include <QCloseEvent>
 #include <QGroupBox>
@@ -40,6 +38,8 @@
 #endif // KS_PURE_QT
 
 #include "mainwindow.h"
+#include "preferences.h"
+#include "pureqt.h"
 #include "theme.h"
 
 MainWindow *MainWindow::m_instance = 0;
@@ -288,7 +288,11 @@ void MainWindow::initMenuBar() {
 	// settings menu
 
 	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
-	//!!!
+#ifdef KS_NATIVE_KDE
+	settingsMenu->addAction(KStandardAction::preferences(this, SLOT(onPreferences()), this));
+#else
+	settingsMenu->addAction(i18n("Preferences..."), this, SLOT(onPreferences()));
+#endif // KS_NATIVE_KDE
 	menuBar->addMenu(settingsMenu);
 
 	// help menu
@@ -585,6 +589,16 @@ void MainWindow::onOKCancel() {
 	U_DEBUG << "MainWindow::onOKCancel()" U_END;
 
 	setActive(!m_active);
+}
+
+void MainWindow::onPreferences() {
+	U_DEBUG << "MainWindow::onPreferences()" U_END;
+
+	Preferences *p = new Preferences(this);
+	if (p->exec() == U_DIALOG::Accepted) {
+		//!!!
+	}
+	delete p;
 }
 
 void MainWindow::onQuit() {
