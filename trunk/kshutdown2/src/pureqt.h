@@ -93,7 +93,7 @@
 			(title) \
 		) == KMessageBox::Yes)
 	#define U_DEBUG kDebug()
-	#define U_DIALOG KDialog
+	#define U_DIALOG QDialog
 	#define U_END << endl
 	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \
