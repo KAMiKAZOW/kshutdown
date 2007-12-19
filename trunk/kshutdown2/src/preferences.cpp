@@ -30,16 +30,12 @@ Preferences::Preferences(QWidget *parent) :
 
 	setWindowTitle(i18n("Preferences") + " UNDER CONSTRUCTION!!!");
 
-	QVBoxLayout *mainLayout = new QVBoxLayout();
+	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setMargin(5);
 	mainLayout->setSpacing(5);
-	setLayout(mainLayout);
 
-	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
-	m_confirmAction->setChecked(confirmAction());
-
-	QTabWidget *tabs = new QTabWidget(this);
-	tabs->addTab(m_confirmAction, i18n("General"));
+	QTabWidget *tabs = new QTabWidget();
+	tabs->addTab(createGeneralWidget(), i18n("General"));
 
 	mainLayout->addWidget(tabs);
 }
@@ -77,4 +73,24 @@ void Preferences::setConfirmAction(const bool value) {
 	config->setValue("Confirm Action", value);
 	config->endGroup();
 #endif // KS_NATIVE_KDE
+}
+
+// private
+
+QWidget *Preferences::createContainerWidget() {
+	QWidget *w = new QWidget();
+	QVBoxLayout *l = new QVBoxLayout(w);
+	l->setMargin(5);
+
+	return w;
+}
+
+QWidget *Preferences::createGeneralWidget() {
+	QWidget *w = createContainerWidget();
+
+	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
+	m_confirmAction->setChecked(confirmAction());
+	w->layout()->addWidget(m_confirmAction);
+
+	return w;
 }

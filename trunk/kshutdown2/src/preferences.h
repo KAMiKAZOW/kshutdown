@@ -33,6 +33,8 @@ public:
 	static void setConfirmAction(const bool value);
 private:
 	QCheckBox *m_confirmAction;
+	QWidget *createContainerWidget();
+	QWidget *createGeneralWidget();
 };
 
 #endif // __PREFERENCES_H__
