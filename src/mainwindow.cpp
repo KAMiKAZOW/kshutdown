@@ -68,7 +68,7 @@ QWidget *MainWindow::getElementById(const QString &id) {
 		m_elements->insert("trigger-box", m_triggerBox);
 
 		m_elements->insert("ok-cancel-button", m_okCancelButton);
-// TODO: date-time-edit
+// TODO: date-time-edit, force
 	}
 
 	return m_elements->value(id);
@@ -345,12 +345,11 @@ void MainWindow::initTriggers() {
 void MainWindow::initWidgets() {
 	QWidget *mainWidget = new QWidget();
 	mainWidget->setObjectName("main-widget");
-	QVBoxLayout *mainWidgetLayout = new QVBoxLayout();
-	mainWidgetLayout->setMargin(5);
-	mainWidgetLayout->setSpacing(5);
-	mainWidget->setLayout(mainWidgetLayout);
+	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
+	mainLayout->setMargin(5);
+	mainLayout->setSpacing(5);
 
-	m_actionBox = new QGroupBox(i18n("Select an &action"), mainWidget);
+	m_actionBox = new QGroupBox(i18n("Select an &action"));
 	m_actionBox->setObjectName("action-box");
 	m_actionBox->setLayout(new QVBoxLayout());
 
@@ -359,7 +358,7 @@ void MainWindow::initWidgets() {
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
 	m_actionBox->layout()->addWidget(m_actions);
 
-	m_force = new QCheckBox(i18n("Do not save session"), m_actionBox);
+	m_force = new QCheckBox(i18n("Do not save session"));
 	m_force->setObjectName("force");
 	connect(m_force, SIGNAL(clicked()), SLOT(onForceClick()));
 	m_actionBox->layout()->addWidget(m_force);
@@ -367,7 +366,7 @@ void MainWindow::initWidgets() {
 	m_force->hide();
 #endif // Q_WS_WIN
 
-	m_triggerBox = new QGroupBox(i18n("S&elect a time"), mainWidget);
+	m_triggerBox = new QGroupBox(i18n("S&elect a time"));
 	m_triggerBox->setObjectName("trigger-box");
 	m_triggerBox->setLayout(new QVBoxLayout());
 
@@ -376,15 +375,15 @@ void MainWindow::initWidgets() {
 	connect(m_triggers, SIGNAL(activated(int)), SLOT(onTriggerActivated(int)));
 	m_triggerBox->layout()->addWidget(m_triggers);
 
-	m_okCancelButton = new U_PUSH_BUTTON(mainWidget);
+	m_okCancelButton = new U_PUSH_BUTTON();
 	m_okCancelButton->setObjectName("ok-cancel-button");
 	m_okCancelButton->setDefault(true);
 	connect(m_okCancelButton, SIGNAL(clicked()), SLOT(onOKCancel()));
 
-	mainWidgetLayout->addWidget(m_actionBox);
-	mainWidgetLayout->addWidget(m_triggerBox);
-	mainWidgetLayout->addStretch();
-	mainWidgetLayout->addWidget(m_okCancelButton);
+	mainLayout->addWidget(m_actionBox);
+	mainLayout->addWidget(m_triggerBox);
+	mainLayout->addStretch();
+	mainLayout->addWidget(m_okCancelButton);
 	setCentralWidget(mainWidget);
 }
 
