@@ -27,3 +27,5 @@ install(
 	PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
 	DESTINATION bin
 )
+
+add_subdirectory(images)
