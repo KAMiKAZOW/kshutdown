@@ -75,7 +75,13 @@ QWidget *MainWindow::getElementById(const QString &id) {
 }
 
 void MainWindow::maybeShow() {
-	if (!isArg("init"))
+	if (!U_SYSTEM_TRAY::isSystemTrayAvailable()) {
+		show();
+
+		return;
+	}
+
+	if (!isArg("init") && !U_APP->isSessionRestored())
 		show();
 }
 
