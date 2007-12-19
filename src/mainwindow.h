@@ -29,12 +29,10 @@
 	#include <QMainWindow>
 	#include <QSystemTrayIcon>
 	class QComboBox;
-	class QPushButton;
 #else
 	#include <KMainWindow>
 	#include <KSystemTrayIcon>
 	class KComboBox;
-	class KPushButton;
 #endif // KS_PURE_QT
 
 #include "kshutdown.h"

@@ -25,6 +25,7 @@
 	#include <QApplication>
 	#include <QDebug>
 	#include <QMessageBox>
+	#include <QPushButton>
 	#include <QSettings>
 
 	#undef KS_NATIVE_KDE
@@ -76,6 +77,7 @@
 	#include <KDebug>
 	#include <KLocale>
 	#include <KMessageBox>
+	#include <KPushButton>
 	#include <kdemacros.h> // for KDE_EXPORT
 	#include <kworkspace/kworkspace.h>
 
