@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 PREFIX=`kde4-config --prefix`
 if [ -z "$PREFIX" ]; then
 	PREFIX=/usr/local
@@ -11,13 +13,9 @@ mkdir "$BUILD_DIR"
 
 cd "$BUILD_DIR"
 
-if ! cmake -DCMAKE_INSTALL_PREFIX="$PREFIX" ..; then
-	exit 1
-fi
-
-if make; then
+cmake -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
+make
 	#!!! kde4
-	kdesu -c "make install"
-fi
+kdesu -c "make install"
 
 cd ..
