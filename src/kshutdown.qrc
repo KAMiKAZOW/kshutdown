@@ -1,10 +1,10 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
 <qresource>
-	<file>images/kshutdown-16.png</file>
-	<file>images/kshutdown-22.png</file>
-	<file alias="images/kshutdown.png">images/kshutdown-32.png</file>
-	<file>images/kshutdown-48.png</file>
-	<file>images/kshutdown-64.png</file>
+	<file>images/hi16-app-kshutdown.png</file>
+	<file>images/hi22-app-kshutdown.png</file>
+	<file alias="images/kshutdown.png">images/hi32-app-kshutdown.png</file>
+	<file>images/hi48-app-kshutdown.png</file>
+	<file>images/hi64-app-kshutdown.png</file>
 </qresource>
 </RCC>
