@@ -37,7 +37,16 @@ Preferences::Preferences(QWidget *parent) :
 	QTabWidget *tabs = new QTabWidget();
 	tabs->addTab(createGeneralWidget(), i18n("General"));
 
+#ifdef KS_NATIVE_KDE
+	U_PUSH_BUTTON *closeButton = new U_PUSH_BUTTON();
+	closeButton->setGuiItem(KStandardGuiItem::close());
+#else
+	U_PUSH_BUTTON *closeButton = new U_PUSH_BUTTON(i18n("Close"));
+#endif // KS_NATIVE_KDE
+	connect(closeButton, SIGNAL(clicked()), SLOT(accept()));
+
 	mainLayout->addWidget(tabs);
+	mainLayout->addWidget(closeButton);//!!!
 }
 
 Preferences::~Preferences() {

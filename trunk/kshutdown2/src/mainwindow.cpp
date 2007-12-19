@@ -25,16 +25,13 @@
 #ifdef KS_PURE_QT
 	#include <QComboBox>
 	#include <QMenuBar>
-	#include <QPushButton>
 
 	#include "version.h" // for about()
 #else
 	#include <KComboBox>
 	#include <KMenu>
 	#include <KMenuBar>
-	#include <KPushButton>
 	#include <KStandardAction>
-	#include <KStandardGuiItem>
 #endif // KS_PURE_QT
 
 #include "mainwindow.h"
@@ -593,6 +590,7 @@ void MainWindow::onForceClick() {
 void MainWindow::onOKCancel() {
 	U_DEBUG << "MainWindow::onOKCancel()" U_END;
 
+// TODO: confirm "Start"
 	setActive(!m_active);
 }
 
