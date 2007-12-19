@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function ks_copy()
+{
+	mkdir "$KS_DIR$1"
+	cp .$1/* "$KS_DIR$1"
+}
+
 if [ ! -f "./tools/make-version.sh" ]; then
 	echo "Usage: $0"
 	exit 1
@@ -19,31 +25,18 @@ rm -fR "$KS_DIST_DIR"
 
 cd src
 make clean
+rm ./kshutdown
+rm ./Makefile
 cd ..
 
-# /
-mkdir "$KS_DIR"
-cp ChangeLog CMakeLists.txt kshutdown.nsi LICENSE README.html TODO *.bat *.sh "$KS_DIR"
-
-# /nbproject
-#mkdir "$KS_DIR/nbproject"
-#cp nbproject/* "$KS_DIR/nbproject"
-
-# /src
-mkdir "$KS_DIR/src"
-cp src/CMakeLists.txt src/kshutdown.qrc src/src.pro src/*.cpp src/*.h "$KS_DIR/src"
-
-# /src/images
-mkdir "$KS_DIR/src/images"
-cp src/images/*.ico src/images/*.png src/images/*.svg "$KS_DIR/src/images"
-
-# /tools
-mkdir "$KS_DIR/tools"
-cp tools/VERSION tools/*.sh "$KS_DIR/tools"
+ks_copy ""
+ks_copy "/src"
+ks_copy "/src/images"
+ks_copy "/tools"
 
 # zip and checksum
 mkdir "$KS_DIST_DIR"
-zip -r9 "$KS_DIST_DIR/$KS_ZIP" "$KS_DIR"
+zip -r9 "$KS_DIST_DIR/$KS_ZIP" "$KS_DIR" -x "*~"
 cd "$KS_DIST_DIR"
 sha1sum "$KS_ZIP">SHA1SUM
 cd ..
