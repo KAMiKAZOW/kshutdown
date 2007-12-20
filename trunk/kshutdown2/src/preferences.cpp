@@ -29,7 +29,7 @@ Preferences::Preferences(QWidget *parent) :
 	U_DIALOG(parent) {
 	U_DEBUG << "Preferences::Preferences()" U_END;
 
-	setWindowTitle(i18n("Preferences") + " UNDER CONSTRUCTION!!!");
+	setWindowTitle(i18n("Preferences"));
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setMargin(5);
