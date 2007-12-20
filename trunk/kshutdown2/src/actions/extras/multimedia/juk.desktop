@@ -1,20 +1,12 @@
 [Desktop Entry]
+Version=1.0
+# Encoding: UTF-8
 Comment=Stop Playback
 Comment[de]=Wiedergabe anhalten
 Comment[it]=Interrompi riproduzione
 Comment[pl]=Zatrzymaj odtwarzanie
 Comment[el]=Σταμάτημα αναπαραγωγής
-Encoding=UTF-8
 Exec=dcop juk Player stop
-GenericName=
 Icon=juk
-MimeType=
 Name=JuK
-Path=
-StartupNotify=true
-Terminal=false
-TerminalOptions=
 Type=Application
-X-DCOP-ServiceType=
-X-KDE-SubstituteUID=false
-X-KDE-Username=

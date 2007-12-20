@@ -1,5 +1,6 @@
 [Desktop Entry]
-Icon=about_kde
+Version=1.0
+# Encoding: UTF-8
 Comment=System
 Comment[pl]=Systemowe
-Encoding=UTF-8
+Icon=about_kde

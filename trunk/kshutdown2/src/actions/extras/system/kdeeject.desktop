@@ -1,20 +1,11 @@
 [Desktop Entry]
+Version=1.0
+# Encoding: UTF-8
 Comment=Eject CD
 Comment[de]=CD auswerfen
 Comment[it]=Espelli CD
 Comment[pl]=Wysuń CD
 Comment[el]=Εξαγωγή  CD
-Encoding=UTF-8
 Exec=kdeeject /dev/cdrom
-GenericName=
-GenericName[en_US]=
 Icon=cdrom_unmount
-MimeType=
-Path=
-StartupNotify=true
-Terminal=false
-TerminalOptions=
 Type=Application
-X-DCOP-ServiceType=
-X-KDE-SubstituteUID=false
-X-KDE-Username=
