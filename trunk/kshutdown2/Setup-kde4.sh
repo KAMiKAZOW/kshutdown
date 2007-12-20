@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO: uninstall: http://www.cmake.org/Wiki/CMake_FAQ
+
 set -e
 
 PREFIX=`kde4-config --prefix`

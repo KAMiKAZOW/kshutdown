@@ -1,0 +1,20 @@
+[Desktop Entry]
+Comment=Shut down a PPPoE link
+Comment[de]=Eine PPPoE Verbindung trennen
+Comment[it]=Disconnetti una connessione PPPoE
+Comment[pl]=Zakończ połączenie PPPoE
+Comment[el]=Τερματισμός μιας PPPoE σύνδεσης
+Encoding=UTF-8
+Exec=/usr/sbin/adsl-stop
+GenericName=
+GenericName[pl]=
+Icon=network_disconnected
+MimeType=
+Path=
+StartupNotify=true
+Terminal=true
+TerminalOptions=\s--noclose
+Type=Application
+X-DCOP-ServiceType=none
+X-KDE-SubstituteUID=false
+X-KDE-Username=
