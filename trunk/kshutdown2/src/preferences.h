@@ -29,8 +29,6 @@ public:
 	Preferences(QWidget *parent);
 	virtual ~Preferences();
 	void apply();
-	static bool confirmAction();
-	static void setConfirmAction(const bool value);
 private:
 	QCheckBox *m_confirmAction;
 	QWidget *createActionsWidget();

@@ -31,6 +31,8 @@ class Config {
 public:
 	void beginGroup(const QString &name);
 	void endGroup();
+	static bool confirmAction();
+	static void setConfirmAction(const bool value);
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);
 	void sync();
