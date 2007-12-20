@@ -44,6 +44,7 @@ LockAction *LockAction::m_instance = 0;
 // public
 
 Base::Base(const QString &id) :
+	m_disableReason(QString::null),
 	m_error(QString::null),
 	m_id(id),
 	m_originalText(QString::null),
@@ -114,6 +115,11 @@ void Action::activate(const bool force) {
 }
 
 // protected
+
+void Action::disable(const QString &reason) {
+	setEnabled(false);
+	m_disableReason = reason;
+}
 
 bool Action::launch(const QString &program, const QStringList &args) {
 	U_DEBUG << "Launching \"" << program << "\" with \"" << args << "\" arguments" U_END;
@@ -416,7 +422,8 @@ bool PowerAction::isAvailable(const QString &feature) const {
 HibernateAction::HibernateAction() :
 	PowerAction(i18n("Hibernate Computer"), "system-hibernate", "hibernate") {
 	m_methodName = "Hibernate";
-	setEnabled(isAvailable("power_management.can_suspend_to_disk"));
+	if (!isAvailable("power_management.can_suspend_to_disk"))
+		disable(i18n("Cannot suspend to disk"));
 }
 
 // SuspendAction
@@ -426,7 +433,8 @@ HibernateAction::HibernateAction() :
 SuspendAction::SuspendAction() :
 	PowerAction(i18n("Suspend Computer"), "system-suspend", "suspend") {
 	m_methodName = "Suspend";
-	setEnabled(isAvailable("power_management.can_suspend_to_ram"));
+	if (!isAvailable("power_management.can_suspend_to_ram"))
+		disable(i18n("Cannot suspend to RAM"));
 }
 
 // LockAction

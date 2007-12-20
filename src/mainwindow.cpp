@@ -480,13 +480,17 @@ void MainWindow::updateWidgets() {
 			? i18n("Cancel")
 			: i18n("OK")
 		);
+		m_okCancelButton->setToolTip(i18n("Click to active the selected action"));
 #endif // KS_NATIVE_KDE
 	}
 	else {
 		m_okCancelButton->setEnabled(false);
 		m_okCancelButton->setIcon(U_STOCK_ICON("dialog-warning"));
 // TODO: show solution dialog
-		m_okCancelButton->setText(i18n("Action not available: %0").arg(action->originalText()));
+		QString text = i18n("Action not available: %0")
+			.arg(action->originalText());
+		m_okCancelButton->setText(text);
+		m_okCancelButton->setToolTip(action->disableReason());
 	}
 // FIXME: adjust window to its minimum/preferred size
 }

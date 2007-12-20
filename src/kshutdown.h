@@ -35,6 +35,9 @@ public:
 	enum State { START, STOP };
 	Base(const QString &id);
 	virtual ~Base();
+	inline QString disableReason() const {
+		return m_disableReason;
+	}
 	inline QString error() const {
 		return m_error;
 	}
@@ -52,6 +55,7 @@ public:
 	}
 	virtual void writeConfig(const QString &group, U_CONFIG *config);
 protected:
+	QString m_disableReason;
 	QString m_error;
 	QString m_id;
 
@@ -84,6 +88,7 @@ public:
 protected:
 	bool m_force;
 	static bool m_totalExit;
+	void disable(const QString &reason);
 	bool launch(const QString &program, const QStringList &args);
 private:
 	bool m_shouldStopTimer;
