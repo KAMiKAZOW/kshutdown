@@ -36,6 +36,9 @@ Preferences::Preferences(QWidget *parent) :
 
 	QTabWidget *tabs = new QTabWidget();
 	tabs->addTab(createGeneralWidget(), i18n("General"));
+// TODO: actions/triggers config.
+	//tabs->addTab(createActionsWidget(), i18n("Actions"));
+	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
 
 #ifdef KS_NATIVE_KDE
 	U_PUSH_BUTTON *closeButton = new U_PUSH_BUTTON();
@@ -86,6 +89,12 @@ void Preferences::setConfirmAction(const bool value) {
 
 // private
 
+QWidget *Preferences::createActionsWidget() {
+	QWidget *w = createContainerWidget();
+
+	return w;
+}
+
 QWidget *Preferences::createContainerWidget() {
 	QWidget *w = new QWidget();
 	QVBoxLayout *l = new QVBoxLayout(w);
@@ -100,6 +109,12 @@ QWidget *Preferences::createGeneralWidget() {
 	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
 	m_confirmAction->setChecked(confirmAction());
 	w->layout()->addWidget(m_confirmAction);
+
+	return w;
+}
+
+QWidget *Preferences::createTriggersWidget() {
+	QWidget *w = createContainerWidget();
 
 	return w;
 }
