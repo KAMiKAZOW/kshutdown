@@ -1,0 +1,12 @@
+[Desktop Entry]
+Comment=Stop Playback
+Comment[de]=Wiedergabe anhalten
+Comment[it]=Interrompi riproduzione
+Comment[pl]=Zatrzymaj odtwarzanie
+Comment[el]=Σταμάτημα αναπαραγωγής
+Encoding=UTF-8
+Exec=dcop amarok player stop
+Icon=amarok
+Name=Amarok
+StartupNotify=true
+Type=Application
