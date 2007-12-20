@@ -42,6 +42,22 @@ void Config::endGroup() {
 #endif //KS_PURE_QT
 }
 
+bool Config::confirmAction() {
+	Config *config = user();
+	config->beginGroup("General");
+	bool result = config->read("Confirm Action", true).toBool();
+	config->endGroup();
+
+	return result;
+}
+
+void Config::setConfirmAction(const bool value) {
+	Config *config = user();
+	config->beginGroup("General");
+	config->write("Confirm Action", value);
+	config->endGroup();
+}
+
 QVariant Config::read(const QString &key, const QVariant &defaultValue) {
 #ifdef KS_NATIVE_KDE
 	return m_group.readEntry(key, defaultValue);

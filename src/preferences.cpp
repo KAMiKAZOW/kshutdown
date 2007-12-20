@@ -58,25 +58,9 @@ Preferences::~Preferences() {
 }
 
 void Preferences::apply() {
-	setConfirmAction(m_confirmAction->isChecked());
+	Config::setConfirmAction(m_confirmAction->isChecked());
 
 	Config::user()->sync();
-}
-
-bool Preferences::confirmAction() {
-	Config *config = Config::user();
-	config->beginGroup("General");
-	bool result = config->read("Confirm Action", true).toBool();
-	config->endGroup();
-
-	return result;
-}
-
-void Preferences::setConfirmAction(const bool value) {
-	Config *config = Config::user();
-	config->beginGroup("General");
-	config->write("Confirm Action", value);
-	config->endGroup();
 }
 
 // private
@@ -99,7 +83,7 @@ QWidget *Preferences::createGeneralWidget() {
 	QWidget *w = createContainerWidget();
 
 	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
-	m_confirmAction->setChecked(confirmAction());
+	m_confirmAction->setChecked(Config::confirmAction());
 	w->layout()->addWidget(m_confirmAction);
 
 	return w;
