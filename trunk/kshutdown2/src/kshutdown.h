@@ -84,6 +84,12 @@ public:
 	inline void setShouldStopTimer(const bool value) {
 		m_shouldStopTimer = value;
 	}
+	inline bool showInMenu() const {
+		return m_showInMenu;
+	}
+	inline void setShowInMenu(const bool value) {
+		m_showInMenu = value;
+	}
 	inline static bool totalExit() {
 		return m_totalExit;
 	}
@@ -94,6 +100,7 @@ protected:
 	bool launch(const QString &program, const QStringList &args);
 private:
 	bool m_shouldStopTimer;
+	bool m_showInMenu;
 private slots:
 	void slotFire();
 };

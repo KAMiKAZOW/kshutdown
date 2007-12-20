@@ -3,6 +3,7 @@
 
 set(
 	kshutdown_SRC
+	actions/extras.cpp
 	config.cpp
 	kshutdown.cpp
 	main.cpp
@@ -29,4 +30,5 @@ install(
 	DESTINATION bin
 )
 
+add_subdirectory(actions)
 add_subdirectory(images)

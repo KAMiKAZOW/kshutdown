@@ -36,6 +36,7 @@
 	#include <KStandardAction>
 #endif // KS_PURE_QT
 
+#include "actions/extras.h"
 #include "mainwindow.h"
 #include "preferences.h"
 #include "theme.h"
@@ -256,6 +257,7 @@ void MainWindow::initActions() {
 	addAction(new SuspendAction());
 	addAction(LockAction::self());
 	addAction(new LogoutAction());
+	addAction(Extras::self());
 }
 
 // TODO: customizable action/trigger presets
@@ -273,10 +275,16 @@ void MainWindow::initMenuBar() {
 #else
 // FIXME: Qt: warning title
 #endif // KS_NATIVE_KDE
+	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
 		id = m_actions->itemData(i).toString();
-		fileMenu->addAction(new ConfirmAction(m_actionHash[id]));
+		a = m_actionHash[id];
+
+		if (!a->showInMenu())
+			continue; // for
+
+		fileMenu->addAction(new ConfirmAction(a));
 		if ((id == "reboot") || (id == "suspend"))
 			fileMenu->addSeparator();
 	}

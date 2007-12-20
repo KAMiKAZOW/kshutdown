@@ -103,7 +103,8 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	U_ACTION(0),
 	Base(id),
 	m_force(false),
-	m_shouldStopTimer(true) {
+	m_shouldStopTimer(true),
+	m_showInMenu(true) {
 	m_originalText = text;
 	setIcon(U_STOCK_ICON(iconName));
 	setText(text);
