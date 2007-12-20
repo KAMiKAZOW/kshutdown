@@ -1,12 +1,12 @@
 [Desktop Entry]
+Version=1.0
+# Encoding: UTF-8
 Comment=Stop current song
 Comment[de]=Bei aktuellem Lied stoppen
 Comment[it]=Interrompi canzone corrente
 Comment[pl]=Zatrzymaj bieżący utwór
 Comment[el]=Σταμάτημα αναπαραγωγής του τρέχοντος τραγουδιού
-Encoding=UTF-8
 Exec=xmms --stop
 Icon=xmms
 Name=XMMS
-StartupNotify=true
 Type=Application
