@@ -19,11 +19,13 @@
 #ifndef __KSHUTDOWN_H__
 #define __KSHUTDOWN_H__
 
+#include "pureqt.h"
+
 // TODO: libkshutdown
 
 #include <QDateTime>
 
-#include "pureqt.h"
+#include "config.h"
 
 class QDateTimeEdit;
 
@@ -48,12 +50,12 @@ public:
 	inline QString originalText() const {
 		return m_originalText;
 	}
-	virtual void readConfig(const QString &group, U_CONFIG *config);
+	virtual void readConfig(const QString &group, Config *config);
 	virtual void setState(const State state);
 	inline QString status() const {
 		return m_status;
 	}
-	virtual void writeConfig(const QString &group, U_CONFIG *config);
+	virtual void writeConfig(const QString &group, Config *config);
 protected:
 	QString m_disableReason;
 	QString m_error;
@@ -133,8 +135,8 @@ public:
 	DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
-	virtual void readConfig(const QString &group, U_CONFIG *config);
-	virtual void writeConfig(const QString &group, U_CONFIG *config);
+	virtual void readConfig(const QString &group, Config *config);
+	virtual void writeConfig(const QString &group, Config *config);
 protected:
 	QDateTime m_dateTime;
 	QDateTime m_endDateTime;

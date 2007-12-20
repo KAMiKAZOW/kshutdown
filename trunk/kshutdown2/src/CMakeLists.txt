@@ -3,6 +3,7 @@
 
 set(
 	kshutdown_SRC
+	config.cpp
 	kshutdown.cpp
 	main.cpp
 	mainwindow.cpp

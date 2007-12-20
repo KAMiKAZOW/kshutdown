@@ -26,16 +26,12 @@
 	#include <QDebug>
 	#include <QMessageBox>
 	#include <QPushButton>
-	#include <QSettings>
 
 	#undef KS_NATIVE_KDE
 
 	#define U_ACTION QAction
 	#define U_APP qApp
 	#define U_COMBO_BOX QComboBox
-	#define U_CONFIG QSettings
-	//!!!singleton factory
-	#define U_CONFIG_USER new QSettings()
 	#define U_CONFIRM(parent, title, text) \
 		(QMessageBox::question( \
 			(parent), \
@@ -72,8 +68,6 @@
 	// common includes
 	#include <KAction>
 	#include <KApplication>
-	#include <KConfig>
-	#include <KConfigGroup>
 	#include <KDebug>
 	#include <KLocale>
 	#include <KMessageBox>
@@ -86,8 +80,6 @@
 	#define U_ACTION KAction
 	#define U_APP kapp
 	#define U_COMBO_BOX KComboBox
-	#define U_CONFIG KConfig
-	#define U_CONFIG_USER KGlobal::config().data()
 	#define U_CONFIRM(parent, title, text) \
 		(KMessageBox::questionYesNo( \
 			(parent), \

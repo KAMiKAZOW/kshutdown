@@ -16,6 +16,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "pureqt.h"
+
 #include <QCheckBox>
 #include <QCloseEvent>
 #include <QGroupBox>
@@ -36,7 +38,6 @@
 
 #include "mainwindow.h"
 #include "preferences.h"
-#include "pureqt.h"
 #include "theme.h"
 
 MainWindow *MainWindow::m_instance = 0;
@@ -389,7 +390,7 @@ bool MainWindow::isArg(const QString &name) {
 }
 
 void MainWindow::pluginConfig(const bool read) {
-	U_CONFIG *config = U_CONFIG_USER;
+	Config *config = Config::user();
 	QString group;
 
 	foreach (Action *i, m_actionHash) {
@@ -414,18 +415,11 @@ void MainWindow::readConfig() {
 
 	pluginConfig(true); // read
 
-	U_CONFIG *config = U_CONFIG_USER;
-
-#ifdef KS_NATIVE_KDE
-	KConfigGroup g = config->group("General");
-	setSelectedAction(g.readEntry("Selected Action", "shutdown"));
-	setSelectedTrigger(g.readEntry("Selected Trigger", "time-from-now"));
-#else
+	Config *config = Config::user();
 	config->beginGroup("General");
-	setSelectedAction(config->value("Selected Action", "shutdown").toString());
-	setSelectedTrigger(config->value("Selected Trigger", "time-from-now").toString());
+	setSelectedAction(config->read("Selected Action", "shutdown").toString());
+	setSelectedTrigger(config->read("Selected Trigger", "time-from-now").toString());
 	config->endGroup();
-#endif // KS_NATIVE_KDE
 }
 
 int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
@@ -500,19 +494,11 @@ void MainWindow::writeConfig() {
 
 	pluginConfig(false); // write
 
-	U_CONFIG *config = U_CONFIG_USER;
-
-#ifdef KS_NATIVE_KDE
-	KConfigGroup g = config->group("General");
-	g.writeEntry("Selected Action", getSelectedAction()->id());
-	g.writeEntry("Selected Trigger", getSelectedTrigger()->id());
-#else
+	Config *config = Config::user();
 	config->beginGroup("General");
-	config->setValue("Selected Action", getSelectedAction()->id());
-	config->setValue("Selected Trigger", getSelectedTrigger()->id());
+	config->write("Selected Action", getSelectedAction()->id());
+	config->write("Selected Trigger", getSelectedTrigger()->id());
 	config->endGroup();
-#endif // KS_NATIVE_KDE
-
 	config->sync();
 }
 
