@@ -20,6 +20,7 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
+#include "config.h"
 #include "preferences.h"
 
 // public
@@ -58,33 +59,24 @@ Preferences::~Preferences() {
 
 void Preferences::apply() {
 	setConfirmAction(m_confirmAction->isChecked());
+
+	Config::user()->sync();
 }
 
 bool Preferences::confirmAction() {
-	U_CONFIG *config = U_CONFIG_USER;
-#ifdef KS_NATIVE_KDE
-	KConfigGroup g = config->group("General");
-
-	return g.readEntry("Confirm Action", true);
-#else
+	Config *config = Config::user();
 	config->beginGroup("General");
-	bool result = config->value("Confirm Action", true).toBool();
+	bool result = config->read("Confirm Action", true).toBool();
 	config->endGroup();
 
 	return result;
-#endif // KS_NATIVE_KDE
 }
 
 void Preferences::setConfirmAction(const bool value) {
-	U_CONFIG *config = U_CONFIG_USER;
-#ifdef KS_NATIVE_KDE
-	KConfigGroup g = config->group("General");
-	g.writeEntry("Confirm Action", value);
-#else
+	Config *config = Config::user();
 	config->beginGroup("General");
-	config->setValue("Confirm Action", value);
+	config->write("Confirm Action", value);
 	config->endGroup();
-#endif // KS_NATIVE_KDE
 }
 
 // private

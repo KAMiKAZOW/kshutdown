@@ -16,6 +16,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "pureqt.h"
+
 #include <QDateTimeEdit>
 #include <QProcess>
 #ifdef Q_WS_WIN
@@ -32,7 +34,6 @@
 #include "kshutdown.h"
 #include "mainwindow.h"
 #include "preferences.h"
-#include "pureqt.h"
 
 using namespace KShutdown;
 
@@ -58,7 +59,7 @@ QWidget *Base::getWidget() {
 	return 0;
 }
 
-void Base::readConfig(const QString &group, U_CONFIG *config) {
+void Base::readConfig(const QString &group, Config *config) {
 	Q_UNUSED(group)
 	Q_UNUSED(config)
 }
@@ -67,7 +68,7 @@ void Base::setState(const State state) {
 	Q_UNUSED(state)
 }
 
-void Base::writeConfig(const QString &group, U_CONFIG *config) {
+void Base::writeConfig(const QString &group, Config *config) {
 	Q_UNUSED(group)
 	Q_UNUSED(config)
 }
@@ -236,29 +237,19 @@ QWidget *DateTimeTriggerBase::getWidget() {
 	return m_edit;
 }
 
-void DateTimeTriggerBase::readConfig(const QString &group, U_CONFIG *config) {
-#ifdef KS_NATIVE_KDE
-	KConfigGroup g = config->group(group);
-	m_dateTime = g.readEntry("Date Time", m_dateTime);
-#else
+void DateTimeTriggerBase::readConfig(const QString &group, Config *config) {
 	config->beginGroup(group);
-	m_dateTime = config->value("Date Time", m_dateTime).toDateTime();
+	m_dateTime = config->read("Date Time", m_dateTime).toDateTime();
 	config->endGroup();
-#endif // KS_NATIVE_KDE
 }
 
-void DateTimeTriggerBase::writeConfig(const QString &group, U_CONFIG *config) {
+void DateTimeTriggerBase::writeConfig(const QString &group, Config *config) {
 	if (!m_edit)
 		return;
 
-#ifdef KS_NATIVE_KDE
-	KConfigGroup g = config->group(group);
-	g.writeEntry("Date Time", m_edit->dateTime());
-#else
 	config->beginGroup(group);
-	config->setValue("Date Time", m_edit->dateTime());
+	config->write("Date Time", m_edit->dateTime());
 	config->endGroup();
-#endif // KS_NATIVE_KDE
 }
 
 // private slots
