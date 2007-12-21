@@ -77,6 +77,7 @@ class U_EXPORT Action: public U_ACTION, public Base {
 public:
 	Action(const QString &text, const QString &iconName, const QString &id);
 	void activate(const bool force);
+	bool isCommandLineArgSupported(const QString &name);
 	virtual bool onAction() = 0;
 	inline bool shouldStopTimer() const {
 		return m_shouldStopTimer;
@@ -96,11 +97,13 @@ public:
 protected:
 	bool m_force;
 	static bool m_totalExit;
+	void addCommandLineArg(const QString &shortArg, const QString &longArg);
 	void disable(const QString &reason);
 	bool launch(const QString &program, const QStringList &args);
 private:
 	bool m_shouldStopTimer;
 	bool m_showInMenu;
+	QStringList m_commandLineArgs;
 private slots:
 	void slotFire();
 };

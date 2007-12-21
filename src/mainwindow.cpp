@@ -183,6 +183,23 @@ MainWindow::MainWindow() :
 
 	setTitle(QString::null);
 	updateWidgets();
+
+	// check command line arguments
+	Action *actionToActivate = 0;
+	foreach (QString arg, m_args) {
+		foreach (Action *action, m_actionHash) {
+			if (action->isCommandLineArgSupported(arg)) {
+				actionToActivate = action;
+
+				break; // foreach
+			}
+		}
+
+		if (actionToActivate)
+			break; // foreach
+	}
+	if (actionToActivate)
+		actionToActivate->activate(false); //!!!force
 }
 
 void MainWindow::addAction(Action *action) {
