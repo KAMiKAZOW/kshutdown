@@ -596,9 +596,8 @@ void MainWindow::onPreferences() {
 	U_DEBUG << "MainWindow::onPreferences()" U_END;
 
 	Preferences *p = new Preferences(this);
-	if (p->exec() == U_DIALOG::Accepted) {
-		//!!!
-	}
+// TODO: ok/cancel panel
+	p->exec();
 	p->apply();
 	delete p;
 }
