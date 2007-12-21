@@ -254,7 +254,9 @@ void MainWindow::initActions() {
 	addAction(new SuspendAction());
 	addAction(LockAction::self());
 	addAction(new LogoutAction());
+#ifdef KS_NATIVE_KDE
 	addAction(Extras::self());
+#endif // KS_NATIVE_KDE
 }
 
 // TODO: customizable action/trigger presets
