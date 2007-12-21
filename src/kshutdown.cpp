@@ -528,12 +528,13 @@ bool StandardAction::onAction() {
 
 			return false;
 		}
-
+/*
 		if (::GetLastError() == ERROR_NOT_ALL_ASSIGNED) {
-			m_error = "ERROR_NOT_ALL_ASSIGNED";//!!!
+			m_error = "ERROR_NOT_ALL_ASSIGNED";
 
 			return false;
 		}
+*/
 	}
 	else {
 		setLastError();

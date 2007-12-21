@@ -50,7 +50,8 @@ Preferences::Preferences(QWidget *parent) :
 	connect(closeButton, SIGNAL(clicked()), SLOT(accept()));
 
 	mainLayout->addWidget(tabs);
-	mainLayout->addWidget(closeButton);//!!!
+// TODO: ok/cancel panel
+	mainLayout->addWidget(closeButton);
 }
 
 Preferences::~Preferences() {
