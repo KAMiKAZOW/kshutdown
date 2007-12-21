@@ -103,7 +103,8 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	Base(id),
 	m_force(false),
 	m_shouldStopTimer(true),
-	m_showInMenu(true) {
+	m_showInMenu(true),
+	m_commandLineArgs(QStringList()) {
 	m_originalText = text;
 	setIcon(U_STOCK_ICON(iconName));
 	setText(text);
@@ -115,7 +116,21 @@ void Action::activate(const bool force) {
 	U_ACTION::activate(Trigger);
 }
 
+bool Action::isCommandLineArgSupported(const QString &name) {
+	return m_commandLineArgs.contains(name);
+}
+
 // protected
+
+void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) {
+	if (!shortArg.isEmpty()) {
+		m_commandLineArgs.append("-" + shortArg);
+	}
+	if (!longArg.isEmpty()) {
+		m_commandLineArgs.append("-" + longArg);//!!!KDE!
+		m_commandLineArgs.append("--" + longArg);
+	}
+}
 
 void Action::disable(const QString &reason) {
 	setEnabled(false);
@@ -417,6 +432,8 @@ HibernateAction::HibernateAction() :
 	m_methodName = "Hibernate";
 	if (!isAvailable("power_management.can_suspend_to_disk"))
 		disable(i18n("Cannot suspend to disk"));
+
+	addCommandLineArg(QString::null, "hibernate");
 }
 
 // SuspendAction
@@ -428,6 +445,8 @@ SuspendAction::SuspendAction() :
 	m_methodName = "Suspend";
 	if (!isAvailable("power_management.can_suspend_to_ram"))
 		disable(i18n("Cannot suspend to RAM"));
+
+	addCommandLineArg(QString::null, "suspend");
 }
 
 // LockAction
@@ -437,6 +456,8 @@ SuspendAction::SuspendAction() :
 LockAction::LockAction() :
 	Action(i18n("Lock Screen"), "system-lock-screen", "lock") {
 	setShouldStopTimer(false);
+
+	addCommandLineArg("k", "lock");
 }
 
 bool LockAction::onAction() {
@@ -586,6 +607,8 @@ bool StandardAction::onAction() {
 LogoutAction::LogoutAction() :
 // FIXME: "system-log-out" icon?
 	StandardAction(i18n("Logout"), "edit-undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
+
+	addCommandLineArg("l", "logout");
 }
 
 // RebootAction
@@ -594,6 +617,8 @@ LogoutAction::LogoutAction() :
 
 RebootAction::RebootAction() :
 	StandardAction(i18n("Restart Computer"), "view-refresh", "reboot", U_SHUTDOWN_TYPE_REBOOT) {
+
+	addCommandLineArg("r", "reboot");
 }
 
 // ShutDownAction
@@ -607,4 +632,7 @@ ShutDownAction::ShutDownAction() :
 	setEnabled();
 #endif // Q_WS_WIN
 */
+
+	addCommandLineArg("h", "halt");
+	addCommandLineArg("s", "shutdown");
 }

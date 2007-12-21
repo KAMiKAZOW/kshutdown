@@ -33,7 +33,7 @@ Extras *Extras::m_instance = 0;
 
 QWidget *Extras::getWidget() {
 	if (!m_menuButton) {
-		m_menuButton = new U_PUSH_BUTTON();
+		m_menuButton = new U_PUSH_BUTTON("UNDER CONSTRUCTION !!!");
 		m_menuButton->setMenu(menu());
 	}
 
@@ -52,6 +52,8 @@ Extras::Extras() :
 	m_menuButton(0) {
 	//setShowInMenu(false);
 	setMenu(createMenu());
+
+	addCommandLineArg("e", "extra");//!!!arg value
 }
 
 U_MENU *Extras::createMenu() {
