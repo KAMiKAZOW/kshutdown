@@ -24,6 +24,7 @@
 	#include <QAction>
 	#include <QApplication>
 	#include <QDebug>
+	#include <QMenuBar>
 	#include <QMessageBox>
 	#include <QPushButton>
 
@@ -70,6 +71,8 @@
 	#include <KApplication>
 	#include <KDebug>
 	#include <KLocale>
+	#include <KMenu>
+	#include <KMenuBar>
 	#include <KMessageBox>
 	#include <KPushButton>
 	#include <kdemacros.h> // for KDE_EXPORT

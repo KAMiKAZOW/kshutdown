@@ -26,13 +26,10 @@
 
 #ifdef KS_PURE_QT
 	#include <QComboBox>
-	#include <QMenuBar>
 
 	#include "version.h" // for about()
 #else
 	#include <KComboBox>
-	#include <KMenu>
-	#include <KMenuBar>
 	#include <KStandardAction>
 #endif // KS_PURE_QT
 

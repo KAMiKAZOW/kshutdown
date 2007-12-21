@@ -22,6 +22,15 @@ Extras *Extras::m_instance = 0;
 
 // public
 
+QWidget *Extras::getWidget() {
+	if (!m_menuButton) {
+		m_menuButton = new U_PUSH_BUTTON();
+		m_menuButton->setMenu(createMenu());
+	}
+
+	return m_menuButton;
+}
+
 bool Extras::onAction() {
 	//!!!
 	return false;
@@ -30,6 +39,11 @@ bool Extras::onAction() {
 // private
 
 Extras::Extras() :
-	Action(i18n("Extras..."), "rating", "extras") {
+	Action(i18n("Extras..."), "rating", "extras"),
+	m_menuButton(0) {
 	setShowInMenu(false);
+}
+
+U_MENU *Extras::createMenu() {
+	return new U_MENU("!!!");//!!!
 }

@@ -24,6 +24,7 @@
 
 class Extras: public KShutdown::Action {
 public:
+	virtual QWidget *getWidget();
 	virtual bool onAction();
 	inline static Extras *self() {
 		if (!m_instance)
@@ -33,7 +34,9 @@ public:
 	}
 private:
 	static Extras *m_instance;
+	U_PUSH_BUTTON *m_menuButton;
 	Extras();
+	U_MENU *createMenu();
 };
 
 #endif // __EXTRAS_H__
