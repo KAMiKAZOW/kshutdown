@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Comment=System
-Comment[pl]=Systemowe
-Icon=about_kde
+Name=System
+Name[pl]=Systemowe
+Icon=process-stop

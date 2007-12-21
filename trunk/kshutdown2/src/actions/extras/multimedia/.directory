@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Comment=Multimedia
-Comment[pl]=Multimedia
-Comment[el]=Πολυμέσα
-Icon=player_stop
+Name=Multimedia
+Name[pl]=Multimedia
+Name[el]=Πολυμέσα
+Icon=media-playback-stop
