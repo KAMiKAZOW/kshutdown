@@ -151,8 +151,10 @@ void Action::slotFire() {
 ConfirmAction::ConfirmAction(Action *action) :
 	U_ACTION(0),
 	m_impl(action) {
+// TODO: find a better way to clone action
 	setEnabled(action->isEnabled());
 	setIcon(action->icon());
+	setMenu(action->menu());
 	setText(action->text());
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }

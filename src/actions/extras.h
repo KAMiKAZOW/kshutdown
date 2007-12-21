@@ -20,6 +20,8 @@
 #ifndef __EXTRAS_H__
 #define __EXTRAS_H__
 
+#include <QFileInfo>
+
 #include "../kshutdown.h"
 
 class Extras: public KShutdown::Action {
@@ -37,6 +39,8 @@ private:
 	U_PUSH_BUTTON *m_menuButton;
 	Extras();
 	U_MENU *createMenu();
+	void createMenu(U_MENU *parentMenu, const QString &parentDir);
+	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text);
 };
 
 #endif // __EXTRAS_H__
