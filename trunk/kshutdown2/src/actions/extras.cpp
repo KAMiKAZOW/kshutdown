@@ -56,7 +56,7 @@ Extras::Extras() :
 
 U_MENU *Extras::createMenu() {
 #ifdef KS_NATIVE_KDE
-	U_MENU *menu = new U_MENU(i18n("Select a command..."));
+	U_MENU *menu = new U_MENU();
 
 	QStringList dirs(KGlobal::dirs()->findDirs("data", "kshutdown/extras"));
 	foreach (QString i, dirs) {
