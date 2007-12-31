@@ -428,7 +428,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 // public
 
 HibernateAction::HibernateAction() :
-	PowerAction(i18n("Hibernate Computer"), "system-hibernate", "hibernate") {
+	PowerAction(i18n("Hibernate Computer"), "system-suspend-hibernate", "hibernate") {
 	m_methodName = "Hibernate";
 	if (!isAvailable("power_management.can_suspend_to_disk"))
 		disable(i18n("Cannot suspend to disk"));
@@ -605,8 +605,7 @@ bool StandardAction::onAction() {
 // public
 
 LogoutAction::LogoutAction() :
-// FIXME: "system-log-out" icon?
-	StandardAction(i18n("Logout"), "edit-undo", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
+	StandardAction(i18n("Logout"), "system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
 
 	addCommandLineArg("l", "logout");
 }
@@ -616,7 +615,7 @@ LogoutAction::LogoutAction() :
 // public
 
 RebootAction::RebootAction() :
-	StandardAction(i18n("Restart Computer"), "view-refresh", "reboot", U_SHUTDOWN_TYPE_REBOOT) {
+	StandardAction(i18n("Restart Computer"), "system-restart", "reboot", U_SHUTDOWN_TYPE_REBOOT) {
 
 	addCommandLineArg("r", "reboot");
 }
