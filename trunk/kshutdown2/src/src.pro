@@ -4,6 +4,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 DEFINES += KS_PURE_QT
+include(portable.pri)
 QT += xml
 
 unix {
