@@ -84,6 +84,10 @@ Config::Config() {
 #ifdef KS_NATIVE_KDE
 	m_engine = KGlobal::config().data();
 #else
-	m_engine = new QSettings();
+	#ifdef KS_PORTABLE
+		m_engine = new QSettings(QApplication::applicationDirPath() + "\\kshutdown.ini", QSettings::IniFormat);
+	#else
+		m_engine = new QSettings();
+	#endif // KS_PORTABLE
 #endif // KS_NATIVE_KDE
 }

@@ -530,11 +530,15 @@ void MainWindow::writeConfig() {
 
 #ifdef KS_PURE_QT
 void MainWindow::onAbout() {
+	QString version = KS_VERSION;
+#ifdef KS_PORTABLE
+	version += " (portable)";
+#endif // KS_PORTABLE
 	QMessageBox::about(
 		this,
 		i18n("About"),
 		"<qt>" \
-		"<h1>KShutdown " KS_VERSION "</h1>" \
+		"<h1>KShutdown " + version + "</h1>" \
 		KS_COPYRIGHT "<br>" \
 		"<br>" \
 		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
