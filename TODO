@@ -1,67 +1,82 @@
 
+KShutDown 1.0.x
+
+* Settings: Local and global shortcuts
+* Settings: Notifications
+* Settings: Link creator
+* Help: Handbook
+* Help: "What's this?" context help
+* Show warning before action (configurable time)
+* Progress bar
+* Action configuration
+  (method, custom command, command before action, pause before action)
+* Lock screen after login
+* Close CD-ROM before logout
+* Related KDE settings (kcontrol)
+* Trigger: When selected application exit
+* Port language translations from KShutdown 1.0.x
+
 Compilation Fixes
-- Make sure all singnal.h, stdlib.h (systemconfig.cpp), sys/types.h (appobserver.h) are included
-  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301
+
+* Make sure all singnal.h, stdlib.h (systemconfig.cpp),
+  sys/types.h (appobserver.h) are included
+  (http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301)
 
 Extras
-- Rewrite
-- Recent items
-- "Beep Warning"
-- Mute and quit kdetv/tvtime
-- Application observer: http://ariya.blogspot.com/2006/03/resize-pop-up-list-of-combo-box_15.html
-- Support for more media players (Xine, MPlayer, KMPlayer, MythTV, KRec, RealPlayer, etc.)
+
+* Recent items
+* "Beep Warning"
+* Mute and quit tvtime
+* Support for more media players
+  (Xine, MPlayer, KMPlayer, MythTV, KRec, RealPlayer, etc.)
+
+Application observer
+
+* Fix combo box width
+  (http://ariya.blogspot.com/2006/03/resize-pop-up-list-of-combo-box_15.html)
+
 
 Improved "Restart Computer"
-- http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
+
+* http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
 
 Misc.
-- Port language translations from KShutdown 1.0.x
-- Windows port: https://sourceforge.net/tracker/?func=detail&atid=605273&aid=1738603&group_id=93707
-- Suspend to RAM, Suspend to disk
-- Optionally mute sound (master mixer) before lock screen
-- Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
-- Command line support, execute shell command
-- Notifications
-- Global/local shortcuts
-- Port and re-add missing features
-- Credits
-- Warn before action
-- DCOP/DBUS
-- Confirmation dialog (and option to disable it)
-- Plasmoid
-- KDE Kiosk
-- Include in KDE 4
-- "K" menu integration
-- http://sourceforge.net/forum/forum.php?thread_id=1073402&forum_id=324058
-- http://sourceforge.net/forum/forum.php?thread_id=1366875&forum_id=324058
-- http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
-- Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
-- Support for GNOME/GDM
-- Grayed-out background [by zero]
-- Console mode [by DigitalCyanide]
-- Custom messages
-- Rewrite link creator
-- Rewrite progress bar
-- Add test button for "Close CD"
-- Remember last settings page
-- KDM configurator, auto configuration
-- Optionally force application exit
-- Save KDE session if possible
-- Remote reboot or shutdown (via SSH)
-- "Shutdown every day on the same time"
-- Option to hide main window
-- Detect unsaved documents (is there any KDE API to do this?)
-- "Switch User" menu functionality
+
+* Optionally mute sound (master mixer) before lock screen
+* Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
+* Command line support, execute shell command
+* DBUS
+* Plasmoid
+* KDE Kiosk
+* Include in KDE 4
+* "K" menu integration
+* http://sourceforge.net/forum/forum.php?thread_id=1073402&forum_id=324058
+* http://sourceforge.net/forum/forum.php?thread_id=1366875&forum_id=324058
+* http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
+* Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
+* Support for GNOME/GDM
+* Grayed-out background [by zero]
+* Switch to console mode (tty) [by DigitalCyanide]
+* Add test button for "Close CD"
+* Remember last settings page
+* KDM configurator, auto configuration
+* Optionally force application exit
+* Save KDE session if possible
+* Remote reboot or shutdown (via SSH)
+* "Shutdown every day on the same time"
+* Option to hide main window
+* Detect unsaved documents (is there any KDE API to do this?)
+* "Switch User" menu functionality
 
 System Tray
-- Rewrite
-- Check if tray icon isn't too small
-- Mouse button configuration
-- Menu side image
+
+* Mouse button configuration
 
 Triggers
-- Activate action when the CPU usage goes under a certain level [by aaron-koensgen]
-- Activate action when selected window disapear
+
+* Activate action when the CPU usage goes under a certain level [by aaron-koensgen]
+* Activate action when selected window disapear
 
 Usability
-- http://sourceforge.net/forum/forum.php?thread_id=1639947&forum_id=324058
+
+* http://sourceforge.net/forum/forum.php?thread_id=1639947&forum_id=324058
