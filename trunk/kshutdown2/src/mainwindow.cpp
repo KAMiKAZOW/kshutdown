@@ -289,7 +289,7 @@ void MainWindow::initMenuBar() {
 #ifdef KS_NATIVE_KDE
 	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
 #else
-// FIXME: Qt: warning title
+// FIXME: Qt: warning menu title
 #endif // KS_NATIVE_KDE
 	Action *a;
 	QString id;
