@@ -18,6 +18,7 @@
 
 #include "pureqt.h"
 
+// TODO: no KDateTimeEdit?
 #include <QDateTimeEdit>
 #include <QProcess>
 #ifdef Q_WS_WIN
@@ -280,7 +281,7 @@ void DateTimeTriggerBase::syncDateTime() {
 // public
 
 DateTimeTrigger::DateTimeTrigger() :
-	DateTimeTriggerBase(i18n("At Date/Time"), "calendar-today", "date-time") {
+	DateTimeTriggerBase(i18n("At Date/Time"), "view-pim-calendar", "date-time") {
 }
 
 QWidget *DateTimeTrigger::getWidget() {
@@ -317,7 +318,7 @@ bool NoDelayTrigger::canActivateAction() {
 // public
 
 TimeFromNowTrigger::TimeFromNowTrigger() :
-	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "alarmclock", "time-from-now") {
+	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "view-calendar-time-spent", "time-from-now") {
 }
 
 QWidget *TimeFromNowTrigger::getWidget() {
