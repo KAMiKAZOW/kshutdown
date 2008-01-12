@@ -318,7 +318,7 @@ bool NoDelayTrigger::canActivateAction() {
 // public
 
 TimeFromNowTrigger::TimeFromNowTrigger() :
-	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "view-calendar-time-spent", "time-from-now") {
+	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "chronometer", "time-from-now") {
 }
 
 QWidget *TimeFromNowTrigger::getWidget() {
