@@ -96,11 +96,20 @@ void MainWindow::setActive(const bool yes) {
 	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
 
 	if (m_active) {
+#ifdef Q_WS_WIN
+		// HACK: disable "Lock Screen" action if countdown is active
+		if (action != LockAction::self())
+			m_confirmLockAction->setEnabled(false);
+#endif // Q_WS_WIN
 		m_triggerTimer->start(trigger->checkTimeout());
 		action->setState(Base::START);
 		trigger->setState(Base::START);
 	}
 	else {
+#ifdef Q_WS_WIN
+		if (action != LockAction::self())
+			m_confirmLockAction->setEnabled(true);
+#endif // Q_WS_WIN
 		m_triggerTimer->stop();
 		action->setState(Base::STOP);
 		trigger->setState(Base::STOP);
@@ -300,7 +309,11 @@ void MainWindow::initMenuBar() {
 		if (!a->showInMenu())
 			continue; // for
 
-		fileMenu->addAction(new ConfirmAction(a));
+		ConfirmAction *ca = new ConfirmAction(a);
+		if (a == LockAction::self())
+			m_confirmLockAction = ca;
+
+		fileMenu->addAction(ca);
 		if ((id == "reboot") || (id == "suspend"))
 			fileMenu->addSeparator();
 	}
