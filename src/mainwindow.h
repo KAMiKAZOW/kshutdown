@@ -64,6 +64,7 @@ private:
 	bool m_forceQuit;
 	bool m_showActiveWarning;
 	bool m_showMinimizeInfo;
+	ConfirmAction *m_confirmLockAction;
 	static MainWindow *m_instance;
 	QCheckBox *m_force;
 	QGroupBox *m_actionBox;
