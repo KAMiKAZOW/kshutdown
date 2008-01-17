@@ -22,7 +22,8 @@ Section "Install"
 	SetOutPath "$INSTDIR"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 
-	WriteRegStr HKCU "Software\kshutdown.sf.net" "" $INSTDIR	
+	WriteRegStr HKCU "Software\kshutdown.sf.net" "" $INSTDIR
+	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\kshutdown.exe" "" "$INSTDIR\kshutdown.exe"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayIcon" "$INSTDIR\kshutdown.ico"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayName" "KShutdown"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "UninstallString" '"$INSTDIR\uninstall.exe"'
@@ -56,6 +57,7 @@ Section "Uninstall"
 	RMDir "$INSTDIR"
 
 	DeleteRegKey HKCU "Software\kshutdown.sf.net"
+	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\kshutdown.exe"
 	DeleteRegKey HKLM "${APP_UNINSTALL_REG}"
 
 	SetShellVarContext all
