@@ -605,7 +605,16 @@ bool StandardAction::onAction() {
 
 		return false;
 	#else
-		return false;//!!!
+		QStringList args;
+		args << "--kill";
+		args << "--silent";
+		if (launch("gnome-session-save", args))
+			return true;
+
+		m_error = i18n("Unsupported action: %1")
+			.arg(originalText());
+
+		return false;
 	#endif // KS_NATIVE_KDE
 #endif // Q_WS_WIN
 }
