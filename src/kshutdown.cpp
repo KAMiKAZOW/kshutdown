@@ -155,8 +155,10 @@ void Action::slotFire() {
 	m_error = QString::null;
 	if (!onAction()) {
 		m_totalExit = false;
-		QString text = m_error.isEmpty() ? i18n("Unknown error") : m_error;
-		U_ERROR_MESSAGE(0, m_error);
+		if (!m_error.isNull()) {
+			QString text = m_error.isEmpty() ? i18n("Unknown error") : m_error;
+			U_ERROR_MESSAGE(0, text);
+		}
 	}
 }
 
@@ -473,28 +475,35 @@ bool LockAction::onAction() {
 
 	return true;
 #else
-	// 1. try DBus
+	// try DBus
 	QDBusInterface i("org.freedesktop.ScreenSaver", "/ScreenSaver");
 	i.call("Lock");
 	QDBusError error = i.lastError();
-	if (error.type() != QDBusError::NoError) {
-		// 2. try "xdg-screensaver" command
-		QStringList args;
-		args << "lock";
-		if (!launch("xdg-screensaver", args)) {
-			// 3. try "xscreensaver-command" command
-			args.clear();
-			args << "-lock";
-			if (!launch("xscreensaver-command", args)) {
-				// do not set "m_error" because it may block auto shutdown
-				U_ERROR << "Could not lock the screen" U_END;
+	if (error.type() == QDBusError::NoError)
+		return true;
 
-				return false;
-			}
-		}
-	}
+	// try "xdg-screensaver" command
+	QStringList args;
+	args << "lock";
+	if (launch("xdg-screensaver", args))
+		return true;
+		
+	// try "gnome-screensaver-command" command
+	args.clear();
+	args << "--lock";
+	if (launch("gnome-screensaver-command", args))
+		return true;
 
-	return true;
+	// try "xscreensaver-command" command
+	args.clear();
+	args << "-lock";
+	if (launch("xscreensaver-command", args))
+		return true;
+
+	// do not set "m_error" because it may block auto shutdown
+	U_ERROR << "Could not lock the screen" U_END;
+	
+	return false;
 #endif // Q_WS_WIN
 }
 
