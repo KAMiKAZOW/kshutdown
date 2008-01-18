@@ -1,0 +1,26 @@
+[Desktop Entry]
+Version=1.0
+# Encoding=UTF-8
+
+Name=KShutdown
+
+Comment=An advanced shut down utility
+#Comment[cs]=Vypínací utilita pro KDE
+#Comment[de]=Erweitertes Herunterfahren für KDE
+#Comment[el]=Ένα εργαλείο τερματισμού για το KDE
+#Comment[fr]=Utilitaire de gestion d'arrêt pour KDE
+#Comment[it]=Una utilit�KDE per lo spegnimento del sistema
+Comment[pl]=Zaawansowane narzędzie do zamykania systemu
+
+# visible in the menu instead of "KShutdown"
+GenericName=System Shut Down Utility
+#GenericName[cs]=Časované vypnutí
+#GenericName[fr]=Gestionnaire d'arrêt du système
+GenericName[pl]=Narzędzie do zamykania systemu
+
+Exec=kshutdown
+Icon=kshutdown
+Type=Application
+
+# http://standards.freedesktop.org/menu-spec/latest/apa.html
+Categories=Utility
