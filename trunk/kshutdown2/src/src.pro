@@ -16,8 +16,8 @@ win32 {
 }
 
 # Input
-HEADERS += config.h kshutdown.h mainwindow.h preferences.h pureqt.h theme.h version.h actions/extras.h
-SOURCES += config.cpp kshutdown.cpp main.cpp mainwindow.cpp preferences.cpp theme.cpp actions/extras.cpp
+HEADERS += config.h kshutdown.h mainwindow.h preferences.h pureqt.h theme.h utils.h version.h actions/extras.h
+SOURCES += config.cpp kshutdown.cpp main.cpp mainwindow.cpp preferences.cpp theme.cpp utils.cpp actions/extras.cpp
 RESOURCES = kshutdown.qrc
 
 # TODO: make install

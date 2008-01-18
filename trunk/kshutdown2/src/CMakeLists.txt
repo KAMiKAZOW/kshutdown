@@ -10,6 +10,7 @@ set(
 	mainwindow.cpp
 	preferences.cpp
 	theme.cpp
+	utils.cpp
 )
 
 set(
