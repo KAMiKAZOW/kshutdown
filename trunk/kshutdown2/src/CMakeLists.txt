@@ -30,6 +30,7 @@ install(
 	PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
 	DESTINATION bin
 )
+install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 add_subdirectory(actions)
 add_subdirectory(images)
