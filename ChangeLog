@@ -1,6 +1,52 @@
-// svn log -r 166:HEAD|tac|xsel -i -b
+// svn log -r 239:HEAD|tac|xsel -i -b
 
 2008/01/20  2.0 Alpha 4
+
+* Fixed date/time icons
+* Updated Oxygen Icon Theme
+* Extras: Removed deprecated "Encoding" keys;
+  added "Version" key (BUG #1849625); additionaly removed unused keys
+* Fixed: Do not show main window on session restore
+* Fixed: Always show main window if system tray is not available
+* NEW: Added option to disable action confirmation message
+* NEW: Added "Preferences" dialog (menu -> Settings)
+* Added icons with small and large sizes
+* NEW KShutdown icon
+* Fixed: Do not quit application if window is hidden in the system tray
+* Added "init" command line option (like in KShutdown 1.x)
+* Fixed: Wait for screensaver before hibernate/suspend
+* Added *unofficial* support for Themes
+* Show reason if action is not available
+* Fixed "empty" error messages
+* NEW: Added initial support for command line options (not documented yet)
+* Show warning message for the "force" option
+
+KDE 4:
+
+* Fixed compilation errors
+* Fixed: Install KShutdown icons and menu shortcut
+
+GNOME:
+
+* Fixed "Logout" command
+* Fixed "Lock Screen" command
+
+Windows:
+
+* NEW: Portable version for Windows
+* Added "kshutdown.exe" to the "apppath"
+  so you can run it via Start -> Run...
+* Do not create desktop shortcut
+* Autostart is now enabled by default after installation
+* Fixed icons
+* Fixed: Disable "Lock Screen" action if countdown is active
+
+Source:
+
+* NEW: Re-added "Extras" actions (disabled in this version)
+* Updated TODO file
+* Fixed "Setup" scripts
+* NEW: Added new icon formats (Windows Icon and SVG)
 
 
 2007/11/25  2.0 Alpha 3
