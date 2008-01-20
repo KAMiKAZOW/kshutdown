@@ -119,13 +119,24 @@ void Action::activate(const bool force) {
 	U_ACTION::activate(Trigger);
 }
 
-bool Action::isCommandLineArgSupported(const QString &name) {
-	return m_commandLineArgs.contains(name);
+bool Action::isCommandLineArgSupported() {
+	foreach (QString i, m_commandLineArgs) {
+		if (MainWindow::isArg(i))
+			return true;
+	}
+	
+	return false;
 }
 
 // protected
 
 void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) {
+#ifdef KS_NATIVE_KDE
+	if (!shortArg.isEmpty())
+		m_commandLineArgs.append(shortArg);
+	if (!longArg.isEmpty())
+		m_commandLineArgs.append(longArg);
+#else
 	if (!shortArg.isEmpty()) {
 		m_commandLineArgs.append("-" + shortArg);
 	}
@@ -133,6 +144,7 @@ void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) 
 		m_commandLineArgs.append("-" + longArg);
 		m_commandLineArgs.append("--" + longArg);
 	}
+#endif // KS_NATIVE_KDE
 }
 
 void Action::disable(const QString &reason) {

@@ -33,6 +33,7 @@ int main(int argc, char **argv) {
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
+	MainWindow::init();
 	MainWindow::self()->maybeShow();
 
 	return a.exec();
@@ -52,6 +53,30 @@ int main(int argc, char **argv) {
 	);
 
 	KCmdLineArgs::init(argc, argv, &about);
+	
+	// add custom command line options
+	//!!!
+	KCmdLineOptions options;
+	options.add("h");
+	options.add("halt", ki18n("Turn Off Computer"));
+	options.add("s");
+	options.add("shutdown", ki18n("Turn Off Computer"));
+	options.add("k");
+	options.add("lock", ki18n("Lock screen"));
+	options.add("r");
+	options.add("reboot", ki18n("Restart Computer"));
+	options.add("l");
+	options.add("logout", ki18n("Logout"));
+	options.add("hibernate", ki18n("Hibernate Computer"));
+	options.add("suspend", ki18n("Suspend Computer"));
+
+	options.add("e");
+	options.add("extra <file>", ki18n("Extras"));
+	options.add("init", ki18n("Do not show main window on startup"));
+	options.add("theme <file>", ki18n("Theme"));
+	
+	KCmdLineArgs::addCmdLineOptions(options);
+
 	KUniqueApplication::addCmdLineOptions();
 
 	if (!KUniqueApplication::start()) {
@@ -61,6 +86,7 @@ int main(int argc, char **argv) {
 	}
 
 	KUniqueApplication a;
+	MainWindow::init();
 	MainWindow::self()->maybeShow();
 
 	return a.exec();

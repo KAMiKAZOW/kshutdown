@@ -32,6 +32,7 @@
 #else
 	#include <KMainWindow>
 	#include <KSystemTrayIcon>
+	class KCmdLineArgs;
 	class KComboBox;
 #endif // KS_PURE_QT
 
@@ -49,6 +50,9 @@ class MainWindow: public U_MAIN_WINDOW {
 public:
 	virtual ~MainWindow();
 	QWidget *getElementById(const QString &id);
+	static QString getOption(const QString &name);
+	static void init();
+	static bool isArg(const QString &name);
 	inline static MainWindow *self() {
 		if (!m_instance)
 			m_instance = new MainWindow();
@@ -65,6 +69,11 @@ private:
 	bool m_showActiveWarning;
 	bool m_showMinimizeInfo;
 	ConfirmAction *m_confirmLockAction;
+#ifdef KS_NATIVE_KDE
+	static KCmdLineArgs *m_args;
+#else
+	static QStringList m_args;
+#endif // KS_NATIVE_KDE
 	static MainWindow *m_instance;
 	QCheckBox *m_force;
 	QGroupBox *m_actionBox;
@@ -72,7 +81,6 @@ private:
 	QHash<QString, Action*> m_actionHash;
 	QHash<QString, Trigger*> m_triggerHash;
 	QMap<QString, QWidget*> *m_elements;
-	QStringList m_args;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
@@ -84,7 +92,6 @@ private:
 	MainWindow();
 	void addAction(Action *action);
 	void addTrigger(Trigger *trigger);
-	QString getArg(const QString &name);
 	Action *getSelectedAction() const;
 	void setSelectedAction(const QString &id);
 	Trigger *getSelectedTrigger() const;
@@ -95,7 +102,6 @@ private:
 	void initSystemTray();
 	void initTriggers();
 	void initWidgets();
-	bool isArg(const QString &name);
 	void pluginConfig(const bool read);
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
