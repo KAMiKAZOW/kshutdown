@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 # !!!
 
 echo "SORRY, UNDER CONSTRUCTION!"
-#exit 1
+exit 1
 
-cd "src"
+pushd "src"
 qmake-qt4
 make clean
 make
-cd ..
+popd
