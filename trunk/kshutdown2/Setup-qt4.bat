@@ -21,6 +21,6 @@ cd ..
 
 "C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
 if not %errorlevel% == 0 goto quit
-kshutdown-2.0alpha4-win32.exe
+kshutdown-2.0alpha5-win32.exe
 
 :quit
