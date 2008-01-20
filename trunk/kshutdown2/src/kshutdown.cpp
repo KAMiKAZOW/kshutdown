@@ -147,6 +147,13 @@ bool Action::launch(const QString &program, const QStringList &args) {
 	return (exitCode != 255);//!!!
 }
 
+bool Action::unsupportedAction() {
+	m_error = i18n("Unsupported action: %1")
+		.arg(originalText());
+
+	return false;
+}
+
 // private slots
 
 void Action::slotFire() {
@@ -611,10 +618,7 @@ bool StandardAction::onAction() {
 		if (launch("gnome-session-save", args))
 			return true;
 
-		m_error = i18n("Unsupported action: %1")
-			.arg(originalText());
-
-		return false;
+		return unsupportedAction();
 	#endif // KS_NATIVE_KDE
 #endif // Q_WS_WIN
 }

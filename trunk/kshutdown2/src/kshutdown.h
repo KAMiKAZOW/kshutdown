@@ -100,6 +100,7 @@ protected:
 	void addCommandLineArg(const QString &shortArg, const QString &longArg);
 	void disable(const QString &reason);
 	bool launch(const QString &program, const QStringList &args);
+	bool unsupportedAction();
 private:
 	bool m_shouldStopTimer;
 	bool m_showInMenu;
