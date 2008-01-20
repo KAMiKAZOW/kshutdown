@@ -130,7 +130,7 @@ void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) 
 		m_commandLineArgs.append("-" + shortArg);
 	}
 	if (!longArg.isEmpty()) {
-		m_commandLineArgs.append("-" + longArg);//!!!KDE!
+		m_commandLineArgs.append("-" + longArg);
 		m_commandLineArgs.append("--" + longArg);
 	}
 }
@@ -189,6 +189,7 @@ ConfirmAction::ConfirmAction(Action *action) :
 // private
 
 void ConfirmAction::slotFire() {
+// FIXME: remove MainWindow deps.
 	if (m_impl->shouldStopTimer())
 		MainWindow::self()->setActive(false);
 
