@@ -37,8 +37,7 @@ QWidget *Extras::getWidget() {
 		m_menuButton->setMenu(menu());
 	}
 
-	return 0;
-	//return m_menuButton;
+	return m_menuButton;
 }
 
 bool Extras::onAction() {
