@@ -77,7 +77,7 @@ class U_EXPORT Action: public U_ACTION, public Base {
 public:
 	Action(const QString &text, const QString &iconName, const QString &id);
 	void activate(const bool force);
-	bool isCommandLineArgSupported(const QString &name);
+	bool isCommandLineArgSupported();
 	virtual bool onAction() = 0;
 	inline bool shouldStopTimer() const {
 		return m_shouldStopTimer;

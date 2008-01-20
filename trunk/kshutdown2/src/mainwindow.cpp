@@ -29,6 +29,7 @@
 
 	#include "version.h" // for about()
 #else
+	#include <KCmdLineArgs>
 	#include <KComboBox>
 	#include <KStandardAction>
 #endif // KS_PURE_QT
@@ -38,12 +39,21 @@
 #include "preferences.h"
 #include "theme.h"
 
+#ifdef KS_NATIVE_KDE
+	KCmdLineArgs *MainWindow::m_args = 0;
+#else
+	QStringList MainWindow::m_args = 0;
+#endif // KS_NATIVE_KDE
 MainWindow *MainWindow::m_instance = 0;
 
 // public
 
 MainWindow::~MainWindow() {
 	U_DEBUG << "MainWindow::~MainWindow()" U_END;
+#ifdef KS_NATIVE_KDE
+	if (m_args)
+		m_args->clear();
+#endif // KS_NATIVE_KDE
 }
 
 QWidget *MainWindow::getElementById(const QString &id) {
@@ -68,6 +78,50 @@ QWidget *MainWindow::getElementById(const QString &id) {
 	}
 
 	return m_elements->value(id);
+}
+
+QString MainWindow::getOption(const QString &name) {
+#ifdef KS_NATIVE_KDE
+	return m_args->getOption(name.toAscii());
+#else
+	int i = m_args.indexOf("-" + name, 1);
+	if (i == -1) {
+		i = m_args.indexOf("--" + name, 1);
+		if (i == -1) {
+			U_DEBUG << "Argument not found: " << name U_END;
+
+			return QString::null;
+		}
+	}
+
+	int argIndex = (i + 1);
+
+	if (argIndex < m_args.size()) {
+		U_DEBUG << "Value of " << name << " is " << m_args[argIndex] U_END;
+
+		return m_args[argIndex];
+	}
+
+	U_DEBUG << "Argument value is not set: " << name U_END;
+
+	return QString::null;
+#endif // KS_NATIVE_KDE
+}
+
+void MainWindow::init() {
+#ifdef KS_NATIVE_KDE
+	m_args = KCmdLineArgs::parsedArgs();
+#else
+	m_args = U_APP->arguments();
+#endif // KS_NATIVE_KDE
+}
+
+bool MainWindow::isArg(const QString &name) {
+#ifdef KS_NATIVE_KDE
+	return m_args->isSet(name.toAscii());
+#else
+	return (m_args.contains("-" + name) || m_args.contains("--" + name));
+#endif // KS_NATIVE_KDE
 }
 
 void MainWindow::maybeShow() {
@@ -156,7 +210,6 @@ MainWindow::MainWindow() :
 	m_actionHash(QHash<QString, Action*>()),
 	m_triggerHash(QHash<QString, Trigger*>()),
 	m_elements(0),
-	m_args(U_APP->arguments()),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
 	m_currentTriggerWidget(0),
@@ -186,8 +239,8 @@ MainWindow::MainWindow() :
 	readConfig();
 
 	// load theme
-	QString theme = getArg("theme");
-	if (!theme.isNull())
+	QString theme = getOption("theme");
+	if (!theme.isEmpty())
 		m_theme->load(this, theme);
 
 	setTitle(QString::null);
@@ -195,17 +248,12 @@ MainWindow::MainWindow() :
 
 	// check command line arguments
 	Action *actionToActivate = 0;
-	foreach (QString arg, m_args) {
-		foreach (Action *action, m_actionHash) {
-			if (action->isCommandLineArgSupported(arg)) {
-				actionToActivate = action;
+	foreach (Action *action, m_actionHash) {
+		if (action->isCommandLineArgSupported()) {
+			actionToActivate = action;
 
-				break; // foreach
-			}
-		}
-
-		if (actionToActivate)
 			break; // foreach
+		}
 	}
 	if (actionToActivate)
 		actionToActivate->activate(false); //!!!force
@@ -225,30 +273,6 @@ void MainWindow::addTrigger(Trigger *trigger) {
 
 	int index = m_triggers->count() - 1;
 	U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]" U_END;
-}
-
-QString MainWindow::getArg(const QString &name) {
-	int i = m_args.indexOf("-" + name, 1);
-	if (i == -1) {
-		i = m_args.indexOf("--" + name, 1);
-		if (i == -1) {
-			U_DEBUG << "Argument not found: " << name U_END;
-
-			return QString::null;
-		}
-	}
-
-	int argIndex = (i + 1);
-
-	if (argIndex < m_args.size()) {
-		U_DEBUG << "Value of " << name << " is " << m_args[argIndex] U_END;
-
-		return m_args[argIndex];
-	}
-
-	U_DEBUG << "Argument value is not set: " << name U_END;
-
-	return QString::null;
 }
 
 Action *MainWindow::getSelectedAction() const {
@@ -420,10 +444,6 @@ void MainWindow::initWidgets() {
 	mainLayout->addStretch();
 	mainLayout->addWidget(m_okCancelButton);
 	setCentralWidget(mainWidget);
-}
-
-bool MainWindow::isArg(const QString &name) {
-	return (m_args.contains("-" + name) || m_args.contains("--" + name));
 }
 
 void MainWindow::pluginConfig(const bool read) {
