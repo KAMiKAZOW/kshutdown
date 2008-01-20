@@ -42,7 +42,7 @@
 #ifdef KS_NATIVE_KDE
 	KCmdLineArgs *MainWindow::m_args = 0;
 #else
-	QStringList MainWindow::m_args = 0;
+	QStringList MainWindow::m_args;
 #endif // KS_NATIVE_KDE
 MainWindow *MainWindow::m_instance = 0;
 

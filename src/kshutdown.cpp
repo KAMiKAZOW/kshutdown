@@ -131,20 +131,10 @@ bool Action::isCommandLineArgSupported() {
 // protected
 
 void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) {
-#ifdef KS_NATIVE_KDE
 	if (!shortArg.isEmpty())
 		m_commandLineArgs.append(shortArg);
 	if (!longArg.isEmpty())
 		m_commandLineArgs.append(longArg);
-#else
-	if (!shortArg.isEmpty()) {
-		m_commandLineArgs.append("-" + shortArg);
-	}
-	if (!longArg.isEmpty()) {
-		m_commandLineArgs.append("-" + longArg);
-		m_commandLineArgs.append("--" + longArg);
-	}
-#endif // KS_NATIVE_KDE
 }
 
 void Action::disable(const QString &reason) {
