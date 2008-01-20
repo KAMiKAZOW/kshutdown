@@ -35,13 +35,14 @@ Application observer
 * Fix combo box width
   (http://ariya.blogspot.com/2006/03/resize-pop-up-list-of-combo-box_15.html)
 
-
 Improved "Restart Computer"
 
 * http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
 
 Misc.
 
+* Optionally (--delay <seconds>) show warning message before action,
+  and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
 * Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
 * Command line support, execute shell command
