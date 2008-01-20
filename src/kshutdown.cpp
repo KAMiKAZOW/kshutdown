@@ -30,6 +30,8 @@
 	#include <QDBusReply>
 
 	#include <unistd.h> // for sleep
+	
+	#include "utils.h"
 #endif // Q_WS_WIN
 
 #include "kshutdown.h"
@@ -144,7 +146,7 @@ bool Action::launch(const QString &program, const QStringList &args) {
 	int exitCode = QProcess::execute(program, args);
 	U_DEBUG << "Exit code: " << exitCode U_END;
 
-	return (exitCode != 255);//!!!
+	return (exitCode != 255);
 }
 
 bool Action::unsupportedAction() {
@@ -496,11 +498,13 @@ bool LockAction::onAction() {
 		return true;
 		
 	// try "gnome-screensaver-command" command
-	args.clear();
-	args << "--lock";
-	if (launch("gnome-screensaver-command", args))
-		return true;
-
+	if (Utils::isGNOME()) {
+		args.clear();
+		args << "--lock";
+		if (launch("gnome-screensaver-command", args))
+			return true;
+	}
+	
 	// try "xscreensaver-command" command
 	args.clear();
 	args << "-lock";
@@ -612,12 +616,14 @@ bool StandardAction::onAction() {
 
 		return false;
 	#else
-		QStringList args;
-		args << "--kill";
-		args << "--silent";
-		if (launch("gnome-session-save", args))
-			return true;
-
+		if (Utils::isGNOME()) {
+			QStringList args;
+			args << "--kill";
+			args << "--silent";
+			if (launch("gnome-session-save", args))
+				return true;
+		}
+	
 		return unsupportedAction();
 	#endif // KS_NATIVE_KDE
 #endif // Q_WS_WIN
