@@ -13,9 +13,11 @@ BUILD_DIR="build.tmp"
 rm -fR "$BUILD_DIR"
 mkdir "$BUILD_DIR"
 
+BUILD_TYPE=Release
+
 pushd "$BUILD_DIR"
 
-cmake -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
+cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
 make
 "$PREFIX/lib/kde4/libexec/kdesu" -t -c "make install"
 
