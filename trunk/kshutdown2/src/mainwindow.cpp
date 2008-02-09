@@ -491,16 +491,13 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 void MainWindow::setTitle(const QString &title) {
 #ifdef KS_NATIVE_KDE
 	setCaption(title);
-	m_systemTray->setToolTip(title);
 #else
-	QString newTitle;
 	if (title.isEmpty())
-		newTitle = "KShutdown";
+		setWindowTitle("KShutdown");
 	else
-		newTitle = (title + " - KShutdown");
-	setWindowTitle(newTitle);
-	m_systemTray->setToolTip(newTitle);
+		setWindowTitle(title + " - KShutdown");
 #endif // KS_NATIVE_KDE
+	m_systemTray->setToolTip(windowTitle());
 }
 
 void MainWindow::updateWidgets() {
