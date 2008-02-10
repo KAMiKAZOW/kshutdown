@@ -14,7 +14,7 @@ KS_VERSION=`cat tools/VERSION`
 
 KS_DIR="kshutdown-$KS_VERSION"
 KS_DIST_DIR="dist.tmp"
-KS_ZIP="kshutdown-src-$KS_VERSION.zip"
+KS_ZIP="kshutdown-source-$KS_VERSION.zip"
 
 # clean before copy
 
