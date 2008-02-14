@@ -8,6 +8,7 @@ qmake -config release
 call make clean
 call make
 if not %errorlevel% == 0 goto quit
+mkdir ..\kshutdown-portable
 copy release\kshutdown.exe ..\kshutdown-portable
 del portable.pri
 
