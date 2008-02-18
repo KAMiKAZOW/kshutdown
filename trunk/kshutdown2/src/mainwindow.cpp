@@ -619,8 +619,11 @@ void MainWindow::onCheckTrigger() {
 		QString triggerStatus = trigger->status();
 		QString title = triggerStatus;
 		if (!actionStatus.isEmpty()) {
-			if (!title.isEmpty())
+			if (!title.isEmpty()) {
+// FIXME: i18n
+				title = (i18n("Remaining time:") + " " + title);
 				title += " - ";
+			}
 			title += actionStatus;
 		}
 		setTitle(title);
