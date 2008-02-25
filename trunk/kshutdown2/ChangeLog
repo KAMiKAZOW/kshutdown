@@ -1,6 +1,17 @@
-// svn log -r 239:HEAD|tac|xsel -i -b
+// svn log -r 255:HEAD|tac|xsel -i -b
 
-2008/02/!!!  2.0 Alpha 5
+2008/02/25  2.0 Alpha 5
+
+* Fixed system tray tool tip text
+* Fixed Setup-win32.bat build script
+* Fixed source package (kshutdown-source-*.zip file)
+* Fixed command line support
+
+Setup-kde4.sh:
+
+* Added option to specify installation directory (prefix).
+  Example: ./Setup-kde4.sh /usr/local
+* Fixed: Added "kworkspace" detection
 
 
 2008/01/20  2.0 Alpha 4
