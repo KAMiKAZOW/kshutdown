@@ -79,14 +79,17 @@ int main(int argc, char **argv) {
 
 	KUniqueApplication::addCmdLineOptions();
 
-	if (!KUniqueApplication::start()) {
+	bool isRunning = !KUniqueApplication::start();
+	KUniqueApplication a;
+	
+	MainWindow::init();
+	if (isRunning) {
+		MainWindow::checkCommandLine();
 		U_DEBUG << "KShutdown is already running" U_END;
 // FIXME: show and raise main window
 		return 0;
 	}
-
-	KUniqueApplication a;
-	MainWindow::init();
+	
 	MainWindow::self()->maybeShow();
 
 	return a.exec();

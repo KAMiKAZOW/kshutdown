@@ -45,6 +45,8 @@
 	QStringList MainWindow::m_args;
 #endif // KS_NATIVE_KDE
 MainWindow *MainWindow::m_instance = 0;
+QHash<QString, Action*> MainWindow::m_actionHash;
+QHash<QString, Trigger*> MainWindow::m_triggerHash;
 
 // public
 
@@ -54,6 +56,24 @@ MainWindow::~MainWindow() {
 	if (m_args)
 		m_args->clear();
 #endif // KS_NATIVE_KDE
+}
+
+bool MainWindow::checkCommandLine() {
+	Action *actionToActivate = 0;
+	foreach (Action *action, m_actionHash) {
+		if (action->isCommandLineArgSupported()) {
+			actionToActivate = action;
+
+			break; // foreach
+		}
+	}
+	if (actionToActivate) {
+		actionToActivate->activate(false); //!!!force
+		
+		return true;
+	}
+	
+	return false;
 }
 
 QWidget *MainWindow::getElementById(const QString &id) {
@@ -114,6 +134,24 @@ void MainWindow::init() {
 #else
 	m_args = U_APP->arguments();
 #endif // KS_NATIVE_KDE
+
+	U_DEBUG << "MainWindow::init(): Actions" U_END;
+	m_actionHash = QHash<QString, Action*>();
+	addAction(new ShutDownAction());
+	addAction(new RebootAction());
+	addAction(new HibernateAction());
+	addAction(new SuspendAction());
+	addAction(LockAction::self());
+	addAction(new LogoutAction());
+#ifdef KS_NATIVE_KDE
+	addAction(Extras::self());
+#endif // KS_NATIVE_KDE
+
+	U_DEBUG << "MainWindow::init(): Triggers" U_END;
+	m_triggerHash = QHash<QString, Trigger*>();
+	addTrigger(new NoDelayTrigger());
+	addTrigger(new TimeFromNowTrigger());
+	addTrigger(new DateTimeTrigger());
 }
 
 bool MainWindow::isArg(const QString &name) {
@@ -207,8 +245,6 @@ MainWindow::MainWindow() :
 	m_forceQuit(false),
 	m_showActiveWarning(true),
 	m_showMinimizeInfo(true),
-	m_actionHash(QHash<QString, Action*>()),
-	m_triggerHash(QHash<QString, Trigger*>()),
 	m_elements(0),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
@@ -230,8 +266,22 @@ MainWindow::MainWindow() :
 	// NOTE: do not change the "init" order,
 	// or your computer will explode
 	initWidgets();
-	initActions();
-	initTriggers();
+	
+	// init actions
+	foreach (Action *action, m_actionHash) {
+		m_actions->addItem(action->icon(), action->text(), action->id());
+		int index = m_actions->count() - 1;
+		U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << action->id() << ", index=" << index << " ]" U_END;
+	}
+	
+	// init triggers
+	foreach (Trigger *trigger, m_triggerHash) {
+		m_triggers->addItem(trigger->icon(), trigger->text(), trigger->id());
+		int index = m_triggers->count() - 1;
+		U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]" U_END;	
+	}
+	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
+	
 	initPlugins();
 	initSystemTray();
 	initMenuBar();
@@ -245,34 +295,16 @@ MainWindow::MainWindow() :
 
 	setTitle(QString::null);
 	updateWidgets();
-
-	// check command line arguments
-	Action *actionToActivate = 0;
-	foreach (Action *action, m_actionHash) {
-		if (action->isCommandLineArgSupported()) {
-			actionToActivate = action;
-
-			break; // foreach
-		}
-	}
-	if (actionToActivate)
-		actionToActivate->activate(false); //!!!force
+	
+	checkCommandLine();
 }
 
 void MainWindow::addAction(Action *action) {
-	m_actions->addItem(action->icon(), action->text(), action->id());
 	m_actionHash[action->id()] = action;
-
-	int index = m_actions->count() - 1;
-	U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << action->id() << ", index=" << index << " ]" U_END;
 }
 
 void MainWindow::addTrigger(Trigger *trigger) {
-	m_triggers->addItem(trigger->icon(), trigger->text(), trigger->id());
 	m_triggerHash[trigger->id()] = trigger;
-
-	int index = m_triggers->count() - 1;
-	U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]" U_END;
 }
 
 Action *MainWindow::getSelectedAction() const {
@@ -293,20 +325,6 @@ void MainWindow::setSelectedTrigger(const QString &id) {
 	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
 
 	onTriggerActivated(selectById(m_triggers, id));
-}
-
-void MainWindow::initActions() {
-	U_DEBUG << "MainWindow::initActions()" U_END;
-
-	addAction(new ShutDownAction());
-	addAction(new RebootAction());
-	addAction(new HibernateAction());
-	addAction(new SuspendAction());
-	addAction(LockAction::self());
-	addAction(new LogoutAction());
-#ifdef KS_NATIVE_KDE
-	addAction(Extras::self());
-#endif // KS_NATIVE_KDE
 }
 
 // TODO: customizable action/trigger presets
@@ -389,16 +407,6 @@ void MainWindow::initSystemTray() {
 #ifdef KS_PURE_QT
 	connect(m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(onRestore(QSystemTrayIcon::ActivationReason)));
 #endif // KS_PURE_QT
-}
-
-void MainWindow::initTriggers() {
-	U_DEBUG << "MainWindow::initTriggers()" U_END;
-
-	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
-
-	addTrigger(new NoDelayTrigger());
-	addTrigger(new TimeFromNowTrigger());
-	addTrigger(new DateTimeTrigger());
 }
 
 void MainWindow::initWidgets() {
