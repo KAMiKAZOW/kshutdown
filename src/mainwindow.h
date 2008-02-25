@@ -49,6 +49,7 @@ class MainWindow: public U_MAIN_WINDOW {
 	Q_OBJECT
 public:
 	virtual ~MainWindow();
+	static bool checkCommandLine();
 	QWidget *getElementById(const QString &id);
 	static QString getOption(const QString &name);
 	static void init();
@@ -78,8 +79,8 @@ private:
 	QCheckBox *m_force;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;
-	QHash<QString, Action*> m_actionHash;
-	QHash<QString, Trigger*> m_triggerHash;
+	static QHash<QString, Action*> m_actionHash;
+	static QHash<QString, Trigger*> m_triggerHash;
 	QMap<QString, QWidget*> *m_elements;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
@@ -90,13 +91,12 @@ private:
 	U_PUSH_BUTTON *m_okCancelButton;
 	U_SYSTEM_TRAY *m_systemTray;
 	MainWindow();
-	void addAction(Action *action);
-	void addTrigger(Trigger *trigger);
+	static void addAction(Action *action);
+	static void addTrigger(Trigger *trigger);
 	Action *getSelectedAction() const;
 	void setSelectedAction(const QString &id);
 	Trigger *getSelectedTrigger() const;
 	void setSelectedTrigger(const QString &id);
-	void initActions();
 	void initMenuBar();
 	void initPlugins();
 	void initSystemTray();
