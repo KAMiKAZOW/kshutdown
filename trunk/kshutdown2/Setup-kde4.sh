@@ -5,7 +5,7 @@
 echo "TIP: Run \"$0 /your/prefix/dir\" to specify custom installation directory"
 
 PREFIX="$1"
-BUILD_TYPE=Release
+BUILD_TYPE="$2"
 
 if [ -z "$PREFIX" ]; then
 	KDE4_CONFIG=$(which kde4-config)
@@ -18,6 +18,10 @@ if [ -z "$PREFIX" ]; then
 			PREFIX=/usr/local
 		fi
 	fi
+fi
+
+if [ -z "$BUILD_TYPE" ]; then
+	BUILD_TYPE=Release
 fi
 
 set -e
