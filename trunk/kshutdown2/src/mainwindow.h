@@ -81,6 +81,8 @@ private:
 	QGroupBox *m_triggerBox;
 	static QHash<QString, Action*> m_actionHash;
 	static QHash<QString, Trigger*> m_triggerHash;
+	static QList<Action*> m_actionList;
+	static QList<Trigger*> m_triggerList;
 	QMap<QString, QWidget*> *m_elements;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;

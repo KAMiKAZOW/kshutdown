@@ -47,6 +47,8 @@
 MainWindow *MainWindow::m_instance = 0;
 QHash<QString, Action*> MainWindow::m_actionHash;
 QHash<QString, Trigger*> MainWindow::m_triggerHash;
+QList<Action*> MainWindow::m_actionList;
+QList<Trigger*> MainWindow::m_triggerList;
 
 // public
 
@@ -60,7 +62,7 @@ MainWindow::~MainWindow() {
 
 bool MainWindow::checkCommandLine() {
 	Action *actionToActivate = 0;
-	foreach (Action *action, m_actionHash) {
+	foreach (Action *action, m_actionList) {
 		if (action->isCommandLineArgSupported()) {
 			actionToActivate = action;
 
@@ -137,6 +139,7 @@ void MainWindow::init() {
 
 	U_DEBUG << "MainWindow::init(): Actions" U_END;
 	m_actionHash = QHash<QString, Action*>();
+	m_actionList = QList<Action*>();
 	addAction(new ShutDownAction());
 	addAction(new RebootAction());
 	addAction(new HibernateAction());
@@ -149,6 +152,7 @@ void MainWindow::init() {
 
 	U_DEBUG << "MainWindow::init(): Triggers" U_END;
 	m_triggerHash = QHash<QString, Trigger*>();
+	m_triggerList = QList<Trigger*>();
 	addTrigger(new NoDelayTrigger());
 	addTrigger(new TimeFromNowTrigger());
 	addTrigger(new DateTimeTrigger());
@@ -268,14 +272,14 @@ MainWindow::MainWindow() :
 	initWidgets();
 	
 	// init actions
-	foreach (Action *action, m_actionHash) {
+	foreach (Action *action, m_actionList) {
 		m_actions->addItem(action->icon(), action->text(), action->id());
 		int index = m_actions->count() - 1;
 		U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << action->id() << ", index=" << index << " ]" U_END;
 	}
 	
 	// init triggers
-	foreach (Trigger *trigger, m_triggerHash) {
+	foreach (Trigger *trigger, m_triggerList) {
 		m_triggers->addItem(trigger->icon(), trigger->text(), trigger->id());
 		int index = m_triggers->count() - 1;
 		U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]" U_END;	
@@ -301,10 +305,12 @@ MainWindow::MainWindow() :
 
 void MainWindow::addAction(Action *action) {
 	m_actionHash[action->id()] = action;
+	m_actionList.append(action);
 }
 
 void MainWindow::addTrigger(Trigger *trigger) {
 	m_triggerHash[trigger->id()] = trigger;
+	m_triggerList.append(trigger);
 }
 
 Action *MainWindow::getSelectedAction() const {
@@ -458,7 +464,7 @@ void MainWindow::pluginConfig(const bool read) {
 	Config *config = Config::user();
 	QString group;
 
-	foreach (Action *i, m_actionHash) {
+	foreach (Action *i, m_actionList) {
 		group = "KShutdown Action " + i->id();
 		if (read)
 			i->readConfig(group, config);
@@ -466,7 +472,7 @@ void MainWindow::pluginConfig(const bool read) {
 			i->writeConfig(group, config);
 	}
 
-	foreach (Trigger *i, m_triggerHash) {
+	foreach (Trigger *i, m_triggerList) {
 		group = "KShutdown Trigger " + i->id();
 		if (read)
 			i->readConfig(group, config);
