@@ -24,7 +24,10 @@
 
 #include "../kshutdown.h"
 
+class CommandAction;
+
 class Extras: public KShutdown::Action {
+	friend class CommandAction;
 public:
 	virtual QWidget *getWidget();
 	virtual bool onAction();
@@ -36,11 +39,23 @@ public:
 	}
 private:
 	static Extras *m_instance;
+	QString m_command;
 	U_PUSH_BUTTON *m_menuButton;
 	Extras();
 	U_MENU *createMenu();
 	void createMenu(U_MENU *parentMenu, const QString &parentDir);
 	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text);
+	void setCommandAction(const CommandAction *command);
+};
+
+class CommandAction: private U_ACTION {
+	Q_OBJECT
+	friend class Extras;
+private:
+	QString m_command;
+	CommandAction(const U_ICON &icon, const QString &text, QObject *parent, const QString &command);
+private slots:
+	void slotFire();
 };
 
 #endif // __EXTRAS_H__

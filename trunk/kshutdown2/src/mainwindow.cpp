@@ -630,7 +630,14 @@ void MainWindow::onCheckTrigger() {
 	// update status
 	else {
 		QString actionStatus = action->originalText();
+		
+/* TODO: extras command name
+		if (!action->status().isEmpty())
+			actionStatus += (" - " + action->status());
+*/
+
 		QString triggerStatus = trigger->status();
+
 		QString title = triggerStatus;
 		if (!actionStatus.isEmpty()) {
 			if (!title.isEmpty()) {
