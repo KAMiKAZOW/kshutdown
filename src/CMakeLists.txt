@@ -15,6 +15,7 @@ set(
 
 set(
 	kshutdown_MOC_HEADERS
+	actions/extras.h
 	kshutdown.h
 	mainwindow.h
 	preferences.h
@@ -24,7 +25,7 @@ qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(kshutdown ${QT_LIBRARIES} kdeui kworkspace)
+target_link_libraries(kshutdown ${QT_LIBRARIES} kdeui kio kworkspace)
 
 install(
 	PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"

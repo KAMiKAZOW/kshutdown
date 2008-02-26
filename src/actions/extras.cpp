@@ -22,36 +22,57 @@
 	#include <QDir>
 
 	#include <KDesktopFile>
+	#include <KRun>
 	#include <KStandardDirs>
+	
+	#include "../mainwindow.h"
 #endif // KS_NATIVE_KDE
 
 #include "extras.h"
 
 Extras *Extras::m_instance = 0;
 
+// Extras
+
 // public
 
-QWidget *Extras::getWidget() {
-	if (!m_menuButton) {
-		m_menuButton = new U_PUSH_BUTTON("UNDER CONSTRUCTION !!!");
-		m_menuButton->setMenu(menu());
-	}
-
-	return m_menuButton;
-}
+QWidget *Extras::getWidget() { return m_menuButton; }
 
 bool Extras::onAction() {
-	//!!!
+#ifdef KS_NATIVE_KDE
+//!!!command line
+	KDesktopFile desktopFile(m_command);
+	QString desktopExec = desktopFile.desktopGroup().readEntry("Exec", "");
+	
+	if (desktopExec.isEmpty()) {
+		m_error = i18n("Invalid \"Extras\" command");
+	
+		return false;
+	}
+	
+// FIXME: error detection
+	if (KRun::run(desktopExec, KUrl::List(), MainWindow::self()))
+		return true;
+	
+	m_error = i18n("Cannot execute \"Extras\" command");
+	
 	return false;
+#else
+	return false;
+#endif // KS_NATIVE_KDE
 }
 
 // private
 
 Extras::Extras() :
-	Action(i18n("Extras..."), "rating", "extras"),
-	m_menuButton(0) {
-	//setShowInMenu(false);
+	Action(i18n("Extras..."), "rating", "extras") {
+	
 	setMenu(createMenu());
+	//setShowInMenu(false);
+	m_menuButton = new U_PUSH_BUTTON();
+	m_menuButton->setMenu(menu());
+	
+	setCommandAction(0);
 
 	addCommandLineArg("e", "extra");//!!!arg value
 }
@@ -101,14 +122,16 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			createMenu(dirMenu, i.filePath()); // recursive scan
 			parentMenu->addMenu(dirMenu);
 		}
-		else if (i.isFile() && KDesktopFile::isDesktopFile(i.filePath())) {
+		else if (i.isFile() && KDesktopFile::isDesktopFile(i.filePath())) {//!!!allow any executables
 			QString text = i.baseName();
 			U_ICON icon = readDesktopInfo(i, text);
-			U_ACTION *action = new U_ACTION(icon, text, this);
-			action->setData(i.filePath()); // user data = file to execute
+			CommandAction *action = new CommandAction(icon, text, this, i.filePath());
 			parentMenu->addAction(action);
 		}
 	}
+#else
+	Q_UNUSED(parentMenu)
+	Q_UNUSED(parentDir)
 #endif // KS_NATIVE_KDE
 }
 
@@ -132,6 +155,44 @@ U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text) {
 
 	return U_STOCK_ICON(desktopFile.readIcon());
 #else
+	Q_UNUSED(fileInfo)
+	Q_UNUSED(text)
+
 	return U_ICON(); // return dummy icon
 #endif // KS_NATIVE_KDE
+}
+
+void Extras::setCommandAction(const CommandAction *command) {
+	if (command) {
+		m_command = command->m_command;
+		
+		U_DEBUG << "Extras::setCommandAction: " << m_command U_END;
+		m_menuButton->setIcon(U_ICON(command->icon()));
+		m_menuButton->setText(command->text());
+		//m_status = (originalText() + " - " + command->text());
+	}
+	else {
+		m_command = QString::null;
+	
+		U_DEBUG << "Extras::setCommandAction: NULL" U_END;
+		m_menuButton->setIcon(U_STOCK_ICON("arrow-down"));
+		m_menuButton->setText(i18n("Select a command..."));
+		//m_status = QString::null;
+	}
+}
+
+// CommandAction
+
+// private
+
+CommandAction::CommandAction(const U_ICON &icon, const QString &text, QObject *parent, const QString &command) :
+	U_ACTION(icon, text, parent),
+	m_command(command) {
+	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
+}
+
+// private slots
+
+void CommandAction::slotFire() {
+	Extras::self()->setCommandAction(this);
 }
