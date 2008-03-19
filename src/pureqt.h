@@ -1,5 +1,5 @@
 //
-// plainqt.h - Compile for Qt only or for KDE
+// pureqt.h - Compile for Qt only or for KDE
 // Copyright (C) 2007  Konrad Twardowski
 //
 // This program is free software; you can redistribute it and/or modify
