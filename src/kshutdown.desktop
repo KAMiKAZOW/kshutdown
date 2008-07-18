@@ -23,4 +23,4 @@ Icon=kshutdown
 Type=Application
 
 # http://standards.freedesktop.org/menu-spec/latest/apa.html
-Categories=Utility
+Categories=Utility;
