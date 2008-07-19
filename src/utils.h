@@ -1,4 +1,3 @@
-//
 // utils.h - Misc. utilities
 // Copyright (C) 2008  Konrad Twardowski
 //

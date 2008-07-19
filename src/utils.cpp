@@ -1,4 +1,3 @@
-//
 // utils.cpp - Misc. utilities
 // Copyright (C) 2008  Konrad Twardowski
 //
