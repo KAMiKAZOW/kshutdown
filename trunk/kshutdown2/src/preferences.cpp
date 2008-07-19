@@ -1,4 +1,3 @@
-//
 // preferences.cpp - Preferences Dialog
 // Copyright (C) 2007  Konrad Twardowski
 //
@@ -17,6 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <QCheckBox>
+#include <QDialogButtonBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
 
@@ -41,17 +41,27 @@ Preferences::Preferences(QWidget *parent) :
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
 
-#ifdef KS_NATIVE_KDE
-	U_PUSH_BUTTON *closeButton = new U_PUSH_BUTTON();
-	closeButton->setGuiItem(KStandardGuiItem::close());
-#else
-	U_PUSH_BUTTON *closeButton = new U_PUSH_BUTTON(i18n("Close"));
-#endif // KS_NATIVE_KDE
-	connect(closeButton, SIGNAL(clicked()), SLOT(accept()));
-
 	mainLayout->addWidget(tabs);
-// TODO: ok/cancel panel
-	mainLayout->addWidget(closeButton);
+	
+	QDialogButtonBox *dialogButtonBox = new QDialogButtonBox(
+		QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+		Qt::Horizontal
+	);
+	connect(dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
+	connect(dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
+#ifdef KS_NATIVE_KDE
+	// setup OK button
+	QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
+	KGuiItem gui = KStandardGuiItem::ok();
+	okButton->setIcon(gui.icon());
+	okButton->setText(gui.text());
+	// setup Cancel button
+	QPushButton *cancelButton = dialogButtonBox->button(QDialogButtonBox::Cancel);
+	gui = KStandardGuiItem::cancel();
+	cancelButton->setIcon(gui.icon());
+	cancelButton->setText(gui.text());
+#endif // KS_NATIVE_KDE
+	mainLayout->addWidget(dialogButtonBox);
 }
 
 Preferences::~Preferences() {

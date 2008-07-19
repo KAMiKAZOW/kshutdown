@@ -1,4 +1,3 @@
-//
 // preferences.h - Preferences Dialog
 // Copyright (C) 2007  Konrad Twardowski
 //
