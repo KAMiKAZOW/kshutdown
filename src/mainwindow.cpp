@@ -387,7 +387,15 @@ void MainWindow::initMenuBar() {
 	// help menu
 
 #ifdef KS_NATIVE_KDE
-// FIXME: KDE: too many menu items
+	Config *config = Config::user();
+	config->beginGroup("KDE Action Restrictions");
+	// KDE version is in About dialog too
+	config->write("action/help_about_kde", false);
+	// no KShutdown Handbook yet
+	config->write("action/help_contents", false);
+	// mail bug report does not work (known bug)
+	config->write("action/help_report_bug", false);
+	config->endGroup();
 	menuBar->addMenu(helpMenu());
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"));
