@@ -2,7 +2,9 @@
 
 # TODO: uninstall: http://www.cmake.org/Wiki/CMake_FAQ
 
+echo
 echo "TIP: Run \"$0 /your/prefix/dir\" to specify custom installation directory"
+echo
 
 PREFIX="$1"
 BUILD_TYPE="$2"
@@ -10,8 +12,8 @@ BUILD_TYPE="$2"
 if [ -z "$PREFIX" ]; then
 	KDE4_CONFIG=$(which kde4-config)
 	if [ -z "$KDE4_CONFIG" ]; then
-		echo "WARNING: \"kde4-config\" not found; using default installation prefix"
 		PREFIX=/usr/local
+		echo "WARNING: \"kde4-config\" not found; using default installation prefix: $PREFIX"
 	else
 		PREFIX=`$KDE4_CONFIG --prefix`
 		if [ -z "$PREFIX" ]; then
@@ -37,6 +39,8 @@ echo "INFO: Build type         : $BUILD_TYPE"
 
 cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
 make
-"$PREFIX/lib/kde4/libexec/kdesu" -t -c "make install"
+echo
+echo "TIP: Run \"cd build.tmp; make install\" to install KShutdown (may require administrator privileges)"
+# FIXME: "$PREFIX/lib/kde4/libexec/kdesu" -t -c "make install"
 
 popd
