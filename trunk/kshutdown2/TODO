@@ -8,8 +8,7 @@ KShutDown 1.0.x
 * Help: "What's this?" context help
 * Show warning before action (configurable time)
 * Progress bar
-* Action configuration
-  (method, custom command, command before action, pause before action)
+* Action configuration (command before action, pause before action)
 * Lock screen after login
 * Close CD-ROM before logout
 * Related KDE settings (kcontrol)
@@ -68,10 +67,7 @@ Misc.
 * Option to hide main window
 * Detect unsaved documents (is there any KDE API to do this?)
 * "Switch User" menu functionality
-
-System Tray
-
-* Mouse button configuration
+* Help: Report Bug... (AFAIR this never worked in KDE :/)
 
 Triggers
 
