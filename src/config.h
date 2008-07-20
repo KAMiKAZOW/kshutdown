@@ -1,4 +1,3 @@
-//
 // config.h - Configuration
 // Copyright (C) 2007  Konrad Twardowski
 //
