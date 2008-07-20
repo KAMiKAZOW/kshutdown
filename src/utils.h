@@ -22,8 +22,9 @@ class Utils {
 public:
 	static bool isGDM();
 	static bool isGNOME();
-	static bool isKDE3();
-	static bool isKDE4();
+	static bool isKDEFullSession();
+	static bool isKDE_3();
+	static bool isKDE_4();
 	static bool isKDM();
 };
 

@@ -27,8 +27,16 @@
 #endif // KS_PURE_QT
 
 #include "mainwindow.h"
+#include "utils.h"
 
 int main(int argc, char **argv) {
+	qDebug("GDM = %d", Utils::isGDM());
+	qDebug("GNOME = %d", Utils::isGNOME());
+	qDebug("KDE Full Session = %d", Utils::isKDEFullSession());
+	qDebug("KDE 3 = %d", Utils::isKDE_3());
+	qDebug("KDE 4 = %d", Utils::isKDE_4());
+	qDebug("KDM = %d", Utils::isKDM());
+
 #ifdef KS_PURE_QT
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
