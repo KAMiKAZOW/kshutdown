@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: uninstall: http://www.cmake.org/Wiki/CMake_FAQ
-
 echo
 echo "TIP: Run \"$0 /your/prefix/dir\" to specify custom installation directory"
 echo
