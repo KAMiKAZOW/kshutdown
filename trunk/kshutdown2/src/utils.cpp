@@ -15,24 +15,44 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include <QByteArray>
+
+// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301
+#include <cstdlib>
+
 #include "utils.h"
 
+// public
+
 bool Utils::isGDM() {
-	return true;//!!!
+	return ::getenv("GDMSESSION");
 }
 
 bool Utils::isGNOME() {
-	return true;//!!!
+	return
+		::getenv("GNOME_DESKTOP_SESSION_ID") ||
+		(qstrcmp(::getenv("DESKTOP_SESSION"), "gnome") == 0);
 }
 
-bool Utils::isKDE3() {
-	return true;//!!!
+bool Utils::isKDEFullSession() {
+	return (qstrcmp(::getenv("KDE_FULL_SESSION"), "true") == 0);
 }
 
-bool Utils::isKDE4() {
-	return true;//!!!
+bool Utils::isKDE_3() {
+	return
+		isKDEFullSession() &&
+		(qstrcmp(::getenv("DESKTOP_SESSION"), "kde") == 0);
+}
+
+bool Utils::isKDE_4() {
+	return
+		isKDEFullSession() &&
+		(
+			(qstrcmp(::getenv("DESKTOP_SESSION"), "kde4") == 0) ||
+			(qstrcmp(::getenv("KDE_SESSION_VERSION"), "4") == 0)
+		);
 }
 
 bool Utils::isKDM() {
-	return true;//!!!
+	return ::getenv("XDM_MANAGED");
 }
