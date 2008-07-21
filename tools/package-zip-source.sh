@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -f "./tools/make-version.sh" ]; then
-	echo "Usage: $0"
+	echo "Usage: ./tools/`basename $0`"
 	exit 1
 fi
 
