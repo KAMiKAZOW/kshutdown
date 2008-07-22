@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+# Encoding: UTF-8
+Exec=killall mplayer
+Icon=media-playback-start
+Name=MPlayer (quit all)
+Name[pl]=MPlayer (zakończ wszystkie)
+Type=Application
