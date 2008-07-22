@@ -1,7 +1,6 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Name=Multimedia
-Name[pl]=Multimedia
-Name[el]=Πολυμέσα
+Name=Stop
+Name[pl]=Stop
 Icon=media-playback-stop

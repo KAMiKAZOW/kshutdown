@@ -116,7 +116,7 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 
 void Action::activate(const bool force) {
 	m_force = force;
-	U_ACTION::activate(Trigger);
+	U_ACTION::trigger();
 }
 
 bool Action::isCommandLineArgSupported() {

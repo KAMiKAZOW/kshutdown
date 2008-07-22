@@ -147,7 +147,7 @@ void MainWindow::init() {
 	addAction(LockAction::self());
 	addAction(new LogoutAction());
 #ifdef KS_NATIVE_KDE
-//!!!	addAction(Extras::self());
+	addAction(Extras::self());
 #endif // KS_NATIVE_KDE
 
 	U_DEBUG << "MainWindow::init(): Triggers" U_END;
