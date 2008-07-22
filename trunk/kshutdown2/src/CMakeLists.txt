@@ -35,3 +35,4 @@ install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 add_subdirectory(actions)
 add_subdirectory(images)
+add_subdirectory(themes)

@@ -26,7 +26,7 @@ QComboBox {
 }
 
 QComboBox::drop-down {
-	background-image: url(themes/dark/arrow-down-double.png);
+	background-image: url($THEME_DIR/arrow-down-double.png);
 	background-position: left center;
 	background-repeat: no-repeat;
 }
@@ -36,14 +36,19 @@ QComboBox:hover {
 	color: #E1E3AC;
 }
 
-QMenuBar, QMenu {
+QMenuBar {
 	background-color: #213435;
 	color: #648A64;
-	background-image: url(themes/dark/bg.png);
-	min-height: 24px;
+	background-image: url($THEME_DIR/background.png);
 }
 
-QMenuBar:hover {
+QMenuBar:item, QMenu:item {
+	background-color: #213435;
+	color: #648A64;
+	background-image: url($THEME_DIR/background.png);
+}
+
+QMenuBar:item:hover {
 	background-color: #213435;
 	color: #A6B985;
 }
@@ -57,9 +62,6 @@ QMenuBar:hover {
 
 #main-widget {
 	background: #213435;
-	background-image: url(themes/dark/application-exit.png);
-	background-position: center center;
-	background-repeat: no-repeat;
 }
 
 /*
@@ -69,34 +71,24 @@ QGroupBox#trigger-box {
 */
 
 QPushButton:pressed {
-	padding-left: 2px;
-	padding-top: 2px;
+	padding-left: 7px;
+	padding-top: 7px;
 }
 
-QPushButton#configure-button {
-	background-color: transparent;
-	color: #648A64;
-	border: none;
-}
-
-QPushButton#configure-button:hover {
-	background-color: transparent;
-	color: #A6B985;
-}
-
-QPushButton#ok-cancel-button {
+QPushButton {
 	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #648A64, stop:1 #A6B985);
 	color: #213435;
 	border: none;
 	min-height: 24px;
+	padding: 5px;
 }
 
-QPushButton#ok-cancel-button:hover {
+QPushButton:hover {
 	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #A6B985, stop:1 #E1E3AC);
 	color: #213435;
 }
 
-QPushButton#ok-cancel-button:pressed {
+QPushButton:pressed {
 	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #E1E3AC, stop:1 #A6B985);
 	color: #213435;
 }
