@@ -16,10 +16,16 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include <QDir>
 #include <QFile>
+#include <QFileInfo>
 
 #include "mainwindow.h"
 #include "theme.h"
+
+#ifdef KS_NATIVE_KDE
+	#include <KStandardDirs>
+#endif // KS_NATIVE_KDE
 
 // public
 
@@ -35,17 +41,23 @@ Theme::~Theme() {
 
 // TODO: review, document, and test all themes stuff
 void Theme::load(MainWindow *mainWindow, const QString &name) {
-	QFile theme("themes/" + name + "/theme.xml");
+#ifdef KS_NATIVE_KDE
+	QFileInfo themeInfo(KGlobal::dirs()->findResource("data", "kshutdown/themes/" + name + "/theme.xml"));
+#else // KS_NATIVE_KDE
+	QFileInfo themeInfo("themes/" + name + "/theme.xml");
+#endif // KS_NATIVE_KDE
+	QDir themeDir = themeInfo.dir();
 
-	if (!theme.open(QFile::ReadOnly | QFile::Text)) {
-		U_ERROR << "Cannot open theme file: " << theme.fileName() U_END;
+	QFile themeFile(themeInfo.filePath());
+	if (!themeFile.open(QFile::ReadOnly | QFile::Text)) {
+		U_ERROR << "Cannot open theme file: " << themeFile.fileName() U_END;
 
 		return;
 	}
 
 	m_inElement = false;
 	bool inTheme = false;
-	QXmlStreamReader xml(&theme);
+	QXmlStreamReader xml(&themeFile);
 	while (!xml.atEnd()) {
 		xml.readNext();
 
@@ -70,13 +82,15 @@ void Theme::load(MainWindow *mainWindow, const QString &name) {
 				}
 				else {
 					U_DEBUG << "Loading external style sheet: " << href U_END;
-					QFile style("themes/" + name + "/" + href);
+					QFile style(themeDir.path() + "/" + href);
 					if (!style.open(QFile::ReadOnly | QFile::Text)) {
 						U_ERROR << "Cannot open style file: " + style.fileName() U_END;
 
 						break; // while
 					}
-					U_APP->setStyleSheet(QTextStream(&style).readAll());
+					QString styleData = QTextStream(&style).readAll();
+					styleData.replace("$THEME_DIR", themeDir.path());
+					mainWindow->setStyleSheet(styleData);
 				}
 			}
 			else if (inTheme && (xml.name() == "element")) {
