@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Comment=Terminate an existing PPP connection
-Comment[it]=Termina una connessione PPP esistente
-Comment[de]=Eine bestehende PPP Verbindung trennen
-Comment[pl]=Przerwij trwające połączenie
-Comment[el]=Τερματισμός μιας υπάρχουσας PPP σύνδεσης
 Exec=kppp -k
 Icon=kppp
-Name=KPPP
+Name=KPPP/KDE 4 (terminate an existing PPP connection)
+Name[pl]=KPPP/KDE 4 (przerwij trwające połączenie)
+# TODO: please update and move to Name[xx] entry
+#Comment[de]=Eine bestehende PPP Verbindung trennen
+#Comment[el]=Τερματισμός μιας υπάρχουσας PPP σύνδεσης
+#Comment[it]=Termina una connessione PPP esistente
 Type=Application
