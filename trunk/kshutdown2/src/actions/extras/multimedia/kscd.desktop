@@ -1,12 +1,7 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Comment=Stop Playback
-Comment[de]=Wiedergabe anhalten
-Comment[it]=Interrompi riproduzione
-Comment[pl]=Zatrzymaj odtwarzanie
-Comment[el]=Σταμάτημα αναπαραγωγής
-Exec=dcop kscd CDPlayer stop
+Exec=dbus-send --print-reply --dest=org.kde.kscd /CDPlayer org.kde.KSCD.stop
 Icon=kscd
-Name=KsCD
+Name=KsCD/KDE 4
 Type=Application
