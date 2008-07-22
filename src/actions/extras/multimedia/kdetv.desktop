@@ -1,10 +1,8 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Comment=Mute and quit
-Comment[pl]=Wycisz i zakończ
-Comment[el]=Κλείσιμο ήχου και τερματισμός
-Exec=KDETV_PID=`pidof kdetv`; dcop "kdetv-$$KDETV_PID" KdetvIface toggleMute; dcop "kdetv-$$KDETV_PID" MainApplication-Interface quit
+Exec=KDETV_PID=$(pidof kdetv); dcop kdetv-$KDETV_PID KdetvIface toggleMute; dcop kdetv-$KDETV_PID MainApplication-Interface quit
 Icon=kdetv
-Name=kdetv
+Name=kdetv/KDE 3 (mute and quit)
+Name[pl]=kdetv/KDE 3 (wycisz i zakończ)
 Type=Application

@@ -3,5 +3,5 @@ Version=1.0
 # Encoding: UTF-8
 Exec=dbus-send --print-reply --dest=org.kde.amarok /Player org.freedesktop.MediaPlayer.Stop
 Icon=amarok
-Name=Amarok
+Name=Amarok 2.0+/KDE 4
 Type=Application
