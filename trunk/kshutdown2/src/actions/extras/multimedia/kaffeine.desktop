@@ -1,12 +1,7 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Comment=Stop Playback
-Comment[de]=Wiedergabe anhalten
-Comment[it]=Interrompi riproduzione
-Comment[pl]=Zatrzymaj odtwarzanie
-Comment[el]=Σταμάτημα αναπαραγωγής
-Exec=dcop kaffeine Kaffeine stop
+Exec=dcop kaffeine KaffeineIface stop
 Icon=kaffeine
-Name=Kaffeine
+Name=Kaffeine 0.8+/KDE 3
 Type=Application

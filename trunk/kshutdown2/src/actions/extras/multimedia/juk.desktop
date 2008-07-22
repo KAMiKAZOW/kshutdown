@@ -3,5 +3,5 @@ Version=1.0
 # Encoding: UTF-8
 Exec=dbus-send --print-reply --dest=org.kde.juk /Player org.kde.juk.player.stop
 Icon=juk
-Name=JuK
+Name=JuK 3.1+/KDE 4
 Type=Application
