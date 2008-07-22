@@ -68,7 +68,7 @@ Extras::Extras() :
 	Action(i18n("Extras..."), "rating", "extras") {
 	
 	setMenu(createMenu());
-	//setShowInMenu(false);
+	setShowInMenu(false);
 	m_menuButton = new U_PUSH_BUTTON();
 	m_menuButton->setMenu(menu());
 	
@@ -195,4 +195,5 @@ CommandAction::CommandAction(const U_ICON &icon, const QString &text, QObject *p
 
 void CommandAction::slotFire() {
 	Extras::self()->setCommandAction(this);
+	//Extras::self()->trigger();
 }

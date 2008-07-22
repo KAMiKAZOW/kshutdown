@@ -1,12 +1,7 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Comment=Stop Playback
-Comment[de]=Wiedergabe anhalten
-Comment[it]=Interrompi riproduzione
-Comment[pl]=Zatrzymaj odtwarzanie
-Comment[el]=Σταμάτημα αναπαραγωγής
-Exec=dcop amarok player stop
+Exec=dbus-send --print-reply --dest=org.kde.amarok /Player org.freedesktop.MediaPlayer.Stop
 Icon=amarok
 Name=Amarok
 Type=Application
