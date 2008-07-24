@@ -657,7 +657,7 @@ RebootAction::RebootAction() :
 // public
 
 ShutDownAction::ShutDownAction() :
-	StandardAction(i18n("Turn Off Computer"), "application-exit", "shutdown", U_SHUTDOWN_TYPE_HALT) {
+	StandardAction(i18n("Turn Off Computer"), "system-shutdown", "shutdown", U_SHUTDOWN_TYPE_HALT) {
 /* TODO: IsPwrShutdownAllowed()
 #ifdef Q_WS_WIN
 	setEnabled();
