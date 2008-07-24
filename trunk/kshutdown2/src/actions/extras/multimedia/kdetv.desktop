@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Exec=KDETV_PID=$(pidof kdetv); dcop kdetv-$KDETV_PID KdetvIface toggleMute; dcop kdetv-$KDETV_PID MainApplication-Interface quit
+Exec=dcop kdetv-$(pidof kdetv) KdetvIface toggleMute; dcop kdetv-$(pidof kdetv) MainApplication-Interface quit
 Icon=kdetv
 Name=kdetv/KDE 3 (mute and quit)
 Name[pl]=kdetv/KDE 3 (wycisz i zakończ)
