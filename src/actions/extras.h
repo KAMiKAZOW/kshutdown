@@ -1,4 +1,3 @@
-//
 // extras.h - Extras
 // Copyright (C) 2007  Konrad Twardowski
 //
@@ -27,6 +26,7 @@
 class CommandAction;
 
 class Extras: public KShutdown::Action {
+	Q_OBJECT
 	friend class CommandAction;
 public:
 	virtual QWidget *getWidget();
@@ -46,6 +46,8 @@ private:
 	void createMenu(U_MENU *parentMenu, const QString &parentDir);
 	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text);
 	void setCommandAction(const CommandAction *command);
+private slots:
+	void slotModify();
 };
 
 class CommandAction: private U_ACTION {

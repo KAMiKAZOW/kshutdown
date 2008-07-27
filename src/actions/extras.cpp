@@ -1,4 +1,3 @@
-//
 // extras.cpp - Extras
 // Copyright (C) 2007  Konrad Twardowski
 //
@@ -30,9 +29,11 @@
 
 #include "extras.h"
 
-Extras *Extras::m_instance = 0;
-
 // Extras
+
+// private
+
+Extras *Extras::m_instance = 0;
 
 // public
 
@@ -89,7 +90,9 @@ U_MENU *Extras::createMenu() {
 	if (!menu->isEmpty())
 		menu->addSeparator();
 
-	//!!!modify command
+	U_ACTION *modifyAction = new U_ACTION(i18n("Add/Remove Actions..."), this);
+	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
+	menu->addAction(modifyAction);
 
 	return menu;
 #else
@@ -181,6 +184,31 @@ void Extras::setCommandAction(const CommandAction *command) {
 	}
 }
 
+// private slots
+
+void Extras::slotModify()
+{
+#ifdef KS_NATIVE_KDE
+	#define KS_LI(text) "<li>" + (text) + "</li>" +
+	KMessageBox::information(
+		0,
+		"<qt>" +
+		i18n("Use context menu to add/edit/remove actions.") +
+		"<ul>" +
+			KS_LI(i18n("Use <b>Context Menu</b> to create a new link to application (action)"))
+			KS_LI(i18n("Use <b>Create New|Folder...</b> to create a new submenu"))
+			KS_LI(i18n("Use <b>Properties</b> to change icon, name, or command"))
+		"</ul>" +
+		"</qt>",
+		originalText(),
+		"ModifyExtras"
+	);
+
+	QString command = "konqueror \"" + KGlobal::dirs()->saveLocation("data", "kshutdown/extras") + "\"";
+	KRun::run(command, KUrl::List(), MainWindow::self());
+#endif // KS_NATIVE_KDE
+}
+
 // CommandAction
 
 // private
@@ -195,5 +223,4 @@ CommandAction::CommandAction(const U_ICON &icon, const QString &text, QObject *p
 
 void CommandAction::slotFire() {
 	Extras::self()->setCommandAction(this);
-	//Extras::self()->trigger();
 }
