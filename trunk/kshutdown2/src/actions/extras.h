@@ -40,6 +40,7 @@ public:
 private:
 	static Extras *m_instance;
 	QString m_command;
+	U_MENU *m_menu;
 	U_PUSH_BUTTON *m_menuButton;
 	Extras();
 	U_MENU *createMenu();
@@ -48,6 +49,7 @@ private:
 	void setCommandAction(const CommandAction *command);
 private slots:
 	void slotModify();
+	void updateMenu();
 };
 
 class CommandAction: private U_ACTION {
