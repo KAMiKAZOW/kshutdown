@@ -1,5 +1,8 @@
 // svn log -r 293:HEAD|tac|xsel -i -b
 
+2008/08/!!!  2.0 Beta 2
+
+
 2008/07/27  2.0 Beta 1
 
 * NEW: Added "Extras" actions (KDE build only)
