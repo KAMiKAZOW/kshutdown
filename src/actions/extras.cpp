@@ -66,7 +66,8 @@ bool Extras::onAction() {
 // private
 
 Extras::Extras() :
-	Action(i18n("Extras..."), "rating", "extras") {
+	Action(i18n("Extras..."), "rating", "extras"),
+	m_menu(0) {
 	
 	setMenu(createMenu());
 	setShowInMenu(false);
@@ -80,23 +81,14 @@ Extras::Extras() :
 
 U_MENU *Extras::createMenu() {
 #ifdef KS_NATIVE_KDE
-	U_MENU *menu = new U_MENU();
+	m_menu = new U_MENU();
+	connect(m_menu, SIGNAL(aboutToShow()), this, SLOT(updateMenu()));
 
-	QStringList dirs(KGlobal::dirs()->findDirs("data", "kshutdown/extras"));
-	foreach (QString i, dirs) {
-		U_DEBUG << "Found Extras Directory: " << i U_END;
-		createMenu(menu, i);
-	}
-	if (!menu->isEmpty())
-		menu->addSeparator();
-
-	U_ACTION *modifyAction = new U_ACTION(i18n("Add/Remove Actions..."), this);
-	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
-	menu->addAction(modifyAction);
-
-	return menu;
+	return m_menu;
 #else
-	return new U_MENU(); // return dummy menu
+	m_menu = new U_MENU();
+	
+	return m_menu; // return dummy menu
 #endif // KS_NATIVE_KDE
 }
 
@@ -207,6 +199,22 @@ void Extras::slotModify()
 	QString command = "konqueror \"" + KGlobal::dirs()->saveLocation("data", "kshutdown/extras") + "\"";
 	KRun::run(command, KUrl::List(), MainWindow::self());
 #endif // KS_NATIVE_KDE
+}
+
+void Extras::updateMenu() {
+	m_menu->clear();
+
+	QStringList dirs(KGlobal::dirs()->findDirs("data", "kshutdown/extras"));
+	foreach (QString i, dirs) {
+		U_DEBUG << "Found Extras Directory: " << i U_END;
+		createMenu(m_menu, i);
+	}
+	if (!m_menu->isEmpty())
+		m_menu->addSeparator();
+
+	U_ACTION *modifyAction = new U_ACTION(i18n("Add/Remove Commands..."), this);
+	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
+	m_menu->addAction(modifyAction);
 }
 
 // CommandAction
