@@ -30,6 +30,7 @@ public:
 	void apply();
 private:
 	QCheckBox *m_confirmAction;
+	QCheckBox *m_lockScreenBeforeHibernate;
 	QWidget *createActionsWidget();
 	QWidget *createContainerWidget();
 	QWidget *createGeneralWidget();
