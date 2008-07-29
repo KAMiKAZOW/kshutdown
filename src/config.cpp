@@ -60,6 +60,22 @@ void Config::setConfirmAction(const bool value) {
 	config->endGroup();
 }
 
+bool Config::lockScreenBeforeHibernate() {
+	Config *config = user();
+	config->beginGroup("General");
+	bool result = config->read("Lock Screen Before Hibernate", true).toBool();
+	config->endGroup();
+
+	return result;
+}
+
+void Config::setLockScreenBeforeHibernate(const bool value) {
+	Config *config = user();
+	config->beginGroup("General");
+	config->write("Lock Screen Before Hibernate", value);
+	config->endGroup();
+}
+
 QVariant Config::read(const QString &key, const QVariant &defaultValue) {
 #ifdef KS_NATIVE_KDE
 	return m_group.readEntry(key, defaultValue);

@@ -32,6 +32,8 @@ public:
 	void endGroup();
 	static bool confirmAction();
 	static void setConfirmAction(const bool value);
+	static bool lockScreenBeforeHibernate();
+	static void setLockScreenBeforeHibernate(const bool value);
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);
 	void sync();

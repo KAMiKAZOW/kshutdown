@@ -70,6 +70,7 @@ Preferences::~Preferences() {
 
 void Preferences::apply() {
 	Config::setConfirmAction(m_confirmAction->isChecked());
+	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
 
 	Config::user()->sync();
 }
@@ -96,6 +97,13 @@ QWidget *Preferences::createGeneralWidget() {
 	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
 	m_confirmAction->setChecked(Config::confirmAction());
 	w->layout()->addWidget(m_confirmAction);
+
+	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate"));
+	m_lockScreenBeforeHibernate->setChecked(Config::lockScreenBeforeHibernate());
+	w->layout()->addWidget(m_lockScreenBeforeHibernate);
+#ifdef Q_WS_WIN
+	m_lockScreenBeforeHibernate->hide();
+#endif // Q_WS_WIN
 
 	return w;
 }

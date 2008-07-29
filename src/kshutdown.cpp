@@ -375,10 +375,12 @@ bool PowerAction::onAction() {
 	return true;
 #else
 	// lock screen before hibernate/suspend
-	LockAction::self()->activate(false);
+	if (Config::lockScreenBeforeHibernate()) {
+		LockAction::self()->activate(false);
 
-	// wait for screensaver
-	::sleep(2);
+		// wait for screensaver
+		::sleep(2);
+	}
 
 	// DOC: http://people.freedesktop.org/~david/hal-spec/hal-spec.html
 	QDBusInterface i(
