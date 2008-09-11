@@ -220,23 +220,28 @@ void MainWindow::setActive(const bool yes) {
 void MainWindow::closeEvent(QCloseEvent *e) {
 	writeConfig();
 
-	// hide in system tray instead of close
-	if (!m_forceQuit && !Action::totalExit()) {
-		e->ignore();
-		hide();
+	// normal close
+	if (!e->spontaneous() || m_forceQuit || Action::totalExit()) {
+		e->accept();
 
-		if (m_active) {
-			if (m_showActiveWarning) {
-				m_showActiveWarning = false;
+		return;
+	}
+
+	// hide in system tray instead of close
+	e->ignore();
+	hide();
+
+	if (m_active) {
+		if (m_showActiveWarning) {
+			m_showActiveWarning = false;
 // TODO: common code (showMessage)
-				m_systemTray->showMessage("KShutdown", i18n("KShutdown is still active!"), QSystemTrayIcon::Warning, 2000);
-			}
+			m_systemTray->showMessage("KShutdown", i18n("KShutdown is still active!"), QSystemTrayIcon::Warning, 2000);
 		}
-		else {
-			if (m_showMinimizeInfo) {
-				m_showMinimizeInfo = false;
-				m_systemTray->showMessage("KShutdown", i18n("KShutdown has been minimized"), QSystemTrayIcon::Information, 2000);
-			}
+	}
+	else {
+		if (m_showMinimizeInfo) {
+			m_showMinimizeInfo = false;
+			m_systemTray->showMessage("KShutdown", i18n("KShutdown has been minimized"), QSystemTrayIcon::Information, 2000);
 		}
 	}
 }
@@ -299,8 +304,6 @@ MainWindow::MainWindow() :
 
 	setTitle(QString::null);
 	updateWidgets();
-	
-	checkCommandLine();
 }
 
 void MainWindow::addAction(Action *action) {
@@ -578,6 +581,17 @@ void MainWindow::writeConfig() {
 	config->sync();
 }
 
+// public slots
+
+void MainWindow::onQuit() {
+	U_DEBUG << "MainWindow::onQuit()" U_END;
+
+	m_forceQuit = true;
+	m_systemTray->hide();
+	close();
+	U_APP->quit();
+}
+
 // private slots
 
 #ifdef KS_PURE_QT
@@ -681,15 +695,6 @@ void MainWindow::onPreferences() {
 	if (p->exec() == Preferences::Accepted)
 		p->apply();
 	delete p;
-}
-
-void MainWindow::onQuit() {
-	U_DEBUG << "MainWindow::onQuit()" U_END;
-
-	m_forceQuit = true;
-	m_systemTray->hide();
-	close();
-	U_APP->quit();
 }
 
 #ifdef KS_PURE_QT
