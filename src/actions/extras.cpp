@@ -202,6 +202,7 @@ void Extras::slotModify()
 }
 
 void Extras::updateMenu() {
+#ifdef KS_NATIVE_KDE
 	m_menu->clear();
 
 	QStringList dirs(KGlobal::dirs()->findDirs("data", "kshutdown/extras"));
@@ -215,6 +216,7 @@ void Extras::updateMenu() {
 	U_ACTION *modifyAction = new U_ACTION(i18n("Add/Remove Commands..."), this);
 	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
 	m_menu->addAction(modifyAction);
+#endif // KS_NATIVE_KDE
 }
 
 // CommandAction
