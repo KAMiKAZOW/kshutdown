@@ -42,6 +42,10 @@ int main(int argc, char **argv) {
 	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
 	MainWindow::init();
+
+	if (MainWindow::checkCommandLine())
+		return 0;
+
 	MainWindow::self()->maybeShow();
 
 	return a.exec();
@@ -91,8 +95,11 @@ int main(int argc, char **argv) {
 	KUniqueApplication a;
 	
 	MainWindow::init();
+	
+	if (MainWindow::checkCommandLine())
+		return 0;
+	
 	if (isRunning) {
-		MainWindow::checkCommandLine();
 		U_DEBUG << "KShutdown is already running" U_END;
 // FIXME: show and raise main window
 		return 0;
