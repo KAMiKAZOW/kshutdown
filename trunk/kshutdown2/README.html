@@ -23,10 +23,30 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <h3>Compilation &amp; Installation</h3>
 <ol>
-	<li>Additional requirements: installed <code>kdelibs-dev</code> package and CMake 2.4</li>
+	<li>Additional requirements: installed <code>"kdelibs-dev"</code> package and CMake 2.4</li>
 	<li>To compile and install KShutdown run: <code>./Setup-kde4.sh</code></li>
 	<li>To change the installation directory (prefix) run: <code>./Setup-kde4.sh "/your/prefix/dir"</code></li>
 </ol>
+
+<h3>Common Errors</h3>
+
+<h4>CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72</h4>
+<p>
+<pre>
+CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72 (MESSAGE):
+ERROR: cmake/modules/FindKDE4Internal.cmake not found in
+...;/usr/lib/kde4/share/kde4/apps
+</pre>
+</p>
+<p>Install <code>"kdelibs-dev"</code> package.</p>
+
+<h4>"pushd: not found" error</h4>
+<p>
+Try to run
+<code>./Setup-kde4.sh</code> and
+<code>cd build.tmp; sudo make install</code> instead of 
+<code>sudo sh Setup-kde4.sh</code>
+</p>
 
 <h3>Compilation &amp; Installation (alternate method; for Geeks only)</h3>
 <p>
