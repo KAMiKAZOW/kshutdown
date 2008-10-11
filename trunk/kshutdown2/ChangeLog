@@ -1,6 +1,11 @@
-// svn log -r 293:HEAD|tac|xsel -i -b
+// svn log -r 301:HEAD|tac|xsel -i -b
 
-2008/08/!!!  2.0 Beta 2
+2008/10/11  2.0 Beta 2
+
+* Fixed "Logout canceled by..." message on KDE logout
+* NEW: Added option to disable screen lock before hibernate/suspend
+* Fixed Qt4 build
+* Updated README.html file
 
 
 2008/07/27  2.0 Beta 1
