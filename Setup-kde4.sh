@@ -39,6 +39,7 @@ cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
 make
 echo
 echo "TIP: Run \"cd build.tmp; make install\" to install KShutdown (may require administrator privileges)"
+echo -e "\tUbuntu: cd build.tmp; sudo make install"
 # FIXME: "$PREFIX/lib/kde4/libexec/kdesu" -t -c "make install"
 
 popd
