@@ -24,4 +24,7 @@ cd ..
 if not %errorlevel% == 0 goto quit
 kshutdown-2.0beta3-win32.exe
 
+copy C:\Qt\4.3.2\bin\mingwm10.dll kshutdown-portable
+
+
 :quit
