@@ -61,6 +61,7 @@ public:
 		return m_instance;
 	}
 	void maybeShow();
+	void notify(const QString &id, const QString &text);
 	void setActive(const bool yes);
 protected:
 	virtual void closeEvent(QCloseEvent *e);
@@ -69,6 +70,8 @@ private:
 	bool m_forceQuit;
 	bool m_showActiveWarning;
 	bool m_showMinimizeInfo;
+	bool m_showNotification1M;
+	bool m_showNotification5M;
 	ConfirmAction *m_confirmLockAction;
 #ifdef KS_NATIVE_KDE
 	static KCmdLineArgs *m_args;
@@ -116,6 +119,9 @@ private slots:
 #endif // KS_PURE_QT
 	void onActionActivated(int index);
 	void onCheckTrigger();
+#ifdef KS_NATIVE_KDE
+	void onConfigureNotifications();
+#endif // KS_NATIVE_KDE
 	void onForceClick();
 	void onOKCancel();
 	void onPreferences();

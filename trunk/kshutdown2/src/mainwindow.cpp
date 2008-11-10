@@ -31,6 +31,8 @@
 #else
 	#include <KCmdLineArgs>
 	#include <KComboBox>
+	#include <KNotification>
+	#include <KNotifyConfigWidget>
 	#include <KStandardAction>
 #endif // KS_PURE_QT
 
@@ -177,6 +179,31 @@ void MainWindow::maybeShow() {
 		show();
 }
 
+void MainWindow::notify(const QString &id, const QString &text) {
+#ifdef KS_NATIVE_KDE
+	if (id == "1m") {
+		if (!m_showNotification1M)
+			return;
+		
+		m_showNotification1M = false;
+	}
+	else if (id == "5m") {
+		if (!m_showNotification5M)
+			return;
+		
+		m_showNotification5M = false;
+	}
+
+	KNotification::event(
+		id,
+		text,
+		QPixmap(),
+		this,
+		KNotification::CloseOnTimeout
+	);
+#endif // KS_NATIVE_KDE
+}
+
 void MainWindow::setActive(const bool yes) {
 	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
 
@@ -190,6 +217,10 @@ void MainWindow::setActive(const bool yes) {
 
 	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
 	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
+
+	// reset notifications
+	m_showNotification1M = true;
+	m_showNotification5M = true;
 
 	if (m_active) {
 #ifdef Q_WS_WIN
@@ -254,6 +285,8 @@ MainWindow::MainWindow() :
 	m_forceQuit(false),
 	m_showActiveWarning(true),
 	m_showMinimizeInfo(true),
+	m_showNotification1M(true),
+	m_showNotification5M(true),
 	m_elements(0),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
@@ -381,6 +414,8 @@ void MainWindow::initMenuBar() {
 
 	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
 #ifdef KS_NATIVE_KDE
+	settingsMenu->addAction(KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this));
+	settingsMenu->addSeparator();
 	settingsMenu->addAction(KStandardAction::preferences(this, SLOT(onPreferences()), this));
 #else
 	settingsMenu->addAction(i18n("Preferences..."), this, SLOT(onPreferences()));
@@ -672,6 +707,12 @@ void MainWindow::onCheckTrigger() {
 		setTitle(title);
 	}
 }
+
+#ifdef KS_NATIVE_KDE
+void MainWindow::onConfigureNotifications() {
+	KNotifyConfigWidget::configure(this);
+}
+#endif // KS_NATIVE_KDE
 
 void MainWindow::onForceClick() {
 	if (
