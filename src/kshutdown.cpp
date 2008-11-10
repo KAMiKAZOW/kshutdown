@@ -237,6 +237,14 @@ bool DateTimeTriggerBase::canActivateAction() {
 			m_status = QTime().addSecs(secsTo).toString(Qt::ISODate);
 		else
 			m_status = "24+";
+		
+		MainWindow *mainWindow = MainWindow::self();
+		if ((secsTo < 60) && (secsTo > 55)) {
+			mainWindow->notify("1m", i18n("Remaining time:") + " " + m_status);
+		}
+		else if ((secsTo < 300) && (secsTo > 295)) {
+			mainWindow->notify("5m", i18n("Remaining time:") + " " + m_status);
+		}
 	}
 	else {
 		m_status = QString::null;

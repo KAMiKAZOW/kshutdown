@@ -1,0 +1,28 @@
+# encoding: UTF-8
+
+[Global]
+IconName=kshutdown
+Comment=KShutdown
+
+[Event/1m]
+Name=1 Minute Warning
+Comment=1 Minute Warning
+Comment[el]=Προειδοποίηση του 1 λεπτού
+Comment[it]=Avvertimento a un minuto
+Comment[pl]=Ostrzeżenie: 1 minuta
+Action=Popup|Taskbar
+
+[Event/5m]
+Name=5 Minutes Warning
+Comment=5 Minutes Warning
+Comment[el]=Προειδοποίηση των 5 λεπτών
+Comment[it]=Avvertimento a 5 minuti
+Comment[pl]=Ostrzeżenie: 5 minut
+Action=Popup|Taskbar
+
+#[Event/RunError]
+#Name=Run Error
+#Comment=Run Error
+#Comment[el]=Σφάλμα εκτέλεσης
+#Comment[pl]=Błąd uruchomienia
+#Action=Popup
