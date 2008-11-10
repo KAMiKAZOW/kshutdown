@@ -1,5 +1,11 @@
 
-KShutDown 1.0.x
+Tracker:
+
+* Bugs: http://sourceforge.net/tracker/?group_id=93707&atid=605270
+* RFE: http://sourceforge.net/tracker/?group_id=93707&atid=605273
+* Patches: http://sourceforge.net/tracker/?group_id=93707&atid=605272
+
+Old KShutDown 1.0.x features:
 
 * Settings: Local and global shortcuts
 * Settings: Notifications
@@ -15,29 +21,23 @@ KShutDown 1.0.x
 * Trigger: When selected application exit
 * Port language translations from KShutdown 1.0.x
 
-Compilation Fixes
+Compilation Fixes:
 
 * Make sure all singnal.h, stdlib.h (systemconfig.cpp),
   sys/types.h (appobserver.h) are included
-  (http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301)
 
-Extras
+Extras:
 
 * Recent items
-* "Beep Warning"
 * Support for more media players
   (Xine, KMPlayer, MythTV, etc.)
 
-Application observer
+Application observer:
 
 * Fix combo box width
   (http://ariya.blogspot.com/2006/03/resize-pop-up-list-of-combo-box_15.html)
 
-Improved "Restart Computer"
-
-* http://sourceforge.net/tracker/index.php?func=detail&aid=1484842&group_id=93707&atid=605273
-
-Misc.
+Misc.:
 
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
@@ -66,13 +66,16 @@ Misc.
 * Option to hide main window
 * Detect unsaved documents (is there any KDE API to do this?)
 * "Switch User" menu functionality
-* Help: Report Bug... (AFAIR this never worked in KDE :/)
+* Command to Reboot Directly into Windows
+  (http://sourceforge.net/forum/forum.php?thread_id=1758589&forum_id=324059)
 
-Triggers
+Triggers:
 
-* Activate action when the CPU usage goes under a certain level [by aaron-koensgen]
+* Activate action when the CPU usage goes under a certain level
+  (see http://www.autoshutdown.org/index.html)
+  [by aaron-koensgen, luckymancvp]
 * Activate action when selected window disapear
 
-Usability
+Usability:
 
 * http://sourceforge.net/forum/forum.php?thread_id=1639947&forum_id=324058
