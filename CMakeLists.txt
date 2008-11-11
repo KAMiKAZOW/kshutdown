@@ -30,4 +30,5 @@ add_definitions(${KDE4_DEFINITIONS})
 include_directories(${KDE4_INCLUDES})
 link_directories(${KDE4_LIB_DIR})
 
+add_subdirectory(po)
 add_subdirectory(src)

@@ -18,7 +18,6 @@ Old KShutDown 1.0.x features:
 * Close CD-ROM before logout
 * Related KDE settings (kcontrol)
 * Trigger: When selected application exit
-* Port language translations from KShutdown 1.0.x
 
 Compilation Fixes:
 

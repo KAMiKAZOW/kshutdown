@@ -1,0 +1,746 @@
+# translation of cs.po to čeština
+# translation of cs.po to
+# translation of kshutdown.po to
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
+# Robert Kratky <kratky@rob.cz>, 2004, 2008.
+# Robert Kratky <kratky@abclinuxu.cz>, 2005.
+msgid ""
+msgstr ""
+"Project-Id-Version: cs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2008-01-12 11:39+0100\n"
+"Last-Translator: Robert Kratky <kratky@rob.cz>\n"
+"Language-Team: čeština <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "Zadejte příkaz."
+
+#: src/actions/extras.cpp:58
+#, fuzzy
+msgid "Cannot execute \"Extras\" command"
+msgstr "Provést příkaz z nabídky \"Další\" (soubor .desktop)"
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "Další"
+
+#: src/actions/extras.cpp:174
+msgid "Select a command..."
+msgstr "Vybrat příkaz..."
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr "Použijte kontextové menu pro přidání/úpravu/odstranění odkazů."
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr "Použijte <b>kontextové menu</b> k vytvoření nového odkazu na aplikaci"
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr "Použijte <b>Vytvořit nový|Složka...</b> k vytvoření nového podmenu"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr "Použijte <b>Vlastnosti</b> pro změnu ikony, názvu nebo komentáře"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "Přidat/odstranit odkazy"
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %1"
+msgstr ""
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "Neznámé"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr ""
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "Zbývající čas."
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "Datum/čas"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+msgid "No Delay"
+msgstr "Žádná prodleva"
+
+#: src/kshutdown.cpp:343
+msgid "Time From Now (HH:MM)"
+msgstr "Od této chvíle (HH:MM)"
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "Restartovat počítač"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "Vypnout počítač"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+msgid "Lock Screen"
+msgstr "Uzamknout obrazovku"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Nebylo možné se korektně odhlásit.\n"
+"Nepodařilo se kontaktovat správce sezení."
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "Odhlásit se"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "Restartovat počítač"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "Vypnout počítač"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "KShutDown byl minimalizován"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr ""
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+#, fuzzy
+msgid "&Settings"
+msgstr "Nastavení"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr ""
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "Zvolte &akci"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+msgid "S&elect a time"
+msgstr "Z&volte čas"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "&Zrušit"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+msgid "Click to active the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "Akce selhala! (%1)"
+
+#: src/mainwindow.cpp:724
+msgid "Confirm"
+msgstr "Potvrdit"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"Opravdu chete ZABÍT<br><b>%1</b>?<br><br>Všechna neuložená data budou "
+"ztracena!"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "Obecné"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "Potvrdit"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr ""
+
+#~ msgid "Please wait..."
+#~ msgstr "Počkejte prosím..."
+
+#~ msgid "Command: %1"
+#~ msgstr "Příkaz: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "Nic"
+
+#~ msgid "Lock Session"
+#~ msgstr "Uzamknout sezení"
+
+#~ msgid "End Current Session"
+#~ msgstr "Ukončit aktuální sezení"
+
+#~ msgid "kdesktop: DCOP call failed!"
+#~ msgstr "kdesktop: DCOP volání selhalo!"
+
+#~ msgid "Refresh the list of processes"
+#~ msgstr "Obnovit seznam procesů"
+
+#~ msgid "List of the running processes"
+#~ msgstr "Seznam spuštěných procesů"
+
+#~ msgid "Kill"
+#~ msgstr "Zabít"
+
+#~ msgid "Kill the selected process"
+#~ msgstr "Zabít zvolený proces"
+
+#~ msgid "Waiting for \"%1\""
+#~ msgstr "Čekám na \"%1\""
+
+#~ msgid "The selected process does not exist!"
+#~ msgstr "Zvolený proces neexistuje!"
+
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "Nelze provést příkaz<br><br><b>%1</b>"
+
+#~ msgid "Process not found<br><b>%1</b>"
+#~ msgstr "Proces nebyl nalezen<br><b>%1</b>"
+
+#~ msgid "No permissions to kill<br><b>%1</b>"
+#~ msgstr "Nemám oprávnění k ukončení<br><b>%1</b>"
+
+#~ msgid "DEAD: %1"
+#~ msgstr "MRTVÝ: %1"
+
+#~ msgid ""
+#~ "Are you sure?<br><br>Selected Action: <b>%1</b><br>Selected Time: <b>%2</"
+#~ "b>"
+#~ msgstr ""
+#~ "Jste si jistí?<br><br>Zvolená akce: <b>%1</b><br>Zvolený čas: <b>%2</b>"
+
+#~ msgid "More actions..."
+#~ msgstr "Další akce..."
+
+#~ msgid "Location where to create the link:"
+#~ msgstr "Vyberte místo, kde se má odkaz vytvořit:"
+
+#~ msgid "Desktop"
+#~ msgstr "Pracovní plocha"
+
+#~ msgid "K Menu"
+#~ msgstr "K Menu"
+
+#~ msgid "Type of the link:"
+#~ msgstr "Vyberte druh odkazu:"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "Standardní odhlašovací okno"
+
+#~ msgid "System Shut Down Utility"
+#~ msgstr "Nástroj pro vypnutí systému"
+
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "Soubor <b>%1</b> nelze vytvořit!"
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "Soubor <b>%1</b> nelze odstranit!"
+
+#~ msgid "Remove Link"
+#~ msgstr "Odstranit odkaz"
+
+#~ msgid "Add Link"
+#~ msgstr "Přidat odkaz"
+
+#~ msgid "Method"
+#~ msgstr "Způsob"
+
+#~ msgid "Select a method:"
+#~ msgstr "Zvolte způsob:"
+
+#~ msgid "KDE (default)"
+#~ msgstr "KDE (výchozí)"
+
+#~ msgid "Enter a custom command:"
+#~ msgstr "Zadejte vlastní příkaz:"
+
+#~ msgid "Command before action"
+#~ msgstr "Provést před akcí"
+
+#~ msgid "Run command"
+#~ msgstr "Spustit příkaz"
+
+#~ msgid "Pause after run command:"
+#~ msgstr "Po spuštění příkazu počkat:"
+
+#~ msgid "No pause"
+#~ msgstr "Bez prodlevy"
+
+#~ msgid "second(s)"
+#~ msgstr "vteřin(u)"
+
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr ""
+#~ "Ve většině případů potřebujete k vypnutí systému práva (např. ke "
+#~ "spuštění /sbin/reboot nebo /sbin/shutdown)."
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "Používáte-li <b>KDE</b> a <b>KDM</b> (správce sezení KDE), nastavte "
+#~ "všechny metody na <i>KDE</i>."
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "Používáte-li <b>KDE</b> a jiného správce sezení než <b>KDM</b>, nastavte "
+#~ "metody <i>Vypnout počítač</i> a <i>Restartovat počítač</i> na <i>/sbin/..."
+#~ "</i>."
+
+#~ msgid "Manuals:"
+#~ msgstr "Návody:"
+
+#~ msgid "User Command"
+#~ msgstr "Uživatelský příkaz"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "Vypínací utilita pro KDE"
+
+#~ msgid "Turn off computer"
+#~ msgstr "Vypnout počítač"
+
+#~ msgid "Restart computer"
+#~ msgstr "Restartovat počítač"
+
+#~ msgid "Lock session"
+#~ msgstr "Uzamknout obrazovku"
+
+#~ msgid "End current session"
+#~ msgstr "Ukončit sezení"
+
+#~ msgid "Confirm command line action"
+#~ msgstr "Potvrdit akci příkazové řádky"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "Zobrazit standardní odhlašovací dialog"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "Zrušit běžící akci"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "Nezobrazovat okno při spuštění"
+
+#~ msgid "Enable test mode"
+#~ msgstr "Povolit testovací režim"
+
+#~ msgid "Disable test mode"
+#~ msgstr "Vypnout testovací režim"
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr ""
+#~ "Čas; Příklady: 01:30 - absolutní čas (HH:MM); 10 - kolik minut počkat od "
+#~ "této chvíle"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "Neplatný čas: <b>%1</b>"
+
+#~ msgid "1 hour warning"
+#~ msgstr "Upozornění 1 hodinu před"
+
+#~ msgid "5 minutes warning"
+#~ msgstr "Upozornění 5 minut před"
+
+#~ msgid "1 minute warning"
+#~ msgstr "Upozornění 1 minutu před"
+
+#~ msgid "10 seconds warning"
+#~ msgstr "Upozornění 10 vteřin před"
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "<b>%1</b> nešel spustit!"
+
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#~ msgid "Enter hour and minute."
+#~ msgstr "Zadejte hodinu a minutu."
+
+#~ msgid "Enter date and time."
+#~ msgstr "Zadejte datum a čas."
+
+#~ msgid "Click the <b>Select a command...</b> button first."
+#~ msgstr "Nejprve klikněte na tlačítko <b>Zvolit příkaz...</b>"
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "Zvolený datum/čas: %1"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "Aktuální datum/čas: %1"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr "Zvolené datum/čas je dřívější než aktuální datum/čas!"
+
+#~ msgid "Action cancelled!"
+#~ msgstr "Akce zrušena!"
+
+#~ msgid "Test mode enabled"
+#~ msgstr "Testovací režim zapnut"
+
+#~ msgid "Test mode disabled"
+#~ msgstr "Testovací režim vypnut"
+
+#~ msgid "&Actions"
+#~ msgstr "&Akce"
+
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "Nastavit globální klávesové zkratky..."
+
+#~ msgid "Check &System Configuration"
+#~ msgstr "Zkontrolovat konfiguraci &systému"
+
+#~ msgid "&Statistics"
+#~ msgstr "&Statistiky"
+
+#~ msgid "Select an action to perform at the selected time."
+#~ msgstr "Vyberte, která akce bude ve zvolený čas provedena."
+
+#~ msgid "When selected application exit"
+#~ msgstr "Po ukončení vybraného programu"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "Zablokováno administrátorem."
+
+#~ msgid "Select the type of delay."
+#~ msgstr "Vyberte druh prodlevy."
+
+#~ msgid "Selected time."
+#~ msgstr "Zvolený čas."
+
+#~ msgid "TEST MODE"
+#~ msgstr "TESTOVACÍ REŽIM"
+
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "Zbývá: <b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "Zvolený čas: <b>%1</b>"
+
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "Zvolená akce: <b>%1</b>"
+
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "<b>Poznámka: </b> Je zapnutý testovací režim."
+
+#~ msgid "KShutDown has quit"
+#~ msgstr "KShutDown byl ukončen"
+
+#~ msgid "Message"
+#~ msgstr "Zpráva"
+
+#~ msgid "Actions"
+#~ msgstr "Akce"
+
+#~ msgid "Action"
+#~ msgstr "Akce"
+
+#~ msgid "Edit..."
+#~ msgstr "Upravit..."
+
+#~ msgid "Check System Configuration"
+#~ msgstr "Zkontrolovat nastavení systému"
+
+#~ msgid "Extras Menu"
+#~ msgstr "Menu \"Další\""
+
+#~ msgid "Modify..."
+#~ msgstr "Upravit..."
+
+#~ msgid "Advanced"
+#~ msgstr "Pokročilé"
+
+#~ msgid "After Login"
+#~ msgstr "Po přihlášení"
+
+#~ msgid "Lock screen"
+#~ msgstr "Uzamknout obrazovku"
+
+#~ msgid "Before Logout"
+#~ msgstr "Před odhlášením"
+
+#~ msgid "Close CD-ROM Tray"
+#~ msgstr "Zavřít šuplík CD-ROM"
+
+#~ msgid "Command:"
+#~ msgstr "Příkaz:"
+
+#~ msgid "Related KDE Settings..."
+#~ msgstr "Příbuzná nastavení KDE..."
+
+#~ msgid "Common Problems"
+#~ msgstr "Časté problémy"
+
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "Nefunguje akce \"Vypnout počítač\""
+
+#~ msgid "Popup messages are very annoying"
+#~ msgstr "Vyskakující zprávy jsou velmi otravné"
+
+#~ msgid "Show System Tray Icon"
+#~ msgstr "Zobraz ikonu v systémové části panelu"
+
+#~ msgid "Always"
+#~ msgstr "Vždy"
+
+#~ msgid "Tray icon will be always visible."
+#~ msgstr "Ikona bude v systémové části panelu neustále."
+
+#~ msgid "If Active"
+#~ msgstr "Je-li aktivní"
+
+#~ msgid "Tray icon will be visible only if KShutDown is active."
+#~ msgstr ""
+#~ "Ikona bude v systémové části panelu viditelná, pouze pokud bude KShutDown "
+#~ "aktivován."
+
+#~ msgid "Never"
+#~ msgstr "Nikdy"
+
+#~ msgid "Tray icon will be always hidden."
+#~ msgstr "Ikona se v systémové části panelu nebude zobrazovat vůbec."
+
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "Zobrazit témata vzhledu KShutDown"
+
+#~ msgid "SuperKaramba Home Page"
+#~ msgstr "Domovská stránka SuperKaramba"
+
+#~ msgid "Messages"
+#~ msgstr "Zprávy"
+
+#~ msgid "Display a warning message before action"
+#~ msgstr "Zobrazit upozornění před akcí"
+
+#~ msgid "minute(s)"
+#~ msgstr "minut(u/y)"
+
+#~ msgid "Recommended"
+#~ msgstr "Doporučené"
+
+#~ msgid "Warning Message"
+#~ msgstr "Upozornění"
+
+#~ msgid "Enabled"
+#~ msgstr "Povolený"
+
+#~ msgid "A shell command to execute:"
+#~ msgstr "Provést příkaz:"
+
+#~ msgid "A message text"
+#~ msgstr "Text zprávy"
+
+#~ msgid "The current main window title"
+#~ msgstr "Titulek hlavního okna"
+
+#~ msgid "Presets"
+#~ msgstr "Přednastavené"
+
+#~ msgid "Custom Message"
+#~ msgstr "Vlastní zpráva"
+
+#~ msgid "Progress Bar"
+#~ msgstr "Ukazatel průběhu"
+
+#~ msgid "Re-enable All Message Boxes"
+#~ msgstr "Opět povolit všechna okna s upozorněním"
+
+#~ msgid ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+#~ msgstr ""
+#~ "Povolit všechna upozornění, která byla vypnuta pomocí <b>Tuto zprávu již "
+#~ "nezobrazuj</b>."
+
+#~ msgid "Pause: %1"
+#~ msgstr "Prodleva: %1"
+
+#~ msgid "This file is used to lock session at KDE startup"
+#~ msgstr "Tento soubor se používá k uzamykání sezení při startu KDE"
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "Obnovit výchozí nastavení pro tuto záložku?"
+
+#~ msgid "Statistics"
+#~ msgstr "Statistiky"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr ""
+#~ "Toto okno zobrazuje informace o uživatelích, kteří systém právě "
+#~ "používají, a jejich procesech.<br>Hlavička ukazuje, jak dlouho již systém "
+#~ "běží."
+
+#~ msgid "Refresh"
+#~ msgstr "Obnovit"
+
+#~ msgid "More information"
+#~ msgstr "Více informací"
+
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "Zobrazit čas přihlášení, časy JCPU a PCPU."
+
+#~ msgid "Toggle \"FROM\""
+#~ msgstr "Skrýt \"FROM\""
+
+#~ msgid "Toggle the \"FROM\" (remote hostname) field."
+#~ msgstr "Skrýt nebo zobrazit položku \"FROM\" (název vzdáleného počítače)."
+
+#~ msgid "Hide"
+#~ msgstr "Skrýt"
+
+#~ msgid "System Configuration"
+#~ msgstr "Nastavení systému"
+
+#~ msgid ""
+#~ "Tip: Click here if you have problem with the \"/sbin/shutdown\" command."
+#~ msgstr "Tip: Máte-li potíže s příkazem \"/sbin/shutdown\", klikněte sem."
+
+#~ msgid "No problems were found."
+#~ msgstr "Žádné problémy nebyly zjištěny."
+
+#~ msgid "Program \"%1\" was not found!"
+#~ msgstr "Program \"%1\" nebyl nalezen!"
+
+#~ msgid "No permissions to execute \"%1\"."
+#~ msgstr "Nemám oprávnění ke spuštění \"%1\"."
+
+#~ msgid ""
+#~ "It seems that this is not a KDE full session.\n"
+#~ "KShutDown was designed to work with KDE.\n"
+#~ "However, you can customize Actions in the KShutDown settings dialog\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)."
+#~ msgstr ""
+#~ "Vypadá to, že nejsme v plnohodnotném sezení KDE.\n"
+#~ "KShutDown bylo navrženo tak, aby fungovalo s KDE.\n"
+#~ "Přesto však můžete upravit Akce v konfiguračním dialogu\n"
+#~ "(Nastavení -> Nastavit: KShutDown... -> Akce)."
+
+#~ msgid ""
+#~ "Tip: You can customize Actions to work with GDM.\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)"
+#~ msgstr ""
+#~ "Tip: Akce můžete upravit tak, aby fungovaly s GDM.\n"
+#~ "(Nastavení -> Nastavit: KShutDown... -> Akce)."
+
+#~ msgid ""
+#~ "KDE Display Manager is not running,\n"
+#~ "or the shut down/reboot function is disabled.\n"
+#~ "\n"
+#~ "Click here to configure KDM."
+#~ msgstr ""
+#~ "Není spuštěn Správce přihlášení KDE (KDM)\n"
+#~ "nebo není povolena funkce vypnout/restartovat.\n"
+#~ "\n"
+#~ "Kliknutím sem můžete KDM nastavit."
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Robert Krátký"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "kratky@rob.cz"
+
+#~ msgid "Click for KShutDown main window<br>Click and hold for menu"
+#~ msgstr ""
+#~ "Kliknutím zobrazíte hlavní okno KShutDown<br>Klikněte a držte pro "
+#~ "zobrazení menu"
+
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "KShutDown nešlo spustit!"
+
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "&Nastavit KShutDown..."

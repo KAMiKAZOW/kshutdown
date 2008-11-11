@@ -1,0 +1,774 @@
+# translation of kshutdown.po to
+# This file is put in the public domain.
+#
+# Youssef Chahibi <chahibi@gmail.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: kshutdown\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2007-07-07 17:44+0000\n"
+"Last-Translator: Youssef Chahibi <chahibi@gmail.com>\n"
+"Language-Team:  <doc@arabeyes.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Arabic\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "ادخل أمر"
+
+#: src/actions/extras.cpp:58
+msgid "Cannot execute \"Extras\" command"
+msgstr ""
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "الإضافيات"
+
+#: src/actions/extras.cpp:174
+msgid "Select a command..."
+msgstr "اختر أمر..."
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr "استخدم قائمة السياق لإضافة/تحرير/إزالة وصلات"
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr "استخدم <b>قائمة السياق</b> لإنشاء وصلة جديدة للتطبيق"
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr "استخدم <b>إنشئ مجلد|جديد...</b> لإنشاء قائمة فرعية جديدة"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr "استخدم <b>خصائص</b> لتغيير أيقونة, اسم, أو تعليق"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "أضف/أزل وصلات"
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %1"
+msgstr ""
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "مجهول"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr ""
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "الوقت المتبقي."
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "عند الوقت/التاريخ"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+msgid "No Delay"
+msgstr "بدون تأخير"
+
+#: src/kshutdown.cpp:343
+msgid "Time From Now (HH:MM)"
+msgstr "الوقت من الآن (HH:MM)"
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "إعادة إقلاع الحاسوب"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "إغلاق الحاسوب"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+msgid "Lock Screen"
+msgstr "قفل الجلسة"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"لا يمكن الخروج بشكل صحيح.\n"
+"مسيير الجلسة لا يمكنه الاتصال."
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "تسجيل خروج"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "إعادة إقلاع الحاسوب"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "إغلاق الحاسوب"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "KShutDown تم تصغيره"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr "&ملف"
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+msgid "&Settings"
+msgstr "&تعيينات"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr "&مساعدة"
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "اختر الإجراء لكي ينجز"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+msgid "S&elect a time"
+msgstr "ا&ختر وقت"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "إ&لغي"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+msgid "Click to active the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "الإجراء فشل! (%1)"
+
+#: src/mainwindow.cpp:724
+msgid "Confirm"
+msgstr "تاكيد"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"هل تريد حقا إنهاء باستعمال KILL البرنامج<br><b>%1</b>?<br><br>شتضيع بذلك كل "
+"البيانات غير المحفوظة!"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "عام"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "تاكيد"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr "خطأ"
+
+#~ msgid "Please wait..."
+#~ msgstr "من فضلك انتظر..."
+
+#~ msgid "Command: %1"
+#~ msgstr "الأمر: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "لا شيء"
+
+#~ msgid "Lock Session"
+#~ msgstr "قفل الجلسة"
+
+#~ msgid "End Current Session"
+#~ msgstr "إنهاء الجلسة الحالية"
+
+#~ msgid "kdesktop: DCOP call failed!"
+#~ msgstr "فشلت مناداة kdesktop: DCOP!"
+
+#~ msgid "Refresh the list of processes"
+#~ msgstr "انعش قائمة العمليات"
+
+#~ msgid "List of the running processes"
+#~ msgstr "قائمة العمليات قيد التشغيل"
+
+#~ msgid "Kill"
+#~ msgstr "اقتل"
+
+#~ msgid "Kill the selected process"
+#~ msgstr "اقتل العملية المختارة"
+
+#~ msgid "Waiting for \"%1\""
+#~ msgstr "انتظار لـ \"%1\""
+
+#~ msgid "The selected process does not exist!"
+#~ msgstr "العملية المختارة غير موجود مسبقاً!"
+
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "لا يمكن تنفيذ الأمر<br><br><b>%1</b>"
+
+#~ msgid "Process not found<br><b>%1</b>"
+#~ msgstr "العملية غير موجودة<br><b>%1</b>"
+
+#~ msgid "No permissions to kill<br><b>%1</b>"
+#~ msgstr "لا توجد أذون لقتل<br><b>%1</b>"
+
+#~ msgid "DEAD: %1"
+#~ msgstr "أنهي: %1"
+
+#~ msgid ""
+#~ "Are you sure?<br><br>Selected Action: <b>%1</b><br>Selected Time: <b>%2</"
+#~ "b>"
+#~ msgstr ""
+#~ "هل أنت متأكد؟<br><br>الإجراء المختار: <b>%1</b><br>الوقت المختار: <b>%2</"
+#~ "b>"
+
+#~ msgid "More actions..."
+#~ msgstr "إجراءات أكثر..."
+
+#~ msgid "Location where to create the link:"
+#~ msgstr "الموقع المراد لإنشاء الوصلة:"
+
+#~ msgid "Desktop"
+#~ msgstr "سطح المكتب"
+
+#~ msgid "K Menu"
+#~ msgstr "قائمة K"
+
+#~ msgid "Type of the link:"
+#~ msgstr "نوع الوصلة:"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "مربع حوار الخروج المعياري"
+
+#~ msgid "System Shut Down Utility"
+#~ msgstr "وحدة إغلاق النظام"
+
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "لا يمكن إنشاء ملف <b>%1</b>!"
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "لا يمكن إزالة ملف <b>%1</b>!"
+
+#~ msgid "Remove Link"
+#~ msgstr "إزل وصلة"
+
+#~ msgid "Add Link"
+#~ msgstr "إضف وصلة"
+
+#~ msgid "Method"
+#~ msgstr "طريقة"
+
+#~ msgid "Select a method:"
+#~ msgstr "اختر طريقة:"
+
+#~ msgid "KDE (default)"
+#~ msgstr "KDE (الافتراضي)"
+
+#~ msgid "Enter a custom command:"
+#~ msgstr "ادخل أمر مخصص:"
+
+#~ msgid "Command before action"
+#~ msgstr "الأمر قبل الإجراء"
+
+#~ msgid "Run command"
+#~ msgstr "نفّذ أمر"
+
+#~ msgid "Pause after run command:"
+#~ msgstr "إيقاف مؤقت بعد تشغيل الأمر:"
+
+#~ msgid "No pause"
+#~ msgstr "بدون إيقاف مؤقت"
+
+#~ msgid "second(s)"
+#~ msgstr "ثواني"
+
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr ""
+#~ "تتطلب في أغلب الحالات صلاحيات خاصة استعمال أمر  /sbin/shutdown قصد إيقافه."
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "إذا كنت تستعمل <b>KDE</b> و<b>KDM</b>، استعمل <i>KDE</i> قي كل الوظائف."
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "إذا كنت تستعمل <b>KDE</b>  ومدير جلسات غير <b>KDM</b>، اكتب <i>/sbin</i> "
+#~ "في خانات <i>إغلاق الحاسوب</i> و<أعد تشغيل الحاسوب</i>"
+
+#~ msgid "Manuals:"
+#~ msgstr "يدوي:"
+
+#~ msgid "User Command"
+#~ msgstr "أمر المستخدم"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "وحدة إغلاق لـ KDE"
+
+#~ msgid "Turn off computer"
+#~ msgstr "إغلاق الحاسوب"
+
+#~ msgid "Restart computer"
+#~ msgstr "إعادة إقلاع الحاسوب"
+
+#~ msgid "Lock session"
+#~ msgstr "اقفل الجلسة"
+
+#~ msgid "End current session"
+#~ msgstr "إنهاء الجلسة الحالية"
+
+#~ msgid "Confirm command line action"
+#~ msgstr "تأكيد إجراء خط الأمر"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "أعرض مربع تسجيل الخروج المعياري"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "إلغي الإجراء النشط"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "لا تظهر النافذة عند بدء التشغيل"
+
+#~ msgid "Enable test mode"
+#~ msgstr "تمكين وضع الاختبار"
+
+#~ msgid "Disable test mode"
+#~ msgstr "تعطيل وضع الاختبار"
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr ""
+#~ "الوقت; أمثلة: 01:30 - الوقت الفاصل (HH:MM); 10 - عدد الدقائق للانتظار من "
+#~ "الآن"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "وقت غير صالح: <b>%1</b>"
+
+#~ msgid "1 hour warning"
+#~ msgstr "1 تحذير ساعة"
+
+#~ msgid "5 minutes warning"
+#~ msgstr "5 تحذير دقائق"
+
+#~ msgid "1 minute warning"
+#~ msgstr "1 تحذير دقيقة"
+
+#~ msgid "10 seconds warning"
+#~ msgstr "10 تحذير ثواني"
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "لا يمكن تشغيل \"%1\"!"
+
+#~ msgid "Test"
+#~ msgstr "اختبر"
+
+#~ msgid "Enter hour and minute."
+#~ msgstr "ادخل الساعة والدقيقة."
+
+#~ msgid "Enter date and time."
+#~ msgstr "ادخل التاريخ والوقت."
+
+#~ msgid "Click the <b>Select a command...</b> button first."
+#~ msgstr "إنقر <b>اختر أمر...</b> زر أولاً."
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "التاريخ/الوقت المختار: %1"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "التاريخ/الوقت الحالي: %1"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr "التاريخ/الوقت المختار أسبق من التاريخ/الوقت الحالي!"
+
+#~ msgid "Action cancelled!"
+#~ msgstr "الإجراء إلغي!"
+
+#~ msgid "Test mode enabled"
+#~ msgstr "وضع الاختبار ممكن"
+
+#~ msgid "Test mode disabled"
+#~ msgstr "وضع الاختبار معطل"
+
+#~ msgid "&Actions"
+#~ msgstr "&إجراءات"
+
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "إعداد الاختصارات العالمية..."
+
+#~ msgid "Check &System Configuration"
+#~ msgstr "افحص إعدادات النظام"
+
+#~ msgid "&Statistics"
+#~ msgstr "&إحصائيات"
+
+#~ msgid "Select an action to perform at the selected time."
+#~ msgstr "اختر عملية لكي تنجز بالوقت المحدد."
+
+#~ msgid "When selected application exit"
+#~ msgstr "عند خروج التطبيق المختار"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "معطل بواسطة المدير."
+
+#~ msgid "Select the type of delay."
+#~ msgstr "اختر نوع التأخير"
+
+#~ msgid "Selected time."
+#~ msgstr "الوقت المختار."
+
+#~ msgid "TEST MODE"
+#~ msgstr "وضع الاختبار"
+
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "الوقت المتبقي: <b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "الوقت المختار: <b>%1</b>"
+
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "الإجراء المختار: <b>%1</b>"
+
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "<b>ملاحظة: </b> نمط الاختبار ممكن"
+
+#~ msgid "KShutDown has quit"
+#~ msgstr "KShutDown قد أنهي"
+
+#~ msgid "Message"
+#~ msgstr "رسالة"
+
+#~ msgid "Settings"
+#~ msgstr "تعيينات"
+
+#~ msgid "Actions"
+#~ msgstr "إجراءات"
+
+#~ msgid "Action"
+#~ msgstr "إجراء"
+
+#~ msgid "Edit..."
+#~ msgstr "حرر..."
+
+#~ msgid "Check System Configuration"
+#~ msgstr "افحص إعدادات النظام"
+
+#~ msgid "Extras Menu"
+#~ msgstr "قائمة إضافية"
+
+#~ msgid "Modify..."
+#~ msgstr "عدل..."
+
+#~ msgid "Advanced"
+#~ msgstr "متقدم"
+
+#~ msgid "After Login"
+#~ msgstr "بعد الدخول"
+
+#~ msgid "Lock screen"
+#~ msgstr "اقفل الشاشة"
+
+#~ msgid "Before Logout"
+#~ msgstr "قبل الخروج"
+
+#~ msgid "Close CD-ROM Tray"
+#~ msgstr "إغلق أيقونة القرص المدمج"
+
+#~ msgid "Command:"
+#~ msgstr "الأمر:"
+
+#~ msgid "Related KDE Settings..."
+#~ msgstr "تعيينات كيدي المرتبطة..."
+
+#~ msgid "Common Problems"
+#~ msgstr "مشاكل عامة"
+
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "\"إغلاق الحاسوب\" لا يعمل"
+
+#~ msgid "Popup messages are very annoying"
+#~ msgstr "الرسائل المنبثقة مزعجة"
+
+#~ msgid "Show System Tray Icon"
+#~ msgstr "أظهر أيقونة صينية النظام"
+
+#~ msgid "Always"
+#~ msgstr "دائماً"
+
+#~ msgid "Tray icon will be always visible."
+#~ msgstr "أيقونة صينية النظام ستكون مرئية دائماً"
+
+#~ msgid "If Active"
+#~ msgstr "إذا كان منشط"
+
+#~ msgid "Tray icon will be visible only if KShutDown is active."
+#~ msgstr "أيقونة صينية النظام ستكون مرئية فقط إذا كان KShutdown منشط"
+
+#~ msgid "Never"
+#~ msgstr "أبداً"
+
+#~ msgid "Tray icon will be always hidden."
+#~ msgstr "أيقونة صينية النظام ستكون مخفية دائماً"
+
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "أعرض سمات KShutDown"
+
+#~ msgid "SuperKaramba Home Page"
+#~ msgstr "الصفحة الرئيسية لسوبر كارامبا"
+
+#~ msgid "Messages"
+#~ msgstr "الرسائل"
+
+#~ msgid "Display a warning message before action"
+#~ msgstr "أعرض رسالة تحذيرية قبل الإجراء"
+
+#~ msgid "minute(s)"
+#~ msgstr "دقائق"
+
+#, fuzzy
+#~ msgid "Recommended"
+#~ msgstr "نفّذ أمر"
+
+#~ msgid "Warning Message"
+#~ msgstr "رسالة تحذيرية"
+
+#~ msgid "Enabled"
+#~ msgstr "مفعل"
+
+#~ msgid "A shell command to execute:"
+#~ msgstr "أمر القوقعة لكي ينفذ:"
+
+#~ msgid "A message text"
+#~ msgstr "نص رسالة"
+
+#~ msgid "The current main window title"
+#~ msgstr "عنوان النافذة الرئيسية الحالية"
+
+#~ msgid "Presets"
+#~ msgstr "التجهيزات المسبقة"
+
+#~ msgid "Custom Message"
+#~ msgstr "رسالة معتادة"
+
+#~ msgid "Progress Bar"
+#~ msgstr "شريط العملية"
+
+#~ msgid "Re-enable All Message Boxes"
+#~ msgstr "أعد تمكين صناديق كلّ الرسائل"
+
+#~ msgid ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+#~ msgstr "لا تظهر الرسائلة الموقوفة مرة أخرى."
+
+#~ msgid "Pause: %1"
+#~ msgstr "إيقاف مؤقت: %1"
+
+#~ msgid "This file is used to lock session at KDE startup"
+#~ msgstr "هذا الملف يستخدم لاقفال الجلسة عند بدء تشغيل KDE"
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "استعادة التعيينات الافتراضية لهذه الصفحة؟"
+
+#~ msgid "Statistics"
+#~ msgstr "إحصائيات"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr ""
+#~ "هذا العرض يظهر معلومات المستخدمين على الجهاز, وعملياتهم.<br>التروسية تظهر "
+#~ "كم مدة من الزمن بقي النظام قيد التشغيل."
+
+#~ msgid "Refresh"
+#~ msgstr "إنعاش"
+
+#~ msgid "More information"
+#~ msgstr "معلومات أكثر"
+
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "أظهر لحظة الولوج وJCPU وPCPU"
+
+#~ msgid "Toggle \"FROM\""
+#~ msgstr "بدّل \"من\""
+
+#~ msgid "Toggle the \"FROM\" (remote hostname) field."
+#~ msgstr "بدّل \"من\" (اسم مضيف عن بعد) خانة."
+
+#~ msgid "System Configuration"
+#~ msgstr "إعدادات النظام"
+
+#~ msgid "No problems were found."
+#~ msgstr "لا توجد مشاكل."
+
+#~ msgid "Program \"%1\" was not found!"
+#~ msgstr "برنامج \"%1\" غير موجود!"
+
+#~ msgid "No permissions to execute \"%1\"."
+#~ msgstr "لا توجد أذون لتنفيذ \"%1\"."
+
+#~ msgid ""
+#~ "It seems that this is not a KDE full session.\n"
+#~ "KShutDown was designed to work with KDE.\n"
+#~ "However, you can customize Actions in the KShutDown settings dialog\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)."
+#~ msgstr ""
+#~ "يبدو أن هذه ليست جلسة كاملة لكيدي.\n"
+#~ "صمم KShutDown للعمل على كيدي.\n"
+#~ "لكن، يمكنك أن تعدل «الإجراءات» في حوار تعيينات KShutDown\n"
+#~ "(تعيينات -> إعداد ...KShutDown -> إجراءات)."
+
+#~ msgid ""
+#~ "Tip: You can customize Actions to work with GDM.\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)"
+#~ msgstr ""
+#~ "إفادة: يمكنك تعديل الإجراءات للعمل مع GDM.\n"
+#~ "(تعيينات -> إعداد ...KShutDown -> إجراءات)."
+
+#~ msgid ""
+#~ "KDE Display Manager is not running,\n"
+#~ "or the shut down/reboot function is disabled.\n"
+#~ "\n"
+#~ "Click here to configure KDM."
+#~ msgstr ""
+#~ "KDM غير مشتغل،\n"
+#~ "أو وظيفة الإيقاف وإعادة التشغيل معطلة.\n"
+#~ "\n"
+#~ "انقر هنا لإعداد KDM."
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "عبدالعزيز الشريف"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "a.a-a.s@hotmail.com"
+
+#~ msgid "Click for KShutDown main window<br>Click and hold for menu"
+#~ msgstr ""
+#~ "انقر للوصول إلى النافذة اﻷساسية لKShutDown<br> انقر واضغط من أجل قائمة "
+#~ "الخيارات."
+
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "استحال تنفيذ  KShutDown!"
+
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "&إعداد KShutDown..."
+
+#~ msgid "Options"
+#~ msgstr "خيارات"
+
+#~ msgid ""
+#~ "Internal error!\n"
+#~ "Selected menu item is broken."
+#~ msgstr ""
+#~ "خطأ داخلي!\n"
+#~ "بند القائمة المختار تالف."
+
+#~ msgid "3 seconds before action"
+#~ msgstr "ثلاث ثواني قبل الإجراء"
+
+#~ msgid "2 seconds before action"
+#~ msgstr "ثانيتين قبل الإجراء"
+
+#~ msgid "1 second before action"
+#~ msgstr "ثانية قبل الإجراء"
+
+#~ msgid "KShutDown"
+#~ msgstr "KShutDown"
+
+#~ msgid "&Start [%1]"
+#~ msgstr "&بدء [%1]"
+
+#~ msgid ""
+#~ "Tip: If you have problem with the \"/sbin/shutdown\" command,\n"
+#~ "try to modify the \"/etc/shutdown.allow\" file,\n"
+#~ "then run \"/sbin/shutdown\" command with the additional \"-a\" "
+#~ "parameter.\n"
+#~ "\n"
+#~ "Click here for more information."
+#~ msgstr ""
+#~ "إفادة: إذا كان لديك مشكل مع الأمر  \"/sbin/shutdown\"،\n"
+#~ "ما عليك إلا أن تعدل الملف  \"/etc/shutdown.allow\"،\n"
+#~ "ثم أن تنفذ الأمر ذاته بزيادة  \"-a\" في آخره.\n"
+#~ "\n"
+#~ "انقر هنا لمزيد من المعلومات."
+
+#~ msgid "&Cancel"
+#~ msgstr "&إلغي"
