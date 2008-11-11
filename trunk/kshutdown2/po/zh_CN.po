@@ -1,0 +1,791 @@
+# translation of zh_CN.po to
+# translation of ch_CN.po to
+# translation of es.po to Polish
+# Translation of kshutdown to Castilian aka Spanish
+# This file is distributed under the same license as the Kshutdown package.
+# lczxl, 2005.
+# lczxl, 2005.
+# lczxl, 2005.
+# lczxl, 2005.
+# lczxl, 2005.
+# lczxl, 2005.
+# lczxl, 2005.
+# lczxl, 2005.
+# lczxl, 2005.
+# Quique <quique@sindominio.net>, 2004.
+# lczxl, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zh_CN\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2005-12-04 16:26+0800\n"
+"Last-Translator: lczxl\n"
+"Language-Team:  <zh@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "键入命令"
+
+#: src/actions/extras.cpp:58
+msgid "Cannot execute \"Extras\" command"
+msgstr ""
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "更多的...."
+
+#: src/actions/extras.cpp:174
+msgid "Select a command..."
+msgstr "选择一个命令"
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr "使用上下文来添加／编辑／删除链接"
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr "使用 <b>上下文菜单</b>创建一个到应用程序的新链接"
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr "使用<b>创建新的文件夹....</b>创建一个新的子菜单"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr "使用<b>属性</b>改变图标，名称，或者说明"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "添加／删除链接"
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %1"
+msgstr ""
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "不认识"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr "您确定吗？"
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "剩余时间."
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "在选择的日期/时间执行命令"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+msgid "No Delay"
+msgstr "无延时"
+
+#: src/kshutdown.cpp:343
+msgid "Time From Now (HH:MM)"
+msgstr "(HH:MM)后执行命令"
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "重启计算机"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "关闭计算机"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+#, fuzzy
+msgid "Lock Screen"
+msgstr "锁定屏幕"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr "不能被注销"
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "注销"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "重启计算机"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "关闭计算机"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "KShutDown菜单"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr ""
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+#, fuzzy
+msgid "&Settings"
+msgstr "设置"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr ""
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "选择一个命令执行(&a)"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+msgid "S&elect a time"
+msgstr "选择时间(&e)"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "命令: %1"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+msgid "Click to active the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "命令失败！(que = %1)"
+
+#: src/mainwindow.cpp:724
+msgid "Confirm"
+msgstr "确认"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr "您确认要终止<br><b>%1</b>?<br><br>，所有未保存的数据将丢失！"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "一般"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "确认"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr ""
+
+#~ msgid "Please wait..."
+#~ msgstr "请等待:"
+
+#~ msgid "Command: %1"
+#~ msgstr "命令: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "Nada"
+
+#~ msgid "Lock Session"
+#~ msgstr "锁住会话"
+
+#~ msgid "End Current Session"
+#~ msgstr "结束当前会话"
+
+#~ msgid "Kill"
+#~ msgstr "终止某命令"
+
+#, fuzzy
+#~ msgid "Kill the selected process"
+#~ msgstr "选择的进程不存在"
+
+#~ msgid "Waiting for \"%1\""
+#~ msgstr "等待\"%1\""
+
+#~ msgid "The selected process does not exist!"
+#~ msgstr "选择的进程不存在"
+
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "不能运行命令<b>%1</b>."
+
+#~ msgid "Process not found<br><b>%1</b>"
+#~ msgstr "进程未发现<br><b>%1</b>"
+
+#~ msgid "No permissions to kill<br><b>%1</b>"
+#~ msgstr "不允许终止<br><b>%1</b>"
+
+#~ msgid "More actions..."
+#~ msgstr "更多命令"
+
+#, fuzzy
+#~ msgid "Location where to create the link:"
+#~ msgstr "选择位置创建链接:"
+
+#~ msgid "Desktop"
+#~ msgstr "桌面"
+
+#~ msgid "K Menu"
+#~ msgstr "K菜单"
+
+#, fuzzy
+#~ msgid "Type of the link:"
+#~ msgstr "选择一种链接方式"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "标准注销对话"
+
+#, fuzzy
+#~ msgid "System Shut Down Utility"
+#~ msgstr "KDE的关机程序"
+
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "不能创建连接 <b>%1</b>."
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "不能删除 <b>%1</b>."
+
+#~ msgid "Remove Link"
+#~ msgstr "删除链接"
+
+#, fuzzy
+#~ msgid "Add Link"
+#~ msgstr "添加／删除链接"
+
+#~ msgid "Method"
+#~ msgstr "方式(&M)"
+
+#~ msgid "Select a method:"
+#~ msgstr "选择一个方式："
+
+#~ msgid "KDE (default)"
+#~ msgstr "KDE（默认）"
+
+#~ msgid "Enter a custom command:"
+#~ msgstr "键入用户命令："
+
+#~ msgid "Command before action"
+#~ msgstr "执行之前运行命令"
+
+#~ msgid "Run command"
+#~ msgstr "运行命令(&O)"
+
+#~ msgid "Pause after run command:"
+#~ msgstr "运行命令后暂停"
+
+#~ msgid "No pause"
+#~ msgstr "不暂停"
+
+#~ msgid "second(s)"
+#~ msgstr "秒(s)"
+
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr "多数情况下您需要有特权才能关闭系统（例如运行 /sbin/shutdown）"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "如果您正在使用<b>KDE</b> 和 <b>KDM</b> (KDE显示管理器)，设置所有模式为"
+#~ "<i>KDE</i>"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "如果您正在使用<b>KDE</b>，显示管理器与<b>KDM</b>不同,则设置<i>关闭计算机</"
+#~ "i> 和 <i>重启计算机</i> 方式为 <i>/sbin/...</i>"
+
+#~ msgid "Manuals:"
+#~ msgstr "手册"
+
+#~ msgid "User Command"
+#~ msgstr "使用者命令"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "KDE的关机程序"
+
+#~ msgid "Turn off computer"
+#~ msgstr "关闭电脑"
+
+#~ msgid "Restart computer"
+#~ msgstr "重启电脑"
+
+#~ msgid "Lock session"
+#~ msgstr "锁定命令"
+
+#~ msgid "End current session"
+#~ msgstr "结束当前命令"
+
+#~ msgid "Confirm command line action"
+#~ msgstr "确认命令"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "显示标准的注销对话"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "取消活动的命令"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "视窗启动时不显示"
+
+#~ msgid "Enable test mode"
+#~ msgstr "激活测试模式"
+
+#~ msgid "Disable test mode"
+#~ msgstr "取消测试模式"
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr "时间；例如：01:30－绝对时间(HH:MM);"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "无效时间：<b>%1</b>"
+
+#~ msgid "1 hour warning"
+#~ msgstr "一小时警告"
+
+#~ msgid "5 minutes warning"
+#~ msgstr "5分钟警告"
+
+#~ msgid "1 minute warning"
+#~ msgstr "一分钟警告"
+
+#~ msgid "10 seconds warning"
+#~ msgstr "十秒钟警告"
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "不能运行 <b>%1</b>."
+
+#~ msgid "Test"
+#~ msgstr "测试"
+
+#~ msgid "Enter hour and minute."
+#~ msgstr "输入小时和分钟"
+
+#~ msgid "Enter date and time."
+#~ msgstr "输入日期和时间"
+
+#~ msgid "Click the <b>Select a command...</b> button first."
+#~ msgstr "先点击<b>选择命令....</b>按钮"
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "选择日期／时间"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "当前日期／时间"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr "选择的时间比当前时间早！"
+
+#~ msgid "Action cancelled!"
+#~ msgstr "动作取消！"
+
+#~ msgid "Test mode enabled"
+#~ msgstr "是测试模式生效"
+
+#~ msgid "Test mode disabled"
+#~ msgstr "取消测试模式"
+
+#, fuzzy
+#~ msgid "&Actions"
+#~ msgstr "命令编辑"
+
+#, fuzzy
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "设置&KshutDown"
+
+#~ msgid "Check &System Configuration"
+#~ msgstr "检查系统设置(&S)"
+
+#~ msgid "&Statistics"
+#~ msgstr "进程列表(&S)"
+
+#~ msgid "Select an action to perform at the selected time."
+#~ msgstr "在选择的时间上选择命令执行"
+
+#~ msgid "When selected application exit"
+#~ msgstr "当选择的应用程序关闭"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "通过超级管理员取消"
+
+#~ msgid "Select the type of delay."
+#~ msgstr "选择一种延时方式"
+
+#~ msgid "Selected time."
+#~ msgstr "选择的时间:"
+
+#~ msgid "TEST MODE"
+#~ msgstr "测试模式"
+
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "剩余时间:<b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "选择的时间: <b>%1</b>"
+
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "选择的命令: <b>%1</b>."
+
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "<b>注意: </b> 测试模式生效"
+
+#~ msgid "Message"
+#~ msgstr "消息"
+
+#~ msgid "Settings"
+#~ msgstr "设置"
+
+#~ msgid "Actions"
+#~ msgstr "命令编辑"
+
+#~ msgid "Action"
+#~ msgstr "命令"
+
+#~ msgid "Edit..."
+#~ msgstr "编辑(&E)"
+
+#~ msgid "Check System Configuration"
+#~ msgstr "检查系统设置"
+
+#~ msgid "Extras Menu"
+#~ msgstr "额外的菜单"
+
+#~ msgid "Modify..."
+#~ msgstr "更改(&M)"
+
+#~ msgid "Advanced"
+#~ msgstr "高级"
+
+#~ msgid "After Login"
+#~ msgstr "登入后"
+
+#~ msgid "Lock screen"
+#~ msgstr "锁定屏幕"
+
+#~ msgid "Before Logout"
+#~ msgstr "注销前"
+
+#~ msgid "Close CD-ROM Tray"
+#~ msgstr "关闭光驱托盘"
+
+#~ msgid "Command:"
+#~ msgstr "命令"
+
+#~ msgid "Related KDE Settings..."
+#~ msgstr "相关的KDE设置...."
+
+#~ msgid "Common Problems"
+#~ msgstr "常用程序"
+
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "如果您的\"关机\"程序不能运行..."
+
+#~ msgid "Show System Tray Icon"
+#~ msgstr "显示托盘图标"
+
+#~ msgid "Always"
+#~ msgstr "总是"
+
+#~ msgid "Tray icon will be always visible."
+#~ msgstr "托盘图标总是显示"
+
+#~ msgid "If Active"
+#~ msgstr "如果KShutDown是活动的"
+
+#~ msgid "Tray icon will be visible only if KShutDown is active."
+#~ msgstr "只有KshutDown激活时，托盘图标才可见。"
+
+#~ msgid "Never"
+#~ msgstr "从不"
+
+#~ msgid "Tray icon will be always hidden."
+#~ msgstr "托盘图标总是隐藏"
+
+#, fuzzy
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "KShutDown主题"
+
+#~ msgid "Messages"
+#~ msgstr "信息"
+
+#~ msgid "Display a warning message before action"
+#~ msgstr "动作之前显示警告信息"
+
+#~ msgid "minute(s)"
+#~ msgstr "分钟(s)"
+
+#, fuzzy
+#~ msgid "Recommended"
+#~ msgstr "运行命令(&O)"
+
+#~ msgid "Warning Message"
+#~ msgstr "警告信息"
+
+#~ msgid "Enabled"
+#~ msgstr "使能"
+
+#~ msgid "A shell command to execute:"
+#~ msgstr "Shell命令运行："
+
+#~ msgid "A message text"
+#~ msgstr "信息"
+
+#~ msgid "The current main window title"
+#~ msgstr "当前主窗口标题"
+
+#~ msgid "Custom Message"
+#~ msgstr "自定义信息"
+
+#, fuzzy
+#~ msgid "Pause: %1"
+#~ msgstr "暂停："
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "恢复默认设置？"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr "显示系统运行了多长时间"
+
+#~ msgid "Refresh"
+#~ msgstr "重刷新(&R)"
+
+#~ msgid "More information"
+#~ msgstr "更多信息"
+
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "显示登入时间，JCPU和PCPU时间。"
+
+#~ msgid "System Configuration"
+#~ msgstr "系统设置"
+
+#~ msgid "No problems were found."
+#~ msgstr "未发现程序"
+
+#~ msgid "Program \"%1\" was not found!"
+#~ msgstr "未发现程序 \"%1\" "
+
+#~ msgid "No permissions to execute \"%1\"."
+#~ msgstr "不允许运行 \"%1\"."
+
+#~ msgid ""
+#~ "It seems that this is not a KDE full session.\n"
+#~ "KShutDown was designed to work with KDE.\n"
+#~ "However, you can customize Actions in the KShutDown settings dialog\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)."
+#~ msgstr ""
+#~ "KShutDown是在KDE下设计的.\n"
+#~ "然而，您可自定义动作(设置 -> 配置KShutDown.... -> 动作)"
+
+#~ msgid ""
+#~ "Tip: You can customize Actions to work with GDM.\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)"
+#~ msgstr "提示: 您可在GDM中自定义动作(设置 -> 配置KShutDown.... -> 动作)"
+
+#~ msgid ""
+#~ "KDE Display Manager is not running,\n"
+#~ "or the shut down/reboot function is disabled.\n"
+#~ "\n"
+#~ "Click here to configure KDM."
+#~ msgstr ""
+#~ "KDE显示管理器没有运行，\n"
+#~ "或者关闭／重启功能被取消.\n"
+#~ "\n"
+#~ "点击\"这里\"设置KDM"
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "张旭亮"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "cnsdxl@gmail.com"
+
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "不能执行KShutDown <b>%1</b>."
+
+#, fuzzy
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "设置(&C):KShutDown...."
+
+#, fuzzy
+#~ msgid "Options"
+#~ msgstr "命令编辑"
+
+#~ msgid ""
+#~ "Internal error!\n"
+#~ "Selected menu item is broken."
+#~ msgstr ""
+#~ "内部错误！\n"
+#~ "选择的菜单项目是无效的"
+
+#~ msgid "3 seconds before action"
+#~ msgstr "3秒钟后执行动作"
+
+#~ msgid "2 seconds before action"
+#~ msgstr "2秒钟后执行动作"
+
+#~ msgid "1 second before action"
+#~ msgstr "一秒钟后执行动作"
+
+#~ msgid "KShutDown"
+#~ msgstr "KShutDown关机程序"
+
+#, fuzzy
+#~ msgid "&Start [%1]"
+#~ msgstr "开始［Enter］"
+
+#~ msgid ""
+#~ "Tip: If you have problem with the \"/sbin/shutdown\" command,\n"
+#~ "try to modify the \"/etc/shutdown.allow\" file,\n"
+#~ "then run \"/sbin/shutdown\" command with the additional \"-a\" "
+#~ "parameter.\n"
+#~ "\n"
+#~ "Click here for more information."
+#~ msgstr ""
+#~ "提示:如果\"/sbin/shutdown\" 命令有问题，\n"
+#~ " 请尝试修改 \"/etc/shutdown.allow\" 文件，\n"
+#~ " 然后附带 \"-a\" 参数运行 \"/sbin/shutdown\" \n"
+#~ "  \n"
+#~ " 点击\"这里\"获得更多信息."
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "命令: %1"
+
+#~ msgid "Stop [Esc]"
+#~ msgstr "取消"
+
+#~ msgid ""
+#~ "<b>Tip:</b> Use the <b>Middle Mouse Button</b> to display the actions menu"
+#~ msgstr "<b>提示:</b> 使用 <b>鼠标中键</b> 显示动作菜单"
+
+#~ msgid "No delay"
+#~ msgstr "无延时"
+
+#~ msgid "Create Link"
+#~ msgstr "建立连接"
+
+#~ msgid "&I'm Sure"
+#~ msgstr "确定"
+
+#, fuzzy
+#~ msgid "&Cancel: %1"
+#~ msgstr "命令: %1"
+
+#~ msgid "KShutDown Actions (no delay!)"
+#~ msgstr "KShutDown动作 (无延时!)"
+
+#~ msgid "Actions (no delay!)"
+#~ msgstr "动作(无延时！)"
+
+#~ msgid "&Turn Off Computer"
+#~ msgstr "关机(&T)"
+
+#~ msgid "&Restart Computer"
+#~ msgstr "重启(&R)"
+
+#~ msgid "&Lock Session"
+#~ msgstr "锁定会话(&L)"
+
+#~ msgid "&End Current Session"
+#~ msgstr "结束当前会话(&E)"
+
+#~ msgid "&Immediate Action"
+#~ msgstr "立即执行(&I)"
+
+#~ msgid "&Stop"
+#~ msgstr "停止(&S)"
+
+#~ msgid "Run KShutDown"
+#~ msgstr "运行KSutDown"
+
+#~ msgid "&Run KShutDown"
+#~ msgstr "运行KSutDown(&R)"
+
+#~ msgid "&Show Lock Button"
+#~ msgstr "显示锁定按钮(&S)"
+
+#~ msgid "MStatsTab"
+#~ msgstr "MStatsTab"
+
+#~ msgid "SystemConfig"
+#~ msgstr "系统设置"
+
+#~ msgid "Lockout"
+#~ msgstr "注销"

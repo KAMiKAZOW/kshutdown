@@ -1,0 +1,786 @@
+# translation of de.po to Deutsch
+# This file is distributed under the same license as the kshutdown package.
+# Copyright (C) Konrad Twardowski, Elias Probst 
+# Elias Probst <elias.probst@gmx.de>, 2004, 2005, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: de\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2006-07-02 09:13+0200\n"
+"Last-Translator: Elias Probst <elias.probst@gmx.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "Befehl eingeben"
+
+#: src/actions/extras.cpp:58
+msgid "Cannot execute \"Extras\" command"
+msgstr ""
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "Extras"
+
+#: src/actions/extras.cpp:174
+msgid "Select a command..."
+msgstr "Befehl auswählen..."
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr "Benutze das Kontextmenü um Verweise hinzuzufügen/editieren/entfernen"
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr ""
+"Benutze das <b>Kontextmenü</b> um einen neuen Verweis zu einem Programm "
+"anzulegen."
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr "Benutze <b>Neu | Verzeichnis...</b> um ein Untermenü zu erstellen"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr ""
+"Benutze <b>Eigenschaften</b> um das Symbol, den Namen oder Kommentar zu "
+"ändern"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "Verknüpfung Hinzufügen/Entfernen"
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %1"
+msgstr ""
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "Unbekannt"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr ""
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "Verbleibenden Zeit."
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "Datum/Zeit"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+msgid "No Delay"
+msgstr "Keine Verzögerung"
+
+#: src/kshutdown.cpp:343
+msgid "Time From Now (HH:MM)"
+msgstr "Zeit ab jetzt (SS:MM):"
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "Rechner neustarten"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "Rechner ausschalten"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+msgid "Lock Screen"
+msgstr "Bildschirm sperren"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Abmeldevorgang konnte nicht korrekt ausgeführt werden.\n"
+"Es konnte keine Verbindung zur Sitzungsverwaltung hergestellt werden."
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "Abmelden"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "Rechner neustarten"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "Rechner ausschalten"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "KShutDown wurde minimiert"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr "&Date"
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+msgid "&Settings"
+msgstr "Ein&stellungen"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr "&Hilfe"
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "&Aktion, die ausgeführt werden soll:"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+msgid "S&elect a time"
+msgstr "Zeit auswähl&en"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "&Abbrechen"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+msgid "Click to active the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "Aktion fehlgeschlagen (%1)!"
+
+#: src/mainwindow.cpp:724
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"Sind Sie sicher, dass sie <br><b>%1</b> beenden wollen? Alle ungespeicherten "
+"Daten dieses Programms würden verloren gehen!"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "Allgemein"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "Bestätigen"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr "Fehler"
+
+#~ msgid "Please wait..."
+#~ msgstr "Bitte warten..."
+
+#~ msgid "Command: %1"
+#~ msgstr "Befehl: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "Nichts"
+
+#~ msgid "Lock Session"
+#~ msgstr "Sitzung sperren"
+
+#~ msgid "End Current Session"
+#~ msgstr "Aktuelle Sitzung beenden und abmelden"
+
+#~ msgid "kdesktop: DCOP call failed!"
+#~ msgstr "kdesktop: DCOP-Aufruf fehlgeschlagen!"
+
+#~ msgid "Refresh the list of processes"
+#~ msgstr "Prozessliste aktualisieren"
+
+#~ msgid "List of the running processes"
+#~ msgstr "Liste der laufenden Prozesse"
+
+#~ msgid "Kill"
+#~ msgstr "Beenden (Kill)"
+
+#~ msgid "Kill the selected process"
+#~ msgstr "Den ausgewählten Prozess mit 'kill' beenden"
+
+#~ msgid "Waiting for \"%1\""
+#~ msgstr "Warte auf \"%1\""
+
+#~ msgid "The selected process does not exist!"
+#~ msgstr "Der ausgewählte Prozess existiert nicht!"
+
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "Konnte Befehl nicht ausführen:<br><br><b>%1</b>"
+
+#~ msgid "Process not found<br><b>%1</b>"
+#~ msgstr "Prozess nicht gefunden:<br><b>%1</b>"
+
+#~ msgid "No permissions to kill<br><b>%1</b>"
+#~ msgstr "Keine Berechtigungen um den Prozess zu beenden:<br><b>%1</b>"
+
+#~ msgid "DEAD: %1"
+#~ msgstr "TOT: %1"
+
+#~ msgid ""
+#~ "Are you sure?<br><br>Selected Action: <b>%1</b><br>Selected Time: <b>%2</"
+#~ "b>"
+#~ msgstr ""
+#~ "Sind Sie sicher?<br><br>Ausgewählte Aktion: <b>%1</b><br>Ausgewählte "
+#~ "Zeit: <b>%2</b>"
+
+#~ msgid "More actions..."
+#~ msgstr "Mehr Aktionen..."
+
+#~ msgid "Location where to create the link:"
+#~ msgstr "Ort für die zu erstellende Verknüpfung auswählen:"
+
+#~ msgid "Desktop"
+#~ msgstr "Arbeitsfläche"
+
+#~ msgid "K Menu"
+#~ msgstr "K-Menü"
+
+#~ msgid "Type of the link:"
+#~ msgstr "Typ der Verknüpfung auswählen:"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "Standard Abmeldedialog"
+
+#~ msgid "System Shut Down Utility"
+#~ msgstr "Ein Hilfsprogramm zum Herunterfahren des Systems"
+
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "Konnte Datei <b>%1</b> nicht erstellen!"
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "Konnte Datei <b>%1</b> nicht entfernen!"
+
+#~ msgid "Remove Link"
+#~ msgstr "Verknüpfung entfernen"
+
+#~ msgid "Add Link"
+#~ msgstr "Verknüpfung hinzufügen"
+
+#~ msgid "Method"
+#~ msgstr "Methode"
+
+#~ msgid "Select a method:"
+#~ msgstr "Methode auswählen:"
+
+#~ msgid "KDE (default)"
+#~ msgstr "KDE (Standard)"
+
+#~ msgid "Enter a custom command:"
+#~ msgstr "Benutzerdefinierten Befehl eingeben"
+
+#~ msgid "Command before action"
+#~ msgstr "Befehl vor Aktion"
+
+#~ msgid "Run command"
+#~ msgstr "Befehl ausführen"
+
+#~ msgid "Pause after run command:"
+#~ msgstr "Pause nach dem Ausführen des Kommandos:"
+
+#~ msgid "No pause"
+#~ msgstr "Keine Pause"
+
+#~ msgid "second(s)"
+#~ msgstr "Sekunde(n)"
+
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr ""
+#~ "In den meisten Fällen wird eine Berechtigung zum Herunterfahren des "
+#~ "Systems benötigt. (z.B. für /sbin/reboot oder /sbin/shutdown)"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "Falls Sie <b>KDE</b> und <b>KDM</b> (KDE Display Manager) benutzen, "
+#~ "stellen Sie alle Methoden auf <i>KDE</i>"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "Falls Sie <b>KDE</b> und einen anderen Displaymanager als <b>KDM</b> "
+#~ "verwenden, dann setzen sie die Methoden für<i>Herunterfahren</i> und "
+#~ "<i>Neustarten</i> auf <i>/sbin/...</i>"
+
+#~ msgid "Manuals:"
+#~ msgstr "Handbücher:"
+
+#~ msgid "User Command"
+#~ msgstr "Benutzerdefiniertes Kommando"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "Ein Hilfsprogramm zum Herunterfahren für KDE"
+
+#~ msgid "Turn off computer"
+#~ msgstr "Rechner ausschalten"
+
+#~ msgid "Restart computer"
+#~ msgstr "Rechner neustarten"
+
+#~ msgid "Lock session"
+#~ msgstr "Sitzung sperren"
+
+#~ msgid "End current session"
+#~ msgstr "Aktuelle Sitzung beenden und abmelden"
+
+#~ msgid "Confirm command line action"
+#~ msgstr "Befehlszeilenaktion bestätigen"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "Standard Abmeldedialog anzeigen"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "Eine laufende Aktion stoppen"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "Fenster beim Start nicht anzeigen"
+
+#~ msgid "Enable test mode"
+#~ msgstr "Testmodus aktivieren"
+
+#~ msgid "Disable test mode"
+#~ msgstr "Testmodus deaktivieren"
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr ""
+#~ "Zeit; Beispiele: 01:30 absolute Zeit im Format (SS:MM); 10 - Anzahl der "
+#~ "Minuten die ab jetzt vergehen sollen bis eine Aktion ausgeführt wird"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "Ungültige Zeitangabe: <b>%1</b>"
+
+#~ msgid "1 hour warning"
+#~ msgstr "1 Stunde verbleibend"
+
+#~ msgid "5 minutes warning"
+#~ msgstr "5 Minuten verbleiben"
+
+#~ msgid "1 minute warning"
+#~ msgstr "1 Minute verbleibend"
+
+#~ msgid "10 seconds warning"
+#~ msgstr "10 Sekunden verbleibend"
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "\"%1\" konnte nicht ausgeführt werden!"
+
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#~ msgid "Enter hour and minute."
+#~ msgstr "Stunden und Minuten eingeben:"
+
+#~ msgid "Enter date and time."
+#~ msgstr "Datum und Zeit eingeben:"
+
+#~ msgid "Click the <b>Select a command...</b> button first."
+#~ msgstr "Bitte zuerst die \"Befehl auswählen\"-Schaltfläche anklicken."
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "Ausgewählte(s) Datum/Zeit: %1"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "Momentane(s) Datum/Zeit: %1"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr "Ausgewählte(s) Datum/Zeit liegt vor dem aktuellen Datum/Zeit!"
+
+#~ msgid "Action cancelled!"
+#~ msgstr "Aktion abgebrochen!"
+
+#~ msgid "Test mode enabled"
+#~ msgstr "Testmodus aktiviert"
+
+#~ msgid "Test mode disabled"
+#~ msgstr "Testmodus deaktiviert"
+
+#~ msgid "&Actions"
+#~ msgstr "&Aktionen"
+
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "Globale Tastenkürzel einrichten"
+
+#~ msgid "Check &System Configuration"
+#~ msgstr "&Systemkonfiguration prüfen"
+
+#~ msgid "&Statistics"
+#~ msgstr "&Statistiken"
+
+#~ msgid "Select an action to perform at the selected time."
+#~ msgstr "Aktion, die zur ausgewählten Zeit ausgeführt werden soll."
+
+#~ msgid "When selected application exit"
+#~ msgstr "Wenn die ausgewählte Anwendung beendet ist"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "Diese Seite wurde vom Administrator gesperrt."
+
+#~ msgid "Select the type of delay."
+#~ msgstr "Art und Weise der Verzögerung wählen."
+
+#~ msgid "Selected time."
+#~ msgstr "Ausgewählte Zeit:"
+
+#~ msgid "TEST MODE"
+#~ msgstr "TESTMODUS"
+
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "Verbleibende Zeit: <b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "Ausgewählte Zeit: <b>%1</b>"
+
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "Ausgewählte Aktion:<b>%1</b> "
+
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "<b>Hinweis:</b> Der Testmodus ist aktiv"
+
+#~ msgid "KShutDown has quit"
+#~ msgstr "KShutDown-wurde beendet"
+
+#~ msgid "Message"
+#~ msgstr "Nachricht"
+
+#~ msgid "Settings"
+#~ msgstr "Einstellungen"
+
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
+
+#~ msgid "Action"
+#~ msgstr "Aktion"
+
+#~ msgid "Edit..."
+#~ msgstr "Bearbeiten..."
+
+#~ msgid "Check System Configuration"
+#~ msgstr "Systemkonfiguration prüfen"
+
+#~ msgid "Extras Menu"
+#~ msgstr "Extras Menü"
+
+#~ msgid "Modify..."
+#~ msgstr "Bearbeiten..."
+
+#~ msgid "Advanced"
+#~ msgstr "Erweitert"
+
+#~ msgid "After Login"
+#~ msgstr "Nach der Anmeldung"
+
+#~ msgid "Lock screen"
+#~ msgstr "Bildschirm sperren"
+
+#~ msgid "Before Logout"
+#~ msgstr "Vor dem Abmelden"
+
+#~ msgid "Close CD-ROM Tray"
+#~ msgstr "CD-ROM Lade schließen"
+
+#~ msgid "Command:"
+#~ msgstr "Kommando:"
+
+#~ msgid "Related KDE Settings..."
+#~ msgstr "KDE-Einstellungen"
+
+#~ msgid "Common Problems"
+#~ msgstr "Häufige Probleme"
+
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "\"Rechner abschalten\" funktioniert nicht"
+
+#~ msgid "Popup messages are very annoying"
+#~ msgstr "Popup-Nachrichten sind störend"
+
+#~ msgid "Show System Tray Icon"
+#~ msgstr "Symbol in Systembereich anzeigen"
+
+#~ msgid "Always"
+#~ msgstr "Immer"
+
+#~ msgid "Tray icon will be always visible."
+#~ msgstr "Symbol im Systembereich ist immer sichtbar"
+
+#~ msgid "If Active"
+#~ msgstr "Wenn Aktiv"
+
+#~ msgid "Tray icon will be visible only if KShutDown is active."
+#~ msgstr "Symbol im Systembereich ist nur sichtbar, wenn KShutDown aktiv ist."
+
+#~ msgid "Never"
+#~ msgstr "Niemals"
+
+#~ msgid "Tray icon will be always hidden."
+#~ msgstr "Symbol im Systembereich ist immer ausgeblendet"
+
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "Zeige KShutDown-Themes an"
+
+#~ msgid "SuperKaramba Home Page"
+#~ msgstr "SuperKaramba Homepage"
+
+#~ msgid "Messages"
+#~ msgstr "Nachrichten"
+
+#~ msgid "Display a warning message before action"
+#~ msgstr "Warnung anzeigen, bevor die Aktion ausgeführt wird"
+
+#~ msgid "minute(s)"
+#~ msgstr "Minute(n)"
+
+#, fuzzy
+#~ msgid "Recommended"
+#~ msgstr "Befehl ausführen"
+
+#~ msgid "Warning Message"
+#~ msgstr "Warnmeldung"
+
+#~ msgid "Enabled"
+#~ msgstr "Aktiviert"
+
+#~ msgid "A shell command to execute:"
+#~ msgstr "Befehl der ausgeführt werden soll:"
+
+#~ msgid "A message text"
+#~ msgstr "Einen Nachrichtentext"
+
+#~ msgid "The current main window title"
+#~ msgstr "Titlel des aktuellen Hauptfensters"
+
+#~ msgid "Presets"
+#~ msgstr "Voreinstellungen"
+
+#~ msgid "Custom Message"
+#~ msgstr "Benutzerdefinierte Nachricht"
+
+#~ msgid "Progress Bar"
+#~ msgstr "Fortschrittsbalken"
+
+#~ msgid "Re-enable All Message Boxes"
+#~ msgstr "Alle Meldungen wieder aktivieren"
+
+#~ msgid ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+#~ msgstr ""
+#~ "Alle Nachrichten die mit der Funktion <b>Diese Nachricht nicht mehr "
+#~ "anzeigen</b> deaktiviert wurden, wieder anzeigen."
+
+#~ msgid "Pause: %1"
+#~ msgstr "Pause: %1"
+
+#~ msgid "This file is used to lock session at KDE startup"
+#~ msgstr "Diese Datei wird benutzt um die KDE-Sitzung beim Start zu sperren"
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "Standardeinstellungen für diese Seite wiederherstellen?"
+
+#~ msgid "Statistics"
+#~ msgstr "Statistiken"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr ""
+#~ "Diese Ansicht zeigt Informationen über die momentan angemeldeten Benutzer "
+#~ "und deren laufende Prozesse.<br>Die Titelzeile zeigt, wie lange das "
+#~ "System bereits läuft"
+
+#~ msgid "Refresh"
+#~ msgstr "Aktualisieren"
+
+#~ msgid "More information"
+#~ msgstr "Mehr Informationen"
+
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "Anmeldezeit, JCPU- und PCPU-Werte anzeigen"
+
+#~ msgid "Toggle \"FROM\""
+#~ msgstr "\"FROM\" (de-)aktivieren"
+
+#~ msgid "Toggle the \"FROM\" (remote hostname) field."
+#~ msgstr "Das \"FROM\" (Entfernter Rechnername) Feld verändern"
+
+#~ msgid "System Configuration"
+#~ msgstr "Systemkonfiguration"
+
+#~ msgid "No problems were found."
+#~ msgstr "Es wurden keine Probleme festgestellt."
+
+#~ msgid "Program \"%1\" was not found!"
+#~ msgstr "Programm \"%1\" wurde nicht gefunden!"
+
+#~ msgid "No permissions to execute \"%1\"."
+#~ msgstr "Keine Berechtigungen zum Ausführen von \"%1\"."
+
+#~ msgid ""
+#~ "It seems that this is not a KDE full session.\n"
+#~ "KShutDown was designed to work with KDE.\n"
+#~ "However, you can customize Actions in the KShutDown settings dialog\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)."
+#~ msgstr ""
+#~ "Es scheint, dass dies keine volle KDE-Sitzung ist.\n"
+#~ "KShutDown wurde dafür ausgelegt mit KDE zusammenzuarbeiten.\n"
+#~ "Allerdings können Sie die Aktionen im KShutDown-Einstellungsdialog\n"
+#~ "(Einstellungen -> KShutDown einrichten... -> Aktionen) nach Ihrem\n"
+#~ "Wunsch definieren."
+
+#~ msgid ""
+#~ "Tip: You can customize Actions to work with GDM.\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)"
+#~ msgstr ""
+#~ "Tipp: Sie können die Aktionen so einstellen, dass diese mit GDM "
+#~ "zusammenarbeiten.\n"
+#~ "(Einstellungen -> KShutDown einrichten... -> Aktionen)"
+
+#~ msgid ""
+#~ "KDE Display Manager is not running,\n"
+#~ "or the shut down/reboot function is disabled.\n"
+#~ "\n"
+#~ "Click here to configure KDM."
+#~ msgstr ""
+#~ "KDM läuft nicht oder die Herunterfahren/Neustarten-\n"
+#~ "Funktion ist deaktiviert.\n"
+#~ "\n"
+#~ "Hier klicken um KDM einzurichten."
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Elias Probst"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "elias.probst@gmx.de"
+
+#~ msgid "Click for KShutDown main window<br>Click and hold for menu"
+#~ msgstr ""
+#~ "Klicken um das KShutDown-Hauptfenster anzuzeigen.<br> Klicken und halten "
+#~ "um das Menü anzuzeigen"
+
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "Konnte KShutDown nicht ausführen!"
+
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "KShutDown k&onfigurieren..."
+
+#~ msgid "Options"
+#~ msgstr "Optionen"
+
+#~ msgid ""
+#~ "Internal error!\n"
+#~ "Selected menu item is broken."
+#~ msgstr ""
+#~ "Interner Fehler!\n"
+#~ "Ausgewählter Menüeintrag ist fehlerhaft."
+
+#~ msgid "3 seconds before action"
+#~ msgstr "3 Sekunden vor Aktion"
+
+#~ msgid "2 seconds before action"
+#~ msgstr "2 Sekunden vor Aktion"
+
+#~ msgid "1 second before action"
+#~ msgstr "1 Sekunde vor Aktion"
+
+#~ msgid "KShutDown"
+#~ msgstr "KShutDown"
+
+#~ msgid "&Start [%1]"
+#~ msgstr "&Start [%1]"
+
+#~ msgid ""
+#~ "Tip: If you have problem with the \"/sbin/shutdown\" command,\n"
+#~ "try to modify the \"/etc/shutdown.allow\" file,\n"
+#~ "then run \"/sbin/shutdown\" command with the additional \"-a\" "
+#~ "parameter.\n"
+#~ "\n"
+#~ "Click here for more information."
+#~ msgstr ""
+#~ "Tipp: Sollten Sie Probleme mit dem \"/sbin/shutdown\"-Befehl haben,\n"
+#~ "probieren Sie doch einmal, die Datei \"/etc/shutdown.allow\" zu\n"
+#~ "modifizieren und dann den \"/sbin/shutdown\"-Befehl mit dem zusätzlichen\n"
+#~ "\"-a\"-Parameter auszuführen.\n"
+#~ "\n"
+#~ "Hier für mehr Informationen klicken."
+
+#~ msgid "&Cancel"
+#~ msgstr "Abbre&chen"

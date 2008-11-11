@@ -1,0 +1,795 @@
+# translation of el.new.po to Greek
+# This file is put in the public domain.
+#
+# Spiros Georgaras <sngeorgaras@otenet.gr>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: el.new\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2006-08-03 11:55+0300\n"
+"Last-Translator: Spiros Georgaras <sngeorgaras@otenet.gr>\n"
+"Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "Δώστε μία εντολή."
+
+#: src/actions/extras.cpp:58
+msgid "Cannot execute \"Extras\" command"
+msgstr ""
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "Επιπρόσθετα"
+
+#: src/actions/extras.cpp:174
+msgid "Select a command..."
+msgstr "Επιλογή εντολής..."
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr ""
+"Χρησιμοποιήστε το σχετικό μενού για να προσθέσετε/επεξεργαστείτε/αφαιρέσετε "
+"δεσμούς."
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr ""
+"Χρησιμοποιήστε το <b>σχετικό μενού</b> για να δημιουργήσετε ένα νέο δεσμό σε "
+"εφαρμογή"
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr ""
+"Χρησιμοποιήστε το <b>Δημιουργία νέου/Φάκελος...</b> για να δημιουργήσετε ένα "
+"νέο υπομενού"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr ""
+"Χρησιμοποιήστε τις <b>Ιδιότητες</b> για να αλλάξετε το εικονίδιο, το όνομα ή "
+"το σχόλιο"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "Προσθήκη/Αφαίρεση δεσμών"
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %1"
+msgstr ""
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "Άγνωστο"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr ""
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "Υπολειπόμενος χρόνος"
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "Την ημερομηνία/ώρα"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+msgid "No Delay"
+msgstr "Χωρίς καθυστέρηση"
+
+#: src/kshutdown.cpp:343
+msgid "Time From Now (HH:MM)"
+msgstr "Ώρα από τώρα (ΩΩ:ΛΛ)"
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "Επανεκκίνηση υπολογιστή"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "Κλείσιμο υπολογιστή"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+msgid "Lock Screen"
+msgstr "Κλείδωμα οθόνης"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Δεν ήταν δυνατό να γίνει κανονική αποσύνδεση.\n"
+"Αδύνατη η επικοινωνία με το διαχειριστή συνεδρίας."
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "Αποσύνδεση"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "Επανεκκίνηση υπολογιστή"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "Κλείσιμο υπολογιστή"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "Το KShutDown ελαχιστοποιήθηκε"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr "&Αρχείο"
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+msgid "&Settings"
+msgstr "Ρ&υθμίσεις"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr "&Βοήθεια"
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "Επιλογή &ενέργειας για εκτέλεση"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+msgid "S&elect a time"
+msgstr "Επιλογή &χρόνου"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "&Ακύρωση"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+msgid "Click to active the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "Η ενέργεια απέτυχε! (%1)"
+
+#: src/mainwindow.cpp:724
+msgid "Confirm"
+msgstr "Επιβεβαίωση"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"Είστε σίγουροι ότι θέλετε να ΣΚΟΤΩΣΕΤΕ το <br><b>%1</b>; <br><br>Όλα τα μη "
+"αποθηκευμένα δεδομένα θα χαθούν!"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "Γενικά"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "Επιβεβαίωση"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr "Σφάλμα"
+
+#~ msgid "Please wait..."
+#~ msgstr "Παρακαλώ περιμένετε..."
+
+#~ msgid "Command: %1"
+#~ msgstr "Εντολή: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "Τίποτα"
+
+#~ msgid "Lock Session"
+#~ msgstr "Κλείδωμα συνεδρίας"
+
+#~ msgid "End Current Session"
+#~ msgstr "Τερματισμός τρέχουσας συνεδρίας"
+
+#~ msgid "kdesktop: DCOP call failed!"
+#~ msgstr "kdesktop: Η κλίση DCOP απέτυχε!"
+
+#~ msgid "Refresh the list of processes"
+#~ msgstr "Ανανέωση της λίστας διεργασιών"
+
+#~ msgid "List of the running processes"
+#~ msgstr "Λίστα εκτελούμενων διεργασιών"
+
+#~ msgid "Kill"
+#~ msgstr "Σκότωμα"
+
+#~ msgid "Kill the selected process"
+#~ msgstr "Σκότωμα της επιλεγμένης διεργασίας"
+
+#~ msgid "Waiting for \"%1\""
+#~ msgstr "Αναμονή για το \"%1\""
+
+#~ msgid "The selected process does not exist!"
+#~ msgstr "Η επιλεγμένη διεργασία δεν υπάρχει!"
+
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "Αδύνατη η εκτέλεση της εντολής<br><br><b>%1</b>"
+
+#~ msgid "Process not found<br><b>%1</b>"
+#~ msgstr "Δε βρέθηκε η διεργασία<br><b>%1</b>"
+
+#~ msgid "No permissions to kill<br><b>%1</b>"
+#~ msgstr "Δεν έχετε άδεια να σκοτώσετε το <br><b>%1</b>"
+
+#~ msgid "DEAD: %1"
+#~ msgstr "ΝΕΚΡΟ: %1"
+
+#~ msgid ""
+#~ "Are you sure?<br><br>Selected Action: <b>%1</b><br>Selected Time: <b>%2</"
+#~ "b>"
+#~ msgstr ""
+#~ "Είστε σίγουροι;<br><br>Επιλεγμένη ενέργεια: <b>%1</b><br>Επιλεγμένος "
+#~ "χρόνος: <b>%2</b>"
+
+#~ msgid "More actions..."
+#~ msgstr "Περισσότερες ενέργειες..."
+
+#~ msgid "Location where to create the link:"
+#~ msgstr "Τοποθεσία όπου θα δημιουργηθεί ο δεσμός:"
+
+#~ msgid "Desktop"
+#~ msgstr "Επιφάνεια εργασίας"
+
+#~ msgid "K Menu"
+#~ msgstr "K μενού"
+
+#~ msgid "Type of the link:"
+#~ msgstr "Τύπος δεσμού:"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "Τυπικός διάλογος Αποσύνδεσης"
+
+#~ msgid "System Shut Down Utility"
+#~ msgstr "Ένα εργαλείο για τον τερματισμό του Συστήματος"
+
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "Αδύνατη η δημιουργία του αρχείου <b>%1</b>!"
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "Αδύνατη η αφαίρεση του αρχείου <b>%1</b>!"
+
+#~ msgid "Remove Link"
+#~ msgstr "Αφαίρεση δεσμού"
+
+#~ msgid "Add Link"
+#~ msgstr "Προσθήκη δεσμού"
+
+#~ msgid "Method"
+#~ msgstr "Μέθοδος"
+
+#~ msgid "Select a method:"
+#~ msgstr "Επιλογή μεθόδου:"
+
+#~ msgid "KDE (default)"
+#~ msgstr "KDE (προκαθορισμένο)"
+
+#~ msgid "Enter a custom command:"
+#~ msgstr "Δώστε μια προσαρμοσμένη εντολή:"
+
+#~ msgid "Command before action"
+#~ msgstr "Εντολή προ της ενέργειας"
+
+#~ msgid "Run command"
+#~ msgstr "Εκτέλεση εντολής"
+
+#~ msgid "Pause after run command:"
+#~ msgstr "Παύση μετά την εκτέλεση της εντολής:"
+
+#~ msgid "No pause"
+#~ msgstr "Χωρίς παύση"
+
+#~ msgid "second(s)"
+#~ msgstr "δευτερόλεπτο(α)"
+
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr ""
+#~ "Στις περισσότερες των περιπτώσεων απαιτούνται προνόμια υπερχρήστη για να "
+#~ "τερματίσετε τη λειτουργία του συστήματος (π.χ. για την εκτέλεση του /sbin/"
+#~ "shutdown)"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "Αν χρησιμοποιείτε το <b>KDE</b> και το <b>KDM</b> (Διαχειριστής συνεδρίας "
+#~ "του KDE), ορίστε όλες τις μεθόδους σε <i>KDE</i>"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "Αν χρησιμοποιείτε το <b>KDE</b> και διαχειριστή συνεδρίας διαφορετικό του "
+#~ "<b>KDM</b>, ορίστε τις μεθόδους <i>Κλείσιμο υπολογιστή</i> και "
+#~ "<i>Επανεκκίνηση υπολογιστή</i> σε <i>/sbin/...</i>"
+
+#~ msgid "Manuals:"
+#~ msgstr "Εγχειρίδια:"
+
+#~ msgid "User Command"
+#~ msgstr "Εντολή χρήστη"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "Ένα εργαλείο για τον τερματισμό του KDE"
+
+#~ msgid "Turn off computer"
+#~ msgstr "Κλείσιμο υπολογιστή"
+
+#~ msgid "Restart computer"
+#~ msgstr "Επανεκκίνηση υπολογιστή"
+
+#~ msgid "Lock session"
+#~ msgstr "Κλείδωμα συνεδρίας"
+
+#~ msgid "End current session"
+#~ msgstr "Τερματισμός τρέχουσας συνεδρίας"
+
+#~ msgid "Confirm command line action"
+#~ msgstr "Επιβεβαίωση της ενέργειας"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "Εμφάνιση του τυπικού διαλόγου αποσύνδεσης"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "Ακύρωση μίας ενεργής ενέργειας"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "Να μην εμφανίζεται το παράθυρο στην εκκίνηση"
+
+#~ msgid "Enable test mode"
+#~ msgstr "Ενεργοποίηση δοκιμαστικής λειτουργίας"
+
+#~ msgid "Disable test mode"
+#~ msgstr "Απενεργοποίηση δοκιμαστικής λειτουργίας"
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr ""
+#~ "Ώρα. Παραδείγματα: 01:30 - απολυτή5η ώρα (ΩΩ:ΛΛ)· 10 - ο αριθμός των "
+#~ "λεπτών καθυστέρησης από τώρα"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "Μη έγκυρος χρόνος: <b>%1</b>"
+
+#~ msgid "1 hour warning"
+#~ msgstr "Προειδοποίηση της μίας ώρας"
+
+#~ msgid "5 minutes warning"
+#~ msgstr "Προειδοποίηση των 5 λεπτών"
+
+#~ msgid "1 minute warning"
+#~ msgstr "Προειδοποίηση του 1 λεπτού"
+
+#~ msgid "10 seconds warning"
+#~ msgstr "Προειδοποίηση των 10 λεπτών"
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "Αδύνατη η εκτέλεση του \"%1\"!"
+
+#~ msgid "Test"
+#~ msgstr "Δοκιμή"
+
+#~ msgid "Enter hour and minute."
+#~ msgstr "Δώστε ώρα και λεπτά."
+
+#~ msgid "Enter date and time."
+#~ msgstr "Δώστε ημερομηνία και ώρα."
+
+#~ msgid "Click the <b>Select a command...</b> button first."
+#~ msgstr "Κάντε πρώτα κλικ στο κουμπί <b>επιλογή εντολής...</b>"
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "Επιλεγμένη ημερομηνία/ώρα: %1"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "Τρέχουσα ημερομηνία/ώρα: %1"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr ""
+#~ "Η επιλεγμένη ημερομηνία/ώρα είναι πριν από την τρέχουσα ημερομηνία/ώρα!"
+
+#~ msgid "Action cancelled!"
+#~ msgstr "Η ενέργεια ακυρώθηκε!"
+
+#~ msgid "Test mode enabled"
+#~ msgstr "Η δοκιμαστική λειτουργία ενεργοποιήθηκε"
+
+#~ msgid "Test mode disabled"
+#~ msgstr "Η δοκιμαστική λειτουργία απενεργοποιήθηκε"
+
+#~ msgid "&Actions"
+#~ msgstr "&Ενέργειες"
+
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "Ρύθμιση καθολικών συντομεύσεων..."
+
+#~ msgid "Check &System Configuration"
+#~ msgstr "Έλεγχος των ρυθμίσεων του &Συστήματος"
+
+#~ msgid "&Statistics"
+#~ msgstr "&Στατιστικά"
+
+#~ msgid "Select an action to perform at the selected time."
+#~ msgstr "Επιλέξτε την ενέργεια που θα εκτελεστεί την επιλεγμένη ώρα."
+
+#~ msgid "When selected application exit"
+#~ msgstr "Όταν τερματίσει η επιλεγμένη εφαρμογή"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "Απενεργοποιήθηκε από το Διαχειριστή."
+
+#~ msgid "Select the type of delay."
+#~ msgstr "Επιλογή τύπου της καθυστέρησης"
+
+#~ msgid "Selected time."
+#~ msgstr "Επιλεγμένος χρόνος."
+
+#~ msgid "TEST MODE"
+#~ msgstr "ΔΟΚΙΜΑΣΤΙΚΗ ΛΕΙΤΟΥΡΓΙΑ"
+
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "Υπολειπόμενος χρόνος: <b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "Επιλεγμένος χρόνος: <b>%1</b>"
+
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "Επιλεγμένη ενέργεια: <b>%1</b>"
+
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "<b>Σημείωση: </b> Η δοκιμαστική λειτουργία είναι ενεργοποιημένη"
+
+#~ msgid "KShutDown has quit"
+#~ msgstr "Το KShutDown τερματίστηκε"
+
+#~ msgid "Message"
+#~ msgstr "Μήνυμα"
+
+#~ msgid "Settings"
+#~ msgstr "Ρυθμίσεις"
+
+#~ msgid "Actions"
+#~ msgstr "Ενέργειες"
+
+#~ msgid "Action"
+#~ msgstr "Ενέργεια"
+
+#~ msgid "Edit..."
+#~ msgstr "Επεξεργασία..."
+
+#~ msgid "Check System Configuration"
+#~ msgstr "Έλεγχος των ρυθμίσεων του Συστήματος"
+
+#~ msgid "Extras Menu"
+#~ msgstr "Μενού επιπρόσθετων"
+
+#~ msgid "Modify..."
+#~ msgstr "Τροποποίηση..."
+
+#~ msgid "Advanced"
+#~ msgstr "Προχωρημένα"
+
+#~ msgid "After Login"
+#~ msgstr "Μετά τη σύνδεση"
+
+#~ msgid "Lock screen"
+#~ msgstr "Κλείδωμα οθόνης"
+
+#~ msgid "Before Logout"
+#~ msgstr "Πριν την αποσύνδεση"
+
+#~ msgid "Close CD-ROM Tray"
+#~ msgstr "Κλείσιμο του CD-ROM"
+
+#~ msgid "Command:"
+#~ msgstr "Εντολή:"
+
+#~ msgid "Related KDE Settings..."
+#~ msgstr "Σχετικές ρυθμίσεις του KDE..."
+
+#~ msgid "Common Problems"
+#~ msgstr "Συχνά προβλήματα"
+
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "Το \"Κλείσιμο υπολογιστή\" δε λειτουργεί"
+
+#~ msgid "Popup messages are very annoying"
+#~ msgstr "Τα αναδυόμενα μηνύματα είναι πολύ ενοχλητικά"
+
+#~ msgid "Show System Tray Icon"
+#~ msgstr "Εμφάνιση του εικονιδίου πλαισίου συστήματος"
+
+#~ msgid "Always"
+#~ msgstr "Πάντα"
+
+#~ msgid "Tray icon will be always visible."
+#~ msgstr "Το εικονίδιο πλαισίου συστήματος θα είναι πάντα ορατό."
+
+#~ msgid "If Active"
+#~ msgstr "Αν είναι ενεργό"
+
+#~ msgid "Tray icon will be visible only if KShutDown is active."
+#~ msgstr ""
+#~ "Το εικονίδιο πλαισίου συστήματος θα είναι ορατό μόνο αν το KShutDown "
+#~ "είναι ορατό."
+
+#~ msgid "Never"
+#~ msgstr "Ποτέ"
+
+#~ msgid "Tray icon will be always hidden."
+#~ msgstr "Το εικονίδιο πλαισίου συστήματος δε θα είναι ποτέ ορατό."
+
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "Εμφάνιση θεμάτων του KShutDown"
+
+#~ msgid "SuperKaramba Home Page"
+#~ msgstr "Αρχική σελίδα του SuperKaramba"
+
+#~ msgid "Messages"
+#~ msgstr "Μηνύματα"
+
+#~ msgid "Display a warning message before action"
+#~ msgstr ""
+#~ "Εμφάνιση προειδοποιητικού μηνύματος πριν την εκτέλεση μιας ενέργειας"
+
+#~ msgid "minute(s)"
+#~ msgstr "λεπτό(ά)"
+
+#, fuzzy
+#~ msgid "Recommended"
+#~ msgstr "Εκτέλεση εντολής"
+
+#~ msgid "Warning Message"
+#~ msgstr "Προειδοποιητικό μήνυμα"
+
+#~ msgid "Enabled"
+#~ msgstr "Ενεργοποιημένο"
+
+#~ msgid "A shell command to execute:"
+#~ msgstr "Εντολή κελύφους για εκτέλεση:"
+
+#~ msgid "A message text"
+#~ msgstr "Ένα κείμενο μηνύματος"
+
+#~ msgid "The current main window title"
+#~ msgstr "Ο τίτλος του τρέχοντος κύριου παραθύρου"
+
+#~ msgid "Presets"
+#~ msgstr "Προεπιλογές"
+
+#~ msgid "Custom Message"
+#~ msgstr "Προσαρμοσμένο μήνυμα"
+
+#~ msgid "Progress Bar"
+#~ msgstr "Γραμμή προόδου"
+
+#~ msgid "Re-enable All Message Boxes"
+#~ msgstr "Επανενεργοποίηση όλων των Πλαισίων μηνυμάτων"
+
+#~ msgid ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+#~ msgstr ""
+#~ "Ενεργοποιεί όλα τα μηνύματα που έχουν απενεργοποιηθεί με την επιλογή "
+#~ "<b>Να μην εμφανιστεί αυτό το μήνυμα ξανά</b>."
+
+#~ msgid "Pause: %1"
+#~ msgstr "Παύση: %1"
+
+#~ msgid "This file is used to lock session at KDE startup"
+#~ msgstr ""
+#~ "Το αρχείο χρησιμοποιείται για το κλείδωμα της συνεδρίας στην έναρξη του "
+#~ "KDE"
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "Επαναφορά των προκαθορισμένων τιμών για αυτήν τη σελίδα;"
+
+#~ msgid "Statistics"
+#~ msgstr "Στατιστικά"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr ""
+#~ "Εδώ εμφανίζονται πληροφορίες σχετικά με τους χρήστες που είναι "
+#~ "συνδεδεμένοι στο μηχάνημα, και τις διεργασίες τους.<br>Η επικεφαλίδα "
+#~ "δείχνει την ώρα λειτουργίας του συστήματος."
+
+#~ msgid "Refresh"
+#~ msgstr "Ανανέωση"
+
+#~ msgid "More information"
+#~ msgstr "Περισσότερες πληροφορίες"
+
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "Εμφάνιση ώρας σύνδεσης, JCPU και PCPU."
+
+#~ msgid "Toggle \"FROM\""
+#~ msgstr "Εναλλαγή του \"FROM\""
+
+#~ msgid "Toggle the \"FROM\" (remote hostname) field."
+#~ msgstr "Εναλλαγή του πεδίου \"FROM\" (όνομα απομακρυσμένου υπολογιστή)."
+
+#~ msgid "System Configuration"
+#~ msgstr "Ρυθμίσεις συστήματος"
+
+#~ msgid "No problems were found."
+#~ msgstr "Δε βρέθηκαν προβλήματα."
+
+#~ msgid "Program \"%1\" was not found!"
+#~ msgstr "Το πρόγραμμα \"%1\" δε βρέθηκε!"
+
+#~ msgid "No permissions to execute \"%1\"."
+#~ msgstr "Δεν έχετε άδεια για να εκτελέσετε το \"%1\"."
+
+#~ msgid ""
+#~ "It seems that this is not a KDE full session.\n"
+#~ "KShutDown was designed to work with KDE.\n"
+#~ "However, you can customize Actions in the KShutDown settings dialog\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)."
+#~ msgstr ""
+#~ "Απ' ότι φαίνεται αυτή δεν είναι μία κανονική συνεδρία του KDE.\n"
+#~ "Το KShutDown είναι σχεδιασμένο να λειτουργεί με το KDE.\n"
+#~ "Παρόλα αυτά, μπορείτε να προσαρμόσετε τις Ενέργειες στο διάλογο ρυθμίσεων "
+#~ "του KShutDown (Ρυθμίσεις -> Ρύθμιση του KShutDown... -> Ενέργειες)."
+
+#~ msgid ""
+#~ "Tip: You can customize Actions to work with GDM.\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)"
+#~ msgstr ""
+#~ "Υπόδειξη: Μπορείτε να προσαρμόσετε τις Ενέργειες για να λειτουργούν με το "
+#~ "GDM.\n"
+#~ "(Ρυθμίσεις -> Ρύθμιση του KShutDown... -> Ενέργειες)."
+
+#~ msgid ""
+#~ "KDE Display Manager is not running,\n"
+#~ "or the shut down/reboot function is disabled.\n"
+#~ "\n"
+#~ "Click here to configure KDM."
+#~ msgstr ""
+#~ "Ο διαχειριστής συνεδρίας του KDE δεν εκτελείται,\n"
+#~ "ή η ενέργεια κλείσιμο/επανεκκίνηση είναι απενεργοποιημένη.\n"
+#~ "\n"
+#~ "Κάντε κλικ εδώ για να ρυθμίσετε το KDM."
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Σπύρος Γεωργαράς"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "sngeorgaras@otenet.gr"
+
+#~ msgid "Click for KShutDown main window<br>Click and hold for menu"
+#~ msgstr ""
+#~ "Κάντε κλικ για να εμφανιστεί το κύριο παράθυρο του KShutDown<br> Κάντε "
+#~ "κλικ και κρατήστε το για να εμφανιστεί το μενού"
+
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "Αδύνατη η εκτέλεση του KShutDown!"
+
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "&Ρύθμιση του KShutDown..."
+
+#~ msgid "Options"
+#~ msgstr "Επιλογές"
+
+#~ msgid ""
+#~ "Internal error!\n"
+#~ "Selected menu item is broken."
+#~ msgstr ""
+#~ "Εσωτερικό σφάλμα!\n"
+#~ "Το επιλεγμένο αντικείμενο του μενού είναι κατεστραμμένο."
+
+#~ msgid "3 seconds before action"
+#~ msgstr "3 δευτερόλεπτα πριν την ενέργεια"
+
+#~ msgid "2 seconds before action"
+#~ msgstr "2 δευτερόλεπτα πριν την ενέργεια"
+
+#~ msgid "1 second before action"
+#~ msgstr "1 δευτερόλεπτο πριν την ενέργεια"
+
+#~ msgid "KShutDown"
+#~ msgstr "KShutDown"
+
+#~ msgid "&Start [%1]"
+#~ msgstr "Έναρ&ξη [%1]"
+
+#~ msgid ""
+#~ "Tip: If you have problem with the \"/sbin/shutdown\" command,\n"
+#~ "try to modify the \"/etc/shutdown.allow\" file,\n"
+#~ "then run \"/sbin/shutdown\" command with the additional \"-a\" "
+#~ "parameter.\n"
+#~ "\n"
+#~ "Click here for more information."
+#~ msgstr ""
+#~ "Υπόδειξη: αν έχετε πρόβλημα με την εντολή\"/sbin/shutdown\",\n"
+#~ "δοκιμάστε να τροποποιήσετε το αρχείο \"/etc/shutdown.allow\",\n"
+#~ "και στη συνέχεια εκτελέστε την εντολή \"/sbin/shutdown\" με παράμετρο \"-a"
+#~ "\".\n"
+#~ "\n"
+#~ "Κάντε κλικ εδώ για περισσότερες πληροφορίες."
+
+#~ msgid "&Cancel"
+#~ msgstr "&Ακύρωση"

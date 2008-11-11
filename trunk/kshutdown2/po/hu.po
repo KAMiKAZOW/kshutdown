@@ -1,0 +1,1055 @@
+# translation of hu.po to Hungarian
+# Translation of kshutdown to Castilian aka Spanish
+# This file is distributed under the same license as the Kshutdown package.
+# Károly Barcza <kbarcza@blackpanther.hu>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: hu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2004-10-25 16:23+0100\n"
+"Last-Translator: Kroly Barcza (VectoR) <kbarcza@blackpanther.hu>\n"
+"Language-Team: Hungarian <translator@vgroup.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "Késleltetés megadása másodpercben"
+
+#: src/actions/extras.cpp:58
+msgid "Cannot execute \"Extras\" command"
+msgstr ""
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "E&xtrák...."
+
+#: src/actions/extras.cpp:174
+#, fuzzy
+msgid "Select a command..."
+msgstr "Késleltetés megadása másodpercben"
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr "Kontext menü használta a linkek hozzáadás/szerkesztés/eltávolításához"
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr "Alkalmazás link létrehozásához használjon <b>Kontext Menüt</b>"
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr ""
+"Új főmenü létrehozásához használjad az <b>Új létrehozása|Könyvtár...</b>-at"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr ""
+"Ikon, név vagy megjegyzés változtatásához használja a <b>Beállításokat</b>"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "Link e&ltávolítása"
+
+#: src/kshutdown.cpp:155
+#, fuzzy
+msgid "Unsupported action: %1"
+msgstr "Érvénytelen művelet: %1"
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "Ismeretlen"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr "Biztosan ezt szeretnéd?"
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "Érvénytelen idő: <b>%1</b>"
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "Dátum/idő"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+#, fuzzy
+msgid "No Delay"
+msgstr "Nincs késleltetés"
+
+#: src/kshutdown.cpp:343
+#, fuzzy
+msgid "Time From Now (HH:MM)"
+msgstr "Ettől az időponttól kezdve [ÓÓ:PP]"
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "A számítógép ú&jraindítása"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "A számítógép &kikapcsolása"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+#, fuzzy
+msgid "Lock Screen"
+msgstr "Képernyő&zár"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Nem lehet szabályosan kilépni.\n"
+"Az ablakkezelővel nincs kapcsolat."
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "A számítógép ú&jraindítása"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "A számítógép &kikapcsolása"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "KShutDown"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr ""
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+#, fuzzy
+msgid "&Settings"
+msgstr "Beállítások"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr ""
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "Kiválasztott Dátum/idő: %1"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+#, fuzzy
+msgid "S&elect a time"
+msgstr "Kiválasztott Dátum/idő: %1"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "Parancs: %1"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+#, fuzzy
+msgid "Click to active the selected action"
+msgstr "kiválasztott idő: <b>%1</b>"
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "Sikertelen Művelet! ( %1)"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid "Confirm"
+msgstr "&megerősítés"
+
+#: src/mainwindow.cpp:724
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "Általános"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "&megerősítés"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr ""
+
+#~ msgid "Command: %1"
+#~ msgstr "Parancs: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "Semmi"
+
+#~ msgid "Lock Session"
+#~ msgstr "Munkafolyamat lezárása"
+
+#~ msgid "End Current Session"
+#~ msgstr "Jelenlegi folyamat befejezése"
+
+#~ msgid "kdesktop: DCOP call failed!"
+#~ msgstr "kdesktop: DCOP rendszerhívás sikertelen!"
+
+#, fuzzy
+#~ msgid "Kill the selected process"
+#~ msgstr "Végre akarod hajtani a kiválasztott feladatot?"
+
+#, fuzzy
+#~ msgid "The selected process does not exist!"
+#~ msgstr "Végre akarod hajtani a kiválasztott feladatot?"
+
+#, fuzzy
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "<b>%1</b> fájl eltávolítása sikertelen!"
+
+#, fuzzy
+#~ msgid "More actions..."
+#~ msgstr "B&eállítás..."
+
+#~ msgid "Extras"
+#~ msgstr "Extrák"
+
+#~ msgid "Desktop"
+#~ msgstr "Munkaasztal"
+
+#~ msgid "K Menu"
+#~ msgstr "K menü"
+
+#, fuzzy
+#~ msgid "Type of the link:"
+#~ msgstr "Válassz késleltési típust"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "Kilépés üzenetablak megjelenítése"
+
+#, fuzzy
+#~ msgid "System Shut Down Utility"
+#~ msgstr "Rendszer leállító KDE segédprogram"
+
+#, fuzzy
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "<b>%1</b> fájl eltávolítása sikertelen!"
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "<b>%1</b> fájl eltávolítása sikertelen!"
+
+#, fuzzy
+#~ msgid "Remove Link"
+#~ msgstr "Link e&ltávolítása"
+
+#, fuzzy
+#~ msgid "Add Link"
+#~ msgstr "Link e&ltávolítása"
+
+#, fuzzy
+#~ msgid "Method"
+#~ msgstr "&Mód:"
+
+#, fuzzy
+#~ msgid "Enter a custom command:"
+#~ msgstr "Késleltetés megadása másodpercben"
+
+#, fuzzy
+#~ msgid "Run command"
+#~ msgstr "Parancs f&uttatása:"
+
+#, fuzzy
+#~ msgid "Pause after run command:"
+#~ msgstr "Megállítás után futtassa ezt a parancsot:"
+
+#~ msgid "second(s)"
+#~ msgstr "másodperc(ek)"
+
+#, fuzzy
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr ""
+#~ "Szükséged van megfelelő jogosultságokra a rendszer leállításához vagy "
+#~ "újraindításához (pl:run /sbin/reboot vagy /sbin/shutdown)"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "Ha te <b>KDE</b> és <b>KDM</b>-et (KDE Display Manager) használsz akkor "
+#~ "állitsad be az összes módot a <i>KDE</i>-hez"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "Ha KDE vagy KDM-től különböző ablakkezelőt használsz be kell állítanod a "
+#~ "<i>Shut Down</i> és <i>Reboot</i> módot <i>/sbin/...</i>-ben"
+
+#~ msgid "Manuals:"
+#~ msgstr "Kézikönyvek:"
+
+#~ msgid "User Command"
+#~ msgstr "Felhasználói parancs:"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "Rendszer leállító KDE segédprogram"
+
+#~ msgid "Turn off computer"
+#~ msgstr "A számítógép &kikapcsolása"
+
+#~ msgid "Restart computer"
+#~ msgstr "A számítógép ú&jraindítása"
+
+#~ msgid "Lock session"
+#~ msgstr "Munkafolyamat lezárása"
+
+#~ msgid "End current session"
+#~ msgstr "Jelenlegi folyamat befejezése"
+
+#, fuzzy
+#~ msgid "Confirm command line action"
+#~ msgstr "Egy aktív feladat megszakítása"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "Kilépés üzenetablak megjelenítése"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "Egy aktív feladat megszakítása"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "A főablak ne jelenjen meg induláskor"
+
+#~ msgid "Enable test mode"
+#~ msgstr "A tesztmód bekapcsolása"
+
+#~ msgid "Disable test mode"
+#~ msgstr "A tesztmód bekapcsolása"
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr ""
+#~ "Idő; Például: 01:30 - abszolút idő (ÓÓ:PP); 10 - szám hogy hány percet "
+#~ "várjon most"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "Érvénytelen idő: <b>%1</b>"
+
+#, fuzzy
+#~ msgid "1 hour warning"
+#~ msgstr "1 perces figyelmeztetés"
+
+#~ msgid "5 minutes warning"
+#~ msgstr "5 perces figyelmeztetés"
+
+#~ msgid "1 minute warning"
+#~ msgstr "1 perces figyelmeztetés"
+
+#~ msgid "10 seconds warning"
+#~ msgstr "10 mperces figyelmeztetés"
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "<b>%1</b>! nem futtatható"
+
+#~ msgid "Test"
+#~ msgstr "Próba"
+
+#, fuzzy
+#~ msgid "Enter hour and minute."
+#~ msgstr "Óra és perc megadása:"
+
+#, fuzzy
+#~ msgid "Enter date and time."
+#~ msgstr "Dátum és idő megadása:"
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "Kiválasztott Dátum/idő: %1"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "Jelnlegi Dátum/idő: %1"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr "A választott dátum/idő korábbi, mint a mostani idő/dátum!"
+
+#, fuzzy
+#~ msgid "Action cancelled!"
+#~ msgstr "Sikertelen Művelet! ( %1)"
+
+#, fuzzy
+#~ msgid "Test mode disabled"
+#~ msgstr "Az ütemező ki van kapcsolva!"
+
+#, fuzzy
+#~ msgid "&Actions"
+#~ msgstr "Mű&veletek"
+
+#, fuzzy
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "B&eállítás..."
+
+#, fuzzy
+#~ msgid "Check &System Configuration"
+#~ msgstr "&megerősítés"
+
+#, fuzzy
+#~ msgid "&Statistics"
+#~ msgstr "Statisztika"
+
+#, fuzzy
+#~ msgid "When selected application exit"
+#~ msgstr "Végre akarod hajtani a kiválasztott feladatot?"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "Kikapcsolva az adminisztrátor által."
+
+#, fuzzy
+#~ msgid "Select the type of delay."
+#~ msgstr "Válassz k&ésleltési típust"
+
+#, fuzzy
+#~ msgid "Selected time."
+#~ msgstr "Kiválasztott Dátum/idő: %1"
+
+#~ msgid "TEST MODE"
+#~ msgstr "A tesztmód bekapcsolása"
+
+#, fuzzy
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "Érvénytelen idő: <b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "kiválasztott idő: <b>%1</b>"
+
+#, fuzzy
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "kiválasztott idő: <b>%1</b>"
+
+#, fuzzy
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "Az ütemező ki van kapcsolva!"
+
+#~ msgid "Message"
+#~ msgstr "Üzenet"
+
+#~ msgid "Settings"
+#~ msgstr "Beállítások"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Mű&veletek"
+
+#~ msgid "Action"
+#~ msgstr "Művelet"
+
+#, fuzzy
+#~ msgid "Edit..."
+#~ msgstr "Sz&erkesztés..."
+
+#, fuzzy
+#~ msgid "Extras Menu"
+#~ msgstr "Extrák menü"
+
+#, fuzzy
+#~ msgid "Modify..."
+#~ msgstr "Sz&erkesztés..."
+
+#, fuzzy
+#~ msgid "After Login"
+#~ msgstr "&Bejelentkezéskor"
+
+#, fuzzy
+#~ msgid "Lock screen"
+#~ msgstr "Képernyő&zár"
+
+#, fuzzy
+#~ msgid "Before Logout"
+#~ msgstr "Kijelentkezés"
+
+#~ msgid "Command:"
+#~ msgstr "Parancs:"
+
+#, fuzzy
+#~ msgid "Related KDE Settings..."
+#~ msgstr "KDE beállítások"
+
+#, fuzzy
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "A számítógép &kikapcsolása"
+
+#, fuzzy
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "KShutDown"
+
+#~ msgid "Messages"
+#~ msgstr "Üzenetek"
+
+#, fuzzy
+#~ msgid "Display a warning message before action"
+#~ msgstr "%1 mp után a gép leállítása üzenet megjelenítése."
+
+#~ msgid "minute(s)"
+#~ msgstr "Perc(ek)"
+
+#, fuzzy
+#~ msgid "Recommended"
+#~ msgstr "Parancs f&uttatása:"
+
+#, fuzzy
+#~ msgid "Warning Message"
+#~ msgstr "Figyelmeztető üzenet (ajánlott)"
+
+#, fuzzy
+#~ msgid "Enabled"
+#~ msgstr "Engedélye&zve"
+
+#, fuzzy
+#~ msgid "A message text"
+#~ msgstr "Üzenet elrejtése után:"
+
+#, fuzzy
+#~ msgid "Custom Message"
+#~ msgstr "Üzenet"
+
+#, fuzzy
+#~ msgid "Re-enable All Message Boxes"
+#~ msgstr "Az összes figyelmeztetés és hibaüzenet engedélyezése"
+
+#~ msgid ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+#~ msgstr ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "Alaphelyzetbe állítod a beállításokat ezen az oldalon?"
+
+#~ msgid "Statistics"
+#~ msgstr "Statisztika"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+
+#, fuzzy
+#~ msgid "Refresh"
+#~ msgstr "Fris&sítés"
+
+#, fuzzy
+#~ msgid "More information"
+#~ msgstr "B&eállítás..."
+
+#, fuzzy
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "Bejelentkezési idő megjelenítése JCPU és PCPU idők"
+
+#, fuzzy
+#~ msgid "System Configuration"
+#~ msgstr "&megerősítés"
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Charles Barcza"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "kbarcza@blackpanther.hu"
+
+#, fuzzy
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "<b>%1</b>! nem futtatható"
+
+#, fuzzy
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "B&eállítás..."
+
+#, fuzzy
+#~ msgid "Options"
+#~ msgstr "Mű&veletek"
+
+#~ msgid ""
+#~ "Internal error!\n"
+#~ "Selected menu item is broken."
+#~ msgstr ""
+#~ "Belső hiba!\n"
+#~ "A választott menü elem hibás"
+
+#, fuzzy
+#~ msgid "1 second before action"
+#~ msgstr "10 mperces figyelmeztetés"
+
+#~ msgid "KShutDown"
+#~ msgstr "KShutDown"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Parancs: %1"
+
+#, fuzzy
+#~ msgid ""
+#~ "<b>Tip:</b> Use the <b>Middle Mouse Button</b> to display the actions menu"
+#~ msgstr "<b>Középső gomb</b> a műveletek menü megjelenítése"
+
+#~ msgid "No delay"
+#~ msgstr "Nincs késleltetés"
+
+#, fuzzy
+#~ msgid "Create Link"
+#~ msgstr "&Link létrehozása"
+
+#, fuzzy
+#~ msgid "&Cancel: %1"
+#~ msgstr "Parancs: %1"
+
+#, fuzzy
+#~ msgid "KShutDown Actions (no delay!)"
+#~ msgstr "Művelet (nincs késleltés)"
+
+#~ msgid "Actions (no delay!)"
+#~ msgstr "Művelet (nincs késleltés)"
+
+#~ msgid "&Turn Off Computer"
+#~ msgstr "A számítógép &kikapcsolása"
+
+#~ msgid "&Restart Computer"
+#~ msgstr "A számítógép ú&jraindítása"
+
+#~ msgid "&Lock Session"
+#~ msgstr "Munkafolyamat lezárása"
+
+#~ msgid "&End Current Session"
+#~ msgstr "A munkafolyamat befejezése"
+
+#~ msgid "&Immediate Action"
+#~ msgstr "Azonnali Művelet"
+
+#, fuzzy
+#~ msgid "Run KShutDown"
+#~ msgstr "KShutDown"
+
+#, fuzzy
+#~ msgid "&Run KShutDown"
+#~ msgstr "KShutDown"
+
+#, fuzzy
+#~ msgid "MSettingsDialog"
+#~ msgstr "Beállítások"
+
+#, fuzzy
+#~ msgid "MMessageDialog"
+#~ msgstr "Üzenet"
+
+#, fuzzy
+#~ msgid "MActionEditDialog"
+#~ msgstr "Beállítások"
+
+#, fuzzy
+#~ msgid "SystemConfig"
+#~ msgstr "&megerősítés"
+
+#, fuzzy
+#~ msgid "Links"
+#~ msgstr "&Linkek"
+
+#, fuzzy
+#~ msgid "Lockout"
+#~ msgstr "Kijelentkezés"
+
+#~ msgid "Maintainer"
+#~ msgstr "Karbantartó"
+
+#~ msgid "Ideas"
+#~ msgstr "Ötletek"
+
+#~ msgid "Bug reports"
+#~ msgstr "Javaslatok, hibajelentések"
+
+#, fuzzy
+#~ msgid "Cancel an active action."
+#~ msgstr "Egy aktív feladat megszakítása"
+
+#, fuzzy
+#~ msgid "Hide message after:"
+#~ msgstr "Üzenet elrejtése után:"
+
+#, fuzzy
+#~ msgid "Enter time. (HH:MM)"
+#~ msgstr "Id&ő (ÓÓ:PP)"
+
+#, fuzzy
+#~ msgid "Enter date."
+#~ msgstr "Dátum megadása"
+
+#, fuzzy
+#~ msgid "&Time (HH:MM):"
+#~ msgstr "Id&ő (ÓÓ:PP)"
+
+#, fuzzy
+#~ msgid "Stop the active action"
+#~ msgstr "kiválasztott idő: <b>%1</b>"
+
+#, fuzzy
+#~ msgid "Time From Now"
+#~ msgstr "Mostantól számítva:"
+
+#~ msgid "HH:MM"
+#~ msgstr "ÓÓ:PP"
+
+#~ msgid "&Date:"
+#~ msgstr "&Dátum"
+
+#~ msgid "This page has been disabled by the Administator."
+#~ msgstr "Ezt az oldalt kikapcsolta az Adminisztrátor."
+
+#, fuzzy
+#~ msgid "&Action"
+#~ msgstr "Művelet"
+
+#~ msgid "Click to close"
+#~ msgstr "Kattints a <b>Bezár</b> gombra a kilépéshez."
+
+#, fuzzy
+#~ msgid "Configure &Notifications..."
+#~ msgstr "Értesítések beállítása"
+
+#, fuzzy
+#~ msgid "Scheduler"
+#~ msgstr "Üteme&zés"
+
+#, fuzzy
+#~ msgid "Registered tasks:"
+#~ msgstr "Rögzített feladatok"
+
+#~ msgid "Name"
+#~ msgstr "Név"
+
+#~ msgid "Description"
+#~ msgstr "Leírás"
+
+#, fuzzy
+#~ msgid "Remove All"
+#~ msgstr "Az összes eltávolítása"
+
+#, fuzzy
+#~ msgid "MSchedulerTab"
+#~ msgstr "Időzítő"
+
+#, fuzzy
+#~ msgid "AppScheduler"
+#~ msgstr "Időzítő"
+
+#~ msgid "The task is not registered!"
+#~ msgstr "A feladat nincs regisztrálva!"
+
+#~ msgid "The scheduler is disabled!"
+#~ msgstr "Az ütemező ki van kapcsolva!"
+
+#, fuzzy
+#~ msgid "S&cheduler"
+#~ msgstr "Üteme&zés"
+
+#, fuzzy
+#~ msgid ""
+#~ "Actions\n"
+#~ "and Extras Menu"
+#~ msgstr "Műveletek és Extra menük"
+
+#, fuzzy
+#~ msgid ""
+#~ "Confirmations\n"
+#~ "and Messages"
+#~ msgstr "Megrősítés & Üzenetek"
+
+#, fuzzy
+#~ msgid "Confirm action (recommended)"
+#~ msgstr "Műveletek megerősítése (ajánlott)"
+
+#, fuzzy
+#~ msgid "&Scheduler"
+#~ msgstr "Üteme&zés"
+
+#, fuzzy
+#~ msgid "&Download KShutDown"
+#~ msgstr "KShutDown"
+
+#~ msgid ""
+#~ "If you are running <b>KShutDown</b> from the non-KDE session (e.g. "
+#~ "<b>GNOME</b>), then change all methods..."
+#~ msgstr ""
+#~ "Ha te használod a <b>KShutDown</b>-t a nem-KDE felülethez (pl. <b>GNOME</"
+#~ "b>)akkor választanod kell a módozatok közül"
+
+#~ msgid ""
+#~ "Any external application can register a KShutDown task through the DCOP "
+#~ "mechanism. For example, a movie player optionally can use the KShutDown "
+#~ "task to shut down the system after playing a movie.<br><br>All the "
+#~ "registered tasks are listed here. Click <b>Remove</b> or <b>Remove All</"
+#~ "b> to cancel the selected task. Click <b>Configure</b> to disable the "
+#~ "<b>Scheduler</b>."
+#~ msgstr ""
+#~ "Any external application can register a KShutDown task through the DCOP "
+#~ "mechanism. For example, a movie player optionally can use the KShutDown "
+#~ "task to shut down the system after playing a movie.<br><br>All the "
+#~ "registered tasks are listed here. Click <b>Remove</b> or <b>Remove All</"
+#~ "b> to cancel the selected task. Click <b>Configure</b> to disable the "
+#~ "<b>Scheduler</b>."
+
+#, fuzzy
+#~ msgid "Time"
+#~ msgstr "I&dő"
+
+#~ msgid "Disabled"
+#~ msgstr "Kikapcsolva"
+
+#~ msgid "More commands...<br>Click <b>Modify...</b> to add/edit/remove items."
+#~ msgstr ""
+#~ "Felhasználói parancsok: <br>Klikk<b>Változtat...</b>  hozzáad/szerkeszt/"
+#~ "eltávolít elemekhez."
+
+#, fuzzy
+#~ msgid "Configure..."
+#~ msgstr "B&eállítás..."
+
+#~ msgid "Re&move"
+#~ msgstr "Eltá&volítás"
+
+#~ msgid "Locatio&n:"
+#~ msgstr "Hely:"
+
+#~ msgid "&Type:"
+#~ msgstr "&Típus:"
+
+#~ msgid "KShutDown Wizard"
+#~ msgstr "Beállításvarázsló"
+
+#~ msgid "See FAQ for more details"
+#~ msgstr "Nézd meg a FAQ-t a további részletekért"
+
+#~ msgid "Automation"
+#~ msgstr "Automatizálás"
+
+#, fuzzy
+#~ msgid "Co&mmand:"
+#~ msgstr "Parancs:"
+
+#~ msgid "Remember time &settings"
+#~ msgstr "Megjegyzi az idő beállításokat"
+
+#, fuzzy
+#~ msgid "Enable &Scheduler"
+#~ msgstr "Időzítő"
+
+#~ msgid "Screen Sa&ver..."
+#~ msgstr "Képernyő&védő.."
+
+#~ msgid "Session &Manager..."
+#~ msgstr "Munkafolyamat-kezelő"
+
+#~ msgid "&Links"
+#~ msgstr "&Linkek"
+
+#, fuzzy
+#~ msgid "Themes"
+#~ msgstr "Próba"
+
+#~ msgid "&Popup Messages (Passive)"
+#~ msgstr "Előugró üzenet (Passzív)"
+
+#, fuzzy
+#~ msgid "Notifications"
+#~ msgstr "&megerősítés"
+
+#~ msgid "Wizard"
+#~ msgstr "Varázsló"
+
+#~ msgid "&End current session"
+#~ msgstr "A munkafolyamat befejezése és kilépés."
+
+#~ msgid "&Turn off computer"
+#~ msgstr "A számítógép kikap&csolása"
+
+#~ msgid "&Restart computer"
+#~ msgstr "A szá&mítógép újraindítása"
+
+#, fuzzy
+#~ msgid "What do you want to do?"
+#~ msgstr "Mit szeretne tenni azután?"
+
+#~ msgid "&Now (no delay)"
+#~ msgstr "&Most (nincs késleltés)"
+
+#~ msgid "At &date/time"
+#~ msgstr "Dát&um/idő:"
+
+#~ msgid "&Time from now"
+#~ msgstr "&Mostantól számítva"
+
+#, fuzzy
+#~ msgid "MWizard"
+#~ msgstr "Varázsló"
+
+#~ msgid "St&atistics"
+#~ msgstr "S&tatisztika"
+
+#~ msgid "Enter delay:"
+#~ msgstr "Késleltetés megadása:"
+
+#~ msgid "Set delay to 0 seconds"
+#~ msgstr "Várakozási másodpercek:"
+
+#~ msgid "Set delay to 00:00"
+#~ msgstr "Frissítési idő 00:00:00.-hoz"
+
+#~ msgid "Set date/time to the current date/time"
+#~ msgstr "A pontos időt és dátum beállítása"
+
+#~ msgid "Quit the application"
+#~ msgstr "Kilépés az alkalmazásból"
+
+#~ msgid "Enter delay in seconds."
+#~ msgstr "Késleltetés megadása másodpercben"
+
+#~ msgid "Enter delay in minutes."
+#~ msgstr "Késleltetés megadása percekben."
+
+#~ msgid "Enter delay in hours."
+#~ msgstr "Késleltetés megadása órákban."
+
+#~ msgid "Lock the screen using a screen saver"
+#~ msgstr "A képernyőkímélő lezárja a képernyőt"
+
+#~ msgid "&Wizard..."
+#~ msgstr "&Varázsló..."
+
+#~ msgid "Run the Wizard"
+#~ msgstr "Beállításvarázsló"
+
+#~ msgid "Now!"
+#~ msgstr "Most!"
+
+#~ msgid "Time from &now:"
+#~ msgstr "&Mostantól számítva"
+
+#~ msgid "Second(s)"
+#~ msgstr "Másodperc"
+
+#~ msgid "Minute(s)"
+#~ msgstr "Perc"
+
+#~ msgid "Hour(s)"
+#~ msgstr "Óra"
+
+#~ msgid "Co&lors"
+#~ msgstr "Szín&ek:"
+
+#~ msgid "Text color:"
+#~ msgstr "Szövegszín:"
+
+#~ msgid "Background color:"
+#~ msgstr "Háttérszín:"
+
+#~ msgid "Header color:"
+#~ msgstr "A fejléc szövegének színe"
+
+#~ msgid "Warning color:"
+#~ msgstr "Figyelmeztetés színe"
+
+#~ msgid "Preview"
+#~ msgstr "Előnézet"
+
+#~ msgid "Info"
+#~ msgstr "Infó"
+
+#~ msgid "Tip"
+#~ msgstr "Tipp"
+
+#~ msgid "Comm&and:"
+#~ msgstr "&Parancs:"
+
+#~ msgid "Method / Command"
+#~ msgstr "Mód / Parancs"
+
+#~ msgid "&Before System Shut Down"
+#~ msgstr "A rendsze leállítása és a gép újraindítása."
+
+#~ msgid "<b>Karamba</b> Themes"
+#~ msgstr "<b>Karamba</b> Témák"
+
+#~ msgid "Preview:"
+#~ msgstr "Előnézet:"
+
+#~ msgid "Step %1 of %2"
+#~ msgstr "1% lépés 2% -ból/ből"
+
+#~ msgid "Create/Remove Link"
+#~ msgstr "Link Létrehozása/Eltávolítása"

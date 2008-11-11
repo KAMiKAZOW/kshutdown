@@ -1,0 +1,744 @@
+# translation of tr.po to
+# Copyright (C) 2006 Konrad Twardowski
+# This file is distributed under the same license as the KShutDown package.
+#
+# Ahmet AYGÜN <ahmet@pardusman.org>, 2006.
+# Ahmet AYGÜN <ahmet@pardusman.org>, 2007.
+# Eren Türkay <turkay.eren@gmail.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: tr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2007-08-27 21:57+0300\n"
+"Last-Translator: Eren Türkay <turkay.eren@gmail.com>\n"
+"Language-Team:  <turkce@pardus.org.tr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "Komut girin."
+
+#: src/actions/extras.cpp:58
+#, fuzzy
+msgid "Cannot execute \"Extras\" command"
+msgstr "\"Ek\" komut çalıştır (.desktop dosyası)"
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "Diğer"
+
+#: src/actions/extras.cpp:174
+msgid "Select a command..."
+msgstr "Komut seçin..."
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr "Kısayol ekle/çıkar için sağ tık menüsünü kullanın."
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr "Yeni kısayol oluşturmak için <b>Sağ tık menüsü</b>nü kullanın."
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr "Yeni alt menü oluşturmak için <b>Yeni oluştur|Dizin...</b> kullanın"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr "İsmi, uyarıyı ya da simgeyi değiştirmek için <b>Ayarlar</b>'ı kullanın"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "Linkleri Ekle/Kaldır"
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %1"
+msgstr ""
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "Bilinmeyen"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr ""
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "Kalan zaman."
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "Tarih/saat"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+msgid "No Delay"
+msgstr "Bekleme Yok"
+
+#: src/kshutdown.cpp:343
+msgid "Time From Now (HH:MM)"
+msgstr "Şu andan itibaren (SA:DK) "
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "Bilgisayarı Yeniden Başlat"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "Bilgisayarı Kapat"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+msgid "Lock Screen"
+msgstr "Ekranı Kilitle"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Oturum sonlandırılamadı.\n"
+"Oturum yöneticisiyle bağlantı kurulamadı."
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "Çıkış"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "Bilgisayarı Yeniden Başlat"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "Bilgisayarı Kapat"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "KShutDown sistem çekmecesine küçültüldü"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr ""
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+#, fuzzy
+msgid "&Settings"
+msgstr "Ayarlar"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr ""
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "&Gerçekleştirilecek eylemi seçin"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+msgid "S&elect a time"
+msgstr "&Zaman seçin"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "İ&ptal"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+msgid "Click to active the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "Eylem başarısız! (%1)"
+
+#: src/mainwindow.cpp:724
+msgid "Confirm"
+msgstr "Onayla"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"<b>%1</b><br>sürecini ÖLDÜRMEK istediğinizden emin misiniz?"
+"<br><br>Kaydedilmemiş tüm veriler silinecek!"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "Genel"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "Onayla"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr ""
+
+#~ msgid "Please wait..."
+#~ msgstr "Lütfen bekleyin..."
+
+#~ msgid "Command: %1"
+#~ msgstr "Komut: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "Hiçbiri"
+
+#~ msgid "Lock Session"
+#~ msgstr "Oturumu Kilitle"
+
+#~ msgid "End Current Session"
+#~ msgstr "Oturumu Sonlandır"
+
+#~ msgid "kdesktop: DCOP call failed!"
+#~ msgstr "kdesktop: DCOP çağrısı başarısız!"
+
+#~ msgid "Refresh the list of processes"
+#~ msgstr "Süreçler listesini yenile"
+
+#~ msgid "List of the running processes"
+#~ msgstr "Çalışan süreçler listesi"
+
+#~ msgid "Kill"
+#~ msgstr "Öldür"
+
+#~ msgid "Kill the selected process"
+#~ msgstr "Seçili süreçleri öldür"
+
+#~ msgid "Waiting for \"%1\""
+#~ msgstr "\"%1\" bekleniyor"
+
+#~ msgid "The selected process does not exist!"
+#~ msgstr "Seçtiğiniz süreç mevcut değil!"
+
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "Komut çalıştırılamıyor<br><br><b>%1</b>"
+
+#~ msgid "Process not found<br><b>%1</b>"
+#~ msgstr "Süreç bulunamadı<br><b>%1</b>"
+
+#~ msgid "No permissions to kill<br><b>%1</b>"
+#~ msgstr "<b>%1</b>sürecini öldürmek için yeterli yetki yok"
+
+#~ msgid "DEAD: %1"
+#~ msgstr "ÖLÜ: %1"
+
+#~ msgid ""
+#~ "Are you sure?<br><br>Selected Action: <b>%1</b><br>Selected Time: <b>%2</"
+#~ "b>"
+#~ msgstr ""
+#~ "Emin misiniz?<br><br>Seçilen eylem: <b>%1</b><br>Seçilen zaman: <b>%2</b>"
+
+#~ msgid "More actions..."
+#~ msgstr "Daha fazla eylem..."
+
+#~ msgid "Location where to create the link:"
+#~ msgstr "Kısayolun oluşturulacağı yeri seçin:"
+
+#~ msgid "Desktop"
+#~ msgstr "Masaüstü"
+
+#~ msgid "K Menu"
+#~ msgstr "K Menüsü"
+
+#~ msgid "Type of the link:"
+#~ msgstr "Kısayol türünü seçin:"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "Standart Çıkış Penceresi"
+
+#~ msgid "System Shut Down Utility"
+#~ msgstr "Bilgisayar Kapatma Aracı"
+
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "<b>%1</b> dosyası oluşturulamıyor!"
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "<b>%1</b> dosyası silinemiyor!"
+
+#~ msgid "Remove Link"
+#~ msgstr "Kısayol Sil"
+
+#~ msgid "Add Link"
+#~ msgstr "Linkleri Ekle/Kaldır"
+
+#~ msgid "Method"
+#~ msgstr "Yöntem"
+
+#~ msgid "Select a method:"
+#~ msgstr "Yöntem seçin:"
+
+#~ msgid "KDE (default)"
+#~ msgstr "KDE (öntanımlı)"
+
+#~ msgid "Enter a custom command:"
+#~ msgstr "Komut girin:"
+
+#~ msgid "Command before action"
+#~ msgstr "İşlemden önce komut çalıştır"
+
+#~ msgid "Run command"
+#~ msgstr "Komutu çalıştır"
+
+#~ msgid "Pause after run command:"
+#~ msgstr "Komutu çalıştırdıktan sonra beklenecek süre"
+
+#~ msgid "No pause"
+#~ msgstr "Duraksama yok"
+
+#~ msgid "second(s)"
+#~ msgstr "saniye"
+
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr ""
+#~ "Çoğu zaman sistemi kapatmak için bazı haklara sahip olmanız gerekir "
+#~ "(örneğin: /sbin/shutdown'ı çalıştırabiliyor olmalısınız)"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "Eğer <b>KDE</b> ve <b>KDM</b> kullanıyorsanız tüm yöntemleri <i>KDE</i> "
+#~ "olarak seçin"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "Eğer <b>KDE</b> kullanıyorsanız ve <b>KDM</b>'dan farklı bir görüntü "
+#~ "yönetici kullanıyorsanız <i>Bilgisayarı Kapat</i> ve <i>Bilgisayarı "
+#~ "Yeniden Başlat</i> yöntemlerini <i>/sbin/...</i> şeklinde ayarlayın."
+
+#~ msgid "Manuals:"
+#~ msgstr "Belgeler:"
+
+#~ msgid "User Command"
+#~ msgstr "Kullanıcı Komutu"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "KDE için Bilgisayar Kapatma Yazılımı"
+
+#~ msgid "Turn off computer"
+#~ msgstr "Bilgisayarı Kapat"
+
+#~ msgid "Restart computer"
+#~ msgstr "Bilgisayarı Yeniden Başlat"
+
+#~ msgid "Lock session"
+#~ msgstr "Oturumu Kilitle"
+
+#~ msgid "End current session"
+#~ msgstr "Oturumu Sonlandır"
+
+#~ msgid "Confirm command line action"
+#~ msgstr "Komut satırı eylemini onayla"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "Standart çıkış diyaloğunu görüntüle"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "Etkin işlemi iptal et"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "Başlangıçta pencereyi gösterme"
+
+#~ msgid "Enable test mode"
+#~ msgstr "Deneme modunu etkinleştir"
+
+#~ msgid "Disable test mode"
+#~ msgstr "Deneme modunu devre dışı bırak"
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr ""
+#~ "Zaman örnekleri: 01:30 - tam zaman (SA:DK); 10 - şu andan itibaren "
+#~ "beklenecek dakika"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "Geçersiz zaman: <b>%1</b>"
+
+#~ msgid "1 hour warning"
+#~ msgstr "1 saat uyarısı"
+
+#~ msgid "5 minutes warning"
+#~ msgstr "5 dakika uyarısı"
+
+#~ msgid "1 minute warning"
+#~ msgstr "1 dakika uyarısı"
+
+#~ msgid "10 seconds warning"
+#~ msgstr "10 saniye uyarısı"
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "\"%1\" çalıştırılamadı!"
+
+#~ msgid "Test"
+#~ msgstr "Deneme"
+
+#~ msgid "Enter hour and minute."
+#~ msgstr "Saat ve dakika girin."
+
+#~ msgid "Enter date and time."
+#~ msgstr "Tarih ve saat girin."
+
+#~ msgid "Click the <b>Select a command...</b> button first."
+#~ msgstr "Önce <b>Komut Seçin...</b> düğmesine basın."
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "Belirlenen tarih/saat: %1"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "Şimdiki tarih/saat: %1"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr "Belirlenen tarih/saat şimdiki tarihten/saatten daha erken!"
+
+#~ msgid "Action cancelled!"
+#~ msgstr "İşlem iptal edildi."
+
+#~ msgid "Test mode enabled"
+#~ msgstr "Deneme modu etkin"
+
+#~ msgid "Test mode disabled"
+#~ msgstr "Deneme modu devre dışı"
+
+#~ msgid "&Actions"
+#~ msgstr "&Eylemler"
+
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "Genel Kısayolları Yapılandır..."
+
+#~ msgid "Check &System Configuration"
+#~ msgstr "&Sistem yapılandırmasını denetle"
+
+#~ msgid "&Statistics"
+#~ msgstr "İ&statistikler"
+
+#~ msgid "Select an action to perform at the selected time."
+#~ msgstr "Belirtilen zamanda uygulanmak üzere bir eylem seçin."
+
+#~ msgid "When selected application exit"
+#~ msgstr "Belirtilen uygulama kapanınca"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "Yönetici tarafından devre dışı bırakıldı."
+
+#~ msgid "Select the type of delay."
+#~ msgstr "Bekleme tipini seçin"
+
+#~ msgid "Selected time."
+#~ msgstr "Belirlenen süre."
+
+#~ msgid "TEST MODE"
+#~ msgstr "DENEME MODU"
+
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "Kalan zaman: <b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "Seçilen zaman: <b>%1</b>"
+
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "Seçilen eylem: <b>%1</b>"
+
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "<b>Not:</b> Deneme modu etkin"
+
+#~ msgid "KShutDown has quit"
+#~ msgstr "KShutDown kapandı"
+
+#~ msgid "Message"
+#~ msgstr "İleti"
+
+#~ msgid "Actions"
+#~ msgstr "Eylemler"
+
+#~ msgid "Action"
+#~ msgstr "Eylem"
+
+#~ msgid "Edit..."
+#~ msgstr "Düzenle..."
+
+#~ msgid "Check System Configuration"
+#~ msgstr "Sistem Yapılandırmasını Denetle"
+
+#~ msgid "Extras Menu"
+#~ msgstr "Ekstralar Menüsü"
+
+#~ msgid "Modify..."
+#~ msgstr "Düzenle..."
+
+#~ msgid "Advanced"
+#~ msgstr "Gelişmiş"
+
+#~ msgid "After Login"
+#~ msgstr "Oturum açıldıktan sonra"
+
+#~ msgid "Lock screen"
+#~ msgstr "Ekranı kilitle"
+
+#~ msgid "Before Logout"
+#~ msgstr "Oturum kapanmadan önce"
+
+#~ msgid "Close CD-ROM Tray"
+#~ msgstr "CD-ROM kapağını kapat"
+
+#~ msgid "Command:"
+#~ msgstr "Komut:"
+
+#~ msgid "Related KDE Settings..."
+#~ msgstr "İlgili KDE Ayarları..."
+
+#~ msgid "Common Problems"
+#~ msgstr "Yaygın Sorunlar"
+
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "\"Bilgisayarı Kapat\" çalışmıyor"
+
+#~ msgid "Popup messages are very annoying"
+#~ msgstr "Popup iletileri çok can sıkıcı"
+
+#~ msgid "Show System Tray Icon"
+#~ msgstr "Sistem Çekmecesi Simgesini Göster"
+
+#~ msgid "Always"
+#~ msgstr "Her zaman"
+
+#~ msgid "Tray icon will be always visible."
+#~ msgstr "Simge her zaman görünür olacaktır."
+
+#~ msgid "If Active"
+#~ msgstr "Eğer etkin ise"
+
+#~ msgid "Tray icon will be visible only if KShutDown is active."
+#~ msgstr "Simge sadece KShutDown etkin iken görünecektir."
+
+#~ msgid "Never"
+#~ msgstr "Asla"
+
+#~ msgid "Tray icon will be always hidden."
+#~ msgstr "Simge asla görünmeyecektir."
+
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "KShutDown Temalarını Göster"
+
+#~ msgid "SuperKaramba Home Page"
+#~ msgstr "SuperKaramba Sitesi"
+
+#~ msgid "Messages"
+#~ msgstr "İletiler"
+
+#~ msgid "Display a warning message before action"
+#~ msgstr "Eylemden önce uyarı iletisi görüntüle"
+
+#~ msgid "minute(s)"
+#~ msgstr "dakika"
+
+#~ msgid "Recommended"
+#~ msgstr "Önerilen"
+
+#~ msgid "Warning Message"
+#~ msgstr "Uyarı İletisi"
+
+#~ msgid "Enabled"
+#~ msgstr "Etkin"
+
+#~ msgid "A shell command to execute:"
+#~ msgstr "Çalıştırılacak kabuk komutu:"
+
+#~ msgid "A message text"
+#~ msgstr "İleti metni"
+
+#~ msgid "The current main window title"
+#~ msgstr "Ana pencere başlığı"
+
+#~ msgid "Presets"
+#~ msgstr "Öntanımlılar"
+
+#~ msgid "Custom Message"
+#~ msgstr "Uyarı İletisini Özelleştir"
+
+#~ msgid "Progress Bar"
+#~ msgstr "İşlem Çubuğu"
+
+#~ msgid "Re-enable All Message Boxes"
+#~ msgstr "Tüm İleti Kutucuklarını Etkinleştir"
+
+#~ msgid ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+#~ msgstr ""
+#~ "<b>Bu iletiyi bir daha asla gösterme</b> özelliğiyle kapatılan tüm "
+#~ "iletileri etkinleştir."
+
+#~ msgid "Pause: %1"
+#~ msgstr "Duraksa: %1"
+
+#~ msgid "This file is used to lock session at KDE startup"
+#~ msgstr "Bu dosya KDE başlangıcında oturumu kilitlemek için kullanılıyor"
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "Bu sayfadaki ayarları öntanımlı haline getir?"
+
+#~ msgid "Statistics"
+#~ msgstr "İstatistikler"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr ""
+#~ "Bu pencerede bilgisayarda oturum açan kullanıcıları ve onların yürüttüğü "
+#~ "süreçleri görebilirsiniz.\n"
+#~ "Sistemin ne kadar süredir çalışır durumda olduğu en üst satırda "
+#~ "yazmaktadır."
+
+#~ msgid "Refresh"
+#~ msgstr "Yenile"
+
+#~ msgid "More information"
+#~ msgstr "Daha fazla bilgi"
+
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "Oturum süresini, JCPU ve PCPU sürelerini göster."
+
+#~ msgid "Toggle \"FROM\""
+#~ msgstr "\"FROM\" sütununu göster"
+
+#~ msgid "Toggle the \"FROM\" (remote hostname) field."
+#~ msgstr "\"FROM\" sütununu göster."
+
+#~ msgid "Hide"
+#~ msgstr "Gizle"
+
+#~ msgid "System Configuration"
+#~ msgstr "Sistem Yapılandırması"
+
+#~ msgid ""
+#~ "Tip: Click here if you have problem with the \"/sbin/shutdown\" command."
+#~ msgstr ""
+#~ "İpucu: Eğer \"/sbin/shutdown\" komutu ile problem yaşıyorsanız buraya "
+#~ "tıklayın."
+
+#~ msgid "No problems were found."
+#~ msgstr "Sorun bulunamadı."
+
+#~ msgid "Program \"%1\" was not found!"
+#~ msgstr "\"%1\" programı bulunamadı!"
+
+#~ msgid "No permissions to execute \"%1\"."
+#~ msgstr "\"%1\" eylemi için yeterli yetkiniz yok."
+
+#~ msgid ""
+#~ "It seems that this is not a KDE full session.\n"
+#~ "KShutDown was designed to work with KDE.\n"
+#~ "However, you can customize Actions in the KShutDown settings dialog\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)."
+#~ msgstr ""
+#~ "Öyle görünüyor ki oturumunuz KDE oturumu değil.\n"
+#~ "KShutDown, KDE ile çalışmak üzere tasarlanmıştır.\n"
+#~ "Eylemleri KShutDown yapılandırmasından ayarlayabilirsiniz\n"
+#~ "(Ayarlar -> KShutDown Programını Yapılandır -> Eylemler)"
+
+#~ msgid ""
+#~ "Tip: You can customize Actions to work with GDM.\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)"
+#~ msgstr ""
+#~ "İpucu: Eylemleri GDM ile çalışacak şekilde ayarlayabilirsiniz.\n"
+#~ "(Ayarlar -> KShutDown Programını Yapılandır -> Eylemler)"
+
+#~ msgid ""
+#~ "KDE Display Manager is not running,\n"
+#~ "or the shut down/reboot function is disabled.\n"
+#~ "\n"
+#~ "Click here to configure KDM."
+#~ msgstr ""
+#~ "KDM çalışmıyor ya da\n"
+#~ "bilgisayarı kapat/yeniden başlat işlevleri pasifleştirilmiş.\n"
+#~ "\n"
+#~ "KDM'ı ayarlamak için buraya tıklayın."
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Ahmet AYGÜN, Eren TÜRKAY"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "ahmet@zion.gen.tr, turkay.eren@gmail.com"
+
+#~ msgid "Click for KShutDown main window<br>Click and hold for menu"
+#~ msgstr "KShutDown için tıklayın<br>Menü için tıklayıp basılı tutun"
+
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "KShutDown Çalıştırılamıyor"
+
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "KShutDown Programını &Yapılandır"

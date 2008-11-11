@@ -1,0 +1,781 @@
+# translation of kshutdown.po to Bulgarian
+# This file is put in the public domain.
+#
+# Zlatko Popov <zlatkopopov@fsa-bg.org>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: kshutdown\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"PO-Revision-Date: 2007-05-05 11:15+0000\n"
+"Last-Translator: Zlatko Popov <zlatkopopov@fsa-bg.org>\n"
+"Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: src/actions/extras.cpp:49
+#, fuzzy
+msgid "Invalid \"Extras\" command"
+msgstr "Въведете команда."
+
+#: src/actions/extras.cpp:58
+msgid "Cannot execute \"Extras\" command"
+msgstr ""
+
+#: src/actions/extras.cpp:69
+#, fuzzy
+msgid "Extras..."
+msgstr "Други"
+
+#: src/actions/extras.cpp:174
+msgid "Select a command..."
+msgstr "Избор на команда..."
+
+#: src/actions/extras.cpp:188
+#, fuzzy
+msgid "Use context menu to add/edit/remove actions."
+msgstr ""
+"Използване на контекстното меню за добавяне/редактиране/премахване на връзки."
+
+#: src/actions/extras.cpp:190
+#, fuzzy
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr ""
+"Използвайте <b>контекстното меню</b> за създаване на нова връзка към програма"
+
+#: src/actions/extras.cpp:191
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr ""
+"Използвайте <b>Създаване на нова|директория...</b> за създаване на подменю"
+
+#: src/actions/extras.cpp:192
+#, fuzzy
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr "Използвайте <b>Настройки</b> за смяна на иконата, името или коментара"
+
+#: src/actions/extras.cpp:216
+#, fuzzy
+msgid "Add/Remove Commands..."
+msgstr "Добавяне/Премахване на връзки"
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %1"
+msgstr ""
+
+#: src/kshutdown.cpp:170
+#, fuzzy
+msgid "Unknown error"
+msgstr "Неизвестно"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr ""
+
+#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
+#, fuzzy
+msgid "Remaining time:"
+msgstr "Оставащо време."
+
+#: src/kshutdown.cpp:306
+msgid "At Date/Time"
+msgstr "На дата/време"
+
+#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+msgid "No Delay"
+msgstr "Без забавяне"
+
+#: src/kshutdown.cpp:343
+msgid "Time From Now (HH:MM)"
+msgstr "Време от сега (ЧЧ:ММ)"
+
+#: src/kshutdown.cpp:456
+#, fuzzy
+msgid "Hibernate Computer"
+msgstr "Рестартиране на компютъра"
+
+#: src/kshutdown.cpp:459
+msgid "Cannot suspend to disk"
+msgstr ""
+
+#: src/kshutdown.cpp:469
+#, fuzzy
+msgid "Suspend Computer"
+msgstr "Изключване на компютъра"
+
+#: src/kshutdown.cpp:472
+msgid "Cannot suspend to RAM"
+msgstr ""
+
+#: src/kshutdown.cpp:482
+msgid "Lock Screen"
+msgstr "Заключване на екрана"
+
+#: src/kshutdown.cpp:626
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Излизането не беше нормално.\n"
+"Няма връзка с мениджъра на сесията."
+
+#: src/kshutdown.cpp:650
+msgid "Logout"
+msgstr "Изход"
+
+#: src/kshutdown.cpp:660
+msgid "Restart Computer"
+msgstr "Рестартиране на компютъра"
+
+#: src/kshutdown.cpp:670
+msgid "Turn Off Computer"
+msgstr "Изключване на компютъра"
+
+#: src/mainwindow.cpp:273
+msgid "KShutdown is still active!"
+msgstr ""
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "KShutdown has been minimized"
+msgstr "KShutDown е минимизирана"
+
+#: src/mainwindow.cpp:385
+msgid "&File"
+msgstr "&Файл"
+
+#: src/mainwindow.cpp:412
+msgid "Quit"
+msgstr ""
+
+#: src/mainwindow.cpp:419
+msgid "&Settings"
+msgstr "&Настройки"
+
+#: src/mainwindow.cpp:425
+msgid "Preferences..."
+msgstr ""
+
+#: src/mainwindow.cpp:443
+msgid "&Help"
+msgstr "&Помощ"
+
+#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+msgid "About"
+msgstr ""
+
+#: src/mainwindow.cpp:445
+msgid "About Qt"
+msgstr ""
+
+#: src/mainwindow.cpp:475
+#, fuzzy
+msgid "Select an &action"
+msgstr "Избор на действие за изпълнение"
+
+#: src/mainwindow.cpp:484
+msgid "Do not save session"
+msgstr ""
+
+#: src/mainwindow.cpp:492
+msgid "S&elect a time"
+msgstr "И&збор на време"
+
+#: src/mainwindow.cpp:592
+#, fuzzy
+msgid "Cancel"
+msgstr "&Отмяна"
+
+#: src/mainwindow.cpp:593
+msgid "OK"
+msgstr ""
+
+#: src/mainwindow.cpp:595
+msgid "Click to active the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:602
+#, fuzzy
+msgid "Action not available: %0"
+msgstr "Действието беше неуспешно! (%1)"
+
+#: src/mainwindow.cpp:724
+msgid "Confirm"
+msgstr "Потвърждение"
+
+#: src/mainwindow.cpp:724
+#, fuzzy
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"Сигурни ли сте, че искате да убиете<br><b>%1</b>?<br><br>Незаписаните данни "
+"ще бъдат загубени!"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr ""
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "Основни"
+
+#: src/preferences.cpp:97
+#, fuzzy
+msgid "Confirm Action"
+msgstr "Потвърждение"
+
+#: src/preferences.cpp:101
+msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr "Грешка"
+
+#~ msgid "Please wait..."
+#~ msgstr "Моля, изчакайте..."
+
+#~ msgid "Command: %1"
+#~ msgstr "Команда: %1"
+
+#~ msgid "Nothing"
+#~ msgstr "Нищо"
+
+#~ msgid "Lock Session"
+#~ msgstr "Заключване на сесията"
+
+#~ msgid "End Current Session"
+#~ msgstr "Завършване на сесията"
+
+#~ msgid "kdesktop: DCOP call failed!"
+#~ msgstr "kdesktop: неуспешна комуникация с DCOP!"
+
+#~ msgid "Refresh the list of processes"
+#~ msgstr "Презареждане на списъка с процеси"
+
+#~ msgid "List of the running processes"
+#~ msgstr "Списък с активни процеси"
+
+#~ msgid "Kill"
+#~ msgstr "Убиване"
+
+#~ msgid "Kill the selected process"
+#~ msgstr "Убиване на процеса"
+
+#~ msgid "Waiting for \"%1\""
+#~ msgstr "Изчакване за \"%1\""
+
+#~ msgid "The selected process does not exist!"
+#~ msgstr "Процесът не съществува!"
+
+#~ msgid "Could not execute command<br><br><b>%1</b>"
+#~ msgstr "Невъзможно изпълнение на команда<br><br><b>%1</b>"
+
+#~ msgid "Process not found<br><b>%1</b>"
+#~ msgstr "Не е намерен процес<br><b>%1</b>"
+
+#~ msgid "No permissions to kill<br><b>%1</b>"
+#~ msgstr "Нямате праза за убиване на<br><b>%1</b>"
+
+#~ msgid "DEAD: %1"
+#~ msgstr "УБИТ: %1"
+
+#~ msgid ""
+#~ "Are you sure?<br><br>Selected Action: <b>%1</b><br>Selected Time: <b>%2</"
+#~ "b>"
+#~ msgstr "Сигурни ли сте?<br><br>Действие: <b>%1</b><br>Време: <b>%2</b>"
+
+#~ msgid "More actions..."
+#~ msgstr "Още действия..."
+
+#~ msgid "Location where to create the link:"
+#~ msgstr "Местоположение на връзката:"
+
+#~ msgid "Desktop"
+#~ msgstr "Работен плот"
+
+#~ msgid "K Menu"
+#~ msgstr "Меню К"
+
+#~ msgid "Type of the link:"
+#~ msgstr "Тип връзка:"
+
+#~ msgid "Standard Logout Dialog"
+#~ msgstr "Изход"
+
+#~ msgid "System Shut Down Utility"
+#~ msgstr "Инструмент за спиране на компютъра"
+
+#~ msgid "Could not create file <b>%1</b>!"
+#~ msgstr "Файлът <b>%1</b> не беше създаден!"
+
+#~ msgid "Could not remove file <b>%1</b>!"
+#~ msgstr "Файлът <b>%1</b> не беше премахнат!"
+
+#~ msgid "Remove Link"
+#~ msgstr "Премахване на връзка"
+
+#~ msgid "Add Link"
+#~ msgstr "Добавяне на връзка"
+
+#~ msgid "Method"
+#~ msgstr "Метод"
+
+#~ msgid "Select a method:"
+#~ msgstr "Изберете метод:"
+
+#~ msgid "KDE (default)"
+#~ msgstr "KDE (по подразбиране)"
+
+#~ msgid "Enter a custom command:"
+#~ msgstr "Въведете команда:"
+
+#~ msgid "Command before action"
+#~ msgstr "Команда преди действие"
+
+#~ msgid "Run command"
+#~ msgstr "Изпълнение на команда"
+
+#~ msgid "Pause after run command:"
+#~ msgstr "Пауза след изпълнението на командата:"
+
+#~ msgid "No pause"
+#~ msgstr "Без пауза"
+
+#~ msgid "second(s)"
+#~ msgstr "секунда(и)"
+
+#~ msgid ""
+#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
+#~ "shutdown)"
+#~ msgstr ""
+#~ "В повечето случи трябва да имате права за спиране на системата (/sbin/"
+#~ "shutdown)"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
+#~ "set all methods to <i>KDE</i>"
+#~ msgstr ""
+#~ "Ако използвате <b>KDE</b> и <b>KDM</b> (KDE Display Manager), тогава "
+#~ "настройте всички методи на <i>KDE</i>"
+
+#~ msgid ""
+#~ "If you are using <b>KDE</b> and display manager different than <b>KDM</"
+#~ "b>, then set <i>Turn Off Computer</i> and <i>Restart Computer</i> methods "
+#~ "to <i>/sbin/...</i>"
+#~ msgstr ""
+#~ "Ако използвате <b>KDE</b> и мениджърът не е <b>KDM</b>, тогава настройте "
+#~ "методите за <i>Изключване на компютъра</i> и <i>Рестартиране на "
+#~ "компютъра</i> на <i>/sbin/...</i>"
+
+#~ msgid "Manuals:"
+#~ msgstr "Ръководства:"
+
+#~ msgid "User Command"
+#~ msgstr "Потребителска команда"
+
+#~ msgid "A Shut Down Utility for KDE"
+#~ msgstr "Инструмент за спиране (KDE)"
+
+#~ msgid "Turn off computer"
+#~ msgstr "Изключване на компютъра"
+
+#~ msgid "Restart computer"
+#~ msgstr "Рестартиране на компютъра"
+
+#~ msgid "Lock session"
+#~ msgstr "Заключване на сесията"
+
+#~ msgid "End current session"
+#~ msgstr "Завършване на сесията"
+
+#~ msgid "Confirm command line action"
+#~ msgstr "Потвърждение на действие"
+
+#~ msgid "Show standard logout dialog"
+#~ msgstr "Показване на стандартен прозорец за изход"
+
+#~ msgid "Cancel an active action"
+#~ msgstr "Отмяна на действие"
+
+#~ msgid "Don't show window at startup"
+#~ msgstr "Без показване на прозореца при стартиране"
+
+#~ msgid "Enable test mode"
+#~ msgstr "Включване на режим \"Проба\""
+
+#~ msgid "Disable test mode"
+#~ msgstr "Изключване на режим \"Проба\""
+
+#~ msgid ""
+#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
+#~ "wait from now"
+#~ msgstr ""
+#~ "Време; Например: 01:30 - абсолютно време (ЧЧ:ММ); 10 - минути за "
+#~ "изчакване от сега"
+
+#~ msgid "Invalid time: <b>%1</b>"
+#~ msgstr "Невалидно време: <b>%1</b>"
+
+#~ msgid "1 hour warning"
+#~ msgstr "Предупреждение - 1 ч."
+
+#~ msgid "5 minutes warning"
+#~ msgstr "Предупреждение - 5 мин."
+
+#~ msgid "1 minute warning"
+#~ msgstr "Предупреждение - 1 мин."
+
+#~ msgid "10 seconds warning"
+#~ msgstr "Предупреждение - 10 сек."
+
+#~ msgid "Could not run \"%1\"!"
+#~ msgstr "Невъзможно изпълнение на \"%1\"!"
+
+#~ msgid "Test"
+#~ msgstr "Проба"
+
+#~ msgid "Enter hour and minute."
+#~ msgstr "Въведете час и минута."
+
+#~ msgid "Enter date and time."
+#~ msgstr "Въведете дата."
+
+#~ msgid "Click the <b>Select a command...</b> button first."
+#~ msgstr "Първо натиснете бутона <b>Избор на команда...</b>"
+
+#~ msgid "Selected date/time: %1"
+#~ msgstr "Избрана дата/време: %1"
+
+#~ msgid "Current date/time: %1"
+#~ msgstr "Текуща дата/време: %1"
+
+#~ msgid "Selected date/time is earlier than current date/time!"
+#~ msgstr "Избрана дата/време е по-рано от текущото!"
+
+#~ msgid "Action cancelled!"
+#~ msgstr "Действието е отменено!"
+
+#~ msgid "Test mode enabled"
+#~ msgstr "Тестов режим - вкл."
+
+#~ msgid "Test mode disabled"
+#~ msgstr "Тестов режим - изкл."
+
+#~ msgid "&Actions"
+#~ msgstr "&Действия"
+
+#~ msgid "Configure Global Shortcuts..."
+#~ msgstr "Настройване на глобалните бързи клавиши..."
+
+#~ msgid "Check &System Configuration"
+#~ msgstr "Проверка на с&истемните настройки"
+
+#~ msgid "&Statistics"
+#~ msgstr "С&татистика"
+
+#~ msgid "Select an action to perform at the selected time."
+#~ msgstr "Изберете действие за изпълнение в определеното време."
+
+#~ msgid "When selected application exit"
+#~ msgstr "При изход от програма"
+
+#~ msgid "Disabled by the Administrator."
+#~ msgstr "Изключено от администратора."
+
+#~ msgid "Select the type of delay."
+#~ msgstr "Изберете тип забавяне."
+
+#~ msgid "Selected time."
+#~ msgstr "Изберете време."
+
+#~ msgid "TEST MODE"
+#~ msgstr "ТЕСТОВ РЕЖИМ"
+
+#~ msgid "Remaining time: <b>%1</b>"
+#~ msgstr "Оставащо време: <b>%1</b>"
+
+#~ msgid "Selected time: <b>%1</b>"
+#~ msgstr "Време: <b>%1</b>"
+
+#~ msgid "Selected action: <b>%1</b>"
+#~ msgstr "Действие: <b>%1</b>"
+
+#~ msgid "<b>Note: </b> The test mode is enabled"
+#~ msgstr "<b>Забележка: </b> Включен е тестов режим"
+
+#~ msgid "KShutDown has quit"
+#~ msgstr "KShutDown - изход"
+
+#~ msgid "Message"
+#~ msgstr "Съобщение"
+
+#~ msgid "Settings"
+#~ msgstr "Настройки"
+
+#~ msgid "Actions"
+#~ msgstr "Действия"
+
+#~ msgid "Action"
+#~ msgstr "Действие"
+
+#~ msgid "Edit..."
+#~ msgstr "Редактиране..."
+
+#~ msgid "Check System Configuration"
+#~ msgstr "Проверка на системните настройки"
+
+#~ msgid "Extras Menu"
+#~ msgstr "Други"
+
+#~ msgid "Modify..."
+#~ msgstr "Редактиране..."
+
+#~ msgid "Advanced"
+#~ msgstr "Разширени"
+
+#~ msgid "After Login"
+#~ msgstr "След влизане"
+
+#~ msgid "Lock screen"
+#~ msgstr "Заключване на екрана"
+
+#~ msgid "Before Logout"
+#~ msgstr "Преди изход"
+
+#~ msgid "Close CD-ROM Tray"
+#~ msgstr "Затваряне на CD-ROM устройството"
+
+#~ msgid "Command:"
+#~ msgstr "Команда:"
+
+#~ msgid "Related KDE Settings..."
+#~ msgstr "Други настройки на KDE..."
+
+#~ msgid "Common Problems"
+#~ msgstr "Обичайни проблеми"
+
+#~ msgid "\"Turn Off Computer\" does not work"
+#~ msgstr "\"Изключване на компютъра\" не работи"
+
+#~ msgid "Popup messages are very annoying"
+#~ msgstr "Изскачащите съобщения ме дразнят"
+
+#~ msgid "Show System Tray Icon"
+#~ msgstr "Показване на икона в системния панел"
+
+#~ msgid "Always"
+#~ msgstr "Винаги"
+
+#~ msgid "Tray icon will be always visible."
+#~ msgstr "Иконата в системния панел винаги ще се вижда."
+
+#~ msgid "If Active"
+#~ msgstr "Действие"
+
+#~ msgid "Tray icon will be visible only if KShutDown is active."
+#~ msgstr ""
+#~ "Иконата в системния панел винаги ще се вижда само ако програмата има "
+#~ "задача."
+
+#~ msgid "Never"
+#~ msgstr "Никога"
+
+#~ msgid "Tray icon will be always hidden."
+#~ msgstr "Иконата в системния панел винаги ще бъде скрита."
+
+#~ msgid "Show KShutDown Themes"
+#~ msgstr "Теми за KShutDown"
+
+#~ msgid "SuperKaramba Home Page"
+#~ msgstr "Домашна страница на SuperKaramba"
+
+#~ msgid "Messages"
+#~ msgstr "Съобщения"
+
+#~ msgid "Display a warning message before action"
+#~ msgstr "Показване на предупреждение преди действие"
+
+#~ msgid "minute(s)"
+#~ msgstr "минута(и)"
+
+#, fuzzy
+#~ msgid "Recommended"
+#~ msgstr "Изпълнение на команда"
+
+#~ msgid "Warning Message"
+#~ msgstr "Предупреждение"
+
+#~ msgid "Enabled"
+#~ msgstr "Вкл."
+
+#~ msgid "A shell command to execute:"
+#~ msgstr "Команда за изпълнение:"
+
+#~ msgid "A message text"
+#~ msgstr "Текст на съобщението"
+
+#~ msgid "The current main window title"
+#~ msgstr "Заглавие на прозореца"
+
+#~ msgid "Presets"
+#~ msgstr "Фиксирани"
+
+#~ msgid "Custom Message"
+#~ msgstr "Потребителско съобщение"
+
+#~ msgid "Progress Bar"
+#~ msgstr "Лента за състоянието"
+
+#~ msgid "Re-enable All Message Boxes"
+#~ msgstr "Включване на всички съобщения отново"
+
+#~ msgid ""
+#~ "Enable all messages which have been turned off with the <b>Do not show "
+#~ "this message again</b> feature."
+#~ msgstr ""
+#~ "Включване на всички съобщния които са били изключени с опцията "
+#~ "<b>Изключване на съобщението</b>."
+
+#~ msgid "Pause: %1"
+#~ msgstr "Пауза: %1"
+
+#~ msgid "This file is used to lock session at KDE startup"
+#~ msgstr ""
+#~ "Този файл се използва за заключване на сесията при стартиране на KDE"
+
+#~ msgid "Restore default settings for this page?"
+#~ msgstr "Възстановяване на настройките по подразбиране на тази страница?"
+
+#~ msgid "Statistics"
+#~ msgstr "Статистика"
+
+#~ msgid ""
+#~ "This view displays information about the users currently on the machine, "
+#~ "and their processes.<br>The header shows how long the system has been "
+#~ "running."
+#~ msgstr ""
+#~ "Този изглед показва информацията за текущите потребители на компютъра и "
+#~ "процесите.<br>Най-отгоре се показва колко време е работил компютъра."
+
+#~ msgid "Refresh"
+#~ msgstr "Презареждане"
+
+#~ msgid "More information"
+#~ msgstr "Повече информация"
+
+#~ msgid "Show login time, JCPU and PCPU times."
+#~ msgstr "Показване на времето за влизане, JCPU и PCPU."
+
+#~ msgid "Toggle \"FROM\""
+#~ msgstr "Вкл/изкл на \"FROM\""
+
+#~ msgid "Toggle the \"FROM\" (remote hostname) field."
+#~ msgstr "Превключване на полето \"FROM\" "
+
+#~ msgid "System Configuration"
+#~ msgstr "Системни настройки"
+
+#~ msgid "No problems were found."
+#~ msgstr "Не са намерени проблеми."
+
+#~ msgid "Program \"%1\" was not found!"
+#~ msgstr "Програмата \"%1\" не беше намерена!"
+
+#~ msgid "No permissions to execute \"%1\"."
+#~ msgstr "Нямате права за изпълнение на \"%1\"."
+
+#~ msgid ""
+#~ "It seems that this is not a KDE full session.\n"
+#~ "KShutDown was designed to work with KDE.\n"
+#~ "However, you can customize Actions in the KShutDown settings dialog\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)."
+#~ msgstr ""
+#~ "Изглежда това не е цяла сесия на KDE.\n"
+#~ "KShutDown е направена да работи с KDE.\n"
+#~ "Можете да променяте действията от прозореца\n"
+#~ "Настройки -> Настройване на KShutDown... -> Действия."
+
+#~ msgid ""
+#~ "Tip: You can customize Actions to work with GDM.\n"
+#~ "(Settings -> Configure KShutDown... -> Actions)"
+#~ msgstr ""
+#~ "Съвет: Можете да настройвате действията да работят с GDM.\n"
+#~ "(Настройки -> Настройване на KShutDown... -> Действия)"
+
+#~ msgid ""
+#~ "KDE Display Manager is not running,\n"
+#~ "or the shut down/reboot function is disabled.\n"
+#~ "\n"
+#~ "Click here to configure KDM."
+#~ msgstr ""
+#~ "KDM не работи\n"
+#~ "или опцията \"изключване/рестартиране\" е изключена.\n"
+#~ "\n"
+#~ "Конфигуриране на KDM."
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Златко Попов"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "zlatkopopov@fsa-bg.org"
+
+#~ msgid "Click for KShutDown main window<br>Click and hold for menu"
+#~ msgstr ""
+#~ "Щракнете да се покаже главният прозорец на KShutDown<br>За менюто "
+#~ "натиснете и задръжте"
+
+#~ msgid "Could not run KShutDown!"
+#~ msgstr "KShutDown не може да бъде стартирана!"
+
+#~ msgid "&Configure KShutDown..."
+#~ msgstr "&Настройване на KShutDown..."
+
+#~ msgid "Options"
+#~ msgstr "Опции"
+
+#~ msgid ""
+#~ "Internal error!\n"
+#~ "Selected menu item is broken."
+#~ msgstr ""
+#~ "Вътрешна грешка!\n"
+#~ "Този елемент от менюто е повреден."
+
+#~ msgid "3 seconds before action"
+#~ msgstr "3 секунди преди действието"
+
+#~ msgid "2 seconds before action"
+#~ msgstr "2 секунди преди действието"
+
+#~ msgid "1 second before action"
+#~ msgstr "1 секунди преди действието"
+
+#~ msgid "KShutDown"
+#~ msgstr "KShutDown"
+
+#~ msgid "&Start [%1]"
+#~ msgstr "&Старт [%1]"
+
+#~ msgid ""
+#~ "Tip: If you have problem with the \"/sbin/shutdown\" command,\n"
+#~ "try to modify the \"/etc/shutdown.allow\" file,\n"
+#~ "then run \"/sbin/shutdown\" command with the additional \"-a\" "
+#~ "parameter.\n"
+#~ "\n"
+#~ "Click here for more information."
+#~ msgstr ""
+#~ "Съвет: Ако имате проблем с командата \"/sbin/shutdown\",\n"
+#~ "опитайте да редактирате файла \"/etc/shutdown.allow\"\n"
+#~ "и после изпълнете \"/sbin/shutdown\" с параметър \"-a\".\n"
+#~ "\n"
+#~ "Повече тук."
+
+#~ msgid "&Cancel"
+#~ msgstr "&Отмяна"
