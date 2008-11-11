@@ -32,6 +32,10 @@ popd
 mkdir "$KS_DIR"
 cp * "$KS_DIR"
 cp -r "patches" "$KS_DIR"
+
+rm -f po/*.po~
+cp -r "po" "$KS_DIR"
+
 cp -r "src" "$KS_DIR"
 cp -r "tools" "$KS_DIR"
 
