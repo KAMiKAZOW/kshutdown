@@ -1,6 +1,7 @@
 call C:\Qt\4.3.2\bin\qtvars.bat
 cd src
 
+rem goto skip_portable
 rem portable version
 rem FIXME: omg, no quotes here?
 echo DEFINES += KS_PORTABLE>portable.pri
@@ -11,6 +12,8 @@ if not %errorlevel% == 0 goto quit
 mkdir ..\kshutdown-portable
 copy release\kshutdown.exe ..\kshutdown-portable
 del portable.pri
+
+:skip_portable
 
 rem normal version
 qmake -config release
@@ -25,6 +28,5 @@ if not %errorlevel% == 0 goto quit
 kshutdown-2.0beta3-win32.exe
 
 copy C:\Qt\4.3.2\bin\mingwm10.dll kshutdown-portable
-
 
 :quit
