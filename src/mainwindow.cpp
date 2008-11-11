@@ -202,6 +202,10 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		KNotification::CloseOnTimeout
 	);
 #endif // KS_NATIVE_KDE
+#ifdef KS_PURE_QT
+	Q_UNUSED(id)
+	Q_UNUSED(text)
+#endif // KS_PURE_QT
 }
 
 void MainWindow::setActive(const bool yes) {

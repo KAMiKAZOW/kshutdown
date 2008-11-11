@@ -56,8 +56,7 @@
 	#define U_STOCK_ICON(name) QIcon(":/images/" + QString((name)) + ".png")
 	#define U_SYSTEM_TRAY QSystemTrayIcon
 
-// !!!: fake i18n
-	#define i18n QString
+	#define i18n(text) QCoreApplication::translate(0, (text))
 
 	// shutdown types
 

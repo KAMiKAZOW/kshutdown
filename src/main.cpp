@@ -18,6 +18,8 @@
 
 #ifdef KS_PURE_QT
 	#include <QApplication>
+	#include <QLocale>
+	#include <QTranslator>
 #else
 	#include <KAboutData>
 	#include <KCmdLineArgs>
@@ -41,6 +43,16 @@ int main(int argc, char **argv) {
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
+	
+	// init i18n
+	QString lang = QLocale::system().name();
+	QTranslator qt_trans;
+	qt_trans.load("qt_" + lang);
+	a.installTranslator(&qt_trans);
+	QTranslator kshutdown_trans;
+	kshutdown_trans.load("kshutdown_" + lang, QApplication::applicationDirPath());
+	a.installTranslator(&kshutdown_trans);
+
 	MainWindow::init();
 
 	if (MainWindow::checkCommandLine())
