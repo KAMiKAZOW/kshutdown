@@ -50,7 +50,8 @@ int main(int argc, char **argv) {
 	qt_trans.load("qt_" + lang);
 	a.installTranslator(&qt_trans);
 	QTranslator kshutdown_trans;
-	kshutdown_trans.load("kshutdown_" + lang, QApplication::applicationDirPath());
+	//kshutdown_trans.load("kshutdown_" + lang, QApplication::applicationDirPath());
+	kshutdown_trans.load("kshutdown_" + lang, ":/i18n");
 	a.installTranslator(&kshutdown_trans);
 
 	MainWindow::init();

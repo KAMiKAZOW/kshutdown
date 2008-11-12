@@ -6,5 +6,23 @@
 	<file alias="images/kshutdown.png">images/hi32-app-kshutdown.png</file>
 	<file>images/hi48-app-kshutdown.png</file>
 	<file>images/hi64-app-kshutdown.png</file>
+
+	<file>i18n/kshutdown_ar.qm</file>
+	<file>i18n/kshutdown_bg.qm</file>
+	<file>i18n/kshutdown_cs.qm</file>
+	<file>i18n/kshutdown_de.qm</file>
+	<file>i18n/kshutdown_el.qm</file>
+	<file>i18n/kshutdown_es.qm</file>
+	<file>i18n/kshutdown_fr.qm</file>
+	<file>i18n/kshutdown_hu.qm</file>
+	<file>i18n/kshutdown_it.qm</file>
+	<file>i18n/kshutdown_nl.qm</file>
+	<file>i18n/kshutdown_pl.qm</file>
+	<file>i18n/kshutdown_pt_BR.qm</file>
+	<file>i18n/kshutdown_ru.qm</file>
+	<file>i18n/kshutdown_sk.qm</file>
+	<file>i18n/kshutdown_sv.qm</file>
+	<file>i18n/kshutdown_tr.qm</file>
+	<file>i18n/kshutdown_zh_CN.qm</file>
 </qresource>
 </RCC>

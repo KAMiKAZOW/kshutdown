@@ -29,7 +29,6 @@ Section "Install"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "UninstallString" '"$INSTDIR\uninstall.exe"'
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "http://sourceforge.net/project/showfiles.php?group_id=93707"
 	
-	File po\*.qm
 	File src\images\kshutdown.ico
 	File src\release\kshutdown.exe
 	File LICENSE
@@ -49,7 +48,6 @@ SectionEnd
 Section "Uninstall"
 	Delete "$INSTDIR\kshutdown.exe"
 	Delete "$INSTDIR\kshutdown.ico"
-	Delete "$INSTDIR\kshutdown_*.qm"
 	Delete "$INSTDIR\LICENSE"
 	Delete "$INSTDIR\mingwm10.dll"
 	#Delete "$INSTDIR\QtCore4.dll"
