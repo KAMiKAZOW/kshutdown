@@ -7,8 +7,8 @@ set -e
 mkdir -p po
 
 # remove generated "object" files
-rm -f po/*.qm
 rm -f po/*.mo
+rm -f src/i18n/*.qm
 
 # create list of all *.cpp and *.h files
 find src -name "*.cpp" -or -name "*.h"|sort>po/list.tmp
@@ -42,7 +42,7 @@ for i in po/*.po; do
 		echo "Creating Qt messages..."
 		msgfmt \
 			"$i" \
-			--output-file="po/kshutdown_$(basename "$i" .po).qm" \
+			--output-file="src/i18n/kshutdown_$(basename "$i" .po).qm" \
 			--qt \
 			--statistics
 	fi
