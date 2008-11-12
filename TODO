@@ -12,7 +12,6 @@ Old KShutDown 1.0.x features:
 * Help: Handbook
 * Help: "What's this?" context help
 * Show warning before action (configurable time)
-* Progress bar
 * Action configuration (command before action, pause before action)
 * Lock screen after login
 * Close CD-ROM before logout

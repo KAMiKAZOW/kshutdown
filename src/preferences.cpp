@@ -71,6 +71,7 @@ Preferences::~Preferences() {
 void Preferences::apply() {
 	Config::setConfirmAction(m_confirmAction->isChecked());
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
+	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
 
 	Config::user()->sync();
 }
@@ -97,6 +98,10 @@ QWidget *Preferences::createGeneralWidget() {
 	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
 	m_confirmAction->setChecked(Config::confirmAction());
 	w->layout()->addWidget(m_confirmAction);
+
+	m_progressBarEnabled = new QCheckBox(i18n("Progress Bar"));
+	m_progressBarEnabled->setChecked(Config::progressBarEnabled());
+	w->layout()->addWidget(m_progressBarEnabled);
 
 	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate"));
 	m_lockScreenBeforeHibernate->setChecked(Config::lockScreenBeforeHibernate());

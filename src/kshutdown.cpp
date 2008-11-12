@@ -36,6 +36,7 @@
 
 #include "kshutdown.h"
 #include "mainwindow.h"
+#include "progressbar.h"
 
 using namespace KShutdown;
 
@@ -232,6 +233,9 @@ bool DateTimeTriggerBase::canActivateAction() {
 
 	int secsTo = now.secsTo(m_endDateTime);
 	if (secsTo > 0) {
+		if (ProgressBar::isInstance())
+			ProgressBar::self()->setProgress(secsTo);
+	
 		#define KS_DAY 86400
 		if (secsTo < KS_DAY)
 			m_status = QTime().addSecs(secsTo).toString(Qt::ISODate);
@@ -292,6 +296,16 @@ void DateTimeTriggerBase::writeConfig(const QString &group, Config *config) {
 	config->endGroup();
 }
 
+// protected
+
+void DateTimeTriggerBase::setupProgressBar() {
+	if (Config::user()->progressBarEnabled()) {
+		QDateTime now = QDateTime::currentDateTime();
+		int secsTo = now.secsTo(m_endDateTime);
+		ProgressBar::self()->setTotal(secsTo);
+	}
+}
+
 // private slots
 
 void DateTimeTriggerBase::syncDateTime() {
@@ -320,6 +334,8 @@ QWidget *DateTimeTrigger::getWidget() {
 void DateTimeTrigger::setState(const State state) {
 	if (state == START) {
 		m_endDateTime = m_edit->dateTime();
+		
+		setupProgressBar();
 	}
 }
 
@@ -357,6 +373,8 @@ void TimeFromNowTrigger::setState(const State state) {
 		QTime time = m_dateTime.time();
 		int m = (time.hour() * 60) + time.minute();
 		m_endDateTime = QDateTime::currentDateTime().addSecs(m * 60);
+		
+		setupProgressBar();
 	}
 }
 

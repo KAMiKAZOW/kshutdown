@@ -76,6 +76,38 @@ void Config::setLockScreenBeforeHibernate(const bool value) {
 	config->endGroup();
 }
 
+bool Config::progressBarEnabled() {
+	Config *config = user();
+	config->beginGroup("Progress Bar");
+	bool result = config->read("Enabled", false).toBool();
+	config->endGroup();
+
+	return result;
+}
+
+void Config::setProgressBarEnabled(const bool value) {
+	Config *config = user();
+	config->beginGroup("Progress Bar");
+	config->write("Enabled", value);
+	config->endGroup();
+}
+
+ProgressBar::Position Config::progressBarPosition() {
+	Config *config = user();
+	config->beginGroup("Progress Bar");
+	int result = config->read("Position", ProgressBar::TOP).toInt();
+	config->endGroup();
+
+	return (ProgressBar::Position)result;
+}
+
+void Config::setProgressBarPosition(const ProgressBar::Position value) {
+	Config *config = user();
+	config->beginGroup("Progress Bar");
+	config->write("Position", value);
+	config->endGroup();
+}
+
 QVariant Config::read(const QString &key, const QVariant &defaultValue) {
 #ifdef KS_NATIVE_KDE
 	return m_group.readEntry(key, defaultValue);

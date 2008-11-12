@@ -18,6 +18,7 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
+#include "progressbar.h"
 #include "pureqt.h"
 
 #ifdef KS_NATIVE_KDE
@@ -30,10 +31,19 @@ class Config {
 public:
 	void beginGroup(const QString &name);
 	void endGroup();
+
 	static bool confirmAction();
 	static void setConfirmAction(const bool value);
+
 	static bool lockScreenBeforeHibernate();
 	static void setLockScreenBeforeHibernate(const bool value);
+
+	static bool progressBarEnabled();
+	static void setProgressBarEnabled(const bool value);
+
+	static ProgressBar::Position progressBarPosition();
+	static void setProgressBarPosition(const ProgressBar::Position value);
+
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);
 	void sync();

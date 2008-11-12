@@ -152,6 +152,7 @@ protected:
 	QDateTime m_dateTime;
 	QDateTime m_endDateTime;
 	QDateTimeEdit *m_edit;
+	void setupProgressBar();
 private slots:
 	void syncDateTime();
 };
