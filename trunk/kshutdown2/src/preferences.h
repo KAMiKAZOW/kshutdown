@@ -31,6 +31,7 @@ public:
 private:
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
+	QCheckBox *m_progressBarEnabled;
 	QWidget *createActionsWidget();
 	QWidget *createContainerWidget();
 	QWidget *createGeneralWidget();

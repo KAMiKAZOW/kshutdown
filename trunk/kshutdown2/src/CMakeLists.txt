@@ -9,6 +9,7 @@ set(
 	main.cpp
 	mainwindow.cpp
 	preferences.cpp
+	progressbar.cpp
 	theme.cpp
 	utils.cpp
 )
@@ -19,6 +20,7 @@ set(
 	kshutdown.h
 	mainwindow.h
 	preferences.h
+	progressbar.h
 )
 qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 

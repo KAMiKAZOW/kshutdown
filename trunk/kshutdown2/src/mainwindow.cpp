@@ -39,6 +39,7 @@
 #include "actions/extras.h"
 #include "mainwindow.h"
 #include "preferences.h"
+#include "progressbar.h"
 #include "theme.h"
 
 #ifdef KS_NATIVE_KDE
@@ -244,6 +245,8 @@ void MainWindow::setActive(const bool yes) {
 		m_triggerTimer->stop();
 		action->setState(Base::STOP);
 		trigger->setState(Base::STOP);
+		
+		ProgressBar::freeInstance();
 	}
 
 	setTitle(QString::null);
@@ -562,6 +565,8 @@ void MainWindow::setTitle(const QString &title) {
 		setWindowTitle(title + " - KShutdown");
 #endif // KS_NATIVE_KDE
 	m_systemTray->setToolTip(windowTitle());
+	if (ProgressBar::isInstance())
+		ProgressBar::self()->setToolTip(windowTitle());
 }
 
 void MainWindow::updateWidgets() {
