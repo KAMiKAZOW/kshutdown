@@ -25,9 +25,26 @@
 
 // public
 
+Process::Process(QObject *parent)
+	: QObject(parent),
+	m_pid(0),
+	m_command(QString::null),
+	m_user(QString::null)
+{
+}
+
+QString Process::toString() {
+	return QString("%0 (pid %1, %2)")
+		.arg(m_command)
+		.arg(m_pid)
+		.arg(m_user);
+}
+
+// public
+
 ProcessMonitor::ProcessMonitor()
 	: KShutdown::Trigger(i18n("When selected application exit"), "application-exit", "process-monitor"),
-	m_processMap(new QMap<int, Process>()),
+	m_processList(QList<Process*>()),
 	m_refreshProcess(0),
 	m_refreshBuf(QString::null),
 	m_processes(0)
@@ -50,10 +67,10 @@ ProcessMonitor::ProcessMonitor()
 }
 
 bool ProcessMonitor::canActivateAction() {
-	return !isSelectedProcessRunning();//!!!
+	return !isSelectedProcessRunning();
 }
 
-QString ProcessMonitor::getInfo() const {
+/*QString ProcessMonitor::getInfo() const {*/
 /*
 	int index = cb_processes->currentItem();
 	QMapIterator<int, Process> i = _processesMap->find(index);
@@ -62,39 +79,35 @@ QString ProcessMonitor::getInfo() const {
 		return QString::null;
 
 	return i18n("Waiting for \"%1\"").arg(i.data().command);
-	*/
 	return QString::null;//!!!
-}
+}*/
 
 QWidget *ProcessMonitor::getWidget() {
 	if (!m_processes) {
-		m_processes = new U_COMBO_BOX();
+		m_processes = new U_COMBO_BOX();//!!!
 	}
+	onRefresh();
 
 	return m_processes;
 }
 
-bool ProcessMonitor::isSelectedProcessRunning() const
-{
-/*	int index = cb_processes->currentItem();
-	QMapIterator<int, Process> i = _processesMap->find(index);
+// private
 
-	if (i == _processesMap->end())
-		return false;
-
-	if (::kill(i.data().pid, 0)) { // check if process exists
+bool ProcessMonitor::isSelectedProcessRunning() const {
+	int index = m_processes->currentIndex();
+	Process *p = m_processList.value(index);
+	if (::kill(p->m_pid, 0)) { // check if process exists
 		switch (errno) {
 			case EINVAL: return false;
 			case ESRCH: return false;
 			case EPERM: return true;
 		}
-	}*/
+	}
 
 	return true;
 }
 
-bool ProcessMonitor::isValid() const
-{
+bool ProcessMonitor::isValid() const {//!!!
 	if (!isSelectedProcessRunning()) {
 		U_ERROR_MESSAGE(
 			MainWindow::self(),
@@ -110,102 +123,101 @@ bool ProcessMonitor::isValid() const
 // public slots
 
 void ProcessMonitor::onRefresh() {
-/*	m_refresh->setEnabled(false);
-	m_processes->setEnabled(false);
+	m_processes->clear();
+	m_processList.clear();
+	m_refreshBuf = QString::null;
 
-	_buf = QString::null;
-	cb_processes->clear();
-	_processesMap->clear();
-
-	if (!_process) {
-		_process = new QProcess(this);
-		connect(_process, SIGNAL(processExited()), SLOT(slotProcessExit()));
-		connect(_process, SIGNAL(readyReadStdout()), SLOT(slotReadStdout()));
+	if (!m_refreshProcess) {
+		m_refreshProcess = new QProcess(this);
+		connect(
+			m_refreshProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
+			SLOT(onFinished(int, QProcess::ExitStatus))
+		);
+		connect(
+			m_refreshProcess, SIGNAL(readyReadStandardOutput()),
+			SLOT(onReadyReadStandardOutput())
+		);
 	}
 	else {
-		if (_process->isRunning())
-			_process->kill();
-		_process->clearArguments();
+		if (m_refreshProcess->state() == QProcess::Running)
+			m_refreshProcess->terminate();
 	}
-	_process->addArgument("ps");
+	
+	QStringList args;
 	// show all processes
-	_process->addArgument("-A");
+	args << "-A";
 	// order: user pid command
-	_process->addArgument("-o");
-	_process->addArgument("user=");
-	_process->addArgument("-o");
-	_process->addArgument("pid=");
-	_process->addArgument("-o");
-	_process->addArgument("comm=");
+	args << "-o" << "user=";
+	args << "-o" << "pid=";
+	args << "-o" << "comm=";
 	// sort by command
-	_process->addArgument("--sort");
-	_process->addArgument("comm");
+	args << "--sort" << "comm";
 
 	// start process
-	if (!_process->start()) {
-		// error
-		KMessageBox::error(
-			ks_main,
-			MiscUtils::HTML(i18n("Could not execute command<br><br><b>%1</b>").arg(_process->arguments().join(" ")))
+	m_refreshProcess->start("ps", args);
+	//m_refreshProcess->waitForFinished();
+/*		// error
+		U_ERROR_MESSAGE(
+			MainWindow::self(),
+			"<qt>" + i18n("Could not execute command<br><br><b>%0</b>").arg(args.join(" ")) + "</qt>"
 		);
-		cb_processes->setEnabled(false);
-		cb_processes->insertItem(SmallIcon("messagebox_warning"), i18n("Error"));
-		b_refresh->setEnabled(true);
-	}*/
+		//!!!cb_processes->insertItem(SmallIcon("messagebox_warning"), i18n("Error"));*/
 }
 
 // private slots
 
-void ProcessMonitor::onProcessExit() {
-/*
-	int index = 0;
-	int line = 0;
-	Process p;
-	QStringList list = QStringList::split(" ", _buf.simplifyWhiteSpace());
-	for (QStringList::Iterator i = list.begin(); i != list.end(); ++i)
-	{
-		switch (line)
-		{
-			// user
-			case 0:
-				line++; // next is pid
-				p = Process();
-				p.user = *i;
-				break;
-			// pid
-			case 1:
-				line++; // next is command
-				p.pid = (*i).toLong();
-				break;
-			// command
-			case 2:
-				line = 0; // next is user (wrap around)
-				p.command = *i;
-				_processesMap->insert(index, p);
-				// kdDebug() << "USER=" << p.user << " PID=" << p.pid << " COMMAND=" << p.command << endl;
-				QString text = QString("%1 (pid %2, %3)")
-					.arg(p.command)
-					.arg(p.pid)
-					.arg(p.user);
-				cb_processes->insertItem(SmallIcon(p.command), text);
-				index++;
-				break;
+void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
+	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
+	
+	if (exitStatus == QProcess::NormalExit) {
+		int index = 0;
+		int line = 0;
+		Process *p = 0;
+		foreach (QString i, m_refreshBuf.simplified().split(" ")) {
+			switch (line) {
+				// user
+				case 0:
+					line++; // next is pid
+					p = new Process(this);
+					p->m_user = i;
+					break;
+				// pid
+				case 1:
+					line++; // next is command
+					p->m_pid = i.toLong();
+					break;
+				// command
+				case 2:
+					line = 0; // next is user (wrap around)
+					p->m_command = i;
+					m_processList.append(p);
+					m_processes->addItem(
+						U_STOCK_ICON(p->m_command),
+						p->toString(),
+						index
+					);
+					break;
+			}
+			index++;
 		}
+/*!!!		if (cb_processes->count() == 0)
+		{
+			cb_processes->setEnabled(false);
+			cb_processes->insertItem(SmallIcon("messagebox_warning"), i18n("Error"));
+			b_kill->setEnabled(false);
+		}
+		else
+		{
+			cb_processes->setEnabled(true);
+			b_kill->setEnabled(true);
+		}
+		b_refresh->setEnabled(true);*/
 	}
-	if (cb_processes->count() == 0)
-	{
-		cb_processes->setEnabled(false);
-		cb_processes->insertItem(SmallIcon("messagebox_warning"), i18n("Error"));
-		b_kill->setEnabled(false);
+	else { // QProcess::CrashExit
+		//!!!
 	}
-	else
-	{
-		cb_processes->setEnabled(true);
-		b_kill->setEnabled(true);
-	}
-	b_refresh->setEnabled(true);*/
 }
 
-void ProcessMonitor::onReadStdout() {
-//	m_refreshBuf.append(m_refreshProcess->readStdout());
+void ProcessMonitor::onReadyReadStandardOutput() {
+	m_refreshBuf.append(m_refreshProcess->readAllStandardOutput());
 }
