@@ -25,18 +25,22 @@
 #include <QTimer>
 
 #ifdef KS_PURE_QT
-	#include <QComboBox>
-
 	#include "version.h" // for about()
 #else
 	#include <KCmdLineArgs>
-	#include <KComboBox>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
 	#include <KStandardAction>
 #endif // KS_PURE_QT
 
+#ifdef Q_OS_LINUX
+	#define KS_TRIGGER_PROCESS_MONITOR
+#endif // Q_OS_LINUX
+
 #include "actions/extras.h"
+#ifdef KS_TRIGGER_PROCESS_MONITOR
+	#include "triggers/processmonitor.h"
+#endif // KS_TRIGGER_PROCESS_MONITOR
 #include "mainwindow.h"
 #include "preferences.h"
 #include "progressbar.h"
@@ -159,6 +163,9 @@ void MainWindow::init() {
 	addTrigger(new NoDelayTrigger());
 	addTrigger(new TimeFromNowTrigger());
 	addTrigger(new DateTimeTrigger());
+#ifdef KS_TRIGGER_PROCESS_MONITOR
+	addTrigger(new ProcessMonitor());
+#endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
 bool MainWindow::isArg(const QString &name) {
@@ -597,7 +604,7 @@ void MainWindow::updateWidgets() {
 			? i18n("Cancel")
 			: i18n("OK")
 		);
-		m_okCancelButton->setToolTip(i18n("Click to active the selected action"));
+		m_okCancelButton->setToolTip(i18n("Click to active/cancel the selected action"));
 #endif // KS_NATIVE_KDE
 	}
 	else {
@@ -707,8 +714,7 @@ void MainWindow::onCheckTrigger() {
 		QString title = triggerStatus;
 		if (!actionStatus.isEmpty()) {
 			if (!title.isEmpty()) {
-// FIXME: i18n
-				title = (i18n("Remaining time:") + " " + title);
+				title = i18n("Remaining time: %0").arg(title);
 				title += " - ";
 			}
 			title += actionStatus;

@@ -23,6 +23,7 @@
 	// common includes
 	#include <QAction>
 	#include <QApplication>
+	#include <QComboBox>
 	#include <QDebug>
 	#include <QMenuBar>
 	#include <QMessageBox>
@@ -68,6 +69,7 @@
 	// common includes
 	#include <KAction>
 	#include <KApplication>
+	#include <KComboBox>
 	#include <KDebug>
 	#include <KLocale>
 	#include <KMenu>
