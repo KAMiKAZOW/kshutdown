@@ -27,6 +27,7 @@
 class Process: public QObject {
 public:
 	Process(QObject *parent);
+	bool isRunning();
 	QString toString();
 private:
 	friend class ProcessMonitor;
@@ -46,11 +47,11 @@ private:
 	QProcess *m_refreshProcess;
 	QString m_refreshBuf;
 	U_COMBO_BOX *m_processes;
-	bool isSelectedProcessRunning() const;
-	bool isValid() const;
+	void errorMessage(const QString &message);
 public slots:
 	void onRefresh();
 private slots:
+	void onError(QProcess::ProcessError error);
 	void onFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void onReadyReadStandardOutput();
 };
