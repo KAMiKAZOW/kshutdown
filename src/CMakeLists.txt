@@ -4,6 +4,7 @@
 set(
 	kshutdown_SRC
 	actions/extras.cpp
+	triggers/processmonitor.cpp
 	config.cpp
 	kshutdown.cpp
 	main.cpp
@@ -17,6 +18,7 @@ set(
 set(
 	kshutdown_MOC_HEADERS
 	actions/extras.h
+	triggers/processmonitor.h
 	kshutdown.h
 	mainwindow.h
 	preferences.h
@@ -39,3 +41,4 @@ install(FILES kshutdown.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kshutdown)
 add_subdirectory(actions)
 add_subdirectory(images)
 add_subdirectory(themes)
+add_subdirectory(triggers)
