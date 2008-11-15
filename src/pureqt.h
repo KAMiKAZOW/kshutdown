@@ -1,4 +1,3 @@
-//
 // pureqt.h - Compile for Qt only or for KDE
 // Copyright (C) 2007  Konrad Twardowski
 //

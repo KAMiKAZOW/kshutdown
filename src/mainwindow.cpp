@@ -1,4 +1,3 @@
-//
 // mainwindow.cpp - The main window
 // Copyright (C) 2007  Konrad Twardowski
 //
@@ -714,7 +713,7 @@ void MainWindow::onCheckTrigger() {
 		QString title = triggerStatus;
 		if (!actionStatus.isEmpty()) {
 			if (!title.isEmpty()) {
-				title = i18n("Remaining time: %0").arg(title);
+				title = i18n("Remaining time: %0").arg(title);//!!!common
 				title += " - ";
 			}
 			title += actionStatus;

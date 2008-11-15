@@ -1,4 +1,3 @@
-//
 // processmonitor.h - A process monitor
 // Copyright (C) 2008  Konrad Twardowski
 //

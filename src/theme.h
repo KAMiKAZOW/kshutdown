@@ -1,4 +1,3 @@
-//
 // theme.h - The theme manager
 // Copyright (C) 2007  Konrad Twardowski
 //
