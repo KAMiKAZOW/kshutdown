@@ -22,9 +22,12 @@
 
 #include "../kshutdown.h"
 
-class QProcess;
+#include <QProcess>
 
 class Process: public QObject {
+public:
+	Process(QObject *parent);
+	QString toString();
 private:
 	friend class ProcessMonitor;
 	pid_t m_pid;
@@ -36,21 +39,20 @@ class ProcessMonitor: public KShutdown::Trigger {
 	Q_OBJECT
 public:
 	ProcessMonitor();
-	QString getInfo() const;
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
-	bool isSelectedProcessRunning() const;
-	bool isValid() const;
 private:
-	QMap<int, Process> *m_processMap;
+	QList<Process*> m_processList;
 	QProcess *m_refreshProcess;
 	QString m_refreshBuf;
 	U_COMBO_BOX *m_processes;
+	bool isSelectedProcessRunning() const;
+	bool isValid() const;
 public slots:
 	void onRefresh();
 private slots:
-	void onProcessExit();
-	void onReadStdout();
+	void onFinished(int exitCode, QProcess::ExitStatus exitStatus);
+	void onReadyReadStandardOutput();
 };
 
 #endif // __PROCESSMONITOR_H__
