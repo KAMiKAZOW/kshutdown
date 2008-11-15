@@ -16,12 +16,10 @@ Old KShutDown 1.0.x features:
 * Lock screen after login
 * Close CD-ROM before logout
 * Related KDE settings (kcontrol)
-* Trigger: When selected application exit
 
 Compilation Fixes:
 
-* Make sure all singnal.h, stdlib.h (systemconfig.cpp),
-  sys/types.h (appobserver.h) are included
+* Make sure all singnal.h, stdlib.h (systemconfig.cpp) are included
 
 Extras:
 
