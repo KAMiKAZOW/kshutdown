@@ -46,6 +46,10 @@ public:
 
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);
+	
+	static bool readBool(const QString &group, const QString &key, const bool defaultValue);
+	static void write(const QString &group, const QString &key, const bool value);
+	
 	void sync();
 	inline static Config *user() {
 		if (!m_user)
