@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
 		"kshutdown",
 		ki18n("KShutdown"),
 		KS_VERSION,
-		ki18n("An advanced shutdown utility"),
+		ki18n("An advanced shutdown utility"),//!!!i18n
 		KAboutData::License_GPL_V2,
 		ki18n(KS_COPYRIGHT),
 		KLocalizedString(), // no extra test

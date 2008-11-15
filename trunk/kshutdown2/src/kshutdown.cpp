@@ -153,7 +153,7 @@ bool Action::launch(const QString &program, const QStringList &args) {
 }
 
 bool Action::unsupportedAction() {
-	m_error = i18n("Unsupported action: %1")
+	m_error = i18n("Unsupported action: %0")
 		.arg(originalText());
 
 	return false;
@@ -244,10 +244,10 @@ bool DateTimeTriggerBase::canActivateAction() {
 		
 		MainWindow *mainWindow = MainWindow::self();
 		if ((secsTo < 60) && (secsTo > 55)) {
-			mainWindow->notify("1m", i18n("Remaining time:") + " " + m_status);
+			mainWindow->notify("1m", i18n("Remaining time: %0").arg(m_status));
 		}
 		else if ((secsTo < 300) && (secsTo > 295)) {
-			mainWindow->notify("5m", i18n("Remaining time:") + " " + m_status);
+			mainWindow->notify("5m", i18n("Remaining time: %0").arg(m_status));
 		}
 	}
 	else {
@@ -474,7 +474,7 @@ HibernateAction::HibernateAction() :
 	PowerAction(i18n("Hibernate Computer"), "system-suspend-hibernate", "hibernate") {
 	m_methodName = "Hibernate";
 	if (!isAvailable("power_management.can_suspend_to_disk"))
-		disable(i18n("Cannot suspend to disk"));
+		disable(i18n("Cannot hibernate computer"));
 
 	addCommandLineArg(QString::null, "hibernate");
 }
@@ -487,7 +487,7 @@ SuspendAction::SuspendAction() :
 	PowerAction(i18n("Suspend Computer"), "system-suspend", "suspend") {
 	m_methodName = "Suspend";
 	if (!isAvailable("power_management.can_suspend_to_ram"))
-		disable(i18n("Cannot suspend to RAM"));
+		disable(i18n("Cannot suspend computer"));
 
 	addCommandLineArg(QString::null, "suspend");
 }
