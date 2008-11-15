@@ -45,51 +45,27 @@ void Config::endGroup() {
 }
 
 bool Config::confirmAction() {
-	Config *config = user();
-	config->beginGroup("General");
-	bool result = config->read("Confirm Action", true).toBool();
-	config->endGroup();
-
-	return result;
+	return readBool("General", "Confirm Action", true);
 }
 
 void Config::setConfirmAction(const bool value) {
-	Config *config = user();
-	config->beginGroup("General");
-	config->write("Confirm Action", value);
-	config->endGroup();
+	write("General", "Confirm Action", value);
 }
 
 bool Config::lockScreenBeforeHibernate() {
-	Config *config = user();
-	config->beginGroup("General");
-	bool result = config->read("Lock Screen Before Hibernate", true).toBool();
-	config->endGroup();
-
-	return result;
+	return readBool("General", "Lock Screen Before Hibernate", true);
 }
 
 void Config::setLockScreenBeforeHibernate(const bool value) {
-	Config *config = user();
-	config->beginGroup("General");
-	config->write("Lock Screen Before Hibernate", value);
-	config->endGroup();
+	write("General", "Lock Screen Before Hibernate", value);
 }
 
 bool Config::progressBarEnabled() {
-	Config *config = user();
-	config->beginGroup("Progress Bar");
-	bool result = config->read("Enabled", false).toBool();
-	config->endGroup();
-
-	return result;
+	return readBool("Progress Bar", "Enabled", false);
 }
 
 void Config::setProgressBarEnabled(const bool value) {
-	Config *config = user();
-	config->beginGroup("Progress Bar");
-	config->write("Enabled", value);
-	config->endGroup();
+	write("Progress Bar", "Enabled", value);
 }
 
 ProgressBar::Position Config::progressBarPosition() {
@@ -122,6 +98,22 @@ void Config::write(const QString &key, const QVariant &value) {
 #else
 	m_engine->setValue(key, value);
 #endif // KS_NATIVE_KDE
+}
+
+bool Config::readBool(const QString &group, const QString &key, const bool defaultValue) {
+	Config *config = user();
+	config->beginGroup(group);
+	bool result = config->read(key, defaultValue).toBool();
+	config->endGroup();
+
+	return result;
+}
+
+void Config::write(const QString &group, const QString &key, const bool value) {
+	Config *config = user();
+	config->beginGroup(group);
+	config->write(key, value);
+	config->endGroup();
 }
 
 void Config::sync() {
