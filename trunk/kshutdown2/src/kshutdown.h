@@ -1,4 +1,3 @@
-//
 // kshutdown.h - KShutdown base library
 // Copyright (C) 2007  Konrad Twardowski
 //

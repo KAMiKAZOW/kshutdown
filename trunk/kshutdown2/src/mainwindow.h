@@ -1,4 +1,3 @@
-//
 // mainwindow.h - The main window
 // Copyright (C) 2007  Konrad Twardowski
 //

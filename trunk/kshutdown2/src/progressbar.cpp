@@ -1,4 +1,3 @@
-//
 // main.cpp - A progress bar widget
 // Copyright (C) 2008  Konrad Twardowski
 //

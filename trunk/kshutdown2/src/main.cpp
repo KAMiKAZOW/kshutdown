@@ -1,4 +1,3 @@
-//
 // main.cpp - An advanced shutdown utility
 // Copyright (C) 2007  Konrad Twardowski
 //
