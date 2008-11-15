@@ -33,6 +33,18 @@ Process::Process(QObject *parent)
 {
 }
 
+bool Process::isRunning() {
+	if (::kill(m_pid, 0)) { // check if process exists
+		switch (errno) {
+			case EINVAL: return false;
+			case ESRCH: return false;
+			case EPERM: return true;
+		}
+	}
+
+	return true;
+}
+
 QString Process::toString() {
 	return QString("%0 (pid %1, %2)")
 		.arg(m_command)
@@ -67,20 +79,16 @@ ProcessMonitor::ProcessMonitor()
 }
 
 bool ProcessMonitor::canActivateAction() {
-	return !isSelectedProcessRunning();
+	if (m_processList.isEmpty())
+		return false;
+
+	int index = m_processes->currentIndex();
+	Process *p = m_processList.value(index);
+	m_status = i18n("Waiting for \"%0\"")
+		.arg(p->m_command);
+
+	return !p->isRunning();
 }
-
-/*QString ProcessMonitor::getInfo() const {*/
-/*
-	int index = cb_processes->currentItem();
-	QMapIterator<int, Process> i = _processesMap->find(index);
-
-	if (i == _processesMap->end())
-		return QString::null;
-
-	return i18n("Waiting for \"%1\"").arg(i.data().command);
-	return QString::null;//!!!
-}*/
 
 QWidget *ProcessMonitor::getWidget() {
 	if (!m_processes) {
@@ -93,20 +101,17 @@ QWidget *ProcessMonitor::getWidget() {
 
 // private
 
-bool ProcessMonitor::isSelectedProcessRunning() const {
-	int index = m_processes->currentIndex();
-	Process *p = m_processList.value(index);
-	if (::kill(p->m_pid, 0)) { // check if process exists
-		switch (errno) {
-			case EINVAL: return false;
-			case ESRCH: return false;
-			case EPERM: return true;
-		}
-	}
+void ProcessMonitor::errorMessage(const QString &message) {
+	m_processes->clear();
+	m_processes->setEnabled(false);
+	m_processList.clear();
 
-	return true;
+	m_processes->addItem(
+		U_STOCK_ICON("dialog-error"),
+		message
+	);
 }
-
+/*
 bool ProcessMonitor::isValid() const {//!!!
 	if (!isSelectedProcessRunning()) {
 		U_ERROR_MESSAGE(
@@ -118,17 +123,22 @@ bool ProcessMonitor::isValid() const {//!!!
 	}
 
 	return true;
-}
+}*/
 
 // public slots
 
 void ProcessMonitor::onRefresh() {
 	m_processes->clear();
+	m_processes->setEnabled(true);
 	m_processList.clear();
 	m_refreshBuf = QString::null;
 
 	if (!m_refreshProcess) {
 		m_refreshProcess = new QProcess(this);
+		connect(
+			m_refreshProcess, SIGNAL(error(QProcess::ProcessError)),
+			SLOT(onError(QProcess::ProcessError))
+		);
 		connect(
 			m_refreshProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
 			SLOT(onFinished(int, QProcess::ExitStatus))
@@ -155,16 +165,13 @@ void ProcessMonitor::onRefresh() {
 
 	// start process
 	m_refreshProcess->start("ps", args);
-	//m_refreshProcess->waitForFinished();
-/*		// error
-		U_ERROR_MESSAGE(
-			MainWindow::self(),
-			"<qt>" + i18n("Could not execute command<br><br><b>%0</b>").arg(args.join(" ")) + "</qt>"
-		);
-		//!!!cb_processes->insertItem(SmallIcon("messagebox_warning"), i18n("Error"));*/
 }
 
 // private slots
+
+void ProcessMonitor::onError(QProcess::ProcessError error) {
+	errorMessage(i18n("Error: %0").arg(error));
+}
 
 void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
@@ -200,21 +207,12 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 			}
 			index++;
 		}
-/*!!!		if (cb_processes->count() == 0)
-		{
-			cb_processes->setEnabled(false);
-			cb_processes->insertItem(SmallIcon("messagebox_warning"), i18n("Error"));
-			b_kill->setEnabled(false);
-		}
-		else
-		{
-			cb_processes->setEnabled(true);
-			b_kill->setEnabled(true);
-		}
-		b_refresh->setEnabled(true);*/
+		
+		if (m_processList.isEmpty())
+			errorMessage(i18n("Error, exit code: %0").arg(exitCode));
 	}
 	else { // QProcess::CrashExit
-		//!!!
+		errorMessage(i18n("Error, exit code: %0").arg(exitCode));
 	}
 }
 
