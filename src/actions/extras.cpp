@@ -111,6 +111,8 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo) {
 
 	return new CommandAction(icon, text, this, fileInfo.filePath());
 #else
+	Q_UNUSED(fileInfo)
+
 	return 0;
 #endif // KS_NATIVE_KDE
 }
