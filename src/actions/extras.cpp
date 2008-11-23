@@ -22,6 +22,7 @@
 
 	#include <KDesktopFile>
 	#include <KRun>
+	#include <KService>
 	#include <KStandardDirs>
 	
 	#include "../mainwindow.h"
@@ -43,16 +44,16 @@ bool Extras::onAction() {
 #ifdef KS_NATIVE_KDE
 //!!!command line
 	KDesktopFile desktopFile(m_command);
-	QString desktopExec = desktopFile.desktopGroup().readEntry("Exec", "");
+	KService service(&desktopFile);
 	
-	if (desktopExec.isEmpty()) {
+	if (service.exec().isEmpty()) {
 		m_error = i18n("Invalid \"Extras\" command");
 	
 		return false;
 	}
 	
 // FIXME: error detection
-	if (KRun::run(desktopExec, KUrl::List(), MainWindow::self()))
+	if (KRun::run(service, KUrl::List(), MainWindow::self()))
 		return true;
 	
 	m_error = i18n("Cannot execute \"Extras\" command");
@@ -61,6 +62,30 @@ bool Extras::onAction() {
 #else
 	return false;
 #endif // KS_NATIVE_KDE
+}
+
+void Extras::readConfig(const QString &group, Config *config) {
+	config->beginGroup(group);
+	m_command = config->read("Command", "").toString();
+	if (m_command.isEmpty()) {
+		setCommandAction(0);
+	}
+	else {
+		QFileInfo fileInfo(m_command);
+		if (fileInfo.exists()) {
+			setCommandAction(createCommandAction(fileInfo));
+		}
+		else {
+			setCommandAction(0);
+		}
+	}
+	config->endGroup();
+}
+
+void Extras::writeConfig(const QString &group, Config *config) {
+	config->beginGroup(group);
+	config->write("Command", m_command);
+	config->endGroup();
 }
 
 // private
@@ -74,9 +99,20 @@ Extras::Extras() :
 	m_menuButton = new U_PUSH_BUTTON();
 	m_menuButton->setMenu(menu());
 	
-	setCommandAction(0);
+	//setCommandAction(0);
 
 	addCommandLineArg("e", "extra");//!!!arg value
+}
+
+CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo) {
+#ifdef KS_NATIVE_KDE
+	QString text = fileInfo.baseName();
+	U_ICON icon = readDesktopInfo(fileInfo, text);
+
+	return new CommandAction(icon, text, this, fileInfo.filePath());
+#else
+	return 0;
+#endif // KS_NATIVE_KDE
 }
 
 U_MENU *Extras::createMenu() {
@@ -118,10 +154,7 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			parentMenu->addMenu(dirMenu);
 		}
 		else if (i.isFile() && KDesktopFile::isDesktopFile(i.filePath())) {//!!!allow any executables
-			QString text = i.baseName();
-			U_ICON icon = readDesktopInfo(i, text);
-			CommandAction *action = new CommandAction(icon, text, this, i.filePath());
-			parentMenu->addAction(action);
+			parentMenu->addAction(createCommandAction(i));
 		}
 	}
 #else
@@ -178,8 +211,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 
 // private slots
 
-void Extras::slotModify()
-{
+void Extras::slotModify() {
 #ifdef KS_NATIVE_KDE
 	#define KS_LI(text) "<li>" + (text) + "</li>" +
 	KMessageBox::information(
