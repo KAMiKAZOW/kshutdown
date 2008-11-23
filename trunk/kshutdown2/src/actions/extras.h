@@ -31,18 +31,21 @@ class Extras: public KShutdown::Action {
 public:
 	virtual QWidget *getWidget();
 	virtual bool onAction();
+	virtual void readConfig(const QString &group, Config *config);
 	inline static Extras *self() {
 		if (!m_instance)
 			m_instance = new Extras();
 
 		return m_instance;
 	}
+	virtual void writeConfig(const QString &group, Config *config);
 private:
 	static Extras *m_instance;
 	QString m_command;
 	U_MENU *m_menu;
 	U_PUSH_BUTTON *m_menuButton;
 	Extras();
+	CommandAction *createCommandAction(const QFileInfo &fileInfo);
 	U_MENU *createMenu();
 	void createMenu(U_MENU *parentMenu, const QString &parentDir);
 	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text);
