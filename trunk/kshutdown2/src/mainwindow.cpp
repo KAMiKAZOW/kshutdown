@@ -324,16 +324,28 @@ MainWindow::MainWindow() :
 	
 	// init actions
 	foreach (Action *action, m_actionList) {
-		m_actions->addItem(action->icon(), action->text(), action->id());
+		QString id = action->id();
+		m_actions->addItem(action->icon(), action->text(), id);
 		int index = m_actions->count() - 1;
-		U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << action->id() << ", index=" << index << " ]" U_END;
+		
+		// insert separator like in menu
+		if ((id == "reboot") || (id == "suspend") || (id == "logout"))
+			m_actions->insertSeparator(m_actions->count());
+			
+		U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;
 	}
 	
 	// init triggers
 	foreach (Trigger *trigger, m_triggerList) {
-		m_triggers->addItem(trigger->icon(), trigger->text(), trigger->id());
+		QString id = trigger->id();
+		m_triggers->addItem(trigger->icon(), trigger->text(), id);
 		int index = m_triggers->count() - 1;
-		U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << trigger->id() << ", index=" << index << " ]" U_END;	
+		
+		// insert separator
+		if (id == "date-time")
+			m_triggers->insertSeparator(m_triggers->count());
+
+		U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;	
 	}
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
 	
@@ -400,7 +412,13 @@ void MainWindow::initMenuBar() {
 	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
-		id = m_actions->itemData(i).toString();
+		QVariant data = m_actions->itemData(i);
+		
+		// skip separator
+		if (data.type() == QVariant::Invalid)
+			continue; // for
+		
+		id = data.toString();
 		a = m_actionHash[id];
 
 		if (!a->showInMenu())
