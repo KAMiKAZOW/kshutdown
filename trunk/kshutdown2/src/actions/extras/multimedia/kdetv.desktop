@@ -1,7 +1,15 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
+
+# FIXME: "desktop-file-validate" program displays
+#
+# error: value "(...)" for key "Exec" in group "Desktop Entry"
+# contains a reserved character '$' outside of a quote
+#
+# However, this works correctly in KDE4.
 Exec=dcop kdetv-$(pidof kdetv) KdetvIface toggleMute; dcop kdetv-$(pidof kdetv) MainApplication-Interface quit
+
 Icon=kdetv
 Name=kdetv/KDE 3 (mute and quit)
 Name[pl]=kdetv/KDE 3 (wycisz i zakończ)
