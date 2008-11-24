@@ -485,11 +485,17 @@ void MainWindow::initSystemTray() {
 	U_DEBUG << "MainWindow::initSystemTray()" U_END;
 
 	m_systemTray = new U_SYSTEM_TRAY(this);
-	m_systemTray->setIcon(windowIcon());
-	m_systemTray->show();
+#ifdef KS_NATIVE_KDE
+	m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
+#endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
-	connect(m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(onRestore(QSystemTrayIcon::ActivationReason)));
+	m_systemTray->setIcon(windowIcon());
+	connect(
+		m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
+	);
 #endif // KS_PURE_QT
+	m_systemTray->show();
 }
 
 void MainWindow::initWidgets() {
