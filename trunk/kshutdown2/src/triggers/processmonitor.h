@@ -46,6 +46,7 @@ private:
 	QList<Process*> m_processList;
 	QProcess *m_refreshProcess;
 	QString m_refreshBuf;
+	QWidget *m_widget;
 	U_COMBO_BOX *m_processes;
 	void errorMessage(const QString &message);
 public slots:
