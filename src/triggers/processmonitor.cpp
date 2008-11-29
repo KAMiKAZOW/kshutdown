@@ -23,6 +23,8 @@
 #include <errno.h>
 #include <signal.h>
 
+#include <QHBoxLayout>
+
 // public
 
 Process::Process(QObject *parent)
@@ -62,20 +64,6 @@ ProcessMonitor::ProcessMonitor()
 	m_processes(0)
 {
 	m_checkTimeout = 2000;
-
-	// refresh button
-	/*
-	b_refresh = new KPushButton(this, "KPushButton::b_refresh");
-	b_refresh->setIconSet(SmallIcon("reload"));
-	b_refresh->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
-	MiscUtils::setHint(b_refresh, i18n("Refresh the list of processes"));
-	connect(b_refresh, SIGNAL(clicked()), SLOT(onRefresh()));
-
-	// processes combo box
-	cb_processes = new QComboBox(this, "QComboBox::cb_processes");
-	cb_processes->setFocusPolicy(StrongFocus);
-	MiscUtils::setHint(cb_processes, i18n("List of the running processes"));
-	*/
 }
 
 bool ProcessMonitor::canActivateAction() {
@@ -91,12 +79,34 @@ bool ProcessMonitor::canActivateAction() {
 }
 
 QWidget *ProcessMonitor::getWidget() {
-	if (!m_processes) {
-		m_processes = new U_COMBO_BOX();//!!!
+	if (!m_widget) {
+		m_widget = new QWidget();
+		QHBoxLayout *layout = new QHBoxLayout(m_widget);
+		layout->setMargin(0);
+		layout->setSpacing(5);
+
+		m_processes = new U_COMBO_BOX(m_widget);
+		m_processes->setFocusPolicy(Qt::StrongFocus);
+		m_processes->setToolTip(i18n("List of the running processes"));
+		layout->addWidget(m_processes);
+		
+		U_PUSH_BUTTON *refreshButton = new U_PUSH_BUTTON(m_widget);
+#ifdef KS_NATIVE_KDE
+		refreshButton->setIcon(U_STOCK_ICON("view-refresh"));
+#else
+		refreshButton->setText(i18n("Refresh"));
+#endif // KS_NATIVE_KDE
+		refreshButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
+		refreshButton->setToolTip(i18n("Refresh the list of processes"));
+		connect(
+			refreshButton, SIGNAL(clicked()),
+			SLOT(onRefresh())
+		);
+		layout->addWidget(refreshButton);
 	}
 	onRefresh();
 
-	return m_processes;
+	return m_widget;
 }
 
 // private
@@ -111,19 +121,6 @@ void ProcessMonitor::errorMessage(const QString &message) {
 		message
 	);
 }
-/*
-bool ProcessMonitor::isValid() const {//!!!
-	if (!isSelectedProcessRunning()) {
-		U_ERROR_MESSAGE(
-			MainWindow::self(),
-			i18n("The selected process does not exist!")
-		);
-
-		return false;
-	}
-
-	return true;
-}*/
 
 // public slots
 
