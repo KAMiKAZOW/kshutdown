@@ -196,6 +196,7 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 					p->m_command = i;
 					m_processList.append(p);
 					m_processes->addItem(
+// FIXME: U_STOCK_ICON(p->m_command) - slow
 						U_STOCK_ICON(p->m_command),
 						p->toString(),
 						index
