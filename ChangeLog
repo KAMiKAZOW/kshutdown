@@ -1,8 +1,31 @@
-// svn log -r 301:HEAD|tac|xsel -i -b
+// svn log -r 332:HEAD|tac|xsel -i -b
 
-2008/11/!!!  2.0 Beta 3
+2008/12/01  2.0 Beta 3
 
-* Updated Qt libraries to version 4.4.3
+* NEW: Added progress bar (disabled by default; see Preferences)
+* Separators in combo box list (this requires Qt 4.4+)
+* Fixed "Desktop Entry" files
+
+Linux/KDE 4 version:
+
+* NEW: Added notifications. See menu -> Settings -> Configure Notifications...
+* Use system theme icon in system tray
+* Fixed: Remember recent Extras action
+
+Linux version:
+
+* NEW: Added language translations
+* NEW: Added "When selected application exit" trigger
+
+Windows version:
+
+* Updated Qt Toolkit libraries to version 4.4.3
+* Updated NSIS installer
+* Updated build script
+
+Source package:
+
+* Added "Desktop Entry" file validator (./tools/check-desktop-files.sh)
 
 
 2008/10/11  2.0 Beta 2
