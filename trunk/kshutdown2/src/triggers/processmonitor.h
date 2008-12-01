@@ -18,7 +18,9 @@
 #ifndef __PROCESSMONITOR_H__
 #define __PROCESSMONITOR_H__
 
-#include <sys/types.h>
+#ifdef KS_TRIGGER_PROCESS_MONITOR
+	#include <sys/types.h>
+#endif // KS_TRIGGER_PROCESS_MONITOR
 
 #include "../kshutdown.h"
 
@@ -31,7 +33,9 @@ public:
 	QString toString();
 private:
 	friend class ProcessMonitor;
+#ifdef KS_TRIGGER_PROCESS_MONITOR
 	pid_t m_pid;
+#endif // KS_TRIGGER_PROCESS_MONITOR
 	QString m_command; // a process command (e.g. "firefox")
 	QString m_user; // an owner of the process (e.g. "root")
 };
