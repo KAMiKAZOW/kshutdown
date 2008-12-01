@@ -32,14 +32,8 @@
 	#include <KStandardAction>
 #endif // KS_PURE_QT
 
-#ifdef Q_OS_LINUX
-	#define KS_TRIGGER_PROCESS_MONITOR
-#endif // Q_OS_LINUX
-
 #include "actions/extras.h"
-#ifdef KS_TRIGGER_PROCESS_MONITOR
-	#include "triggers/processmonitor.h"
-#endif // KS_TRIGGER_PROCESS_MONITOR
+#include "triggers/processmonitor.h"
 #include "mainwindow.h"
 #include "preferences.h"
 #include "progressbar.h"
