@@ -18,6 +18,10 @@
 #ifndef __PROCESSMONITOR_H__
 #define __PROCESSMONITOR_H__
 
+#ifdef Q_OS_LINUX
+	#define KS_TRIGGER_PROCESS_MONITOR
+#endif // Q_OS_LINUX
+
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	#include <sys/types.h>
 #endif // KS_TRIGGER_PROCESS_MONITOR
