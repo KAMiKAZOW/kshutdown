@@ -15,13 +15,17 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <sys/types.h>
+#ifdef KS_TRIGGER_PROCESS_MONITOR
+	#include <sys/types.h>
+#endif // KS_TRIGGER_PROCESS_MONITOR
 
 #include "../mainwindow.h"
 #include "processmonitor.h"
 
-#include <errno.h>
-#include <signal.h>
+#ifdef KS_TRIGGER_PROCESS_MONITOR
+	#include <errno.h>
+	#include <signal.h>
+#endif // KS_TRIGGER_PROCESS_MONITOR
 
 #include <QHBoxLayout>
 
@@ -29,13 +33,16 @@
 
 Process::Process(QObject *parent)
 	: QObject(parent),
+#ifdef KS_TRIGGER_PROCESS_MONITOR
 	m_pid(0),
+#endif // KS_TRIGGER_PROCESS_MONITOR
 	m_command(QString::null),
 	m_user(QString::null)
 {
 }
 
 bool Process::isRunning() {
+#ifdef KS_TRIGGER_PROCESS_MONITOR
 	if (::kill(m_pid, 0)) { // check if process exists
 		switch (errno) {
 			case EINVAL: return false;
@@ -45,13 +52,20 @@ bool Process::isRunning() {
 	}
 
 	return true;
+#else
+	return false;
+#endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
 QString Process::toString() {
+#ifdef KS_TRIGGER_PROCESS_MONITOR
 	return QString("%0 (pid %1, %2)")
 		.arg(m_command)
 		.arg(m_pid)
 		.arg(m_user);
+#else
+	return QString();
+#endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
 // public
@@ -125,6 +139,7 @@ void ProcessMonitor::errorMessage(const QString &message) {
 // public slots
 
 void ProcessMonitor::onRefresh() {
+#ifdef KS_TRIGGER_PROCESS_MONITOR
 	m_processes->clear();
 	m_processes->setEnabled(true);
 	m_processList.clear();
@@ -162,6 +177,7 @@ void ProcessMonitor::onRefresh() {
 
 	// start process
 	m_refreshProcess->start("ps", args);
+#endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
 // private slots
@@ -171,6 +187,7 @@ void ProcessMonitor::onError(QProcess::ProcessError error) {
 }
 
 void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
+#ifdef KS_TRIGGER_PROCESS_MONITOR
 	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
 	
 	if (exitStatus == QProcess::NormalExit) {
@@ -212,6 +229,7 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 	else { // QProcess::CrashExit
 		errorMessage(i18n("Error, exit code: %0").arg(exitCode));
 	}
+#endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
 void ProcessMonitor::onReadyReadStandardOutput() {
