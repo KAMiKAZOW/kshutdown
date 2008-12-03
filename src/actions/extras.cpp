@@ -43,22 +43,33 @@ QWidget *Extras::getWidget() { return m_menuButton; }
 bool Extras::onAction() {
 #ifdef KS_NATIVE_KDE
 //!!!command line
-	KDesktopFile desktopFile(m_command);
-	KService service(&desktopFile);
-	
-	if (service.exec().isEmpty()) {
-		m_error = i18n("Invalid \"Extras\" command");
-	
+	QFileInfo fileInfo(m_command);
+	if (KDesktopFile::isDesktopFile(fileInfo.filePath())) {
+		KDesktopFile desktopFile(m_command);
+		KService service(&desktopFile);
+		
+		if (service.exec().isEmpty()) {
+			m_error = i18n("Invalid \"Extras\" command");
+		
+			return false;
+		}
+		
+// FIXME: error detection
+		if (KRun::run(service, KUrl::List(), MainWindow::self()))
+			return true;
+		
+		m_error = i18n("Cannot execute \"Extras\" command");
+		
 		return false;
 	}
-	
-// FIXME: error detection
-	if (KRun::run(service, KUrl::List(), MainWindow::self()))
-		return true;
-	
-	m_error = i18n("Cannot execute \"Extras\" command");
-	
-	return false;
+	else {
+		if (KRun::run(m_command, KUrl::List(), MainWindow::self()))
+			return true;
+		
+		m_error = i18n("Cannot execute \"Extras\" command");
+		
+		return false;
+	}
 #else
 	return false;
 #endif // KS_NATIVE_KDE
@@ -106,10 +117,27 @@ Extras::Extras() :
 
 CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo) {
 #ifdef KS_NATIVE_KDE
+	if (!fileInfo.isFile())
+		return 0;
+	
 	QString text = fileInfo.baseName();
-	U_ICON icon = readDesktopInfo(fileInfo, text);
+	if (KDesktopFile::isDesktopFile(fileInfo.filePath())) {
+		U_ICON icon = readDesktopInfo(fileInfo, text);
 
-	return new CommandAction(icon, text, this, fileInfo.filePath());
+		return new CommandAction(icon, text, this, fileInfo.filePath());
+	}
+	else if (fileInfo.isExecutable()) {
+		QString iconName =
+			(fileInfo.suffix() == "sh")
+			? "application-x-executable-script"
+			: "application-x-executable";
+		U_ICON icon = U_STOCK_ICON(iconName);
+
+		return new CommandAction(icon, text, this, fileInfo.filePath());
+	}
+	else {
+		return 0;
+	}
 #else
 	Q_UNUSED(fileInfo)
 
@@ -155,8 +183,10 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			createMenu(dirMenu, i.filePath()); // recursive scan
 			parentMenu->addMenu(dirMenu);
 		}
-		else if (i.isFile() && KDesktopFile::isDesktopFile(i.filePath())) {//!!!allow any executables
-			parentMenu->addAction(createCommandAction(i));
+		else {
+			CommandAction *action = createCommandAction(i);
+			if (action)
+				parentMenu->addAction(action);
 		}
 	}
 #else
