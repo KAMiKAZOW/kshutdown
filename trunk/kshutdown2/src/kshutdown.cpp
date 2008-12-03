@@ -243,10 +243,10 @@ bool DateTimeTriggerBase::canActivateAction() {
 		
 		MainWindow *mainWindow = MainWindow::self();
 		if ((secsTo < 60) && (secsTo > 55)) {
-			mainWindow->notify("1m", i18n("Remaining time: %0").arg(m_status));
+			mainWindow->notify("1m", mainWindow->getDisplayStatus());
 		}
 		else if ((secsTo < 300) && (secsTo > 295)) {
-			mainWindow->notify("5m", i18n("Remaining time: %0").arg(m_status));
+			mainWindow->notify("5m", mainWindow->getDisplayStatus());
 		}
 	}
 	else {

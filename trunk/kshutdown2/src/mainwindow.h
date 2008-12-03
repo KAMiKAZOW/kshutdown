@@ -49,6 +49,7 @@ class MainWindow: public U_MAIN_WINDOW {
 public:
 	virtual ~MainWindow();
 	static bool checkCommandLine();
+	QString getDisplayStatus();
 	QWidget *getElementById(const QString &id);
 	static QString getOption(const QString &name);
 	static void init();
