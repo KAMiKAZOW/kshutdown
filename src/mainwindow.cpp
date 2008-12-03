@@ -78,6 +78,31 @@ bool MainWindow::checkCommandLine() {
 	return false;
 }
 
+QString MainWindow::getDisplayStatus() {
+	Action *action = getSelectedAction();
+	Trigger *trigger = getSelectedTrigger();
+
+	QString actionStatus = action->originalText();
+	
+/* TODO: extras command name
+	if (!action->status().isEmpty())
+		actionStatus += (" - " + action->status());
+*/
+
+	QString triggerStatus = trigger->status();
+
+	QString result = triggerStatus;
+	if (!actionStatus.isEmpty()) {
+		if (!result.isEmpty()) {
+			result = i18n("Remaining time: %0").arg(result);
+			result += " - ";
+		}
+		result += actionStatus;
+	}
+	
+	return result;
+}
+
 QWidget *MainWindow::getElementById(const QString &id) {
 	if (id.isEmpty())
 		return 0;
@@ -706,12 +731,11 @@ void MainWindow::onCheckTrigger() {
 		return;
 	}
 
-	Action *action = getSelectedAction();
-	Trigger *trigger = getSelectedTrigger();
-
 	// activate action
+	Trigger *trigger = getSelectedTrigger();
 	if (trigger->canActivateAction()) {
 		setActive(false);
+		Action *action = getSelectedAction();
 		if (action->isEnabled()) {
 			U_DEBUG << "Activate action: force=" << m_force->isChecked() U_END;
 			action->activate(m_force->isChecked());
@@ -719,24 +743,7 @@ void MainWindow::onCheckTrigger() {
 	}
 	// update status
 	else {
-		QString actionStatus = action->originalText();
-		
-/* TODO: extras command name
-		if (!action->status().isEmpty())
-			actionStatus += (" - " + action->status());
-*/
-
-		QString triggerStatus = trigger->status();
-
-		QString title = triggerStatus;
-		if (!actionStatus.isEmpty()) {
-			if (!title.isEmpty()) {
-				title = i18n("Remaining time: %0").arg(title);//!!!common
-				title += " - ";
-			}
-			title += actionStatus;
-		}
-		setTitle(title);
+		setTitle(getDisplayStatus());
 	}
 }
 
