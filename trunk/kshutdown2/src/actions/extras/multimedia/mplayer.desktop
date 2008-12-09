@@ -5,4 +5,5 @@ Exec=killall mplayer
 Icon=media-playback-start
 Name=MPlayer (quit all)
 Name[pl]=MPlayer (zakończ wszystkie)
+Name[fr]=MPlayer (quitte tout)
 Type=Application

@@ -13,4 +13,5 @@ Exec=dcop kdetv-$(pidof kdetv) KdetvIface toggleMute; dcop kdetv-$(pidof kdetv) 
 Icon=kdetv
 Name=kdetv/KDE 3 (mute and quit)
 Name[pl]=kdetv/KDE 3 (wycisz i zakończ)
+Name[fr]=kdetv/KDE 3 (coupe le son et quitte)
 Type=Application

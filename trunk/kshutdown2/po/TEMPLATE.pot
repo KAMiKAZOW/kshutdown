@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-11 08:21+0100\n"
+"POT-Creation-Date: 2008-12-09 12:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,44 +16,44 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/actions/extras.cpp:49
+#: src/actions/extras.cpp:52
 msgid "Invalid \"Extras\" command"
 msgstr ""
 
-#: src/actions/extras.cpp:58
+#: src/actions/extras.cpp:61 src/actions/extras.cpp:69
 msgid "Cannot execute \"Extras\" command"
 msgstr ""
 
-#: src/actions/extras.cpp:69
+#: src/actions/extras.cpp:105
 msgid "Extras..."
 msgstr ""
 
-#: src/actions/extras.cpp:174
+#: src/actions/extras.cpp:239
 msgid "Select a command..."
 msgstr ""
 
-#: src/actions/extras.cpp:188
+#: src/actions/extras.cpp:252
 msgid "Use context menu to add/edit/remove actions."
 msgstr ""
 
-#: src/actions/extras.cpp:190
+#: src/actions/extras.cpp:254
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
 msgstr ""
 
-#: src/actions/extras.cpp:191
+#: src/actions/extras.cpp:255
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
 msgstr ""
 
-#: src/actions/extras.cpp:192
+#: src/actions/extras.cpp:256
 msgid "Use <b>Properties</b> to change icon, name, or command"
 msgstr ""
 
-#: src/actions/extras.cpp:216
+#: src/actions/extras.cpp:280
 msgid "Add/Remove Commands..."
 msgstr ""
 
 #: src/kshutdown.cpp:155
-msgid "Unsupported action: %1"
+msgid "Unsupported action: %0"
 msgstr ""
 
 #: src/kshutdown.cpp:170
@@ -64,129 +64,129 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
-msgid "Remaining time:"
-msgstr ""
-
-#: src/kshutdown.cpp:306
+#: src/kshutdown.cpp:319
 msgid "At Date/Time"
 msgstr ""
 
-#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+#: src/kshutdown.cpp:346 src/mainwindow.cpp:427
 msgid "No Delay"
 msgstr ""
 
-#: src/kshutdown.cpp:343
+#: src/kshutdown.cpp:358
 msgid "Time From Now (HH:MM)"
 msgstr ""
 
-#: src/kshutdown.cpp:456
+#: src/kshutdown.cpp:473
 msgid "Hibernate Computer"
 msgstr ""
 
-#: src/kshutdown.cpp:459
-msgid "Cannot suspend to disk"
+#: src/kshutdown.cpp:476
+msgid "Cannot hibernate computer"
 msgstr ""
 
-#: src/kshutdown.cpp:469
+#: src/kshutdown.cpp:486
 msgid "Suspend Computer"
 msgstr ""
 
-#: src/kshutdown.cpp:472
-msgid "Cannot suspend to RAM"
+#: src/kshutdown.cpp:489
+msgid "Cannot suspend computer"
 msgstr ""
 
-#: src/kshutdown.cpp:482
+#: src/kshutdown.cpp:499
 msgid "Lock Screen"
 msgstr ""
 
-#: src/kshutdown.cpp:626
+#: src/kshutdown.cpp:643
 msgid ""
 "Could not logout properly.\n"
 "The session manager cannot be contacted."
 msgstr ""
 
-#: src/kshutdown.cpp:650
+#: src/kshutdown.cpp:667
 msgid "Logout"
 msgstr ""
 
-#: src/kshutdown.cpp:660
+#: src/kshutdown.cpp:677
 msgid "Restart Computer"
 msgstr ""
 
-#: src/kshutdown.cpp:670
+#: src/kshutdown.cpp:687
 msgid "Turn Off Computer"
 msgstr ""
 
-#: src/mainwindow.cpp:273
+#: src/mainwindow.cpp:97
+msgid "Remaining time: %0"
+msgstr ""
+
+#: src/mainwindow.cpp:301
 msgid "KShutdown is still active!"
 msgstr ""
 
-#: src/mainwindow.cpp:279
+#: src/mainwindow.cpp:307
 msgid "KShutdown has been minimized"
 msgstr ""
 
-#: src/mainwindow.cpp:385
+#: src/mainwindow.cpp:425
 msgid "&File"
 msgstr ""
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:458
 msgid "Quit"
 msgstr ""
 
-#: src/mainwindow.cpp:419
+#: src/mainwindow.cpp:465
 msgid "&Settings"
 msgstr ""
 
-#: src/mainwindow.cpp:425
+#: src/mainwindow.cpp:471
 msgid "Preferences..."
 msgstr ""
 
-#: src/mainwindow.cpp:443
+#: src/mainwindow.cpp:489
 msgid "&Help"
 msgstr ""
 
-#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+#: src/mainwindow.cpp:490 src/mainwindow.cpp:698
 msgid "About"
 msgstr ""
 
-#: src/mainwindow.cpp:445
+#: src/mainwindow.cpp:491
 msgid "About Qt"
 msgstr ""
 
-#: src/mainwindow.cpp:475
+#: src/mainwindow.cpp:527
 msgid "Select an &action"
 msgstr ""
 
-#: src/mainwindow.cpp:484
+#: src/mainwindow.cpp:536
 msgid "Do not save session"
 msgstr ""
 
-#: src/mainwindow.cpp:492
+#: src/mainwindow.cpp:544
 msgid "S&elect a time"
 msgstr ""
 
-#: src/mainwindow.cpp:592
+#: src/mainwindow.cpp:646
 msgid "Cancel"
 msgstr ""
 
-#: src/mainwindow.cpp:593
+#: src/mainwindow.cpp:647
 msgid "OK"
 msgstr ""
 
-#: src/mainwindow.cpp:595
-msgid "Click to active the selected action"
+#: src/mainwindow.cpp:649
+msgid "Click to active/cancel the selected action"
 msgstr ""
 
-#: src/mainwindow.cpp:602
+#: src/mainwindow.cpp:656
 msgid "Action not available: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:724
+#: src/mainwindow.cpp:759
 msgid "Confirm"
 msgstr ""
 
-#: src/mainwindow.cpp:724
+#: src/mainwindow.cpp:759
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -201,14 +201,62 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/preferences.cpp:97
+#: src/preferences.cpp:98
 msgid "Confirm Action"
 msgstr ""
 
-#: src/preferences.cpp:101
+#: src/preferences.cpp:102
+msgid "Progress Bar"
+msgstr ""
+
+#: src/preferences.cpp:106
 msgid "Lock Screen Before Hibernate"
+msgstr ""
+
+#: src/progressbar.cpp:90
+msgid "Hide"
+msgstr ""
+
+#: src/progressbar.cpp:92
+msgid "Position"
+msgstr ""
+
+#: src/progressbar.cpp:99
+msgid "Top"
+msgstr ""
+
+#: src/progressbar.cpp:104
+msgid "Bottom"
 msgstr ""
 
 #: src/pureqt.h:49
 msgid "Error"
+msgstr ""
+
+#: src/triggers/processmonitor.cpp:74
+msgid "When selected application exit"
+msgstr ""
+
+#: src/triggers/processmonitor.cpp:89
+msgid "Waiting for \"%0\""
+msgstr ""
+
+#: src/triggers/processmonitor.cpp:104
+msgid "List of the running processes"
+msgstr ""
+
+#: src/triggers/processmonitor.cpp:111
+msgid "Refresh"
+msgstr ""
+
+#: src/triggers/processmonitor.cpp:114
+msgid "Refresh the list of processes"
+msgstr ""
+
+#: src/triggers/processmonitor.cpp:186
+msgid "Error: %0"
+msgstr ""
+
+#: src/triggers/processmonitor.cpp:227 src/triggers/processmonitor.cpp:230
+msgid "Error, exit code: %0"
 msgstr ""
