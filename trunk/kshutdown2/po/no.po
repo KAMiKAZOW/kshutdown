@@ -1,0 +1,263 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kshutdown 2.0beta3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-12-09 12:01+0100\n"
+"PO-Revision-Date: 2008-12-08 00:53+0100\n"
+"Last-Translator: Eirik Johansen Bjørgan <eirikjbj@gmail.com>\n"
+"Language-Team: Norwegian Bokmal\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/actions/extras.cpp:52
+msgid "Invalid \"Extras\" command"
+msgstr "Ugyldige \"Ekstra\" kommando"
+
+#: src/actions/extras.cpp:61 src/actions/extras.cpp:69
+msgid "Cannot execute \"Extras\" command"
+msgstr "Kan ikke kjøre \"Ekstra\" kommando"
+
+#: src/actions/extras.cpp:105
+msgid "Extras..."
+msgstr "Ekstra..."
+
+#: src/actions/extras.cpp:239
+msgid "Select a command..."
+msgstr "Velg en kommando..."
+
+#: src/actions/extras.cpp:252
+msgid "Use context menu to add/edit/remove actions."
+msgstr "Bruk innholdsmenyen for å leggetil/endre/fjerne handlinger"
+
+#: src/actions/extras.cpp:254
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr ""
+"Bruk <b>handlingsmenyen</b> for å lage en ny lenke til program(handling)"
+
+#: src/actions/extras.cpp:255
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr "Bruk <b>Lag Ny|Mappe...</b> for å lage en ny undermeny"
+
+#: src/actions/extras.cpp:256
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr "Bruk <b>Egenskaper</b> for å endre ikon, navn eller kommando"
+
+#: src/actions/extras.cpp:280
+msgid "Add/Remove Commands..."
+msgstr "Legg til/Fjern Kommandoer..."
+
+#: src/kshutdown.cpp:155
+msgid "Unsupported action: %0"
+msgstr "Ustøttet handling: %0"
+
+#: src/kshutdown.cpp:170
+msgid "Unknown error"
+msgstr "Ukjent feil"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#: src/kshutdown.cpp:319
+msgid "At Date/Time"
+msgstr "På Dato/Tid"
+
+#: src/kshutdown.cpp:346 src/mainwindow.cpp:427
+msgid "No Delay"
+msgstr "Ingen utsettelse"
+
+#: src/kshutdown.cpp:358
+msgid "Time From Now (HH:MM)"
+msgstr "Tid fra nå (TT:MM)"
+
+#: src/kshutdown.cpp:473
+msgid "Hibernate Computer"
+msgstr "Dvalemodus"
+
+#: src/kshutdown.cpp:476
+msgid "Cannot hibernate computer"
+msgstr "Kan ikke gå inn i dvalemodus"
+
+#: src/kshutdown.cpp:486
+msgid "Suspend Computer"
+msgstr "Hvilemodus"
+
+#: src/kshutdown.cpp:489
+msgid "Cannot suspend computer"
+msgstr "Kan ikke gå inn i hvilemodus"
+
+#: src/kshutdown.cpp:499
+msgid "Lock Screen"
+msgstr "Lås skjerm"
+
+#: src/kshutdown.cpp:643
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Kan ikke logge ut.\n"
+"Sesjonshåndtereren kan ikke nåes."
+
+#: src/kshutdown.cpp:667
+msgid "Logout"
+msgstr "Logg ut"
+
+#: src/kshutdown.cpp:677
+msgid "Restart Computer"
+msgstr "Start på nytt"
+
+#: src/kshutdown.cpp:687
+msgid "Turn Off Computer"
+msgstr "Slå av"
+
+#: src/mainwindow.cpp:97
+msgid "Remaining time: %0"
+msgstr "Gjenstående tid: %0"
+
+#: src/mainwindow.cpp:301
+msgid "KShutdown is still active!"
+msgstr "KShutdown kjører fortsatt!"
+
+#: src/mainwindow.cpp:307
+msgid "KShutdown has been minimized"
+msgstr "KShutdown har blitt minimert"
+
+#: src/mainwindow.cpp:425
+msgid "&File"
+msgstr "&Fil"
+
+#: src/mainwindow.cpp:458
+msgid "Quit"
+msgstr "Avslutt"
+
+#: src/mainwindow.cpp:465
+msgid "&Settings"
+msgstr "&Instillinger"
+
+#: src/mainwindow.cpp:471
+msgid "Preferences..."
+msgstr "Egenskaper..."
+
+#: src/mainwindow.cpp:489
+msgid "&Help"
+msgstr "&Hjelp"
+
+#: src/mainwindow.cpp:490 src/mainwindow.cpp:698
+msgid "About"
+msgstr "Om"
+
+#: src/mainwindow.cpp:491
+msgid "About Qt"
+msgstr "Om Qt"
+
+#: src/mainwindow.cpp:527
+msgid "Select an &action"
+msgstr "Velg en &handling"
+
+#: src/mainwindow.cpp:536
+msgid "Do not save session"
+msgstr "Ikke lagre sesjon"
+
+#: src/mainwindow.cpp:544
+msgid "S&elect a time"
+msgstr "&Velg tid"
+
+#: src/mainwindow.cpp:646
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/mainwindow.cpp:647
+msgid "OK"
+msgstr "Greit"
+
+#: src/mainwindow.cpp:649
+msgid "Click to active/cancel the selected action"
+msgstr "Klikk for å aktivere/avbryte den valge handlingen"
+
+#: src/mainwindow.cpp:656
+msgid "Action not available: %0"
+msgstr "Handling ikke tilgjengelig: %0"
+
+#: src/mainwindow.cpp:759
+msgid "Confirm"
+msgstr "Godkjenn"
+
+#: src/mainwindow.cpp:759
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"Er du sikker du vil slå på dette valget?\n"
+"\n"
+"Informasjon i alle ulagrede dokumenter vil gå tapt!"
+
+#: src/preferences.cpp:32
+msgid "Preferences"
+msgstr "Egenskaper"
+
+#: src/preferences.cpp:39
+msgid "General"
+msgstr "Generelt"
+
+#: src/preferences.cpp:98
+msgid "Confirm Action"
+msgstr "Godkjenn handling"
+
+#: src/preferences.cpp:102
+msgid "Progress Bar"
+msgstr "Fremdriftsindikator"
+
+#: src/preferences.cpp:106
+msgid "Lock Screen Before Hibernate"
+msgstr "Lås skjerm før Dvale"
+
+#: src/progressbar.cpp:90
+msgid "Hide"
+msgstr "Gjem"
+
+#: src/progressbar.cpp:92
+msgid "Position"
+msgstr "Posisjon"
+
+#: src/progressbar.cpp:99
+msgid "Top"
+msgstr "Topp"
+
+#: src/progressbar.cpp:104
+msgid "Bottom"
+msgstr "Bunn"
+
+#: src/pureqt.h:49
+msgid "Error"
+msgstr "Feil"
+
+#: src/triggers/processmonitor.cpp:74
+msgid "When selected application exit"
+msgstr "Når valgte program avsluttes"
+
+#: src/triggers/processmonitor.cpp:89
+msgid "Waiting for \"%0\""
+msgstr "Venter på \"%0\""
+
+#: src/triggers/processmonitor.cpp:104
+msgid "List of the running processes"
+msgstr "Liste over kjørende prosseser"
+
+#: src/triggers/processmonitor.cpp:111
+msgid "Refresh"
+msgstr "Gjenles"
+
+#: src/triggers/processmonitor.cpp:114
+msgid "Refresh the list of processes"
+msgstr "Gjenles listen over prosseser"
+
+#: src/triggers/processmonitor.cpp:186
+msgid "Error: %0"
+msgstr "Feil: %0"
+
+#: src/triggers/processmonitor.cpp:227 src/triggers/processmonitor.cpp:230
+msgid "Error, exit code: %0"
+msgstr "Feil, avsluttes med kode: %0"
