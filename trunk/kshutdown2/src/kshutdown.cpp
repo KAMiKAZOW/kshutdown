@@ -323,9 +323,13 @@ QWidget *DateTimeTrigger::getWidget() {
 	DateTimeTriggerBase::getWidget();
 
 	m_edit->setCalendarPopup(true);
-	m_edit->setDateTime(QDateTime::currentDateTime());
-	m_edit->setDisplayFormat("yyyy MM dddd hh:mm");
+	
+	// Fix for BUG #2444169 - remeber the previous shutdown settings
+	m_edit->setDateTime(QDateTime(QDate::currentDate(), m_dateTime.time()));
+	
+	m_edit->setDisplayFormat("MMM d dddd hh:mm");
 	m_edit->setMinimumDate(QDate::currentDate());
+	//m_edit->setMinimumDateTime(QDateTime::currentDateTime());
 
 	return m_edit;
 }
