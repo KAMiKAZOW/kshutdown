@@ -96,11 +96,12 @@ int main(int argc, char **argv) {
 
 	options.add("e");
 	options.add("extra <file>", ki18n("Extras"));
+	
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("theme <file>", ki18n("Theme"));
 	
 	KCmdLineArgs::addCmdLineOptions(options);
-
+// FIXME: --nofork does not work like in KShutdown 1.0.x?
 	KUniqueApplication::addCmdLineOptions();
 
 	bool isRunning = !KUniqueApplication::start();
