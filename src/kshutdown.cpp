@@ -444,10 +444,10 @@ bool PowerAction::onAction() {
 
 bool PowerAction::isAvailable(const QString &feature) const {
 #ifdef Q_WS_WIN
-	if (feature == "power_management.can_suspend_to_disk")
+	if (feature == "power_management.can_hibernate")
 		return ::IsPwrHibernateAllowed();
 
-	if (feature == "power_management.can_suspend_to_ram")
+	if (feature == "power_management.can_suspend")
 		return ::IsPwrSuspendAllowed();
 
 	return false;
@@ -462,6 +462,21 @@ bool PowerAction::isAvailable(const QString &feature) const {
 
 	if (reply.isValid())
 		return reply.value();
+		
+	// try old property name for backward compat.
+	U_DEBUG << "Using old HAL property names..." U_END;
+	
+	QString oldFeatureName = QString::null;
+	if (feature == "power_management.can_hibernate")
+		oldFeatureName = "power_management.can_suspend_to_disk";
+	else if (feature == "power_management.can_suspend")
+		oldFeatureName = "power_management.can_suspend_to_ram";
+	if (!oldFeatureName.isNull()) {
+		reply = i->call("GetProperty", oldFeatureName);
+	
+		if (reply.isValid())
+			return reply.value();
+	}
 
 	U_ERROR << reply.error() U_END;
 
@@ -476,7 +491,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 HibernateAction::HibernateAction() :
 	PowerAction(i18n("Hibernate Computer"), "system-suspend-hibernate", "hibernate") {
 	m_methodName = "Hibernate";
-	if (!isAvailable("power_management.can_suspend_to_disk"))
+	if (!isAvailable("power_management.can_hibernate"))
 		disable(i18n("Cannot hibernate computer"));
 
 	addCommandLineArg(QString::null, "hibernate");
@@ -489,7 +504,7 @@ HibernateAction::HibernateAction() :
 SuspendAction::SuspendAction() :
 	PowerAction(i18n("Suspend Computer"), "system-suspend", "suspend") {
 	m_methodName = "Suspend";
-	if (!isAvailable("power_management.can_suspend_to_ram"))
+	if (!isAvailable("power_management.can_suspend"))
 		disable(i18n("Cannot suspend computer"));
 
 	addCommandLineArg(QString::null, "suspend");
