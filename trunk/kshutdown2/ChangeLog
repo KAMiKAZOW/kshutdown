@@ -1,4 +1,15 @@
-// svn log -r 332:HEAD|tac|xsel -i -b
+// svn log -r 349:HEAD|tac|xsel -i -b
+
+2009/01/15  2.0 Beta 4
+
+* Fixed Hibernate/Suspend action in Ubuntu 8.10
+* Remeber previous shutdown settings (BUG #2444169)
+* NEW: Added Norwegian translation
+* Updated French translation
+* Extras Actions: Added support for regular executables files
+  (e.g. shell script or compiled program)
+* Show selected action name in notification popup message
+
 
 2008/12/01  2.0 Beta 3
 
