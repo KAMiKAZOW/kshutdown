@@ -1,5 +1,8 @@
 // svn log -r 349:HEAD|tac|xsel -i -b
 
+2009/02/!!!  2.0 Beta 5
+
+
 2009/01/15  2.0 Beta 4
 
 * Fixed Hibernate/Suspend action in Ubuntu 8.10
