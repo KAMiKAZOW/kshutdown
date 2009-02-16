@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -f "./tools/i18n.sh" ]; then
+	echo "Usage: ./tools/`basename $0`"
+	exit 1
+fi
+
 # based on the Makagiga's tools/i18n.sh script
 
 set -e
