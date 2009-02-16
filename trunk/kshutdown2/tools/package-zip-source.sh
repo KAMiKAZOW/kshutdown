@@ -31,6 +31,10 @@ popd
 
 mkdir "$KS_DIR"
 cp * "$KS_DIR"
+
+#mkdir "$KS_DIR/api"
+#cp API.tmp/html/* "$KS_DIR/api"
+
 cp -r "patches" "$KS_DIR"
 
 rm -f po/*.po~
