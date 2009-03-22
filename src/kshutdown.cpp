@@ -494,7 +494,7 @@ HibernateAction::HibernateAction() :
 	if (!isAvailable("power_management.can_hibernate"))
 		disable(i18n("Cannot hibernate computer"));
 
-	addCommandLineArg(QString::null, "hibernate");
+	addCommandLineArg("H", "hibernate");
 }
 
 // SuspendAction
@@ -507,7 +507,7 @@ SuspendAction::SuspendAction() :
 	if (!isAvailable("power_management.can_suspend"))
 		disable(i18n("Cannot suspend computer"));
 
-	addCommandLineArg(QString::null, "suspend");
+	addCommandLineArg("S", "suspend");
 }
 
 // LockAction
