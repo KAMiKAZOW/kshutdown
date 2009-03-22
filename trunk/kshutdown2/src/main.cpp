@@ -81,17 +81,26 @@ int main(int argc, char **argv) {
 	// add custom command line options
 	//!!!
 	KCmdLineOptions options;
+	
 	options.add("h");
 	options.add("halt", ki18n("Turn Off Computer"));
+	
 	options.add("s");
 	options.add("shutdown", ki18n("Turn Off Computer"));
+	
 	options.add("k");
 	options.add("lock", ki18n("Lock screen"));
+	
 	options.add("r");
 	options.add("reboot", ki18n("Restart Computer"));
+	
 	options.add("l");
 	options.add("logout", ki18n("Logout"));
+	
+	options.add("H");
 	options.add("hibernate", ki18n("Hibernate Computer"));
+	
+	options.add("S");
 	options.add("suspend", ki18n("Suspend Computer"));
 
 	options.add("e");
