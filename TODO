@@ -28,11 +28,6 @@ Extras:
 * Support for more media players
   (Xine, KMPlayer, MythTV, etc.)
 
-Application observer:
-
-* Fix combo box width
-  (http://ariya.blogspot.com/2006/03/resize-pop-up-list-of-combo-box_15.html)
-
 Misc.:
 
 * Optionally (--delay <seconds>) show warning message before action,
@@ -50,10 +45,8 @@ Misc.:
 * http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
 * Support for GNOME/GDM
-* Grayed-out background [by zero]
 * Switch to console mode (tty) [by DigitalCyanide]
 * Add test button for "Close CD"
-* Remember last settings page
 * KDM configurator, auto configuration
 * Optionally force application exit
 * Save KDE session if possible
@@ -63,12 +56,12 @@ Misc.:
 * Detect unsaved documents (is there any KDE API to do this?)
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
-  (http://sourceforge.net/forum/forum.php?thread_id=1758589&forum_id=324059)
+  <http://sourceforge.net/forum/forum.php?thread_id=1758589&forum_id=324059>
 
 Triggers:
 
 * Activate action when the CPU usage goes under a certain level
-  (see http://www.autoshutdown.org/index.html)
+  <http://www.autoshutdown.org/index.html>
   [by aaron-koensgen, luckymancvp]
 * Activate action when selected window disapear
 
