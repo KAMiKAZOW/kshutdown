@@ -17,7 +17,6 @@ find_library(
 	PATHS ${KDE4_LIB_DIR}
 )
 
-# FIXME: ?
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(KWorkspace DEFAULT_MSG KWORKSPACE_LIBS KWORKSPACE_INCLUDE_DIR)
 
