@@ -6,7 +6,6 @@ InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
 
 !define APP_UNINSTALL_REG "Software\Microsoft\Windows\CurrentVersion\Uninstall\KShutdown"
 
-# FIXME: what is this? ;)
 !define MUI_ABORTWARNING
 
 !insertmacro MUI_PAGE_LICENSE "LICENSE"

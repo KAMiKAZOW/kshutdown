@@ -297,7 +297,6 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	if (m_active) {
 		if (m_showActiveWarning) {
 			m_showActiveWarning = false;
-// TODO: common code (showMessage)
 			m_systemTray->showMessage("KShutdown", i18n("KShutdown is still active!"), QSystemTrayIcon::Warning, 2000);
 		}
 	}
