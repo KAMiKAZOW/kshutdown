@@ -1,14 +1,14 @@
-// svn log -r 364:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 367:HEAD|xsel -i -b && kwrite ChangeLog
 
-2009/03/!!!  2.0 Beta 5
+2009/04/01  2.0 Beta 5
 
 * NEW: Added -H and -S (uppercase) command line options for Hibernate and Suspend
+* NEW: Added Serbian translation
 * Source: Added tools/api.sh (API documentation generator)
 * Source: Added Doxyfile file (API documentation configuration)
 * Fixed: no -> nb (Norway -> Norwegian Bokmaal)
 * Updated Spanish translation
 * Updated and fixed Polish translation
-* NEW: Added Serbian translation
 
 
 2009/01/15  2.0 Beta 4
