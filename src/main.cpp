@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 	KCmdLineArgs::init(argc, argv, &about);
 	
 	// add custom command line options
-	//!!!
+	// NOTE: Sync. with "addCommandLineArg"
 	KCmdLineOptions options;
 	
 	options.add("h");

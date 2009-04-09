@@ -130,6 +130,7 @@ bool Action::isCommandLineArgSupported() {
 
 // protected
 
+// NOTE: Sync. with "KCmdLineOptions" in main.cpp
 void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) {
 	if (!shortArg.isEmpty())
 		m_commandLineArgs.append(shortArg);
