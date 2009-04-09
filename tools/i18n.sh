@@ -23,6 +23,7 @@ xgettext \
 	--files-from=po/list.tmp \
 	--force-po \
 	--keyword=i18n \
+	--keyword=ki18n \
 	--output=po/TEMPLATE.pot
 
 # remove backups older than one week
