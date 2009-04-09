@@ -66,12 +66,12 @@ int main(int argc, char **argv) {
 	KAboutData about(
 		"kshutdown", // app name - used in config file name etc.
 		"kshutdown",
-		ki18n("KShutdown"),
+		ki18n("KShutdown"), // human readable app name
 		KS_VERSION,
-		ki18n("An advanced shutdown utility"),//!!!i18n
+		ki18n("An advanced shutdown utility"),
 		KAboutData::License_GPL_V2,
 		ki18n(KS_COPYRIGHT),
-		KLocalizedString(), // no extra test
+		KLocalizedString(), // no extra text
 		KS_HOME_PAGE,
 		KS_CONTACT
 	);
