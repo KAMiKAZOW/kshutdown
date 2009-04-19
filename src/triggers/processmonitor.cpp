@@ -75,6 +75,7 @@ ProcessMonitor::ProcessMonitor()
 	m_processList(QList<Process*>()),
 	m_refreshProcess(0),
 	m_refreshBuf(QString::null),
+	m_widget(0),
 	m_processes(0)
 {
 	m_checkTimeout = 2000;
