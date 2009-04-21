@@ -1,6 +1,12 @@
-// svn log -r 367:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 376:HEAD|xsel -i -b && kwrite ChangeLog
 
-2009/04/!!!  2.0 Beta 6
+2009/04/21  2.0 Beta 6
+
+* KDE: Fixed crash on application startup if the
+  "When selected application exit" option was selected
+* KDE: Added convenient function to configure related KDE settings
+* Updated Polish translation
+* Fixed language translations
 
 
 2009/04/01  2.0 Beta 5
