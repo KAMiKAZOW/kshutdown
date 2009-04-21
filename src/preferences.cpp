@@ -23,6 +23,12 @@
 #include "config.h"
 #include "preferences.h"
 
+#ifdef KS_NATIVE_KDE
+	#include <KRun>
+	
+	#include "mainwindow.h"
+#endif // KS_NATIVE_KDE
+
 // public
 
 Preferences::Preferences(QWidget *parent) :
@@ -110,6 +116,12 @@ QWidget *Preferences::createGeneralWidget() {
 	m_lockScreenBeforeHibernate->hide();
 #endif // Q_WS_WIN
 
+#ifdef KS_NATIVE_KDE
+	U_PUSH_BUTTON *kdeRelatedSettingsPushButton = new U_PUSH_BUTTON(U_STOCK_ICON("start-here-kde"), i18n("Related KDE Settings..."));
+	w->layout()->addWidget(kdeRelatedSettingsPushButton);
+	connect(kdeRelatedSettingsPushButton, SIGNAL(clicked()), SLOT(onKDERelatedSettings()));
+#endif // KS_NATIVE_KDE
+
 	return w;
 }
 
@@ -118,3 +130,11 @@ QWidget *Preferences::createTriggersWidget() {
 
 	return w;
 }
+
+// private slots
+
+#ifdef KS_NATIVE_KDE
+void Preferences::onKDERelatedSettings() {
+	KRun::run("kcmshell4 screensaver kcmsmserver energy powerdevilconfig autostart kcmkded kdm kgrubeditor", KUrl::List(), MainWindow::self());
+}
+#endif // KS_NATIVE_KDE

@@ -15,12 +15,7 @@ Old KShutDown 1.0.x features:
 * Action configuration (command before action, pause before action)
 * Lock screen after login
 * Close CD-ROM before logout
-* Related KDE settings (kcontrol)
 * Compatible command line options; example: kshutdown -s --init 120
-
-Compilation Fixes:
-
-* Make sure all singnal.h, stdlib.h (systemconfig.cpp) are included
 
 Extras:
 
