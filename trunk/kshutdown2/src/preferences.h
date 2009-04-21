@@ -36,6 +36,10 @@ private:
 	QWidget *createContainerWidget();
 	QWidget *createGeneralWidget();
 	QWidget *createTriggersWidget();
+private slots:
+#ifdef KS_NATIVE_KDE
+	void onKDERelatedSettings();
+#endif // KS_NATIVE_KDE
 };
 
 #endif // __PREFERENCES_H__
