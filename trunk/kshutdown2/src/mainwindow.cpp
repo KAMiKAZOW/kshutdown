@@ -70,7 +70,7 @@ bool MainWindow::checkCommandLine() {
 		}
 	}
 	if (actionToActivate) {
-		actionToActivate->activate(false); //!!!force
+		actionToActivate->activate(false);
 		
 		return true;
 	}
