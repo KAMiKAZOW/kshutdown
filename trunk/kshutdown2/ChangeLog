@@ -1,5 +1,9 @@
 // svn log -r 376:HEAD|xsel -i -b && kwrite ChangeLog
 
+2009/05/!!!  2.0 Beta 7
+
+
+
 2009/04/21  2.0 Beta 6
 
 * KDE: Fixed crash on application startup if the
