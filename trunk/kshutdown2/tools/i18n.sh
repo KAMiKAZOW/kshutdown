@@ -12,7 +12,7 @@ set -e
 mkdir -p po
 
 # remove generated "object" files
-rm -f po/*.mo
+#rm -f po/*.mo
 rm -f src/i18n/*.qm
 
 # create list of all *.cpp and *.h files
@@ -39,11 +39,11 @@ for i in po/*.po; do
 		echo ">>> Creating $i translation..."
 		msgmerge "$i" po/TEMPLATE.pot --output-file="$i"
 		
-		echo "Creating KDE messages..."
-		msgfmt \
-			"$i" \
-			--output-file="po/$(basename "$i" .po).mo" \
-			--statistics
+#		echo "Creating KDE messages..."
+#		msgfmt \
+#			"$i" \
+#			--output-file="po/$(basename "$i" .po).mo" \
+#			--statistics
 
 		echo "Creating Qt messages..."
 		msgfmt \
