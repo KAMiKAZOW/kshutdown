@@ -42,7 +42,17 @@ int main(int argc, char **argv) {
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
-	
+
+/* TODO: GTK+
+	#ifdef Q_OS_LINUX
+	if (Utils::isGNOME()) {
+		QStyle *gtkStyle = QStyleFactory::create("gtk+");
+		if (gtkStyle)
+			QApplication::setStyle(gtkStyle);
+	}
+	#endif // Q_OS_LINUX
+*/
+
 	// init i18n
 	QString lang = QLocale::system().name();
 	QTranslator qt_trans;
