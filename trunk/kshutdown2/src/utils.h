@@ -18,8 +18,11 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include <QString>
+
 class Utils {
 public:
+	static QString getUser();
 	static bool isGDM();
 	static bool isGNOME();
 	static bool isKDEFullSession();

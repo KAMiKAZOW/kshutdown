@@ -20,6 +20,7 @@
 #endif // KS_TRIGGER_PROCESS_MONITOR
 
 #include "../mainwindow.h"
+#include "../utils.h"
 #include "processmonitor.h"
 
 #ifdef KS_TRIGGER_PROCESS_MONITOR
@@ -195,6 +196,7 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 		int index = 0;
 		int line = 0;
 		Process *p = 0;
+		QString user = Utils::getUser();
 		foreach (QString i, m_refreshBuf.simplified().split(" ")) {
 			switch (line) {
 				// user
@@ -214,8 +216,8 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 					p->m_command = i;
 					m_processList.append(p);
 					m_processes->addItem(
-// FIXME: U_STOCK_ICON(p->m_command) - slow
-						U_STOCK_ICON(p->m_command),
+						// show icons for the current user only (faster)
+						(p->m_user == user) ? U_STOCK_ICON(p->m_command) : U_ICON(),
 						p->toString(),
 						index
 					);

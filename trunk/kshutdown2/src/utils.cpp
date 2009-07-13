@@ -15,14 +15,26 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <QByteArray>
-
 // http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301
 #include <cstdlib>
 
 #include "utils.h"
 
 // public
+
+QString Utils::getUser() {
+	QByteArray LOGNAME = QByteArray(::getenv("LOGNAME"));
+	
+	if (!LOGNAME.isNull())
+		return QString(LOGNAME);
+
+	QByteArray USER = QByteArray(::getenv("USER"));
+	
+	if (!USER.isNull())
+		return QString(USER);
+		
+	return QString::null;
+}
 
 bool Utils::isGDM() {
 	return ::getenv("GDMSESSION");
