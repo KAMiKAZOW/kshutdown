@@ -33,6 +33,7 @@
 	#include "utils.h"
 #endif // Q_WS_WIN
 
+#include "actions/lock.h"
 #include "kshutdown.h"
 #include "mainwindow.h"
 #include "progressbar.h"
@@ -40,7 +41,6 @@
 using namespace KShutdown;
 
 bool Action::m_totalExit = false;
-LockAction *LockAction::m_instance = 0;
 
 // Base
 
@@ -528,63 +528,6 @@ SuspendAction::SuspendAction() :
 		disable(i18n("Cannot suspend computer"));
 
 	addCommandLineArg("S", "suspend");
-}
-
-// LockAction
-
-// public
-
-LockAction::LockAction() :
-	Action(i18n("Lock Screen"), "system-lock-screen", "lock") {
-	setShouldStopTimer(false);
-
-	addCommandLineArg("k", "lock");
-}
-
-bool LockAction::onAction() {
-#ifdef Q_WS_WIN
-	BOOL result = ::LockWorkStation();
-	if (result == 0) {
-// TODO: test error message
-		setLastError();
-
-		return false;
-	}
-
-	return true;
-#else
-	// try DBus
-	QDBusInterface i("org.freedesktop.ScreenSaver", "/ScreenSaver");
-	i.call("Lock");
-	QDBusError error = i.lastError();
-	if (error.type() == QDBusError::NoError)
-		return true;
-
-	// try "xdg-screensaver" command
-	QStringList args;
-	args << "lock";
-	if (launch("xdg-screensaver", args))
-		return true;
-		
-	// try "gnome-screensaver-command" command
-	if (Utils::isGNOME()) {
-		args.clear();
-		args << "--lock";
-		if (launch("gnome-screensaver-command", args))
-			return true;
-	}
-	
-	// try "xscreensaver-command" command
-	args.clear();
-	args << "-lock";
-	if (launch("xscreensaver-command", args))
-		return true;
-
-	// do not set "m_error" because it may block auto shutdown
-	U_ERROR << "Could not lock the screen" U_END;
-	
-	return false;
-#endif // Q_WS_WIN
 }
 
 // StandardAction

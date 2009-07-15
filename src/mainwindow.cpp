@@ -34,6 +34,7 @@
 #endif // KS_PURE_QT
 
 #include "actions/extras.h"
+#include "actions/lock.h"
 #include "triggers/processmonitor.h"
 #include "mainwindow.h"
 #include "preferences.h"

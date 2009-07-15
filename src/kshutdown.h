@@ -206,20 +206,6 @@ public:
 	SuspendAction();
 };
 
-class U_EXPORT LockAction: public Action {
-public:
-	virtual bool onAction();
-	inline static LockAction *self() {
-		if (!m_instance)
-			m_instance = new LockAction();
-
-		return m_instance;
-	}
-private:
-	static LockAction *m_instance;
-	LockAction();
-};
-
 class U_EXPORT StandardAction: public Action {
 public:
 	StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);

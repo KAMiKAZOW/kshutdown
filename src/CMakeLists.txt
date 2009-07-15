@@ -4,6 +4,7 @@
 set(
 	kshutdown_SRC
 	actions/extras.cpp
+	actions/lock.cpp
 	triggers/processmonitor.cpp
 	config.cpp
 	kshutdown.cpp
