@@ -24,8 +24,6 @@
 	#include <KRun>
 	#include <KService>
 	#include <KStandardDirs>
-	
-	#include "../mainwindow.h"
 #endif // KS_NATIVE_KDE
 
 #include "extras.h"
@@ -55,7 +53,7 @@ bool Extras::onAction() {
 		}
 		
 // FIXME: error detection
-		if (KRun::run(service, KUrl::List(), MainWindow::self()))
+		if (KRun::run(service, KUrl::List(), U_APP->activeWindow()))
 			return true;
 		
 		m_error = i18n("Cannot execute \"Extras\" command");
@@ -63,7 +61,7 @@ bool Extras::onAction() {
 		return false;
 	}
 	else {
-		if (KRun::run(m_command, KUrl::List(), MainWindow::self()))
+		if (KRun::run(m_command, KUrl::List(), U_APP->activeWindow()))
 			return true;
 		
 		m_error = i18n("Cannot execute \"Extras\" command");
@@ -261,8 +259,8 @@ void Extras::slotModify() {
 		"ModifyExtras"
 	);
 
-	QString command = "konqueror \"" + KGlobal::dirs()->saveLocation("data", "kshutdown/extras") + "\"";
-	KRun::run(command, KUrl::List(), MainWindow::self());
+	QString command = "dolphin \"" + KGlobal::dirs()->saveLocation("data", "kshutdown/extras") + "\"";
+	KRun::run(command, KUrl::List(), U_APP->activeWindow());
 #endif // KS_NATIVE_KDE
 }
 

@@ -140,6 +140,7 @@ private:
 	U_ICON m_icon;
 	QString m_text;
 signals:
+	void notify(const QString &id, const QString &text);
 	void statusChanged();
 };
 

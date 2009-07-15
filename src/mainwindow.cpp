@@ -219,35 +219,6 @@ void MainWindow::maybeShow() {
 		show();
 }
 
-void MainWindow::notify(const QString &id, const QString &text) {
-#ifdef KS_NATIVE_KDE
-	if (id == "1m") {
-		if (!m_showNotification1M)
-			return;
-		
-		m_showNotification1M = false;
-	}
-	else if (id == "5m") {
-		if (!m_showNotification5M)
-			return;
-		
-		m_showNotification5M = false;
-	}
-
-	KNotification::event(
-		id,
-		text,
-		QPixmap(),
-		this,
-		KNotification::CloseOnTimeout
-	);
-#endif // KS_NATIVE_KDE
-#ifdef KS_PURE_QT
-	Q_UNUSED(id)
-	Q_UNUSED(text)
-#endif // KS_PURE_QT
-}
-
 void MainWindow::setActive(const bool yes) {
 	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
 
@@ -290,6 +261,37 @@ void MainWindow::setActive(const bool yes) {
 
 	setTitle(QString::null);
 	updateWidgets();
+}
+
+// public slots
+
+void MainWindow::notify(const QString &id, const QString &text) {
+#ifdef KS_NATIVE_KDE
+	if (id == "1m") {
+		if (!m_showNotification1M)
+			return;
+		
+		m_showNotification1M = false;
+	}
+	else if (id == "5m") {
+		if (!m_showNotification5M)
+			return;
+		
+		m_showNotification5M = false;
+	}
+
+	KNotification::event(
+		id,
+		text,
+		QPixmap(),
+		this,
+		KNotification::CloseOnTimeout
+	);
+#endif // KS_NATIVE_KDE
+#ifdef KS_PURE_QT
+	Q_UNUSED(id)
+	Q_UNUSED(text)
+#endif // KS_PURE_QT
 }
 
 // protected
@@ -374,6 +376,10 @@ MainWindow::MainWindow() :
 	
 	// init triggers
 	foreach (Trigger *trigger, m_triggerList) {
+		connect(
+			trigger, SIGNAL(notify(const QString &, const QString &)),
+			this, SLOT(notify(const QString &, const QString &))
+		);
 		connect(
 			trigger, SIGNAL(statusChanged()),
 			this, SLOT(onStatusChange())
