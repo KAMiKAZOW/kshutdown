@@ -31,6 +31,8 @@
 #include "utils.h"
 
 int main(int argc, char **argv) {
+	bool isRunning = false;
+
 	qDebug("GDM = %d", Utils::isGDM());
 	qDebug("GNOME = %d", Utils::isGNOME());
 	qDebug("KDE Full Session = %d", Utils::isKDEFullSession());
@@ -39,6 +41,9 @@ int main(int argc, char **argv) {
 	qDebug("KDM = %d", Utils::isKDM());
 
 #ifdef KS_PURE_QT
+
+	// Pure Qt startup
+
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
@@ -62,29 +67,23 @@ int main(int argc, char **argv) {
 	//kshutdown_trans.load("kshutdown_" + lang, QApplication::applicationDirPath());
 	kshutdown_trans.load("kshutdown_" + lang, ":/i18n");
 	a.installTranslator(&kshutdown_trans);
-
-	MainWindow::init();
-
-	if (MainWindow::checkCommandLine())
-		return 0;
-
-	MainWindow::self()->maybeShow();
-
-	return a.exec();
+	
 #else
+
+	// Native KDE startup
+
 // FIXME: show email address in GUI
 	KAboutData about(
 		"kshutdown", // app name - used in config file name etc.
-		"kshutdown",
-		ki18n("KShutdown"), // human readable app name
-		KS_VERSION,
-		ki18n("An advanced shutdown utility"),
-		KAboutData::License_GPL_V2,
-		ki18n(KS_COPYRIGHT),
-		KLocalizedString(), // no extra text
-		KS_HOME_PAGE,
-		KS_CONTACT
+		"kshutdown", // catalog name
+		ki18n("KShutdown"), // program name
+		KS_VERSION
 	);
+	about.setBugAddress(KS_CONTACT);
+	about.setCopyrightStatement(ki18n(KS_COPYRIGHT));
+	about.setHomepage(KS_HOME_PAGE);
+	about.setLicense(KAboutData::License_GPL_V2);
+	about.setShortDescription(ki18n("An advanced shutdown utility"));
 
 	KCmdLineArgs::init(argc, argv, &about);
 	
@@ -122,8 +121,12 @@ int main(int argc, char **argv) {
 // FIXME: --nofork does not work like in KShutdown 1.0.x?
 	KUniqueApplication::addCmdLineOptions();
 
-	bool isRunning = !KUniqueApplication::start();
+	isRunning = !KUniqueApplication::start();
 	KUniqueApplication a;
+
+#endif // KS_PURE_QT
+
+	// Common startup
 	
 	MainWindow::init();
 	
@@ -139,5 +142,4 @@ int main(int argc, char **argv) {
 	MainWindow::self()->maybeShow();
 
 	return a.exec();
-#endif // KS_PURE_QT
 }

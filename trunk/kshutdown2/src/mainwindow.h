@@ -19,7 +19,7 @@
 #define __MAINWINDOW_H__
 
 // used in both main.cpp and mainwindow.cpp
-#define KS_CONTACT "kdtonline@poczta.onet.pl"
+#define KS_CONTACT "http://kshutdown.sourceforge.net/contact.html"
 #define KS_COPYRIGHT "(C) 2003-3000 Konrad Twardowski"
 #define KS_HOME_PAGE "http://kshutdown.sf.net"
 
