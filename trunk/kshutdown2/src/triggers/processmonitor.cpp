@@ -89,7 +89,7 @@ bool ProcessMonitor::canActivateAction() {
 	int index = m_processes->currentIndex();
 	Process *p = m_processList.value(index);
 	m_status = i18n("Waiting for \"%0\"")
-		.arg(p->m_command);
+		.arg(p->toString());
 
 	return !p->isRunning();
 }
