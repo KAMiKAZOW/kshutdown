@@ -39,6 +39,7 @@
 #include "mainwindow.h"
 #include "preferences.h"
 #include "progressbar.h"
+#include "utils.h"
 
 #ifdef KS_NATIVE_KDE
 	KCmdLineArgs *MainWindow::m_args = 0;
@@ -583,16 +584,7 @@ void MainWindow::initWidgets() {
 	m_info = new QLabel();
 	
 	// smaller font
-	QFont newFont(m_info->font());
-	int size = newFont.pointSize();
-	if (size != -1) {
-		newFont.setPointSize(size - 1);
-	}
-	else {
-		size = newFont.pixelSize();
-		newFont.setPixelSize(size - 1);
-	}
-	m_info->setFont(newFont);
+	Utils::setFont(m_info, -1, false);
 
 	m_info->setAutoFillBackground(true);
 	m_info->setFrameStyle(QLabel::Panel | QLabel::Plain);
