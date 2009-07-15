@@ -121,7 +121,7 @@ void Action::activate(const bool force) {
 
 bool Action::isCommandLineArgSupported() {
 	foreach (QString i, m_commandLineArgs) {
-		if (MainWindow::isArg(i))
+		if (Utils::isArg(i))
 			return true;
 	}
 	
