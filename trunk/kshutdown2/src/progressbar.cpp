@@ -147,7 +147,7 @@ ProgressBar::ProgressBar()
 // TODO: color configuration
 	QPalette p;
 	p.setColor(QPalette::Window, Qt::black);
-	p.setColor(QPalette::WindowText, Qt::yellow);
+	p.setColor(QPalette::WindowText, QColor(0xF8FFBF /* lime 1 */));
 	setPalette(p);
 
 // TODO: size configuration
