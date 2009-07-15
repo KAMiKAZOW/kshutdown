@@ -47,9 +47,15 @@ using namespace KShutdown;
 class MainWindow: public U_MAIN_WINDOW {
 	Q_OBJECT
 public:
+	enum DisplayStatus {
+		DISPLAY_STATUS_HTML = 1 << 0,
+		DISPLAY_STATUS_HTML_NO_ACTION = 1 << 1,
+		DISPLAY_STATUS_SIMPLE = 1 << 2
+	};
+	enum InfoType { ERROR, INFO, WARNING };
 	virtual ~MainWindow();
 	static bool checkCommandLine();
-	QString getDisplayStatus();
+	QString getDisplayStatus(const int options);
 	QWidget *getElementById(const QString &id);
 	static QString getOption(const QString &name);
 	static void init();
@@ -84,6 +90,7 @@ private:
 	QGroupBox *m_triggerBox;
 	static QHash<QString, Action*> m_actionHash;
 	static QHash<QString, Trigger*> m_triggerHash;
+	QLabel *m_info;
 	static QList<Action*> m_actionList;
 	static QList<Trigger*> m_triggerList;
 	QMap<QString, QWidget*> *m_elements;
@@ -110,6 +117,7 @@ private:
 	void pluginConfig(const bool read);
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
+	void setInfo(const QString &text, const InfoType type);
 	void setTitle(const QString &title);
 	void updateWidgets();
 	void writeConfig();
@@ -122,6 +130,7 @@ private slots:
 #ifdef KS_NATIVE_KDE
 	void onConfigureNotifications();
 #endif // KS_NATIVE_KDE
+	void onFocusChange(QWidget *old, QWidget *now);
 	void onForceClick();
 	void onOKCancel();
 	void onPreferences();
@@ -129,6 +138,7 @@ private slots:
 #ifdef KS_PURE_QT
 	void onRestore(QSystemTrayIcon::ActivationReason reason);
 #endif // KS_PURE_QT
+	void onStatusChange();
 	void onTriggerActivated(int index);
 };
 

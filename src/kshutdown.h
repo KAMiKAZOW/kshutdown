@@ -106,6 +106,8 @@ private:
 	QStringList m_commandLineArgs;
 private slots:
 	void slotFire();
+signals:
+	void statusChanged();
 };
 
 class ConfirmAction: public U_ACTION {
@@ -137,6 +139,8 @@ protected:
 private:
 	U_ICON m_icon;
 	QString m_text;
+signals:
+	void statusChanged();
 };
 
 class U_EXPORT DateTimeTriggerBase: public Trigger {
@@ -147,33 +151,40 @@ public:
 	virtual QWidget *getWidget();
 	virtual void readConfig(const QString &group, Config *config);
 	virtual void writeConfig(const QString &group, Config *config);
+	virtual void setState(const State state);
 protected:
 	QDateTime m_dateTime;
 	QDateTime m_endDateTime;
 	QDateTimeEdit *m_edit;
-	void setupProgressBar();
+	virtual QDateTime calcEndTime() = 0;
 private slots:
 	void syncDateTime();
+private:
+	QString createStatus(const QDateTime &now, int &secsTo);
 };
 
 class U_EXPORT DateTimeTrigger: public DateTimeTriggerBase {
 public:
 	DateTimeTrigger();
 	virtual QWidget *getWidget();
-	virtual void setState(const State state);
+protected:
+	QDateTime calcEndTime();
 };
 
 class U_EXPORT NoDelayTrigger: public Trigger {
 public:
 	NoDelayTrigger();
 	virtual bool canActivateAction();
+protected:
+	QDateTime calcEndTime();
 };
 
 class U_EXPORT TimeFromNowTrigger: public DateTimeTriggerBase {
 public:
 	TimeFromNowTrigger();
 	virtual QWidget *getWidget();
-	virtual void setState(const State state);
+protected:
+	QDateTime calcEndTime();
 };
 
 class U_EXPORT PowerAction: public Action {

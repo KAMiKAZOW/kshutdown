@@ -230,28 +230,20 @@ DateTimeTriggerBase::DateTimeTriggerBase(const QString &text, const QString &ico
 
 bool DateTimeTriggerBase::canActivateAction() {
 	QDateTime now = QDateTime::currentDateTime();
+	int secsTo;
+	m_status = createStatus(now, secsTo);
 
-	int secsTo = now.secsTo(m_endDateTime);
 	if (secsTo > 0) {
 		if (ProgressBar::isInstance())
 			ProgressBar::self()->setProgress(secsTo);
-	
-		#define KS_DAY 86400
-		if (secsTo < KS_DAY)
-			m_status = QTime().addSecs(secsTo).toString(Qt::ISODate);
-		else
-			m_status = "24+";
-		
+
 		MainWindow *mainWindow = MainWindow::self();
 		if ((secsTo < 60) && (secsTo > 55)) {
-			mainWindow->notify("1m", mainWindow->getDisplayStatus());
+			mainWindow->notify("1m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
 		}
 		else if ((secsTo < 300) && (secsTo > 295)) {
-			mainWindow->notify("5m", mainWindow->getDisplayStatus());
+			mainWindow->notify("5m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
 		}
-	}
-	else {
-		m_status = QString::null;
 	}
 
 	return now >= m_endDateTime;
@@ -296,20 +288,44 @@ void DateTimeTriggerBase::writeConfig(const QString &group, Config *config) {
 	config->endGroup();
 }
 
-// protected
-
-void DateTimeTriggerBase::setupProgressBar() {
-	if (Config::user()->progressBarEnabled()) {
-		QDateTime now = QDateTime::currentDateTime();
-		int secsTo = now.secsTo(m_endDateTime);
-		ProgressBar::self()->setTotal(secsTo);
+void DateTimeTriggerBase::setState(const State state) {
+	if (state == START) {
+		m_endDateTime = calcEndTime();
+		
+		if (Config::user()->progressBarEnabled()) {
+			QDateTime now = QDateTime::currentDateTime();
+			int secsTo = now.secsTo(m_endDateTime);
+			ProgressBar::self()->setTotal(secsTo);
+		}
 	}
 }
 
 // private slots
 
 void DateTimeTriggerBase::syncDateTime() {
+	QDateTime now = QDateTime::currentDateTime();
+	int secsTo;
+
 	m_dateTime = m_edit->dateTime();
+	m_endDateTime = calcEndTime();
+	m_status = createStatus(now, secsTo);
+	emit statusChanged();
+}
+
+// private
+
+QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
+	secsTo = now.secsTo(m_endDateTime);
+	if (secsTo > 0) {
+		const int DAY = 86400;
+		if (secsTo < DAY)
+			return QTime().addSecs(secsTo).toString(Qt::ISODate);
+			
+		return "24+";
+	}
+	else {
+		return QString::null;
+	}
 }
 
 // DateTimeTrigger
@@ -335,12 +351,10 @@ QWidget *DateTimeTrigger::getWidget() {
 	return m_edit;
 }
 
-void DateTimeTrigger::setState(const State state) {
-	if (state == START) {
-		m_endDateTime = m_edit->dateTime();
-		
-		setupProgressBar();
-	}
+// protected
+
+QDateTime DateTimeTrigger::calcEndTime() {
+	return m_edit->dateTime();
 }
 
 // NoDelayTrigger
@@ -353,6 +367,12 @@ NoDelayTrigger::NoDelayTrigger() :
 
 bool NoDelayTrigger::canActivateAction() {
 	return true;
+}
+
+// protected
+
+QDateTime NoDelayTrigger::calcEndTime() {
+	return QDateTime::currentDateTime();
 }
 
 // TimeFromNowTrigger
@@ -372,14 +392,13 @@ QWidget *TimeFromNowTrigger::getWidget() {
 	return m_edit;
 }
 
-void TimeFromNowTrigger::setState(const State state) {
-	if (state == START) {
-		QTime time = m_dateTime.time();
-		int m = (time.hour() * 60) + time.minute();
-		m_endDateTime = QDateTime::currentDateTime().addSecs(m * 60);
-		
-		setupProgressBar();
-	}
+// protected
+
+QDateTime TimeFromNowTrigger::calcEndTime() {
+	QTime time = m_dateTime.time();
+	int m = (time.hour() * 60) + time.minute();
+	
+	return QDateTime::currentDateTime().addSecs(m * 60);
 }
 
 // PowerAction
