@@ -239,10 +239,10 @@ bool DateTimeTriggerBase::canActivateAction() {
 
 		MainWindow *mainWindow = MainWindow::self();
 		if ((secsTo < 60) && (secsTo > 55)) {
-			mainWindow->notify("1m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
+			emit notify("1m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
 		}
 		else if ((secsTo < 300) && (secsTo > 295)) {
-			mainWindow->notify("5m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
+			emit notify("5m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
 		}
 	}
 

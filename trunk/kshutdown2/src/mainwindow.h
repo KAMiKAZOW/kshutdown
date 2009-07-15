@@ -65,8 +65,9 @@ public:
 		return m_instance;
 	}
 	void maybeShow();
-	void notify(const QString &id, const QString &text);
 	void setActive(const bool yes);
+public slots:
+	void notify(const QString &id, const QString &text);
 protected:
 	virtual void closeEvent(QCloseEvent *e);
 private:
