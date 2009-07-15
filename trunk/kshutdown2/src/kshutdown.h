@@ -168,7 +168,7 @@ public:
 	DateTimeTrigger();
 	virtual QWidget *getWidget();
 protected:
-	QDateTime calcEndTime();
+	virtual QDateTime calcEndTime();
 };
 
 class U_EXPORT NoDelayTrigger: public Trigger {
@@ -176,7 +176,7 @@ public:
 	NoDelayTrigger();
 	virtual bool canActivateAction();
 protected:
-	QDateTime calcEndTime();
+	virtual QDateTime calcEndTime();
 };
 
 class U_EXPORT TimeFromNowTrigger: public DateTimeTriggerBase {
@@ -184,7 +184,7 @@ public:
 	TimeFromNowTrigger();
 	virtual QWidget *getWidget();
 protected:
-	QDateTime calcEndTime();
+	virtual QDateTime calcEndTime();
 };
 
 class U_EXPORT PowerAction: public Action {

@@ -111,7 +111,7 @@ QString MainWindow::getDisplayStatus(const int options) {
 	if (html)
 		s += "</qt>";
 
-	U_DEBUG << s U_END;
+	//U_DEBUG << s U_END;
 
 	return s;
 }
