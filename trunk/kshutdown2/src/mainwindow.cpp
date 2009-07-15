@@ -38,7 +38,6 @@
 #include "mainwindow.h"
 #include "preferences.h"
 #include "progressbar.h"
-#include "theme.h"
 
 #ifdef KS_NATIVE_KDE
 	KCmdLineArgs *MainWindow::m_args = 0;
@@ -335,8 +334,7 @@ MainWindow::MainWindow() :
 	m_elements(0),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
-	m_currentTriggerWidget(0),
-	m_theme(new Theme(this)) {
+	m_currentTriggerWidget(0) {
 
 	U_DEBUG << "MainWindow::MainWindow()" U_END;
 
@@ -396,11 +394,6 @@ MainWindow::MainWindow() :
 	initMenuBar();
 
 	readConfig();
-
-	// load theme
-	QString theme = getOption("theme");
-	if (!theme.isEmpty())
-		m_theme->load(this, theme);
 
 	setTitle(QString::null);
 	updateWidgets();
@@ -597,8 +590,6 @@ void MainWindow::initWidgets() {
 	m_info->setLineWidth(1);
 	m_info->setObjectName("info");
 
-	m_triggerBox->layout()->addWidget(m_info);
-
 	m_okCancelButton = new U_PUSH_BUTTON();
 	m_okCancelButton->setObjectName("ok-cancel-button");
 	m_okCancelButton->setDefault(true);
@@ -607,6 +598,8 @@ void MainWindow::initWidgets() {
 
 	mainLayout->addWidget(m_actionBox);
 	mainLayout->addWidget(m_triggerBox);
+	mainLayout->addStretch();
+	mainLayout->addWidget(m_info);
 	mainLayout->addStretch();
 	mainLayout->addWidget(m_okCancelButton);
 	setCentralWidget(mainWidget);
@@ -745,7 +738,7 @@ void MainWindow::updateWidgets() {
 			i18n("Action not available: %0").arg(action->originalText()) + "<br>" +
 			action->disableReason() +
 			"</qt>",
-			WARNING
+			ERROR
 		);
 	}
 // FIXME: adjust window to its minimum/preferred size

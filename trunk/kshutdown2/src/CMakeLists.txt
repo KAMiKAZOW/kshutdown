@@ -11,7 +11,6 @@ set(
 	mainwindow.cpp
 	preferences.cpp
 	progressbar.cpp
-	theme.cpp
 	utils.cpp
 )
 
@@ -40,5 +39,4 @@ install(FILES kshutdown.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kshutdown)
 
 add_subdirectory(actions)
 add_subdirectory(images)
-add_subdirectory(themes)
 add_subdirectory(triggers)
