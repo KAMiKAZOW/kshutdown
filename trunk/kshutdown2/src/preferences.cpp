@@ -16,7 +16,6 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <QCheckBox>
-#include <QDialogButtonBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
 
@@ -47,24 +46,16 @@ Preferences::Preferences(QWidget *parent) :
 
 	mainLayout->addWidget(tabs);
 	
-	QDialogButtonBox *dialogButtonBox = new QDialogButtonBox(
-		QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
-		Qt::Horizontal
-	);
+	U_DIALOG_BUTTON_BOX *dialogButtonBox;
+#ifdef KS_NATIVE_KDE
+	dialogButtonBox = new U_DIALOG_BUTTON_BOX(this);
+	dialogButtonBox->addButton(KStandardGuiItem::ok(), U_DIALOG_BUTTON_BOX::AcceptRole);
+	dialogButtonBox->addButton(KStandardGuiItem::cancel(), U_DIALOG_BUTTON_BOX::RejectRole);
+#else
+	dialogButtonBox = new U_DIALOG_BUTTON_BOX(U_DIALOG_BUTTON_BOX::Ok | U_DIALOG_BUTTON_BOX::Cancel);
+#endif // KS_NATIVE_KDE
 	connect(dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 	connect(dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
-#ifdef KS_NATIVE_KDE
-	// setup OK button
-	QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
-	KGuiItem gui = KStandardGuiItem::ok();
-	okButton->setIcon(gui.icon());
-	okButton->setText(gui.text());
-	// setup Cancel button
-	QPushButton *cancelButton = dialogButtonBox->button(QDialogButtonBox::Cancel);
-	gui = KStandardGuiItem::cancel();
-	cancelButton->setIcon(gui.icon());
-	cancelButton->setText(gui.text());
-#endif // KS_NATIVE_KDE
 	mainLayout->addWidget(dialogButtonBox);
 }
 

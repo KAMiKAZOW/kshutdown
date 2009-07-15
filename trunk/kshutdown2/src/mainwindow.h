@@ -24,13 +24,8 @@
 #define KS_HOME_PAGE "http://kshutdown.sf.net"
 
 #ifdef KS_PURE_QT
-	#include <QHash>
-	#include <QMainWindow>
-	#include <QSystemTrayIcon>
 	class QComboBox;
 #else
-	#include <KMainWindow>
-	#include <KSystemTrayIcon>
 	class KCmdLineArgs;
 	class KComboBox;
 #endif // KS_PURE_QT
@@ -54,7 +49,6 @@ public:
 	virtual ~MainWindow();
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
-	QWidget *getElementById(const QString &id);
 	static void init();
 	inline static MainWindow *self() {
 		if (!m_instance)
@@ -86,7 +80,6 @@ private:
 	QLabel *m_info;
 	static QList<Action*> m_actionList;
 	static QList<Trigger*> m_triggerList;
-	QMap<QString, QWidget*> *m_elements;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;

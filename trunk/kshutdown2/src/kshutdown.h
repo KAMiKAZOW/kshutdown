@@ -26,6 +26,19 @@
 
 #include "config.h"
 
+#ifdef KS_NATIVE_KDE
+	#include <kworkspace/kworkspace.h>
+	typedef KWorkSpace::ShutdownType UShutdownType;
+	#define U_SHUTDOWN_TYPE_LOGOUT KWorkSpace::ShutdownTypeNone
+	#define U_SHUTDOWN_TYPE_REBOOT KWorkSpace::ShutdownTypeReboot
+	#define U_SHUTDOWN_TYPE_HALT KWorkSpace::ShutdownTypeHalt
+#else
+	typedef int UShutdownType;
+	#define U_SHUTDOWN_TYPE_LOGOUT 1
+	#define U_SHUTDOWN_TYPE_REBOOT 2
+	#define U_SHUTDOWN_TYPE_HALT 3
+#endif // KS_NATIVE_KDE
+
 class QDateTimeEdit;
 
 namespace KShutdown {

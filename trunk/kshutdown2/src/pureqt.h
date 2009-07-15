@@ -19,15 +19,28 @@
 #define __PUREQT_H__
 
 #ifdef KS_PURE_QT
-	// common includes
-	#include <QAction>
-	#include <QApplication>
-	#include <QComboBox>
-	#include <QDebug>
-	#include <QMenuBar>
-	#include <QMessageBox>
-	#include <QPushButton>
+	#define U(name) <Q##name>
+#else
+	#define U(name) <K##name>
+#endif // KS_PURE_QT
 
+#include U(Action)
+#include U(Application)
+#include U(ComboBox)
+#include U(Debug)
+#include U(Dialog)
+#include U(DialogButtonBox)
+#include U(Icon)
+#include U(MainWindow)
+#include U(Menu)
+#include U(MenuBar)
+#include U(MessageBox)
+#include U(PushButton)
+#include U(SystemTrayIcon)
+
+#define U_DIALOG QDialog
+
+#ifdef KS_PURE_QT
 	#undef KS_NATIVE_KDE
 
 	#define U_ACTION QAction
@@ -41,8 +54,9 @@
 			QMessageBox::Ok | QMessageBox::Cancel, \
 			QMessageBox::Ok \
 		) == QMessageBox::Ok)
+
 	#define U_DEBUG qDebug()
-	#define U_DIALOG QDialog
+	#define U_DIALOG_BUTTON_BOX QDialogButtonBox
 	#define U_END
 	#define U_ERROR qCritical()
 	#define U_ERROR_MESSAGE(parent, text) \
@@ -56,27 +70,9 @@
 	#define U_STOCK_ICON(name) QIcon(":/images/" + QString((name)) + ".png")
 	#define U_SYSTEM_TRAY QSystemTrayIcon
 
-	#define i18n(text) QCoreApplication::translate(0, (text))
-
-	// shutdown types
-
-	typedef int UShutdownType;
-	#define U_SHUTDOWN_TYPE_LOGOUT 1
-	#define U_SHUTDOWN_TYPE_REBOOT 2
-	#define U_SHUTDOWN_TYPE_HALT 3
+	#define i18n(text) QApplication::translate(0, (text))
 #else
-	// common includes
-	#include <KAction>
-	#include <KApplication>
-	#include <KComboBox>
-	#include <KDebug>
-	#include <KLocale>
-	#include <KMenu>
-	#include <KMenuBar>
-	#include <KMessageBox>
-	#include <KPushButton>
-	#include <kdemacros.h> // for KDE_EXPORT
-	#include <kworkspace/kworkspace.h>
+	#include <KLocale> // for i18n
 
 	#define KS_NATIVE_KDE
 
@@ -90,7 +86,7 @@
 			(title) \
 		) == KMessageBox::Yes)
 	#define U_DEBUG kDebug()
-	#define U_DIALOG QDialog
+	#define U_DIALOG_BUTTON_BOX KDialogButtonBox
 	#define U_END << endl
 	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \
@@ -103,13 +99,8 @@
 	#define U_PUSH_BUTTON KPushButton
 	#define U_STOCK_ICON(name) KIcon((name))
 	#define U_SYSTEM_TRAY KSystemTrayIcon
-
-	// shutdown types
-
-	typedef KWorkSpace::ShutdownType UShutdownType;
-	#define U_SHUTDOWN_TYPE_LOGOUT KWorkSpace::ShutdownTypeNone
-	#define U_SHUTDOWN_TYPE_REBOOT KWorkSpace::ShutdownTypeReboot
-	#define U_SHUTDOWN_TYPE_HALT KWorkSpace::ShutdownTypeHalt
+	
+	// use i18n from KLocale
 #endif // KS_PURE_QT
 
 #endif // __PUREQT_H__

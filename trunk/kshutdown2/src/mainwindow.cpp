@@ -109,30 +109,6 @@ QString MainWindow::getDisplayStatus(const int options) {
 	return s;
 }
 
-QWidget *MainWindow::getElementById(const QString &id) {
-	if (id.isEmpty())
-		return 0;
-
-	if (!m_elements) {
-		m_elements = new QMap<QString, QWidget*>();
-
-		m_elements->insert("main-window", this);
-		m_elements->insert("menu-bar", menuBar());
-		m_elements->insert("main-widget", centralWidget());
-
-		m_elements->insert("actions", m_actions);
-		m_elements->insert("action-box", m_actionBox);
-
-		m_elements->insert("triggers", m_triggers);
-		m_elements->insert("trigger-box", m_triggerBox);
-
-		m_elements->insert("ok-cancel-button", m_okCancelButton);
-// TODO: date-time-edit, force
-	}
-
-	return m_elements->value(id);
-}
-
 void MainWindow::init() {
 	Utils::init();
 
@@ -287,7 +263,6 @@ MainWindow::MainWindow() :
 	m_showMinimizeInfo(true),
 	m_showNotification1M(true),
 	m_showNotification5M(true),
-	m_elements(0),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
 	m_currentTriggerWidget(0) {
