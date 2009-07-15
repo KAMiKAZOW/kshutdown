@@ -602,7 +602,7 @@ void MainWindow::initWidgets() {
 	m_okCancelButton = new U_PUSH_BUTTON();
 	m_okCancelButton->setObjectName("ok-cancel-button");
 	m_okCancelButton->setDefault(true);
-	m_okCancelButton->setToolTip(i18n("Click to active/cancel the selected action"));
+	m_okCancelButton->setToolTip(i18n("Click to activate/cancel the selected action"));
 	connect(m_okCancelButton, SIGNAL(clicked()), SLOT(onOKCancel()));
 
 	mainLayout->addWidget(m_actionBox);
