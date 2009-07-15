@@ -15,14 +15,9 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "config.h"
+#include "progressbar.h"
 #include "pureqt.h"
-
-#ifdef KS_NATIVE_KDE
-	#include "mainwindow.h"
-#else
-	#include "config.h"
-	#include "progressbar.h"
-#endif // KS_NATIVE_KDE
 
 #include <QDesktopWidget>
 #include <QMouseEvent>
@@ -85,7 +80,7 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		// show popup menu
 		U_MENU *menu = new U_MENU(this);
 #ifdef KS_NATIVE_KDE
-		menu->addTitle(MainWindow::self()->windowIcon(), "KShutdown");
+		menu->addTitle(U_APP->windowIcon(), KGlobal::caption());
 #endif // KS_PURE_QT
 		menu->addAction(i18n("Hide"), this, SLOT(hide()));
 #ifdef KS_NATIVE_KDE
