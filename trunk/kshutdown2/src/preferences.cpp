@@ -84,11 +84,13 @@ void Preferences::apply() {
 
 // private
 
+/*
 QWidget *Preferences::createActionsWidget() {
 	QWidget *w = createContainerWidget();
 
 	return w;
 }
+*/
 
 QWidget *Preferences::createContainerWidget() {
 	QWidget *w = new QWidget();
@@ -125,11 +127,13 @@ QWidget *Preferences::createGeneralWidget() {
 	return w;
 }
 
+/*
 QWidget *Preferences::createTriggersWidget() {
 	QWidget *w = createContainerWidget();
 
 	return w;
 }
+*/
 
 // private slots
 

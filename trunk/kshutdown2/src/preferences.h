@@ -32,10 +32,10 @@ private:
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
 	QCheckBox *m_progressBarEnabled;
-	QWidget *createActionsWidget();
+	//QWidget *createActionsWidget();
 	QWidget *createContainerWidget();
 	QWidget *createGeneralWidget();
-	QWidget *createTriggersWidget();
+	//QWidget *createTriggersWidget();
 private slots:
 #ifdef KS_NATIVE_KDE
 	void onKDERelatedSettings();
