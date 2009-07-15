@@ -55,9 +55,7 @@ public:
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
 	QWidget *getElementById(const QString &id);
-	static QString getOption(const QString &name);
 	static void init();
-	static bool isArg(const QString &name);
 	inline static MainWindow *self() {
 		if (!m_instance)
 			m_instance = new MainWindow();
@@ -79,11 +77,6 @@ private:
 	bool m_showNotification1M;
 	bool m_showNotification5M;
 	ConfirmAction *m_confirmLockAction;
-#ifdef KS_NATIVE_KDE
-	static KCmdLineArgs *m_args;
-#else
-	static QStringList m_args;
-#endif // KS_NATIVE_KDE
 	static MainWindow *m_instance;
 	QCheckBox *m_force;
 	QGroupBox *m_actionBox;

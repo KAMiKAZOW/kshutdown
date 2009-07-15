@@ -27,7 +27,6 @@
 #ifdef KS_PURE_QT
 	#include "version.h" // for about()
 #else
-	#include <KCmdLineArgs>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
 	#include <KStandardAction>
@@ -41,11 +40,6 @@
 #include "progressbar.h"
 #include "utils.h"
 
-#ifdef KS_NATIVE_KDE
-	KCmdLineArgs *MainWindow::m_args = 0;
-#else
-	QStringList MainWindow::m_args;
-#endif // KS_NATIVE_KDE
 MainWindow *MainWindow::m_instance = 0;
 QHash<QString, Action*> MainWindow::m_actionHash;
 QHash<QString, Trigger*> MainWindow::m_triggerHash;
@@ -56,10 +50,7 @@ QList<Trigger*> MainWindow::m_triggerList;
 
 MainWindow::~MainWindow() {
 	U_DEBUG << "MainWindow::~MainWindow()" U_END;
-#ifdef KS_NATIVE_KDE
-	if (m_args)
-		m_args->clear();
-#endif // KS_NATIVE_KDE
+	Utils::shutDown();
 }
 
 bool MainWindow::checkCommandLine() {
@@ -142,40 +133,8 @@ QWidget *MainWindow::getElementById(const QString &id) {
 	return m_elements->value(id);
 }
 
-QString MainWindow::getOption(const QString &name) {
-#ifdef KS_NATIVE_KDE
-	return m_args->getOption(name.toAscii());
-#else
-	int i = m_args.indexOf("-" + name, 1);
-	if (i == -1) {
-		i = m_args.indexOf("--" + name, 1);
-		if (i == -1) {
-			U_DEBUG << "Argument not found: " << name U_END;
-
-			return QString::null;
-		}
-	}
-
-	int argIndex = (i + 1);
-
-	if (argIndex < m_args.size()) {
-		U_DEBUG << "Value of " << name << " is " << m_args[argIndex] U_END;
-
-		return m_args[argIndex];
-	}
-
-	U_DEBUG << "Argument value is not set: " << name U_END;
-
-	return QString::null;
-#endif // KS_NATIVE_KDE
-}
-
 void MainWindow::init() {
-#ifdef KS_NATIVE_KDE
-	m_args = KCmdLineArgs::parsedArgs();
-#else
-	m_args = U_APP->arguments();
-#endif // KS_NATIVE_KDE
+	Utils::init();
 
 	U_DEBUG << "MainWindow::init(): Actions" U_END;
 	m_actionHash = QHash<QString, Action*>();
@@ -201,14 +160,6 @@ void MainWindow::init() {
 #endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
-bool MainWindow::isArg(const QString &name) {
-#ifdef KS_NATIVE_KDE
-	return m_args->isSet(name.toAscii());
-#else
-	return (m_args.contains("-" + name) || m_args.contains("--" + name));
-#endif // KS_NATIVE_KDE
-}
-
 void MainWindow::maybeShow() {
 	if (!U_SYSTEM_TRAY::isSystemTrayAvailable()) {
 		show();
@@ -216,7 +167,7 @@ void MainWindow::maybeShow() {
 		return;
 	}
 
-	if (!isArg("init") && !U_APP->isSessionRestored())
+	if (!Utils::isArg("init") && !U_APP->isSessionRestored())
 		show();
 }
 

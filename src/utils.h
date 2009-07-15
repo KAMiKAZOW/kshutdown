@@ -22,9 +22,14 @@
 
 class QWidget;
 
+class KCmdLineArgs;
+
 class Utils {
 public:
+	static QString getOption(const QString &name);
 	static QString getUser();
+	static void init();
+	static bool isArg(const QString &name);
 	static bool isGDM();
 	static bool isGNOME();
 	static bool isKDEFullSession();
@@ -32,6 +37,13 @@ public:
 	static bool isKDE_4();
 	static bool isKDM();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
+	static void shutDown();
+private:
+#ifdef KS_NATIVE_KDE
+	static KCmdLineArgs *m_args;
+#else
+	static QStringList m_args;
+#endif // KS_NATIVE_KDE
 };
 
 #endif // __UTILS_H__
