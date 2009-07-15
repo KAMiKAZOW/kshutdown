@@ -327,6 +327,7 @@ MainWindow::MainWindow() :
 	U_MAIN_WINDOW(0, Qt::Dialog),
 	m_active(false),
 	m_forceQuit(false),
+	m_ignoreUpdateWidgets(true),
 	m_showActiveWarning(true),
 	m_showMinimizeInfo(true),
 	m_showNotification1M(true),
@@ -396,6 +397,7 @@ MainWindow::MainWindow() :
 	readConfig();
 
 	setTitle(QString::null);
+	m_ignoreUpdateWidgets = false;
 	updateWidgets();
 	
 	connect(
@@ -685,6 +687,12 @@ void MainWindow::setTitle(const QString &title) {
 }
 
 void MainWindow::updateWidgets() {
+	if (m_ignoreUpdateWidgets) {
+		U_DEBUG << "MainWindow::updateWidgets(): IGNORE" U_END;
+	
+		return;
+	}
+
 	U_DEBUG << "MainWindow::updateWidgets()" U_END;
 
 	bool enabled = !m_active;

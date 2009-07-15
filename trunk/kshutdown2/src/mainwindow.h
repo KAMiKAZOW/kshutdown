@@ -72,6 +72,7 @@ protected:
 private:
 	bool m_active;
 	bool m_forceQuit;
+	bool m_ignoreUpdateWidgets;
 	bool m_showActiveWarning;
 	bool m_showMinimizeInfo;
 	bool m_showNotification1M;
