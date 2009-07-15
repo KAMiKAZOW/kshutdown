@@ -29,6 +29,7 @@ class Extras: public KShutdown::Action {
 	Q_OBJECT
 	friend class CommandAction;
 public:
+	inline QString command() { return m_command; }
 	virtual QWidget *getWidget();
 	virtual bool onAction();
 	virtual void readConfig(const QString &group, Config *config);

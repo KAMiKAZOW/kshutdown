@@ -20,6 +20,7 @@
 #include <QCheckBox>
 #include <QCloseEvent>
 #include <QGroupBox>
+#include <QLabel>
 #include <QLayout>
 #include <QTimer>
 
@@ -78,29 +79,42 @@ bool MainWindow::checkCommandLine() {
 	return false;
 }
 
-QString MainWindow::getDisplayStatus() {
+QString MainWindow::getDisplayStatus(const int options) {
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
-
-	QString actionStatus = action->originalText();
 	
-/* TODO: extras command name
-	if (!action->status().isEmpty())
-		actionStatus += (" - " + action->status());
-*/
+	bool html = (options & DISPLAY_STATUS_HTML) != 0;
+	bool noAction = (options & DISPLAY_STATUS_HTML_NO_ACTION) != 0;
 
+	QString actionText = action->originalText();
 	QString triggerStatus = trigger->status();
+	
+	QString s = "";
+	
+	if (html)
+		s += "<qt>";
 
-	QString result = triggerStatus;
-	if (!actionStatus.isEmpty()) {
-		if (!result.isEmpty()) {
-			result = i18n("Remaining time: %0").arg(result);
-			result += " - ";
-		}
-		result += actionStatus;
+	if (html) {
+		if (!noAction)
+			s += "<b>" + actionText + "</b><br>";
+
+		if (!triggerStatus.isEmpty())
+			s += i18n("Remaining time: %0").arg("<b>" + triggerStatus + "</b>");
+	}
+	// simple - single line, no HTML
+	else {
+		s += actionText + " - ";
+
+		if (!triggerStatus.isEmpty())
+			s += i18n("Remaining time: %0").arg(triggerStatus);
 	}
 	
-	return result;
+	if (html)
+		s += "</qt>";
+
+	U_DEBUG << s U_END;
+
+	return s;
 }
 
 QWidget *MainWindow::getElementById(const QString &id) {
@@ -342,6 +356,11 @@ MainWindow::MainWindow() :
 	
 	// init actions
 	foreach (Action *action, m_actionList) {
+		connect(
+			action, SIGNAL(statusChanged()),
+			this, SLOT(onStatusChange())
+		);
+
 		QString id = action->id();
 		m_actions->addItem(action->icon(), action->text(), id);
 		int index = m_actions->count() - 1;
@@ -355,6 +374,11 @@ MainWindow::MainWindow() :
 	
 	// init triggers
 	foreach (Trigger *trigger, m_triggerList) {
+		connect(
+			trigger, SIGNAL(statusChanged()),
+			this, SLOT(onStatusChange())
+		);
+
 		QString id = trigger->id();
 		m_triggers->addItem(trigger->icon(), trigger->text(), id);
 		int index = m_triggers->count() - 1;
@@ -380,6 +404,11 @@ MainWindow::MainWindow() :
 
 	setTitle(QString::null);
 	updateWidgets();
+	
+	connect(
+		U_APP, SIGNAL(focusChanged(QWidget *, QWidget *)),
+		this, SLOT(onFocusChange(QWidget *, QWidget *))
+	);
 }
 
 void MainWindow::addAction(Action *action) {
@@ -548,10 +577,32 @@ void MainWindow::initWidgets() {
 	m_triggers->setObjectName("triggers");
 	connect(m_triggers, SIGNAL(activated(int)), SLOT(onTriggerActivated(int)));
 	m_triggerBox->layout()->addWidget(m_triggers);
+	
+	m_info = new QLabel();
+	
+	// smaller font
+	QFont newFont(m_info->font());
+	int size = newFont.pointSize();
+	if (size != -1) {
+		newFont.setPointSize(size - 1);
+	}
+	else {
+		size = newFont.pixelSize();
+		newFont.setPixelSize(size - 1);
+	}
+	m_info->setFont(newFont);
+
+	m_info->setAutoFillBackground(true);
+	m_info->setFrameStyle(QLabel::Panel | QLabel::Plain);
+	m_info->setLineWidth(1);
+	m_info->setObjectName("info");
+
+	m_triggerBox->layout()->addWidget(m_info);
 
 	m_okCancelButton = new U_PUSH_BUTTON();
 	m_okCancelButton->setObjectName("ok-cancel-button");
 	m_okCancelButton->setDefault(true);
+	m_okCancelButton->setToolTip(i18n("Click to active/cancel the selected action"));
 	connect(m_okCancelButton, SIGNAL(clicked()), SLOT(onOKCancel()));
 
 	mainLayout->addWidget(m_actionBox);
@@ -603,6 +654,29 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 	return index;
 }
 
+// TODO: move m_info to external class file
+void MainWindow::setInfo(const QString &text, const InfoType type) {
+	QRgb background; // picked from the Oxygen palette
+	switch (type) {
+		case ERROR:
+			background = 0xF9CCCA; // brick red 1
+			break;
+		case INFO:
+			background = 0xEEEEEE; // gray 1
+			//m_info->setPixmap(U_ICON("dialog-information").pixmap(32, 32));
+			break;
+		default: // WARNING_
+			background = 0xF8FFBF; // lime 1
+			break;
+	}
+	QPalette p;
+	p.setColor(QPalette::Window, QColor(background));
+	p.setColor(QPalette::WindowText, Qt::black);
+	m_info->setPalette(p);
+	m_info->setText(text);
+	m_info->setVisible(!text.isEmpty() && (text != "<qt></qt>"));
+}
+
 void MainWindow::setTitle(const QString &title) {
 #ifdef KS_NATIVE_KDE
 	setCaption(title);
@@ -630,32 +704,49 @@ void MainWindow::updateWidgets() {
 
 	m_force->setEnabled(enabled);
 
+#ifdef KS_NATIVE_KDE
+	m_okCancelButton->setGuiItem(
+		m_active
+		? KStandardGuiItem::cancel()
+		: KStandardGuiItem::ok()
+	);
+#else
+	m_okCancelButton->setText(
+		m_active
+		? i18n("Cancel")
+		: i18n("OK")
+	);
+#endif // KS_NATIVE_KDE
+
 	Action *action = getSelectedAction();
 	if (action->isEnabled()) {
-		m_okCancelButton->setEnabled(true);
 #ifdef KS_NATIVE_KDE
-		m_okCancelButton->setGuiItem(
-			m_active
-			? KStandardGuiItem::cancel()
-			: KStandardGuiItem::ok()
-		);
-#else
-		m_okCancelButton->setText(
-			m_active
-			? i18n("Cancel")
-			: i18n("OK")
-		);
-		m_okCancelButton->setToolTip(i18n("Click to active/cancel the selected action"));
+		if ((action == Extras::self()) && Extras::self()->command().isEmpty()) {
+			m_okCancelButton->setEnabled(false);
+			setInfo(
+				"<qt>" +
+				i18n("Please select an Extras command<br>from the menu above.") +
+				"</qt>",
+				WARNING
+			);
+		}
+		else
 #endif // KS_NATIVE_KDE
+		{
+			m_okCancelButton->setEnabled(true);
+			setInfo(QString::null, INFO);
+		}
 	}
 	else {
 		m_okCancelButton->setEnabled(false);
-		m_okCancelButton->setIcon(U_STOCK_ICON("dialog-warning"));
 // TODO: show solution dialog
-		QString text = i18n("Action not available: %0")
-			.arg(action->originalText());
-		m_okCancelButton->setText(text);
-		m_okCancelButton->setToolTip(action->disableReason());
+		setInfo(
+			"<qt>" +
+			i18n("Action not available: %0").arg(action->originalText()) + "<br>" +
+			action->disableReason() +
+			"</qt>",
+			WARNING
+		);
 	}
 // FIXME: adjust window to its minimum/preferred size
 }
@@ -752,7 +843,7 @@ void MainWindow::onCheckTrigger() {
 	}
 	// update status
 	else {
-		setTitle(getDisplayStatus());
+		setTitle(getDisplayStatus(DISPLAY_STATUS_SIMPLE));
 	}
 }
 
@@ -761,6 +852,16 @@ void MainWindow::onConfigureNotifications() {
 	KNotifyConfigWidget::configure(this);
 }
 #endif // KS_NATIVE_KDE
+
+void MainWindow::onFocusChange(QWidget *old, QWidget *now) {
+	Q_UNUSED(old)
+
+	// update trigger status info on focus gain
+	if (now && (now == m_currentTriggerWidget)) {
+		U_DEBUG << "MainWindow::onFocusChange()" U_END;
+		onStatusChange();
+	}
+}
 
 void MainWindow::onForceClick() {
 	if (
@@ -807,6 +908,15 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 }
 #endif // KS_PURE_QT
 
+void MainWindow::onStatusChange() {
+	U_DEBUG << "onStatusChange()" U_END;
+	
+	setInfo(
+		getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION),
+		INFO
+	);
+}
+
 void MainWindow::onTriggerActivated(int index) {
 	U_DEBUG << "MainWindow::onTriggerActivated( " << index << " )" U_END;
 
@@ -817,9 +927,9 @@ void MainWindow::onTriggerActivated(int index) {
 
 	m_currentTriggerWidget = getSelectedTrigger()->getWidget();
 	if (m_currentTriggerWidget) {
-		m_triggerBox->layout()->addWidget(m_currentTriggerWidget);
+		static_cast<QVBoxLayout *>(m_triggerBox->layout())->insertWidget(1, m_currentTriggerWidget);
 		m_currentTriggerWidget->show();
 	}
-
+	onStatusChange();
 	updateWidgets();
 }
