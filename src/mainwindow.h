@@ -40,8 +40,6 @@
 class QCheckBox;
 class QGroupBox;
 
-class Theme;
-
 using namespace KShutdown;
 
 class MainWindow: public U_MAIN_WINDOW {
@@ -97,7 +95,6 @@ private:
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
-	Theme *m_theme;
 	U_COMBO_BOX *m_actions;
 	U_COMBO_BOX *m_triggers;
 	U_PUSH_BUTTON *m_okCancelButton;
