@@ -20,6 +20,8 @@
 
 #include <QString>
 
+class QWidget;
+
 class Utils {
 public:
 	static QString getUser();
@@ -29,6 +31,7 @@ public:
 	static bool isKDE_3();
 	static bool isKDE_4();
 	static bool isKDM();
+	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
 };
 
 #endif // __UTILS_H__

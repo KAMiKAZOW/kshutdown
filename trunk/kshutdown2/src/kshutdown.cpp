@@ -257,17 +257,7 @@ QWidget *DateTimeTriggerBase::getWidget() {
 		m_edit->setObjectName("date-time-edit");
 
 		// larger font
-		QFont newFont(m_edit->font());
-		newFont.setBold(true);
-		int size = newFont.pointSize();
-		if (size != -1) {
-			newFont.setPointSize(size + 2);
-		}
-		else {
-			size = newFont.pixelSize();
-			newFont.setPixelSize(size + 2);
-		}
-		m_edit->setFont(newFont);
+		Utils::setFont(m_edit, 2, true);
 	}
 
 	return m_edit;

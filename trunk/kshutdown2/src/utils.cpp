@@ -18,6 +18,8 @@
 // http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301
 #include <cstdlib>
 
+#include <QWidget>
+
 #include "utils.h"
 
 // public
@@ -67,4 +69,19 @@ bool Utils::isKDE_4() {
 
 bool Utils::isKDM() {
 	return ::getenv("XDM_MANAGED");
+}
+
+void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
+	QFont newFont(widget->font());
+	if (bold)
+		newFont.setBold(bold);
+	int size = newFont.pointSize();
+	if (size != -1) {
+		newFont.setPointSize(qMax(8, size + relativeSize));
+	}
+	else {
+		size = newFont.pixelSize();
+		newFont.setPixelSize(qMax(8, size + relativeSize));
+	}
+	widget->setFont(newFont);
 }
