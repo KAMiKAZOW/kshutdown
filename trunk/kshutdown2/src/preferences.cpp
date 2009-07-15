@@ -25,8 +25,6 @@
 
 #ifdef KS_NATIVE_KDE
 	#include <KRun>
-	
-	#include "mainwindow.h"
 #endif // KS_NATIVE_KDE
 
 // public
@@ -139,6 +137,10 @@ QWidget *Preferences::createTriggersWidget() {
 
 #ifdef KS_NATIVE_KDE
 void Preferences::onKDERelatedSettings() {
-	KRun::run("kcmshell4 screensaver kcmsmserver energy powerdevilconfig autostart kcmkded kdm kgrubeditor", KUrl::List(), MainWindow::self());
+	KRun::run(
+		"kcmshell4 screensaver kcmsmserver energy powerdevilconfig autostart kcmkded kdm kgrubeditor",
+		KUrl::List(),
+		this
+	);
 }
 #endif // KS_NATIVE_KDE

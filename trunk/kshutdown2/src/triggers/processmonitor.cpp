@@ -19,7 +19,6 @@
 	#include <sys/types.h>
 #endif // KS_TRIGGER_PROCESS_MONITOR
 
-#include "../mainwindow.h"
 #include "../utils.h"
 #include "processmonitor.h"
 
