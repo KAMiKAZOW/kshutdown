@@ -717,7 +717,7 @@ void MainWindow::onAbout() {
 		KS_COPYRIGHT "<br>" \
 		"<br>" \
 		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
-		"<a href=\"mailto:" KS_CONTACT "\">" KS_CONTACT "</a><br>" \
+		"<a href=\"" KS_CONTACT "\">" KS_CONTACT "</a><br>" \
 		"<br>" \
 "This program is free software; you can redistribute it and/or modify<br>" \
 "it under the terms of the <a href=\"http://www.gnu.org/licenses/\">GNU General Public License</a> as published by<br>" \
