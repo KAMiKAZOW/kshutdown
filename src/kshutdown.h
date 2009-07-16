@@ -20,8 +20,6 @@
 
 #include "pureqt.h"
 
-// TODO: libkshutdown
-
 #include <QDateTime>
 
 #include "config.h"
@@ -45,7 +43,6 @@ namespace KShutdown {
 
 class U_EXPORT Base {
 public:
-// TODO: ENABLE, DISABLE, SELECTED, UNSELECTED
 	enum State { START, STOP };
 	Base(const QString &id);
 	virtual ~Base();

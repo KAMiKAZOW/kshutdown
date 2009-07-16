@@ -95,7 +95,6 @@ private:
 	Trigger *getSelectedTrigger() const;
 	void setSelectedTrigger(const QString &id);
 	void initMenuBar();
-	void initPlugins();
 	void initSystemTray();
 	void initTriggers();
 	void initWidgets();

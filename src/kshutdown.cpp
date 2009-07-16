@@ -17,7 +17,6 @@
 
 #include "pureqt.h"
 
-// TODO: no KDateTimeEdit?
 #include <QDateTimeEdit>
 #include <QProcess>
 #ifdef Q_WS_WIN
@@ -101,7 +100,7 @@ void Base::setLastError() {
 // public
 
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
-// FIXME: 0 parent - is this OK?
+// FIXME: 0 parent - is this OK? Memory leak?
 	U_ACTION(0),
 	Base(id),
 	m_force(false),
@@ -181,7 +180,8 @@ void Action::slotFire() {
 ConfirmAction::ConfirmAction(Action *action) :
 	U_ACTION(0),
 	m_impl(action) {
-// TODO: find a better way to clone action
+
+	// clone basic properties
 	setEnabled(action->isEnabled());
 	setIcon(action->icon());
 	setMenu(action->menu());
