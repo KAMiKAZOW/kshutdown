@@ -324,7 +324,6 @@ MainWindow::MainWindow() :
 	}
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
 	
-	initPlugins();
 	initSystemTray();
 	initMenuBar();
 
@@ -450,11 +449,6 @@ void MainWindow::initMenuBar() {
 #endif // KS_NATIVE_KDE
 
 	setMenuBar(menuBar);
-}
-
-// TODO: plugins
-void MainWindow::initPlugins() {
-	U_DEBUG << "MainWindow::initPlugins()" U_END;
 }
 
 void MainWindow::initSystemTray() {
@@ -674,7 +668,6 @@ void MainWindow::updateWidgets() {
 			ERROR
 		);
 	}
-// FIXME: adjust window to its minimum/preferred size
 }
 
 void MainWindow::writeConfig() {
