@@ -18,6 +18,9 @@
 #ifdef KS_PURE_QT
 	#include <QApplication>
 	#include <QLocale>
+	#ifdef Q_OS_LINUX
+		#include <QStyleFactory>
+	#endif // Q_OS_LINUX
 	#include <QTranslator>
 #else
 	#include <KAboutData>
@@ -48,7 +51,6 @@ int main(int argc, char **argv) {
 	QApplication::setApplicationName("KShutdown");
 	QApplication a(argc, argv);
 
-/* TODO: GTK+
 	#ifdef Q_OS_LINUX
 	if (Utils::isGNOME()) {
 		QStyle *gtkStyle = QStyleFactory::create("gtk+");
@@ -56,7 +58,6 @@ int main(int argc, char **argv) {
 			QApplication::setStyle(gtkStyle);
 	}
 	#endif // Q_OS_LINUX
-*/
 
 	// init i18n
 	QString lang = QLocale::system().name();
@@ -72,7 +73,6 @@ int main(int argc, char **argv) {
 
 	// Native KDE startup
 
-// FIXME: show email address in GUI
 	KAboutData about(
 		"kshutdown", // app name - used in config file name etc.
 		"kshutdown", // catalog name
