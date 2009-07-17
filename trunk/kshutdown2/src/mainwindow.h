@@ -83,6 +83,7 @@ private:
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
+	U_ACTION *m_cancelAction;
 	U_COMBO_BOX *m_actions;
 	U_COMBO_BOX *m_triggers;
 	U_PUSH_BUTTON *m_okCancelButton;
@@ -110,6 +111,7 @@ private slots:
 	void onAbout();
 #endif // KS_PURE_QT
 	void onActionActivated(int index);
+	void onCancel();
 	void onCheckTrigger();
 #ifdef KS_NATIVE_KDE
 	void onConfigureNotifications();

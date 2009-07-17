@@ -408,6 +408,8 @@ void MainWindow::initMenuBar() {
 			fileMenu->addSeparator();
 	}
 	fileMenu->addSeparator();
+	fileMenu->addAction(m_cancelAction);
+	fileMenu->addSeparator();
 #ifdef KS_NATIVE_KDE
 	fileMenu->addAction(KStandardAction::quit(this, SLOT(onQuit()), this));
 #else
@@ -524,6 +526,12 @@ void MainWindow::initWidgets() {
 	mainLayout->addStretch();
 	mainLayout->addWidget(m_okCancelButton);
 	setCentralWidget(mainWidget);
+	
+	m_cancelAction = new U_ACTION(this);
+#ifdef KS_NATIVE_KDE
+	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
+#endif // KS_NATIVE_KDE
+	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
 }
 
 void MainWindow::pluginConfig(const bool read) {
@@ -668,6 +676,16 @@ void MainWindow::updateWidgets() {
 			INFO_TYPE_ERROR
 		);
 	}
+	
+	// update "Cancel" action
+	if (m_active) {
+		m_cancelAction->setEnabled(true);
+		m_cancelAction->setText(i18n("Cancel: %0").arg(action->originalText()));
+	}
+	else {
+		m_cancelAction->setEnabled(false);
+		m_cancelAction->setText(i18n("Cancel"));
+	}
 }
 
 void MainWindow::writeConfig() {
@@ -741,6 +759,10 @@ void MainWindow::onActionActivated(int index) {
 	}
 
 	updateWidgets();
+}
+
+void MainWindow::onCancel() {
+	setActive(false);
 }
 
 void MainWindow::onCheckTrigger() {
