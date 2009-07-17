@@ -379,11 +379,22 @@ void MainWindow::initMenuBar() {
 	// file menu
 
 	U_MENU *fileMenu = new U_MENU(i18n("&File"));
+
+	// "No Delay" warning
+	QString warningText = i18n("No Delay");
 #ifdef KS_NATIVE_KDE
-	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
+	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), warningText);
 #else
-// FIXME: Qt: warning menu title
+	U_ACTION *warningAction = new U_ACTION(this);
+	QFont warningActionFont = warningAction->font();
+	warningActionFont.setBold(true);
+	warningAction->setEnabled(false);
+	warningAction->setFont(warningActionFont);
+	warningAction->setText(warningText);
+	fileMenu->addAction(warningAction);
+	fileMenu->addSeparator();
 #endif // KS_NATIVE_KDE
+
 	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
