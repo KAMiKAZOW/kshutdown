@@ -45,7 +45,7 @@ void Config::endGroup() {
 }
 
 bool Config::confirmAction() {
-	return readBool("General", "Confirm Action", true);
+	return readBool("General", "Confirm Action", false);
 }
 
 void Config::setConfirmAction(const bool value) {
