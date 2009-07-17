@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __PUREQT_H__
-#define __PUREQT_H__
+#ifndef KSHUTDOWN_PUREQT_H
+#define KSHUTDOWN_PUREQT_H
 
 #ifdef KS_PURE_QT
 	#define U(name) <Q##name>
@@ -103,4 +103,4 @@
 	// use i18n from KLocale
 #endif // KS_PURE_QT
 
-#endif // __PUREQT_H__
+#endif // KSHUTDOWN_PUREQT_H

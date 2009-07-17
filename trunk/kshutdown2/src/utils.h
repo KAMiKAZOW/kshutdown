@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#ifndef KSHUTDOWN_UTILS_H
+#define KSHUTDOWN_UTILS_H
 
 #include <QString>
 
@@ -46,4 +46,4 @@ private:
 #endif // KS_NATIVE_KDE
 };
 
-#endif // __UTILS_H__
+#endif // KSHUTDOWN_UTILS_H

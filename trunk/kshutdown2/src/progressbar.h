@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __PROGRESSBAR_H__
-#define __PROGRESSBAR_H__
+#ifndef KSHUTDOWN_PROGRESSBAR_H
+#define KSHUTDOWN_PROGRESSBAR_H
 
 #include <QWidget>
 
@@ -57,4 +57,4 @@ private slots:
 	void onSetTopPosition();
 };
 
-#endif // __PROGRESSBAR_H__
+#endif // KSHUTDOWN_PROGRESSBAR_H
