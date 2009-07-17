@@ -45,7 +45,7 @@ public:
 		DISPLAY_STATUS_HTML_NO_ACTION = 1 << 1,
 		DISPLAY_STATUS_SIMPLE = 1 << 2
 	};
-	enum InfoType { ERROR, INFO, WARNING };
+	enum InfoType { INFO_TYPE_ERROR, INFO_TYPE_INFO, INFO_TYPE_WARNING };
 	virtual ~MainWindow();
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);

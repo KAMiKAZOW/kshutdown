@@ -18,7 +18,10 @@
 #include "lock.h"
 #include "../utils.h"
 
-#ifndef Q_WS_WIN
+#ifdef Q_WS_WIN
+	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
+	#include <windows.h>
+#else
 	#include <QDBusInterface>
 #endif // Q_WS_WIN
 

@@ -572,14 +572,14 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 void MainWindow::setInfo(const QString &text, const InfoType type) {
 	QRgb background; // picked from the Oxygen palette
 	switch (type) {
-		case ERROR:
+		case INFO_TYPE_ERROR:
 			background = 0xF9CCCA; // brick red 1
 			break;
-		case INFO:
+		case INFO_TYPE_INFO:
 			background = 0xEEEEEE; // gray 1
 			//m_info->setPixmap(U_ICON("dialog-information").pixmap(32, 32));
 			break;
-		default: // WARNING_
+		default: // INFO_TYPE_WARNING
 			background = 0xF8FFBF; // lime 1
 			break;
 	}
@@ -647,14 +647,14 @@ void MainWindow::updateWidgets() {
 				"<qt>" +
 				i18n("Please select an Extras command<br>from the menu above.") +
 				"</qt>",
-				WARNING
+				INFO_TYPE_WARNING
 			);
 		}
 		else
 #endif // KS_NATIVE_KDE
 		{
 			m_okCancelButton->setEnabled(true);
-			setInfo(QString::null, INFO);
+			setInfo(QString::null, INFO_TYPE_INFO);
 		}
 	}
 	else {
@@ -665,7 +665,7 @@ void MainWindow::updateWidgets() {
 			i18n("Action not available: %0").arg(action->originalText()) + "<br>" +
 			action->disableReason() +
 			"</qt>",
-			ERROR
+			INFO_TYPE_ERROR
 		);
 	}
 }
@@ -832,7 +832,7 @@ void MainWindow::onStatusChange() {
 	
 	setInfo(
 		getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION),
-		INFO
+		INFO_TYPE_INFO
 	);
 }
 
