@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __LOCK_H__
-#define __LOCK_H__
+#ifndef KSHUTDOWN_LOCK_H
+#define KSHUTDOWN_LOCK_H
 
 #include "../kshutdown.h"
 
@@ -34,4 +34,4 @@ private:
 	LockAction();
 };
 
-#endif // __LOCK_H__
+#endif // KSHUTDOWN_LOCK_H

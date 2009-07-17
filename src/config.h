@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __CONFIG_H__
-#define __CONFIG_H__
+#ifndef KSHUTDOWN_CONFIG_H
+#define KSHUTDOWN_CONFIG_H
 
 #include "progressbar.h"
 #include "pureqt.h"
@@ -73,4 +73,4 @@ private:
 	Config();
 };
 
-#endif // __CONFIG_H__
+#endif // KSHUTDOWN_CONFIG_H

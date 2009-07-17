@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __PROCESSMONITOR_H__
-#define __PROCESSMONITOR_H__
+#ifndef KSHUTDOWN_PROCESSMONITOR_H
+#define KSHUTDOWN_PROCESSMONITOR_H
 
 #ifdef Q_OS_LINUX
 	#define KS_TRIGGER_PROCESS_MONITOR
@@ -65,4 +65,4 @@ private slots:
 	void onReadyReadStandardOutput();
 };
 
-#endif // __PROCESSMONITOR_H__
+#endif // KSHUTDOWN_PROCESSMONITOR_H

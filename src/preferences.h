@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __PREFERENCES_H__
-#define __PREFERENCES_H__
+#ifndef KSHUTDOWN_PREFERENCES_H
+#define KSHUTDOWN_PREFERENCES_H
 
 #include "pureqt.h"
 
@@ -42,4 +42,4 @@ private slots:
 #endif // KS_NATIVE_KDE
 };
 
-#endif // __PREFERENCES_H__
+#endif // KSHUTDOWN_PREFERENCES_H

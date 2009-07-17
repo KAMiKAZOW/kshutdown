@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __KSHUTDOWN_H__
-#define __KSHUTDOWN_H__
+#ifndef KSHUTDOWN_KSHUTDOWN_H
+#define KSHUTDOWN_KSHUTDOWN_H
 
 #include "pureqt.h"
 
@@ -242,4 +242,4 @@ public:
 
 } // KShutdown
 
-#endif // __KSHUTDOWN_H__
+#endif // KSHUTDOWN_KSHUTDOWN_H
