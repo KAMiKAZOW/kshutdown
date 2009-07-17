@@ -28,14 +28,13 @@
 	#include <QDBusReply>
 
 	#include <unistd.h> // for sleep
-	
-	#include "utils.h"
 #endif // Q_WS_WIN
 
 #include "actions/lock.h"
 #include "kshutdown.h"
 #include "mainwindow.h"
 #include "progressbar.h"
+#include "utils.h"
 
 using namespace KShutdown;
 
