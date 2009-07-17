@@ -20,7 +20,6 @@
 #include <QCheckBox>
 #include <QCloseEvent>
 #include <QGroupBox>
-#include <QLabel>
 #include <QLayout>
 #include <QTimer>
 
@@ -35,6 +34,7 @@
 #include "actions/extras.h"
 #include "actions/lock.h"
 #include "triggers/processmonitor.h"
+#include "infowidget.h"
 #include "mainwindow.h"
 #include "preferences.h"
 #include "progressbar.h"
@@ -514,15 +514,7 @@ void MainWindow::initWidgets() {
 	connect(m_triggers, SIGNAL(activated(int)), SLOT(onTriggerActivated(int)));
 	m_triggerBox->layout()->addWidget(m_triggers);
 	
-	m_info = new QLabel();
-	
-	// smaller font
-	Utils::setFont(m_info, -1, false);
-
-	m_info->setAutoFillBackground(true);
-	m_info->setFrameStyle(QLabel::Panel | QLabel::Plain);
-	m_info->setLineWidth(1);
-	m_info->setObjectName("info");
+	m_infoWidget = new InfoWidget(this);
 
 	m_okCancelButton = new U_PUSH_BUTTON();
 	m_okCancelButton->setObjectName("ok-cancel-button");
@@ -533,7 +525,7 @@ void MainWindow::initWidgets() {
 	mainLayout->addWidget(m_actionBox);
 	mainLayout->addWidget(m_triggerBox);
 	mainLayout->addStretch();
-	mainLayout->addWidget(m_info);
+	mainLayout->addWidget(m_infoWidget);
 	mainLayout->addStretch();
 	mainLayout->addWidget(m_okCancelButton);
 	setCentralWidget(mainWidget);
@@ -585,29 +577,6 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 	comboBox->setCurrentIndex(index);
 
 	return index;
-}
-
-// TODO: move m_info to external class file
-void MainWindow::setInfo(const QString &text, const InfoType type) {
-	QRgb background; // picked from the Oxygen palette
-	switch (type) {
-		case INFO_TYPE_ERROR:
-			background = 0xF9CCCA; // brick red 1
-			break;
-		case INFO_TYPE_INFO:
-			background = 0xEEEEEE; // gray 1
-			//m_info->setPixmap(U_ICON("dialog-information").pixmap(32, 32));
-			break;
-		default: // INFO_TYPE_WARNING
-			background = 0xF8FFBF; // lime 1
-			break;
-	}
-	QPalette p;
-	p.setColor(QPalette::Window, QColor(background));
-	p.setColor(QPalette::WindowText, Qt::black);
-	m_info->setPalette(p);
-	m_info->setText(text);
-	m_info->setVisible(!text.isEmpty() && (text != "<qt></qt>"));
 }
 
 void MainWindow::setTitle(const QString &title) {
@@ -662,29 +631,29 @@ void MainWindow::updateWidgets() {
 #ifdef KS_NATIVE_KDE
 		if ((action == Extras::self()) && Extras::self()->command().isEmpty()) {
 			m_okCancelButton->setEnabled(false);
-			setInfo(
+			m_infoWidget->setText(
 				"<qt>" +
 				i18n("Please select an Extras command<br>from the menu above.") +
 				"</qt>",
-				INFO_TYPE_WARNING
+				InfoWidget::INFO_TYPE_WARNING
 			);
 		}
 		else
 #endif // KS_NATIVE_KDE
 		{
 			m_okCancelButton->setEnabled(true);
-			setInfo(QString::null, INFO_TYPE_INFO);
+			m_infoWidget->setText(QString::null);
 		}
 	}
 	else {
 		m_okCancelButton->setEnabled(false);
 // TODO: show solution dialog
-		setInfo(
+		m_infoWidget->setText(
 			"<qt>" +
 			i18n("Action not available: %0").arg(action->originalText()) + "<br>" +
 			action->disableReason() +
 			"</qt>",
-			INFO_TYPE_ERROR
+			InfoWidget::INFO_TYPE_ERROR
 		);
 	}
 	
@@ -863,9 +832,8 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 void MainWindow::onStatusChange() {
 	U_DEBUG << "onStatusChange()" U_END;
 	
-	setInfo(
-		getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION),
-		INFO_TYPE_INFO
+	m_infoWidget->setText(
+		getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION)
 	);
 }
 

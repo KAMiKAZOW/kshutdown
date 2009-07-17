@@ -15,8 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifndef __MAINWINDOW_H__
-#define __MAINWINDOW_H__
+#ifndef KSHUTDOWN_MAINWINDOW_H
+#define KSHUTDOWN_MAINWINDOW_H
 
 // used in both main.cpp and mainwindow.cpp
 #define KS_CONTACT "http://kshutdown.sourceforge.net/contact.html"
@@ -35,6 +35,8 @@
 class QCheckBox;
 class QGroupBox;
 
+class InfoWidget;
+
 using namespace KShutdown;
 
 class MainWindow: public U_MAIN_WINDOW {
@@ -45,7 +47,6 @@ public:
 		DISPLAY_STATUS_HTML_NO_ACTION = 1 << 1,
 		DISPLAY_STATUS_SIMPLE = 1 << 2
 	};
-	enum InfoType { INFO_TYPE_ERROR, INFO_TYPE_INFO, INFO_TYPE_WARNING };
 	virtual ~MainWindow();
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
@@ -71,13 +72,13 @@ private:
 	bool m_showNotification1M;
 	bool m_showNotification5M;
 	ConfirmAction *m_confirmLockAction;
+	InfoWidget *m_infoWidget;
 	static MainWindow *m_instance;
 	QCheckBox *m_force;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;
 	static QHash<QString, Action*> m_actionHash;
 	static QHash<QString, Trigger*> m_triggerHash;
-	QLabel *m_info;
 	static QList<Action*> m_actionList;
 	static QList<Trigger*> m_triggerList;
 	QTimer *m_triggerTimer;
@@ -102,7 +103,6 @@ private:
 	void pluginConfig(const bool read);
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
-	void setInfo(const QString &text, const InfoType type);
 	void setTitle(const QString &title);
 	void updateWidgets();
 	void writeConfig();
@@ -128,4 +128,4 @@ private slots:
 	void onTriggerActivated(int index);
 };
 
-#endif // __MAINWINDOW_H__
+#endif // KSHUTDOWN_MAINWINDOW_H
