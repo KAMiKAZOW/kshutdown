@@ -118,7 +118,8 @@ int main(int argc, char **argv) {
 	options.add("init", ki18n("Do not show main window on startup"));
 	
 	KCmdLineArgs::addCmdLineOptions(options);
-// FIXME: --nofork does not work like in KShutdown 1.0.x?
+	// BUG: --nofork option does not work like in KShutdown 1.0.x (?)
+	// "KUniqueApplication: Can't setup D-Bus service. Probably already running."
 	KUniqueApplication::addCmdLineOptions();
 
 	isRunning = !KUniqueApplication::start();
