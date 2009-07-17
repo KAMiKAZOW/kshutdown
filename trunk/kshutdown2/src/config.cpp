@@ -31,7 +31,6 @@ Config *Config::m_user = 0;
 
 void Config::beginGroup(const QString &name) {
 #ifdef KS_NATIVE_KDE
-// FIXME: thread safe?
 	m_group = m_engine->group(name);
 #else
 	m_engine->beginGroup(name);

@@ -27,6 +27,11 @@
 	class QSettings;
 #endif
 
+/**
+ * A configuration reader/writer.
+ *
+ * @b WARNING: This class is not thread-safe.
+ */
 class Config {
 public:
 	void beginGroup(const QString &name);
