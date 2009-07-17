@@ -7,6 +7,7 @@ set(
 	actions/lock.cpp
 	triggers/processmonitor.cpp
 	config.cpp
+	infowidget.cpp
 	kshutdown.cpp
 	main.cpp
 	mainwindow.cpp

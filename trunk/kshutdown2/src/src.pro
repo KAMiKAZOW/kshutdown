@@ -17,11 +17,11 @@ win32 {
 
 # Input
 
-HEADERS += config.h kshutdown.h mainwindow.h preferences.h progressbar.h pureqt.h utils.h version.h \
+HEADERS += config.h infowidget.h kshutdown.h mainwindow.h preferences.h progressbar.h pureqt.h utils.h version.h \
 	actions/extras.h \
 	triggers/processmonitor.h
 
-SOURCES += config.cpp kshutdown.cpp main.cpp mainwindow.cpp preferences.cpp progressbar.cpp utils.cpp \
+SOURCES += config.cpp infowidget.cpp kshutdown.cpp main.cpp mainwindow.cpp preferences.cpp progressbar.cpp utils.cpp \
 	actions/extras.cpp actions/lock.cpp \
 	triggers/processmonitor.cpp
 
