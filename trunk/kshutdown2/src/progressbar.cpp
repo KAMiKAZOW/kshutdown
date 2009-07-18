@@ -31,23 +31,22 @@ ProgressBar::~ProgressBar() {
 	U_DEBUG << "ProgressBar::~ProgressBar()" U_END;
 }
 
-void ProgressBar::setPosition(const Position value, const bool updateConfig) {
+void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfig) {
 	if (updateConfig) {
 		Config *config = Config::user();
-		config->setProgressBarPosition(value);
+		config->setProgressBarAlignment(value);
 		config->sync();
 	}
 
-	m_position = value;
+	m_alignment = value;
 	QDesktopWidget *desktop = QApplication::desktop();
 	resize(desktop->width() - 4, height());
-	switch (m_position) {
-		case BOTTOM:
-			move(2, desktop->height() - height());
-			break;
-		default: // TOP
-			move(2, 0);
-			break;
+	if (m_alignment.testFlag(Qt::AlignBottom)) {
+		move(2, desktop->height() - height());
+	}
+	// Qt::AlignTop
+	else {
+		move(2, 0);
 	}
 	show();
 }
@@ -91,15 +90,15 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 
 		QActionGroup *ag = new QActionGroup(this);
 
-		QAction *a = menu->addAction(i18n("Top"), this, SLOT(onSetTopPosition()));
+		QAction *a = menu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
 		a->setActionGroup(ag);
 		a->setCheckable(true);
-		a->setChecked(m_position == TOP);
+		a->setChecked(m_alignment.testFlag(Qt::AlignTop));
 		
-		a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomPosition()));
+		a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
 		a->setActionGroup(ag);
 		a->setCheckable(true);
-		a->setChecked(m_position == BOTTOM);
+		a->setChecked(m_alignment.testFlag(Qt::AlignBottom));
 		
 		menu->popup(e->globalPos());
 		e->accept();
@@ -148,15 +147,15 @@ ProgressBar::ProgressBar()
 // TODO: size configuration
 	setHeight(3);
 
-	setPosition(Config::user()->progressBarPosition(), false);
+	setAlignment(Config::user()->progressBarAlignment(), false);
 }
 
 // private slots
 
-void ProgressBar::onSetBottomPosition() {
-	setPosition(BOTTOM, true);
+void ProgressBar::onSetBottomAlignment() {
+	setAlignment(Qt::AlignBottom, true);
 }
 
-void ProgressBar::onSetTopPosition() {
-	setPosition(TOP, true);
+void ProgressBar::onSetTopAlignment() {
+	setAlignment(Qt::AlignTop, true);
 }

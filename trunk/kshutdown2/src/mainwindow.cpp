@@ -172,8 +172,8 @@ void MainWindow::setActive(const bool yes) {
 			m_confirmLockAction->setEnabled(false);
 #endif // Q_WS_WIN
 		m_triggerTimer->start(trigger->checkTimeout());
-		action->setState(Base::START);
-		trigger->setState(Base::START);
+		action->setState(Base::StartState);
+		trigger->setState(Base::StartState);
 	}
 	else {
 #ifdef Q_WS_WIN
@@ -181,8 +181,8 @@ void MainWindow::setActive(const bool yes) {
 			m_confirmLockAction->setEnabled(true);
 #endif // Q_WS_WIN
 		m_triggerTimer->stop();
-		action->setState(Base::STOP);
-		trigger->setState(Base::STOP);
+		action->setState(Base::StopState);
+		trigger->setState(Base::StopState);
 		
 		ProgressBar::freeInstance();
 	}
@@ -635,7 +635,7 @@ void MainWindow::updateWidgets() {
 				"<qt>" +
 				i18n("Please select an Extras command<br>from the menu above.") +
 				"</qt>",
-				InfoWidget::INFO_TYPE_WARNING
+				InfoWidget::WarningType
 			);
 		}
 		else
@@ -653,7 +653,7 @@ void MainWindow::updateWidgets() {
 			i18n("Action not available: %0").arg(action->originalText()) + "<br>" +
 			action->disableReason() +
 			"</qt>",
-			InfoWidget::INFO_TYPE_ERROR
+			InfoWidget::ErrorType
 		);
 	}
 	

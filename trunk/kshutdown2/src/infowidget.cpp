@@ -49,18 +49,18 @@ InfoWidget::InfoWidget(QWidget *parent) :
 
 InfoWidget::~InfoWidget() { }
 
-void InfoWidget::setText(const QString &text, const InfoType type) {
+void InfoWidget::setText(const QString &text, const Type type) {
 	QRgb background; // picked from the Oxygen palette
 	switch (type) {
-		case INFO_TYPE_ERROR:
+		case ErrorType:
 			background = 0xF9CCCA; // brick red 1
 			setIcon("dialog-error");
 			break;
-		case INFO_TYPE_INFO:
+		case InfoType:
 			background = 0xEEEEEE; // gray 1
 			setIcon("dialog-information");
 			break;
-		default: // INFO_TYPE_WARNING
+		default: // WarningType
 			background = 0xF8FFBF; // lime 1
 			setIcon("dialog-warning");
 			break;
@@ -82,5 +82,7 @@ void InfoWidget::setText(const QString &text, const InfoType type) {
 void InfoWidget::setIcon(const QString &iconName) {
 	#ifdef KS_NATIVE_KDE
 	m_icon->setPixmap(U_STOCK_ICON(iconName).pixmap(24, 24));
+	#else
+	Q_UNUSED(iconName)
 	#endif // KS_NATIVE_KDE
 }

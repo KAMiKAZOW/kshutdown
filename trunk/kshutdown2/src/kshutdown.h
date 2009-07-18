@@ -43,7 +43,7 @@ namespace KShutdown {
 
 class U_EXPORT Base {
 public:
-	enum State { START, STOP };
+	enum State { StartState, StopState };
 	Base(const QString &id);
 	virtual ~Base();
 	inline QString disableReason() const {
