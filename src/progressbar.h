@@ -23,8 +23,9 @@
 class ProgressBar: public QWidget {
 	Q_OBJECT
 public:
-	enum Position { TOP, BOTTOM };
 	virtual ~ProgressBar();
+	inline Qt::Alignment alignment() const { return m_alignment; }
+	void setAlignment(const Qt::Alignment value, const bool updateConfig);
 	inline static void freeInstance() {
 		if (m_instance) {
 			delete m_instance;
@@ -38,8 +39,6 @@ public:
 
 		return m_instance;
 	}
-	inline Position position() const { return m_position; }
-	void setPosition(const Position value, const bool updateConfig);
 	void setHeight(const int value);
 	void setProgress(const int complete);
 	void setTotal(const int total);
@@ -49,12 +48,12 @@ protected:
 private:
 	int m_complete;
 	int m_total;
-	Position m_position;
 	static ProgressBar *m_instance;
+	Qt::Alignment m_alignment;
 	ProgressBar();
 private slots:
-	void onSetBottomPosition();
-	void onSetTopPosition();
+	void onSetBottomAlignment();
+	void onSetTopAlignment();
 };
 
 #endif // KSHUTDOWN_PROGRESSBAR_H

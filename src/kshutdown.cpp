@@ -278,7 +278,7 @@ void DateTimeTriggerBase::writeConfig(const QString &group, Config *config) {
 }
 
 void DateTimeTriggerBase::setState(const State state) {
-	if (state == START) {
+	if (state == StartState) {
 		m_endDateTime = calcEndTime();
 		
 		if (Config::user()->progressBarEnabled()) {

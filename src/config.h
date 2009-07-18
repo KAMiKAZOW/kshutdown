@@ -18,7 +18,6 @@
 #ifndef KSHUTDOWN_CONFIG_H
 #define KSHUTDOWN_CONFIG_H
 
-#include "progressbar.h"
 #include "pureqt.h"
 
 #ifdef KS_NATIVE_KDE
@@ -46,8 +45,8 @@ public:
 	static bool progressBarEnabled();
 	static void setProgressBarEnabled(const bool value);
 
-	static ProgressBar::Position progressBarPosition();
-	static void setProgressBarPosition(const ProgressBar::Position value);
+	static Qt::Alignment progressBarAlignment();
+	static void setProgressBarAlignment(const Qt::Alignment value);
 
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);

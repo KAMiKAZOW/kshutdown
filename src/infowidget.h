@@ -24,10 +24,10 @@ class QLabel;
 
 class InfoWidget: public QFrame {
 public:
-	enum InfoType { INFO_TYPE_ERROR, INFO_TYPE_INFO, INFO_TYPE_WARNING };
+	enum Type { ErrorType, InfoType, WarningType };
 	InfoWidget(QWidget *parent);
 	virtual ~InfoWidget();
-	void setText(const QString &text, const InfoType type = INFO_TYPE_INFO);
+	void setText(const QString &text, const Type type = InfoType);
 private:
 	QLabel *m_icon;
 	QLabel *m_text;

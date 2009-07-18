@@ -67,19 +67,19 @@ void Config::setProgressBarEnabled(const bool value) {
 	write("Progress Bar", "Enabled", value);
 }
 
-ProgressBar::Position Config::progressBarPosition() {
+Qt::Alignment Config::progressBarAlignment() {
 	Config *config = user();
 	config->beginGroup("Progress Bar");
-	int result = config->read("Position", ProgressBar::TOP).toInt();
+	int result = config->read("Alignment", Qt::AlignTop).toInt();
 	config->endGroup();
 
-	return (ProgressBar::Position)result;
+	return (Qt::Alignment)result;
 }
 
-void Config::setProgressBarPosition(const ProgressBar::Position value) {
+void Config::setProgressBarAlignment(const Qt::Alignment value) {
 	Config *config = user();
 	config->beginGroup("Progress Bar");
-	config->write("Position", value);
+	config->write("Alignment", (int)value);
 	config->endGroup();
 }
 
