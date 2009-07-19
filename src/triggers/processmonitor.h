@@ -32,7 +32,7 @@
 
 class Process: public QObject {
 public:
-	Process(QObject *parent);
+	explicit Process(QObject *parent);
 	bool isRunning();
 	QString toString();
 private:

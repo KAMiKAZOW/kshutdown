@@ -84,7 +84,7 @@ protected:
 class U_EXPORT Action: public U_ACTION, public Base {
 	Q_OBJECT
 public:
-	Action(const QString &text, const QString &iconName, const QString &id);
+	explicit Action(const QString &text, const QString &iconName, const QString &id);
 	void activate(const bool force);
 	bool isCommandLineArgSupported();
 	virtual bool onAction() = 0;
@@ -124,7 +124,7 @@ signals:
 class ConfirmAction: public U_ACTION {
 	Q_OBJECT
 public:
-	ConfirmAction(QObject *parent, Action *action);
+	explicit ConfirmAction(QObject *parent, Action *action);
 private:
 	Q_DISABLE_COPY(ConfirmAction)
 	Action *m_impl;
@@ -135,7 +135,7 @@ private slots:
 class U_EXPORT Trigger: public QObject, public Base {
 	Q_OBJECT
 public:
-	Trigger(const QString &text, const QString &iconName, const QString &id);
+	explicit Trigger(const QString &text, const QString &iconName, const QString &id);
 	inline U_ICON icon() const {
 		return m_icon;
 	}
@@ -160,7 +160,7 @@ signals:
 class U_EXPORT DateTimeTriggerBase: public Trigger {
 	Q_OBJECT
 public:
-	DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
+	explicit DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
 	virtual ~DateTimeTriggerBase();
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
@@ -211,7 +211,7 @@ private:
 
 class U_EXPORT PowerAction: public Action {
 public:
-	PowerAction(const QString &text, const QString &iconName, const QString &id);
+	explicit PowerAction(const QString &text, const QString &iconName, const QString &id);
 	virtual bool onAction();
 protected:
 	QString m_methodName;
@@ -236,7 +236,7 @@ private:
 
 class U_EXPORT StandardAction: public Action {
 public:
-	StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
+	explicit StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
 	virtual bool onAction();
 private:
 	Q_DISABLE_COPY(StandardAction)

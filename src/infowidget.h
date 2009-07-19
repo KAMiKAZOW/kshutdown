@@ -25,7 +25,7 @@ class QLabel;
 class InfoWidget: public QFrame {
 public:
 	enum Type { ErrorType, InfoType, WarningType };
-	InfoWidget(QWidget *parent);
+	explicit InfoWidget(QWidget *parent);
 	virtual ~InfoWidget();
 	void setText(const QString &text, const Type type = InfoType);
 private:
