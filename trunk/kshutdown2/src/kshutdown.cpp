@@ -99,7 +99,6 @@ void Base::setLastError() {
 // public
 
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
-// FIXME: 0 parent - is this OK? Memory leak?
 	U_ACTION(0),
 	Base(id),
 	m_force(false),
@@ -176,8 +175,8 @@ void Action::slotFire() {
 
 // public
 
-ConfirmAction::ConfirmAction(Action *action) :
-	U_ACTION(0),
+ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
+	U_ACTION(parent),
 	m_impl(action) {
 
 	// clone basic properties
@@ -225,6 +224,13 @@ DateTimeTriggerBase::DateTimeTriggerBase(const QString &text, const QString &ico
 	m_dateTime(QDateTime()),
 	m_endDateTime(QDateTime()),
 	m_edit(0) {
+}
+
+DateTimeTriggerBase::~DateTimeTriggerBase() {
+	if (m_edit) {
+		delete m_edit;
+		m_edit = 0;
+	}
 }
 
 bool DateTimeTriggerBase::canActivateAction() {
@@ -468,6 +474,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 		QDBusConnection::systemBus()
 	);
 	QDBusReply<bool> reply = i->call("GetProperty", feature);
+	delete i;
 
 	if (reply.isValid())
 		return reply.value();

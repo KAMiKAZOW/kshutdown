@@ -123,7 +123,7 @@ signals:
 class ConfirmAction: public U_ACTION {
 	Q_OBJECT
 public:
-	ConfirmAction(Action *action);
+	ConfirmAction(QObject *parent, Action *action);
 private:
 	Action *m_impl;
 private slots:
@@ -158,6 +158,7 @@ class U_EXPORT DateTimeTriggerBase: public Trigger {
 	Q_OBJECT
 public:
 	DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
+	virtual ~DateTimeTriggerBase();
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
 	virtual void readConfig(const QString &group, Config *config);

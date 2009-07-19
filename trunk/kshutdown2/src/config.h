@@ -31,8 +31,10 @@
  *
  * @b WARNING: This class is not thread-safe.
  */
-class Config {
+class Config: public QObject {
 public:
+	virtual ~Config();
+
 	void beginGroup(const QString &name);
 	void endGroup();
 
@@ -54,6 +56,12 @@ public:
 	static bool readBool(const QString &group, const QString &key, const bool defaultValue);
 	static void write(const QString &group, const QString &key, const bool value);
 	
+	inline static void shutDown() {
+		if (m_user) {
+			delete m_user;
+			m_user = 0;
+		}
+	}
 	void sync();
 	inline static Config *user() {
 		if (!m_user)
