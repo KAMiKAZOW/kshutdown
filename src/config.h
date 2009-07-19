@@ -70,6 +70,7 @@ public:
 		return m_user;
 	}
 private:
+	Q_DISABLE_COPY(Config)
 #ifdef KS_NATIVE_KDE
 	KConfig *m_engine;
 	KConfigGroup m_group;

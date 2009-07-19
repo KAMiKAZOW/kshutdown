@@ -46,6 +46,7 @@ protected:
 	void mousePressEvent(QMouseEvent *e);
 	void paintEvent(QPaintEvent *e);
 private:
+	Q_DISABLE_COPY(ProgressBar)
 	int m_complete;
 	int m_total;
 	static ProgressBar *m_instance;

@@ -29,6 +29,7 @@ public:
 	virtual ~Preferences();
 	void apply();
 private:
+	Q_DISABLE_COPY(Preferences)
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
 	QCheckBox *m_progressBarEnabled;

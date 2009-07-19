@@ -36,6 +36,7 @@ public:
 	bool isRunning();
 	QString toString();
 private:
+	Q_DISABLE_COPY(Process)
 	friend class ProcessMonitor;
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	pid_t m_pid;
@@ -51,6 +52,7 @@ public:
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
 private:
+	Q_DISABLE_COPY(ProcessMonitor)
 	QList<Process*> m_processList;
 	QProcess *m_refreshProcess;
 	QString m_refreshBuf;

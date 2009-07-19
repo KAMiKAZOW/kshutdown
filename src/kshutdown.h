@@ -111,6 +111,7 @@ protected:
 	bool launch(const QString &program, const QStringList &args);
 	bool unsupportedAction();
 private:
+	Q_DISABLE_COPY(Action)
 	bool m_shouldStopTimer;
 	bool m_showInMenu;
 	QStringList m_commandLineArgs;
@@ -125,6 +126,7 @@ class ConfirmAction: public U_ACTION {
 public:
 	ConfirmAction(QObject *parent, Action *action);
 private:
+	Q_DISABLE_COPY(ConfirmAction)
 	Action *m_impl;
 private slots:
 	void slotFire();
@@ -147,6 +149,7 @@ public:
 protected:
 	int m_checkTimeout;
 private:
+	Q_DISABLE_COPY(Trigger)
 	U_ICON m_icon;
 	QString m_text;
 signals:
@@ -172,6 +175,7 @@ protected:
 private slots:
 	void syncDateTime();
 private:
+	Q_DISABLE_COPY(DateTimeTriggerBase)
 	QString createStatus(const QDateTime &now, int &secsTo);
 };
 
@@ -181,6 +185,8 @@ public:
 	virtual QWidget *getWidget();
 protected:
 	virtual QDateTime calcEndTime();
+private:
+	Q_DISABLE_COPY(DateTimeTrigger)
 };
 
 class U_EXPORT NoDelayTrigger: public Trigger {
@@ -189,6 +195,8 @@ public:
 	virtual bool canActivateAction();
 protected:
 	virtual QDateTime calcEndTime();
+private:
+	Q_DISABLE_COPY(NoDelayTrigger)
 };
 
 class U_EXPORT TimeFromNowTrigger: public DateTimeTriggerBase {
@@ -197,6 +205,8 @@ public:
 	virtual QWidget *getWidget();
 protected:
 	virtual QDateTime calcEndTime();
+private:
+	Q_DISABLE_COPY(TimeFromNowTrigger)
 };
 
 class U_EXPORT PowerAction: public Action {
@@ -206,16 +216,22 @@ public:
 protected:
 	QString m_methodName;
 	bool isAvailable(const QString &feature) const;
+private:
+	Q_DISABLE_COPY(PowerAction)
 };
 
 class U_EXPORT HibernateAction: public PowerAction {
 public:
 	HibernateAction();
+private:
+	Q_DISABLE_COPY(HibernateAction)
 };
 
 class U_EXPORT SuspendAction: public PowerAction {
 public:
 	SuspendAction();
+private:
+	Q_DISABLE_COPY(SuspendAction)
 };
 
 class U_EXPORT StandardAction: public Action {
@@ -223,22 +239,29 @@ public:
 	StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
 	virtual bool onAction();
 private:
+	Q_DISABLE_COPY(StandardAction)
 	UShutdownType m_type;
 };
 
 class U_EXPORT LogoutAction: public StandardAction {
 public:
 	LogoutAction();
+private:
+	Q_DISABLE_COPY(LogoutAction)
 };
 
 class U_EXPORT RebootAction: public StandardAction {
 public:
 	RebootAction();
+private:
+	Q_DISABLE_COPY(RebootAction)
 };
 
 class U_EXPORT ShutDownAction: public StandardAction {
 public:
 	ShutDownAction();
+private:
+	Q_DISABLE_COPY(ShutDownAction)
 };
 
 } // KShutdown
