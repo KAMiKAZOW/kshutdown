@@ -25,7 +25,7 @@ class QCheckBox;
 class Preferences: public U_DIALOG {
 	Q_OBJECT
 public:
-	Preferences(QWidget *parent);
+	explicit Preferences(QWidget *parent);
 	virtual ~Preferences();
 	void apply();
 private:
