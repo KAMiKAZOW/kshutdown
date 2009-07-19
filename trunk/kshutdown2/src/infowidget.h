@@ -29,6 +29,7 @@ public:
 	virtual ~InfoWidget();
 	void setText(const QString &text, const Type type = InfoType);
 private:
+	Q_DISABLE_COPY(InfoWidget)
 	QLabel *m_icon;
 	QLabel *m_text;
 	void setIcon(const QString &iconName);

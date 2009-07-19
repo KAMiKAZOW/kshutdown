@@ -30,6 +30,7 @@ public:
 		return m_instance;
 	}
 private:
+	Q_DISABLE_COPY(LockAction)
 	static LockAction *m_instance;
 	LockAction();
 };

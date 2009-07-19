@@ -64,6 +64,7 @@ public slots:
 protected:
 	virtual void closeEvent(QCloseEvent *e);
 private:
+	Q_DISABLE_COPY(MainWindow)
 	bool m_active;
 	bool m_forceQuit;
 	bool m_ignoreUpdateWidgets;

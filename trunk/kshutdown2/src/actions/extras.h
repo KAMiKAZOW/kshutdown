@@ -41,6 +41,7 @@ public:
 	}
 	virtual void writeConfig(const QString &group, Config *config);
 private:
+	Q_DISABLE_COPY(Extras)
 	static Extras *m_instance;
 	QString m_command;
 	U_MENU *m_menu;
@@ -60,6 +61,7 @@ class CommandAction: private U_ACTION {
 	Q_OBJECT
 	friend class Extras;
 private:
+	Q_DISABLE_COPY(CommandAction)
 	QString m_command;
 	CommandAction(const U_ICON &icon, const QString &text, QObject *parent, const QString &command);
 private slots:
