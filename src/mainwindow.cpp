@@ -50,6 +50,13 @@ QList<Trigger*> MainWindow::m_triggerList;
 
 MainWindow::~MainWindow() {
 	U_DEBUG << "MainWindow::~MainWindow()" U_END;
+
+	foreach (Action *action, m_actionList)
+		delete action;
+	foreach (Trigger *trigger, m_triggerList)
+		delete trigger;
+
+	Config::shutDown();
 	Utils::shutDown();
 }
 
@@ -276,6 +283,8 @@ MainWindow::MainWindow() :
 
 	setObjectName("main-window");
 #ifdef KS_PURE_QT
+	// HACK: delete this on quit
+	setAttribute(Qt::WA_DeleteOnClose, true);
 	setWindowIcon(U_STOCK_ICON("kshutdown"));
 #endif // KS_PURE_QT
 
@@ -378,14 +387,14 @@ void MainWindow::initMenuBar() {
 
 	// file menu
 
-	U_MENU *fileMenu = new U_MENU(i18n("&File"));
+	U_MENU *fileMenu = new U_MENU(i18n("&File"), menuBar);
 
 	// "No Delay" warning
 	QString warningText = i18n("No Delay");
 #ifdef KS_NATIVE_KDE
 	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), warningText);
 #else
-	U_ACTION *warningAction = new U_ACTION(this);
+	U_ACTION *warningAction = new U_ACTION(menuBar);
 	QFont warningActionFont = warningAction->font();
 	warningActionFont.setBold(true);
 	warningAction->setEnabled(false);
@@ -410,7 +419,7 @@ void MainWindow::initMenuBar() {
 		if (!a->showInMenu())
 			continue; // for
 
-		ConfirmAction *ca = new ConfirmAction(a);
+		ConfirmAction *ca = new ConfirmAction(this, a);
 		if (a == LockAction::self())
 			m_confirmLockAction = ca;
 
@@ -431,7 +440,7 @@ void MainWindow::initMenuBar() {
 
 	// settings menu
 
-	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"));
+	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"), menuBar);
 #ifdef KS_NATIVE_KDE
 	settingsMenu->addAction(KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this));
 	settingsMenu->addSeparator();
@@ -455,7 +464,7 @@ void MainWindow::initMenuBar() {
 	config->endGroup();
 	menuBar->addMenu(helpMenu());
 #else
-	U_MENU *helpMenu = new U_MENU(i18n("&Help"));
+	U_MENU *helpMenu = new U_MENU(i18n("&Help"), menuBar);
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
 	helpMenu->addAction(i18n("About Qt"), U_APP, SLOT(aboutQt()));
 	menuBar->addMenu(helpMenu);

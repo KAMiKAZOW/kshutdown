@@ -29,6 +29,16 @@ Config *Config::m_user = 0;
 
 // public
 
+Config::~Config() {
+	U_DEBUG << "Config::~Config()" U_END;
+#ifdef KS_PURE_QT
+	if (m_engine) {
+		delete m_engine;
+		m_engine = 0;
+	}
+#endif // KS_PURE_QT
+}
+
 void Config::beginGroup(const QString &name) {
 #ifdef KS_NATIVE_KDE
 	m_group = m_engine->group(name);
@@ -40,7 +50,7 @@ void Config::beginGroup(const QString &name) {
 void Config::endGroup() {
 #ifdef KS_PURE_QT
 	m_engine->endGroup();
-#endif //KS_PURE_QT
+#endif // KS_PURE_QT
 }
 
 bool Config::confirmAction() {
@@ -121,7 +131,11 @@ void Config::sync() {
 
 // private
 
-Config::Config() {
+Config::Config() :
+	QObject(0) {
+
+	U_DEBUG << "Config::Config()" U_END;
+	
 #ifdef KS_NATIVE_KDE
 	m_engine = KGlobal::config().data();
 #else
