@@ -146,12 +146,15 @@ public:
 	inline QString text() const {
 		return m_text;
 	}
+	inline QString whatsThis() const { return m_whatsThis; }
+	inline void setWhatsThis(const QString &value) { m_whatsThis = value; }
 protected:
 	int m_checkTimeout;
 private:
 	Q_DISABLE_COPY(Trigger)
 	U_ICON m_icon;
 	QString m_text;
+	QString m_whatsThis;
 signals:
 	void notify(const QString &id, const QString &text);
 	void statusChanged();
