@@ -24,6 +24,8 @@
 #include <QTimer>
 
 #ifdef KS_PURE_QT
+	#include <QWhatsThis>
+
 	#include "version.h" // for about()
 #else
 	#include <KNotification>
@@ -465,6 +467,8 @@ void MainWindow::initMenuBar() {
 	menuBar->addMenu(helpMenu());
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"), menuBar);
+	helpMenu->addAction(QWhatsThis::createAction(this));
+	helpMenu->addSeparator();
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
 	helpMenu->addAction(i18n("About Qt"), U_APP, SLOT(aboutQt()));
 	menuBar->addMenu(helpMenu);
@@ -741,11 +745,14 @@ void MainWindow::onActionActivated(int index) {
 		m_currentActionWidget->hide();
 	}
 
-	m_currentActionWidget = getSelectedAction()->getWidget();
+	Action *action = getSelectedAction();
+	m_currentActionWidget = action->getWidget();
 	if (m_currentActionWidget) {
 		m_actionBox->layout()->addWidget(m_currentActionWidget);
 		m_currentActionWidget->show();
 	}
+	
+	m_actions->setWhatsThis(action->whatsThis());
 
 	updateWidgets();
 }
@@ -854,11 +861,15 @@ void MainWindow::onTriggerActivated(int index) {
 		m_currentTriggerWidget->hide();
 	}
 
-	m_currentTriggerWidget = getSelectedTrigger()->getWidget();
+	Trigger *trigger = getSelectedTrigger();
+	m_currentTriggerWidget = trigger->getWidget();
 	if (m_currentTriggerWidget) {
 		static_cast<QVBoxLayout *>(m_triggerBox->layout())->insertWidget(1, m_currentTriggerWidget);
 		m_currentTriggerWidget->show();
 	}
+	
+	m_triggers->setWhatsThis(trigger->whatsThis());
+	
 	onStatusChange();
 	updateWidgets();
 }
