@@ -106,7 +106,8 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	m_showInMenu(true),
 	m_commandLineArgs(QStringList()) {
 	m_originalText = text;
-	setIcon(U_STOCK_ICON(iconName));
+	if (!iconName.isNull())
+		setIcon(U_STOCK_ICON(iconName));
 	setText(text);
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
@@ -665,7 +666,26 @@ LogoutAction::LogoutAction() :
 // public
 
 RebootAction::RebootAction() :
-	StandardAction(i18n("Restart Computer"), "system-restart", "reboot", U_SHUTDOWN_TYPE_REBOOT) {
+	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT) {
+
+#ifdef KS_NATIVE_KDE
+	QPixmap p = KIconLoader::global()->loadIcon(
+		"system-reboot",
+		//"dialog-ok",
+		KIconLoader::NoGroup,
+		0, // default size
+		KIconLoader::DefaultState,
+		QStringList(), // no emblems
+		0L, // no path store
+		true // return "null" if no icon
+	);
+	if (p.isNull())
+		setIcon(U_STOCK_ICON("system-restart"));
+	else
+		setIcon(p);	
+#else
+	setIcon(U_STOCK_ICON("system-reboot"));
+#endif // KS_NATIVE_KDE
 
 	addCommandLineArg("r", "reboot");
 }
