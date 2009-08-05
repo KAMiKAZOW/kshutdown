@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-21 22:35+0200\n"
+"POT-Creation-Date: 2009-08-05 16:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,248 +16,272 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/actions/extras.cpp:52
+#: src/actions/extras.cpp:50
 msgid "Invalid \"Extras\" command"
 msgstr ""
 
-#: src/actions/extras.cpp:61 src/actions/extras.cpp:69
+#: src/actions/extras.cpp:59 src/actions/extras.cpp:67
 msgid "Cannot execute \"Extras\" command"
 msgstr ""
 
-#: src/actions/extras.cpp:105
+#: src/actions/extras.cpp:103
 msgid "Extras..."
 msgstr ""
 
-#: src/actions/extras.cpp:239
+#: src/actions/extras.cpp:237
 msgid "Select a command..."
 msgstr ""
 
-#: src/actions/extras.cpp:252
+#: src/actions/extras.cpp:251
 msgid "Use context menu to add/edit/remove actions."
 msgstr ""
 
-#: src/actions/extras.cpp:254
+#: src/actions/extras.cpp:253
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
 msgstr ""
 
-#: src/actions/extras.cpp:255
+#: src/actions/extras.cpp:254
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
 msgstr ""
 
-#: src/actions/extras.cpp:256
+#: src/actions/extras.cpp:255
 msgid "Use <b>Properties</b> to change icon, name, or command"
 msgstr ""
 
-#: src/actions/extras.cpp:280
+#: src/actions/extras.cpp:279
 msgid "Add/Remove Commands..."
 msgstr ""
 
-#: src/kshutdown.cpp:156
-msgid "Unsupported action: %0"
-msgstr ""
-
-#: src/kshutdown.cpp:171
-msgid "Unknown error"
-msgstr ""
-
-#: src/kshutdown.cpp:204
-msgid "Are you sure?"
-msgstr ""
-
-#: src/kshutdown.cpp:320
-msgid "At Date/Time"
-msgstr ""
-
-#: src/kshutdown.cpp:351 src/mainwindow.cpp:426
-msgid "No Delay"
-msgstr ""
-
-#: src/kshutdown.cpp:363
-msgid "Time From Now (HH:MM)"
-msgstr ""
-
-#: src/kshutdown.cpp:493 src/main.cpp:101
-msgid "Hibernate Computer"
-msgstr ""
-
-#: src/kshutdown.cpp:496
-msgid "Cannot hibernate computer"
-msgstr ""
-
-#: src/kshutdown.cpp:506 src/main.cpp:104
-msgid "Suspend Computer"
-msgstr ""
-
-#: src/kshutdown.cpp:509
-msgid "Cannot suspend computer"
-msgstr ""
-
-#: src/kshutdown.cpp:519
+#: src/actions/lock.cpp:97
 msgid "Lock Screen"
 msgstr ""
 
-#: src/kshutdown.cpp:663
+#: src/kshutdown.cpp:154
+msgid "Unsupported action: %0"
+msgstr ""
+
+#: src/kshutdown.cpp:169
+msgid "Unknown error"
+msgstr ""
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr ""
+
+#: src/kshutdown.cpp:333
+msgid "At Date/Time"
+msgstr ""
+
+#: src/kshutdown.cpp:362 src/mainwindow.cpp:395
+msgid "No Delay"
+msgstr ""
+
+#: src/kshutdown.cpp:380
+msgid "Time From Now (HH:MM)"
+msgstr ""
+
+#: src/kshutdown.cpp:510 src/main.cpp:110
+msgid "Hibernate Computer"
+msgstr ""
+
+#: src/kshutdown.cpp:513
+msgid "Cannot hibernate computer"
+msgstr ""
+
+#: src/kshutdown.cpp:520
+msgid ""
+"<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
+"systems where the contents of RAM are written to non-volatile storage such "
+"as a hard disk, as a file or on a separate partition, before powering off "
+"the computer.</p><p>When the computer is restarted it reloads the content of "
+"memory and is restored to the state it was in when hibernation was invoked.</"
+"p><p>Hibernating and later restarting is usually faster than closing down, "
+"later starting up, and starting all the programs that were running.</"
+"p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
+msgstr ""
+
+#: src/kshutdown.cpp:532
+msgid "Suspend Computer (Sleep)"
+msgstr ""
+
+#: src/kshutdown.cpp:536
+msgid "Cannot suspend computer"
+msgstr ""
+
+#: src/kshutdown.cpp:540
+msgid "Enter in a low-power state."
+msgstr ""
+
+#: src/kshutdown.cpp:635
 msgid ""
 "Could not logout properly.\n"
 "The session manager cannot be contacted."
 msgstr ""
 
-#: src/kshutdown.cpp:687 src/main.cpp:98
+#: src/kshutdown.cpp:659 src/main.cpp:107
 msgid "Logout"
 msgstr ""
 
-#: src/kshutdown.cpp:697 src/main.cpp:95
+#: src/kshutdown.cpp:669 src/main.cpp:104
 msgid "Restart Computer"
 msgstr ""
 
-#: src/kshutdown.cpp:707 src/main.cpp:86 src/main.cpp:89
+#: src/kshutdown.cpp:698 src/main.cpp:95 src/main.cpp:98
 msgid "Turn Off Computer"
 msgstr ""
 
-#: src/main.cpp:69
+#: src/main.cpp:79
 msgid "KShutdown"
 msgstr ""
 
-#: src/main.cpp:71
+#: src/main.cpp:86
 msgid "An advanced shutdown utility"
 msgstr ""
 
-#: src/main.cpp:92
+#: src/main.cpp:101
 msgid "Lock screen"
 msgstr ""
 
-#: src/main.cpp:107
+#: src/main.cpp:113
+msgid "Suspend Computer"
+msgstr ""
+
+#: src/main.cpp:116
 msgid "Extras"
 msgstr ""
 
-#: src/main.cpp:109
+#: src/main.cpp:118
 msgid "Do not show main window on startup"
 msgstr ""
 
-#: src/main.cpp:110
-msgid "Theme"
-msgstr ""
-
-#: src/mainwindow.cpp:97
+#: src/mainwindow.cpp:103 src/mainwindow.cpp:110
 msgid "Remaining time: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:300
+#: src/mainwindow.cpp:253
 msgid "KShutdown is still active!"
 msgstr ""
 
-#: src/mainwindow.cpp:306
+#: src/mainwindow.cpp:259
 msgid "KShutdown has been minimized"
 msgstr ""
 
-#: src/mainwindow.cpp:424
+#: src/mainwindow.cpp:392
 msgid "&File"
 msgstr ""
 
-#: src/mainwindow.cpp:457
+#: src/mainwindow.cpp:438
 msgid "Quit"
 msgstr ""
 
-#: src/mainwindow.cpp:464
+#: src/mainwindow.cpp:445
 msgid "&Settings"
 msgstr ""
 
-#: src/mainwindow.cpp:470
+#: src/mainwindow.cpp:451
 msgid "Preferences..."
 msgstr ""
 
-#: src/mainwindow.cpp:488
+#: src/mainwindow.cpp:469
 msgid "&Help"
 msgstr ""
 
-#: src/mainwindow.cpp:489 src/mainwindow.cpp:697
+#: src/mainwindow.cpp:472 src/mainwindow.cpp:718
 msgid "About"
 msgstr ""
 
-#: src/mainwindow.cpp:490
+#: src/mainwindow.cpp:473
 msgid "About Qt"
 msgstr ""
 
-#: src/mainwindow.cpp:526
+#: src/mainwindow.cpp:504
 msgid "Select an &action"
 msgstr ""
 
-#: src/mainwindow.cpp:535
+#: src/mainwindow.cpp:513
 msgid "Do not save session"
 msgstr ""
 
-#: src/mainwindow.cpp:543
+#: src/mainwindow.cpp:521
 msgid "S&elect a time"
 msgstr ""
 
-#: src/mainwindow.cpp:645
+#: src/mainwindow.cpp:535
+msgid "Click to activate/cancel the selected action"
+msgstr ""
+
+#: src/mainwindow.cpp:637 src/mainwindow.cpp:680
 msgid "Cancel"
 msgstr ""
 
-#: src/mainwindow.cpp:646
+#: src/mainwindow.cpp:638
 msgid "OK"
 msgstr ""
 
-#: src/mainwindow.cpp:648
-msgid "Click to active/cancel the selected action"
+#: src/mainwindow.cpp:649
+msgid "Please select an Extras command<br>from the menu above."
 msgstr ""
 
-#: src/mainwindow.cpp:655
+#: src/mainwindow.cpp:666
 msgid "Action not available: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:768
+#: src/mainwindow.cpp:676
+msgid "Cancel: %0"
+msgstr ""
+
+#: src/mainwindow.cpp:806
 msgid "Confirm"
 msgstr ""
 
-#: src/mainwindow.cpp:768
+#: src/mainwindow.cpp:806
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
 "Data in all unsaved documents will be lost!"
 msgstr ""
 
-#: src/preferences.cpp:38
+#: src/preferences.cpp:35
 msgid "Preferences"
 msgstr ""
 
-#: src/preferences.cpp:45
+#: src/preferences.cpp:42
 msgid "General"
 msgstr ""
 
-#: src/preferences.cpp:104
+#: src/preferences.cpp:95
 msgid "Confirm Action"
 msgstr ""
 
-#: src/preferences.cpp:108
+#: src/preferences.cpp:99
 msgid "Progress Bar"
 msgstr ""
 
-#: src/preferences.cpp:112
+#: src/preferences.cpp:103
 msgid "Lock Screen Before Hibernate"
 msgstr ""
 
-#: src/preferences.cpp:120
+#: src/preferences.cpp:111
 msgid "Related KDE Settings..."
 msgstr ""
 
-#: src/progressbar.cpp:90
+#: src/progressbar.cpp:84
 msgid "Hide"
 msgstr ""
 
-#: src/progressbar.cpp:92
+#: src/progressbar.cpp:86
 msgid "Position"
 msgstr ""
 
-#: src/progressbar.cpp:99
+#: src/progressbar.cpp:93
 msgid "Top"
 msgstr ""
 
-#: src/progressbar.cpp:104
+#: src/progressbar.cpp:98
 msgid "Bottom"
 msgstr ""
 
-#: src/pureqt.h:49
+#: src/pureqt.h:63
 msgid "Error"
 msgstr ""
 
@@ -285,6 +309,6 @@ msgstr ""
 msgid "Error: %0"
 msgstr ""
 
-#: src/triggers/processmonitor.cpp:228 src/triggers/processmonitor.cpp:231
+#: src/triggers/processmonitor.cpp:229 src/triggers/processmonitor.cpp:232
 msgid "Error, exit code: %0"
 msgstr ""
