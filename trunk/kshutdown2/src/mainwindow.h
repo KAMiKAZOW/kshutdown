@@ -125,7 +125,7 @@ private slots:
 #ifdef KS_PURE_QT
 	void onRestore(QSystemTrayIcon::ActivationReason reason);
 #endif // KS_PURE_QT
-	void onStatusChange();
+	void onStatusChange(const bool updateWidgets);
 	void onTriggerActivated(int index);
 };
 

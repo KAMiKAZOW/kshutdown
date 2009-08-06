@@ -306,7 +306,7 @@ void DateTimeTriggerBase::syncDateTime() {
 	m_dateTime = m_edit->dateTime();
 	m_endDateTime = calcEndTime();
 	m_status = createStatus(now, secsTo);
-	emit statusChanged();
+	emit statusChanged(false);
 }
 
 // private
