@@ -1,6 +1,10 @@
 !include "MUI.nsh"
+
+!define APP_FULL_VERSION "2.0 Beta 7"
+!define APP_FILE_VERSION "2.0beta7"
+
 Name "KShutdown for Windows"
-OutFile "kshutdown-2.0beta7-win32.exe"
+OutFile "kshutdown-${APP_FILE_VERSION}-win32.exe"
 InstallDir "$PROGRAMFILES\KShutdown"
 InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
 
@@ -25,16 +29,18 @@ Section "Install"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\kshutdown.exe" "" "$INSTDIR\kshutdown.exe"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayIcon" "$INSTDIR\kshutdown.ico"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayName" "KShutdown"
+	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayVersion" "${APP_FULL_VERSION}"
+	WriteRegDWORD HKLM "${APP_UNINSTALL_REG}" "NoModify" 1
+	WriteRegDWORD HKLM "${APP_UNINSTALL_REG}" "NoRepair" 1
+	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "Publisher" "Konrad Twardowski"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "UninstallString" '"$INSTDIR\uninstall.exe"'
-	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "http://sourceforge.net/project/showfiles.php?group_id=93707"
+	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLInfoAbout" "http://kshutdown.sourceforge.net/"
+	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "http://kshutdown.sourceforge.net/download.html"
 	
 	File src\images\kshutdown.ico
 	File src\release\kshutdown.exe
 	File LICENSE
 	File C:\Qt\4.5.2\bin\mingwm10.dll
-	#File C:\Qt\4.3.1\bin\QtCore4.dll
-	#File C:\Qt\4.3.1\bin\QtGui4.dll
-	#File C:\Qt\4.3.1\bin\QtXml4.dll
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
@@ -49,9 +55,6 @@ Section "Uninstall"
 	Delete "$INSTDIR\kshutdown.ico"
 	Delete "$INSTDIR\LICENSE"
 	Delete "$INSTDIR\mingwm10.dll"
-	#Delete "$INSTDIR\QtCore4.dll"
-	#Delete "$INSTDIR\QtGui4.dll"
-	#Delete "$INSTDIR\QtXml4.dll"
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 
