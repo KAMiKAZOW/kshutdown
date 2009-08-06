@@ -128,7 +128,8 @@ ProgressBar::ProgressBar()
 		0,
 		Qt::FramelessWindowHint |
 		Qt::WindowStaysOnTopHint |
-		Qt::X11BypassWindowManagerHint
+		Qt::X11BypassWindowManagerHint |
+		Qt::Tool
 	),
 	m_complete(0),
 	m_total(0) {

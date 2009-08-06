@@ -16,6 +16,7 @@ Old KShutDown 1.0.x features:
 * Lock screen after login
 * Close CD-ROM before logout
 * Compatible command line options; example: kshutdown -s --init 120
+* System tray icon "special effects"
 
 Extras:
 
