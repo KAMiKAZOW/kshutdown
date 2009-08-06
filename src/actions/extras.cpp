@@ -237,7 +237,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 		m_menuButton->setText(i18n("Select a command..."));
 		//m_status = QString::null;
 	}
-	emit statusChanged();
+	emit statusChanged(true);
 }
 
 // private slots

@@ -297,8 +297,8 @@ MainWindow::MainWindow() :
 	// init actions
 	foreach (Action *action, m_actionList) {
 		connect(
-			action, SIGNAL(statusChanged()),
-			this, SLOT(onStatusChange())
+			action, SIGNAL(statusChanged(const bool)),
+			this, SLOT(onStatusChange(const bool))
 		);
 
 		QString id = action->id();
@@ -319,8 +319,8 @@ MainWindow::MainWindow() :
 			this, SLOT(notify(const QString &, const QString &))
 		);
 		connect(
-			trigger, SIGNAL(statusChanged()),
-			this, SLOT(onStatusChange())
+			trigger, SIGNAL(statusChanged(const bool)),
+			this, SLOT(onStatusChange(const bool))
 		);
 
 		QString id = trigger->id();
@@ -796,7 +796,7 @@ void MainWindow::onFocusChange(QWidget *old, QWidget *now) {
 	// update trigger status info on focus gain
 	if (now && (now == m_currentTriggerWidget)) {
 		U_DEBUG << "MainWindow::onFocusChange()" U_END;
-		onStatusChange();
+		onStatusChange(false);
 	}
 }
 
@@ -845,12 +845,15 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 }
 #endif // KS_PURE_QT
 
-void MainWindow::onStatusChange() {
-	U_DEBUG << "onStatusChange()" U_END;
+void MainWindow::onStatusChange(const bool aUpdateWidgets) {
+	U_DEBUG << "onStatusChange(" << aUpdateWidgets << ")" U_END;
 	
 	m_infoWidget->setText(
 		getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION)
 	);
+	
+	if (aUpdateWidgets)
+		updateWidgets();
 }
 
 void MainWindow::onTriggerActivated(int index) {
@@ -870,6 +873,5 @@ void MainWindow::onTriggerActivated(int index) {
 	
 	m_triggers->setWhatsThis(trigger->whatsThis());
 	
-	onStatusChange();
-	updateWidgets();
+	onStatusChange(true);
 }

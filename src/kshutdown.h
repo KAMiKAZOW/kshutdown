@@ -118,7 +118,7 @@ private:
 private slots:
 	void slotFire();
 signals:
-	void statusChanged();
+	void statusChanged(const bool updateWidgets);
 };
 
 class ConfirmAction: public U_ACTION {
@@ -157,7 +157,7 @@ private:
 	QString m_whatsThis;
 signals:
 	void notify(const QString &id, const QString &text);
-	void statusChanged();
+	void statusChanged(const bool updateWidgets);
 };
 
 class U_EXPORT DateTimeTriggerBase: public Trigger {
