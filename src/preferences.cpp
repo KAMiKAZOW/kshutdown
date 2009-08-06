@@ -108,6 +108,8 @@ QWidget *Preferences::createGeneralWidget() {
 #endif // Q_WS_WIN
 
 #ifdef KS_NATIVE_KDE
+	static_cast<QVBoxLayout *>(w->layout())->addSpacing(10);
+
 	U_PUSH_BUTTON *kdeRelatedSettingsPushButton = new U_PUSH_BUTTON(U_STOCK_ICON("start-here-kde"), i18n("Related KDE Settings..."));
 	w->layout()->addWidget(kdeRelatedSettingsPushButton);
 	connect(kdeRelatedSettingsPushButton, SIGNAL(clicked()), SLOT(onKDERelatedSettings()));
