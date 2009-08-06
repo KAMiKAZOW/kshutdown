@@ -448,7 +448,7 @@ void MainWindow::initMenuBar() {
 	settingsMenu->addSeparator();
 	settingsMenu->addAction(KStandardAction::preferences(this, SLOT(onPreferences()), this));
 #else
-	settingsMenu->addAction(i18n("Preferences..."), this, SLOT(onPreferences()));
+	settingsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()));
 #endif // KS_NATIVE_KDE
 	menuBar->addMenu(settingsMenu);
 

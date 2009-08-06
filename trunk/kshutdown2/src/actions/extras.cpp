@@ -100,7 +100,7 @@ void Extras::writeConfig(const QString &group, Config *config) {
 // private
 
 Extras::Extras() :
-	Action(i18n("Extras..."), "rating", "extras"),
+	Action(i18n("Extras"), "rating", "extras"),
 	m_menu(0) {
 	
 	setMenu(createMenu());
@@ -276,7 +276,7 @@ void Extras::updateMenu() {
 	if (!m_menu->isEmpty())
 		m_menu->addSeparator();
 
-	U_ACTION *modifyAction = new U_ACTION(i18n("Add/Remove Commands..."), this);
+	U_ACTION *modifyAction = new U_ACTION(i18n("Add or Remove Commands"), this);
 	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
 	m_menu->addAction(modifyAction);
 #endif // KS_NATIVE_KDE
