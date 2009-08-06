@@ -113,7 +113,8 @@ bool Utils::isKDEFullSession() {
 bool Utils::isKDE_3() {
 	return
 		isKDEFullSession() &&
-		(qstrcmp(::getenv("DESKTOP_SESSION"), "kde") == 0);
+		(qstrcmp(::getenv("DESKTOP_SESSION"), "kde") == 0) &&
+		(qstrcmp(::getenv("KDE_SESSION_VERSION"), "4") < 0);
 }
 
 bool Utils::isKDE_4() {
@@ -121,7 +122,7 @@ bool Utils::isKDE_4() {
 		isKDEFullSession() &&
 		(
 			(qstrcmp(::getenv("DESKTOP_SESSION"), "kde4") == 0) ||
-			(qstrcmp(::getenv("KDE_SESSION_VERSION"), "4") == 0)
+			(qstrcmp(::getenv("KDE_SESSION_VERSION"), "4") >= 0)
 		);
 }
 
