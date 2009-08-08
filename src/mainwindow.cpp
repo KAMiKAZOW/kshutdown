@@ -72,6 +72,16 @@ bool MainWindow::checkCommandLine() {
 		}
 	}
 	if (actionToActivate) {
+#ifdef KS_NATIVE_KDE
+		if (actionToActivate == Extras::self()) {
+			// NOTE: Sync. with extras.cpp (constructor)
+			QString command = Utils::getOption("extra");
+			if (command.isEmpty())
+				command = Utils::getOption("e");
+			Extras::self()->setCommand(command);
+		}
+#endif // KS_NATIVE_KDE
+
 		actionToActivate->activate(false);
 		
 		return true;

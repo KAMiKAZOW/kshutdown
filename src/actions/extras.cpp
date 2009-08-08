@@ -40,7 +40,6 @@ QWidget *Extras::getWidget() { return m_menuButton; }
 
 bool Extras::onAction() {
 #ifdef KS_NATIVE_KDE
-//!!!command line
 	QFileInfo fileInfo(m_command);
 	if (KDesktopFile::isDesktopFile(fileInfo.filePath())) {
 		KDesktopFile desktopFile(m_command);
@@ -75,7 +74,12 @@ bool Extras::onAction() {
 
 void Extras::readConfig(const QString &group, Config *config) {
 	config->beginGroup(group);
-	m_command = config->read("Command", "").toString();
+	setCommand(config->read("Command", "").toString());
+	config->endGroup();
+}
+
+void Extras::setCommand(const QString &command) {
+	m_command = command;
 	if (m_command.isEmpty()) {
 		setCommandAction(0);
 	}
@@ -88,7 +92,6 @@ void Extras::readConfig(const QString &group, Config *config) {
 			setCommandAction(0);
 		}
 	}
-	config->endGroup();
 }
 
 void Extras::writeConfig(const QString &group, Config *config) {
@@ -110,7 +113,8 @@ Extras::Extras() :
 	
 	//setCommandAction(0);
 
-	addCommandLineArg("e", "extra");//!!!arg value
+	// NOTE: Sync. with mainwindow.cpp (MainWindow::checkCommandLine())
+	addCommandLineArg("e", "extra");
 }
 
 CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo) {
