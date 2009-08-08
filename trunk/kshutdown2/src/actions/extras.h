@@ -39,6 +39,7 @@ public:
 
 		return m_instance;
 	}
+	void setCommand(const QString &command);
 	virtual void writeConfig(const QString &group, Config *config);
 private:
 	Q_DISABLE_COPY(Extras)
