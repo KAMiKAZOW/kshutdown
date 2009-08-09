@@ -40,6 +40,9 @@
 class QDateTimeEdit;
 
 namespace KShutdown {
+	
+const QString DATE_TIME_FORMAT = "MMM d dddd hh:mm";
+const QString TIME_FORMAT = "hh:mm";
 
 class U_EXPORT Base {
 public:

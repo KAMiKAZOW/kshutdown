@@ -315,13 +315,27 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 	secsTo = now.secsTo(m_endDateTime);
 	if (secsTo > 0) {
 		const int DAY = 86400;
-		if (secsTo < DAY)
-			return QTime().addSecs(secsTo).toString(Qt::ISODate);
-			
-		return "24+";
+		
+		QString result;
+		if (secsTo < DAY) {
+			result = "+" + QTime().addSecs(secsTo).toString(TIME_FORMAT + ":ss");
+		}
+		else {
+			result += "24:00+";
+		}
+		
+		result += " (";
+// TODO: do not bold effective time
+		result += m_endDateTime.toString(DATE_TIME_FORMAT);		
+		result += ")";
+		
+		return result;
 	}
-	else {
+	else if (secsTo == 0) {
 		return QString::null;
+	}
+	else /* if (secsTo < 0) */ {
+		return i18n("Invalid date/time");
 	}
 }
 
@@ -341,7 +355,7 @@ QWidget *DateTimeTrigger::getWidget() {
 	// Fix for BUG #2444169 - remeber the previous shutdown settings
 	m_edit->setDateTime(QDateTime(QDate::currentDate(), m_dateTime.time()));
 	
-	m_edit->setDisplayFormat("MMM d dddd hh:mm");
+	m_edit->setDisplayFormat(DATE_TIME_FORMAT);
 	m_edit->setMinimumDate(QDate::currentDate());
 	//m_edit->setMinimumDateTime(QDateTime::currentDateTime());
 
@@ -383,7 +397,7 @@ TimeFromNowTrigger::TimeFromNowTrigger() :
 QWidget *TimeFromNowTrigger::getWidget() {
 	DateTimeTriggerBase::getWidget();
 
-	m_edit->setDisplayFormat("hh:mm");
+	m_edit->setDisplayFormat(TIME_FORMAT);
 	m_edit->setTime(m_dateTime.time());
 
 	return m_edit;
