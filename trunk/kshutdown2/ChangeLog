@@ -1,7 +1,48 @@
-// svn log -r 376:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 426:HEAD|xsel -i -b && kwrite ChangeLog
 
-2009/05/!!!  2.0 Beta 7
+2009/08/09  2.0 Beta 7
 
+* NEW: Added "Cancel" action (see File and System Tray menu)
+* Updated German translation (thanks to Markus)
+* Updated Norwegian translation
+* Updated Polish translation
+* Display the "end" date/time in main window, tool tips, and notifications
+* Action confirmation is now disabled by default
+* EXPERIMENTAL: Added contextual help for "Hibernate" and "Suspend" actions
+  (press Shift+F1 or select Help|What's This?)
+* KDE: Fixed icon for the "Restart Computer" action
+* KDE: Fixed "e" and "extra" command line options
+* Removed "Theme" support (use QSS instead; see -stylesheet parameter
+  <http://doc.trolltech.com/latest/stylesheet.html>)
+* Misc. User Interface improvements
+
+"Extras" Action (KDE4):
+
+* Use Dolphin instead of Konqueror as the menu editor
+
+"When Selected Application Exit" Trigger (KDE4):
+
+* Show icons for the current user only (much faster)
+* Show pid/user name in window title and system tray tool tip
+
+Version for Windows:
+
+* Updated Qt libs (v4.5.2)
+* Show "No Delay" warning message in the "File" menu
+
+Source:
+
+* Improved CMakeLists.txt for the "po" directory (PATCH #2784970)
+* EXPERIMENTAL: Use GTK+ Style on GNOME (Qt4 build only)
+* Removed unused APIs
+* LockAction moved to actions/lock.*
+* Code clean up
+* Fixed Win32 build
+* Changed "include guard" name to avoid collisions
+* Added "InfoWidget" class
+* Renamed enums to avoid collision with other #defs
+* Fixed small memory leaks
+* Added Q_DISABLE_COPY and "explicit" keyword
 
 
 2009/04/21  2.0 Beta 6
