@@ -1,7 +1,7 @@
 !include "MUI.nsh"
 
-!define APP_FULL_VERSION "2.0 Beta 7"
-!define APP_FILE_VERSION "2.0beta7"
+!define APP_FULL_VERSION "2.0 Beta 8"
+!define APP_FILE_VERSION "2.0beta8"
 
 Name "KShutdown for Windows"
 OutFile "kshutdown-${APP_FILE_VERSION}-win32.exe"
