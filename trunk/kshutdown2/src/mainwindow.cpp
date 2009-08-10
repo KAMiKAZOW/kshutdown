@@ -858,12 +858,18 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 	U_DEBUG << "onStatusChange(" << aUpdateWidgets << ")" U_END;
 	
-	m_infoWidget->setText(
-		getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION)
-	);
+	QString displayStatus = getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION);
 	
-	if (aUpdateWidgets)
+	if (aUpdateWidgets) {
 		updateWidgets();
+		
+		// do not override status set in "updateWidgets()"
+		if (!displayStatus.isEmpty() && !m_infoWidget->isVisible())
+			m_infoWidget->setText(displayStatus);
+	}
+	else {
+		m_infoWidget->setText(displayStatus);
+	}
 }
 
 void MainWindow::onTriggerActivated(int index) {

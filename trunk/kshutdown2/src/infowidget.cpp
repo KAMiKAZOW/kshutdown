@@ -35,6 +35,7 @@ InfoWidget::InfoWidget(QWidget *parent) :
 	setFrameStyle(Panel | Plain);
 	setLineWidth(1);
 	setObjectName("info-widget");
+	setVisible(false);
 
 	m_icon = new QLabel();
 	m_text = new QLabel();
