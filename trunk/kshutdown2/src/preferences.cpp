@@ -66,6 +66,8 @@ Preferences::~Preferences() {
 void Preferences::apply() {
 	Config::setConfirmAction(m_confirmAction->isChecked());
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
+	
+// FIXME: show/hide/update progress bar on option change
 	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
 
 	Config::user()->sync();
