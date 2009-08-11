@@ -172,6 +172,7 @@ public:
 	virtual QWidget *getWidget();
 	virtual void readConfig(const QString &group, Config *config);
 	virtual void writeConfig(const QString &group, Config *config);
+	void setDateTime(const QDateTime &dateTime);
 	virtual void setState(const State state);
 protected:
 	QDateTime m_dateTime;

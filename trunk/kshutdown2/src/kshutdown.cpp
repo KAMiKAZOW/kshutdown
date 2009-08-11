@@ -285,6 +285,11 @@ void DateTimeTriggerBase::writeConfig(const QString &group, Config *config) {
 	config->endGroup();
 }
 
+void DateTimeTriggerBase::setDateTime(const QDateTime &dateTime) {
+	m_dateTime = dateTime;
+	m_edit->setDateTime(dateTime);
+}
+
 void DateTimeTriggerBase::setState(const State state) {
 	if (state == StartState) {
 		m_endDateTime = calcEndTime();
