@@ -30,7 +30,6 @@ Misc.:
   and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
 * Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
-* Command line support, execute shell command
 * DBUS
 * Plasmoid
 * KDE Kiosk
@@ -47,7 +46,6 @@ Misc.:
 * Optionally force application exit
 * Save KDE session if possible
 * Remote reboot or shutdown (via SSH)
-* "Shutdown every day on the same time"
 * Option to hide main window
 * Detect unsaved documents (is there any KDE API to do this?)
 * "Switch User" menu functionality

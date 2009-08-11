@@ -66,6 +66,18 @@ QString Utils::getOption(const QString &name) {
 #endif // KS_NATIVE_KDE
 }
 
+QString Utils::getTimeOption() {
+#ifdef KS_NATIVE_KDE
+	if (m_args->count())
+		return m_args->arg(0);
+	
+	return QString::null;
+#else
+	U_DEBUG << m_args.size() U_END;//!!!
+	return QString::null;
+#endif // KS_NATIVE_KDE
+}
+
 QString Utils::getUser() {
 	QByteArray LOGNAME = QByteArray(::getenv("LOGNAME"));
 	

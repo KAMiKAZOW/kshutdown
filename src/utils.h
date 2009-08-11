@@ -27,6 +27,7 @@ class KCmdLineArgs;
 class Utils {
 public:
 	static QString getOption(const QString &name);
+	static QString getTimeOption();
 	static QString getUser();
 	static void init();
 	static bool isArg(const QString &name);
@@ -44,6 +45,7 @@ private:
 #else
 	static QStringList m_args;
 #endif // KS_NATIVE_KDE
+	Utils() { }
 };
 
 #endif // KSHUTDOWN_UTILS_H
