@@ -40,6 +40,7 @@ class InfoWidget;
 using namespace KShutdown;
 
 class MainWindow: public U_MAIN_WINDOW {
+	friend class TimeOption;
 	Q_OBJECT
 public:
 	enum DisplayStatus {
