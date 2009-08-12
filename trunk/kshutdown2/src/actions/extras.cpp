@@ -74,7 +74,9 @@ bool Extras::onAction() {
 
 void Extras::readConfig(const QString &group, Config *config) {
 	config->beginGroup(group);
-	setCommand(config->read("Command", "").toString());
+	// do not override command set via "e" command line option
+	if (m_command.isNull())
+		setCommand(config->read("Command", "").toString());
 	config->endGroup();
 }
 
@@ -104,6 +106,7 @@ void Extras::writeConfig(const QString &group, Config *config) {
 
 Extras::Extras() :
 	Action(i18n("Extras"), "rating", "extras"),
+	m_command(QString::null),
 	m_menu(0) {
 	
 	setMenu(createMenu());

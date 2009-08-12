@@ -30,12 +30,51 @@
 	#include "version.h"
 #endif // KS_PURE_QT
 
+#include "commandline.h"
 #include "mainwindow.h"
 #include "utils.h"
 
-int main(int argc, char **argv) {
-	bool isRunning = false;
+class KShutdownApplication: public
+#ifdef KS_NATIVE_KDE
+KUniqueApplication
+#else
+QApplication
+#endif // KS_NATIVE_KDE
+{
+#ifdef KS_NATIVE_KDE
+public:
+	/** http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKUniqueApplication.html */
+	virtual int newInstance() {
+		static bool first = true;
+		int result = commonStartup(first);
+		first = false;
+		
+		return result;
+	}
+#endif // KS_NATIVE_KDE
+private:
+	int commonStartup(const bool first) {
+		if (first)
+			MainWindow::init();
+		
+		if (MainWindow::checkCommandLine()) {
+			quit();
+			
+			return 0;
+		}
+		
+		bool useTimeOption = TimeOption::isValid() && TimeOption::action();
+		
+		MainWindow::self()->maybeShow();
+		
+		if (useTimeOption)
+			TimeOption::setupMainWindow();
+		
+		return 0;
+	}
+};
 
+int main(int argc, char **argv) {
 	qDebug("GDM = %d", Utils::isGDM());
 	qDebug("GNOME = %d", Utils::isGNOME());
 	qDebug("KDE Full Session = %d", Utils::isKDEFullSession());
@@ -49,7 +88,7 @@ int main(int argc, char **argv) {
 
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
-	QApplication a(argc, argv);
+	KShutdownApplication program(argc, argv);
 
 	#ifdef Q_OS_LINUX
 	if (Utils::isGNOME()) {
@@ -63,12 +102,15 @@ int main(int argc, char **argv) {
 	QString lang = QLocale::system().name();
 	QTranslator qt_trans;
 	qt_trans.load("qt_" + lang);
-	a.installTranslator(&qt_trans);
+	program.installTranslator(&qt_trans);
 	QTranslator kshutdown_trans;
-	//kshutdown_trans.load("kshutdown_" + lang, QApplication::applicationDirPath());
 	kshutdown_trans.load("kshutdown_" + lang, ":/i18n");
-	a.installTranslator(&kshutdown_trans);
+	program.installTranslator(&kshutdown_trans);
 	
+	FAIL
+	
+	program.commonStartup(true);
+
 #else
 
 	// Native KDE startup
@@ -113,34 +155,26 @@ int main(int argc, char **argv) {
 	options.add("suspend", ki18n("Suspend Computer"));
 
 	options.add("e");
-	options.add("extra <file>", ki18n("Extras"));
+	options.add("extra <file>", ki18n("Run executable file (example: Desktop shortcut or Shell script)"));
 	
 	options.add("init", ki18n("Do not show main window on startup"));
+	
+	options.add("+[time]", ki18n("Time; Example: 01:30 - absolute time (HH:MM); 10 - number of minutes to wait from now"));//!!!
 	
 	KCmdLineArgs::addCmdLineOptions(options);
 	// BUG: --nofork option does not work like in KShutdown 1.0.x (?)
 	// "KUniqueApplication: Can't setup D-Bus service. Probably already running."
-	KUniqueApplication::addCmdLineOptions();
+	KShutdownApplication::addCmdLineOptions();
 
-	isRunning = !KUniqueApplication::start();
-	KUniqueApplication a;
-
-#endif // KS_PURE_QT
-
-	// Common startup
-	
-	MainWindow::init();
-	
-	if (MainWindow::checkCommandLine())
-		return 0;
-	
-	if (isRunning) {
+	if (!KShutdownApplication::start()) {
 		U_DEBUG << "KShutdown is already running" U_END;
-// FIXME: show and raise main window
+		
 		return 0;
 	}
 	
-	MainWindow::self()->maybeShow();
+	KShutdownApplication program;
 
-	return a.exec();
+#endif // KS_PURE_QT
+
+	return program.exec();
 }

@@ -6,6 +6,7 @@ set(
 	actions/extras.cpp
 	actions/lock.cpp
 	triggers/processmonitor.cpp
+	commandline.cpp
 	config.cpp
 	infowidget.cpp
 	kshutdown.cpp

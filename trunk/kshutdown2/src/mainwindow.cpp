@@ -36,6 +36,7 @@
 #include "actions/extras.h"
 #include "actions/lock.h"
 #include "triggers/processmonitor.h"
+#include "commandline.h"
 #include "infowidget.h"
 #include "mainwindow.h"
 #include "preferences.h"
@@ -63,6 +64,8 @@ MainWindow::~MainWindow() {
 }
 
 bool MainWindow::checkCommandLine() {
+	TimeOption::init();
+	
 	Action *actionToActivate = 0;
 	foreach (Action *action, m_actionList) {
 		if (action->isCommandLineArgSupported()) {
@@ -82,9 +85,24 @@ bool MainWindow::checkCommandLine() {
 		}
 #endif // KS_NATIVE_KDE
 
-		actionToActivate->activate(false);
-		
-		return true;
+		// setup main window and execute action later
+		if (TimeOption::isValid()) {
+			TimeOption::setAction(actionToActivate);
+			
+			return false;
+		}
+		else {
+			if (TimeOption::isError()) {
+				U_ERROR_MESSAGE(0, i18n("Invalid time: %0").arg(TimeOption::value()));
+				
+				return false;
+			}
+			
+			// execute action and quit now
+			actionToActivate->activate(false);
+			
+			return true;
+		}
 	}
 	
 	return false;
