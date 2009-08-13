@@ -58,7 +58,8 @@ private:
 			MainWindow::init();
 		
 		if (MainWindow::checkCommandLine()) {
-			quit();
+			if (first)
+				quit();
 			
 			return 0;
 		}
