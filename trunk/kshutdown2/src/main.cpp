@@ -71,6 +71,9 @@ private:
 		if (useTimeOption)
 			TimeOption::setupMainWindow();
 		
+		if (!first)
+			MainWindow::self()->raise();
+		
 		return 0;
 	}
 };
