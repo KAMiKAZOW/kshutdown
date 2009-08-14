@@ -48,7 +48,7 @@ void TimeOption::init() {
 	}
 	else if (m_option.count(":") == 1) {
 		m_time = QTime::fromString(m_option, KShutdown::TIME_FORMAT);
-		if (m_time.isValid())
+		if (m_time.isValid() && (m_time > QTime::currentTime()))
 			m_absolute = true;
 	}
 	else {
