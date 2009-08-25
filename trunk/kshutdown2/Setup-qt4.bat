@@ -3,7 +3,6 @@ cd src
 
 rem goto skip_portable
 rem portable version
-rem FIXME: omg, no quotes here?
 echo DEFINES += KS_PORTABLE>portable.pri
 qmake -config release
 mingw32-make.exe clean

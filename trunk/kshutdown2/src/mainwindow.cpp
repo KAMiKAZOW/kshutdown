@@ -839,7 +839,6 @@ void MainWindow::onForceClick() {
 void MainWindow::onOKCancel() {
 	U_DEBUG << "MainWindow::onOKCancel()" U_END;
 
-// TODO: confirm "Start"
 	setActive(!m_active);
 }
 

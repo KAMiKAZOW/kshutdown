@@ -66,18 +66,6 @@ bool LockAction::onAction() {
 			return true;
 	}
 	
-	// try "dcop"
-/* TODO: KDE 3 support
-	if (Utils::isKDE_3()) {
-		args.clear();
-		args << "kdesktop";
-		args << "KScreensaverIface";
-		args << "lock";
-		if (launch("dcop", args))
-			return true;
-	}
-*/
-	
 	// try "xscreensaver-command" command
 	args.clear();
 	args << "-lock";
