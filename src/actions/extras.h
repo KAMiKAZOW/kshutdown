@@ -54,6 +54,7 @@ private:
 	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text);
 	void setCommandAction(const CommandAction *command);
 private slots:
+	void showHelp();
 	void slotModify();
 	void updateMenu();
 };

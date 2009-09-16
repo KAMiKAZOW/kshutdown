@@ -18,11 +18,13 @@
 #include "../pureqt.h"
 
 #ifdef KS_NATIVE_KDE
+	#include <QDesktopServices>
 	#include <QDir>
 
 	#include <KDesktopFile>
 	#include <KRun>
 	#include <KService>
+	#include <KStandardAction>
 	#include <KStandardDirs>
 #endif // KS_NATIVE_KDE
 
@@ -249,6 +251,10 @@ void Extras::setCommandAction(const CommandAction *command) {
 
 // private slots
 
+void Extras::showHelp() {
+	QDesktopServices::openUrl(QUrl("http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Extras"));
+}
+
 void Extras::slotModify() {
 #ifdef KS_NATIVE_KDE
 	#define KS_LI(text) "<li>" + (text) + "</li>" +
@@ -284,8 +290,13 @@ void Extras::updateMenu() {
 		m_menu->addSeparator();
 
 	U_ACTION *modifyAction = new U_ACTION(i18n("Add or Remove Commands"), this);
+	modifyAction->setIcon(U_STOCK_ICON("configure"));
 	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
 	m_menu->addAction(modifyAction);
+	
+	U_ACTION *helpAction = KStandardAction::help(this, SLOT(showHelp()), this);
+	helpAction->setShortcut(QKeySequence());
+	m_menu->addAction(helpAction);
 #endif // KS_NATIVE_KDE
 }
 
