@@ -73,7 +73,16 @@ QString Utils::getTimeOption() {
 	
 	return QString::null;
 #else
-	U_DEBUG << m_args.size() U_END;//!!!
+	if (m_args.size() > 2) {
+		QString timeOption = m_args.last();
+		
+		if (!timeOption.isEmpty() && (timeOption.at(0) != '-')) {
+			//U_DEBUG << timeOption U_END;
+			
+			return timeOption;
+		}
+	}
+	
 	return QString::null;
 #endif // KS_NATIVE_KDE
 }

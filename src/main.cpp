@@ -41,19 +41,25 @@ KUniqueApplication
 QApplication
 #endif // KS_NATIVE_KDE
 {
-#ifdef KS_NATIVE_KDE
 public:
+#ifdef KS_PURE_QT
+	KShutdownApplication(int &argc, char **argv)
+		: QApplication(argc, argv) {
+	}
+#endif // KS_PURE_QT
+
+#ifdef KS_NATIVE_KDE
 	/** http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKUniqueApplication.html */
 	virtual int newInstance() {
 		static bool first = true;
-		int result = commonStartup(first);
+		commonStartup(first);
 		first = false;
 		
-		return result;
+		return 0;
 	}
 #endif // KS_NATIVE_KDE
-private:
-	int commonStartup(const bool first) {
+
+	bool commonStartup(const bool first) {
 		if (first)
 			MainWindow::init();
 		
@@ -61,7 +67,7 @@ private:
 			if (first)
 				quit();
 			
-			return 0;
+			return false;
 		}
 		
 		bool useTimeOption = TimeOption::isValid() && TimeOption::action();
@@ -74,7 +80,7 @@ private:
 		if (!first)
 			MainWindow::self()->raise();
 		
-		return 0;
+		return true;
 	}
 };
 
@@ -111,9 +117,8 @@ int main(int argc, char **argv) {
 	kshutdown_trans.load("kshutdown_" + lang, ":/i18n");
 	program.installTranslator(&kshutdown_trans);
 	
-	FAIL
-	
-	program.commonStartup(true);
+	if (!program.commonStartup(true))
+		return 0;
 
 #else
 
@@ -163,7 +168,7 @@ int main(int argc, char **argv) {
 	
 	options.add("init", ki18n("Do not show main window on startup"));
 	
-	options.add("+[time]", ki18n("Time; Example: 01:30 - absolute time (HH:MM); 10 - number of minutes to wait from now"));//!!!
+	options.add("+[time]", ki18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"));
 	
 	KCmdLineArgs::addCmdLineOptions(options);
 	// BUG: --nofork option does not work like in KShutdown 1.0.x (?)

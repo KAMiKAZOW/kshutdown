@@ -252,7 +252,9 @@ void Extras::setCommandAction(const CommandAction *command) {
 // private slots
 
 void Extras::showHelp() {
+#ifdef KS_NATIVE_KDE
 	QDesktopServices::openUrl(QUrl("http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Extras"));
+#endif // KS_NATIVE_KDE
 }
 
 void Extras::slotModify() {
