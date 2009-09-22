@@ -48,7 +48,7 @@ void TimeOption::init() {
 	}
 	else if (m_option.count(":") == 1) {
 		m_time = QTime::fromString(m_option, KShutdown::TIME_FORMAT);
-		if (m_time.isValid() && (m_time > QTime::currentTime()))
+		if (m_time.isValid())
 			m_absolute = true;
 	}
 	else {
@@ -88,10 +88,13 @@ void TimeOption::setupMainWindow() {
 	Trigger *t = mainWindow->getSelectedTrigger();
 	DateTimeTriggerBase *trigger = static_cast<DateTimeTriggerBase *>(t);
 
-	trigger->setDateTime(QDateTime(
-		QDate::currentDate(),
-		m_time
-	));
+	QDate date = QDate::currentDate();
+	
+	// select next day if time is less than current time
+	if (m_absolute && (m_time < QTime::currentTime()))
+		date = date.addDays(1);
+	
+	trigger->setDateTime(QDateTime(date, m_time));
 	
 	mainWindow->setActive(true);
 }
