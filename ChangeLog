@@ -1,6 +1,12 @@
-// svn log -r 426:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 442:HEAD|xsel -i -b && kwrite ChangeLog
 
-2009/08/!!!  2.0 Beta 8
+2009/09/29  2.0 Beta 8
+
+* Command Line: Added support for "time" option
+  (KDE: run "kshutdown --help" for more info)
+* Updated Polish translation
+* Extras: Added help link
+* Misc. bug fixes and improvements
 
 
 2009/08/09  2.0 Beta 7
