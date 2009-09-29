@@ -26,6 +26,8 @@ Extras:
 
 Misc.:
 
+* http://urukrama.wordpress.com/openbox-guide/
+* http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=538873
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
