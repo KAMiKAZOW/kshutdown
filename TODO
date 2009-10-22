@@ -53,6 +53,7 @@ Misc.:
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
   <http://sourceforge.net/forum/forum.php?thread_id=1758589&forum_id=324059>
+  - Related: https://bugs.kde.org/show_bug.cgi?id=198255
 
 Triggers:
 

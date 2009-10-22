@@ -8,13 +8,13 @@ fi
 # make version number
 
 ./tools/make-version.sh
-KS_VERSION=`cat tools/VERSION`
+KS_FILE_VERSION=`sed 1!d tools/VERSION`
 
 # init variables
 
-KS_DIR="kshutdown-$KS_VERSION"
+KS_DIR="kshutdown-$KS_FILE_VERSION"
 KS_DIST_DIR="dist.tmp"
-KS_ZIP="kshutdown-source-$KS_VERSION.zip"
+KS_ZIP="kshutdown-source-$KS_FILE_VERSION.zip"
 
 # clean before copy
 

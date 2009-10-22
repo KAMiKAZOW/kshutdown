@@ -737,7 +737,7 @@ void MainWindow::onQuit() {
 
 #ifdef KS_PURE_QT
 void MainWindow::onAbout() {
-	QString version = KS_VERSION;
+	QString version = KS_FULL_VERSION;
 #ifdef KS_PORTABLE
 	version += " (portable)";
 #endif // KS_PORTABLE
