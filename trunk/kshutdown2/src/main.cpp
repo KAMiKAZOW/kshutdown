@@ -128,7 +128,7 @@ int main(int argc, char **argv) {
 		"kshutdown", // app name - used in config file name etc.
 		"kshutdown", // catalog name
 		ki18n("KShutdown"), // program name
-		KS_VERSION
+		KS_FULL_VERSION
 	);
 	about.setBugAddress(KS_CONTACT);
 	about.setCopyrightStatement(ki18n(KS_COPYRIGHT));
