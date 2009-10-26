@@ -1,5 +1,8 @@
 // svn log -r 442:HEAD|xsel -i -b && kwrite ChangeLog
 
+2009/10/!!!  2.0 Beta 9
+
+
 2009/09/29  2.0 Beta 8
 
 * Command Line: Added support for "time" option
