@@ -5,6 +5,7 @@ set(
 	kshutdown_SRC
 	actions/extras.cpp
 	actions/lock.cpp
+	triggers/idlemonitor.cpp
 	triggers/processmonitor.cpp
 	commandline.cpp
 	config.cpp
@@ -20,6 +21,7 @@ set(
 set(
 	kshutdown_MOC_HEADERS
 	actions/extras.h
+	triggers/idlemonitor.h
 	triggers/processmonitor.h
 	kshutdown.h
 	mainwindow.h

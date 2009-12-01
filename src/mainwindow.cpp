@@ -35,6 +35,7 @@
 
 #include "actions/extras.h"
 #include "actions/lock.h"
+#include "triggers/idlemonitor.h"
 #include "triggers/processmonitor.h"
 #include "commandline.h"
 #include "infowidget.h"
@@ -171,6 +172,7 @@ void MainWindow::init() {
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	addTrigger(new ProcessMonitor());
 #endif // KS_TRIGGER_PROCESS_MONITOR
+	addTrigger(new IdleMonitor());
 }
 
 void MainWindow::maybeShow() {
