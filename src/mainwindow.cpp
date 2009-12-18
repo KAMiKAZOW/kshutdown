@@ -28,6 +28,7 @@
 
 	#include "version.h" // for about()
 #else
+	#include <KIconEffect>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
 	#include <KStandardAction>
@@ -172,7 +173,12 @@ void MainWindow::init() {
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	addTrigger(new ProcessMonitor());
 #endif // KS_TRIGGER_PROCESS_MONITOR
-	addTrigger(new IdleMonitor());
+
+	IdleMonitor *idleMonitor = new IdleMonitor();
+	if (idleMonitor->isSupported())
+		addTrigger(idleMonitor);
+	else
+		delete idleMonitor;
 }
 
 void MainWindow::maybeShow() {
@@ -193,6 +199,20 @@ void MainWindow::setActive(const bool yes) {
 		return;
 
 	m_active = yes;
+	
+#ifdef KS_NATIVE_KDE
+// TODO: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
+	if (m_active) {
+		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
+// FIXME: need preferred tray icon size
+		QImage i = defaultIcon.pixmap(32, 32).toImage();
+		KIconEffect::colorize(i, Qt::yellow, 0.5f);
+		m_systemTray->setIcon(QPixmap::fromImage(i));
+	}
+	else {
+		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
+	}
+#endif // KS_NATIVE_KDE
 
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
@@ -548,7 +568,7 @@ void MainWindow::initWidgets() {
 	m_force->hide();
 #endif // Q_WS_WIN
 
-	m_triggerBox = new QGroupBox(i18n("S&elect a time"));
+	m_triggerBox = new QGroupBox(i18n("S&elect a time/event"));
 	m_triggerBox->setObjectName("trigger-box");
 	m_triggerBox->setLayout(new QVBoxLayout());
 
