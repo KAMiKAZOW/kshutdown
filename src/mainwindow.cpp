@@ -28,6 +28,8 @@
 
 	#include "version.h" // for about()
 #else
+	#include <QPainter>
+
 	#include <KIconEffect>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
@@ -199,6 +201,9 @@ void MainWindow::setActive(const bool yes) {
 		return;
 
 	m_active = yes;
+
+	Action *action = getSelectedAction();
+	Trigger *trigger = getSelectedTrigger();
 	
 #ifdef KS_NATIVE_KDE
 // TODO: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
@@ -207,15 +212,21 @@ void MainWindow::setActive(const bool yes) {
 // FIXME: need preferred tray icon size
 		QImage i = defaultIcon.pixmap(32, 32).toImage();
 		KIconEffect::colorize(i, Qt::yellow, 0.5f);
+		
+		// show icons of the active action/trigger
+		QPainter *p = new QPainter(&i);
+		QPixmap actionOverlay = action->icon().pixmap(16, 16);
+		p->drawPixmap(0, 0, actionOverlay);
+		QPixmap triggerOverlay = trigger->icon().pixmap(16, 16);
+		p->drawPixmap(0, 16, triggerOverlay);
+		delete p;
+		
 		m_systemTray->setIcon(QPixmap::fromImage(i));
 	}
 	else {
 		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
 	}
 #endif // KS_NATIVE_KDE
-
-	Action *action = getSelectedAction();
-	Trigger *trigger = getSelectedTrigger();
 
 	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
 	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
