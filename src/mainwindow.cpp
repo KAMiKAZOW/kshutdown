@@ -215,10 +215,13 @@ void MainWindow::setActive(const bool yes) {
 		
 		// show icons of the active action/trigger
 		QPainter *p = new QPainter(&i);
+		p->setOpacity(0.8);
+		// left/bottom
 		QPixmap actionOverlay = action->icon().pixmap(16, 16);
-		p->drawPixmap(0, 0, actionOverlay);
+		p->drawPixmap(0, 16, actionOverlay);
+		// right/bottom
 		QPixmap triggerOverlay = trigger->icon().pixmap(16, 16);
-		p->drawPixmap(0, 16, triggerOverlay);
+		p->drawPixmap(16, 16, triggerOverlay);
 		delete p;
 		
 		m_systemTray->setIcon(QPixmap::fromImage(i));
