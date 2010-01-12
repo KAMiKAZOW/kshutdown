@@ -87,6 +87,10 @@ public:
 int main(int argc, char **argv) {
 	qDebug("GDM = %d", Utils::isGDM());
 	qDebug("GNOME = %d", Utils::isGNOME());
+	if (Utils::isGDM() || Utils::isGNOME()) {
+		qWarning("WARNING: GNOME desktop and/or GDM (login manager) are not supported yet.");
+		qWarning("         Some functions may be unavailable.");
+	}
 	qDebug("KDE Full Session = %d", Utils::isKDEFullSession());
 	qDebug("KDE 3 = %d", Utils::isKDE_3());
 	qDebug("KDE 4 = %d", Utils::isKDE_4());
