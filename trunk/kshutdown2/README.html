@@ -3,6 +3,31 @@
 <head>
 	<title>KShutdown - README</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+	body {
+		font-family: sans-serif;
+		margin: 5%;
+		padding: 5%;
+	}
+	
+	code, pre {
+		background-color: #eeeeee;
+		font-size: larger;
+		padding: 2px;
+	}
+	
+	h2 {
+		margin-top: 2em;
+	}
+	
+	h4 {
+		color: #990000;
+	}
+	
+	p.footer {
+		font-size: smaller;
+	}
+	</style>
 </head>
 <body>
 
@@ -20,14 +45,13 @@ may be not fully compatible with the older versions (0.x-1.0.x).</p>
 
 <h3>Minimal Requirements</h3>
 <ol>
-	<li>KDE 4.1+ and Qt 4.4+</li>
-	<li>GNU/Linux and X11</li>
-	<li>Gettext Utilities</li>
+	<li>KDE 4.3+, KDM (KDE Display Manager)</li>
+	<li>Qt 4.5+</li>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
 <ol>
-	<li>Additional requirements: installed <code>"kdelibs-dev"</code> package and CMake 2.4</li>
+	<li>Additional requirements: installed <code>"kdelibs-dev"</code> package, CMake 2.4, and Gettext Utilities</li>
 	<li>To compile and install KShutdown run: <code>./Setup-kde4.sh</code></li>
 	<li>To change the installation directory (prefix) run: <code>./Setup-kde4.sh "/your/prefix/dir"</code></li>
 </ol>
@@ -42,7 +66,11 @@ ERROR: cmake/modules/FindKDE4Internal.cmake not found in
 ...;/usr/lib/kde4/share/kde4/apps
 </pre>
 </p>
-<p>Install <code>"kdelibs-dev"</code> package.</p>
+<p>Install "kdelibs-dev" (sometimes called kdelibs5-dev) and "kdebase-workspace-dev" packages for your KDE version.</p>
+
+<h4>CMake Error at (...) Phonon library or includes NOT found!</h4>
+<p>This may happed after Ubuntu upgrade
+even if required Phonon files are already installed. [<a href="http://osdir.com/ml/digikam-users/2009-11/msg00024.html">Solution</a>]</p>
 
 <h4>"pushd: not found" error</h4>
 <p>
@@ -69,8 +97,7 @@ To display default prefix for KDE 4 applications, run <code>kde4-config --prefix
 
 <h3>Minimal Requirements</h3>
 <ol>
-	<li>Qt 4.4+ (KDE libraries are not required)</li>
-	<li>GNU/Linux and X11</li>
+	<li>Qt 4.5+ (KDE libraries are not required)</li>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
@@ -81,9 +108,9 @@ To display default prefix for KDE 4 applications, run <code>kde4-config --prefix
 
 <h2>Qt 4/Windows</h2>
 
-<h3>Minimal Requirements</h3>
+<h3>Minimal Requirements (for compilation)</h3>
 <ol>
-	<li><a href="http://trolltech.com/developer/downloads/qt/windows">Qt/Windows Open Source Edition</a> 4.4+ (<b>static</b> library)</li>
+	<li><a href="http://trolltech.com/developer/downloads/qt/windows">Qt/Windows Open Source Edition</a> 4.5+ (<b>static</b> library)</li>
 	<li><a href="http://www.mingw.org/">MinGW</a></li>
 	<li><a href="http://nsis.sourceforge.net/">Nullsoft Scriptable Install System</a> (NSIS)</li>
 	<li>Windows XP or compatible (including <a href="http://www.winehq.org/">Wine</a>)</li>
@@ -98,6 +125,8 @@ To display default prefix for KDE 4 applications, run <code>kde4-config --prefix
 <h2><a href="http://kshutdown.sourceforge.net/contact.html">Contact</a></h2>
 
 <h2><a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)</h2>
+
+<p class="footer">&copy; Konrad Twardowski</p>
 
 </body>
 </html>
