@@ -87,8 +87,9 @@ public:
 int main(int argc, char **argv) {
 	qDebug("GDM = %d", Utils::isGDM());
 	qDebug("GNOME = %d", Utils::isGNOME());
-	if (Utils::isGDM() || Utils::isGNOME()) {
-		qWarning("WARNING: GNOME desktop and/or GDM (login manager) are not supported yet.");
+	qDebug("Xfce = %d", Utils::isXfce());
+	if (Utils::isGDM() || Utils::isGNOME() || Utils::isXfce()) {
+		qWarning("WARNING: GNOME/Xfce desktop and/or GDM (login manager) are not supported yet.");
 		qWarning("         Some functions may be unavailable.");
 	}
 	qDebug("KDE Full Session = %d", Utils::isKDEFullSession());
@@ -105,7 +106,7 @@ int main(int argc, char **argv) {
 	KShutdownApplication program(argc, argv);
 
 	#ifdef Q_OS_LINUX
-	if (Utils::isGNOME()) {
+	if (Utils::isGNOME() || Utils::isXfce()) {
 		QStyle *gtkStyle = QStyleFactory::create("gtk+");
 		if (gtkStyle)
 			QApplication::setStyle(gtkStyle);
