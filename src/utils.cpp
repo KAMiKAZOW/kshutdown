@@ -151,6 +151,10 @@ bool Utils::isKDM() {
 	return ::getenv("XDM_MANAGED");
 }
 
+bool Utils::isXfce() {
+	return qstrcmp(::getenv("DESKTOP_SESSION"), "xfce") == 0;
+}
+
 void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
 	QFont newFont(widget->font());
 	if (bold)

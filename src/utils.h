@@ -37,6 +37,7 @@ public:
 	static bool isKDE_3();
 	static bool isKDE_4();
 	static bool isKDM();
+	static bool isXfce();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
 	static void shutDown();
 private:
