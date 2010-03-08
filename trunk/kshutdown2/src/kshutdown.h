@@ -179,6 +179,7 @@ protected:
 	QDateTime m_endDateTime;
 	QDateTimeEdit *m_edit;
 	virtual QDateTime calcEndTime() = 0;
+	virtual void updateStatus();
 private slots:
 	void syncDateTime();
 private:
