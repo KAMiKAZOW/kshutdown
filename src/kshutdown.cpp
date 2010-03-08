@@ -302,15 +302,21 @@ void DateTimeTriggerBase::setState(const State state) {
 	}
 }
 
-// private slots
+// protected
 
-void DateTimeTriggerBase::syncDateTime() {
+void DateTimeTriggerBase::updateStatus() {
 	QDateTime now = QDateTime::currentDateTime();
 	int secsTo;
 
 	m_dateTime = m_edit->dateTime();
 	m_endDateTime = calcEndTime();
 	m_status = createStatus(now, secsTo);
+}
+
+// private slots
+
+void DateTimeTriggerBase::syncDateTime() {
+	updateStatus();
 	emit statusChanged(false);
 }
 
@@ -363,6 +369,7 @@ QWidget *DateTimeTrigger::getWidget() {
 	m_edit->setDisplayFormat(DATE_TIME_FORMAT);
 	m_edit->setMinimumDate(QDate::currentDate());
 	//m_edit->setMinimumDateTime(QDateTime::currentDateTime());
+	m_edit->setToolTip(i18n("Enter date and time"));
 
 	return m_edit;
 }
@@ -404,6 +411,7 @@ QWidget *TimeFromNowTrigger::getWidget() {
 
 	m_edit->setDisplayFormat(TIME_FORMAT);
 	m_edit->setTime(m_dateTime.time());
+	m_edit->setToolTip(i18n("Enter delay in \"HH:MM\" format (Hour:Minute)"));
 
 	return m_edit;
 }
@@ -657,6 +665,9 @@ bool StandardAction::onAction() {
 
 		return false;
 	#else
+	
+		// GNOME
+	
 		if (Utils::isGNOME()) {
 			QStringList args;
 			args << "--kill";
@@ -664,7 +675,36 @@ bool StandardAction::onAction() {
 			if (launch("gnome-session-save", args))
 				return true;
 		}
-	
+		
+		// Xfce
+		
+		else if (Utils::isXfce()) {
+			switch (m_type) {
+				case U_SHUTDOWN_TYPE_LOGOUT: {
+					QStringList args;
+					args << "--logout";
+					if (launch("xfce4-session-logout", args))
+						return true;
+				} break;
+				case U_SHUTDOWN_TYPE_REBOOT: {
+					QStringList args;
+					args << "--reboot";
+					if (launch("xfce4-session-logout", args))
+						return true;
+				} break;
+				case U_SHUTDOWN_TYPE_HALT: {
+					QStringList args;
+					args << "--halt";
+					if (launch("xfce4-session-logout", args))
+						return true;
+				} break;
+				default:
+					U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
+
+					return false; // do nothing
+			}
+		}
+
 		return unsupportedAction();
 	#endif // KS_NATIVE_KDE
 #endif // Q_WS_WIN
