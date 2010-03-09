@@ -31,6 +31,7 @@ public:
 	static QString getUser();
 	static void init();
 	static bool isArg(const QString &name);
+	static bool isHelpArg();
 	static bool isGDM();
 	static bool isGNOME();
 	static bool isKDEFullSession();

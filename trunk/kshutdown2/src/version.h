@@ -2,7 +2,7 @@
 #ifndef KSHUTDOWN_VERSION_H
 #define KSHUTDOWN_VERSION_H
 
-#define KS_BUILD "20091021"
+#define KS_BUILD "20100309"
 #define KS_FILE_VERSION "2.0beta9"
 #define KS_FULL_VERSION "2.0 Beta 9"
 
