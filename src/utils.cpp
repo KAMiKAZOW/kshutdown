@@ -117,6 +117,14 @@ bool Utils::isArg(const QString &name) {
 #endif // KS_NATIVE_KDE
 }
 
+bool Utils::isHelpArg() {
+#ifdef KS_NATIVE_KDE
+	return false; // "--help" argument handled by KDE
+#else
+	return (m_args.contains("/?") || isArg("help"));
+#endif // KS_NATIVE_KDE
+}
+
 bool Utils::isGDM() {
 	return ::getenv("GDMSESSION");
 }

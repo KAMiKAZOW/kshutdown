@@ -68,6 +68,54 @@ MainWindow::~MainWindow() {
 }
 
 bool MainWindow::checkCommandLine() {
+#ifdef KS_PURE_QT
+	if (Utils::isHelpArg()) {
+		QString table = "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\">\n";
+		foreach (Action *action, m_actionList) {
+			table += "<tr>";
+
+			// args
+			
+			table += "<td><code>";
+			QString argsCell = "";
+			foreach (QString arg, action->getCommandLineArgs()) {
+				if (!argsCell.isEmpty())
+					argsCell += "<br>";
+				argsCell += ((arg.length() == 1) ? "-" : "--");
+				argsCell += arg;
+			}
+			table += argsCell;
+			table += "</code></td>";
+			
+			// name
+
+			table += "<td>";
+			table += action->originalText();
+			table += "</td>";
+
+			table += "</tr>\n";
+		}
+		
+		// NOTE: sync. description with main.cpp/main
+		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
+		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" + i18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now") + "</td></tr>\n";
+		
+		table += "</table>";
+		
+		//U_DEBUG << table U_END;
+
+		QMessageBox::information(
+			0,
+			i18n("Command Line Options"),
+			"<qt>" +
+			table +
+			"</qt>"
+		);
+
+		return false;
+	}
+#endif // KS_PURE_QT
+	
 	TimeOption::init();
 	
 	Action *actionToActivate = 0;
