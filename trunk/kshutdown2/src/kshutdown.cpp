@@ -650,6 +650,46 @@ bool StandardAction::onAction() {
 
 	return true;
 #else
+	
+	// GNOME
+
+	if (Utils::isGNOME()) {
+		QStringList args;
+		args << "--kill";
+		args << "--silent";
+		if (launch("gnome-session-save", args))
+			return true;
+	}
+	
+	// Xfce
+	
+	else if (Utils::isXfce()) {
+		switch (m_type) {
+			case U_SHUTDOWN_TYPE_LOGOUT: {
+				QStringList args;
+				args << "--logout";
+				if (launch("xfce4-session-logout", args))
+					return true;
+			} break;
+			case U_SHUTDOWN_TYPE_REBOOT: {
+				QStringList args;
+				args << "--reboot";
+				if (launch("xfce4-session-logout", args))
+					return true;
+			} break;
+			case U_SHUTDOWN_TYPE_HALT: {
+				QStringList args;
+				args << "--halt";
+				if (launch("xfce4-session-logout", args))
+					return true;
+			} break;
+			default:
+				U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
+
+				return false; // do nothing
+		}
+	}
+
 	#ifdef KS_NATIVE_KDE
 		if (KWorkSpace::requestShutDown(
 			KWorkSpace::ShutdownConfirmNo,
@@ -665,46 +705,6 @@ bool StandardAction::onAction() {
 
 		return false;
 	#else
-	
-		// GNOME
-	
-		if (Utils::isGNOME()) {
-			QStringList args;
-			args << "--kill";
-			args << "--silent";
-			if (launch("gnome-session-save", args))
-				return true;
-		}
-		
-		// Xfce
-		
-		else if (Utils::isXfce()) {
-			switch (m_type) {
-				case U_SHUTDOWN_TYPE_LOGOUT: {
-					QStringList args;
-					args << "--logout";
-					if (launch("xfce4-session-logout", args))
-						return true;
-				} break;
-				case U_SHUTDOWN_TYPE_REBOOT: {
-					QStringList args;
-					args << "--reboot";
-					if (launch("xfce4-session-logout", args))
-						return true;
-				} break;
-				case U_SHUTDOWN_TYPE_HALT: {
-					QStringList args;
-					args << "--halt";
-					if (launch("xfce4-session-logout", args))
-						return true;
-				} break;
-				default:
-					U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
-
-					return false; // do nothing
-			}
-		}
-
 		return unsupportedAction();
 	#endif // KS_NATIVE_KDE
 #endif // Q_WS_WIN
