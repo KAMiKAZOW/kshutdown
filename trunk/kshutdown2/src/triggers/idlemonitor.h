@@ -20,14 +20,26 @@
 
 #include "../kshutdown.h"
 
-class IdleMonitor: public KShutdown::Trigger {
+class QDBusInterface;
+
+class IdleMonitor: public KShutdown::DateTimeTriggerBase {
 	Q_OBJECT
 public:
 	IdleMonitor();
+	virtual ~IdleMonitor();
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
+	inline bool isSupported() const { return m_supported; }
+	virtual void setState(const State state);
+protected:
+	virtual QDateTime calcEndTime();
+	virtual void updateStatus();
 private:
 	Q_DISABLE_COPY(IdleMonitor)
+	bool m_supported;
+	QDBusInterface *m_dbus;
+	quint32 m_idleTime;
+	void getSessionIdleTime();
 };
 
 #endif // KSHUTDOWN_IDLEMONITOR_H
