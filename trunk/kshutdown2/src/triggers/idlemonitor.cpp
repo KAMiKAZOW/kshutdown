@@ -15,16 +15,17 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include <QDateTimeEdit>
+
+#include "idlemonitor.h"
+
 #ifdef Q_WS_WIN
-	// !!!
+	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
+	#include <windows.h>
 #else
 	#include <QDBusInterface>
  	#include <QDBusReply>
 #endif // Q_WS_WIN
-
-#include <QDateTimeEdit>
-
-#include "idlemonitor.h"
 
 // public
 
@@ -55,10 +56,12 @@ IdleMonitor::IdleMonitor()
 }
 
 IdleMonitor::~IdleMonitor() {
+#ifdef Q_WS_X11
 	if (m_dbus) {
 		delete m_dbus;
 		m_dbus = 0;
 	}
+#endif // Q_WS_X11
 }
 
 bool IdleMonitor::canActivateAction() {
@@ -90,7 +93,7 @@ QWidget *IdleMonitor::getWidget() {
 	if (!m_edit) {
 		DateTimeTriggerBase::getWidget();
 
-		m_edit->setDisplayFormat(KShutdown::TIME_FORMAT);
+		m_edit->setDisplayFormat(KShutdown::TIME_FORMAT);//!!!minvalue
 		m_edit->setTime(m_dateTime.time());
 		m_edit->setToolTip(i18n("Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"));
 	}
@@ -147,13 +150,14 @@ void IdleMonitor::getSessionIdleTime() {
 #ifdef Q_WS_WIN
 	LASTINPUTINFO lii;
 	lii.cbSize = sizeof(LASTINPUTINFO);
-	BOOL result = ::GetLastInputInfo();
+	BOOL result = ::GetLastInputInfo(&lii);
 	if (result) {
-		qulong64 tickCount = ::GetTickCount();
-		qulong64 lastTick = lii.dwTime;
+		quint64 tickCount = ::GetTickCount();
+		quint64 lastTick = lii.dwTime;
 
 		// HACK: avoid rollback <http://en.wikipedia.org/wiki/GetTickCount#Rollback>
-		m_idleTime = ((tickCount - lastTick) & 0xFFFFFFFF) / 1000;
+		m_idleTime = (tickCount - lastTick) / 1000;//!!!test
+		//U_ERROR_MESSAGE(0, QString::number(m_idleTime));
 	}
 	else {
 		m_idleTime = 0;
