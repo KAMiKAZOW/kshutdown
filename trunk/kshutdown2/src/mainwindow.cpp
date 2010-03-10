@@ -254,7 +254,7 @@ void MainWindow::setActive(const bool yes) {
 	Trigger *trigger = getSelectedTrigger();
 	
 #ifdef KS_NATIVE_KDE
-// TODO: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
+// !!!: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
 	if (m_active) {
 		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
 // FIXME: need preferred tray icon size
@@ -315,7 +315,6 @@ void MainWindow::setActive(const bool yes) {
 // public slots
 
 void MainWindow::notify(const QString &id, const QString &text) {
-#ifdef KS_NATIVE_KDE
 	if (id == "1m") {
 		if (!m_showNotification1M)
 			return;
@@ -328,7 +327,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		
 		m_showNotification5M = false;
 	}
-
+#ifdef KS_NATIVE_KDE
 	KNotification::event(
 		id,
 		text,
@@ -338,8 +337,16 @@ void MainWindow::notify(const QString &id, const QString &text) {
 	);
 #endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
-	Q_UNUSED(id)
-	Q_UNUSED(text)
+	QString noHTML = QString(text);
+	noHTML.replace("<br>", "\n");
+	noHTML.replace(QRegExp("\\<\\w+\\>"), "");
+	noHTML.replace(QRegExp("\\</\\w+\\>"), "");
+	m_systemTray->showMessage(
+		"KShutdown",
+		noHTML,
+		QSystemTrayIcon::Warning,
+		4000
+	);
 #endif // KS_PURE_QT
 }
 
