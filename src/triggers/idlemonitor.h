@@ -20,7 +20,9 @@
 
 #include "../kshutdown.h"
 
+#ifdef Q_WS_X11
 class QDBusInterface;
+#endif // Q_WS_X11
 
 class IdleMonitor: public KShutdown::DateTimeTriggerBase {
 	Q_OBJECT
@@ -37,7 +39,9 @@ protected:
 private:
 	Q_DISABLE_COPY(IdleMonitor)
 	bool m_supported;
+#ifdef Q_WS_X11
 	QDBusInterface *m_dbus;
+#endif // Q_WS_X11
 	quint32 m_idleTime;
 	void getSessionIdleTime();
 };

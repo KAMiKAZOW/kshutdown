@@ -13,6 +13,7 @@ unix {
 
 win32 {
 	LIBS += -lpowrprof
+	QMAKE_LFLAGS = -static-libgcc
 }
 
 # Input
