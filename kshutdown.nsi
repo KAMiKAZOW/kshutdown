@@ -40,7 +40,7 @@ Section "-"
 	File src\images\kshutdown.ico
 	File src\release\kshutdown.exe
 	File LICENSE
-	File C:\Qt\2010.01\bin\mingwm10.dll
+	File C:\Qt\2010.01\mingw\bin\mingwm10.dll
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
