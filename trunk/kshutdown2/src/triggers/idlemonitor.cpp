@@ -51,7 +51,7 @@ IdleMonitor::IdleMonitor()
 	m_supported = m_dbus->isValid();
 #endif // Q_WS_WIN
 
-	setWhatsThis(i18n("Use this trigger to detect user inactivity (no mouse or keyboard input)."));
+	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
 }
 
 IdleMonitor::~IdleMonitor() {
@@ -102,8 +102,6 @@ QWidget *IdleMonitor::getWidget() {
 }
 
 void IdleMonitor::setState(const State state) {
-	Q_UNUSED(state)
-	
 	if (state == StartState) {
 		m_idleTime = 0;
 
@@ -131,6 +129,7 @@ QDateTime IdleMonitor::calcEndTime() {
  * Sets @c null status.
  */
 void IdleMonitor::updateStatus() {
+	m_dateTime = m_edit->dateTime();
 	m_status = QString::null;
 }
 
