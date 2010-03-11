@@ -67,7 +67,7 @@
 	#define U_MENU QMenu
 	#define U_MENU_BAR QMenuBar
 	#define U_PUSH_BUTTON QPushButton
-	#define U_STOCK_ICON(name) QIcon(":/images/" + QString((name)) + ".png")
+	#define U_STOCK_ICON(name) QIcon::fromTheme((name))
 	#define U_SYSTEM_TRAY QSystemTrayIcon
 
 	#define i18n(text) QApplication::translate(0, (text))

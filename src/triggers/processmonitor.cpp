@@ -106,11 +106,11 @@ QWidget *ProcessMonitor::getWidget() {
 		layout->addWidget(m_processes);
 		
 		U_PUSH_BUTTON *refreshButton = new U_PUSH_BUTTON(m_widget);
-#ifdef KS_NATIVE_KDE
+#ifdef Q_WS_X11
 		refreshButton->setIcon(U_STOCK_ICON("view-refresh"));
 #else
 		refreshButton->setText(i18n("Refresh"));
-#endif // KS_NATIVE_KDE
+#endif // Q_WS_X11
 		refreshButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
 		refreshButton->setToolTip(i18n("Refresh the list of processes"));
 		connect(

@@ -406,7 +406,7 @@ MainWindow::MainWindow() :
 #ifdef KS_PURE_QT
 	// HACK: delete this on quit
 	setAttribute(Qt::WA_DeleteOnClose, true);
-	setWindowIcon(U_STOCK_ICON("kshutdown"));
+	setWindowIcon(U_ICON(":/images/kshutdown.png"));
 #endif // KS_PURE_QT
 
 	// NOTE: do not change the "init" order,
@@ -520,6 +520,7 @@ void MainWindow::initMenuBar() {
 	warningActionFont.setBold(true);
 	warningAction->setEnabled(false);
 	warningAction->setFont(warningActionFont);
+	warningAction->setIcon(U_STOCK_ICON("dialog-warning"));
 	warningAction->setText(warningText);
 	fileMenu->addAction(warningAction);
 	fileMenu->addSeparator();
@@ -554,7 +555,8 @@ void MainWindow::initMenuBar() {
 #ifdef KS_NATIVE_KDE
 	fileMenu->addAction(KStandardAction::quit(this, SLOT(onQuit()), this));
 #else
-	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Q"));
+	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Q"))
+		->setIcon(U_STOCK_ICON("application-exit"));
 #endif // KS_NATIVE_KDE
 	menuBar->addMenu(fileMenu);
 	m_systemTray->setContextMenu(fileMenu);
@@ -604,7 +606,15 @@ void MainWindow::initSystemTray() {
 	m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
 #endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
+	#ifdef Q_WS_X11
+	if (Utils::isKDE_4())
+		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
+	else
+		m_systemTray->setIcon(windowIcon());
+	#else
 	m_systemTray->setIcon(windowIcon());
+	#endif // Q_WS_X11
+
 	connect(
 		m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
@@ -665,6 +675,8 @@ void MainWindow::initWidgets() {
 	m_cancelAction = new U_ACTION(this);
 #ifdef KS_NATIVE_KDE
 	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
+#else
+	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));
 #endif // KS_NATIVE_KDE
 	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
 }
@@ -751,11 +763,14 @@ void MainWindow::updateWidgets() {
 		: KStandardGuiItem::ok()
 	);
 #else
-	m_okCancelButton->setText(
-		m_active
-		? i18n("Cancel")
-		: i18n("OK")
-	);
+	if (m_active) {
+		m_okCancelButton->setIcon(U_STOCK_ICON("dialog-cancel"));
+		m_okCancelButton->setText(i18n("Cancel"));
+	}
+	else {
+		m_okCancelButton->setIcon(U_STOCK_ICON("dialog-ok"));
+		m_okCancelButton->setText(i18n("OK"));
+	}
 #endif // KS_NATIVE_KDE
 
 	Action *action = getSelectedAction();
