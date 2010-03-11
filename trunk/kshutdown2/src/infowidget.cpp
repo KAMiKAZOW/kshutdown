@@ -81,9 +81,5 @@ void InfoWidget::setText(const QString &text, const Type type) {
 // private
 
 void InfoWidget::setIcon(const QString &iconName) {
-	#ifdef KS_NATIVE_KDE
 	m_icon->setPixmap(U_STOCK_ICON(iconName).pixmap(24, 24));
-	#else
-	Q_UNUSED(iconName)
-	#endif // KS_NATIVE_KDE
 }
