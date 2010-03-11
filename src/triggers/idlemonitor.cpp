@@ -32,14 +32,13 @@
 IdleMonitor::IdleMonitor()
 	: KShutdown::DateTimeTriggerBase(
 		i18n("On User Inactivity (HH:MM)") + " [Experimental]",
-		"user-away-extended",//!!!user-idle?
+// TODO: better icon - user-idle?
+		"user-away-extended",
 		"idle-monitor"
 	),
 	m_idleTime(0)
 {
-	//!!!m_checkTimeout = 5000;
-	
-	m_checkTimeout = 1000;
+	m_checkTimeout = 5000;
 	
 #ifdef Q_WS_WIN
 	m_supported = true;
@@ -93,7 +92,8 @@ QWidget *IdleMonitor::getWidget() {
 	if (!m_edit) {
 		DateTimeTriggerBase::getWidget();
 
-		m_edit->setDisplayFormat(KShutdown::TIME_FORMAT);//!!!minvalue
+		m_edit->setDisplayFormat(KShutdown::TIME_FORMAT);
+		m_edit->setMinimumTime(QTime(0, 1));
 		m_edit->setTime(m_dateTime.time());
 		m_edit->setToolTip(i18n("Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"));
 	}
