@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 01:53+0200\n"
+"POT-Creation-Date: 2010-03-13 13:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,39 +16,39 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/actions/extras.cpp:49
+#: src/actions/extras.cpp:51
 msgid "Invalid \"Extras\" command"
 msgstr ""
 
-#: src/actions/extras.cpp:58 src/actions/extras.cpp:66
+#: src/actions/extras.cpp:60 src/actions/extras.cpp:68
 msgid "Cannot execute \"Extras\" command"
 msgstr ""
 
-#: src/actions/extras.cpp:108
+#: src/actions/extras.cpp:110
 msgid "Extras"
 msgstr ""
 
-#: src/actions/extras.cpp:244
+#: src/actions/extras.cpp:246
 msgid "Select a command..."
 msgstr ""
 
-#: src/actions/extras.cpp:258
+#: src/actions/extras.cpp:266
 msgid "Use context menu to add/edit/remove actions."
 msgstr ""
 
-#: src/actions/extras.cpp:260
+#: src/actions/extras.cpp:268
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
 msgstr ""
 
-#: src/actions/extras.cpp:261
+#: src/actions/extras.cpp:269
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
 msgstr ""
 
-#: src/actions/extras.cpp:262
+#: src/actions/extras.cpp:270
 msgid "Use <b>Properties</b> to change icon, name, or command"
 msgstr ""
 
-#: src/actions/extras.cpp:286
+#: src/actions/extras.cpp:294
 msgid "Add or Remove Commands"
 msgstr ""
 
@@ -68,31 +68,39 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/kshutdown.cpp:343
+#: src/kshutdown.cpp:349
 msgid "Invalid date/time"
 msgstr ""
 
-#: src/kshutdown.cpp:352
+#: src/kshutdown.cpp:358
 msgid "At Date/Time"
 msgstr ""
 
-#: src/kshutdown.cpp:381 src/mainwindow.cpp:423
+#: src/kshutdown.cpp:372
+msgid "Enter date and time"
+msgstr ""
+
+#: src/kshutdown.cpp:388 src/mainwindow.cpp:514
 msgid "No Delay"
 msgstr ""
 
-#: src/kshutdown.cpp:399
+#: src/kshutdown.cpp:406
 msgid "Time From Now (HH:MM)"
 msgstr ""
 
-#: src/kshutdown.cpp:529 src/main.cpp:156
+#: src/kshutdown.cpp:414
+msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
+msgstr ""
+
+#: src/kshutdown.cpp:537 src/main.cpp:166
 msgid "Hibernate Computer"
 msgstr ""
 
-#: src/kshutdown.cpp:532
+#: src/kshutdown.cpp:540
 msgid "Cannot hibernate computer"
 msgstr ""
 
-#: src/kshutdown.cpp:539
+#: src/kshutdown.cpp:547
 msgid ""
 "<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
 "systems where the contents of RAM are written to non-volatile storage such "
@@ -104,151 +112,159 @@ msgid ""
 "p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 msgstr ""
 
-#: src/kshutdown.cpp:551
+#: src/kshutdown.cpp:559
 msgid "Suspend Computer (Sleep)"
 msgstr ""
 
-#: src/kshutdown.cpp:555
+#: src/kshutdown.cpp:563
 msgid "Cannot suspend computer"
 msgstr ""
 
-#: src/kshutdown.cpp:559
+#: src/kshutdown.cpp:567
 msgid "Enter in a low-power state."
 msgstr ""
 
-#: src/kshutdown.cpp:654
+#: src/kshutdown.cpp:702
 msgid ""
 "Could not logout properly.\n"
 "The session manager cannot be contacted."
 msgstr ""
 
-#: src/kshutdown.cpp:678 src/main.cpp:153
+#: src/kshutdown.cpp:718 src/main.cpp:163
 msgid "Logout"
 msgstr ""
 
-#: src/kshutdown.cpp:688 src/main.cpp:150
+#: src/kshutdown.cpp:728 src/main.cpp:160
 msgid "Restart Computer"
 msgstr ""
 
-#: src/kshutdown.cpp:717 src/main.cpp:141 src/main.cpp:144
+#: src/kshutdown.cpp:757 src/main.cpp:151 src/main.cpp:154
 msgid "Turn Off Computer"
 msgstr ""
 
-#: src/main.cpp:125
+#: src/main.cpp:135
 msgid "KShutdown"
 msgstr ""
 
-#: src/main.cpp:132
+#: src/main.cpp:142
 msgid "An advanced shutdown utility"
 msgstr ""
 
-#: src/main.cpp:147
+#: src/main.cpp:157
 msgid "Lock screen"
 msgstr ""
 
-#: src/main.cpp:159
+#: src/main.cpp:169
 msgid "Suspend Computer"
 msgstr ""
 
-#: src/main.cpp:162
+#: src/main.cpp:172
 msgid "Run executable file (example: Desktop shortcut or Shell script)"
 msgstr ""
 
-#: src/main.cpp:164
+#: src/main.cpp:175 src/mainwindow.cpp:100
 msgid "Do not show main window on startup"
 msgstr ""
 
-#: src/main.cpp:166
+#: src/main.cpp:176 src/mainwindow.cpp:101
 msgid ""
-"Time; Example: 01:30 - absolute time (HH:MM); 10 - number of minutes to wait "
-"from now"
+"Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
+"minutes from now"
 msgstr ""
 
-#: src/mainwindow.cpp:96
+#: src/mainwindow.cpp:101
+msgid "Optional parameter"
+msgstr ""
+
+#: src/mainwindow.cpp:109
+msgid "Command Line Options"
+msgstr ""
+
+#: src/mainwindow.cpp:148
 msgid "Invalid time: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:131 src/mainwindow.cpp:138
+#: src/mainwindow.cpp:183 src/mainwindow.cpp:190
 msgid "Remaining time: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:281
+#: src/mainwindow.cpp:372
 msgid "KShutdown is still active!"
 msgstr ""
 
-#: src/mainwindow.cpp:287
+#: src/mainwindow.cpp:378
 msgid "KShutdown has been minimized"
 msgstr ""
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:511
 msgid "&File"
 msgstr ""
 
-#: src/mainwindow.cpp:466
+#: src/mainwindow.cpp:558
 msgid "Quit"
 msgstr ""
 
-#: src/mainwindow.cpp:473
+#: src/mainwindow.cpp:566
 msgid "&Settings"
 msgstr ""
 
-#: src/mainwindow.cpp:479 src/preferences.cpp:35
+#: src/mainwindow.cpp:572 src/preferences.cpp:35
 msgid "Preferences"
 msgstr ""
 
-#: src/mainwindow.cpp:497
+#: src/mainwindow.cpp:590
 msgid "&Help"
 msgstr ""
 
-#: src/mainwindow.cpp:500 src/mainwindow.cpp:746
+#: src/mainwindow.cpp:593 src/mainwindow.cpp:852
 msgid "About"
 msgstr ""
 
-#: src/mainwindow.cpp:501
+#: src/mainwindow.cpp:594
 msgid "About Qt"
 msgstr ""
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:633
 msgid "Select an &action"
 msgstr ""
 
-#: src/mainwindow.cpp:541
+#: src/mainwindow.cpp:642
 msgid "Do not save session"
 msgstr ""
 
-#: src/mainwindow.cpp:549
-msgid "S&elect a time"
+#: src/mainwindow.cpp:650
+msgid "S&elect a time/event"
 msgstr ""
 
-#: src/mainwindow.cpp:563
+#: src/mainwindow.cpp:664
 msgid "Click to activate/cancel the selected action"
 msgstr ""
 
-#: src/mainwindow.cpp:665 src/mainwindow.cpp:708
+#: src/mainwindow.cpp:768 src/mainwindow.cpp:814
 msgid "Cancel"
 msgstr ""
 
-#: src/mainwindow.cpp:666
+#: src/mainwindow.cpp:772
 msgid "OK"
 msgstr ""
 
-#: src/mainwindow.cpp:677
+#: src/mainwindow.cpp:783
 msgid "Please select an Extras command<br>from the menu above."
 msgstr ""
 
-#: src/mainwindow.cpp:694
+#: src/mainwindow.cpp:800
 msgid "Action not available: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:704
+#: src/mainwindow.cpp:810
 msgid "Cancel: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:834
+#: src/mainwindow.cpp:940
 msgid "Confirm"
 msgstr ""
 
-#: src/mainwindow.cpp:834
+#: src/mainwindow.cpp:940
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -293,6 +309,22 @@ msgstr ""
 
 #: src/pureqt.h:63
 msgid "Error"
+msgstr ""
+
+#: src/triggers/idlemonitor.cpp:34
+msgid "On User Inactivity (HH:MM)"
+msgstr ""
+
+#: src/triggers/idlemonitor.cpp:54
+msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
+msgstr ""
+
+#: src/triggers/idlemonitor.cpp:70
+msgid "Unknown"
+msgstr ""
+
+#: src/triggers/idlemonitor.cpp:98
+msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"
 msgstr ""
 
 #: src/triggers/processmonitor.cpp:74
