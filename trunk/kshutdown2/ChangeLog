@@ -1,6 +1,27 @@
-// svn log -r 442:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 470:HEAD|xsel -i -b && kwrite ChangeLog
 
-2009/10/!!!  2.0 Beta 9
+2010/03/13  2.0 Beta 9
+
+* Updated Brazilian Portuguese translation
+* Updated Serbian translation
+* Updated Polish translation
+* EXPERIMENTAL: Added user "inactivity" detector
+  (see "Select time/event", Win32/KDE4 only)
+* KDE 4: Highlight system tray icon if KShutdown is active
+* Updated README.html file
+
+MS Windows:
+
+* Use Qt 4.6.x library
+* Show command line help for "--help" and "/?" arguments
+* Show notifcation message in system tray icon
+* Updated installer
+
+GNOME/Xfce 4 Support (EXPERIMENTAL):
+
+* Added "Logout" action
+* Show icons from the current Icon Theme
+* Use Gtk+ style by default
 
 
 2009/09/29  2.0 Beta 8
