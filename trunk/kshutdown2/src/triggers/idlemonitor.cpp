@@ -25,6 +25,8 @@
 #else
 	#include <QDBusInterface>
  	#include <QDBusReply>
+ 	
+ 	#include "../utils.h"
 #endif // Q_WS_WIN
 
 // public
@@ -48,7 +50,7 @@ IdleMonitor::IdleMonitor()
 		"/ScreenSaver",
 		"org.freedesktop.ScreenSaver"
 	);
-	m_supported = m_dbus->isValid();
+	m_supported = m_dbus->isValid() && !(Utils::isGNOME() || Utils::isXfce());
 #endif // Q_WS_WIN
 
 	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
