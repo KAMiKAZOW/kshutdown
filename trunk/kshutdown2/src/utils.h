@@ -18,6 +18,7 @@
 #ifndef KSHUTDOWN_UTILS_H
 #define KSHUTDOWN_UTILS_H
 
+#include <QProcessEnvironment>
 #include <QString>
 
 class QWidget;
@@ -35,7 +36,6 @@ public:
 	static bool isGDM();
 	static bool isGNOME();
 	static bool isKDEFullSession();
-	static bool isKDE_3();
 	static bool isKDE_4();
 	static bool isKDM();
 	static bool isXfce();
@@ -47,6 +47,7 @@ private:
 #else
 	static QStringList m_args;
 #endif // KS_NATIVE_KDE
+	static QProcessEnvironment m_env;
 	Utils() { }
 };
 

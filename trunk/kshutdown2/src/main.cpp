@@ -93,7 +93,6 @@ int main(int argc, char **argv) {
 		qWarning("         Some functions may be unavailable.");
 	}
 	qDebug("KDE Full Session = %d", Utils::isKDEFullSession());
-	qDebug("KDE 3 = %d", Utils::isKDE_3());
 	qDebug("KDE 4 = %d", Utils::isKDE_4());
 	qDebug("KDM = %d", Utils::isKDM());
 
