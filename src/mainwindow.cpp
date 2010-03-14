@@ -508,10 +508,10 @@ void MainWindow::initMenuBar() {
 
 	// file menu
 
-	U_MENU *fileMenu = new U_MENU(i18n("&File"), menuBar);
+	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
 
 	// "No Delay" warning
-	QString warningText = i18n("No Delay");
+	QString warningText = i18n("Select Action (no delay)");
 #ifdef KS_NATIVE_KDE
 	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), warningText);
 #else
@@ -523,7 +523,7 @@ void MainWindow::initMenuBar() {
 	warningAction->setIcon(U_STOCK_ICON("dialog-warning"));
 	warningAction->setText(warningText);
 	fileMenu->addAction(warningAction);
-	fileMenu->addSeparator();
+	//fileMenu->addSeparator();
 #endif // KS_NATIVE_KDE
 
 	Action *a;
@@ -551,7 +551,7 @@ void MainWindow::initMenuBar() {
 	}
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_cancelAction);
-	fileMenu->addSeparator();
+	//fileMenu->addSeparator();
 #ifdef KS_NATIVE_KDE
 	fileMenu->addAction(KStandardAction::quit(this, SLOT(onQuit()), this));
 #else
@@ -830,6 +830,7 @@ void MainWindow::writeConfig() {
 
 // public slots
 
+// FIXME: Vista: APPCRASH if launched with "--init" argument
 void MainWindow::onQuit() {
 	U_DEBUG << "MainWindow::onQuit()" U_END;
 
