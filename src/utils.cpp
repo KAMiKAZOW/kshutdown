@@ -17,9 +17,6 @@
 
 #include "pureqt.h"
 
-// http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417301
-#include <cstdlib>
-
 #include <QWidget>
 
 #ifdef KS_NATIVE_KDE
@@ -35,6 +32,7 @@
 #else
 	QStringList Utils::m_args;
 #endif // KS_NATIVE_KDE
+QProcessEnvironment Utils::m_env = QProcessEnvironment::systemEnvironment();
 
 // public
 
@@ -88,15 +86,15 @@ QString Utils::getTimeOption() {
 }
 
 QString Utils::getUser() {
-	QByteArray LOGNAME = QByteArray(::getenv("LOGNAME"));
+	QString LOGNAME = m_env.value("LOGNAME");
 	
-	if (!LOGNAME.isNull())
-		return QString(LOGNAME);
+	if (!LOGNAME.isEmpty())
+		return LOGNAME;
 
-	QByteArray USER = QByteArray(::getenv("USER"));
+	QString USER = m_env.value("USER");
 	
-	if (!USER.isNull())
-		return QString(USER);
+	if (!USER.isEmpty())
+		return USER;
 		
 	return QString::null;
 }
@@ -126,41 +124,34 @@ bool Utils::isHelpArg() {
 }
 
 bool Utils::isGDM() {
-	return ::getenv("GDMSESSION");
+	return m_env.contains("GDMSESSION");
 }
 
 bool Utils::isGNOME() {
 	return
-		::getenv("GNOME_DESKTOP_SESSION_ID") ||
-		(qstrcmp(::getenv("DESKTOP_SESSION"), "gnome") == 0);
+		m_env.contains("GNOME_DESKTOP_SESSION_ID") ||
+		(m_env.value("DESKTOP_SESSION") == "gnome");
 }
 
 bool Utils::isKDEFullSession() {
-	return (qstrcmp(::getenv("KDE_FULL_SESSION"), "true") == 0);
-}
-
-bool Utils::isKDE_3() {
-	return
-		isKDEFullSession() &&
-		(qstrcmp(::getenv("DESKTOP_SESSION"), "kde") == 0) &&
-		(qstrcmp(::getenv("KDE_SESSION_VERSION"), "4") < 0);
+	return m_env.value("KDE_FULL_SESSION") == "true";
 }
 
 bool Utils::isKDE_4() {
 	return
 		isKDEFullSession() &&
 		(
-			(qstrcmp(::getenv("DESKTOP_SESSION"), "kde4") == 0) ||
-			(qstrcmp(::getenv("KDE_SESSION_VERSION"), "4") >= 0)
+			(m_env.value("DESKTOP_SESSION") == "kde4") ||
+			(m_env.value("KDE_SESSION_VERSION").toInt() >= 4)
 		);
 }
 
 bool Utils::isKDM() {
-	return ::getenv("XDM_MANAGED");
+	return m_env.contains("XDM_MANAGED");
 }
 
 bool Utils::isXfce() {
-	return qstrcmp(::getenv("DESKTOP_SESSION"), "xfce") == 0;
+	return m_env.value("DESKTOP_SESSION") == "xfce";
 }
 
 void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
