@@ -6,8 +6,10 @@
 	<style type="text/css">
 	body {
 		font-family: sans-serif;
-		margin: 5%;
-		padding: 5%;
+		margin-left: 5%;
+		margin-right: 5%;
+		padding-left: 5%;
+		padding-right: 5%;
 	}
 	
 	code, pre {
@@ -15,8 +17,9 @@
 		font-size: larger;
 		padding: 2px;
 	}
-	
+
 	h2 {
+		color: #009900;
 		margin-top: 2em;
 	}
 	
@@ -26,6 +29,42 @@
 	
 	p.footer {
 		font-size: smaller;
+	}
+	
+	table {
+		border: 1px solid gray;
+		border-collapse: collapse;
+		width: 100%;
+	}
+	
+	td {
+		padding: 2px;
+	}
+	
+	td.na {
+		color: blue;
+		font-style: italic;
+		text-align: center;
+	}
+	
+	td.ok {
+		color: green;
+		text-align: center;
+	}
+
+	td.wip {
+		color: red;
+		font-weight: bold;
+		text-align: center;
+	}
+	
+	thead {
+		font-weight: bold;
+		text-align: center;
+	}
+	
+	tr.hl {
+		background-color: #f0f0f0;
 	}
 	</style>
 </head>
@@ -38,15 +77,24 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 <a href="http://kshutdown.wiki.sourceforge.net/">Wiki</a> for more info.
 </p>
 
-<p>Note: Configuration and command line options of KShutdown 2.x
-may be not fully compatible with the older versions (0.x-1.0.x).</p>
+<h2>Table of Contents</h2>
+<ul>
+	<li><a href="#kde4linux">KDE 4 Build @ Linux</a></li>
+	<li><a href="#qt4linux">Qt 4 Build @ Linux</a></li>
+	<li><a href="#qt4windows">Qt 4 Build @ Windows</a></li>
+	<li><a href="#supported">Supported Functions/Platforms</a></li>
+	<li><a href="#compatibility">Compatibility</a></li>
+	<li><a href="http://kshutdown.sourceforge.net/contact.html">Contact</a></li>
+	<li><a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)</li>
+</ul>
 
-<h2>KDE 4/Linux</h2>
+<div><a name="kde4linux"></a></div>
+<h2>KDE 4 Build @ Linux</h2>
 
 <h3>Minimal Requirements</h3>
 <ol>
-	<li>KDE 4.3+, KDM (KDE Display Manager)</li>
-	<li>Qt 4.5+</li>
+	<li>KDE 4.4+, KDM (KDE Display Manager)</li>
+	<li>Qt 4.6+</li>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
@@ -59,13 +107,11 @@ may be not fully compatible with the older versions (0.x-1.0.x).</p>
 <h3>Common Errors</h3>
 
 <h4>CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72</h4>
-<p>
 <pre>
 CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72 (MESSAGE):
 ERROR: cmake/modules/FindKDE4Internal.cmake not found in
 ...;/usr/lib/kde4/share/kde4/apps
 </pre>
-</p>
 <p>Install "kdelibs-dev" (sometimes called kdelibs5-dev) and "kdebase-workspace-dev" packages for your KDE version.</p>
 
 <h4>CMake Error at (...) Phonon library or includes NOT found!</h4>
@@ -83,37 +129,43 @@ Try to run
 <h3>Compilation &amp; Installation (alternate method; for Geeks only)</h3>
 <p>
 <i>BUILDTYPE</i> can be <code>Release</code> or <code>Debug</code>.
-You can change the installation directory (prefix) by settings the <code>CMAKE_INSTALL_PREFIX</code> variable.
+You can change the installation directory (prefix) by setting the <code>CMAKE_INSTALL_PREFIX</code> environment variable.
 To display default prefix for KDE 4 applications, run <code>kde4-config --prefix</code>.
 </p>
 <ol>
 	<li>Create output directory: <code>mkdir build &amp;&amp; cd build</code></li>
 	<li>Generate Makefiles: <code>cmake -DCMAKE_BUILD_TYPE=<i>BUILDTYPE</i> -DCMAKE_INSTALL_PREFIX="/usr/local" ..</code></li>
 	<li>Compile: <code>make</code></li>
+	<li>Make coffee</li>
 	<li>Install: <code>make install</code></li>
 </ol>
 
-<h2>Qt 4/Linux</h2>
+<div><a name="qt4linux"></a></div>
+<h2>Qt 4 Build @ Linux</h2>
 
 <h3>Minimal Requirements</h3>
 <ol>
-	<li>Qt 4.5+ (KDE libraries are not required)</li>
+	<li>[TODO :]</li>
+	<li>Qt 4.6+ (KDE libraries are not required)</li>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
 <ol>
-	<li>Sorry, under construction</li>
+	<li>[TODO :]</li>
 	<!-- !!!<li>To compile KShutdown run: <code>./Setup-qt4.sh</code></li>-->
 </ol>
 
-<h2>Qt 4/Windows</h2>
+<div><a name="qt4windows"></a></div>
+<h2>Qt 4 Build @ Windows</h2>
+
+<p>Note: You can <a href="http://kshutdown.sourceforge.net/download.html">download</a> a binary (already compiled) KShutdown version for Windows.</p>
 
 <h3>Minimal Requirements (for compilation)</h3>
 <ol>
-	<li><a href="http://trolltech.com/developer/downloads/qt/windows">Qt/Windows Open Source Edition</a> 4.5+ (<b>static</b> library)</li>
-	<li><a href="http://www.mingw.org/">MinGW</a></li>
+	<li><a href="http://trolltech.com/developer/downloads/qt/windows">Qt SDK: Complete Development Environment (Open Source, LGPL version)</a> 4.6+ (recompiled as <b>static</b> library)</li>
+	<li><a href="http://www.mingw.org/">MinGW</a> (included in Qt SDK)</li>
 	<li><a href="http://nsis.sourceforge.net/">Nullsoft Scriptable Install System</a> (NSIS)</li>
-	<li>Windows XP or compatible (including <a href="http://www.winehq.org/">Wine</a>)</li>
+	<li>Windows Vista or compatible (including <a href="http://www.winehq.org/">Wine</a>)</li>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
@@ -122,9 +174,215 @@ To display default prefix for KDE 4 applications, run <code>kde4-config --prefix
 	<li><b>Experimental:</b> To compile KShutdown under Wine/Linux run: <code>./Setup-wine.sh</code></li>
 </ol>
 
-<h2><a href="http://kshutdown.sourceforge.net/contact.html">Contact</a></h2>
+<div><a name="supported"></a></div>
+<h2>Supported Functions/Platforms</h2>
 
-<h2><a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)</h2>
+<div>
+<table border="1">
+
+<thead>
+
+<tr>
+<td></td>
+<td>Turn Off Computer</td>
+<td>Restart Computer</td>
+<td>Suspend</td>
+<td>Hibernate</td>
+<td>Lock Screen</td>
+<td>Logout</td>
+<td>Extras</td>
+<td>User Inactivity Monitor</td>
+</tr>
+
+</thead>
+
+<tfoot>
+
+<tr>
+<td colspan="9" style="font-weight: bold; text-align: center">Legend</td>
+</tr>
+
+<tr>
+<td class="ok">OK<br/>[TODO - implementation details]</td><td colspan="8">Done.</td>
+</tr>
+
+<tr>
+<td class="na">N/A</td><td colspan="8">Function is not available on this platform/KShutdown version</td>
+</tr>
+
+<tr>
+<td class="wip">WIP</td><td colspan="8">Work In Progress - to be implemented in a future...</td>
+</tr>
+
+<tr>
+<td>GUI</td><td colspan="8">Function is available in main window (example: menu item, combo box entry, etc.)</td>
+</tr>
+
+<tr>
+<td>CLI</td><td colspan="8">Command Line Interface (example: kshutdown --lock)</td>
+</tr>
+
+<tr>
+<td>GDM</td><td colspan="8">GNOME Display Manager</td>
+</tr>
+
+<tr>
+<td>KDM</td><td colspan="8">KDE Display Manager</td>
+</tr>
+
+<tr>
+<td>Win</td><td colspan="8">Microsoft Windows Vista (and compatible)</td>
+</tr>
+
+<tr>
+<td><i>Build</i> @ <i>Platform</i></td><td colspan="8">Qt4 <i>Build</i> - a KShutdown version compiled without KDE4 libraries (Qt only)<br/>
+KDE4 <i>Build</i> - a KShutdown version compiled using KDE4 libraries (better KDE integration + extra features)<br/><i>Platform</i> - a desktop environment or operating system name</td>
+</tr>
+
+</tfoot>
+
+<tbody>
+
+<tr>
+<td>KDE4 @ KDE4/KDM (GUI)</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+</tr>
+
+<tr class="hl">
+<td>KDE4 @ KDE4/KDM (CLI)</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="na">N/A</td>
+</tr>
+
+<tr>
+<td>Qt4 @ Win (GUI)</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="na">N/A</td>
+<td class="ok">OK</td>
+</tr>
+
+<tr class="hl">
+<td>Qt4 @ Win (CLI)</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="na">N/A</td>
+<td class="na">N/A</td>
+</tr>
+
+<tr>
+<td>KDE3</td>
+<td class="na" colspan="8">N/A - use older KShutdown 1.0.x</td>
+</tr>
+
+<tr class="hl">
+<td>KDE4 @ Win</td>
+<td class="na" colspan="8">N/A - see Qt4 @ Win</td>
+</tr>
+
+<tr>
+<td>KDE4 @ Xfce/GDM</td>
+<td class="wip">WIP</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="na">N/A</td>
+</tr>
+
+<tr class="hl">
+<td>Qt4 @ Xfce/GDM</td>
+<td class="wip">WIP</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="na">N/A</td>
+<td class="na">N/A</td>
+</tr>
+
+<tr>
+<td>KDE4 @ GNOME/GDM</td>
+<td class="wip">WIP</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="wip">WIP</td>
+<td class="wip">WIP</td>
+</tr>
+
+<tr class="hl">
+<td>Qt4 @ GNOME/GDM</td>
+<td class="wip">WIP</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="na">N/A</td>
+<td class="wip">WIP</td>
+</tr>
+
+<tr>
+<td>Qt4 @ KDE4</td>
+<td class="wip">WIP</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="wip">WIP</td>
+<td class="na">N/A</td>
+<td class="wip">WIP</td>
+</tr>
+
+<tr class="hl">
+<td>KDE4 @ KDE4/GDM (GUI)</td>
+<td class="wip">WIP</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="wip">WIP</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+<td class="ok">OK</td>
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+<div><a name="compatibility"></a></div>
+<h2>Compatibility with old KShutdown 1.0.x</h2>
+
+<p>Some configuration and command line options in KShutdown 2.x
+may be not fully compatible with the old KShutdown 1.0.x.</p>
 
 <p class="footer">&copy; Konrad Twardowski</p>
 
