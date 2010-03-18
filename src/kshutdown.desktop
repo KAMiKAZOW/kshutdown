@@ -5,6 +5,8 @@ Version=1.0
 Name=KShutdown
 Name[sr]=К-Гашење
 Name[sr@latin]=K-Gašenje
+Name[sr@ijekavian]=К-Гашење
+Name[sr@ijekavianlatin]=K-Gašenje
 
 Comment=An advanced shut down utility
 
@@ -18,6 +20,8 @@ Comment=An advanced shut down utility
 Comment[pl]=Zaawansowane narzędzie do zamykania systemu
 Comment[sr]=Напредна алатка за гашење рачунара
 Comment[sr@latin]=Napredna alatka za gašenje računara
+Comment[sr@ijekavian]=Напредна алатка за гашење рачунара
+Comment[sr@ijekavianlatin]=Napredna alatka za gašenje računara
 
 # visible in the menu instead of "KShutdown"
 GenericName=System Shut Down Utility
@@ -29,6 +33,8 @@ GenericName=System Shut Down Utility
 GenericName[pl]=Narzędzie do zamykania systemu
 GenericName[sr]=Напредна алатка за гашење
 GenericName[sr@latin]=Napredna alatka za gašenje
+GenericName[sr@ijekavian]=Напредна алатка за гашење
+GenericName[sr@ijekavianlatin]=Napredna alatka za gašenje
 
 Exec=kshutdown
 Icon=kshutdown

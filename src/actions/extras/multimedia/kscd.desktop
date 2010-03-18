@@ -4,4 +4,8 @@ Version=1.0
 Exec=dbus-send --print-reply --dest=org.kde.kscd /CDPlayer org.kde.KSCD.stop
 Icon=kscd
 Name=KsCD/KDE 4
+Name[sr]=КсЦД/КДЕ 4
+Name[sr@latin]=KsCD/KDE 4
+Name[sr@ijekavian]=КсЦД/КДЕ 4
+Name[sr@ijekavianlatin]=KsCD/KDE 4
 Type=Application
