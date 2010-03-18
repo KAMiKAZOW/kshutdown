@@ -7,5 +7,7 @@ Name=MPlayer (quit all)
 Name[pl]=MPlayer (zakończ wszystkie)
 Name[sr]=М-Плејер (напусти све)
 Name[sr@latin]=M-Plejer (napusti sve)
+Name[sr@ijekavian]=М-Плејер (напусти све)
+Name[sr@ijekavianlatin]=M-Plejer (napusti sve)
 Name[fr]=MPlayer (quitte tout)
 Type=Application
