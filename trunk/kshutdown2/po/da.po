@@ -1,0 +1,376 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Martin Schlander <mschlander@opensuse.org>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-13 13:43+0100\n"
+"PO-Revision-Date: 2010-04-24 09:50+0200\n"
+"Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/actions/extras.cpp:51
+msgid "Invalid \"Extras\" command"
+msgstr "Ugyldig \"Ekstra\"-kommando"
+
+#: src/actions/extras.cpp:60 src/actions/extras.cpp:68
+msgid "Cannot execute \"Extras\" command"
+msgstr "Kan ikke køre \"Ekstra\"-kommando"
+
+#: src/actions/extras.cpp:110
+msgid "Extras"
+msgstr "Ekstra"
+
+#: src/actions/extras.cpp:246
+msgid "Select a command..."
+msgstr "Vælg en kommando..."
+
+#: src/actions/extras.cpp:266
+msgid "Use context menu to add/edit/remove actions."
+msgstr "Brug kontekstmenuen til at tilføje/fjerne/redigere handlinger."
+
+#: src/actions/extras.cpp:268
+msgid "Use <b>Context Menu</b> to create a new link to application (action)"
+msgstr ""
+"Brug <b>kontekstmenuen</b> til at oprette et nyt link til program (handling)"
+
+#: src/actions/extras.cpp:269
+msgid "Use <b>Create New|Folder...</b> to create a new submenu"
+msgstr "Brug <b>Opret ny|Mappe...</b> til at oprette en ny undermenu"
+
+#: src/actions/extras.cpp:270
+msgid "Use <b>Properties</b> to change icon, name, or command"
+msgstr "Brug <b>Egenskaber</b> til at skifte ikon, navn eller kommando"
+
+#: src/actions/extras.cpp:294
+msgid "Add or Remove Commands"
+msgstr "Tilføj eller fjern kommandoer"
+
+#: src/actions/lock.cpp:85
+msgid "Lock Screen"
+msgstr "Lås skærmen"
+
+#: src/kshutdown.cpp:154
+msgid "Unsupported action: %0"
+msgstr "Ikke understøttet handling: %0"
+
+#: src/kshutdown.cpp:169
+msgid "Unknown error"
+msgstr "Ukendt fejl"
+
+#: src/kshutdown.cpp:203
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#: src/kshutdown.cpp:349
+msgid "Invalid date/time"
+msgstr "Ugyldig dato/tid"
+
+#: src/kshutdown.cpp:358
+msgid "At Date/Time"
+msgstr "På dato/tidspunkt"
+
+#: src/kshutdown.cpp:372
+msgid "Enter date and time"
+msgstr "Angiv dato og tidspunkt"
+
+#: src/kshutdown.cpp:388 src/mainwindow.cpp:514
+msgid "No Delay"
+msgstr "Ingen forsinkelse"
+
+#: src/kshutdown.cpp:406
+msgid "Time From Now (HH:MM)"
+msgstr "Tid fra nu (TT:MM)"
+
+#: src/kshutdown.cpp:414
+msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
+msgstr "Angiv forsinkelse i \"TT:MM\"-format (time:minut)"
+
+#: src/kshutdown.cpp:537 src/main.cpp:166
+msgid "Hibernate Computer"
+msgstr "Sæt computeren i dvale"
+
+#: src/kshutdown.cpp:540
+msgid "Cannot hibernate computer"
+msgstr "Kan ikke sætte computeren i dvale"
+
+#: src/kshutdown.cpp:547
+msgid ""
+"<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
+"systems where the contents of RAM are written to non-volatile storage such "
+"as a hard disk, as a file or on a separate partition, before powering off "
+"the computer.</p><p>When the computer is restarted it reloads the content of "
+"memory and is restored to the state it was in when hibernation was invoked.</"
+"p><p>Hibernating and later restarting is usually faster than closing down, "
+"later starting up, and starting all the programs that were running.</"
+"p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
+msgstr ""
+"<p>Dvale (eller suspendér til disk) er en funktion i mange styresystemer til "
+"computere hvor indholdet af ram skrives til ikke-flygtigt lager såsom en "
+"harddisk, som en fil eller på en separate partition, før computeren "
+"slukkes.</p><p>Når computeren genstartes genindlæser den indeholdet af "
+"hukommelsen og den tilstand den var i før dvale blev udløst bliver gendannet."
+"</"
+"p><p>Dvale og senere genstart er normalt hurtigere end at lukke ned, "
+"og senere starte op og starte alle de programmer der kørte.</"
+"p><p>Kilde: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
+
+#: src/kshutdown.cpp:559
+msgid "Suspend Computer (Sleep)"
+msgstr "Suspendér computer (sove)"
+
+#: src/kshutdown.cpp:563
+msgid "Cannot suspend computer"
+msgstr "Kan ikke suspendere computeren"
+
+#: src/kshutdown.cpp:567
+msgid "Enter in a low-power state."
+msgstr "Angiv en tilstand med lavt strømforbrug."
+
+#: src/kshutdown.cpp:702
+msgid ""
+"Could not logout properly.\n"
+"The session manager cannot be contacted."
+msgstr ""
+"Kunne ikke logge korrekt ud.\n"
+"Sessionshåndteringen kan ikke kontaktes."
+
+#: src/kshutdown.cpp:718 src/main.cpp:163
+msgid "Logout"
+msgstr "Log ud"
+
+#: src/kshutdown.cpp:728 src/main.cpp:160
+msgid "Restart Computer"
+msgstr "Genstart computeren"
+
+#: src/kshutdown.cpp:757 src/main.cpp:151 src/main.cpp:154
+msgid "Turn Off Computer"
+msgstr "Sluk computeren"
+
+#: src/main.cpp:135
+msgid "KShutdown"
+msgstr "KShutdown"
+
+#: src/main.cpp:142
+msgid "An advanced shutdown utility"
+msgstr "Et avanceret nedlukningsværktøj"
+
+#: src/main.cpp:157
+msgid "Lock screen"
+msgstr "Lås skærmen"
+
+#: src/main.cpp:169
+msgid "Suspend Computer"
+msgstr "Suspendér computeren"
+
+#: src/main.cpp:172
+msgid "Run executable file (example: Desktop shortcut or Shell script)"
+msgstr "Kør kørbar fil (eksempel: Desktop-genvej eller skal-script)"
+
+#: src/main.cpp:175 src/mainwindow.cpp:100
+msgid "Do not show main window on startup"
+msgstr "Vis ikke hovedvinduet ved opstart"
+
+#: src/main.cpp:176 src/mainwindow.cpp:101
+msgid ""
+"Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
+"minutes from now"
+msgstr ""
+"Aktivér nedtælling. Eksempler: 13:37 - absolut tid (TT:MM), 10 - antal "
+"minutter fra nu"
+
+#: src/mainwindow.cpp:101
+msgid "Optional parameter"
+msgstr "Valgfrit parameter"
+
+#: src/mainwindow.cpp:109
+msgid "Command Line Options"
+msgstr "Kommandolinje-tilvalg"
+
+#: src/mainwindow.cpp:148
+msgid "Invalid time: %0"
+msgstr "Ugyldig tid: %0"
+
+#: src/mainwindow.cpp:183 src/mainwindow.cpp:190
+msgid "Remaining time: %0"
+msgstr "Tilbageværende tid: %0"
+
+#: src/mainwindow.cpp:372
+msgid "KShutdown is still active!"
+msgstr "KShutdown er stadig aktiv!"
+
+#: src/mainwindow.cpp:378
+msgid "KShutdown has been minimized"
+msgstr "KShutdown er blevet minimeret"
+
+#: src/mainwindow.cpp:511
+msgid "&File"
+msgstr "&Fil"
+
+#: src/mainwindow.cpp:558
+msgid "Quit"
+msgstr "Afslut"
+
+#: src/mainwindow.cpp:566
+msgid "&Settings"
+msgstr "&Indstillinger"
+
+#: src/mainwindow.cpp:572 src/preferences.cpp:35
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: src/mainwindow.cpp:590
+msgid "&Help"
+msgstr "&Hjælp"
+
+#: src/mainwindow.cpp:593 src/mainwindow.cpp:852
+msgid "About"
+msgstr "Om"
+
+#: src/mainwindow.cpp:594
+msgid "About Qt"
+msgstr "Om Qt"
+
+#: src/mainwindow.cpp:633
+msgid "Select an &action"
+msgstr "Vælg en h&andling"
+
+#: src/mainwindow.cpp:642
+msgid "Do not save session"
+msgstr "Gem ikke sessionen"
+
+#: src/mainwindow.cpp:650
+msgid "S&elect a time/event"
+msgstr "&Vælg tidspunkt/hændelse"
+
+#: src/mainwindow.cpp:664
+msgid "Click to activate/cancel the selected action"
+msgstr "Klik for at aktivere/annullere den valgte handling"
+
+#: src/mainwindow.cpp:768 src/mainwindow.cpp:814
+msgid "Cancel"
+msgstr "Annullér"
+
+#: src/mainwindow.cpp:772
+msgid "OK"
+msgstr "O.k."
+
+#: src/mainwindow.cpp:783
+msgid "Please select an Extras command<br>from the menu above."
+msgstr "Vælg en Ekstra-kommando<br>fra menuen overfor."
+
+#: src/mainwindow.cpp:800
+msgid "Action not available: %0"
+msgstr "Handling ikke tilgængelig: %0"
+
+#: src/mainwindow.cpp:810
+msgid "Cancel: %0"
+msgstr "Annullér: %0"
+
+#: src/mainwindow.cpp:940
+msgid "Confirm"
+msgstr "Bekræft"
+
+#: src/mainwindow.cpp:940
+msgid ""
+"Are you sure you want to enable this option?\n"
+"\n"
+"Data in all unsaved documents will be lost!"
+msgstr ""
+"Vil du virkelig aktivere denne indstilling?\n"
+"\n"
+"Data i alle ikke-gemte dokumenter vil gå tabt!"
+
+#: src/preferences.cpp:42
+msgid "General"
+msgstr "Generelt"
+
+#: src/preferences.cpp:97
+msgid "Confirm Action"
+msgstr "Bekræft handling"
+
+#: src/preferences.cpp:101
+msgid "Progress Bar"
+msgstr "Fremgangslinje"
+
+#: src/preferences.cpp:105
+msgid "Lock Screen Before Hibernate"
+msgstr "Lås skærmen før dvale"
+
+#: src/preferences.cpp:115
+msgid "Related KDE Settings..."
+msgstr "Relaterede KDE-indstillinger..."
+
+#: src/progressbar.cpp:84
+msgid "Hide"
+msgstr "Skjul"
+
+#: src/progressbar.cpp:86
+msgid "Position"
+msgstr "Position"
+
+#: src/progressbar.cpp:93
+msgid "Top"
+msgstr "Øverst"
+
+#: src/progressbar.cpp:98
+msgid "Bottom"
+msgstr "Nederst"
+
+#: src/pureqt.h:63
+msgid "Error"
+msgstr "Fejl"
+
+#: src/triggers/idlemonitor.cpp:36
+msgid "On User Inactivity (HH:MM)"
+msgstr "Ved brugeraktivitet (TT:MM)"
+
+#: src/triggers/idlemonitor.cpp:56
+msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
+msgstr ""
+"Brug denne udløser til at detektere brugeraktivitet (eksempel: ingen "
+"museklik)."
+
+#: src/triggers/idlemonitor.cpp:72
+msgid "Unknown"
+msgstr "Ukendt"
+
+#: src/triggers/idlemonitor.cpp:100
+msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"
+msgstr "Angiv en maksimal brugerinaktivitet i \"TT:MM\"-format (Time:Minut)"
+
+#: src/triggers/processmonitor.cpp:74
+msgid "When selected application exit"
+msgstr "Når valgt program afslutter"
+
+#: src/triggers/processmonitor.cpp:90
+msgid "Waiting for \"%0\""
+msgstr "Venter på \"%0\""
+
+#: src/triggers/processmonitor.cpp:105
+msgid "List of the running processes"
+msgstr "Liste over den kørende proces"
+
+#: src/triggers/processmonitor.cpp:112
+msgid "Refresh"
+msgstr "Genopfrisk"
+
+#: src/triggers/processmonitor.cpp:115
+msgid "Refresh the list of processes"
+msgstr "Genopfrisk listen over processer"
+
+#: src/triggers/processmonitor.cpp:187
+msgid "Error: %0"
+msgstr "Fejl: %0"
+
+#: src/triggers/processmonitor.cpp:229 src/triggers/processmonitor.cpp:232
+msgid "Error, exit code: %0"
+msgstr "Fejl, afslutningskode: %0"
+
