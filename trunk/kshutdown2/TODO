@@ -11,11 +11,10 @@ Old KShutDown 1.0.x features:
 * Settings: Link creator
 * Help: Handbook
 * Help: "What's this?" context help
-* Show warning before action (configurable time)
 * Action configuration (command before action, pause before action)
 * Lock screen after login
 * Close CD-ROM before logout
-* Compatible command line options; example: kshutdown -s --init 120
+!!! Compatible command line options; example: kshutdown -s --init 120
 
 Extras:
 
@@ -40,14 +39,13 @@ Misc.:
 * http://sourceforge.net/forum/forum.php?thread_id=1366875&forum_id=324058
 * http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
-* Support for GNOME/GDM
+!!! Support for GNOME/GDM
 * Switch to console mode (tty) [by DigitalCyanide]
 * Add test button for "Close CD"
 * KDM configurator, auto configuration
 * Optionally force application exit
 * Save KDE session if possible
 * Remote reboot or shutdown (via SSH)
-* Option to hide main window
 * Detect unsaved documents (is there any KDE API to do this?)
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
