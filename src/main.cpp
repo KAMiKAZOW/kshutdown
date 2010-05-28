@@ -171,6 +171,7 @@ int main(int argc, char **argv) {
 	options.add("extra <file>", ki18n("Run executable file (example: Desktop shortcut or Shell script)"));
 
 	// NOTE: sync. description with mainwindow.cpp/MainWindow::checkCommandLine()
+	options.add("hide-ui", ki18n("Hide main window and system tray icon"));
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("+[time]", ki18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"));
 	

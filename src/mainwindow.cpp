@@ -97,7 +97,11 @@ bool MainWindow::checkCommandLine() {
 		}
 		
 		// NOTE: sync. description with main.cpp/main
+		
+		table += "<tr><td><code>--hide-ui</code></td><td>" + i18n("Hide main window and system tray icon") + "</td></tr>\n";
+		
 		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
+		
 		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" + i18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now") + "</td></tr>\n";
 		
 		table += "</table>";
@@ -232,10 +236,20 @@ void MainWindow::init() {
 }
 
 void MainWindow::maybeShow() {
+	if (Utils::isArg("hide-ui")) {
+		hide();
+		m_systemTray->hide();
+		
+		return;
+	}
+
 	if (!U_SYSTEM_TRAY::isSystemTrayAvailable()) {
 		show();
 
 		return;
+	}
+	else {
+		m_systemTray->show();
 	}
 
 	if (!Utils::isArg("init") && !U_APP->isSessionRestored())
@@ -620,7 +634,6 @@ void MainWindow::initSystemTray() {
 		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
 	);
 #endif // KS_PURE_QT
-	m_systemTray->show();
 }
 
 void MainWindow::initWidgets() {
