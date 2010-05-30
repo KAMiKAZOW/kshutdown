@@ -38,6 +38,7 @@
 
 #include "actions/extras.h"
 #include "actions/lock.h"
+#include "actions/test.h"
 #include "triggers/idlemonitor.h"
 #include "triggers/processmonitor.h"
 #include "commandline.h"
@@ -70,7 +71,10 @@ MainWindow::~MainWindow() {
 bool MainWindow::checkCommandLine() {
 #ifdef KS_PURE_QT
 	if (Utils::isHelpArg()) {
-		QString table = "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\">\n";
+		QString table = "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\" width=\"800\">\n";
+		
+		table += "<tr><td colspan=\"2\"><b>" + i18n("Actions") + "</b></td></tr>\n";
+		
 		foreach (Action *action, m_actionList) {
 			table += "<tr>";
 
@@ -97,6 +101,8 @@ bool MainWindow::checkCommandLine() {
 		}
 		
 		// NOTE: sync. description with main.cpp/main
+		
+		table += "<tr><td colspan=\"2\"><b>" + i18n("Miscellaneous") + "</b></td></tr>\n";
 		
 		table += "<tr><td><code>--hide-ui</code></td><td>" + i18n("Hide main window and system tray icon") + "</td></tr>\n";
 		
@@ -219,6 +225,7 @@ void MainWindow::init() {
 #ifdef KS_NATIVE_KDE
 	addAction(Extras::self());
 #endif // KS_NATIVE_KDE
+	addAction(new TestAction());
 
 	U_DEBUG << "MainWindow::init(): Triggers" U_END;
 	m_triggerHash = QHash<QString, Trigger*>();
@@ -543,6 +550,7 @@ void MainWindow::initMenuBar() {
 			continue; // for
 		
 		id = data.toString();
+		
 		a = m_actionHash[id];
 
 		if (!a->showInMenu())

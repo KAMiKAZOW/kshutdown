@@ -15,12 +15,9 @@ Old KShutDown 1.0.x features:
 * Lock screen after login
 * Close CD-ROM before logout
 * Command line options compatible with KShutdown 1.0.x:
-	DROPPPED: { "c", 0, 0 },
 	{ "cancel", I18N_NOOP("Cancel an active action"), 0 },
 	{ "confirm", I18N_NOOP("Confirm command line action"), 0 },
-	DROPPED: { "default", I18N_NOOP("Disable test mode"), 0 },
 	{ "standard", I18N_NOOP("Show standard logout dialog"), 0 },
-	Rewrite as "nop" Action: { "test", I18N_NOOP("Enable test mode"), 0 },
 
 Extras:
 

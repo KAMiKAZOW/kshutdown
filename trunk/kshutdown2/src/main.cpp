@@ -167,6 +167,8 @@ int main(int argc, char **argv) {
 	options.add("H");
 	options.add("hibernate", ki18n("Hibernate Computer"));
 	
+	options.add("test", ki18n("Test Action (does nothing)"));
+	
 	options.add("S");
 	options.add("suspend", ki18n("Suspend Computer"));
 
