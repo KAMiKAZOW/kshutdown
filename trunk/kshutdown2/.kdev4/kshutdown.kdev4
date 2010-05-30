@@ -1,0 +1,45 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x12\x00K\x00S\x00h\x00u\x00t\x00d\x00o\x00w\x00n)
+
+[CMake]
+BuildDirs[$e]=$HOME/Documents/src/kshutdown/trunk/kshutdown2/build.tmp
+CMakeDir=/usr/share/cmake-2.8/Modules
+Current CMake Binary=file:///usr/bin/cmake
+CurrentBuildDir=file:///home/kdt/Documents/src/kshutdown/trunk/kshutdown2/build.tmp
+CurrentBuildType=Release
+CurrentInstallDir=file:///usr
+ProjectRootRelative=./
+
+[Launch]
+Launch Configurations=Launch Configuration 0
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=New Native Application Configuration
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=
+Debugger Shell=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Build
+Display Demangle Names=true
+Display Static Members=false
+EnvironmentGroup=default
+Executable=file:///home/kdt/ks/build.tmp/src/kshutdown
+GDB Path=
+Remote GDB Config Script=
+Remote GDB Run Script=
+Remote GDB Shell Script=
+Try Setting Breakpoints On Loading Libraries=true
+Working Directory=
+isExecutable=true
+
+[MakeBuilder]
+Install As Root=true
+Number Of Jobs=1
+Su Command=1
+
+[Project]
+VersionControlSupport=kdevsubversion
