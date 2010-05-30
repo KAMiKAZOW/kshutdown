@@ -297,8 +297,7 @@ void MainWindow::setActive(const bool yes) {
 	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
 
 	// reset notifications
-	m_showNotification1M = true;
-	m_showNotification5M = true;
+	m_lastNotificationID = QString::null;
 
 	if (m_active) {
 #ifdef Q_WS_WIN
@@ -329,20 +328,13 @@ void MainWindow::setActive(const bool yes) {
 // public slots
 
 void MainWindow::notify(const QString &id, const QString &text) {
-	if (id == "1m") {
-		if (!m_showNotification1M)
-			return;
-		
-		m_showNotification1M = false;
-	}
-	else if (id == "5m") {
-		if (!m_showNotification5M)
-			return;
-		
-		m_showNotification5M = false;
-	}
+	// do not display the same notification twice
+	if (m_lastNotificationID == id)
+		return;
+
+	m_lastNotificationID = id;
 #ifdef KS_NATIVE_KDE
-	KNotification::event(
+	KNotification::event(//!!!err
 		id,
 		text,
 		QPixmap(),
@@ -403,8 +395,7 @@ MainWindow::MainWindow() :
 	m_ignoreUpdateWidgets(true),
 	m_showActiveWarning(true),
 	m_showMinimizeInfo(true),
-	m_showNotification1M(true),
-	m_showNotification5M(true),
+	m_lastNotificationID(QString::null),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
 	m_currentTriggerWidget(0) {

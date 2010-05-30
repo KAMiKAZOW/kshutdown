@@ -245,11 +245,20 @@ bool DateTimeTriggerBase::canActivateAction() {
 			ProgressBar::self()->setProgress(secsTo);
 
 		MainWindow *mainWindow = MainWindow::self();
-		if ((secsTo < 60) && (secsTo > 55)) {
-			emit notify("1m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
-		}
-		else if ((secsTo < 300) && (secsTo > 295)) {
-			emit notify("5m", mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
+		
+		QString id = QString::null;
+		if ((secsTo < 60) && (secsTo > 55))
+			id = "1m";
+		else if ((secsTo < 300) && (secsTo > 295))
+			id = "5m";
+		else if ((secsTo < 1800) && (secsTo > 1795))
+			id = "30m";
+		else if ((secsTo < 3600) && (secsTo > 3595))
+			id = "1h";
+		else if ((secsTo < 7200) && (secsTo > 7195))
+			id = "2h";
+		if (!id.isNull()) {
+			emit notify(id, mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
 		}
 	}
 
