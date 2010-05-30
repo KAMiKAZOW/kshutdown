@@ -20,6 +20,21 @@ Comment[it]=Avvertimento a 5 minuti
 Comment[pl]=Ostrzeżenie: 5 minut
 Action=Popup|Taskbar
 
+[Event/30m]
+Name=30 Minutes Warning
+Comment=30 Minutes Warning
+Action=
+
+[Event/1h]
+Name=1 Hour Warning
+Comment=1 Hour Warning
+Action=Popup|Taskbar
+
+[Event/2h]
+Name=2 Hours Warning
+Comment=2 Hours Warning
+Action=Popup|Taskbar
+
 #[Event/RunError]
 #Name=Run Error
 #Comment=Run Error

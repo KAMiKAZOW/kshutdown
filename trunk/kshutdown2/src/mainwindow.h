@@ -71,8 +71,6 @@ private:
 	bool m_ignoreUpdateWidgets;
 	bool m_showActiveWarning;
 	bool m_showMinimizeInfo;
-	bool m_showNotification1M;
-	bool m_showNotification5M;
 	ConfirmAction *m_confirmLockAction;
 	InfoWidget *m_infoWidget;
 	static MainWindow *m_instance;
@@ -83,6 +81,7 @@ private:
 	static QHash<QString, Trigger*> m_triggerHash;
 	static QList<Action*> m_actionList;
 	static QList<Trigger*> m_triggerList;
+	QString m_lastNotificationID;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
