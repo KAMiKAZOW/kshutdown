@@ -85,16 +85,19 @@ public:
 };
 
 int main(int argc, char **argv) {
-	qDebug("GDM = %d", Utils::isGDM());
-	qDebug("GNOME = %d", Utils::isGNOME());
-	qDebug("Xfce = %d", Utils::isXfce());
+	#define KS_DEBUG_SYSTEM(f, d) \
+		qDebug(f ": %s", d ? "<FOUND>" : "not detected");
+	KS_DEBUG_SYSTEM("GDM", Utils::isGDM());
+	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
+	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
+	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
+	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
+	KS_DEBUG_SYSTEM("KDM", Utils::isKDM());
+
 	if (Utils::isGDM() || Utils::isGNOME() || Utils::isXfce()) {
 		qWarning("WARNING: GNOME/Xfce desktop and/or GDM (login manager) are not supported yet.");
 		qWarning("         Some functions may be unavailable.");
 	}
-	qDebug("KDE Full Session = %d", Utils::isKDEFullSession());
-	qDebug("KDE 4 = %d", Utils::isKDE_4());
-	qDebug("KDM = %d", Utils::isKDM());
 
 #ifdef KS_PURE_QT
 
