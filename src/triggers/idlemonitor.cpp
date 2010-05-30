@@ -33,7 +33,7 @@
 
 IdleMonitor::IdleMonitor()
 	: KShutdown::DateTimeTriggerBase(
-		i18n("On User Inactivity (HH:MM)") + " [Experimental]",
+		i18n("On User Inactivity (HH:MM)"),
 // TODO: better icon - user-idle?
 		"user-away-extended",
 		"idle-monitor"
@@ -85,7 +85,7 @@ bool IdleMonitor::canActivateAction() {
 	QTime t = QTime();
 	m_status = "~" + t.addSecs(remainingTime).toString("HH:mm:ss");
 	
-	m_status += (" {DEBUG:" + QString::number(m_idleTime) + "}");
+	//m_status += (" {DEBUG:" + QString::number(m_idleTime) + "}");
 
 	return false;
 }
@@ -153,11 +153,10 @@ void IdleMonitor::getSessionIdleTime() {
 	lii.cbSize = sizeof(LASTINPUTINFO);
 	BOOL result = ::GetLastInputInfo(&lii);
 	if (result) {
-		quint64 tickCount = ::GetTickCount();
-		quint64 lastTick = lii.dwTime;
+		qint32 tickCount = ::GetTickCount();
+		qint32 lastTick = lii.dwTime;
 
-		// HACK: avoid rollback <http://en.wikipedia.org/wiki/GetTickCount#Rollback>
-		m_idleTime = (tickCount - lastTick) / 1000;//!!!test
+		m_idleTime = (tickCount - lastTick) / 1000;
 		//U_ERROR_MESSAGE(0, QString::number(m_idleTime));
 	}
 	else {
