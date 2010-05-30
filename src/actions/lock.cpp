@@ -37,7 +37,6 @@ bool LockAction::onAction() {
 #ifdef Q_WS_WIN
 	BOOL result = ::LockWorkStation();
 	if (result == 0) {
-// TODO: test error message
 		setLastError();
 
 		return false;
