@@ -27,10 +27,8 @@ Extras:
 
 Misc.:
 
-* LXDE support
 * Wiki: Add KAlarm integration example
 * Update Credits/Thanks list in About dialog
-* http://urukrama.wordpress.com/openbox-guide/
 * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=538873
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
@@ -44,6 +42,7 @@ Misc.:
 * http://sourceforge.net/forum/forum.php?thread_id=1073402&forum_id=324058
 * http://sourceforge.net/forum/forum.php?thread_id=1366875&forum_id=324058
 * http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
+* http://sourceforge.net/projects/kshutdown/forums/forum/324059/topic/1819885
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
 !!! Support for GNOME/GDM
 * Switch to console mode (tty) [by DigitalCyanide]

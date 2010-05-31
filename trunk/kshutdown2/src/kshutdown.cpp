@@ -709,7 +709,7 @@ bool StandardAction::onAction() {
 
 		m_error = i18n(
 			"Could not logout properly.\n" \
-			"The session manager cannot be contacted."
+			"The KDE Session Manager cannot be contacted." \
 		);
 
 		return false;

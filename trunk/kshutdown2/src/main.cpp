@@ -180,6 +180,8 @@ int main(int argc, char **argv) {
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("+[time]", ki18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"));
 	
+	options.add("", ki18n("More Info...\nhttp://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"));
+	
 	KCmdLineArgs::addCmdLineOptions(options);
 	// BUG: --nofork option does not work like in KShutdown 1.0.x (?)
 	// "KUniqueApplication: Can't setup D-Bus service. Probably already running."
