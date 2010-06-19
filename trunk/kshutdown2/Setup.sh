@@ -30,7 +30,7 @@ function doCompile()
 			dialog \
 				--msgbox \
 "Compiled KShutdown program (\"kshutdown\" file)\n
-can be found in the \"src\" directory.
+can be found in the \"${PWD}\" directory.
 \n\nNo installation required." \
 				0 0
 			./src/kshutdown
