@@ -1,7 +1,7 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2010/06/19  2.0 Beta 10
+2010/07/22  2.0 Beta 10
 
 * NEW: Added "-hide-ui" command line option to hide all KShutdown user interface
   (main window and system icon)
