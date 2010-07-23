@@ -978,12 +978,12 @@ void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
 
 	switch (reason) {
 		case QSystemTrayIcon::Trigger:
-// TODO: bring to front and show on the current desktop
 			if (isVisible()) {
 				hide();
 			}
 			else {
 				show();
+				activateWindow();
 			}
 			break;
 		default:
