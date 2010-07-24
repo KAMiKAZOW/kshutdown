@@ -342,17 +342,24 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		return;
 
 	m_lastNotificationID = id;
+	
+	QString noHTML = QString(text);
 #ifdef KS_NATIVE_KDE
+	// HACK: some tags are not supported in Xfce
+	if (Utils::isXfce()) {
+		noHTML.replace("<br>", "\n");
+		noHTML.replace("<qt>", "");
+		noHTML.replace("</qt>", "");
+	}
 	KNotification::event(//!!!err
 		id,
-		text,
+		noHTML,
 		QPixmap(),
 		this,
 		KNotification::CloseOnTimeout
 	);
 #endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
-	QString noHTML = QString(text);
 	noHTML.replace("<br>", "\n");
 	noHTML.replace(QRegExp("\\<\\w+\\>"), "");
 	noHTML.replace(QRegExp("\\</\\w+\\>"), "");
