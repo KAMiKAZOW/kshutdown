@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kshutdown\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-13 13:43+0100\n"
-"PO-Revision-Date: 2010-03-16 17:11+0100\n"
+"POT-Creation-Date: 2010-07-22 23:39+0200\n"
+"PO-Revision-Date: 2010-08-07 18:37+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sr\n"
 "X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 "
-"&& (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%"
+"10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -37,11 +37,11 @@ msgstr "Изаберите наредбу..."
 
 #: src/actions/extras.cpp:266
 msgid "Use context menu to add/edit/remove actions."
-msgstr "Користите контекстни мени да бисте додали/уредили/уклонили акције."
+msgstr "Користите контекстни мени да бисте додали/уредили/уклонили радње."
 
 #: src/actions/extras.cpp:268
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
-msgstr "Користите <b>Контекстни мени</b> да бисте направили нови линк до апликације (акција)"
+msgstr "Користите <b>Контекстни мени</b> да бисте направили нови линк до апликације (радњу)"
 
 #: src/actions/extras.cpp:269
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
@@ -55,13 +55,17 @@ msgstr "Користите <b>Особине</b> да бисте промени�
 msgid "Add or Remove Commands"
 msgstr "Додај или уклони наредбе"
 
-#: src/actions/lock.cpp:85
+#: src/actions/lock.cpp:84
 msgid "Lock Screen"
 msgstr "Закључај екран"
 
+#: src/actions/test.cpp:25 src/main.cpp:170
+msgid "Test Action (does nothing)"
+msgstr "Пробна радња (не ради ништа)"
+
 #: src/kshutdown.cpp:154
 msgid "Unsupported action: %0"
-msgstr "Неподржана акција: %0"
+msgstr "Неподржана радња: %0"
 
 #: src/kshutdown.cpp:169
 msgid "Unknown error"
@@ -71,39 +75,39 @@ msgstr "Непозната грешка"
 msgid "Are you sure?"
 msgstr "Јесте ли сигурни?"
 
-#: src/kshutdown.cpp:349
+#: src/kshutdown.cpp:358
 msgid "Invalid date/time"
 msgstr "Неправилан датум/време"
 
-#: src/kshutdown.cpp:358
+#: src/kshutdown.cpp:367
 msgid "At Date/Time"
 msgstr "На датум/време"
 
-#: src/kshutdown.cpp:372
+#: src/kshutdown.cpp:381
 msgid "Enter date and time"
 msgstr "Унесите датум и време"
 
-#: src/kshutdown.cpp:388 src/mainwindow.cpp:514
+#: src/kshutdown.cpp:397
 msgid "No Delay"
 msgstr "Без кашњења"
 
-#: src/kshutdown.cpp:406
+#: src/kshutdown.cpp:415
 msgid "Time From Now (HH:MM)"
 msgstr "Време од сад (СС:ММ)"
 
-#: src/kshutdown.cpp:414
+#: src/kshutdown.cpp:423
 msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
 msgstr "Кашњење у формату „СС:ММ“ (Сати:Минуте)"
 
-#: src/kshutdown.cpp:537 src/main.cpp:166
+#: src/kshutdown.cpp:546 src/main.cpp:168
 msgid "Hibernate Computer"
 msgstr "Хибернирај рачунар"
 
-#: src/kshutdown.cpp:540
+#: src/kshutdown.cpp:549
 msgid "Cannot hibernate computer"
 msgstr "Не могу да хибернирам рачунар"
 
-#: src/kshutdown.cpp:547
+#: src/kshutdown.cpp:556
 msgid ""
 "<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
 "systems where the contents of RAM are written to non-volatile storage such "
@@ -123,63 +127,72 @@ msgstr ""
 "покретање рачунара, и покретање свих програма који су били покренути.</"
 "p><p>Извор: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 
-#: src/kshutdown.cpp:559
+#: src/kshutdown.cpp:568
 msgid "Suspend Computer (Sleep)"
 msgstr "Суспендуј рачунар (успавај)"
 
-#: src/kshutdown.cpp:563
+#: src/kshutdown.cpp:572
 msgid "Cannot suspend computer"
 msgstr "Не могу да суспендујем рачунар"
 
-#: src/kshutdown.cpp:567
+#: src/kshutdown.cpp:576
 msgid "Enter in a low-power state."
 msgstr "Уђи у режим чувања енергије."
 
-#: src/kshutdown.cpp:702
+#: src/kshutdown.cpp:711
 msgid ""
 "Could not logout properly.\n"
-"The session manager cannot be contacted."
+"The KDE Session Manager cannot be contacted."
 msgstr ""
 "Не могу се правилно одјавити.\n"
-"Не могу ступити у везу са менаџером сесија."
+"Не могу ступити у везу са КДЕ-овим менаџером сесија."
 
-#: src/kshutdown.cpp:718 src/main.cpp:163
+#: src/kshutdown.cpp:727 src/main.cpp:165
 msgid "Logout"
 msgstr "Одјави се"
 
-#: src/kshutdown.cpp:728 src/main.cpp:160
+#: src/kshutdown.cpp:737 src/main.cpp:162
 msgid "Restart Computer"
 msgstr "Поново покрени рачунар"
 
-#: src/kshutdown.cpp:757 src/main.cpp:151 src/main.cpp:154
+#: src/kshutdown.cpp:761 src/kshutdown.cpp:780
+#, c-format
+msgid "%0 is not supported"
+msgstr "%0 није подржано"
+
+#: src/kshutdown.cpp:769 src/main.cpp:153 src/main.cpp:156
 msgid "Turn Off Computer"
 msgstr "Угаси рачунар"
 
-#: src/main.cpp:135
+#: src/main.cpp:137
 msgid "KShutdown"
 msgstr "К—Гашење"
 
-#: src/main.cpp:142
+#: src/main.cpp:144
 msgid "An advanced shutdown utility"
 msgstr "Напредна алатка за гашење"
 
-#: src/main.cpp:157
+#: src/main.cpp:159
 msgid "Lock screen"
 msgstr "Закључај екран"
 
-#: src/main.cpp:169
+#: src/main.cpp:173
 msgid "Suspend Computer"
 msgstr "Суспендуј рачунар"
 
-#: src/main.cpp:172
+#: src/main.cpp:176
 msgid "Run executable file (example: Desktop shortcut or Shell script)"
 msgstr "Покрени извршни фајл (пример: пречица радне површи или скрипта шкољке)"
 
-#: src/main.cpp:175 src/mainwindow.cpp:100
+#: src/main.cpp:179 src/mainwindow.cpp:107
+msgid "Hide main window and system tray icon"
+msgstr "Сакриј главни прозор и иконицу системске палете"
+
+#: src/main.cpp:180 src/mainwindow.cpp:109
 msgid "Do not show main window on startup"
 msgstr "Не приказуј главни прозор при покретању"
 
-#: src/main.cpp:176 src/mainwindow.cpp:101
+#: src/main.cpp:181 src/mainwindow.cpp:111
 msgid ""
 "Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
 "minutes from now"
@@ -187,99 +200,123 @@ msgstr ""
 "Покрени одбројавање. Примери: 13:37 - апсолутно време (HH:MM), 10 - број "
 "минута почевши од сада"
 
-#: src/mainwindow.cpp:101
+#: src/main.cpp:183
+msgid ""
+"More Info...\n"
+"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"
+msgstr ""
+"Више информација...\n"
+"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"
+
+#: src/mainwindow.cpp:76
+msgid "Actions"
+msgstr "Радње"
+
+#: src/mainwindow.cpp:105
+msgid "Miscellaneous"
+msgstr "Разно"
+
+#: src/mainwindow.cpp:111
 msgid "Optional parameter"
 msgstr "Додатни параметар"
 
-#: src/mainwindow.cpp:109
+#: src/mainwindow.cpp:113
+msgid "More Info..."
+msgstr "Више информација..."
+
+#: src/mainwindow.cpp:121
 msgid "Command Line Options"
 msgstr "Командно-линијске опције"
 
-#: src/mainwindow.cpp:148
+#: src/mainwindow.cpp:160
 msgid "Invalid time: %0"
 msgstr "Неправилно време: %0"
 
-#: src/mainwindow.cpp:183 src/mainwindow.cpp:190
+#: src/mainwindow.cpp:195 src/mainwindow.cpp:202
 msgid "Remaining time: %0"
 msgstr "Преостало време: %0"
 
-#: src/mainwindow.cpp:372
+#: src/mainwindow.cpp:387
 msgid "KShutdown is still active!"
 msgstr "К—Гашење је и даље активно!"
 
-#: src/mainwindow.cpp:378
+#: src/mainwindow.cpp:393
 msgid "KShutdown has been minimized"
 msgstr "К—Гашење је минимизовано"
 
-#: src/mainwindow.cpp:511
-msgid "&File"
-msgstr "&Фајл"
+#: src/mainwindow.cpp:525
+msgid "A&ction"
+msgstr "&Радња"
 
-#: src/mainwindow.cpp:558
+#: src/mainwindow.cpp:528
+msgid "Select Action (no delay)"
+msgstr "Изабери радњу (без кашњења)"
+
+#: src/mainwindow.cpp:573
 msgid "Quit"
 msgstr "Напусти"
 
-#: src/mainwindow.cpp:566
+#: src/mainwindow.cpp:581
 msgid "&Settings"
 msgstr "&Подешавање"
 
-#: src/mainwindow.cpp:572 src/preferences.cpp:35
+#: src/mainwindow.cpp:587 src/preferences.cpp:35
 msgid "Preferences"
 msgstr "Подешавања"
 
-#: src/mainwindow.cpp:590
+#: src/mainwindow.cpp:605
 msgid "&Help"
 msgstr "&Помоћ"
 
-#: src/mainwindow.cpp:593 src/mainwindow.cpp:852
+#: src/mainwindow.cpp:608 src/mainwindow.cpp:867
 msgid "About"
 msgstr "О"
 
-#: src/mainwindow.cpp:594
+#: src/mainwindow.cpp:609
 msgid "About Qt"
 msgstr "О Qt-у"
 
-#: src/mainwindow.cpp:633
+#: src/mainwindow.cpp:647
 msgid "Select an &action"
-msgstr "Изаберите &акцију"
+msgstr "Изаберите р&адњу"
 
-#: src/mainwindow.cpp:642
+#: src/mainwindow.cpp:656
 msgid "Do not save session"
 msgstr "Не чувај сесију"
 
-#: src/mainwindow.cpp:650
+#: src/mainwindow.cpp:664
 msgid "S&elect a time/event"
 msgstr "И&заберите време/догађај"
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:678
 msgid "Click to activate/cancel the selected action"
-msgstr "Кликните да активирате/прекинете означену акцију"
+msgstr "Кликните да активирате/прекинете означену радњу"
 
-#: src/mainwindow.cpp:768 src/mainwindow.cpp:814
+#: src/mainwindow.cpp:782 src/mainwindow.cpp:828
 msgid "Cancel"
 msgstr "Одустани"
 
-#: src/mainwindow.cpp:772
+#: src/mainwindow.cpp:786
 msgid "OK"
 msgstr "У реду"
 
-#: src/mainwindow.cpp:783
+#: src/mainwindow.cpp:797
 msgid "Please select an Extras command<br>from the menu above."
 msgstr "Изаберите команду из Додатака<br>са менија изнад."
 
-#: src/mainwindow.cpp:800
+#: src/mainwindow.cpp:814
 msgid "Action not available: %0"
-msgstr "Акција није доступна: %0"
+msgstr "Радња није доступна: %0"
 
-#: src/mainwindow.cpp:810
+#: src/mainwindow.cpp:824
 msgid "Cancel: %0"
 msgstr "Одустани: %0"
 
-#: src/mainwindow.cpp:940
+#: src/mainwindow.cpp:955
 msgid "Confirm"
 msgstr "Потврда"
 
-#: src/mainwindow.cpp:940
+#: src/mainwindow.cpp:955
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -295,7 +332,7 @@ msgstr "Опште"
 
 #: src/preferences.cpp:97
 msgid "Confirm Action"
-msgstr "Потврди акцију"
+msgstr "Потврди радњу"
 
 #: src/preferences.cpp:101
 msgid "Progress Bar"
@@ -372,3 +409,6 @@ msgstr "Грешка: %0"
 #: src/triggers/processmonitor.cpp:229 src/triggers/processmonitor.cpp:232
 msgid "Error, exit code: %0"
 msgstr "Грешка, излазни кôд: %0"
+
+#~ msgid "&File"
+#~ msgstr "&Фајл"
