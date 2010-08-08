@@ -4,4 +4,8 @@ Type=Directory
 # Encoding: UTF-8
 Name=System
 Name[pl]=Systemowe
+Name[sr]=Систем
+Name[sr@ijekavian]=Систем
+Name[sr@latin]=Sistem
+Name[sr@ijekavianlatin]=Sistem
 Icon=process-stop

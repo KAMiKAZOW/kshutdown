@@ -4,4 +4,8 @@ Type=Directory
 # Encoding: UTF-8
 Name=Stop
 Name[pl]=Stop
+Name[sr]=Заустави
+Name[sr@ijekavian]=Заустави
+Name[sr@latin]=Zaustavi
+Name[sr@ijekavianlatin]=Zaustavi
 Icon=media-playback-stop
