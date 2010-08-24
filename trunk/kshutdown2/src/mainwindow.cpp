@@ -451,6 +451,7 @@ MainWindow::MainWindow() :
 			
 		U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;
 	}
+	m_actions->setMaxVisibleItems(m_actions->count());
 	
 	// init triggers
 	foreach (Trigger *trigger, m_triggerList) {
@@ -473,6 +474,7 @@ MainWindow::MainWindow() :
 
 		U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;	
 	}
+	m_triggers->setMaxVisibleItems(m_triggers->count());
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
 	
 	initSystemTray();
