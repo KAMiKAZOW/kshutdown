@@ -737,6 +737,7 @@ RebootAction::RebootAction() :
 	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT) {
 
 #ifdef KS_NATIVE_KDE
+/* FIXME: crash on KDE 4.5.0
 	QPixmap p = KIconLoader::global()->loadIcon(
 		"system-reboot",
 		//"dialog-ok",
@@ -750,7 +751,9 @@ RebootAction::RebootAction() :
 	if (p.isNull())
 		setIcon(U_STOCK_ICON("system-restart"));
 	else
-		setIcon(p);	
+		setIcon(p);
+*/
+	setIcon(U_STOCK_ICON("system-reboot"));
 #else
 	setIcon(U_STOCK_ICON("system-reboot"));
 #endif // KS_NATIVE_KDE
