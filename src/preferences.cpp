@@ -133,7 +133,7 @@ QWidget *Preferences::createTriggersWidget() {
 #ifdef KS_NATIVE_KDE
 void Preferences::onKDERelatedSettings() {
 	KRun::run(
-		"kcmshell4 screensaver kcmsmserver energy powerdevilconfig autostart kcmkded kdm kgrubeditor",
+		"kcmshell4 screensaver kcmsmserver energy powerdevilconfig autostart kcmkded kdm kgrubeditor keys",
 		KUrl::List(),
 		this
 	);
