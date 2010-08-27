@@ -1,14 +1,16 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2010/08/!!!  2.0 Beta 11
+2010/08/28  2.0 Beta 11
 
-* Fixed memory leak and crash on KDE 4.5.0
+* KDE 4.5.0: Fixed huge memory leak and crash on KDE startup
 * Fixed: Xfce: Do not show <qt> and <br> tags in notification window
 * Updated Serbian translation
 * Show "Global Keyboard Shortcuts" options in "KDE Related Settings" window
 * UI: Activate main window on system tray icon click
 * UI: Do not display scroll bars in combo box popups
+* KDE: Use org.kde.krunner service if org.freedesktop.ScreenSaver
+  is not available (used by Lock Screen action and inactivity detector).
 
 
 2010/07/22  2.0 Beta 10
@@ -394,4 +396,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 504:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 506:HEAD|xsel -i -b && kwrite ChangeLog
