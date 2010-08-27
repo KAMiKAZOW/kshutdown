@@ -27,6 +27,7 @@
  	#include <QDBusReply>
  	
  	#include "../utils.h"
+ 	#include "../actions/lock.h"
 #endif // Q_WS_WIN
 
 // public
@@ -45,25 +46,13 @@ IdleMonitor::IdleMonitor()
 #ifdef Q_WS_WIN
 	m_supported = true;
 #else
-	m_dbus = new QDBusInterface(
-		"org.freedesktop.ScreenSaver",
-		"/ScreenSaver",
-		"org.freedesktop.ScreenSaver"
-	);
-	m_supported = m_dbus->isValid() && !(Utils::isGNOME() || Utils::isXfce());
+	m_supported = LockAction::getQDBusInterface()->isValid() && !(Utils::isGNOME() || Utils::isXfce());
 #endif // Q_WS_WIN
 
 	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
 }
 
-IdleMonitor::~IdleMonitor() {
-#ifdef Q_WS_X11
-	if (m_dbus) {
-		delete m_dbus;
-		m_dbus = 0;
-	}
-#endif // Q_WS_X11
-}
+IdleMonitor::~IdleMonitor() { }
 
 bool IdleMonitor::canActivateAction() {
 	getSessionIdleTime();
@@ -109,7 +98,7 @@ void IdleMonitor::setState(const State state) {
 
 #ifdef Q_WS_X11
 		if (m_supported)
-			m_dbus->call("SimulateUserActivity");//!!!
+			LockAction::getQDBusInterface()->call("SimulateUserActivity");
 #endif // Q_WS_X11
 	}
 	else if (state == StopState) {
@@ -163,7 +152,7 @@ void IdleMonitor::getSessionIdleTime() {
 		m_idleTime = 0;
 	}
 #else
-	QDBusReply<quint32> reply = m_dbus->call("GetSessionIdleTime");
+	QDBusReply<quint32> reply = LockAction::getQDBusInterface()->call("GetSessionIdleTime");
 	
 	if (reply.isValid()) {
 		U_DEBUG << "org.freedesktop.ScreenSaver: reply=" << reply.value() U_END;

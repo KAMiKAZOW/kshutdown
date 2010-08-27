@@ -30,6 +30,9 @@
 // private
 
 LockAction *LockAction::m_instance = 0;
+#ifdef Q_WS_X11
+QDBusInterface *LockAction::m_qdbusInterface = 0;
+#endif // Q_WS_X11
 
 // public
 
@@ -45,9 +48,10 @@ bool LockAction::onAction() {
 	return true;
 #else
 	// try DBus
-	QDBusInterface i("org.freedesktop.ScreenSaver", "/ScreenSaver");
-	i.call("Lock");
-	QDBusError error = i.lastError();
+	QDBusInterface *dbus = getQDBusInterface();
+	dbus->call("Lock");
+	QDBusError error = dbus->lastError();
+	
 	if (error.type() == QDBusError::NoError)
 		return true;
 
@@ -77,6 +81,33 @@ bool LockAction::onAction() {
 	return false;
 #endif // Q_WS_WIN
 }
+
+#ifdef Q_WS_X11
+QDBusInterface *LockAction::getQDBusInterface() {
+	if (!m_qdbusInterface) {
+		m_qdbusInterface = new QDBusInterface(
+			"org.freedesktop.ScreenSaver",
+			"/ScreenSaver",
+			"org.freedesktop.ScreenSaver"
+		);
+		if (!m_qdbusInterface->isValid()) {
+			delete m_qdbusInterface;
+			
+			U_DEBUG << "LockAction::getQDBusInterface(): using org.kde.krunner" U_END;
+			m_qdbusInterface = new QDBusInterface(
+				"org.kde.krunner",
+				"/ScreenSaver",
+				"org.freedesktop.ScreenSaver"
+			);
+		}
+		else {
+			U_DEBUG << "LockAction::getQDBusInterface(): using org.freedesktop.ScreenSaver" U_END;
+		}
+	}
+	
+	return m_qdbusInterface;
+}
+#endif // Q_WS_X11
 
 // private
 
