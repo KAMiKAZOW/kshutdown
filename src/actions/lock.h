@@ -20,9 +20,16 @@
 
 #include "../kshutdown.h"
 
+#ifdef Q_WS_X11
+class QDBusInterface;
+#endif // Q_WS_X11
+
 class U_EXPORT LockAction: public KShutdown::Action {
 public:
 	virtual bool onAction();
+	#ifdef Q_WS_X11
+	static QDBusInterface *getQDBusInterface();
+	#endif // Q_WS_X11
 	inline static LockAction *self() {
 		if (!m_instance)
 			m_instance = new LockAction();
@@ -32,6 +39,9 @@ public:
 private:
 	Q_DISABLE_COPY(LockAction)
 	static LockAction *m_instance;
+	#ifdef Q_WS_X11
+	static QDBusInterface *m_qdbusInterface;
+	#endif // Q_WS_X11
 	LockAction();
 };
 
