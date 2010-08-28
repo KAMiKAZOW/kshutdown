@@ -80,11 +80,11 @@ bool MainWindow::checkCommandLine() {
 
 			// args
 			
-			table += "<td><code>";
+			table += "<td width=\"50%\"><code>";
 			QString argsCell = "";
 			foreach (QString arg, action->getCommandLineArgs()) {
 				if (!argsCell.isEmpty())
-					argsCell += "<br>";
+					argsCell += ", ";
 				argsCell += ((arg.length() == 1) ? "-" : "--");
 				argsCell += arg;
 			}
@@ -103,7 +103,9 @@ bool MainWindow::checkCommandLine() {
 		// NOTE: sync. description with main.cpp/main
 		
 		table += "<tr><td colspan=\"2\"><b>" + i18n("Miscellaneous") + "</b></td></tr>\n";
-		
+
+		table += "<tr><td><code>-i, --inactivity</code></td><td>" + i18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity") + "</td></tr>\n";
+
 		table += "<tr><td><code>--hide-ui</code></td><td>" + i18n("Hide main window and system tray icon") + "</td></tr>\n";
 		
 		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";

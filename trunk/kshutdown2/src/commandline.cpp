@@ -83,7 +83,19 @@ void TimeOption::setupMainWindow() {
 	mainWindow->setActive(false);
 	
 	mainWindow->setSelectedAction(m_action->id());
-	mainWindow->setSelectedTrigger(m_absolute ? "date-time" : "time-from-now");
+	if (Utils::isArg("inactivity") || Utils::isArg("i")) {
+		// set error mode
+		if (!m_relative) {
+			m_absolute = false;
+			
+			return;
+		}
+			
+		mainWindow->setSelectedTrigger("idle-monitor");
+	}
+	else {
+		mainWindow->setSelectedTrigger(m_absolute ? "date-time" : "time-from-now");
+	}
 	
 	Trigger *t = mainWindow->getSelectedTrigger();
 	DateTimeTriggerBase *trigger = static_cast<DateTimeTriggerBase *>(t);
