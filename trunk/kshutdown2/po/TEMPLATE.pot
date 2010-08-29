@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-31 23:10+0200\n"
+"POT-Creation-Date: 2010-08-29 22:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Add or Remove Commands"
 msgstr ""
 
-#: src/actions/lock.cpp:84
+#: src/actions/lock.cpp:115
 msgid "Lock Screen"
 msgstr ""
 
@@ -142,12 +142,12 @@ msgstr ""
 msgid "Restart Computer"
 msgstr ""
 
-#: src/kshutdown.cpp:761 src/kshutdown.cpp:780
+#: src/kshutdown.cpp:764 src/kshutdown.cpp:783
 #, c-format
 msgid "%0 is not supported"
 msgstr ""
 
-#: src/kshutdown.cpp:769 src/main.cpp:153 src/main.cpp:156
+#: src/kshutdown.cpp:772 src/main.cpp:153 src/main.cpp:156
 msgid "Turn Off Computer"
 msgstr ""
 
@@ -171,21 +171,27 @@ msgstr ""
 msgid "Run executable file (example: Desktop shortcut or Shell script)"
 msgstr ""
 
-#: src/main.cpp:179 src/mainwindow.cpp:107
+#: src/main.cpp:181 src/mainwindow.cpp:107
+msgid ""
+"Detect user inactivity. Example: --logout --inactivity 90 - automatically "
+"logout after 90 minutes of user inactivity"
+msgstr ""
+
+#: src/main.cpp:183 src/mainwindow.cpp:109
 msgid "Hide main window and system tray icon"
 msgstr ""
 
-#: src/main.cpp:180 src/mainwindow.cpp:109
+#: src/main.cpp:184 src/mainwindow.cpp:111
 msgid "Do not show main window on startup"
 msgstr ""
 
-#: src/main.cpp:181 src/mainwindow.cpp:111
+#: src/main.cpp:185 src/mainwindow.cpp:113
 msgid ""
 "Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
 "minutes from now"
 msgstr ""
 
-#: src/main.cpp:183
+#: src/main.cpp:187
 msgid ""
 "More Info...\n"
 "http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"
@@ -199,107 +205,107 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/mainwindow.cpp:111
+#: src/mainwindow.cpp:113
 msgid "Optional parameter"
 msgstr ""
 
-#: src/mainwindow.cpp:113
+#: src/mainwindow.cpp:115
 msgid "More Info..."
 msgstr ""
 
-#: src/mainwindow.cpp:121
+#: src/mainwindow.cpp:123
 msgid "Command Line Options"
 msgstr ""
 
-#: src/mainwindow.cpp:160
+#: src/mainwindow.cpp:162
 msgid "Invalid time: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:195 src/mainwindow.cpp:202
+#: src/mainwindow.cpp:197 src/mainwindow.cpp:204
 msgid "Remaining time: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:396
 msgid "KShutdown is still active!"
 msgstr ""
 
-#: src/mainwindow.cpp:393
+#: src/mainwindow.cpp:402
 msgid "KShutdown has been minimized"
 msgstr ""
 
-#: src/mainwindow.cpp:525
+#: src/mainwindow.cpp:536
 msgid "A&ction"
 msgstr ""
 
-#: src/mainwindow.cpp:528
+#: src/mainwindow.cpp:539
 msgid "Select Action (no delay)"
 msgstr ""
 
-#: src/mainwindow.cpp:573
+#: src/mainwindow.cpp:584
 msgid "Quit"
 msgstr ""
 
-#: src/mainwindow.cpp:581
+#: src/mainwindow.cpp:592
 msgid "&Settings"
 msgstr ""
 
-#: src/mainwindow.cpp:587 src/preferences.cpp:35
+#: src/mainwindow.cpp:598 src/preferences.cpp:35
 msgid "Preferences"
 msgstr ""
 
-#: src/mainwindow.cpp:605
+#: src/mainwindow.cpp:616
 msgid "&Help"
 msgstr ""
 
-#: src/mainwindow.cpp:608 src/mainwindow.cpp:867
+#: src/mainwindow.cpp:619 src/mainwindow.cpp:878
 msgid "About"
 msgstr ""
 
-#: src/mainwindow.cpp:609
+#: src/mainwindow.cpp:620
 msgid "About Qt"
 msgstr ""
 
-#: src/mainwindow.cpp:647
+#: src/mainwindow.cpp:658
 msgid "Select an &action"
 msgstr ""
 
-#: src/mainwindow.cpp:656
+#: src/mainwindow.cpp:667
 msgid "Do not save session"
 msgstr ""
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:675
 msgid "S&elect a time/event"
 msgstr ""
 
-#: src/mainwindow.cpp:678
+#: src/mainwindow.cpp:689
 msgid "Click to activate/cancel the selected action"
 msgstr ""
 
-#: src/mainwindow.cpp:782 src/mainwindow.cpp:828
+#: src/mainwindow.cpp:793 src/mainwindow.cpp:839
 msgid "Cancel"
 msgstr ""
 
-#: src/mainwindow.cpp:786
+#: src/mainwindow.cpp:797
 msgid "OK"
 msgstr ""
 
-#: src/mainwindow.cpp:797
+#: src/mainwindow.cpp:808
 msgid "Please select an Extras command<br>from the menu above."
 msgstr ""
 
-#: src/mainwindow.cpp:814
+#: src/mainwindow.cpp:825
 msgid "Action not available: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:824
+#: src/mainwindow.cpp:835
 msgid "Cancel: %0"
 msgstr ""
 
-#: src/mainwindow.cpp:955
+#: src/mainwindow.cpp:966
 msgid "Confirm"
 msgstr ""
 
-#: src/mainwindow.cpp:955
+#: src/mainwindow.cpp:966
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -346,19 +352,19 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/triggers/idlemonitor.cpp:36
+#: src/triggers/idlemonitor.cpp:37
 msgid "On User Inactivity (HH:MM)"
 msgstr ""
 
-#: src/triggers/idlemonitor.cpp:56
+#: src/triggers/idlemonitor.cpp:52
 msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
 msgstr ""
 
-#: src/triggers/idlemonitor.cpp:72
+#: src/triggers/idlemonitor.cpp:61
 msgid "Unknown"
 msgstr ""
 
-#: src/triggers/idlemonitor.cpp:100
+#: src/triggers/idlemonitor.cpp:89
 msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"
 msgstr ""
 
