@@ -2,118 +2,142 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Jozef Riha <zefo@seznam.cz>, 2004, 2005, 2008.
 # Zdenko Podobný <zdpo@mailbox.sk>, 2004.
+# Slavko <linux@slavino.sk>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-11 08:21+0100\n"
-"PO-Revision-Date: 2008-05-17 00:41+0200\n"
-"Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
-"Language-Team:  <sk@li.org>\n"
+"POT-Creation-Date: 2010-03-13 13:43+0100\n"
+"PO-Revision-Date: 2010-09-17 23:37+0200\n"
+"Last-Translator: Slavko <linux@slavino.sk>\n"
+"Language-Team: Slovak <nomail>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: src/actions/extras.cpp:49
-#, fuzzy
+#: src/actions/extras.cpp:51
 msgid "Invalid \"Extras\" command"
-msgstr "Zadajte príkaz."
+msgstr "Neplatný príkaz \"Extra\""
 
-#: src/actions/extras.cpp:58
+#: src/actions/extras.cpp:60 src/actions/extras.cpp:68
 msgid "Cannot execute \"Extras\" command"
-msgstr ""
+msgstr "Nemožno vykonať \"Extra\" príkaz"
 
-#: src/actions/extras.cpp:69
-#, fuzzy
-msgid "Extras..."
+#: src/actions/extras.cpp:110
+msgid "Extras"
 msgstr "Extra"
 
-#: src/actions/extras.cpp:174
+#: src/actions/extras.cpp:246
 msgid "Select a command..."
 msgstr "Vyberte príkaz..."
 
-#: src/actions/extras.cpp:188
-#, fuzzy
+#: src/actions/extras.cpp:266
 msgid "Use context menu to add/edit/remove actions."
-msgstr "Použite kontextovú ponuku na pridanie/úpravu/odstránenie odkazov."
+msgstr "Na pridanie/úpravu/odstránenie akcií použite kontextovú ponuku."
 
-#: src/actions/extras.cpp:190
-#, fuzzy
+#: src/actions/extras.cpp:268
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
 msgstr ""
-"Použite <b>Kontextovú ponuku</b> na vytvorenie nového odkazu k aplikácií"
+"Na vytvorenie nového odkazu k aplikácií (akciu) použite <b>Kontextovú "
+"ponuku</b>"
 
-#: src/actions/extras.cpp:191
+#: src/actions/extras.cpp:269
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
-msgstr "Použite <b>Vytvoriť Nový|Priečinok...</b> na vytvorenie novej ponuky"
+msgstr "Na vytvorenie novej ponuky použite <b>Vytvoriť Nový|Priečinok...</b>"
 
-#: src/actions/extras.cpp:192
-#, fuzzy
+#: src/actions/extras.cpp:270
 msgid "Use <b>Properties</b> to change icon, name, or command"
-msgstr "Použite <b>Vlastnosti</b> na zmenu ikony, názvu, alebo komentára"
+msgstr "Na zmenu ikony, názvu, alebo príkazu použite <b>Vlastnosti</b>"
 
-#: src/actions/extras.cpp:216
-#, fuzzy
-msgid "Add/Remove Commands..."
-msgstr "Pridať/Odstrániť odkazy"
+#: src/actions/extras.cpp:294
+msgid "Add or Remove Commands"
+msgstr "Pridať/Odstrániť príkazy"
 
-#: src/kshutdown.cpp:155
-msgid "Unsupported action: %1"
-msgstr ""
+#: src/actions/lock.cpp:85
+msgid "Lock Screen"
+msgstr "Zamknúť obrazovku"
 
-#: src/kshutdown.cpp:170
-#, fuzzy
+#: src/kshutdown.cpp:154
+msgid "Unsupported action: %0"
+msgstr "Nepodporovaná akcia: %0"
+
+#: src/kshutdown.cpp:169
 msgid "Unknown error"
-msgstr "Neznáme"
+msgstr "Neznáma chyba"
 
 #: src/kshutdown.cpp:203
 msgid "Are you sure?"
-msgstr ""
+msgstr "Ste si istý?"
 
-#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
-#, fuzzy
-msgid "Remaining time:"
-msgstr "Zostávajúci čas."
+#: src/kshutdown.cpp:349
+msgid "Invalid date/time"
+msgstr "Neplatný dátum/čas"
 
-#: src/kshutdown.cpp:306
+#: src/kshutdown.cpp:358
 msgid "At Date/Time"
-msgstr "Dátum/čas"
+msgstr "O dátum/čas"
 
-#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
+#: src/kshutdown.cpp:372
+msgid "Enter date and time"
+msgstr "Zadajte dátum a čas"
+
+#: src/kshutdown.cpp:388 src/mainwindow.cpp:514
 msgid "No Delay"
 msgstr "Bez čakania"
 
-#: src/kshutdown.cpp:343
+#: src/kshutdown.cpp:406
 msgid "Time From Now (HH:MM)"
 msgstr "Od teraz za (HH:MM)"
 
-#: src/kshutdown.cpp:456
-#, fuzzy
+#: src/kshutdown.cpp:414
+msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
+msgstr "Zadajte dobu čakania vo formáte \"HH:MM\" (Hodiny:Minúty)"
+
+#: src/kshutdown.cpp:537 src/main.cpp:166
 msgid "Hibernate Computer"
-msgstr "Reštartovať počítač"
+msgstr "Hibernovať počítač"
 
-#: src/kshutdown.cpp:459
-msgid "Cannot suspend to disk"
+#: src/kshutdown.cpp:540
+msgid "Cannot hibernate computer"
+msgstr "Nemožno hibernovať počítač"
+
+#: src/kshutdown.cpp:547
+msgid ""
+"<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
+"systems where the contents of RAM are written to non-volatile storage such "
+"as a hard disk, as a file or on a separate partition, before powering off "
+"the computer.</p><p>When the computer is restarted it reloads the content of "
+"memory and is restored to the state it was in when hibernation was invoked.</"
+"p><p>Hibernating and later restarting is usually faster than closing down, "
+"later starting up, and starting all the programs that were running.</"
+"p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 msgstr ""
+"<p>Hibernovanie (alebo Uspať na disk) je vlastnosť mnohých počítačových "
+"operačných systémov, pri ktorej je obsah RAM uložený na trvalé úložisko, "
+"napríklad na pevný disk, ako súbor alebo na samostatnú partíciu, pred "
+"vypnutím počítača.</p><p>Keď je počítač znova spustený, načíta si obsah "
+"pamäte, a tak je obnovený do stavu pred spustením hibernácie.</"
+"p><p>Hibernovanie neskoršia obnova stavu je zvyčajne rýchlejšie ako vypnutie "
+"a neskoršie zapnutie, a spúšťa všetky programy, ktoré boli spustené.</"
+"p><p>Zdroj: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 
-#: src/kshutdown.cpp:469
-#, fuzzy
-msgid "Suspend Computer"
-msgstr "Vypnúť počítač"
+#: src/kshutdown.cpp:559
+msgid "Suspend Computer (Sleep)"
+msgstr "Suspendovať počítač (Uspať)"
 
-#: src/kshutdown.cpp:472
-msgid "Cannot suspend to RAM"
-msgstr ""
+#: src/kshutdown.cpp:563
+msgid "Cannot suspend computer"
+msgstr "Nemožno suspendovať počítač"
 
-#: src/kshutdown.cpp:482
-msgid "Lock Screen"
-msgstr "Uzamknúť obrazovku"
+#: src/kshutdown.cpp:567
+msgid "Enter in a low-power state."
+msgstr "Prejsť do režimu nízkej spotreby"
 
-#: src/kshutdown.cpp:626
+#: src/kshutdown.cpp:702
 msgid ""
 "Could not logout properly.\n"
 "The session manager cannot be contacted."
@@ -121,119 +145,236 @@ msgstr ""
 "Nebolo možné sa korektne odhlásiť.\n"
 "Nepodarilo sa kontaktovať správcu sedenia."
 
-#: src/kshutdown.cpp:650
+#: src/kshutdown.cpp:718 src/main.cpp:163
 msgid "Logout"
 msgstr "Odhlásiť sa"
 
-#: src/kshutdown.cpp:660
+#: src/kshutdown.cpp:728 src/main.cpp:160
 msgid "Restart Computer"
 msgstr "Reštartovať počítač"
 
-#: src/kshutdown.cpp:670
+#: src/kshutdown.cpp:757 src/main.cpp:151 src/main.cpp:154
 msgid "Turn Off Computer"
 msgstr "Vypnúť počítač"
 
-#: src/mainwindow.cpp:273
-msgid "KShutdown is still active!"
-msgstr ""
+#: src/main.cpp:135
+msgid "KShutdown"
+msgstr "KShutDown"
 
-#: src/mainwindow.cpp:279
-#, fuzzy
+#: src/main.cpp:142
+msgid "An advanced shutdown utility"
+msgstr "Pokročilý nástroj vypnutia"
+
+#: src/main.cpp:157
+msgid "Lock screen"
+msgstr "Zamknúť obrazovku"
+
+#: src/main.cpp:169
+msgid "Suspend Computer"
+msgstr "Suspendovať počítač"
+
+#: src/main.cpp:172
+msgid "Run executable file (example: Desktop shortcut or Shell script)"
+msgstr "Spustiť súbor (napríklad: súbor desktop alebo skript shellu)"
+
+#: src/main.cpp:175 src/mainwindow.cpp:100
+msgid "Do not show main window on startup"
+msgstr "Nezobrazovať pri spustení okno aplikácie"
+
+#: src/main.cpp:176 src/mainwindow.cpp:101
+msgid ""
+"Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
+"minutes from now"
+msgstr ""
+"Aktivovať počítadlo, Príklady: 13:37 – absolútny čas (HH:MM); 10 – počet "
+"minút čakania"
+
+#: src/mainwindow.cpp:101
+msgid "Optional parameter"
+msgstr "Voliteľný parameter"
+
+#: src/mainwindow.cpp:109
+msgid "Command Line Options"
+msgstr "Voľby príkazového riadku"
+
+#: src/mainwindow.cpp:148
+msgid "Invalid time: %0"
+msgstr "Neplatný čas: %0"
+
+#: src/mainwindow.cpp:183 src/mainwindow.cpp:190
+msgid "Remaining time: %0"
+msgstr "Zostávajúci čas: %0"
+
+#: src/mainwindow.cpp:372
+msgid "KShutdown is still active!"
+msgstr "KShutdown je stále aktívny!"
+
+#: src/mainwindow.cpp:378
 msgid "KShutdown has been minimized"
 msgstr "KShutDown bol minimalizovaný"
 
-#: src/mainwindow.cpp:385
+#: src/mainwindow.cpp:511
 msgid "&File"
 msgstr "&Súbor"
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:558
 msgid "Quit"
-msgstr ""
+msgstr "Koniec"
 
-#: src/mainwindow.cpp:419
+#: src/mainwindow.cpp:566
 msgid "&Settings"
 msgstr "&Nastavenia"
 
-#: src/mainwindow.cpp:425
-msgid "Preferences..."
-msgstr ""
+#: src/mainwindow.cpp:572 src/preferences.cpp:35
+msgid "Preferences"
+msgstr "Predvoľby"
 
-#: src/mainwindow.cpp:443
+#: src/mainwindow.cpp:590
 msgid "&Help"
 msgstr "&Pomocník"
 
-#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+#: src/mainwindow.cpp:593 src/mainwindow.cpp:852
 msgid "About"
-msgstr ""
+msgstr "O programe..."
 
-#: src/mainwindow.cpp:445
+#: src/mainwindow.cpp:594
 msgid "About Qt"
-msgstr ""
+msgstr "O Qt..."
 
-#: src/mainwindow.cpp:475
-#, fuzzy
+#: src/mainwindow.cpp:633
 msgid "Select an &action"
-msgstr "Vyberte &akciu, ktorá sa má uskutočniť"
+msgstr "Vyberte &akciu"
 
-#: src/mainwindow.cpp:484
+#: src/mainwindow.cpp:642
 msgid "Do not save session"
-msgstr ""
+msgstr "Neukladať reláciu"
 
-#: src/mainwindow.cpp:492
-msgid "S&elect a time"
-msgstr "&Vyberte čas"
+#: src/mainwindow.cpp:650
+msgid "S&elect a time/event"
+msgstr "&Vyberte čas/udalosť"
 
-#: src/mainwindow.cpp:592
-#, fuzzy
+#: src/mainwindow.cpp:664
+msgid "Click to activate/cancel the selected action"
+msgstr "Kliknutím aktivujte/zrušte zvolenú akciu"
+
+#: src/mainwindow.cpp:768 src/mainwindow.cpp:814
 msgid "Cancel"
 msgstr "&Zrušiť"
 
-#: src/mainwindow.cpp:593
+#: src/mainwindow.cpp:772
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
-#: src/mainwindow.cpp:595
-msgid "Click to active the selected action"
-msgstr ""
+#: src/mainwindow.cpp:783
+msgid "Please select an Extras command<br>from the menu above."
+msgstr "Prosím vyberte Extra príkaz<br>z menu nižšie."
 
-#: src/mainwindow.cpp:602
-#, fuzzy
+#: src/mainwindow.cpp:800
 msgid "Action not available: %0"
-msgstr "Akcia zlyhala! (%1)"
+msgstr "Akcia nedostupná: (%0)"
 
-#: src/mainwindow.cpp:724
+#: src/mainwindow.cpp:810
+msgid "Cancel: %0"
+msgstr "Zrušiť: %0"
+
+#: src/mainwindow.cpp:940
 msgid "Confirm"
 msgstr "Potvrdiť"
 
-#: src/mainwindow.cpp:724
-#, fuzzy
+#: src/mainwindow.cpp:940
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
 "Data in all unsaved documents will be lost!"
 msgstr ""
-"Určite chcete ZABIŤ<br><b>%1</b>?<br><br>Všetky neuložené dáta budu stratené!"
+"Určite chcete povoliť túto voľbu?\n"
+"\n"
+"Všetky neuložené dáta budu stratené!"
 
-#: src/preferences.cpp:32
-msgid "Preferences"
-msgstr ""
-
-#: src/preferences.cpp:39
+#: src/preferences.cpp:42
 msgid "General"
 msgstr "Všeobecné"
 
 #: src/preferences.cpp:97
-#, fuzzy
 msgid "Confirm Action"
-msgstr "Potvrdiť"
+msgstr "Potvrdiť akciu"
 
 #: src/preferences.cpp:101
-msgid "Lock Screen Before Hibernate"
-msgstr ""
+msgid "Progress Bar"
+msgstr "Ukazovateľ priebehu"
 
-#: src/pureqt.h:49
+#: src/preferences.cpp:105
+msgid "Lock Screen Before Hibernate"
+msgstr "Zamknúť obrazovku pred hibernáciou "
+
+#: src/preferences.cpp:115
+msgid "Related KDE Settings..."
+msgstr "Príslušné nastavenia KDE..."
+
+#: src/progressbar.cpp:84
+msgid "Hide"
+msgstr "Skryť"
+
+#: src/progressbar.cpp:86
+msgid "Position"
+msgstr "Pozícia"
+
+#: src/progressbar.cpp:93
+msgid "Top"
+msgstr "Hore"
+
+#: src/progressbar.cpp:98
+msgid "Bottom"
+msgstr "Dole"
+
+#: src/pureqt.h:63
 msgid "Error"
 msgstr "Chyba"
+
+#: src/triggers/idlemonitor.cpp:36
+msgid "On User Inactivity (HH:MM)"
+msgstr "Pri neaktivite používateľa (HH:MM)"
+
+#: src/triggers/idlemonitor.cpp:56
+msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
+msgstr "Zisťovať neaktivitu používateľa pomocou (príklad: bez klikania myšou)."
+
+#: src/triggers/idlemonitor.cpp:72
+msgid "Unknown"
+msgstr "Neznáme"
+
+#: src/triggers/idlemonitor.cpp:100
+msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"
+msgstr ""
+"Zadajte dobu používateľskej neaktivity vo formáte \"HH:MM\" (Hodiny:Minúty)"
+
+#: src/triggers/processmonitor.cpp:74
+msgid "When selected application exit"
+msgstr "Keď vybraná aplikácia skončí"
+
+#: src/triggers/processmonitor.cpp:90
+msgid "Waiting for \"%0\""
+msgstr "Čakanie na \"%0\""
+
+#: src/triggers/processmonitor.cpp:105
+msgid "List of the running processes"
+msgstr "Zoznam bežiacich procesov"
+
+#: src/triggers/processmonitor.cpp:112
+msgid "Refresh"
+msgstr "Obnoviť"
+
+#: src/triggers/processmonitor.cpp:115
+msgid "Refresh the list of processes"
+msgstr "Obnoviť zoznam procesov"
+
+#: src/triggers/processmonitor.cpp:187
+msgid "Error: %0"
+msgstr "Chyba: %0"
+
+#: src/triggers/processmonitor.cpp:229 src/triggers/processmonitor.cpp:232
+msgid "Error, exit code: %0"
+msgstr "Chyba, návratový kód: %0"
 
 #~ msgid "Please wait..."
 #~ msgstr "Prosím čakajte..."
@@ -253,20 +394,11 @@ msgstr "Chyba"
 #~ msgid "kdesktop: DCOP call failed!"
 #~ msgstr "kdesktop: DCOP volanie zlyhalo!"
 
-#~ msgid "Refresh the list of processes"
-#~ msgstr "Obnoviť zoznam procesov"
-
-#~ msgid "List of the running processes"
-#~ msgstr "Zoznam bežiacich procesov"
-
 #~ msgid "Kill"
 #~ msgstr "Zabiť"
 
 #~ msgid "Kill the selected process"
 #~ msgstr "Zabiť vybraný proces"
-
-#~ msgid "Waiting for \"%1\""
-#~ msgstr "Čakám na \"%1\""
 
 #~ msgid "The selected process does not exist!"
 #~ msgstr "Vybraný proces neexistuje!"
@@ -334,9 +466,6 @@ msgstr "Chyba"
 #~ msgid "Enter a custom command:"
 #~ msgstr "Zadajte vlastný príkaz:"
 
-#~ msgid "Command before action"
-#~ msgstr "Príkaz pred akciou"
-
 #~ msgid "Run command"
 #~ msgstr "Spustiť príkaz"
 
@@ -401,23 +530,11 @@ msgstr "Chyba"
 #~ msgid "Cancel an active action"
 #~ msgstr "Zrušiť bežiacu akciu"
 
-#~ msgid "Don't show window at startup"
-#~ msgstr "Nezobrazovať okno pri spustení"
-
 #~ msgid "Enable test mode"
 #~ msgstr "Zapnúť testovací režim"
 
 #~ msgid "Disable test mode"
 #~ msgstr "Vypnúť testovací režim"
-
-#~ msgid ""
-#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
-#~ "wait from now"
-#~ msgstr ""
-#~ "Čas; Príklad: 01:30 - absolútny čas (HH:MM); 10 - počet minút čakania"
-
-#~ msgid "Invalid time: <b>%1</b>"
-#~ msgstr "Neplatný čas: <b>%1</b>"
 
 #~ msgid "1 hour warning"
 #~ msgstr "Upozornenie 1 minútu vopred"
@@ -440,14 +557,8 @@ msgstr "Chyba"
 #~ msgid "Enter hour and minute."
 #~ msgstr "Zadajte hodinu a minútu."
 
-#~ msgid "Enter date and time."
-#~ msgstr "Zadajte dátum a čas."
-
 #~ msgid "Click the <b>Select a command...</b> button first."
 #~ msgstr "Najprv kliknite na tlačidlo <b>Vyberte príkaz...</b>."
-
-#~ msgid "Selected date/time: %1"
-#~ msgstr "Zvolený dátum/čas: %1"
 
 #~ msgid "Current date/time: %1"
 #~ msgstr "Aktuálny dátum/čas: %1"
@@ -478,9 +589,6 @@ msgstr "Chyba"
 
 #~ msgid "Select an action to perform at the selected time."
 #~ msgstr "Vyberte akciu, ktorá sa má v daný čas uskutočniť"
-
-#~ msgid "When selected application exit"
-#~ msgstr "Keď vybraná aplikácia skončí"
 
 #~ msgid "Disabled by the Administrator."
 #~ msgstr "Zablokované správcom."
@@ -539,9 +647,6 @@ msgstr "Chyba"
 #~ msgid "After Login"
 #~ msgstr "Po prihlásení"
 
-#~ msgid "Lock screen"
-#~ msgstr "Uzamknúť obrazovku"
-
 #~ msgid "Before Logout"
 #~ msgstr "Pred odhlásením"
 
@@ -550,9 +655,6 @@ msgstr "Chyba"
 
 #~ msgid "Command:"
 #~ msgstr "Príkaz:"
-
-#~ msgid "Related KDE Settings..."
-#~ msgstr "Zodpovedajúce nastavenia KDE..."
 
 #~ msgid "Common Problems"
 #~ msgstr "Všeobecné problémy"
@@ -655,9 +757,6 @@ msgstr "Chyba"
 #~ "Tento pohľad zobrazí informácie o aktuálnych používateľoch v systéme a o "
 #~ "ich procesoch.<br> Hlavička zobrazí ako dlho je systém spustený."
 
-#~ msgid "Refresh"
-#~ msgstr "Obnoviť"
-
 #~ msgid "More information"
 #~ msgstr "Viac informácií"
 
@@ -754,9 +853,6 @@ msgstr "Chyba"
 
 #~ msgid "1 second before action"
 #~ msgstr "1 sekunda pred akciou"
-
-#~ msgid "KShutDown"
-#~ msgstr "KShutDown"
 
 #~ msgid "&Start [%1]"
 #~ msgstr "Š&tart [%1]"
