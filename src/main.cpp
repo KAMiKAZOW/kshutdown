@@ -141,6 +141,7 @@ int main(int argc, char **argv) {
 	about.setCopyrightStatement(ki18n(KS_COPYRIGHT));
 	about.setHomepage(KS_HOME_PAGE);
 	about.setLicense(KAboutData::License_GPL_V2);
+	about.setOrganizationDomain("kshutdown.sf.net");
 	about.setShortDescription(ki18n("An advanced shutdown utility"));
 
 	KCmdLineArgs::init(argc, argv, &about);
