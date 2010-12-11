@@ -40,5 +40,7 @@ Exec=kshutdown
 Icon=kshutdown
 Type=Application
 
+# DOC: http://api.kde.org/4.x-api/kdelibs-apidocs/kdecore/html/classKAboutData.html
+X-DBUS-ServiceName=net.sf.kshutdown.kshutdown
 # DOC: http://standards.freedesktop.org/menu-spec/latest/apa.html
 Categories=Utility;
