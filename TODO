@@ -14,10 +14,6 @@ Old KShutDown 1.0.x features:
 * Action configuration (command before action, pause before action)
 * Lock screen after login
 * Close CD-ROM before logout
-* Command line options compatible with KShutdown 1.0.x:
-	{ "cancel", I18N_NOOP("Cancel an active action"), 0 },
-	{ "confirm", I18N_NOOP("Confirm command line action"), 0 },
-	{ "standard", I18N_NOOP("Show standard logout dialog"), 0 },
 
 Extras:
 
@@ -34,7 +30,6 @@ Misc.:
   and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
 * Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
-* DBUS
 * Plasmoid
 * KDE Kiosk
 * Include in KDE 4
@@ -44,7 +39,7 @@ Misc.:
 * http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
 * http://sourceforge.net/projects/kshutdown/forums/forum/324059/topic/1819885
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
-!!! Support for GNOME/GDM
+* Support for GNOME/GDM
 * Switch to console mode (tty) [by DigitalCyanide]
 * Add test button for "Close CD"
 * KDM configurator, auto configuration
@@ -63,7 +58,3 @@ Triggers:
   <http://www.autoshutdown.org/index.html>
   [by aaron-koensgen, luckymancvp]
 * Activate action when selected window disapear
-
-Usability:
-
-* http://sourceforge.net/forum/forum.php?thread_id=1639947&forum_id=324058

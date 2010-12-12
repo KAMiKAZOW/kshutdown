@@ -42,6 +42,10 @@ using namespace KShutdown;
 class MainWindow: public U_MAIN_WINDOW {
 	friend class TimeOption;
 	Q_OBJECT
+	#ifdef KS_PURE_QT
+	// compatible with KDE
+	Q_CLASSINFO("D-Bus Interface", "net.sf.kshutdown.MainWindow")
+	#endif // KS_PURE_QT
 public:
 	enum DisplayStatus {
 		DISPLAY_STATUS_HTML = 1 << 0,
@@ -59,9 +63,14 @@ public:
 		return m_instance;
 	}
 	void maybeShow();
-	void setActive(const bool yes);
 public slots:
+	Q_SCRIPTABLE QStringList actionList() const;
+	Q_SCRIPTABLE QStringList triggerList() const;
+	Q_SCRIPTABLE inline bool active() const { return m_active; }
+	Q_SCRIPTABLE void setActive(const bool yes);
 	void notify(const QString &id, const QString &text);
+	Q_SCRIPTABLE void setSelectedAction(const QString &id);
+	Q_SCRIPTABLE void setSelectedTrigger(const QString &id);
 protected:
 	virtual void closeEvent(QCloseEvent *e);
 private:
@@ -94,9 +103,7 @@ private:
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
 	Action *getSelectedAction() const;
-	void setSelectedAction(const QString &id);
 	Trigger *getSelectedTrigger() const;
-	void setSelectedTrigger(const QString &id);
 	void initMenuBar();
 	void initSystemTray();
 	void initTriggers();
