@@ -23,6 +23,10 @@
 #include <QLayout>
 #include <QTimer>
 
+#ifdef Q_WS_X11
+	#include <QDBusConnection>
+#endif // Q_WS_X11
+
 #ifdef KS_PURE_QT
 	#include <QWhatsThis>
 
@@ -267,6 +271,16 @@ void MainWindow::maybeShow() {
 		show();
 }
 
+// public slots
+
+QStringList MainWindow::actionList() const {
+	return m_actionHash.keys();
+}
+
+QStringList MainWindow::triggerList() const {
+	return m_triggerHash.keys();
+}
+
 void MainWindow::setActive(const bool yes) {
 	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
 
@@ -336,8 +350,6 @@ void MainWindow::setActive(const bool yes) {
 	updateWidgets();
 }
 
-// public slots
-
 void MainWindow::notify(const QString &id, const QString &text) {
 	// do not display the same notification twice
 	if (m_lastNotificationID == id)
@@ -372,6 +384,18 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		4000
 	);
 #endif // KS_PURE_QT
+}
+
+void MainWindow::setSelectedAction(const QString &id) {
+	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
+
+	onActionActivated(selectById(m_actions, id));
+}
+
+void MainWindow::setSelectedTrigger(const QString &id) {
+	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
+
+	onTriggerActivated(selectById(m_triggers, id));
 }
 
 // protected
@@ -492,6 +516,18 @@ MainWindow::MainWindow() :
 		U_APP, SIGNAL(focusChanged(QWidget *, QWidget *)),
 		this, SLOT(onFocusChange(QWidget *, QWidget *))
 	);
+	
+#ifdef Q_WS_X11
+	QDBusConnection dbus = QDBusConnection::sessionBus();
+	#ifdef KS_PURE_QT
+	dbus.registerService("net.sf.kshutdown");
+	#endif // KS_PURE_QT
+	dbus.registerObject(
+		"/kshutdown",
+		this,
+		QDBusConnection::ExportScriptableSlots
+	);
+#endif // Q_WS_X11
 }
 
 void MainWindow::addAction(Action *action) {
@@ -508,20 +544,8 @@ Action *MainWindow::getSelectedAction() const {
 	return m_actionHash[m_actions->itemData(m_actions->currentIndex()).toString()];
 }
 
-void MainWindow::setSelectedAction(const QString &id) {
-	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
-
-	onActionActivated(selectById(m_actions, id));
-}
-
 Trigger *MainWindow::getSelectedTrigger() const {
 	return m_triggerHash[m_triggers->itemData(m_triggers->currentIndex()).toString()];
-}
-
-void MainWindow::setSelectedTrigger(const QString &id) {
-	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
-
-	onTriggerActivated(selectById(m_triggers, id));
 }
 
 // TODO: customizable action/trigger presets
