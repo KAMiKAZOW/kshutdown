@@ -54,7 +54,10 @@ public:
 		static bool first = true;
 		commonStartup(first);
 		first = false;
-		
+
+		if (Utils::isArg("cancel"))
+			MainWindow::self()->setActive(false);
+
 		return 0;
 	}
 #endif // KS_NATIVE_KDE
@@ -79,7 +82,7 @@ public:
 		
 		if (!first)
 			MainWindow::self()->raise();
-		
+
 		return true;
 	}
 };
@@ -185,6 +188,7 @@ int main(int argc, char **argv) {
 	options.add("i");
 	options.add("inactivity", ki18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"));
 
+	options.add("cancel", ki18n("Cancel an active action"));
 	options.add("hide-ui", ki18n("Hide main window and system tray icon"));
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("+[time]", ki18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"));
