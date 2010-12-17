@@ -100,6 +100,8 @@ int main(int argc, char **argv) {
 	if (Utils::isGDM() || Utils::isGNOME() || Utils::isXfce()) {
 		qWarning("WARNING: GNOME/Xfce desktop and/or GDM (login manager) are not supported yet.");
 		qWarning("         Some functions may be unavailable.");
+		qWarning("         Try GShutdown which is more compatible with GNOME/GDM and Xfce.");
+		qWarning("         http://gshutdown.tuxfamily.org/");
 	}
 
 #ifdef KS_PURE_QT
