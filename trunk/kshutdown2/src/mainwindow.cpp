@@ -110,6 +110,8 @@ bool MainWindow::checkCommandLine() {
 
 		table += "<tr><td><code>-i, --inactivity</code></td><td>" + i18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity") + "</td></tr>\n";
 
+		table += "<tr><td><code>--confirm</code></td><td>" + i18n("Confirm command line action") + "</td></tr>\n";
+
 		table += "<tr><td><code>--hide-ui</code></td><td>" + i18n("Hide main window and system tray icon") + "</td></tr>\n";
 		
 		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
@@ -137,8 +139,16 @@ bool MainWindow::checkCommandLine() {
 	TimeOption::init();
 	
 	Action *actionToActivate = 0;
+	bool confirm = Utils::isArg("confirm");
 	foreach (Action *action, m_actionList) {
 		if (action->isCommandLineArgSupported()) {
+			if (
+				confirm &&
+				!U_CONFIRM(0, i18n("Confirm command line action"), i18n("Are you sure?") + "\n\n" + action->originalText())
+			) {
+				return false;
+			}
+			
 			actionToActivate = action;
 
 			break; // foreach
