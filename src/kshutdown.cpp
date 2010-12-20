@@ -512,10 +512,12 @@ bool PowerAction::isAvailable(const QString &feature) const {
 		QDBusConnection::systemBus()
 	);
 	QDBusReply<bool> reply = i->call("GetProperty", feature);
-	delete i;
 
-	if (reply.isValid())
+	if (reply.isValid()) {
+		delete i;
+
 		return reply.value();
+	}
 		
 	// try old property name for backward compat.
 	U_DEBUG << "Using old HAL property names..." U_END;
@@ -528,11 +530,15 @@ bool PowerAction::isAvailable(const QString &feature) const {
 	if (!oldFeatureName.isNull()) {
 		reply = i->call("GetProperty", oldFeatureName);
 	
-		if (reply.isValid())
+		if (reply.isValid()) {
+			delete i;
+
 			return reply.value();
+		}
 	}
 
 	U_ERROR << reply.error() U_END;
+	delete i;
 
 	return false;
 #endif // Q_WS_WIN
