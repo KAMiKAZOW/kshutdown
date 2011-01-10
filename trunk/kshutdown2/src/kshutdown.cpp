@@ -170,6 +170,10 @@ void Action::slotFire() {
 			U_ERROR_MESSAGE(0, text);
 		}
 	}
+	
+	if (!isEnabled() && !m_disableReason.isEmpty()) {
+		U_ERROR_MESSAGE(0, m_disableReason);
+	}
 }
 
 // ConfirmAction
@@ -589,6 +593,18 @@ SuspendAction::SuspendAction() :
 StandardAction::StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type) :
 	Action(text, iconName, id),
 	m_type(type) {
+#ifdef KS_NATIVE_KDE
+	if ((type != U_SHUTDOWN_TYPE_LOGOUT) && Utils::isKDEFullSession()) {
+		if (!KWorkSpace::canShutDown(
+			KWorkSpace::ShutdownConfirmNo,
+			m_type,
+			KWorkSpace::ShutdownModeForceNow
+		)) {
+			disable("Check \"Offer shutdown options\"<br>in the \"Session Management\" settings<br>(KDE System Settings).");
+		}
+	}
+#endif // KS_NATIVE_KDE
+
 }
 
 bool StandardAction::onAction() {
