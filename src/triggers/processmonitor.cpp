@@ -124,6 +124,18 @@ QWidget *ProcessMonitor::getWidget() {
 	return m_widget;
 }
 
+void ProcessMonitor::setPID(const pid_t pid) {
+	m_processes->clear();
+	m_processList.clear();
+	
+	Process *p = new Process(this);
+	p->m_command = "?";
+	p->m_pid = pid;
+	p->m_user = "?";
+	m_processList.append(p);
+	m_processes->addItem(U_ICON(), p->toString());
+}
+
 // private
 
 void ProcessMonitor::errorMessage(const QString &message) {
@@ -191,38 +203,26 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
 	
+	if (!m_processList.isEmpty())
+		return;
+	
 	if (exitStatus == QProcess::NormalExit) {
-		int index = 0;
-		int line = 0;
-		Process *p = 0;
 		QString user = Utils::getUser();
-		foreach (QString i, m_refreshBuf.simplified().split(" ")) {
-			switch (line) {
-				// user
-				case 0:
-					line++; // next is pid
-					p = new Process(this);
-					p->m_user = i;
-					break;
-				// pid
-				case 1:
-					line++; // next is command
-					p->m_pid = i.toLong();
-					break;
-				// command
-				case 2:
-					line = 0; // next is user (wrap around)
-					p->m_command = i;
-					m_processList.append(p);
-					m_processes->addItem(
-						// show icons for the current user only (faster)
-						(p->m_user == user) ? U_STOCK_ICON(p->m_command) : U_ICON(),
-						p->toString(),
-						index
-					);
-					break;
+		QStringList processLines = m_refreshBuf.split("\n");
+		foreach (QString i, processLines) {
+			QStringList processInfo = i.simplified().split(" ");
+			if (processInfo.count() >= 3) {
+				Process *p = new Process(this);
+				p->m_user = processInfo[0];
+				p->m_pid = processInfo[1].toLong();
+				p->m_command = processInfo[2];
+				m_processList.append(p);
+				m_processes->addItem(
+					// show icons for the current user only (faster)
+					(p->m_user == user) ? U_STOCK_ICON(p->m_command) : U_ICON(),
+					p->toString()
+				);
 			}
-			index++;
 		}
 		
 		if (m_processList.isEmpty())

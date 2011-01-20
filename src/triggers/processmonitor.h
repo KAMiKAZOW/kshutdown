@@ -51,6 +51,7 @@ public:
 	ProcessMonitor();
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
+	void setPID(const pid_t pid);
 private:
 	Q_DISABLE_COPY(ProcessMonitor)
 	QList<Process*> m_processList;
