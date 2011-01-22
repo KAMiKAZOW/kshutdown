@@ -281,14 +281,49 @@ void MainWindow::maybeShow() {
 		show();
 }
 
-// public slots
+void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const bool absolute) {
+	setActive(false);
 
-QStringList MainWindow::actionList() const {
-	return m_actionHash.keys();
+	setSelectedTrigger(selectTrigger);
+	DateTimeTriggerBase *dateTimeTrigger = dynamic_cast<DateTimeTriggerBase *>(
+		getSelectedTrigger()
+	);
+	
+	if (!dateTimeTrigger)
+		return;
+
+	QDate date = QDate::currentDate();
+
+	// select next day if time is less than current time
+	if (absolute && (time < QTime::currentTime()))
+		date = date.addDays(1);
+	dateTimeTrigger->setDateTime(QDateTime(date, time));
+	
+	setActive(true);
 }
 
-QStringList MainWindow::triggerList() const {
-	return m_triggerHash.keys();
+// public slots
+
+QStringList MainWindow::actionList(const bool showDescription) {
+	if (!showDescription)
+		return m_actionHash.keys();
+
+	QStringList sl;
+	foreach (QString i, m_actionHash.keys())
+		sl.append(i + " - " + m_actionHash.value(i)->originalText());
+
+	return sl;
+}
+
+QStringList MainWindow::triggerList(const bool showDescription) {
+	if (!showDescription)
+		return m_triggerHash.keys();
+
+	QStringList sl;
+	foreach (QString i, m_triggerHash.keys())
+		sl.append(i + " - " + m_triggerHash.value(i)->text());
+
+	return sl;
 }
 
 void MainWindow::setActive(const bool yes) {
@@ -306,22 +341,33 @@ void MainWindow::setActive(const bool yes) {
 // !!!: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
 	if (m_active) {
 		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
-// FIXME: need preferred tray icon size
-		QImage i = defaultIcon.pixmap(32, 32).toImage();
-		KIconEffect::colorize(i, Qt::yellow, 0.5f);
+
+		QRect iconSize = m_systemTray->geometry();
+		if (iconSize.size().isEmpty()) {
+			U_DEBUG << "MainWindow::setActive: empty system tray icon size: " << iconSize U_END;
+		}
+		else {
+			U_DEBUG << "MainWindow::setActive: system tray icon size: " << iconSize U_END;
+			int iconW = iconSize.width();
+			int iconH = iconSize.height();
+			QImage i = defaultIcon.pixmap(iconW, iconH).toImage();
+			KIconEffect::colorize(i, Qt::yellow, 0.5f);
 		
-		// show icons of the active action/trigger
-		QPainter *p = new QPainter(&i);
-		p->setOpacity(0.8);
-		// left/bottom
-		QPixmap actionOverlay = action->icon().pixmap(16, 16);
-		p->drawPixmap(0, 16, actionOverlay);
-		// right/bottom
-		QPixmap triggerOverlay = trigger->icon().pixmap(16, 16);
-		p->drawPixmap(16, 16, triggerOverlay);
-		delete p;
+			// show icons of the active action/trigger
+			QPainter *p = new QPainter(&i);
+			p->setOpacity(0.8);
+			// left/bottom
+			iconW /= 2;
+			iconH /= 2;
+			QPixmap actionOverlay = action->icon().pixmap(iconW, iconH);
+			p->drawPixmap(0, iconH, actionOverlay);
+			// right/bottom
+			QPixmap triggerOverlay = trigger->icon().pixmap(iconW, iconH);
+			p->drawPixmap(iconW, iconH, triggerOverlay);
+			delete p;
 		
-		m_systemTray->setIcon(QPixmap::fromImage(i));
+			m_systemTray->setIcon(QPixmap::fromImage(i));
+		}
 	}
 	else {
 		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
@@ -396,6 +442,13 @@ void MainWindow::notify(const QString &id, const QString &text) {
 #endif // KS_PURE_QT
 }
 
+#ifdef KS_NATIVE_KDE
+void MainWindow::setExtrasCommand(const QString &command) {
+	setSelectedAction("extras");
+	Extras::self()->setCommand(command);
+}
+#endif // KS_NATIVE_KDE
+
 void MainWindow::setSelectedAction(const QString &id) {
 	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
 
@@ -406,6 +459,33 @@ void MainWindow::setSelectedTrigger(const QString &id) {
 	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
 
 	onTriggerActivated(selectById(m_triggers, id));
+}
+
+void MainWindow::setTime(const QString &trigger, const QString &time) {
+	if (!trigger.isEmpty())
+		setSelectedTrigger(trigger);
+	
+	QTime t = QTime::fromString(time, KShutdown::TIME_FORMAT);
+	bool absolute = (trigger == "date-time") ? true : false;
+	setTime(trigger, t, absolute);
+}
+
+void MainWindow::setWaitForProcess(const qlonglong pid) {
+	U_DEBUG << "MainWindow::setWaitForProcess( " << pid << " )" U_END;
+
+	setActive(false);
+
+	setSelectedTrigger("process-monitor");
+	ProcessMonitor *processMonitor = dynamic_cast<ProcessMonitor *>(
+		getSelectedTrigger()
+	);
+	
+	if (!processMonitor)
+		return;
+
+	processMonitor->setPID(pid);
+	
+	setActive(true);
 }
 
 // protected

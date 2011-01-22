@@ -63,14 +63,20 @@ public:
 		return m_instance;
 	}
 	void maybeShow();
+	void setTime(const QString &trigger, const QTime &time, const bool absolute);
 public slots:
-	Q_SCRIPTABLE QStringList actionList() const;
-	Q_SCRIPTABLE QStringList triggerList() const;
+	Q_SCRIPTABLE QStringList actionList(const bool showDescription);
+	Q_SCRIPTABLE QStringList triggerList(const bool showDescription);
 	Q_SCRIPTABLE inline bool active() const { return m_active; }
 	Q_SCRIPTABLE void setActive(const bool yes);
 	void notify(const QString &id, const QString &text);
+#ifdef KS_NATIVE_KDE
+	Q_SCRIPTABLE void setExtrasCommand(const QString &command);
+#endif // KS_NATIVE_KDE
 	Q_SCRIPTABLE void setSelectedAction(const QString &id);
 	Q_SCRIPTABLE void setSelectedTrigger(const QString &id);
+	Q_SCRIPTABLE void setTime(const QString &trigger, const QString &time);
+	Q_SCRIPTABLE void setWaitForProcess(const qlonglong pid);
 protected:
 	virtual void closeEvent(QCloseEvent *e);
 private:
