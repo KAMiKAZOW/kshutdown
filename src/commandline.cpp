@@ -18,7 +18,6 @@
 #include "pureqt.h"
 
 #include "commandline.h"
-#include "kshutdown.h"
 #include "mainwindow.h"
 #include "utils.h"
 
@@ -83,6 +82,8 @@ void TimeOption::setupMainWindow() {
 	mainWindow->setActive(false);
 	
 	mainWindow->setSelectedAction(m_action->id());
+	
+	QString trigger;
 	if (Utils::isArg("inactivity") || Utils::isArg("i")) {
 		// set error mode
 		if (!m_relative) {
@@ -91,22 +92,12 @@ void TimeOption::setupMainWindow() {
 			return;
 		}
 			
-		mainWindow->setSelectedTrigger("idle-monitor");
+		trigger = "idle-monitor";
 	}
 	else {
-		mainWindow->setSelectedTrigger(m_absolute ? "date-time" : "time-from-now");
+		trigger = m_absolute ? "date-time" : "time-from-now";
 	}
-	
-	Trigger *t = mainWindow->getSelectedTrigger();
-	DateTimeTriggerBase *trigger = static_cast<DateTimeTriggerBase *>(t);
 
-	QDate date = QDate::currentDate();
-	
-	// select next day if time is less than current time
-	if (m_absolute && (m_time < QTime::currentTime()))
-		date = date.addDays(1);
-	
-	trigger->setDateTime(QDateTime(date, m_time));
-	
+	mainWindow->setTime(trigger, m_time, m_absolute);
 	mainWindow->setActive(true);
 }
