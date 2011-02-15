@@ -2,20 +2,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
-# Konrad Twardowski <kdtonline@poczta.onet.pl>, 2003, 2004, 2005, 2006, 2007, 2010.
 # Konrad Twardowski <twardowski@gmail.com>, 2008.
+# Konrad Twardowski <kdtonline@poczta.onet.pl>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-31 23:10+0200\n"
-"PO-Revision-Date: 2010-05-31 23:09+0200\n"
+"POT-Creation-Date: 2011-02-15 17:18+0100\n"
+"PO-Revision-Date: 2011-02-15 17:17+0100\n"
 "Last-Translator: Konrad Twardowski <kdtonline@poczta.onet.pl>\n"
 "Language-Team: Polish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -56,11 +56,11 @@ msgstr "Użyj <b>Właściwości</b>, aby zmienić ikonę, nazwę, lub polecenie"
 msgid "Add or Remove Commands"
 msgstr "Dodaj lub usuń polecenia"
 
-#: src/actions/lock.cpp:84
+#: src/actions/lock.cpp:115
 msgid "Lock Screen"
 msgstr "Zablokuj ekran"
 
-#: src/actions/test.cpp:25 src/main.cpp:170
+#: src/actions/test.cpp:25 src/main.cpp:180
 msgid "Test Action (does nothing)"
 msgstr "Testuj akcję (nic nie robi)"
 
@@ -72,43 +72,43 @@ msgstr "Nieobsługiwana akcja: %0"
 msgid "Unknown error"
 msgstr "Nieznany błąd"
 
-#: src/kshutdown.cpp:203
+#: src/kshutdown.cpp:207 src/mainwindow.cpp:147
 msgid "Are you sure?"
 msgstr "Jesteś pewien/pewna?"
 
-#: src/kshutdown.cpp:358
+#: src/kshutdown.cpp:362
 msgid "Invalid date/time"
 msgstr "Nieprawidłowa data/godzina"
 
-#: src/kshutdown.cpp:367
+#: src/kshutdown.cpp:371
 msgid "At Date/Time"
 msgstr "O dacie/godzinie"
 
-#: src/kshutdown.cpp:381
+#: src/kshutdown.cpp:385
 msgid "Enter date and time"
 msgstr "Wprowadź datę i godzinę"
 
-#: src/kshutdown.cpp:397
+#: src/kshutdown.cpp:401
 msgid "No Delay"
 msgstr "Brak opóźnienia"
 
-#: src/kshutdown.cpp:415
+#: src/kshutdown.cpp:419
 msgid "Time From Now (HH:MM)"
 msgstr "Czas od teraz (GG:MM)"
 
-#: src/kshutdown.cpp:423
+#: src/kshutdown.cpp:427
 msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
 msgstr "Wprowadź opóźnienie w formacie \"GG:MM\" (Godzina:Minuta)"
 
-#: src/kshutdown.cpp:546 src/main.cpp:168
+#: src/kshutdown.cpp:556 src/main.cpp:178
 msgid "Hibernate Computer"
 msgstr "Hibernuj komputer"
 
-#: src/kshutdown.cpp:549
+#: src/kshutdown.cpp:559
 msgid "Cannot hibernate computer"
 msgstr ""
 
-#: src/kshutdown.cpp:556
+#: src/kshutdown.cpp:566
 msgid ""
 "<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
 "systems where the contents of RAM are written to non-volatile storage such "
@@ -120,19 +120,19 @@ msgid ""
 "p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 msgstr ""
 
-#: src/kshutdown.cpp:568
+#: src/kshutdown.cpp:578
 msgid "Suspend Computer (Sleep)"
 msgstr "Wstrzymaj komputer (uśpij)"
 
-#: src/kshutdown.cpp:572
+#: src/kshutdown.cpp:582
 msgid "Cannot suspend computer"
 msgstr ""
 
-#: src/kshutdown.cpp:576
+#: src/kshutdown.cpp:586
 msgid "Enter in a low-power state."
 msgstr ""
 
-#: src/kshutdown.cpp:711
+#: src/kshutdown.cpp:733
 msgid ""
 "Could not logout properly.\n"
 "The KDE Session Manager cannot be contacted."
@@ -140,52 +140,68 @@ msgstr ""
 "Nie było możliwe poprawne wylogowanie.\n"
 "Nie można połączyć się z Menedżerem Sesji KDE."
 
-#: src/kshutdown.cpp:727 src/main.cpp:165
+#: src/kshutdown.cpp:749 src/main.cpp:175
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: src/kshutdown.cpp:737 src/main.cpp:162
+#: src/kshutdown.cpp:759 src/main.cpp:172
 msgid "Restart Computer"
 msgstr "Uruchom ponownie"
 
-#: src/kshutdown.cpp:761 src/kshutdown.cpp:780
+#: src/kshutdown.cpp:786 src/kshutdown.cpp:805
 #, c-format
 msgid "%0 is not supported"
 msgstr "%0 nie jest obsługiwany"
 
-#: src/kshutdown.cpp:769 src/main.cpp:153 src/main.cpp:156
+#: src/kshutdown.cpp:794 src/main.cpp:163 src/main.cpp:166
 msgid "Turn Off Computer"
 msgstr "Wyłącz komputer"
 
-#: src/main.cpp:137
+#: src/main.cpp:142
 msgid "KShutdown"
 msgstr "KShutdown"
 
-#: src/main.cpp:144
+#: src/main.cpp:154
 msgid "An advanced shutdown utility"
 msgstr "Zaawansowane narzędzie do zamykania systemu"
 
-#: src/main.cpp:159
+#: src/main.cpp:169
 msgid "Lock screen"
 msgstr "Zablokuj ekran"
 
-#: src/main.cpp:173
+#: src/main.cpp:183
 msgid "Suspend Computer"
 msgstr "Wstrzymaj komputer"
 
-#: src/main.cpp:176
+#: src/main.cpp:186
 msgid "Run executable file (example: Desktop shortcut or Shell script)"
 msgstr "Uruchom plik wykonywalny (przykład: skrót Pulpitu lub skrypt powłoki)"
 
-#: src/main.cpp:179 src/mainwindow.cpp:107
+#: src/main.cpp:191 src/mainwindow.cpp:111
+msgid ""
+"Detect user inactivity. Example: --logout --inactivity 90 - automatically "
+"logout after 90 minutes of user inactivity"
+msgstr ""
+"Wykryj brak aktywności użytkownika. Przykład: --logout --inactivity 90 - "
+"wyloguj automatycznie po 90 minutach braku aktywności użytkownika"
+
+#: src/main.cpp:193
+msgid "Cancel an active action"
+msgstr "Anuluj aktywną akcję"
+
+#: src/main.cpp:194 src/mainwindow.cpp:113 src/mainwindow.cpp:147
+msgid "Confirm command line action"
+msgstr "Potwierdź opcję linii poleceń"
+
+#: src/main.cpp:195 src/mainwindow.cpp:115
 msgid "Hide main window and system tray icon"
 msgstr "Ukryj główne okno oraz ikonę tacki systemowej"
 
-#: src/main.cpp:180 src/mainwindow.cpp:109
+#: src/main.cpp:196 src/mainwindow.cpp:117
 msgid "Do not show main window on startup"
 msgstr "Nie pokazuj głównego okna przy uruchamianiu"
 
-#: src/main.cpp:181 src/mainwindow.cpp:111
+#: src/main.cpp:197 src/mainwindow.cpp:119
 msgid ""
 "Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
 "minutes from now"
@@ -193,7 +209,7 @@ msgstr ""
 "Aktywuj odliczanie. Przykłady: 13:37 - dokładna godzina (GG:MM), 10 - liczba "
 "minut od teraz"
 
-#: src/main.cpp:183
+#: src/main.cpp:199
 msgid ""
 "More Info...\n"
 "http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"
@@ -201,115 +217,115 @@ msgstr ""
 "Więcej informacji...\n"
 "http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"
 
-#: src/mainwindow.cpp:76
+#: src/mainwindow.cpp:80
 msgid "Actions"
 msgstr "Akcje"
 
-#: src/mainwindow.cpp:105
+#: src/mainwindow.cpp:109
 msgid "Miscellaneous"
 msgstr "Różne"
 
-#: src/mainwindow.cpp:111
+#: src/mainwindow.cpp:119
 msgid "Optional parameter"
 msgstr "Opcjonalny parametr"
 
-#: src/mainwindow.cpp:113
+#: src/mainwindow.cpp:121
 msgid "More Info..."
 msgstr "Więcej informacji..."
 
-#: src/mainwindow.cpp:121
+#: src/mainwindow.cpp:129
 msgid "Command Line Options"
 msgstr "Opcje linii poleceń"
 
-#: src/mainwindow.cpp:160
+#: src/mainwindow.cpp:176
 msgid "Invalid time: %0"
 msgstr "Nieprawidłowy czas: %0"
 
-#: src/mainwindow.cpp:195 src/mainwindow.cpp:202
+#: src/mainwindow.cpp:211 src/mainwindow.cpp:218
 msgid "Remaining time: %0"
 msgstr "Pozostały czas: %0"
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:510
 msgid "KShutdown is still active!"
 msgstr "KShutdown jest nadal aktywny!"
 
-#: src/mainwindow.cpp:393
+#: src/mainwindow.cpp:516
 msgid "KShutdown has been minimized"
 msgstr "KShutdown został zminimalizowany"
 
-#: src/mainwindow.cpp:525
+#: src/mainwindow.cpp:650
 msgid "A&ction"
 msgstr "A&kcja"
 
-#: src/mainwindow.cpp:528
+#: src/mainwindow.cpp:653
 msgid "Select Action (no delay)"
 msgstr "Wybierz akcję (bez opóźnienia)"
 
-#: src/mainwindow.cpp:573
+#: src/mainwindow.cpp:698
 msgid "Quit"
 msgstr "Zakończ"
 
-#: src/mainwindow.cpp:581
+#: src/mainwindow.cpp:706
 msgid "&Settings"
 msgstr "&Ustawienia"
 
-#: src/mainwindow.cpp:587 src/preferences.cpp:35
+#: src/mainwindow.cpp:712 src/preferences.cpp:35
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: src/mainwindow.cpp:605
+#: src/mainwindow.cpp:730
 msgid "&Help"
 msgstr "Pomo&c"
 
-#: src/mainwindow.cpp:608 src/mainwindow.cpp:867
+#: src/mainwindow.cpp:733 src/mainwindow.cpp:992
 msgid "About"
 msgstr "O programie"
 
-#: src/mainwindow.cpp:609
+#: src/mainwindow.cpp:734
 msgid "About Qt"
 msgstr "O Qt"
 
-#: src/mainwindow.cpp:647
+#: src/mainwindow.cpp:772
 msgid "Select an &action"
 msgstr "Wybierz &akcję"
 
-#: src/mainwindow.cpp:656
+#: src/mainwindow.cpp:781
 msgid "Do not save session"
 msgstr "Nie zapisuj sesji"
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:789
 msgid "S&elect a time/event"
 msgstr "&Wybierz czas/zdarzenie"
 
-#: src/mainwindow.cpp:678
+#: src/mainwindow.cpp:803
 msgid "Click to activate/cancel the selected action"
 msgstr "Kliknij, aby aktywować/anulować wybraną akcję"
 
-#: src/mainwindow.cpp:782 src/mainwindow.cpp:828
+#: src/mainwindow.cpp:907 src/mainwindow.cpp:953
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/mainwindow.cpp:786
+#: src/mainwindow.cpp:911
 msgid "OK"
 msgstr "OK"
 
-#: src/mainwindow.cpp:797
+#: src/mainwindow.cpp:922
 msgid "Please select an Extras command<br>from the menu above."
 msgstr ""
 
-#: src/mainwindow.cpp:814
+#: src/mainwindow.cpp:939
 msgid "Action not available: %0"
 msgstr "Akcja niedostępna: %0"
 
-#: src/mainwindow.cpp:824
+#: src/mainwindow.cpp:949
 msgid "Cancel: %0"
 msgstr "Anuluj: %0"
 
-#: src/mainwindow.cpp:955
+#: src/mainwindow.cpp:1080
 msgid "Confirm"
 msgstr "Potwierdź"
 
-#: src/mainwindow.cpp:955
+#: src/mainwindow.cpp:1080
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -359,19 +375,19 @@ msgstr "Dolny"
 msgid "Error"
 msgstr "Błąd"
 
-#: src/triggers/idlemonitor.cpp:36
+#: src/triggers/idlemonitor.cpp:37
 msgid "On User Inactivity (HH:MM)"
-msgstr ""
+msgstr "Przy braku aktywności użytkownika (GG:MM)"
 
-#: src/triggers/idlemonitor.cpp:56
+#: src/triggers/idlemonitor.cpp:52
 msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
 msgstr ""
 
-#: src/triggers/idlemonitor.cpp:72
+#: src/triggers/idlemonitor.cpp:61
 msgid "Unknown"
 msgstr "Nieznany"
 
-#: src/triggers/idlemonitor.cpp:100
+#: src/triggers/idlemonitor.cpp:89
 msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"
 msgstr ""
 
@@ -395,7 +411,7 @@ msgstr "Odśwież"
 msgid "Refresh the list of processes"
 msgstr "Odśwież listę procesów"
 
-#: src/triggers/processmonitor.cpp:187
+#: src/triggers/processmonitor.cpp:199
 msgid "Error: %0"
 msgstr "Błąd: %0"
 
