@@ -1,9 +1,31 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2010/12/!!!  2.0 Beta 12
+2011/02/15  2.0 Beta 12
 
-* RFE #3052626 (Command Line Inactivity Timer)
+Linux:
+
+* NEW: Added D-Bus support. Run "qdbus net.sf.kshutdown /kshutdown" for details.
+  (TODO: the D-Bus functions are currently undocumented)
+* Fixed bug #3140645 (kde 4.6 + qt 4.7.1 + kshutdown crash)
+* Setup.sh: Auto select kde4 menu item (if available)
+* Show error message if "Turn Off Computer" or "Restart Computer" function
+  is not available or disabled in KDE System Settings.
+* Fixed error in "When selected application exit" function caused by zombie programs
+
+Command Line:
+
+* NEW: Added "--cancel" command line option to stop an active action (KDE 4 only)
+* NEW: Added "--confirm" option to confirm a command line action
+* NEW: Added -i and --inactivity command line options
+  (RFE #3052626, Command Line Inactivity Timer)
+
+Misc.:
+
+* Updated Brazilian Portuguese translation
+* Updated Polish translation
+* Updated Slovak translation
+* Better icon size in system tray
 
 
 2010/08/28  2.0 Beta 11
@@ -401,4 +423,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 506:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 523:HEAD|xsel -i -b && kwrite ChangeLog
