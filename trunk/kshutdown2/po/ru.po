@@ -1,5 +1,3 @@
-# translation of ru.po to 
-# translation of ru1.po to
 # translation of ru.po to
 # translation of kshutdown.po to
 # This file is distributed under the same license as the PACKAGE package.
@@ -10,1013 +8,414 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-11 08:21+0100\n"
-"PO-Revision-Date: 2004-09-02 21:48+0400\n"
-"Last-Translator: spider <spider@malta.altlinux.ru>\n"
+"POT-Creation-Date: 2011-02-15 17:39+0100\n"
+"PO-Revision-Date: 2011-02-20 22:52+0300\n"
+"Last-Translator: Ser Moro <sermorsik@gmail.com>\n"
 "Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: src/actions/extras.cpp:49
-#, fuzzy
+#: src/actions/extras.cpp:51
 msgid "Invalid \"Extras\" command"
-msgstr "Задержка в секундах."
+msgstr "Недопустимая команда \"Extras\""
 
-#: src/actions/extras.cpp:58
+#: src/actions/extras.cpp:60
+#: src/actions/extras.cpp:68
 msgid "Cannot execute \"Extras\" command"
-msgstr ""
+msgstr "невозможно выполнить команду \"Extras\""
 
-#: src/actions/extras.cpp:69
-#, fuzzy
-msgid "Extras..."
-msgstr "Дополнительно..."
+#: src/actions/extras.cpp:110
+msgid "Extras"
+msgstr "Дополнительно"
 
-#: src/actions/extras.cpp:174
-#, fuzzy
+#: src/actions/extras.cpp:246
 msgid "Select a command..."
-msgstr "Задержка в секундах."
+msgstr "Выберите команду"
 
-#: src/actions/extras.cpp:188
-#, fuzzy
+#: src/actions/extras.cpp:266
 msgid "Use context menu to add/edit/remove actions."
-msgstr ""
-"Используйте контекстное меню для добавления/редактирования и удаления ссылок."
+msgstr "Используйте контекстное меню для добавления/редактирования или удаления действий."
 
-#: src/actions/extras.cpp:190
-#, fuzzy
+#: src/actions/extras.cpp:268
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
-msgstr "Используйте <b>Контекстное меню</b> для создания ссылок на приложения"
+msgstr "Используйте <b>Контекстное меню</b> для создания новой ссылки на приложения (действие)"
 
-#: src/actions/extras.cpp:191
+#: src/actions/extras.cpp:269
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
 msgstr "Используйте <b>Создать Новый|Каталог</b> для создания субменю"
 
-#: src/actions/extras.cpp:192
-#, fuzzy
+#: src/actions/extras.cpp:270
 msgid "Use <b>Properties</b> to change icon, name, or command"
-msgstr "Используйте<b>Настройки</b> для смены иконки, имени, или комментария"
+msgstr "Используйте<b>Настройки</b> для смены иконки, имени или команды"
 
-#: src/actions/extras.cpp:216
-#, fuzzy
-msgid "Add/Remove Commands..."
-msgstr "Удалить Ссылку"
+#: src/actions/extras.cpp:294
+msgid "Add or Remove Commands"
+msgstr "Добавить или удалить команды"
 
-#: src/kshutdown.cpp:155
-#, fuzzy
-msgid "Unsupported action: %1"
-msgstr "Неправильное действие:%1"
+#: src/actions/lock.cpp:115
+msgid "Lock Screen"
+msgstr "Заблокировать экран"
 
-#: src/kshutdown.cpp:170
-#, fuzzy
+#: src/actions/test.cpp:25
+#: src/main.cpp:180
+msgid "Test Action (does nothing)"
+msgstr "Проверка действия (эмуляция)"
+
+#: src/kshutdown.cpp:154
+msgid "Unsupported action: %0"
+msgstr "Неправильное действие: %0"
+
+#: src/kshutdown.cpp:169
 msgid "Unknown error"
-msgstr "Неизвестный"
+msgstr "Неизвестная ошибка"
 
-#: src/kshutdown.cpp:203
+#: src/kshutdown.cpp:207
+#: src/mainwindow.cpp:147
 msgid "Are you sure?"
 msgstr "Вы уверены ?"
 
-#: src/kshutdown.cpp:243 src/kshutdown.cpp:246 src/mainwindow.cpp:706
-#, fuzzy
-msgid "Remaining time:"
-msgstr "неверное время: <b>%1</b>"
+#: src/kshutdown.cpp:362
+msgid "Invalid date/time"
+msgstr "Недопустимые дата или время "
 
-#: src/kshutdown.cpp:306
+#: src/kshutdown.cpp:371
 msgid "At Date/Time"
 msgstr "В Дату/Время"
 
-#: src/kshutdown.cpp:331 src/mainwindow.cpp:387
-#, fuzzy
+#: src/kshutdown.cpp:385
+msgid "Enter date and time"
+msgstr "Введите время и дату"
+
+#: src/kshutdown.cpp:401
 msgid "No Delay"
 msgstr "Без задержки"
 
-#: src/kshutdown.cpp:343
-#, fuzzy
+#: src/kshutdown.cpp:419
 msgid "Time From Now (HH:MM)"
-msgstr "Время с текущего момента (HH:MM):"
+msgstr "Текущее время (ЧЧ:ММ)"
 
-#: src/kshutdown.cpp:456
-#, fuzzy
+#: src/kshutdown.cpp:427
+msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
+msgstr "Введите задержку  \"ЧЧ:ММ\" в формате (часы:минуты)"
+
+#: src/kshutdown.cpp:556
+#: src/main.cpp:178
 msgid "Hibernate Computer"
-msgstr "Перезагрузить компьютер"
+msgstr "Hibernate компьютер"
 
-#: src/kshutdown.cpp:459
-msgid "Cannot suspend to disk"
-msgstr ""
+#: src/kshutdown.cpp:559
+msgid "Cannot hibernate computer"
+msgstr "Невозможно Hibernate компьютер"
 
-#: src/kshutdown.cpp:469
-#, fuzzy
-msgid "Suspend Computer"
-msgstr "Выключить компьютер"
+#: src/kshutdown.cpp:566
+msgid "<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating systems where the contents of RAM are written to non-volatile storage such as a hard disk, as a file or on a separate partition, before powering off the computer.</p><p>When the computer is restarted it reloads the content of memory and is restored to the state it was in when hibernation was invoked.</p><p>Hibernating and later restarting is usually faster than closing down, later starting up, and starting all the programs that were running.</p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
+msgstr "<p>Hibernate (или сброс на диск) это возможность операционных систем записывать содержимое оперативной памяти (RAM) в стабильное хранилище, такое как жёсткий диск, в виде файла или целого раздела перед выключением питания компьютера.</p><p>При последующем включении компьютера, он считывает с диска записанную информацию и возвращается в прежнее состояние.</p><p>Hibernate ускоряет загрузку операционной системы, и, к тому же запускаются программы, работавшие перед выключением компьютера.</p><p>Источник: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 
-#: src/kshutdown.cpp:472
-msgid "Cannot suspend to RAM"
-msgstr ""
+#: src/kshutdown.cpp:578
+msgid "Suspend Computer (Sleep)"
+msgstr "Перевести компьютер в спящий режим (Sleep)"
 
-#: src/kshutdown.cpp:482
-#, fuzzy
-msgid "Lock Screen"
-msgstr "Запереть экран"
+#: src/kshutdown.cpp:582
+msgid "Cannot suspend computer"
+msgstr "Невозможно перевести компьютер в спящий режим"
 
-#: src/kshutdown.cpp:626
+#: src/kshutdown.cpp:586
+msgid "Enter in a low-power state."
+msgstr "Войти в энергосберегающий режим ."
+
+#: src/kshutdown.cpp:733
 msgid ""
 "Could not logout properly.\n"
-"The session manager cannot be contacted."
-msgstr "Невозможно корректно завершить сеанс."
+"The KDE Session Manager cannot be contacted."
+msgstr ""
+"Невозможно корректно завершить сеанс.\n"
+"Нет связи с менеджером сессий KDE."
 
-#: src/kshutdown.cpp:650
+#: src/kshutdown.cpp:749
+#: src/main.cpp:175
 msgid "Logout"
 msgstr "Завершить сеанс"
 
-#: src/kshutdown.cpp:660
+#: src/kshutdown.cpp:759
+#: src/main.cpp:172
 msgid "Restart Computer"
 msgstr "Перезагрузить компьютер"
 
-#: src/kshutdown.cpp:670
+#: src/kshutdown.cpp:786
+#: src/kshutdown.cpp:805
+msgid "%0 is not supported"
+msgstr "%0 не поддерживается"
+
+#: src/kshutdown.cpp:794
+#: src/main.cpp:163
+#: src/main.cpp:166
 msgid "Turn Off Computer"
 msgstr "Выключить компьютер"
 
-#: src/mainwindow.cpp:273
-msgid "KShutdown is still active!"
-msgstr ""
-
-#: src/mainwindow.cpp:279
-#, fuzzy
-msgid "KShutdown has been minimized"
+#: src/main.cpp:142
+msgid "KShutdown"
 msgstr "KShutDown"
 
-#: src/mainwindow.cpp:385
-msgid "&File"
-msgstr ""
+#: src/main.cpp:154
+msgid "An advanced shutdown utility"
+msgstr "Продвинутая утилита для выключения компьютера"
 
-#: src/mainwindow.cpp:412
+#: src/main.cpp:169
+msgid "Lock screen"
+msgstr "Заблокировать экран"
+
+#: src/main.cpp:183
+msgid "Suspend Computer"
+msgstr "Перевести компьютер в спящий режим"
+
+#: src/main.cpp:186
+msgid "Run executable file (example: Desktop shortcut or Shell script)"
+msgstr "Запустить исполняемый файл ( например, Ярлык на рабочем столе или Шелл скрипт)"
+
+#: src/main.cpp:191
+#: src/mainwindow.cpp:111
+msgid "Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
+msgstr "Определение активности пользователя. Пример: --logout --inactivity 90 - это означает: автоматический выход после 90 минут бездействия пользователя"
+
+#: src/main.cpp:193
+msgid "Cancel an active action"
+msgstr "Отменить активное задание"
+
+#: src/main.cpp:194
+#: src/mainwindow.cpp:113
+#: src/mainwindow.cpp:147
+msgid "Confirm command line action"
+msgstr "Подтвердить действие командной строки"
+
+#: src/main.cpp:195
+#: src/mainwindow.cpp:115
+msgid "Hide main window and system tray icon"
+msgstr "Спрятать окно программы и иконку в трее"
+
+#: src/main.cpp:196
+#: src/mainwindow.cpp:117
+msgid "Do not show main window on startup"
+msgstr "Не показывать окно при запуске системы"
+
+#: src/main.cpp:197
+#: src/mainwindow.cpp:119
+msgid "Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"
+msgstr "Запустить отсчёт. Примеры: 01:30 - абсолютное время  (ЧЧ:ММ); 10 - минуты от текущего времени"
+
+#: src/main.cpp:199
+msgid ""
+"More Info...\n"
+"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"
+msgstr ""
+"Дополнительная информация:\n"
+"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"
+
+#: src/mainwindow.cpp:80
+msgid "Actions"
+msgstr "Действия"
+
+#: src/mainwindow.cpp:109
+msgid "Miscellaneous"
+msgstr "Разное"
+
+#: src/mainwindow.cpp:119
+msgid "Optional parameter"
+msgstr "Необязательный параметр"
+
+#: src/mainwindow.cpp:121
+msgid "More Info..."
+msgstr "Дополнительная информация..."
+
+#: src/mainwindow.cpp:129
+msgid "Command Line Options"
+msgstr "Параметры командной строки"
+
+#: src/mainwindow.cpp:176
+msgid "Invalid time: %0"
+msgstr "Неверное время: %0"
+
+#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:218
+msgid "Remaining time: %0"
+msgstr "Оставшееся время: %0"
+
+#: src/mainwindow.cpp:510
+msgid "KShutdown is still active!"
+msgstr "KShutdown активен!"
+
+#: src/mainwindow.cpp:516
+msgid "KShutdown has been minimized"
+msgstr "KShutDown будет переведена в трей"
+
+#: src/mainwindow.cpp:650
+msgid "A&ction"
+msgstr "&Действие"
+
+#: src/mainwindow.cpp:653
+msgid "Select Action (no delay)"
+msgstr "Выберите действие (без задержки)"
+
+#: src/mainwindow.cpp:698
 msgid "Quit"
-msgstr ""
+msgstr "Выход"
 
-#: src/mainwindow.cpp:419
-#, fuzzy
+#: src/mainwindow.cpp:706
 msgid "&Settings"
+msgstr "Па&раметры"
+
+#: src/mainwindow.cpp:712
+#: src/preferences.cpp:35
+msgid "Preferences"
 msgstr "Настройки"
 
-#: src/mainwindow.cpp:425
-msgid "Preferences..."
-msgstr ""
-
-#: src/mainwindow.cpp:443
+#: src/mainwindow.cpp:730
 msgid "&Help"
-msgstr ""
+msgstr "&Помощь"
 
-#: src/mainwindow.cpp:444 src/mainwindow.cpp:644
+#: src/mainwindow.cpp:733
+#: src/mainwindow.cpp:992
 msgid "About"
-msgstr ""
+msgstr "О программе"
 
-#: src/mainwindow.cpp:445
+#: src/mainwindow.cpp:734
 msgid "About Qt"
-msgstr ""
+msgstr "О библиотеке QT"
 
-#: src/mainwindow.cpp:475
-#, fuzzy
+#: src/mainwindow.cpp:772
 msgid "Select an &action"
-msgstr "Выбранная дата/время: %1"
+msgstr "Выберите д&ействие"
 
-#: src/mainwindow.cpp:484
+#: src/mainwindow.cpp:781
 msgid "Do not save session"
-msgstr ""
+msgstr "Не сохранять сессию"
 
-#: src/mainwindow.cpp:492
-#, fuzzy
-msgid "S&elect a time"
-msgstr "Выбранная дата/время: %1"
+#: src/mainwindow.cpp:789
+msgid "S&elect a time/event"
+msgstr "&Выберите время/событие"
 
-#: src/mainwindow.cpp:592
-#, fuzzy
+#: src/mainwindow.cpp:803
+msgid "Click to activate/cancel the selected action"
+msgstr "Нажмите для активизации или отмены действия"
+
+#: src/mainwindow.cpp:907
+#: src/mainwindow.cpp:953
 msgid "Cancel"
-msgstr "Команда: %1"
+msgstr "Отмена"
 
-#: src/mainwindow.cpp:593
+#: src/mainwindow.cpp:911
 msgid "OK"
-msgstr ""
+msgstr "ОК"
 
-#: src/mainwindow.cpp:595
-#, fuzzy
-msgid "Click to active the selected action"
-msgstr "Выбранное время :<b>%1</b>"
+#: src/mainwindow.cpp:922
+msgid "Please select an Extras command<br>from the menu above."
+msgstr "Выберите Расширенную команду<br>из меню."
 
-#: src/mainwindow.cpp:602
-#, fuzzy
+#: src/mainwindow.cpp:939
 msgid "Action not available: %0"
-msgstr "Действие неудачно! (%1)"
+msgstr "Действие недоступно: %0"
 
-#: src/mainwindow.cpp:724
-#, fuzzy
+#: src/mainwindow.cpp:949
+msgid "Cancel: %0"
+msgstr "Отмена: %0"
+
+#: src/mainwindow.cpp:1080
 msgid "Confirm"
-msgstr "Подтверждения"
+msgstr "Подтвердить"
 
-#: src/mainwindow.cpp:724
+#: src/mainwindow.cpp:1080
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
 "Data in all unsaved documents will be lost!"
 msgstr ""
+"Подтвердите выбор этой настройки\n"
+"\n"
+"Не сохранённые документы будут утеряны!"
 
-#: src/preferences.cpp:32
-msgid "Preferences"
-msgstr ""
-
-#: src/preferences.cpp:39
+#: src/preferences.cpp:42
 msgid "General"
-msgstr "Общие"
+msgstr "Общее"
 
 #: src/preferences.cpp:97
-#, fuzzy
 msgid "Confirm Action"
-msgstr "Подтверждения"
+msgstr "Подтвердите действие"
 
 #: src/preferences.cpp:101
+msgid "Progress Bar"
+msgstr "Шкала времени"
+
+#: src/preferences.cpp:105
 msgid "Lock Screen Before Hibernate"
-msgstr ""
+msgstr "Заблокировать экран перед Hibernate"
 
-#: src/pureqt.h:49
+#: src/preferences.cpp:115
+msgid "Related KDE Settings..."
+msgstr "Соответствующие настройки KDE..."
+
+#: src/progressbar.cpp:84
+msgid "Hide"
+msgstr "Спрятать"
+
+#: src/progressbar.cpp:86
+msgid "Position"
+msgstr "Позиция"
+
+#: src/progressbar.cpp:93
+msgid "Top"
+msgstr "Вверху"
+
+#: src/progressbar.cpp:98
+msgid "Bottom"
+msgstr "Внизу"
+
+#: src/pureqt.h:63
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
-#~ msgid "Command: %1"
-#~ msgstr "Команда: %1"
+#: src/triggers/idlemonitor.cpp:37
+msgid "On User Inactivity (HH:MM)"
+msgstr "Неактивность пользователя  (ЧЧ:ММ)"
 
-#~ msgid "Nothing"
-#~ msgstr "Ничего"
+#: src/triggers/idlemonitor.cpp:52
+msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
+msgstr "Используйте этот флажок для определения активности пользователя (например, нет кликов мыши)."
 
-#~ msgid "Lock Session"
-#~ msgstr "Запереть экран"
+#: src/triggers/idlemonitor.cpp:61
+msgid "Unknown"
+msgstr "Неизвестный"
 
-#~ msgid "End Current Session"
-#~ msgstr "Завершить сеанс"
+#: src/triggers/idlemonitor.cpp:89
+msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"
+msgstr "Введите время неактивности пользователя  (ЧЧ:ММ)"
 
-#, fuzzy
-#~ msgid "Kill the selected process"
-#~ msgstr "Когда вы хотите выполнить это действие ?"
+#: src/triggers/processmonitor.cpp:74
+msgid "When selected application exit"
+msgstr "Когда выбранное приложение закончит работу"
 
-#, fuzzy
-#~ msgid "The selected process does not exist!"
-#~ msgstr "Когда вы хотите выполнить это действие ?"
+#: src/triggers/processmonitor.cpp:90
+msgid "Waiting for \"%0\""
+msgstr "Ждать \"%0\""
 
-#, fuzzy
-#~ msgid "Could not execute command<br><br><b>%1</b>"
-#~ msgstr "Не могу удалить файл <b>%1</b>!"
+#: src/triggers/processmonitor.cpp:105
+msgid "List of the running processes"
+msgstr "Список запущенных процессов"
 
-#, fuzzy
-#~ msgid "More actions..."
-#~ msgstr " Настройка"
+#: src/triggers/processmonitor.cpp:112
+msgid "Refresh"
+msgstr "Обновить"
 
-#~ msgid "Extras"
-#~ msgstr "Дополнительно"
+#: src/triggers/processmonitor.cpp:115
+msgid "Refresh the list of processes"
+msgstr "Обновить список запущенных процессов"
 
-#~ msgid "Desktop"
-#~ msgstr "Десктоп"
+#: src/triggers/processmonitor.cpp:199
+msgid "Error: %0"
+msgstr "Ошибка: %0"
 
-#, fuzzy
-#~ msgid "Type of the link:"
-#~ msgstr "Выберите тип задержки:"
+#: src/triggers/processmonitor.cpp:229
+#: src/triggers/processmonitor.cpp:232
+msgid "Error, exit code: %0"
+msgstr "Ошибка, с кодом: %0"
 
-#~ msgid "Standard Logout Dialog"
-#~ msgstr "Стандартный диалог выхода"
-
-#, fuzzy
-#~ msgid "System Shut Down Utility"
-#~ msgstr "Утилита выключения компьютера для KDE"
-
-#, fuzzy
-#~ msgid "Could not create file <b>%1</b>!"
-#~ msgstr "Не могу удалить файл <b>%1</b>!"
-
-#~ msgid "Could not remove file <b>%1</b>!"
-#~ msgstr "Не могу удалить файл <b>%1</b>!"
-
-#, fuzzy
-#~ msgid "Remove Link"
-#~ msgstr "Удалить Ссылку"
-
-#, fuzzy
-#~ msgid "Add Link"
-#~ msgstr "Удалить Ссылку"
-
-#, fuzzy
-#~ msgid "Method"
-#~ msgstr "Метод:"
-
-#, fuzzy
-#~ msgid "Enter a custom command:"
-#~ msgstr "Задержка в секундах."
-
-#, fuzzy
-#~ msgid "Run command"
-#~ msgstr "Выполнить команду"
-
-#, fuzzy
-#~ msgid "Pause after run command:"
-#~ msgstr "Пауза после выполнения команды:"
-
-#~ msgid "second(s)"
-#~ msgstr "секунд"
-
-#, fuzzy
-#~ msgid ""
-#~ "In most cases you need privileges to shut down system (e.g. run /sbin/"
-#~ "shutdown)"
-#~ msgstr ""
-#~ "Может случиться, что вам потребуются некоторые привилегии для выключения "
-#~ "компьютера (для запуска /sbin/reboot или /sbin/shutdown)"
-
-#~ msgid ""
-#~ "If you are using <b>KDE</b> and <b>KDM</b> (KDE Display Manager), then "
-#~ "set all methods to <i>KDE</i>"
-#~ msgstr ""
-#~ "Если вы используете <b>KDE</b> и <b>KDM</b> (KDE Display Manager), то "
-#~ "используйте все методы для  <i>KDE</i>"
-
-#~ msgid "Manuals:"
-#~ msgstr "Документация:"
-
-#~ msgid "User Command"
-#~ msgstr "Команды пользователя"
-
-#~ msgid "A Shut Down Utility for KDE"
-#~ msgstr "Утилита выключения компьютера для KDE"
-
-#~ msgid "Turn off computer"
-#~ msgstr "Выключить компьютер"
-
-#~ msgid "Restart computer"
-#~ msgstr "Перезагрузить компьютер"
-
-#~ msgid "Lock session"
-#~ msgstr "Запереть экран"
-
-#~ msgid "End current session"
-#~ msgstr "Завершить сеанс"
-
-#, fuzzy
-#~ msgid "Confirm command line action"
-#~ msgstr "Отменить активное задание"
-
-#~ msgid "Show standard logout dialog"
-#~ msgstr "Показать стандартный диалог выхода"
-
-#~ msgid "Cancel an active action"
-#~ msgstr "Отменить активное задание"
-
-#~ msgid "Don't show window at startup"
-#~ msgstr "Не показывать окно при зауске"
-
-#~ msgid "Enable test mode"
-#~ msgstr "Включить тестовый режим"
-
-#~ msgid "Disable test mode"
-#~ msgstr "Отключить тестовый режим"
-
-#~ msgid ""
-#~ "Time; Examples: 01:30 - absolute time (HH:MM); 10 - number of minutes to "
-#~ "wait from now"
-#~ msgstr ""
-#~ "Время; Примеры: 01:30 - абсолютное время (HH:MM); 10 - количество минут."
-
-#~ msgid "Invalid time: <b>%1</b>"
-#~ msgstr "неверное время: <b>%1</b>"
-
-#, fuzzy
-#~ msgid "1 hour warning"
-#~ msgstr "ожидание в 1 минуту"
-
-#~ msgid "5 minutes warning"
-#~ msgstr "ожидание 5 минут"
-
-#~ msgid "1 minute warning"
-#~ msgstr "ожидание в 1 минуту"
-
-#~ msgid "10 seconds warning"
-#~ msgstr "ожидание 10 секунд"
-
-#~ msgid "Could not run \"%1\"!"
-#~ msgstr "Не могу запустить \"%1\"!"
-
-#~ msgid "Test"
-#~ msgstr "Тест"
-
-#, fuzzy
-#~ msgid "Enter hour and minute."
-#~ msgstr " Час и минута:"
-
-#, fuzzy
-#~ msgid "Enter date and time."
-#~ msgstr "Время и дата:"
-
-#~ msgid "Selected date/time: %1"
-#~ msgstr "Выбранная дата/время: %1"
-
-#~ msgid "Current date/time: %1"
-#~ msgstr "Текущяя дата/время: %1"
-
-#~ msgid "Selected date/time is earlier than current date/time!"
-#~ msgstr "Выбранная дата/время более ранняя чем текущее время."
-
-#, fuzzy
-#~ msgid "Action cancelled!"
-#~ msgstr "Действие неудачно! (%1)"
-
-#, fuzzy
-#~ msgid "Test mode disabled"
-#~ msgstr "Планировщик отключен!"
-
-#, fuzzy
-#~ msgid "&Actions"
-#~ msgstr "Действия"
-
-#, fuzzy
-#~ msgid "Configure Global Shortcuts..."
-#~ msgstr " Настройка"
-
-#, fuzzy
-#~ msgid "Check &System Configuration"
-#~ msgstr "Подтверждения"
-
-#, fuzzy
-#~ msgid "&Statistics"
-#~ msgstr "Статистика"
-
-#, fuzzy
-#~ msgid "When selected application exit"
-#~ msgstr "Когда вы хотите выполнить это действие ?"
-
-#~ msgid "Disabled by the Administrator."
-#~ msgstr "Запрещено Администратором."
-
-#, fuzzy
-#~ msgid "Select the type of delay."
-#~ msgstr "Выберите тип задержки"
-
-#, fuzzy
-#~ msgid "Selected time."
-#~ msgstr "Выбранная дата/время: %1"
-
-#~ msgid "TEST MODE"
-#~ msgstr "ТЕСТОВЫЙ РЕЖИМ"
-
-#, fuzzy
-#~ msgid "Remaining time: <b>%1</b>"
-#~ msgstr "неверное время: <b>%1</b>"
-
-#~ msgid "Selected time: <b>%1</b>"
-#~ msgstr "Выбранное время :<b>%1</b>"
-
-#, fuzzy
-#~ msgid "Selected action: <b>%1</b>"
-#~ msgstr "Выбранное время :<b>%1</b>"
-
-#, fuzzy
-#~ msgid "<b>Note: </b> The test mode is enabled"
-#~ msgstr "Планировщик отключен!"
-
-#~ msgid "Message"
-#~ msgstr "Сообщение"
-
-#~ msgid "Settings"
-#~ msgstr "Настройки"
-
-#, fuzzy
-#~ msgid "Actions"
-#~ msgstr "Действия"
-
-#~ msgid "Action"
-#~ msgstr "Действие"
-
-#, fuzzy
-#~ msgid "Edit..."
-#~ msgstr "Правка"
-
-#, fuzzy
-#~ msgid "Extras Menu"
-#~ msgstr "Меню дополнений"
-
-#, fuzzy
-#~ msgid "Modify..."
-#~ msgstr "Изменить..."
-
-#, fuzzy
-#~ msgid "After Login"
-#~ msgstr "После регистрации"
-
-#, fuzzy
-#~ msgid "Lock screen"
-#~ msgstr "Запереть экран"
-
-#, fuzzy
-#~ msgid "Before Logout"
-#~ msgstr "Завершить сеанс"
-
-#~ msgid "Command:"
-#~ msgstr "Команда:"
-
-#, fuzzy
-#~ msgid "Related KDE Settings..."
-#~ msgstr "Настройки KDE"
-
-#, fuzzy
-#~ msgid "\"Turn Off Computer\" does not work"
-#~ msgstr "Выключить компьютер"
-
-#, fuzzy
-#~ msgid "Show KShutDown Themes"
-#~ msgstr "KShutDown"
-
-#, fuzzy
-#~ msgid "Messages"
-#~ msgstr "Сообщение"
-
-#, fuzzy
-#~ msgid "Display a warning message before action"
-#~ msgstr "Показывать предупреждение за %1 минут."
-
-#~ msgid "minute(s)"
-#~ msgstr "минут"
-
-#, fuzzy
-#~ msgid "Recommended"
-#~ msgstr "Выполнить команду"
-
-#, fuzzy
-#~ msgid "Warning Message"
-#~ msgstr "Предупреждающие сообщения (рекомендуется)"
-
-#, fuzzy
-#~ msgid "Enabled"
-#~ msgstr "Включено"
-
-#, fuzzy
-#~ msgid "A message text"
-#~ msgstr "Скрывать сообщения после:"
-
-#, fuzzy
-#~ msgid "Custom Message"
-#~ msgstr "Сообщение"
-
-#~ msgid "Restore default settings for this page?"
-#~ msgstr "Восстановить первоначальные значения для этой страницы ?"
-
-#~ msgid "Statistics"
-#~ msgstr "Статистика"
-
-#~ msgid ""
-#~ "This view displays information about the users currently on the machine, "
-#~ "and their processes.<br>The header shows how long the system has been "
-#~ "running."
-#~ msgstr ""
-#~ "Дисплей просмотра показывает информацию о пользователях находящихся на "
-#~ "компьютере, и их процессах.<br>Заголовок показывает как долго работает "
-#~ "компьютер."
-
-#, fuzzy
-#~ msgid "Refresh"
-#~ msgstr "Обновить"
-
-#, fuzzy
-#~ msgid "More information"
-#~ msgstr " Настройка"
-
-#, fuzzy
-#~ msgid "Show login time, JCPU and PCPU times."
-#~ msgstr "Показывать время захода, время JCPU и PCPU."
-
-#, fuzzy
-#~ msgid "System Configuration"
-#~ msgstr "Подтверждения"
-
-#, fuzzy
-#~ msgid "Could not run KShutDown!"
-#~ msgstr "Не могу запустить \"%1\"!"
-
-#, fuzzy
-#~ msgid "&Configure KShutDown..."
-#~ msgstr " Настройка"
-
-#, fuzzy
-#~ msgid "Options"
-#~ msgstr "Действия"
-
-#~ msgid ""
-#~ "Internal error!\n"
-#~ "Selected menu item is broken."
-#~ msgstr ""
-#~ "Внутренняя ошибка!\n"
-#~ "Выбранное меню потеряно."
-
-#, fuzzy
-#~ msgid "1 second before action"
-#~ msgstr "ожидание 10 секунд"
-
-#~ msgid "KShutDown"
-#~ msgstr "KShutDown"
-
-#, fuzzy
-#~ msgid "&Cancel"
-#~ msgstr "Команда: %1"
-
-#, fuzzy
-#~ msgid ""
-#~ "<b>Tip:</b> Use the <b>Middle Mouse Button</b> to display the actions menu"
-#~ msgstr "<b>Средняя кнопка</b>показывает меню действий"
-
-#~ msgid "No delay"
-#~ msgstr "Без задержки"
-
-#, fuzzy
-#~ msgid "Create Link"
-#~ msgstr "Создать Ссылку"
-
-#, fuzzy
-#~ msgid "&Cancel: %1"
-#~ msgstr "Команда: %1"
-
-#, fuzzy
-#~ msgid "KShutDown Actions (no delay!)"
-#~ msgstr "Сейчас (без задержки)"
-
-#, fuzzy
-#~ msgid "Actions (no delay!)"
-#~ msgstr "Сейчас (без задержки)"
-
-#~ msgid "&Turn Off Computer"
-#~ msgstr "Выключить компьютер"
-
-#~ msgid "&Restart Computer"
-#~ msgstr "Перезагрузить компьютер"
-
-#~ msgid "&Lock Session"
-#~ msgstr "Запереть зкран"
-
-#~ msgid "&End Current Session"
-#~ msgstr "Завершить сеанс"
-
-#~ msgid "&Immediate Action"
-#~ msgstr "Немедленнное действие"
-
-#, fuzzy
-#~ msgid "Run KShutDown"
-#~ msgstr "KShutDown"
-
-#, fuzzy
-#~ msgid "&Run KShutDown"
-#~ msgstr "KShutDown"
-
-#, fuzzy
-#~ msgid "MSettingsDialog"
-#~ msgstr "Настройки"
-
-#, fuzzy
-#~ msgid "MMessageDialog"
-#~ msgstr "Сообщение"
-
-#, fuzzy
-#~ msgid "MActionEditDialog"
-#~ msgstr "Настройки"
-
-#, fuzzy
-#~ msgid "SystemConfig"
-#~ msgstr "Подтверждения"
-
-#~ msgid "Links"
-#~ msgstr "Ссылки"
-
-#, fuzzy
-#~ msgid "Lockout"
-#~ msgstr "Завершить сеанс"
-
-#~ msgid "Maintainer"
-#~ msgstr "Мантейнер"
-
-#~ msgid "Ideas"
-#~ msgstr "Идеи"
-
-#~ msgid "Bug reports"
-#~ msgstr "Отчеты об ошибках"
-
-#, fuzzy
-#~ msgid "Cancel an active action."
-#~ msgstr "Отменить активное задание"
-
-#, fuzzy
-#~ msgid "Hide message after:"
-#~ msgstr "Скрывать сообщения после:"
-
-#, fuzzy
-#~ msgid "Enter time. (HH:MM)"
-#~ msgstr "Время (HH:MM):"
-
-#, fuzzy
-#~ msgid "Enter date."
-#~ msgstr "Дата"
-
-#, fuzzy
-#~ msgid "&Time (HH:MM):"
-#~ msgstr "Время (HH:MM):"
-
-#, fuzzy
-#~ msgid "Stop the active action"
-#~ msgstr "Выбранное время :<b>%1</b>"
-
-#, fuzzy
-#~ msgid "Time From Now"
-#~ msgstr "Время с текущего момента"
-
-#~ msgid "HH:MM"
-#~ msgstr "HH:MM"
-
-#~ msgid "&Date:"
-#~ msgstr "Дата:"
-
-#~ msgid "This page has been disabled by the Administator."
-#~ msgstr "Эта страница была закрыта Администратором."
-
-#, fuzzy
-#~ msgid "&Action"
-#~ msgstr "Действие"
-
-#~ msgid "Click to close"
-#~ msgstr "Кликни для закрытия"
-
-#, fuzzy
-#~ msgid "Configure &Notifications..."
-#~ msgstr " Настройка"
-
-#, fuzzy
-#~ msgid "Scheduler"
-#~ msgstr "Планировщик"
-
-#, fuzzy
-#~ msgid "Registered tasks:"
-#~ msgstr "Текущие задания:"
-
-#~ msgid "Name"
-#~ msgstr "Имя"
-
-#~ msgid "Description"
-#~ msgstr "Описание"
-
-#, fuzzy
-#~ msgid "Remove All"
-#~ msgstr "Удалить все"
-
-#, fuzzy
-#~ msgid "MSchedulerTab"
-#~ msgstr "Планировщик"
-
-#, fuzzy
-#~ msgid "AppScheduler"
-#~ msgstr "Планировщик"
-
-#~ msgid "The task is not registered!"
-#~ msgstr "Задача не задана!"
-
-#~ msgid "The scheduler is disabled!"
-#~ msgstr "Планировщик отключен!"
-
-#, fuzzy
-#~ msgid "S&cheduler"
-#~ msgstr "Планировщик"
-
-#, fuzzy
-#~ msgid ""
-#~ "Actions\n"
-#~ "and Extras Menu"
-#~ msgstr "Меню действий и дополнений"
-
-#, fuzzy
-#~ msgid ""
-#~ "Confirmations\n"
-#~ "and Messages"
-#~ msgstr "Сообщения и подтверждения"
-
-#, fuzzy
-#~ msgid "Confirm action (recommended)"
-#~ msgstr "Подтверждения (рекомендуется)"
-
-#, fuzzy
-#~ msgid "&Scheduler"
-#~ msgstr "Планировщик"
-
-#, fuzzy
-#~ msgid "&Download KShutDown"
-#~ msgstr "KShutDown"
-
-#~ msgid ""
-#~ "If you are running <b>KShutDown</b> from the non-KDE session (e.g. "
-#~ "<b>GNOME</b>), then change all methods..."
-#~ msgstr ""
-#~ "Если вы запускаете <b>KShutDown</b> не из под KDE (Gnome), то поменяйте "
-#~ "методы..."
-
-#, fuzzy
-#~ msgid "Time"
-#~ msgstr "Время"
-
-#~ msgid "Disabled"
-#~ msgstr "Выключено"
-
-#~ msgid "More commands...<br>Click <b>Modify...</b> to add/edit/remove items."
-#~ msgstr ""
-#~ "Больше команд...<br>Кликните <b>Изменить...</b> для добавления/"
-#~ "редактирования/удаления пунктов."
-
-#, fuzzy
-#~ msgid "Configure..."
-#~ msgstr " Настройка"
-
-#~ msgid "Re&move"
-#~ msgstr "Удалить"
-
-#~ msgid "Locatio&n:"
-#~ msgstr "Местонахождение:"
-
-#~ msgid "&Type:"
-#~ msgstr "Тип"
-
-#~ msgid "See FAQ for more details"
-#~ msgstr "Вопросы ? - cмотрите FAQ "
-
-#~ msgid "Automation"
-#~ msgstr "Автоматизация"
-
-#, fuzzy
-#~ msgid "Co&mmand:"
-#~ msgstr "Команда:"
-
-#, fuzzy
-#~ msgid "Remember time &settings"
-#~ msgstr "Запомнить настройки времени"
-
-#, fuzzy
-#~ msgid "Enable &Scheduler"
-#~ msgstr "Планировщик"
-
-#, fuzzy
-#~ msgid "Screen Sa&ver..."
-#~ msgstr "Хранитель экрана..."
-
-#~ msgid "Session &Manager..."
-#~ msgstr "Менеджер сессий..."
-
-#, fuzzy
-#~ msgid "&Links"
-#~ msgstr "Ссылки"
-
-#, fuzzy
-#~ msgid "Themes"
-#~ msgstr "Тест"
-
-#~ msgid "&Popup Messages (Passive)"
-#~ msgstr "Всплывающие сообщения (Пассивные)"
-
-#, fuzzy
-#~ msgid "Notifications"
-#~ msgstr "Подтверждения"
-
-#~ msgid "Wizard"
-#~ msgstr "Помощник"
-
-#~ msgid "&End current session"
-#~ msgstr "Завершить сеанс"
-
-#~ msgid "&Turn off computer"
-#~ msgstr "Выключить компьютер"
-
-#~ msgid "&Restart computer"
-#~ msgstr "Перезагрузить компьютер"
-
-#, fuzzy
-#~ msgid "What do you want to do?"
-#~ msgstr "Что вы хотите сделать ?"
-
-#~ msgid "&Now (no delay)"
-#~ msgstr "Сейчас (без задержки)"
-
-#~ msgid "At &date/time"
-#~ msgstr "Дата/Время "
-
-#~ msgid "&Time from now"
-#~ msgstr "Время начиная от текущего момента"
-
-#, fuzzy
-#~ msgid "MWizard"
-#~ msgstr "Помощник"
-
-#~ msgid "St&atistics"
-#~ msgstr "Статистика"
-
-#~ msgid "Enter delay:"
-#~ msgstr "Задержка:"
-
-#~ msgid "Set delay to 0 seconds"
-#~ msgstr "Установить задержку в 0 секунд"
-
-#~ msgid "Set delay to 00:00"
-#~ msgstr "Задержка к 00:00"
-
-#~ msgid "Set date/time to the current date/time"
-#~ msgstr "Установить дату/время к текущей дате/время"
-
-#~ msgid "Quit the application"
-#~ msgstr "Выйти из приложения"
-
-#~ msgid "Enter delay in seconds."
-#~ msgstr "Задержка в секундах."
-
-#~ msgid "Enter delay in minutes."
-#~ msgstr "Задержка в минутах."
-
-#~ msgid "Enter delay in hours."
-#~ msgstr "Задержка в часах."
-
-#~ msgid "Lock the screen using a screen saver"
-#~ msgstr "Запереть зкран"
-
-#~ msgid "&Wizard..."
-#~ msgstr "Помощник..."
-
-#~ msgid "Run the Wizard"
-#~ msgstr "Запуск помощника"
-
-#~ msgid "Now!"
-#~ msgstr "Сейчас !"
-
-#~ msgid "Time from &now:"
-#~ msgstr "Время с текущего момента:"
-
-#~ msgid "Second(s)"
-#~ msgstr "Секунд"
-
-#~ msgid "Minute(s)"
-#~ msgstr "Минут"
-
-#~ msgid "Hour(s)"
-#~ msgstr "Час(ов)"
-
-#~ msgid "Co&lors"
-#~ msgstr "Цвета"
-
-#~ msgid "Text color:"
-#~ msgstr "Цвет текста:"
-
-#~ msgid "Background color:"
-#~ msgstr "Цвет фона:"
-
-#~ msgid "Header color:"
-#~ msgstr "Цвет заголовков:"
-
-#~ msgid "Warning color:"
-#~ msgstr "Цвет предупреждений:"
-
-#~ msgid "Preview"
-#~ msgstr "Просмотр"
-
-#~ msgid "Info"
-#~ msgstr "Информация"
-
-#~ msgid "Tip"
-#~ msgstr "Подсказка"
-
-#~ msgid "Comm&and:"
-#~ msgstr "Команда:"
-
-#~ msgid "Method / Command"
-#~ msgstr "Метод/Команда"
-
-#~ msgid "&Before System Shut Down"
-#~ msgstr "До выключения компьютера"
-
-#~ msgid "Preview:"
-#~ msgstr "Просмотр:"
-
-#~ msgid "Step %1 of %2"
-#~ msgstr "Шаг %1 из %2"
-
-#~ msgid "Create/Remove Link"
-#~ msgstr "Создать/Удалить Ссылку"
-
-#~ msgid "Sound"
-#~ msgstr "Звук"
-
-#~ msgid "So&und directory:"
-#~ msgstr "Кталог со звуками:"
-
-#~ msgid ""
-#~ "Select a sound directory.<br><br>Press <b>Defaults</b> button to restore "
-#~ "the default sound directory."
-#~ msgstr ""
-#~ "Выберите каталог со звуковыми файлами.<br><br>Нажмите кнопку<b>По "
-#~ "умолчанию</b> для восстановления первоначальных настроек."
-
-#~ msgid "File <b>%1</b> not found."
-#~ msgstr "Файл <b>%1</b> не найден."
-
-#~ msgid "Re&set Time"
-#~ msgstr "Сбросить время"
