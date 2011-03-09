@@ -40,7 +40,10 @@ Section "-"
 	File src\images\kshutdown.ico
 	File src\release\kshutdown.exe
 	File LICENSE
-	File C:\Qt\2010.01\mingw\bin\mingwm10.dll
+	File C:\Qt\2010.05\mingw\bin\libgcc_s_dw2-1.dll
+	File C:\Qt\2010.05\mingw\bin\mingwm10.dll
+	File C:\Qt\2010.05\qt\bin\QtCore4.dll
+	File C:\Qt\2010.05\qt\bin\QtGui4.dll
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
@@ -57,7 +60,10 @@ Section "Uninstall"
 	Delete "$INSTDIR\kshutdown.exe"
 	Delete "$INSTDIR\kshutdown.ico"
 	Delete "$INSTDIR\LICENSE"
+	Delete "$INSTDIR\libgcc_s_dw2-1.dll"
 	Delete "$INSTDIR\mingwm10.dll"
+	Delete "$INSTDIR\QtCore4.dll"
+	Delete "$INSTDIR\QtGui4.dll"
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 

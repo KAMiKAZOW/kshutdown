@@ -130,7 +130,9 @@ void ProcessMonitor::setPID(const pid_t pid) {
 	
 	Process *p = new Process(this);
 	p->m_command = "?";
+#ifdef KS_TRIGGER_PROCESS_MONITOR
 	p->m_pid = pid;
+#endif // KS_TRIGGER_PROCESS_MONITOR
 	p->m_user = "?";
 	m_processList.append(p);
 	m_processes->addItem(U_ICON(), p->toString());

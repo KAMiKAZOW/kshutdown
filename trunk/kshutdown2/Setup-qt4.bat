@@ -1,4 +1,4 @@
-call C:\Qt\2010.01\bin\qtenv.bat
+call C:\Qt\2010.05\bin\qtenv.bat
 cd src
 
 rem goto skip_portable
@@ -26,7 +26,10 @@ cd ..
 if not %errorlevel% == 0 goto quit
 kshutdown-2.0beta10-win32.exe
 
-copy C:\Qt\2010.01\mingw\bin\mingwm10.dll kshutdown-portable
+copy C:\Qt\2010.05\mingw\bin\libgcc_s_dw2-1.dll kshutdown-portable
+copy C:\Qt\2010.05\mingw\bin\mingwm10.dll kshutdown-portable
+copy C:\Qt\2010.05\qt\bin\QtCore4.dll kshutdown-portable
+copy C:\Qt\2010.05\qt\bin\QtGui4.dll kshutdown-portable
 
 :quit
 
