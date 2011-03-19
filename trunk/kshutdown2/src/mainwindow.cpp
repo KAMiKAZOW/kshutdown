@@ -338,7 +338,7 @@ void MainWindow::setActive(const bool yes) {
 	Trigger *trigger = getSelectedTrigger();
 	
 #ifdef KS_NATIVE_KDE
-// !!!: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
+// TODO: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
 	if (m_active) {
 		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
 
@@ -421,7 +421,8 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		noHTML.replace("<qt>", "");
 		noHTML.replace("</qt>", "");
 	}
-	KNotification::event(//!!!err
+// TODO: show error messages using notification
+	KNotification::event(
 		id,
 		noHTML,
 		QPixmap(),

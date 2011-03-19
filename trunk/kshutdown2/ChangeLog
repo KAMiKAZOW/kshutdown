@@ -1,6 +1,19 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2011/04/!!!  2.0
+
+* Updated Brazilian Portuguese translation
+* Updated Danish translation
+* Updated Russian translation
+
+Version for Windows:
+
+* Upgraded Qt libs (2010.05)
+* Use dynamic Qt*.dll instead of static linking
+* Fixed compilation error
+
+
 2011/02/15  2.0 Beta 12
 
 Linux:
@@ -423,4 +436,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 523:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 529:HEAD|xsel -i -b && kwrite ChangeLog
