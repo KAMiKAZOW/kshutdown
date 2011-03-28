@@ -467,20 +467,41 @@ bool PowerAction::onAction() {
 		// wait for screensaver
 		::sleep(2);
 	}
-
+	
+	// DOC: http://upower.freedesktop.org/docs/UPower.html
+	QDBusInterface i_upower(
+		"org.freedesktop.UPower",
+		"/org/freedesktop/UPower",
+		"org.freedesktop.UPower",
+		QDBusConnection::systemBus()
+	);
+	
 	// DOC: http://people.freedesktop.org/~david/hal-spec/hal-spec.html
-	QDBusInterface i(
+	QDBusInterface i_hal(
 		"org.freedesktop.Hal",
 		"/org/freedesktop/Hal/devices/computer",
 		"org.freedesktop.Hal.Device.SystemPowerManagement",
 		QDBusConnection::systemBus()
 	);
-	if (m_methodName == "Suspend")
-		i.call(m_methodName, 0);
-	else
-		i.call(m_methodName); // no args
-
-	QDBusError error = i.lastError();
+	
+	QDBusError error;
+	
+	if (i_upower.isValid())
+	{
+		i_upower.call(m_methodName);
+		
+		error = i_upower.lastError();
+	}
+	else if (i_hal.isValid())
+	{
+	  	if (m_methodName == "Suspend")
+			i_hal.call(m_methodName, 0);
+		else
+			i_hal.call(m_methodName); // no args
+		
+		error = i_hal.lastError();
+	}
+	
 	if (
 		(error.type() != QDBusError::NoError) &&
 		// ignore missing reply after resume from suspend/hibernation
@@ -499,51 +520,73 @@ bool PowerAction::onAction() {
 
 // protected
 
-bool PowerAction::isAvailable(const QString &feature) const {
+bool PowerAction::isAvailable(const PowerActionType feature) const {
 #ifdef Q_WS_WIN
-	if (feature == "power_management.can_hibernate")
+	if (feature == Hibernate)
 		return ::IsPwrHibernateAllowed();
 
-	if (feature == "power_management.can_suspend")
+	if (feature == Suspend)
 		return ::IsPwrSuspendAllowed();
 
 	return false;
 #else
-	QDBusInterface *i = new QDBusInterface(
+	
+	// Use the UPower backend if available
+	QDBusInterface i_upower(
+		"org.freedesktop.UPower",
+		"/org/freedesktop/UPower",
+		"org.freedesktop.UPower",
+		QDBusConnection::systemBus()
+	);
+
+	// Use the legacy HAL backend if UPower not available
+	QDBusInterface i_hal(
 		"org.freedesktop.Hal",
 		"/org/freedesktop/Hal/devices/computer",
 		"org.freedesktop.Hal.Device",
 		QDBusConnection::systemBus()
 	);
-	QDBusReply<bool> reply = i->call("GetProperty", feature);
 
-	if (reply.isValid()) {
-		delete i;
+	if (i_upower.isValid())
+	{
+		U_DEBUG << "UPower backend found ..." U_END;
 
-		return reply.value();
-	}
-		
-	// try old property name for backward compat.
-	U_DEBUG << "Using old HAL property names..." U_END;
-	
-	QString oldFeatureName = QString::null;
-	if (feature == "power_management.can_hibernate")
-		oldFeatureName = "power_management.can_suspend_to_disk";
-	else if (feature == "power_management.can_suspend")
-		oldFeatureName = "power_management.can_suspend_to_ram";
-	if (!oldFeatureName.isNull()) {
-		reply = i->call("GetProperty", oldFeatureName);
-	
-		if (reply.isValid()) {
-			delete i;
-
-			return reply.value();
+		switch (feature) {
+			case Suspend:
+				return i_upower.property("CanSuspend").toBool();
+			case Hibernate:
+				return i_upower.property("CanHibernate").toBool();
 		}
+	}	
+	else if (i_hal.isValid())
+	{
+		U_DEBUG << "HAL backend found ..." U_END;
+			
+		// try old property name as well, for backward compat.
+		QList<QString> featureNames;
+		switch (feature) {
+			case Suspend:
+				featureNames.append("power_management.can_suspend");
+				featureNames.append("power_management.can_suspend_to_ram");
+				break;
+			case Hibernate:
+				featureNames.append("power_management.can_hibernate");
+				featureNames.append("power_management.can_suspend_to_disk");
+				break;
+		}
+		
+		QDBusReply<bool> reply;
+		
+		// Try the alternative feature names in order; if we get a valid answer, return it
+		foreach  (QString featureName, featureNames) {
+			reply =  i_hal.call("GetProperty", featureName);
+			if (reply.isValid())
+				return reply.value();	
+		}
+
+		U_ERROR << reply.error() U_END;
 	}
-
-	U_ERROR << reply.error() U_END;
-	delete i;
-
+	
 	return false;
 #endif // Q_WS_WIN
 }
@@ -555,7 +598,7 @@ bool PowerAction::isAvailable(const QString &feature) const {
 HibernateAction::HibernateAction() :
 	PowerAction(i18n("Hibernate Computer"), "system-suspend-hibernate", "hibernate") {
 	m_methodName = "Hibernate";
-	if (!isAvailable("power_management.can_hibernate"))
+	if (!isAvailable(Hibernate))
 		disable(i18n("Cannot hibernate computer"));
 
 	addCommandLineArg("H", "hibernate");
@@ -578,7 +621,7 @@ SuspendAction::SuspendAction() :
 	PowerAction(i18n("Suspend Computer (Sleep)"), "system-suspend", "suspend"
 	) {
 	m_methodName = "Suspend";
-	if (!isAvailable("power_management.can_suspend"))
+	if (!isAvailable(Suspend))
 		disable(i18n("Cannot suspend computer"));
 
 	addCommandLineArg("S", "suspend");
