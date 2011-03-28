@@ -224,9 +224,10 @@ class U_EXPORT PowerAction: public Action {
 public:
 	explicit PowerAction(const QString &text, const QString &iconName, const QString &id);
 	virtual bool onAction();
+	enum PowerActionType { Suspend, Hibernate };
 protected:
 	QString m_methodName;
-	bool isAvailable(const QString &feature) const;
+	bool isAvailable(const PowerActionType feature) const;
 private:
 	Q_DISABLE_COPY(PowerAction)
 };
