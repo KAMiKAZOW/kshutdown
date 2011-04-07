@@ -1,4 +1,4 @@
-// pureqt.h - Compile for Qt only or for KDE
+// pureqt.h - Allows you to compile for Qt-only or for native KDE
 // Copyright (C) 2007  Konrad Twardowski
 //
 // This program is free software; you can redistribute it and/or modify
@@ -19,24 +19,40 @@
 #define KSHUTDOWN_PUREQT_H
 
 #ifdef KS_PURE_QT
-	#define U(name) <Q##name>
-#else
-	#define U(name) <K##name>
-#endif // KS_PURE_QT
 
-#include U(Action)
-#include U(Application)
-#include U(ComboBox)
-#include U(Debug)
-#include U(Dialog)
-#include U(DialogButtonBox)
-#include U(Icon)
-#include U(MainWindow)
-#include U(Menu)
-#include U(MenuBar)
-#include U(MessageBox)
-#include U(PushButton)
-#include U(SystemTrayIcon)
+// Q-Files
+#include <QAction>
+#include <QApplication>
+#include <QComboBox>
+#include <QDebug>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QIcon>
+#include <QMainWindow>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QSystemTrayIcon>
+
+#else
+
+// K-Files
+#include <KAction>
+#include <KApplication>
+#include <KComboBox>
+#include <KDebug>
+#include <KDialog>
+#include <KDialogButtonBox>
+#include <KIcon>
+#include <KMainWindow>
+#include <KMenu>
+#include <KMenuBar>
+#include <KMessageBox>
+#include <KPushButton>
+#include <KSystemTrayIcon>
+
+#endif // KS_PURE_QT
 
 #define U_DIALOG QDialog
 
