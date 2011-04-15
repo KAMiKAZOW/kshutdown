@@ -86,7 +86,7 @@ QWidget *IdleMonitor::getWidget() {
 		m_edit->setDisplayFormat(KShutdown::TIME_FORMAT);
 		m_edit->setMinimumTime(QTime(0, 1));
 		m_edit->setTime(m_dateTime.time());
-		m_edit->setToolTip(i18n("Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"));
+		m_edit->setToolTip(i18n("Enter a maximum user inactivity in \"HH:MM\" format (Hours:Minutes)"));
 	}
 
 	return m_edit;
