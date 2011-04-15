@@ -1,11 +1,21 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2011/04/!!!  2.0
+2011/04/15  2.0
 
-* Updated Brazilian Portuguese translation
-* Updated Danish translation
-* Updated Russian translation
+Version for Linux:
+
+* Support for the UPower suspend/hibernate backend (patch #3224666)
+  Thanks to Stanislav Nikolov
+* Updated D-Bus Documentation:
+  http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=D-Bus
+
+Updated Language Translations:
+
+* Brazilian Portuguese
+* Danish
+* Polish
+* Russian
 
 Version for Windows:
 
@@ -19,7 +29,7 @@ Version for Windows:
 Linux:
 
 * NEW: Added D-Bus support. Run "qdbus net.sf.kshutdown /kshutdown" for details.
-  (TODO: the D-Bus functions are currently undocumented)
+  Documentation: http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=D-Bus
 * Fixed bug #3140645 (kde 4.6 + qt 4.7.1 + kshutdown crash)
 * Setup.sh: Auto select kde4 menu item (if available)
 * Show error message if "Turn Off Computer" or "Restart Computer" function
@@ -436,4 +446,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 529:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 533:HEAD|xsel -i -b && kwrite ChangeLog
