@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 17:18+0100\n"
-"PO-Revision-Date: 2011-02-15 17:17+0100\n"
+"POT-Creation-Date: 2011-04-15 07:46+0200\n"
+"PO-Revision-Date: 2011-04-15 07:44+0200\n"
 "Last-Translator: Konrad Twardowski <kdtonline@poczta.onet.pl>\n"
 "Language-Team: Polish <>\n"
 "MIME-Version: 1.0\n"
@@ -100,15 +100,15 @@ msgstr "Czas od teraz (GG:MM)"
 msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
 msgstr "Wprowadź opóźnienie w formacie \"GG:MM\" (Godzina:Minuta)"
 
-#: src/kshutdown.cpp:556 src/main.cpp:178
+#: src/kshutdown.cpp:599 src/main.cpp:178
 msgid "Hibernate Computer"
 msgstr "Hibernuj komputer"
 
-#: src/kshutdown.cpp:559
+#: src/kshutdown.cpp:602
 msgid "Cannot hibernate computer"
 msgstr ""
 
-#: src/kshutdown.cpp:566
+#: src/kshutdown.cpp:609
 msgid ""
 "<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
 "systems where the contents of RAM are written to non-volatile storage such "
@@ -120,19 +120,19 @@ msgid ""
 "p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 msgstr ""
 
-#: src/kshutdown.cpp:578
+#: src/kshutdown.cpp:621
 msgid "Suspend Computer (Sleep)"
 msgstr "Wstrzymaj komputer (uśpij)"
 
-#: src/kshutdown.cpp:582
+#: src/kshutdown.cpp:625
 msgid "Cannot suspend computer"
 msgstr ""
 
-#: src/kshutdown.cpp:586
-msgid "Enter in a low-power state."
-msgstr ""
+#: src/kshutdown.cpp:629
+msgid "Enter in a low-power state mode."
+msgstr "Wejdź w tryb niskiego poboru energii."
 
-#: src/kshutdown.cpp:733
+#: src/kshutdown.cpp:776
 msgid ""
 "Could not logout properly.\n"
 "The KDE Session Manager cannot be contacted."
@@ -140,20 +140,20 @@ msgstr ""
 "Nie było możliwe poprawne wylogowanie.\n"
 "Nie można połączyć się z Menedżerem Sesji KDE."
 
-#: src/kshutdown.cpp:749 src/main.cpp:175
+#: src/kshutdown.cpp:792 src/main.cpp:175
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: src/kshutdown.cpp:759 src/main.cpp:172
+#: src/kshutdown.cpp:802 src/main.cpp:172
 msgid "Restart Computer"
 msgstr "Uruchom ponownie"
 
-#: src/kshutdown.cpp:786 src/kshutdown.cpp:805
+#: src/kshutdown.cpp:829 src/kshutdown.cpp:848
 #, c-format
 msgid "%0 is not supported"
 msgstr "%0 nie jest obsługiwany"
 
-#: src/kshutdown.cpp:794 src/main.cpp:163 src/main.cpp:166
+#: src/kshutdown.cpp:837 src/main.cpp:163 src/main.cpp:166
 msgid "Turn Off Computer"
 msgstr "Wyłącz komputer"
 
@@ -245,87 +245,87 @@ msgstr "Nieprawidłowy czas: %0"
 msgid "Remaining time: %0"
 msgstr "Pozostały czas: %0"
 
-#: src/mainwindow.cpp:510
+#: src/mainwindow.cpp:511
 msgid "KShutdown is still active!"
 msgstr "KShutdown jest nadal aktywny!"
 
-#: src/mainwindow.cpp:516
+#: src/mainwindow.cpp:517
 msgid "KShutdown has been minimized"
 msgstr "KShutdown został zminimalizowany"
 
-#: src/mainwindow.cpp:650
+#: src/mainwindow.cpp:651
 msgid "A&ction"
 msgstr "A&kcja"
 
-#: src/mainwindow.cpp:653
+#: src/mainwindow.cpp:654
 msgid "Select Action (no delay)"
 msgstr "Wybierz akcję (bez opóźnienia)"
 
-#: src/mainwindow.cpp:698
+#: src/mainwindow.cpp:699
 msgid "Quit"
 msgstr "Zakończ"
 
-#: src/mainwindow.cpp:706
+#: src/mainwindow.cpp:707
 msgid "&Settings"
 msgstr "&Ustawienia"
 
-#: src/mainwindow.cpp:712 src/preferences.cpp:35
+#: src/mainwindow.cpp:713 src/preferences.cpp:35
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:731
 msgid "&Help"
 msgstr "Pomo&c"
 
-#: src/mainwindow.cpp:733 src/mainwindow.cpp:992
+#: src/mainwindow.cpp:734 src/mainwindow.cpp:993
 msgid "About"
 msgstr "O programie"
 
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:735
 msgid "About Qt"
 msgstr "O Qt"
 
-#: src/mainwindow.cpp:772
+#: src/mainwindow.cpp:773
 msgid "Select an &action"
 msgstr "Wybierz &akcję"
 
-#: src/mainwindow.cpp:781
+#: src/mainwindow.cpp:782
 msgid "Do not save session"
 msgstr "Nie zapisuj sesji"
 
-#: src/mainwindow.cpp:789
+#: src/mainwindow.cpp:790
 msgid "S&elect a time/event"
 msgstr "&Wybierz czas/zdarzenie"
 
-#: src/mainwindow.cpp:803
+#: src/mainwindow.cpp:804
 msgid "Click to activate/cancel the selected action"
 msgstr "Kliknij, aby aktywować/anulować wybraną akcję"
 
-#: src/mainwindow.cpp:907 src/mainwindow.cpp:953
+#: src/mainwindow.cpp:908 src/mainwindow.cpp:954
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/mainwindow.cpp:911
+#: src/mainwindow.cpp:912
 msgid "OK"
 msgstr "OK"
 
-#: src/mainwindow.cpp:922
+#: src/mainwindow.cpp:923
 msgid "Please select an Extras command<br>from the menu above."
-msgstr ""
+msgstr "Proszę wybrać polecenie \"Extra\"<br>z powyższego menu."
 
-#: src/mainwindow.cpp:939
+#: src/mainwindow.cpp:940
 msgid "Action not available: %0"
 msgstr "Akcja niedostępna: %0"
 
-#: src/mainwindow.cpp:949
+#: src/mainwindow.cpp:950
 msgid "Cancel: %0"
 msgstr "Anuluj: %0"
 
-#: src/mainwindow.cpp:1080
+#: src/mainwindow.cpp:1081
 msgid "Confirm"
 msgstr "Potwierdź"
 
-#: src/mainwindow.cpp:1080
+#: src/mainwindow.cpp:1081
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -371,7 +371,7 @@ msgstr "Górny"
 msgid "Bottom"
 msgstr "Dolny"
 
-#: src/pureqt.h:63
+#: src/pureqt.h:79
 msgid "Error"
 msgstr "Błąd"
 
@@ -382,14 +382,18 @@ msgstr "Przy braku aktywności użytkownika (GG:MM)"
 #: src/triggers/idlemonitor.cpp:52
 msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
 msgstr ""
+"Użyj tego wyzwalacza, aby wykryć brak aktywności użytkownika (przykład: brak "
+"kliknięć myszą)."
 
 #: src/triggers/idlemonitor.cpp:61
 msgid "Unknown"
 msgstr "Nieznany"
 
 #: src/triggers/idlemonitor.cpp:89
-msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hour:Minute)"
+msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hours:Minutes)"
 msgstr ""
+"Wprowadź maksymalną wartość dla braku aktywności użytkownika w formacie GG:"
+"MM (Godziny:Minuty)"
 
 #: src/triggers/processmonitor.cpp:74
 msgid "When selected application exit"
@@ -411,11 +415,11 @@ msgstr "Odśwież"
 msgid "Refresh the list of processes"
 msgstr "Odśwież listę procesów"
 
-#: src/triggers/processmonitor.cpp:199
+#: src/triggers/processmonitor.cpp:201
 msgid "Error: %0"
 msgstr "Błąd: %0"
 
-#: src/triggers/processmonitor.cpp:229 src/triggers/processmonitor.cpp:232
+#: src/triggers/processmonitor.cpp:231 src/triggers/processmonitor.cpp:234
 msgid "Error, exit code: %0"
 msgstr "Błąd, kod wyjścia: %0"
 

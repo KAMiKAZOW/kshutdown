@@ -350,7 +350,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		
 		result += " (";
 // TODO: do not bold effective time
-		result += m_endDateTime.toString(DATE_TIME_FORMAT);		
+		result += m_endDateTime.toString(DATE_TIME_DISPLAY_FORMAT);
 		result += ")";
 		
 		return result;
@@ -379,7 +379,7 @@ QWidget *DateTimeTrigger::getWidget() {
 	// Fix for BUG #2444169 - remeber the previous shutdown settings
 	m_edit->setDateTime(QDateTime(QDate::currentDate(), m_dateTime.time()));
 	
-	m_edit->setDisplayFormat(DATE_TIME_FORMAT);
+	m_edit->setDisplayFormat(DATE_TIME_DISPLAY_FORMAT);
 	m_edit->setMinimumDate(QDate::currentDate());
 	//m_edit->setMinimumDateTime(QDateTime::currentDateTime());
 	m_edit->setToolTip(i18n("Enter date and time"));
@@ -626,7 +626,7 @@ SuspendAction::SuspendAction() :
 
 	addCommandLineArg("S", "suspend");
 	
-	setWhatsThis(i18n("Enter in a low-power state."));
+	setWhatsThis(i18n("Enter in a low-power state mode."));
 }
 
 // StandardAction
