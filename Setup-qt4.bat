@@ -24,7 +24,7 @@ cd ..
 
 "C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
 if not %errorlevel% == 0 goto quit
-kshutdown-2.0beta10-win32.exe
+kshutdown-2.0-win32.exe
 
 copy C:\Qt\2010.05\mingw\bin\libgcc_s_dw2-1.dll kshutdown-portable
 copy C:\Qt\2010.05\mingw\bin\mingwm10.dll kshutdown-portable
