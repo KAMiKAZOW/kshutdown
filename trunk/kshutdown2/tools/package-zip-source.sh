@@ -18,6 +18,7 @@ KS_ZIP="kshutdown-source-$KS_FILE_VERSION.zip"
 
 # clean before copy
 
+rm -f ./kshutdown
 rm -fR "$KS_DIR"
 rm -fR "$KS_DIST_DIR"
 
