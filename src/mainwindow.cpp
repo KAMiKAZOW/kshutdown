@@ -970,7 +970,6 @@ void MainWindow::writeConfig() {
 
 // public slots
 
-// FIXME: Vista: APPCRASH if launched with "--init" argument (static linking only?)
 void MainWindow::onQuit() {
 	U_DEBUG << "MainWindow::onQuit()" U_END;
 
