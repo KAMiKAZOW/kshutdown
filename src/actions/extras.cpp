@@ -47,7 +47,7 @@ bool Extras::onAction() {
 		KDesktopFile desktopFile(m_command);
 		KService service(&desktopFile);
 		
-		if (service.exec().isEmpty()) {
+		if (service.exec().isEmpty()) { // krazy:exclude=crashy
 			m_error = i18n("Invalid \"Extras\" command");
 		
 			return false;
@@ -284,7 +284,7 @@ void Extras::updateMenu() {
 	m_menu->clear();
 
 	QStringList dirs(KGlobal::dirs()->findDirs("data", "kshutdown/extras"));
-	foreach (QString i, dirs) {
+	foreach (const QString &i, dirs) {
 		U_DEBUG << "Found Extras Directory: " << i U_END;
 		createMenu(m_menu, i);
 	}

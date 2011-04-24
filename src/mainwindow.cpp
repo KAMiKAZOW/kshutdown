@@ -28,6 +28,7 @@
 #endif // Q_WS_X11
 
 #ifdef KS_PURE_QT
+	#include <QPointer>
 	#include <QWhatsThis>
 
 	#include "version.h" // for about()
@@ -86,7 +87,7 @@ bool MainWindow::checkCommandLine() {
 			
 			table += "<td width=\"50%\"><code>";
 			QString argsCell = "";
-			foreach (QString arg, action->getCommandLineArgs()) {
+			foreach (const QString &arg, action->getCommandLineArgs()) {
 				if (!argsCell.isEmpty())
 					argsCell += ", ";
 				argsCell += ((arg.length() == 1) ? "-" : "--");
@@ -124,7 +125,7 @@ bool MainWindow::checkCommandLine() {
 		
 		//U_DEBUG << table U_END;
 
-		QMessageBox::information(
+		QMessageBox::information( // krazy:exclude=qclasses
 			0,
 			i18n("Command Line Options"),
 			"<qt>" +
@@ -309,8 +310,8 @@ QStringList MainWindow::actionList(const bool showDescription) {
 		return m_actionHash.keys();
 
 	QStringList sl;
-	foreach (QString i, m_actionHash.keys())
-		sl.append(i + " - " + m_actionHash.value(i)->originalText());
+	foreach (const Action *i, m_actionHash)
+		sl.append(i->id() + " - " + i->originalText());
 
 	return sl;
 }
@@ -320,8 +321,8 @@ QStringList MainWindow::triggerList(const bool showDescription) {
 		return m_triggerHash.keys();
 
 	QStringList sl;
-	foreach (QString i, m_triggerHash.keys())
-		sl.append(i + " - " + m_triggerHash.value(i)->text());
+	foreach (const Trigger *i, m_triggerHash)
+		sl.append(i->id() + " - " + i->text());
 
 	return sl;
 }
@@ -418,8 +419,8 @@ void MainWindow::notify(const QString &id, const QString &text) {
 	// HACK: some tags are not supported in Xfce
 	if (Utils::isXfce()) {
 		noHTML.replace("<br>", "\n");
-		noHTML.replace("<qt>", "");
-		noHTML.replace("</qt>", "");
+		noHTML.remove("<qt>");
+		noHTML.remove("</qt>");
 	}
 // TODO: show error messages using notification
 	KNotification::event(
@@ -432,8 +433,8 @@ void MainWindow::notify(const QString &id, const QString &text) {
 #endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
 	noHTML.replace("<br>", "\n");
-	noHTML.replace(QRegExp("\\<\\w+\\>"), "");
-	noHTML.replace(QRegExp("\\</\\w+\\>"), "");
+	noHTML.remove(QRegExp("\\<\\w+\\>"));
+	noHTML.remove(QRegExp("\\</\\w+\\>"));
 	m_systemTray->showMessage(
 		"KShutdown",
 		noHTML,
@@ -987,7 +988,7 @@ void MainWindow::onAbout() {
 #ifdef KS_PORTABLE
 	version += " (portable)";
 #endif // KS_PORTABLE
-	QMessageBox::about(
+	QMessageBox::about( // krazy:exclude=qclasses
 		this,
 		i18n("About"),
 		"<qt>" \
@@ -1091,10 +1092,11 @@ void MainWindow::onOKCancel() {
 void MainWindow::onPreferences() {
 	U_DEBUG << "MainWindow::onPreferences()" U_END;
 
-	Preferences *p = new Preferences(this);
-	if (p->exec() == Preferences::Accepted)
-		p->apply();
-	delete p;
+	// DOC: http://www.kdedevelopers.org/node/3919
+	QPointer<Preferences> dialog = new Preferences(this);
+	if (dialog->exec() == Preferences::Accepted)
+		dialog->apply();
+	delete dialog;
 }
 
 #ifdef KS_PURE_QT

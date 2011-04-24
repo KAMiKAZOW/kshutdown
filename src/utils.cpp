@@ -40,7 +40,7 @@ QString Utils::getOption(const QString &name) {
 #ifdef KS_NATIVE_KDE
 	return m_args->getOption(name.toAscii());
 #else
-	int i = m_args.indexOf("-" + name, 1);
+	int i = m_args.indexOf('-' + name, 1);
 	if (i == -1) {
 		i = m_args.indexOf("--" + name, 1);
 		if (i == -1) {
@@ -111,7 +111,7 @@ bool Utils::isArg(const QString &name) {
 #ifdef KS_NATIVE_KDE
 	return m_args->isSet(name.toAscii());
 #else
-	return (m_args.contains("-" + name) || m_args.contains("--" + name));
+	return (m_args.contains('-' + name) || m_args.contains("--" + name));
 #endif // KS_NATIVE_KDE
 }
 

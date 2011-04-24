@@ -72,7 +72,7 @@ bool IdleMonitor::canActivateAction() {
 
 	quint32 remainingTime = timeout - m_idleTime;
 	QTime t = QTime();
-	m_status = "~" + t.addSecs(remainingTime).toString("HH:mm:ss");
+	m_status = '~' + t.addSecs(remainingTime).toString("HH:mm:ss");
 	
 	//m_status += (" {DEBUG:" + QString::number(m_idleTime) + "}");
 
