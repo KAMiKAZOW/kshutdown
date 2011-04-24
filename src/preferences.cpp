@@ -16,7 +16,6 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <QCheckBox>
-#include <QTabWidget>
 #include <QVBoxLayout>
 
 #include "config.h"
@@ -38,7 +37,7 @@ Preferences::Preferences(QWidget *parent) :
 	mainLayout->setMargin(5);
 	mainLayout->setSpacing(5);
 
-	QTabWidget *tabs = new QTabWidget();
+	U_TAB_WIDGET *tabs = new U_TAB_WIDGET();
 	tabs->addTab(createGeneralWidget(), i18n("General"));
 // TODO: actions/triggers config.
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));
