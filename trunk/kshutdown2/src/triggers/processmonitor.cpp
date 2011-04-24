@@ -129,11 +129,11 @@ void ProcessMonitor::setPID(const pid_t pid) {
 	m_processList.clear();
 	
 	Process *p = new Process(this);
-	p->m_command = "?";
+	p->m_command = '?';
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	p->m_pid = pid;
 #endif // KS_TRIGGER_PROCESS_MONITOR
-	p->m_user = "?";
+	p->m_user = '?';
 	m_processList.append(p);
 	m_processes->addItem(U_ICON(), p->toString());
 }
@@ -210,9 +210,9 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 	
 	if (exitStatus == QProcess::NormalExit) {
 		QString user = Utils::getUser();
-		QStringList processLines = m_refreshBuf.split("\n");
-		foreach (QString i, processLines) {
-			QStringList processInfo = i.simplified().split(" ");
+		QStringList processLines = m_refreshBuf.split('\n');
+		foreach (const QString &i, processLines) {
+			QStringList processInfo = i.simplified().split(' ');
 			if (processInfo.count() >= 3) {
 				Process *p = new Process(this);
 				p->m_user = processInfo[0];

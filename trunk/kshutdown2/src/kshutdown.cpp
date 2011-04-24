@@ -118,7 +118,7 @@ void Action::activate(const bool force) {
 }
 
 bool Action::isCommandLineArgSupported() {
-	foreach (QString i, m_commandLineArgs) {
+	foreach (const QString &i, m_commandLineArgs) {
 		if (Utils::isArg(i))
 			return true;
 	}
@@ -342,7 +342,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		
 		QString result;
 		if (secsTo < DAY) {
-			result = "+" + QTime().addSecs(secsTo).toString(TIME_FORMAT + ":ss");
+			result = '+' + QTime().addSecs(secsTo).toString(TIME_FORMAT + ":ss");
 		}
 		else {
 			result += "24:00+";
@@ -351,7 +351,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		result += " (";
 // TODO: do not bold effective time
 		result += m_endDateTime.toString(DATE_TIME_DISPLAY_FORMAT);
-		result += ")";
+		result += ')';
 		
 		return result;
 	}
@@ -376,7 +376,7 @@ QWidget *DateTimeTrigger::getWidget() {
 
 	m_edit->setCalendarPopup(true);
 	
-	// Fix for BUG #2444169 - remeber the previous shutdown settings
+	// Fix for BUG #2444169 - remember the previous shutdown settings
 	m_edit->setDateTime(QDateTime(QDate::currentDate(), m_dateTime.time()));
 	
 	m_edit->setDisplayFormat(DATE_TIME_DISPLAY_FORMAT);
@@ -451,7 +451,7 @@ bool PowerAction::onAction() {
 // TODO: KDE: use Solid API (?)
 #ifdef Q_WS_WIN
 	BOOL hibernate = (m_methodName == "Hibernate");
-	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE);
+	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE); // krazy:exclude=captruefalse
 	if (result == 0) {
 		setLastError();
 
@@ -578,7 +578,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		QDBusReply<bool> reply;
 		
 		// Try the alternative feature names in order; if we get a valid answer, return it
-		foreach  (QString featureName, featureNames) {
+		foreach (const QString &featureName, featureNames) {
 			reply =  i_hal.call("GetProperty", featureName);
 			if (reply.isValid())
 				return reply.value();	
@@ -685,7 +685,7 @@ bool StandardAction::onAction() {
 		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 		if (!::AdjustTokenPrivileges(
 			hToken,
-			FALSE,
+			FALSE, // krazy:exclude=captruefalse
 			&tp,
 			sizeof(TOKEN_PRIVILEGES),
 			(PTOKEN_PRIVILEGES)NULL,
