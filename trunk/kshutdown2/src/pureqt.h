@@ -15,6 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+// krazy:excludeall=qclasses
+
 #ifndef KSHUTDOWN_PUREQT_H
 #define KSHUTDOWN_PUREQT_H
 
@@ -34,6 +36,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QSystemTrayIcon>
+#include <QTabWidget>
 
 #else
 
@@ -51,6 +54,7 @@
 #include <KMessageBox>
 #include <KPushButton>
 #include <KSystemTrayIcon>
+#include <KTabWidget>
 
 #endif // KS_PURE_QT
 
@@ -79,12 +83,15 @@
 		QMessageBox::critical((parent), i18n("Error"), (text));
 	#define U_EXPORT Q_DECL_EXPORT
 	#define U_ICON QIcon
+	#define U_INFO_MESSAGE(parent, text) \
+		QMessageBox::information((parent), i18n("Information"), (text));
 	#define U_MAIN_WINDOW QMainWindow
 	#define U_MENU QMenu
 	#define U_MENU_BAR QMenuBar
 	#define U_PUSH_BUTTON QPushButton
 	#define U_STOCK_ICON(name) QIcon::fromTheme((name))
 	#define U_SYSTEM_TRAY QSystemTrayIcon
+	#define U_TAB_WIDGET QTabWidget
 
 	#define i18n(text) QApplication::translate(0, (text))
 #else
@@ -109,12 +116,15 @@
 		KMessageBox::error((parent), (text));
 	#define U_EXPORT KDE_EXPORT
 	#define U_ICON KIcon
+	#define U_INFO_MESSAGE(parent, text) \
+		KMessageBox::information((parent), (text));
 	#define U_MAIN_WINDOW KMainWindow
 	#define U_MENU KMenu
 	#define U_MENU_BAR KMenuBar
 	#define U_PUSH_BUTTON KPushButton
 	#define U_STOCK_ICON(name) KIcon((name))
 	#define U_SYSTEM_TRAY KSystemTrayIcon
+	#define U_TAB_WIDGET KTabWidget
 	
 	// use i18n from KLocale
 #endif // KS_PURE_QT

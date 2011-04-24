@@ -29,7 +29,7 @@ TestAction::TestAction() :
 }
 
 bool TestAction::onAction() {
-	QMessageBox::information(0, text(), text());
+	U_INFO_MESSAGE(0, text());
 	
 	return true;
 }
