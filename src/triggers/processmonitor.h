@@ -18,7 +18,7 @@
 #ifndef KSHUTDOWN_PROCESSMONITOR_H
 #define KSHUTDOWN_PROCESSMONITOR_H
 
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX) || defined(__FreeBSD_kernel__) || defined(Q_OS_HURD)
 	#define KS_TRIGGER_PROCESS_MONITOR
 #endif // Q_OS_LINUX
 
