@@ -184,10 +184,11 @@ void ProcessMonitor::onRefresh() {
 	// show all processes
 	args << "-A";
 	// order: user pid command
-	args << "-o" << "user=";
-	args << "-o" << "pid=";
-	args << "-o" << "comm=";
+// TODO: args << "-o" << "user=,pid=,command=";
+// http://sourceforge.net/tracker/?func=detail&aid=3292203&group_id=93707&atid=605270
+	args << "-o" << "user=,pid=,comm=";
 	// sort by command
+	//args << "--sort" << "command";
 	args << "--sort" << "comm";
 
 	// start process
