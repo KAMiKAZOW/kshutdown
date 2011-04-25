@@ -35,9 +35,11 @@
 #else
 	#include <QPainter>
 
+	#include <KActionCollection>
 	#include <KIconEffect>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
+	#include <KShortcutsDialog>
 	#include <KStandardAction>
 #endif // KS_PURE_QT
 
@@ -543,6 +545,10 @@ MainWindow::MainWindow() :
 
 	U_DEBUG << "MainWindow::MainWindow()" U_END;
 
+#ifdef KS_NATIVE_KDE
+	m_actionCollection = new KActionCollection(this);
+#endif // KS_NATIVE_KDE
+
 	// HACK: It seems that the "quit on last window closed"
 	// does not work correctly if main window is hidden
 	// "in" the system tray..
@@ -573,11 +579,11 @@ MainWindow::MainWindow() :
 		// insert separator like in menu
 		if ((id == "reboot") || (id == "suspend") || (id == "logout"))
 			m_actions->insertSeparator(m_actions->count());
-			
+
 		U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;
 	}
 	m_actions->setMaxVisibleItems(m_actions->count());
-	
+
 	// init triggers
 	foreach (Trigger *trigger, m_triggerList) {
 		connect(
@@ -690,11 +696,16 @@ void MainWindow::initMenuBar() {
 		if (!a->showInMenu())
 			continue; // for
 
-		ConfirmAction *ca = new ConfirmAction(this, a);
+		ConfirmAction *confirmAction = new ConfirmAction(this, a);
 		if (a == LockAction::self())
-			m_confirmLockAction = ca;
+			m_confirmLockAction = confirmAction;
 
-		fileMenu->addAction(ca);
+#ifdef KS_NATIVE_KDE
+		m_actionCollection->addAction("kshutdown/" + id, confirmAction);
+		confirmAction->setGlobalShortcut(KShortcut());
+#endif // KS_NATIVE_KDE
+
+		fileMenu->addAction(confirmAction);
 		if ((id == "reboot") || (id == "suspend"))
 			fileMenu->addSeparator();
 	}
@@ -716,6 +727,11 @@ void MainWindow::initMenuBar() {
 
 	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"), menuBar);
 #ifdef KS_NATIVE_KDE
+// FIXME: Details -> Shortcut Schemes
+	U_ACTION *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
+	configureShortcutsAction->setEnabled(!Utils::isRestricted("action/options_configure_keybinding"));
+	settingsMenu->addAction(configureShortcutsAction);
+
 	U_ACTION *configureNotificationsAction = KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this);
 	configureNotificationsAction->setEnabled(!Utils::isRestricted("action/options_configure_notifications"));
 	settingsMenu->addAction(configureNotificationsAction);
@@ -831,6 +847,8 @@ void MainWindow::initWidgets() {
 	m_cancelAction = new U_ACTION(this);
 #ifdef KS_NATIVE_KDE
 	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
+	m_actionCollection->addAction("kshutdown/cancel", m_cancelAction);
+	m_cancelAction->setGlobalShortcut(KShortcut());
 #else
 	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));
 #endif // KS_NATIVE_KDE
@@ -868,6 +886,10 @@ void MainWindow::readConfig() {
 	setSelectedAction(config->read("Selected Action", "shutdown").toString());
 	setSelectedTrigger(config->read("Selected Trigger", "time-from-now").toString());
 	config->endGroup();
+
+#ifdef KS_NATIVE_KDE
+	m_actionCollection->readSettings();
+#endif // KS_NATIVE_KDE
 }
 
 int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
@@ -985,6 +1007,11 @@ void MainWindow::writeConfig() {
 	config->write("Selected Action", getSelectedAction()->id());
 	config->write("Selected Trigger", getSelectedTrigger()->id());
 	config->endGroup();
+
+#ifdef KS_NATIVE_KDE
+	m_actionCollection->writeSettings();
+#endif // KS_NATIVE_KDE
+
 	config->sync();
 }
 
@@ -1081,6 +1108,12 @@ void MainWindow::onCheckTrigger() {
 #ifdef KS_NATIVE_KDE
 void MainWindow::onConfigureNotifications() {
 	KNotifyConfigWidget::configure(this);
+}
+
+void MainWindow::onConfigureShortcuts() {
+	KShortcutsDialog dialog;
+	dialog.addCollection(m_actionCollection);
+	dialog.configure();
 }
 #endif // KS_NATIVE_KDE
 
