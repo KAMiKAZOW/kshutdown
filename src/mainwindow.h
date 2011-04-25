@@ -81,6 +81,9 @@ protected:
 	virtual void closeEvent(QCloseEvent *e);
 private:
 	Q_DISABLE_COPY(MainWindow)
+#ifdef KS_NATIVE_KDE
+	KActionCollection *m_actionCollection;
+#endif // KS_NATIVE_KDE
 	bool m_active;
 	bool m_forceQuit;
 	bool m_ignoreUpdateWidgets;
@@ -129,6 +132,7 @@ private slots:
 	void onCheckTrigger();
 #ifdef KS_NATIVE_KDE
 	void onConfigureNotifications();
+	void onConfigureShortcuts();
 #endif // KS_NATIVE_KDE
 	void onFocusChange(QWidget *old, QWidget *now);
 	void onForceClick();
