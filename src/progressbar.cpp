@@ -18,6 +18,7 @@
 #include "config.h"
 #include "progressbar.h"
 #include "pureqt.h"
+#include "utils.h"
 
 #include <QDesktopWidget>
 #include <QMouseEvent>
@@ -75,6 +76,9 @@ void ProgressBar::setTotal(const int total) {
 // protected
 
 void ProgressBar::mousePressEvent(QMouseEvent *e) {
+	if (Utils::isRestricted("kshutdown/progress_bar/menu"))
+		return;
+
 	if (e->button() == Qt::RightButton) {
 		// show popup menu
 		U_MENU *menu = new U_MENU(this);

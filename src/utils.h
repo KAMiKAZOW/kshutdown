@@ -38,6 +38,7 @@ public:
 	static bool isKDEFullSession();
 	static bool isKDE_4();
 	static bool isKDM();
+	static bool isRestricted(const QString &action);
 	static bool isXfce();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
 	static void shutDown();
