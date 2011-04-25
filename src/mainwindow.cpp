@@ -358,8 +358,8 @@ void MainWindow::setActive(const bool yes) {
 		}
 		else {
 			U_DEBUG << "MainWindow::setActive: system tray icon size: " << iconSize U_END;
-			int iconW = iconSize.width();
-			int iconH = iconSize.height();
+			int iconW = qBound(24, iconSize.width(), 64);
+			int iconH = qBound(24, iconSize.height(), 64);
 			QImage i = defaultIcon.pixmap(iconW, iconH).toImage();
 			KIconEffect::colorize(i, Qt::yellow, 0.5f);
 		
@@ -776,6 +776,8 @@ void MainWindow::initSystemTray() {
 
 	m_systemTray = new U_SYSTEM_TRAY(this);
 #ifdef KS_NATIVE_KDE
+// TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
+// Currently it's lower case "kshutdown".
 	m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
 #endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
