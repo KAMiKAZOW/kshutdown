@@ -31,7 +31,6 @@ Misc.:
 * Optionally mute sound (master mixer) before lock screen
 * Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
 * Plasmoid
-* KDE Kiosk
 * Include in KDE 4
 * "K" menu integration
 * http://sourceforge.net/forum/forum.php?thread_id=1073402&forum_id=324058

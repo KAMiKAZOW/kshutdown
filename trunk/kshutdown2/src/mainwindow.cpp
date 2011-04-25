@@ -333,10 +333,17 @@ void MainWindow::setActive(const bool yes) {
 	if (m_active == yes)
 		return;
 
-	m_active = yes;
-
 	Action *action = getSelectedAction();
+	
+	if (yes && !action->isEnabled()) {
+// TODO: GUI
+		U_DEBUG << "MainWindow::setActive: action disabled: " << action->text() << ", " << action->disableReason() U_END;
+	
+		return;
+	}
+	
 	Trigger *trigger = getSelectedTrigger();
+	m_active = yes;
 	
 #ifdef KS_NATIVE_KDE
 // TODO: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
@@ -695,7 +702,9 @@ void MainWindow::initMenuBar() {
 	fileMenu->addAction(m_cancelAction);
 	//fileMenu->addSeparator();
 #ifdef KS_NATIVE_KDE
-	fileMenu->addAction(KStandardAction::quit(this, SLOT(onQuit()), this));
+	U_ACTION *quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
+	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
+	fileMenu->addAction(quitAction);
 #else
 	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Q"))
 		->setIcon(U_STOCK_ICON("application-exit"));
@@ -707,9 +716,15 @@ void MainWindow::initMenuBar() {
 
 	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"), menuBar);
 #ifdef KS_NATIVE_KDE
-	settingsMenu->addAction(KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this));
+	U_ACTION *configureNotificationsAction = KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this);
+	configureNotificationsAction->setEnabled(!Utils::isRestricted("action/options_configure_notifications"));
+	settingsMenu->addAction(configureNotificationsAction);
+	
 	settingsMenu->addSeparator();
-	settingsMenu->addAction(KStandardAction::preferences(this, SLOT(onPreferences()), this));
+	
+	U_ACTION *preferencesAction = KStandardAction::preferences(this, SLOT(onPreferences()), this);
+	preferencesAction->setEnabled(!Utils::isRestricted("action/options_configure"));
+	settingsMenu->addAction(preferencesAction);
 #else
 	settingsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()));
 #endif // KS_NATIVE_KDE
@@ -897,6 +912,7 @@ void MainWindow::updateWidgets() {
 
 	m_force->setEnabled(enabled);
 
+	bool canCancel = !Utils::isRestricted("kshutdown/action/cancel");
 #ifdef KS_NATIVE_KDE
 	m_okCancelButton->setGuiItem(
 		m_active
@@ -929,7 +945,10 @@ void MainWindow::updateWidgets() {
 		else
 #endif // KS_NATIVE_KDE
 		{
-			m_okCancelButton->setEnabled(true);
+			if (m_active)
+				m_okCancelButton->setEnabled(canCancel);
+			else
+				m_okCancelButton->setEnabled(true);
 			m_infoWidget->setText(QString::null);
 		}
 	}
@@ -947,7 +966,7 @@ void MainWindow::updateWidgets() {
 	
 	// update "Cancel" action
 	if (m_active) {
-		m_cancelAction->setEnabled(true);
+		m_cancelAction->setEnabled(canCancel);
 		m_cancelAction->setText(i18n("Cancel: %0").arg(action->originalText()));
 	}
 	else {

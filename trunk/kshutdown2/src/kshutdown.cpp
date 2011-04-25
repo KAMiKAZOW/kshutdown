@@ -108,6 +108,10 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	m_originalText = text;
 	if (!iconName.isNull())
 		setIcon(U_STOCK_ICON(iconName));
+	
+	if (Utils::isRestricted("kshutdown/action/" + id))
+		disable(i18n("Disabled by Administrator"));
+
 	setText(text);
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
@@ -162,6 +166,12 @@ bool Action::unsupportedAction() {
 void Action::slotFire() {
 	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]" U_END;
 
+	if (!isEnabled() && !m_disableReason.isEmpty()) {
+		U_ERROR_MESSAGE(0, m_disableReason);
+		
+		return;
+	}
+
 	m_error = QString::null;
 	if (!onAction()) {
 		m_totalExit = false;
@@ -169,10 +179,6 @@ void Action::slotFire() {
 			QString text = m_error.isEmpty() ? i18n("Unknown error") : m_error;
 			U_ERROR_MESSAGE(0, text);
 		}
-	}
-	
-	if (!isEnabled() && !m_disableReason.isEmpty()) {
-		U_ERROR_MESSAGE(0, m_disableReason);
 	}
 }
 

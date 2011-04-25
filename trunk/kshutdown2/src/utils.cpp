@@ -20,6 +20,7 @@
 #include <QWidget>
 
 #ifdef KS_NATIVE_KDE
+	#include <KAuthorized>
 	#include <KCmdLineArgs>
 #endif // KS_NATIVE_KDE
 
@@ -148,6 +149,14 @@ bool Utils::isKDE_4() {
 
 bool Utils::isKDM() {
 	return m_env.contains("XDM_MANAGED");
+}
+
+bool Utils::isRestricted(const QString &action) {
+#ifdef KS_NATIVE_KDE
+	return !KAuthorized::authorize(action);
+#else
+	return false;
+#endif // KS_NATIVE_KDE
 }
 
 bool Utils::isXfce() {
