@@ -145,12 +145,8 @@ bool MainWindow::checkCommandLine() {
 	bool confirm = Utils::isArg("confirm");
 	foreach (Action *action, m_actionList) {
 		if (action->isCommandLineArgSupported()) {
-			if (
-				confirm &&
-				!U_CONFIRM(0, i18n("Confirm command line action"), i18n("Are you sure?") + "\n\n" + action->originalText())
-			) {
+			if (confirm && !action->showConfirmationMessage(0))
 				return false;
-			}
 			
 			actionToActivate = action;
 

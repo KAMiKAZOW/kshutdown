@@ -130,6 +130,20 @@ bool Action::isCommandLineArgSupported() {
 	return false;
 }
 
+bool Action::showConfirmationMessage(QWidget *parent) {
+// TODO: show confirmation message near the system tray icon
+// if main window is hidden
+// TODO: use action name as a OK-button text
+	return U_CONFIRM(
+		parent,
+		i18n("Confirm"),
+		"<qt>" \
+		"<p>" + i18n("Action: <b>%1</b>").arg(originalText()) + "</p>" +
+		"<p>" + i18n("Are you sure?") + "</p>" \
+		"</qt>"
+	);
+}
+
 // protected
 
 // NOTE: Sync. with "KCmdLineOptions" in main.cpp
@@ -205,12 +219,10 @@ void ConfirmAction::slotFire() {
 	if (m_impl->shouldStopTimer())
 		MainWindow::self()->setActive(false);
 
-// TODO: show confirmation message near the system tray icon
-// if main window is hidden
 	if (
 		!Config::confirmAction() ||
 		(m_impl == LockAction::self()) || // lock action - no confirmation
-		U_CONFIRM(0, m_impl->originalText(), i18n("Are you sure?"))
+		m_impl->showConfirmationMessage(0)
 	)
 		m_impl->activate(false);
 }
