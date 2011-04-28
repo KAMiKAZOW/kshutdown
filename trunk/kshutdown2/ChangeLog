@@ -1,7 +1,27 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2011/05/!!!  2.1 Beta
+2011/05/!!!  2.1 Beta  DRAFT
+
+* Added Portuguese language translation (pt.po, bug #3292202)
+  Thanks to Américo Monteiro
+* [PENDING] Bug #3292203 (kfreebsd-hurd.patch)
+* Fixed: Do not activate disabled or unsupported action
+* Fixed a tiny system tray icon if launched with "--xx time" command line option
+* Improved confirmation message box
+
+KDE 4:
+
+* NEW: (Re)Added KDE Kiosk support. Documentation:
+  http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Kiosk
+* NEW: (Re)Added Local and Global keyboard shortcuts
+  (see menu -> Settings -> Configure Shortcuts...)
+* Use KDE UI elements in KDE4 version for better platform integration
+
+Source:
+
+* Added support for Krazy2 Code Checker (see ./tools/krazy2.sh)
+* Fixed: Do not include temporary binary "kshutdown" file in a source package
 
 
 2011/04/20  2.0
@@ -449,4 +469,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 533:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 548:HEAD|xsel -i -b && kwrite ChangeLog
