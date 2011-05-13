@@ -138,7 +138,7 @@ bool Action::showConfirmationMessage(QWidget *parent) {
 		parent,
 		i18n("Confirm"),
 		"<qt>" \
-		"<p>" + i18n("Action: <b>%1</b>").arg(originalText()) + "</p>" +
+		"<p>" + i18n("Action: <b>%0</b>").arg(originalText()) + "</p>" +
 		"<p>" + i18n("Are you sure?") + "</p>" \
 		"</qt>"
 	);
@@ -368,7 +368,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		
 		result += " (";
 // TODO: do not bold effective time
-		result += m_endDateTime.toString(DATE_TIME_DISPLAY_FORMAT);
+		result += i18n("selected time: %0").arg(m_endDateTime.toString(DATE_TIME_DISPLAY_FORMAT));
 		result += ')';
 		
 		return result;
