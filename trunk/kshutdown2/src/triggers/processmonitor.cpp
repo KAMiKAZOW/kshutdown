@@ -27,6 +27,7 @@
 	#include <signal.h>
 #endif // KS_TRIGGER_PROCESS_MONITOR
 
+#include <QAbstractItemView>
 #include <QHBoxLayout>
 
 // public
@@ -101,6 +102,7 @@ QWidget *ProcessMonitor::getWidget() {
 		layout->setSpacing(5);
 
 		m_processes = new U_COMBO_BOX(m_widget);
+		m_processes->view()->setAlternatingRowColors(true);
 		m_processes->setFocusPolicy(Qt::StrongFocus);
 		m_processes->setToolTip(i18n("List of the running processes"));
 		layout->addWidget(m_processes);
