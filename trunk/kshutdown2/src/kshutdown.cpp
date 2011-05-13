@@ -360,7 +360,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		
 		QString result;
 		if (secsTo < DAY) {
-			result = '+' + QTime().addSecs(secsTo).toString(TIME_FORMAT + ":ss");
+			result = '+' + QTime().addSecs(secsTo).toString(TIME_DISPLAY_FORMAT + ":ss");
 		}
 		else {
 			result += "24:00+";
@@ -440,7 +440,7 @@ TimeFromNowTrigger::TimeFromNowTrigger() :
 QWidget *TimeFromNowTrigger::getWidget() {
 	DateTimeTriggerBase::getWidget();
 
-	m_edit->setDisplayFormat(TIME_FORMAT);
+	m_edit->setDisplayFormat(TIME_DISPLAY_FORMAT);
 	m_edit->setTime(m_dateTime.time());
 	m_edit->setToolTip(i18n("Enter delay in \"HH:MM\" format (Hour:Minute)"));
 

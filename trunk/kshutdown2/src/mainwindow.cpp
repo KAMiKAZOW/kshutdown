@@ -472,7 +472,7 @@ void MainWindow::setTime(const QString &trigger, const QString &time) {
 	if (!trigger.isEmpty())
 		setSelectedTrigger(trigger);
 	
-	QTime t = QTime::fromString(time, KShutdown::TIME_FORMAT);
+	QTime t = QTime::fromString(time, KShutdown::TIME_PARSE_FORMAT);
 	bool absolute = (trigger == "date-time") ? true : false;
 	setTime(trigger, t, absolute);
 }
