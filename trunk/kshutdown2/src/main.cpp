@@ -89,7 +89,7 @@ public:
 
 int main(int argc, char **argv) {
 	#define KS_DEBUG_SYSTEM(f, d) \
-		qDebug(f ": %s", d ? "<FOUND>" : "not detected");
+		qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
 	KS_DEBUG_SYSTEM("GDM", Utils::isGDM());
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
 	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
@@ -98,10 +98,11 @@ int main(int argc, char **argv) {
 	KS_DEBUG_SYSTEM("KDM", Utils::isKDM());
 
 	if (Utils::isGDM() || Utils::isGNOME() || Utils::isXfce()) {
-		qWarning("WARNING: GNOME/Xfce desktop and/or GDM (login manager) are not supported yet.");
-		qWarning("         Some functions may be unavailable.");
-		qWarning("         Try GShutdown which is more compatible with GNOME/GDM and Xfce.");
-		qWarning("         http://gshutdown.tuxfamily.org/");
+		qWarning("kshutdown: WARNING:");
+		qWarning("  GNOME/Xfce desktop and/or GDM (login manager) are not supported yet.");
+		qWarning("  Some functions may be unavailable.");
+		qWarning("  Try GShutdown which is more compatible with GNOME/GDM and Xfce.");
+		qWarning("  http://gshutdown.tuxfamily.org/");
 	}
 
 #ifdef KS_PURE_QT
