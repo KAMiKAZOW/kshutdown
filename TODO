@@ -1,5 +1,5 @@
 
-Tracker:
+Tracker @ SourceForge.net:
 
 * Bugs: http://sourceforge.net/tracker/?group_id=93707&atid=605270
 * RFE: http://sourceforge.net/tracker/?group_id=93707&atid=605273
@@ -14,16 +14,9 @@ Old KShutDown 1.0.x features:
 * Lock screen after login
 * Close CD-ROM before logout
 
-Extras:
-
-* Recent items
-* Support for more media players
-  (Xine, KMPlayer, MythTV, etc.)
-
 Misc.:
 
-* Wiki: Add KAlarm integration example
-* Update Credits/Thanks list in About dialog
+* Extras: Recent items
 * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=538873
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
@@ -32,10 +25,12 @@ Misc.:
 * Plasmoid
 * Include in KDE 4
 * "K" menu integration
-* http://sourceforge.net/forum/forum.php?thread_id=1073402&forum_id=324058
-* http://sourceforge.net/forum/forum.php?thread_id=1366875&forum_id=324058
-* http://sourceforge.net/forum/forum.php?thread_id=1438962&forum_id=324058
-* http://sourceforge.net/projects/kshutdown/forums/forum/324059/topic/1819885
+* Shutdown everyday to save energy:
+  http://sourceforge.net/projects/kshutdown/forums/forum/324058/topic/1438962
+* Execute a command:
+  http://sourceforge.net/projects/kshutdown/forums/forum/324058/topic/1073402
+* Command before action:
+  http://sourceforge.net/projects/kshutdown/forums/forum/324058/topic/1366875
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
 * Support for GNOME/GDM
 * Switch to console mode (tty) [by DigitalCyanide]
@@ -47,11 +42,12 @@ Misc.:
 * Detect unsaved documents (is there any KDE API to do this?)
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
-  <http://sourceforge.net/forum/forum.php?thread_id=1758589&forum_id=324059>
+  http://sourceforge.net/tracker/?func=detail&aid=1484842&group_id=93707&atid=605273
+  <http://sourceforge.net/projects/kshutdown/forums/forum/324059/topic/1758589>
   - Related: https://bugs.kde.org/show_bug.cgi?id=198255
   - API: http://api.kde.org/4.x-api/kdebase-workspace-apidocs/libs/kworkspace/html/classKDisplayManager.html
 
-Triggers:
+Scripting:
 
 * Activate action when the CPU usage goes under a certain level
   <http://www.autoshutdown.org/index.html>

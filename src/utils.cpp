@@ -139,10 +139,13 @@ bool Utils::isKDEFullSession() {
 }
 
 bool Utils::isKDE_4() {
+	QString desktopSession = m_env.value("DESKTOP_SESSION");
+
 	return
 		isKDEFullSession() &&
 		(
-			(m_env.value("DESKTOP_SESSION") == "kde4") ||
+			desktopSession.startsWith("kde-") ||
+			(desktopSession == "kde4") ||
 			(m_env.value("KDE_SESSION_VERSION").toInt() >= 4)
 		);
 }
@@ -155,6 +158,8 @@ bool Utils::isRestricted(const QString &action) {
 #ifdef KS_NATIVE_KDE
 	return !KAuthorized::authorize(action);
 #else
+	Q_UNUSED(action)
+
 	return false;
 #endif // KS_NATIVE_KDE
 }
