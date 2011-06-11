@@ -53,6 +53,7 @@ public:
 		DISPLAY_STATUS_SIMPLE = 1 << 2
 	};
 	virtual ~MainWindow();
+	QHash<QString, Action*> actionHash() const { return m_actionHash; }
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
 	static void init();

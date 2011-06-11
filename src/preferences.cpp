@@ -19,6 +19,7 @@
 #include <QVBoxLayout>
 
 #include "config.h"
+#include "password.h"
 #include "preferences.h"
 
 #ifdef KS_NATIVE_KDE
@@ -39,6 +40,10 @@ Preferences::Preferences(QWidget *parent) :
 
 	U_TAB_WIDGET *tabs = new U_TAB_WIDGET();
 	tabs->addTab(createGeneralWidget(), i18n("General"));
+	
+	m_passwordPreferences = new PasswordPreferences(this);
+	tabs->addTab(m_passwordPreferences, i18n("Password"));
+	
 // TODO: actions/triggers config.
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
@@ -68,6 +73,8 @@ void Preferences::apply() {
 	
 // FIXME: show/hide/update progress bar on option change
 	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
+	
+	m_passwordPreferences->apply();
 
 	Config::user()->sync();
 }
@@ -132,7 +139,8 @@ QWidget *Preferences::createTriggersWidget() {
 #ifdef KS_NATIVE_KDE
 void Preferences::onKDERelatedSettings() {
 	KRun::run(
-		"kcmshell4 screensaver kcmsmserver energy powerdevilconfig autostart kcmkded kdm kgrubeditor keys",
+// FIXME: Ubuntu Natty, Qt 4.7.2, KDE 4.6.2: "kdm" module resets all fonts to "Ubuntu" ?!
+		"kcmshell4 screensaver kcmsmserver powerdevilglobalconfig powerdevilprofilesconfig autostart kcmkded kgrubeditor keys",
 		KUrl::List(),
 		this
 	);

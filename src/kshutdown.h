@@ -90,6 +90,7 @@ class U_EXPORT Action: public U_ACTION, public Base {
 public:
 	explicit Action(const QString &text, const QString &iconName, const QString &id);
 	void activate(const bool force);
+	bool authorize(QWidget *parent);
 	inline QStringList getCommandLineArgs() const {
 		return m_commandLineArgs;
 	}

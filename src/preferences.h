@@ -20,6 +20,8 @@
 
 #include "pureqt.h"
 
+class PasswordPreferences;
+
 class QCheckBox;
 
 class Preferences: public U_DIALOG {
@@ -30,6 +32,7 @@ public:
 	void apply();
 private:
 	Q_DISABLE_COPY(Preferences)
+	PasswordPreferences *m_passwordPreferences;
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
 	QCheckBox *m_progressBarEnabled;

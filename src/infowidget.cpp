@@ -43,6 +43,7 @@ InfoWidget::InfoWidget(QWidget *parent) :
 
 	m_icon = new QLabel();
 	m_text = new QLabel();
+	m_text->setOpenExternalLinks(true);
 
 	QHBoxLayout *mainLayout = new QHBoxLayout(this);
 	mainLayout->setMargin(5);
