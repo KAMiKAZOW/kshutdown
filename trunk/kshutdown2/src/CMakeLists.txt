@@ -14,6 +14,7 @@ set(
 	kshutdown.cpp
 	main.cpp
 	mainwindow.cpp
+	password.cpp
 	preferences.cpp
 	progressbar.cpp
 	utils.cpp
@@ -26,6 +27,7 @@ set(
 	triggers/processmonitor.h
 	kshutdown.h
 	mainwindow.h
+	password.h
 	preferences.h
 	progressbar.h
 )

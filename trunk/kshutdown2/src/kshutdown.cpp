@@ -33,6 +33,7 @@
 #include "actions/lock.h"
 #include "kshutdown.h"
 #include "mainwindow.h"
+#include "password.h"
 #include "progressbar.h"
 #include "utils.h"
 
@@ -119,6 +120,14 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 void Action::activate(const bool force) {
 	m_force = force;
 	U_ACTION::trigger();
+}
+
+bool Action::authorize(QWidget *parent) {
+	return PasswordDialog::authorize(
+		parent,
+		m_originalText,
+		"kshutdown/action/" + m_id
+	);
 }
 
 bool Action::isCommandLineArgSupported() {
@@ -223,8 +232,10 @@ void ConfirmAction::slotFire() {
 		!Config::confirmAction() ||
 		(m_impl == LockAction::self()) || // lock action - no confirmation
 		m_impl->showConfirmationMessage(0)
-	)
-		m_impl->activate(false);
+	) {
+		if (m_impl->authorize(0))
+			m_impl->activate(false);
+	}
 }
 
 // Trigger

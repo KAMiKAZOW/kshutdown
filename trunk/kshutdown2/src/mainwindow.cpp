@@ -51,6 +51,7 @@
 #include "commandline.h"
 #include "infowidget.h"
 #include "mainwindow.h"
+#include "password.h"
 #include "preferences.h"
 #include "progressbar.h"
 #include "utils.h"
@@ -178,7 +179,8 @@ bool MainWindow::checkCommandLine() {
 			}
 			
 			// execute action and quit now
-			actionToActivate->activate(false);
+			if (actionToActivate->authorize(0))
+				actionToActivate->activate(false);
 			
 			return true;
 		}
@@ -339,7 +341,11 @@ void MainWindow::setActive(const bool yes) {
 	
 		return;
 	}
-	
+
+	if (yes && !action->authorize(this)) {
+		return;
+	}
+
 	Trigger *trigger = getSelectedTrigger();
 	m_active = yes;
 	
@@ -933,6 +939,7 @@ void MainWindow::updateWidgets() {
 	m_force->setEnabled(enabled);
 
 	bool canCancel = !Utils::isRestricted("kshutdown/action/cancel");
+
 #ifdef KS_NATIVE_KDE
 	m_okCancelButton->setGuiItem(
 		m_active
@@ -1017,6 +1024,9 @@ void MainWindow::writeConfig() {
 
 void MainWindow::onQuit() {
 	U_DEBUG << "MainWindow::onQuit()" U_END;
+	
+	if (!PasswordDialog::authorize(this, i18n("Quit"), "action/file_quit"))
+		return;
 
 	m_forceQuit = true;
 	m_systemTray->hide();
@@ -1077,6 +1087,9 @@ void MainWindow::onActionActivated(int index) {
 }
 
 void MainWindow::onCancel() {
+	if (!PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))//!!!
+		return;
+
 	setActive(false);
 }
 
@@ -1105,10 +1118,16 @@ void MainWindow::onCheckTrigger() {
 
 #ifdef KS_NATIVE_KDE
 void MainWindow::onConfigureNotifications() {
+	if (!PasswordDialog::authorize(this, i18n("Preferences"), "action/options_configure_notifications"))
+		return;
+
 	KNotifyConfigWidget::configure(this);
 }
 
 void MainWindow::onConfigureShortcuts() {
+	if (!PasswordDialog::authorize(this, i18n("Preferences"), "action/options_configure_keybinding"))
+		return;
+
 	KShortcutsDialog dialog;
 	dialog.addCollection(m_actionCollection);
 	dialog.configure();
@@ -1136,11 +1155,17 @@ void MainWindow::onForceClick() {
 void MainWindow::onOKCancel() {
 	U_DEBUG << "MainWindow::onOKCancel()" U_END;
 
+	if (m_active && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))//!!!cli
+		return;
+	
 	setActive(!m_active);
 }
 
 void MainWindow::onPreferences() {
 	U_DEBUG << "MainWindow::onPreferences()" U_END;
+	
+	if (!PasswordDialog::authorize(this, i18n("Preferences"), "action/options_configure"))
+		return;
 
 	// DOC: http://www.kdedevelopers.org/node/3919
 	QPointer<Preferences> dialog = new Preferences(this);
