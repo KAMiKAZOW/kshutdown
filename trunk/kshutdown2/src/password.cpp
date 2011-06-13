@@ -104,6 +104,8 @@ PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
 	mainLayout->addRow(dialogButtonBox);
 	
 	setLayout(mainLayout);
+	
+	m_password->setFocus();
 }
 
 /*!!!
@@ -182,10 +184,14 @@ void PasswordDialog::updateStatus() {
 // private slots:
 
 void PasswordDialog::onConfirmPasswordChange(const QString &text) {
+	Q_UNUSED(text)
+
 	updateStatus();
 }
 
 void PasswordDialog::onPasswordChange(const QString &text) {
+	Q_UNUSED(text)
+
 	updateStatus();
 }
 
@@ -219,6 +225,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	mainLayout->addWidget(userActionListLabel);
 	
 	m_userActionList = new U_LIST_WIDGET();
+	m_userActionList->setAlternatingRowColors(true);
 	foreach (Action *action, MainWindow::self()->actionHash().values()) {
 		QListWidgetItem *item = new QListWidgetItem(action->originalText(), m_userActionList);
 		QString key = "kshutdown/action/" + action->id();
@@ -229,6 +236,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 		);//!!!common code
 		item->setData(Qt::ToolTipRole, key);
 		item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+		item->setIcon(action->icon());
 	}
 	
 	userActionListLabel->setBuddy(m_userActionList);
@@ -240,7 +248,6 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	InfoWidget *kioskInfo = new InfoWidget(this);
 	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Kiosk\">Kiosk</a>") + "</qt>", InfoWidget::InfoType);
 	mainLayout->addWidget(kioskInfo);
-	
 	
 	updateWidgets(m_enablePassword->checkState() == Qt::Checked);
 }
@@ -256,6 +263,15 @@ void PasswordPreferences::apply() {
 	config->beginGroup("Password Protection");
 	if (m_enablePassword->checkState() != Qt::Checked)
 		config->write("Hash", "");
+
+	int count = m_userActionList->count();
+	for (int i = 0; i < count; i++) {
+		QListWidgetItem *item = static_cast<QListWidgetItem *>(m_userActionList->item(i));
+// FIXME: use proper user data
+		QString key = item->data(Qt::ToolTipRole).toString();
+		config->write(key, item->checkState() == Qt::Checked);
+	}
+
 	config->endGroup();
 	config->sync();
 }
