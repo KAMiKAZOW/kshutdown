@@ -36,7 +36,7 @@ InfoWidget::InfoWidget(QWidget *parent) :
 	Utils::setFont(this, -1, false);
 
 	setAutoFillBackground(true);
-	setFrameStyle(Panel | Plain);
+	setFrameStyle(Panel | Sunken);
 	setLineWidth(1);
 	setObjectName("info-widget");
 	setVisible(false);
