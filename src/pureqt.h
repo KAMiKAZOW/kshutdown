@@ -30,6 +30,7 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QIcon>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QMainWindow>
 #include <QMenu>
@@ -49,6 +50,7 @@
 #include <KDialog>
 #include <KDialogButtonBox>
 #include <KIcon>
+#include <KLineEdit>
 #include <KListWidget>
 #include <KMainWindow>
 #include <KMenu>
@@ -87,6 +89,7 @@
 	#define U_ICON QIcon
 	#define U_INFO_MESSAGE(parent, text) \
 		QMessageBox::information((parent), i18n("Information"), (text));
+	#define U_LINE_EDIT QLineEdit
 	#define U_LIST_WIDGET QListWidget
 	#define U_MAIN_WINDOW QMainWindow
 	#define U_MENU QMenu
@@ -121,6 +124,7 @@
 	#define U_ICON KIcon
 	#define U_INFO_MESSAGE(parent, text) \
 		KMessageBox::information((parent), (text));
+	#define U_LINE_EDIT KLineEdit
 	#define U_LIST_WIDGET KListWidget
 	#define U_MAIN_WINDOW KMainWindow
 	#define U_MENU KMenu

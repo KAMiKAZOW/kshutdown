@@ -37,7 +37,6 @@ private:
 	QCheckBox *m_lockScreenBeforeHibernate;
 	QCheckBox *m_progressBarEnabled;
 	//QWidget *createActionsWidget();
-	QWidget *createContainerWidget();
 	QWidget *createGeneralWidget();
 	//QWidget *createTriggersWidget();
 private slots:
