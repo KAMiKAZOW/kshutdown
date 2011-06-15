@@ -803,8 +803,8 @@ void MainWindow::initWidgets() {
 	QWidget *mainWidget = new QWidget();
 	mainWidget->setObjectName("main-widget");
 	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
-	mainLayout->setMargin(5);
-	mainLayout->setSpacing(5);
+	mainLayout->setMargin(10);
+	mainLayout->setSpacing(10);
 
 	m_actionBox = new QGroupBox(i18n("Select an &action"));
 	m_actionBox->setObjectName("action-box");
