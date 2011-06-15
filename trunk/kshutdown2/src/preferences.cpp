@@ -35,8 +35,8 @@ Preferences::Preferences(QWidget *parent) :
 	setWindowTitle(i18n("Preferences"));
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-	mainLayout->setMargin(5);
-	mainLayout->setSpacing(5);
+	mainLayout->setMargin(10);
+	mainLayout->setSpacing(10);
 
 	U_TAB_WIDGET *tabs = new U_TAB_WIDGET();
 	tabs->addTab(createGeneralWidget(), i18n("General"));
@@ -89,37 +89,33 @@ QWidget *Preferences::createActionsWidget() {
 }
 */
 
-QWidget *Preferences::createContainerWidget() {
+QWidget *Preferences::createGeneralWidget() {
 	QWidget *w = new QWidget();
 	QVBoxLayout *l = new QVBoxLayout(w);
-	l->setMargin(5);
-
-	return w;
-}
-
-QWidget *Preferences::createGeneralWidget() {
-	QWidget *w = createContainerWidget();
+	l->setMargin(10);
 
 	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
 	m_confirmAction->setChecked(Config::confirmAction());
-	w->layout()->addWidget(m_confirmAction);
+	l->addWidget(m_confirmAction);
 
 	m_progressBarEnabled = new QCheckBox(i18n("Progress Bar"));
 	m_progressBarEnabled->setChecked(Config::progressBarEnabled());
-	w->layout()->addWidget(m_progressBarEnabled);
+	l->addWidget(m_progressBarEnabled);
 
 	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate"));
 	m_lockScreenBeforeHibernate->setChecked(Config::lockScreenBeforeHibernate());
-	w->layout()->addWidget(m_lockScreenBeforeHibernate);
+	l->addWidget(m_lockScreenBeforeHibernate);
 #ifdef Q_WS_WIN
 	m_lockScreenBeforeHibernate->hide();
 #endif // Q_WS_WIN
 
+	l->addStretch();
+
 #ifdef KS_NATIVE_KDE
-	static_cast<QVBoxLayout *>(w->layout())->addSpacing(10);
+	l->addSpacing(10);
 
 	U_PUSH_BUTTON *kdeRelatedSettingsPushButton = new U_PUSH_BUTTON(U_STOCK_ICON("start-here-kde"), i18n("Related KDE Settings..."));
-	w->layout()->addWidget(kdeRelatedSettingsPushButton);
+	l->addWidget(kdeRelatedSettingsPushButton);
 	connect(kdeRelatedSettingsPushButton, SIGNAL(clicked()), SLOT(onKDERelatedSettings()));
 #endif // KS_NATIVE_KDE
 

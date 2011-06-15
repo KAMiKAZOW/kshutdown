@@ -28,7 +28,6 @@
 #include <QCryptographicHash>
 #include <QFormLayout>
 #include <QLabel>
-#include <QLineEdit>
 
 // PasswordDialog
 
@@ -44,36 +43,44 @@ PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
 	else
 		setWindowTitle("KShutdown");
 
-	QFormLayout *mainLayout = new QFormLayout();
+	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-	if (!newPasswordMode) {
-		m_caption = new QLabel();
-		mainLayout->addRow(m_caption);
-	}
-	else {
+	// caption
+
+	if (newPasswordMode) {
 		m_caption = 0;
 	}
+	else {
+		m_caption = new QLabel();
+		mainLayout->addSpacing(10);
+		mainLayout->addWidget(m_caption);
+		mainLayout->addSpacing(10);
+	}
 
-	m_password = new QLineEdit();
-	m_password->setEchoMode(QLineEdit::Password);
+	// form
+
+	QFormLayout *formLayout = new QFormLayout();
+	mainLayout->addLayout(formLayout);
+
+	m_password = new U_LINE_EDIT();
+	m_password->setEchoMode(U_LINE_EDIT::Password);
 	connect(
 		m_password, SIGNAL(textEdited(const QString &)),
 		SLOT(onPasswordChange(const QString &))
 	);
-	mainLayout->addRow(i18n("Password:"), m_password);
+	formLayout->addRow(i18n("Password:"), m_password);
 	
 	if (newPasswordMode) {
-		m_caption = new QLabel();
-		mainLayout->addRow(m_caption);
-
-		m_confirmPassword = new QLineEdit();
-		m_confirmPassword->setEchoMode(QLineEdit::Password);
+		m_confirmPassword = new U_LINE_EDIT();
+		m_confirmPassword->setEchoMode(U_LINE_EDIT::Password);
 		connect(
 			m_confirmPassword, SIGNAL(textEdited(const QString &)),
 			SLOT(onConfirmPasswordChange(const QString &))
 		);
-		mainLayout->addRow(i18n("Confirm Password:"), m_confirmPassword);
-		//!!!sep
+		formLayout->addRow(i18n("Confirm Password:"), m_confirmPassword);
+		
+		// status/hint
+		
 		m_status = new InfoWidget(this);
 		m_status->setText(
 			"<qt>" +
@@ -82,7 +89,8 @@ PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
 			"</qt>",
 			InfoWidget::WarningType
 		);
-		mainLayout->addRow(m_status);//!!!add?
+		mainLayout->addSpacing(10);
+		mainLayout->addWidget(m_status);
 	}
 	else {
 		m_confirmPassword = 0;
@@ -97,13 +105,12 @@ PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
 	dialogButtonBox->addButton(KStandardGuiItem::cancel(), U_DIALOG_BUTTON_BOX::RejectRole);
 #else
 	dialogButtonBox = new U_DIALOG_BUTTON_BOX(U_DIALOG_BUTTON_BOX::Ok | U_DIALOG_BUTTON_BOX::Cancel);
-	m_acceptButton = dialogButtonBox->button(U_DIALOG_BUTTON_BOX::Ok);//!!!test
+	m_acceptButton = dialogButtonBox->button(U_DIALOG_BUTTON_BOX::Ok);
 #endif // KS_NATIVE_KDE
 	connect(dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 	connect(dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
-	mainLayout->addRow(dialogButtonBox);
-	
-	setLayout(mainLayout);
+	mainLayout->addSpacing(10);
+	mainLayout->addWidget(dialogButtonBox);
 	
 	m_password->setFocus();
 }
@@ -168,16 +175,21 @@ QString PasswordDialog::toHash(const QString &password) {
 void PasswordDialog::updateStatus() {
 	if (!m_newPasswordMode)
 		return;
-	
-	QString text = QString::null;
-	
+
 	bool ok = (m_password->text() == m_confirmPassword->text());
-	
-	if (!ok)
-		text = i18n("Confirmation password is different");
-	
+	if (!ok) {
+		m_status->setText(i18n("Confirmation password is different"), InfoWidget::ErrorType);
+	}
+	else {
+		if (m_password->text() == "123456")
+			m_status->setText(":-(", InfoWidget::WarningType);
+		else if (m_password->text() == "dupa.8")
+			m_status->setText("O_o", InfoWidget::InfoType);
+		else
+			m_status->setText(QString::null, InfoWidget::ErrorType);
+	}
+
 	m_acceptButton->setEnabled(ok);
-	m_status->setText(text, InfoWidget::ErrorType);
 	resize(sizeHint());
 }
 
@@ -204,7 +216,9 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	U_DEBUG << "PasswordPreferences::PasswordPreferences()" U_END;
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-	
+	mainLayout->setMargin(10);
+	mainLayout->setSpacing(10);
+
 	m_enablePassword = new QCheckBox(i18n("Enable Password Protection"));
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
@@ -241,10 +255,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	
 	userActionListLabel->setBuddy(m_userActionList);
 	mainLayout->addWidget(m_userActionList);
-	
-	mainLayout->setMargin(5);
-	mainLayout->setSpacing(5);
-	
+
 	InfoWidget *kioskInfo = new InfoWidget(this);
 	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Kiosk\">Kiosk</a>") + "</qt>", InfoWidget::InfoType);
 	mainLayout->addWidget(kioskInfo);

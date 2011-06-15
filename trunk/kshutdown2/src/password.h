@@ -37,9 +37,9 @@ private:
 	bool m_newPasswordMode;
 	InfoWidget *m_status;
 	QLabel *m_caption;
-	QLineEdit *m_confirmPassword;
-	QLineEdit *m_password;
 	QPushButton *m_acceptButton;
+	U_LINE_EDIT *m_confirmPassword;
+	U_LINE_EDIT *m_password;
 	void updateStatus();
 private slots:
 	void onConfirmPasswordChange(const QString &text);
