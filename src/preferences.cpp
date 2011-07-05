@@ -68,6 +68,7 @@ Preferences::~Preferences() {
 }
 
 void Preferences::apply() {
+	Config::setBlackAndWhiteSystemTrayIcon(m_bwTrayIcon->isChecked());
 	Config::setConfirmAction(m_confirmAction->isChecked());
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
 	
@@ -108,6 +109,13 @@ QWidget *Preferences::createGeneralWidget() {
 #ifdef Q_WS_WIN
 	m_lockScreenBeforeHibernate->hide();
 #endif // Q_WS_WIN
+
+	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
+	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
+	l->addWidget(m_bwTrayIcon);
+#ifdef KS_PURE_QT
+	m_bwTrayIcon->hide();
+#endif // KS_PURE_QT
 
 	l->addStretch();
 

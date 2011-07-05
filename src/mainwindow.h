@@ -122,6 +122,7 @@ private:
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
 	void setTitle(const QString &title);
+	void setTrayIcon();
 	void updateWidgets();
 	void writeConfig();
 private slots:

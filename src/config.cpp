@@ -53,6 +53,14 @@ void Config::endGroup() {
 #endif // KS_PURE_QT
 }
 
+bool Config::blackAndWhiteSystemTrayIcon() {
+	return readBool("General", "Black and White System Tray Icon", false);
+}
+
+void Config::setBlackAndWhiteSystemTrayIcon(const bool value) {
+	return write("General", "Black and White System Tray Icon", value);
+}
+
 bool Config::confirmAction() {
 	return readBool("General", "Confirm Action", false);
 }
