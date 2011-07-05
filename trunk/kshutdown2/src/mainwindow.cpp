@@ -363,7 +363,10 @@ void MainWindow::setActive(const bool yes) {
 			int iconW = qBound(24, iconSize.width(), 64);
 			int iconH = qBound(24, iconSize.height(), 64);
 			QImage i = defaultIcon.pixmap(iconW, iconH).toImage();
-			KIconEffect::colorize(i, Qt::yellow, 0.5f);
+			if (Config::blackAndWhiteSystemTrayIcon())
+				KIconEffect::deSaturate(i, 0.5f);
+			else
+				KIconEffect::colorize(i, Qt::yellow, 0.5f);
 		
 			// show icons of the active action/trigger
 			QPainter *p = new QPainter(&i);
@@ -382,7 +385,7 @@ void MainWindow::setActive(const bool yes) {
 		}
 	}
 	else {
-		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
+		setTrayIcon();
 	}
 #endif // KS_NATIVE_KDE
 
@@ -780,7 +783,7 @@ void MainWindow::initSystemTray() {
 #ifdef KS_NATIVE_KDE
 // TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
 // Currently it's lower case "kshutdown".
-	m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
+	setTrayIcon();
 #endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
 	#ifdef Q_WS_X11
@@ -803,7 +806,7 @@ void MainWindow::initWidgets() {
 	QWidget *mainWidget = new QWidget();
 	mainWidget->setObjectName("main-widget");
 	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
-	mainLayout->setMargin(10);
+	mainLayout->setMargin(5);
 	mainLayout->setSpacing(10);
 
 	m_actionBox = new QGroupBox(i18n("Select an &action"));
@@ -917,6 +920,20 @@ void MainWindow::setTitle(const QString &title) {
 	m_systemTray->setToolTip(windowTitle());
 	if (ProgressBar::isInstance())
 		ProgressBar::self()->setToolTip(windowTitle());
+}
+
+void MainWindow::setTrayIcon() {
+#ifdef KS_NATIVE_KDE
+	if (Config::blackAndWhiteSystemTrayIcon()) {
+		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
+		QImage i = defaultIcon.pixmap(24, 24).toImage();
+		KIconEffect::toGray(i, 1.0f);
+		m_systemTray->setIcon(QPixmap::fromImage(i));
+	}
+	else {
+		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
+	}
+#endif // KS_NATIVE_KDE
 }
 
 void MainWindow::updateWidgets() {
@@ -1169,8 +1186,13 @@ void MainWindow::onPreferences() {
 
 	// DOC: http://www.kdedevelopers.org/node/3919
 	QPointer<Preferences> dialog = new Preferences(this);
-	if (dialog->exec() == Preferences::Accepted)
+	if (dialog->exec() == Preferences::Accepted) {
 		dialog->apply();
+		
+		// update icon colors
+		if (!m_active)
+			setTrayIcon();
+	}
 	delete dialog;
 }
 

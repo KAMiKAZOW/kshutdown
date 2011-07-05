@@ -33,6 +33,7 @@ public:
 private:
 	Q_DISABLE_COPY(Preferences)
 	PasswordPreferences *m_passwordPreferences;
+	QCheckBox *m_bwTrayIcon;
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
 	QCheckBox *m_progressBarEnabled;
