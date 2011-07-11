@@ -42,7 +42,7 @@ class QDateTimeEdit;
 namespace KShutdown {
 	
 const QString DATE_TIME_DISPLAY_FORMAT = "MMM d dddd hh:mm";
-const QString TIME_DISPLAY_FORMAT = "hh:mm";
+const QString TIME_DISPLAY_FORMAT = "hh'h ':' 'mm'm'";
 const QString TIME_PARSE_FORMAT = "h:mm";
 
 class U_EXPORT Base {
