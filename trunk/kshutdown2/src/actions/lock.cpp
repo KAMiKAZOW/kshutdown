@@ -23,6 +23,7 @@
 	#include <windows.h>
 #else
 	#include <QDBusInterface>
+	#include <QDesktopWidget>
 #endif // Q_WS_WIN
 
 // LockAction
@@ -47,6 +48,27 @@ bool LockAction::onAction() {
 
 	return true;
 #else
+	// HACK: This is a workaround for "lazy" initial kscreensaver repaint.
+	// Now the screen content is hidden immediately.
+	QWidget blackScreen(
+		0,
+		Qt::FramelessWindowHint |
+		Qt::WindowStaysOnTopHint |
+		Qt::X11BypassWindowManagerHint |
+		Qt::Tool
+	);
+	// set black background color
+	blackScreen.setAutoFillBackground(true);
+	QPalette p;
+	p.setColor(QPalette::Window, Qt::black);
+	blackScreen.setPalette(p);
+	// set full screen size
+	QRect screenGeometry = QApplication::desktop()->screenGeometry();
+	blackScreen.resize(screenGeometry.size());
+	// show and force repaint
+	blackScreen.show();
+	QApplication::processEvents();
+
 	// try DBus
 	QDBusInterface *dbus = getQDBusInterface();
 	dbus->call("Lock");
