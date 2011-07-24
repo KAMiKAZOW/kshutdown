@@ -133,6 +133,9 @@ void PasswordDialog::apply() {
 }
 
 bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QString &userAction) {
+	if (true)
+		return true;//!!!
+
 	if (!Config::readBool("Password Protection", userAction, false))
 		return true;
 
@@ -241,16 +244,11 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	m_userActionList = new U_LIST_WIDGET();
 	m_userActionList->setAlternatingRowColors(true);
 	foreach (Action *action, MainWindow::self()->actionHash().values()) {
-		QListWidgetItem *item = new QListWidgetItem(action->originalText(), m_userActionList);
-		QString key = "kshutdown/action/" + action->id();
-		item->setCheckState(
-			Config::readBool("Password Protection", key, false)
-			? Qt::Checked
-			: Qt::Unchecked
-		);//!!!common code
-		item->setData(Qt::ToolTipRole, key);
-		item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-		item->setIcon(action->icon());
+		addItem(
+			"kshutdown/action/" + action->id(),
+			action->originalText(),
+			action->icon()
+		);
 	}
 	
 	userActionListLabel->setBuddy(m_userActionList);
@@ -289,6 +287,20 @@ void PasswordPreferences::apply() {
 
 // private:
 
+QListWidgetItem *PasswordPreferences::addItem(const QString &key, const QString &text, const QIcon &icon) {
+	QListWidgetItem *item = new QListWidgetItem(text, m_userActionList);
+	item->setCheckState(
+		Config::readBool("Password Protection", key, false)
+		? Qt::Checked
+		: Qt::Unchecked
+	);
+	item->setData(Qt::ToolTipRole, key);
+	item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+	item->setIcon(icon);
+	
+	return item;
+}
+
 void PasswordPreferences::updateWidgets(const bool passwordEnabled) {
 	m_userActionList->setEnabled(passwordEnabled);
 }
@@ -306,4 +318,3 @@ void PasswordPreferences::onEnablePassword(int state) {
 	}
 	updateWidgets(m_enablePassword->checkState() == Qt::Checked);
 }
-//!!!review

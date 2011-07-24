@@ -16,6 +16,7 @@ Old KShutDown 1.0.x features:
 
 Misc.:
 
+* Use http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKStatusNotifierItem.html (?)
 * Extras: Recent items
 * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=538873
 * Optionally (--delay <seconds>) show warning message before action,
