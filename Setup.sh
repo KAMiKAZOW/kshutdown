@@ -47,7 +47,7 @@ function doQuit()
 	clear
 }
 
-if [[ $DESKTOP_SESSION == "kde4" || $DESKTOP_SESSION == "kde" ]]; then
+if [[ $DESKTOP_SESSION == "kde4" || $DESKTOP_SESSION == "kde" || $DESKTOP_SESSION == "kde-plasma" ]]; then
 	default_item="kde4"
 else
 	default_item="qt4"
