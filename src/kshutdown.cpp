@@ -647,14 +647,19 @@ HibernateAction::HibernateAction() :
 // public
 
 SuspendAction::SuspendAction() :
-	PowerAction(i18n("Suspend Computer (Sleep)"), "system-suspend", "suspend"
-	) {
+	PowerAction(
+		#ifdef Q_WS_WIN
+		i18n("Sleep"),
+		#else
+		i18n("Suspend Computer"),
+		#endif // Q_WS_WIN
+		"system-suspend", "suspend") {
 	m_methodName = "Suspend";
 	if (!isAvailable(Suspend))
 		disable(i18n("Cannot suspend computer"));
 
 	addCommandLineArg("S", "suspend");
-	
+// TODO: menu item tool tips
 	setWhatsThis(i18n("Enter in a low-power state mode."));
 }
 
@@ -818,7 +823,13 @@ bool StandardAction::onAction() {
 // public
 
 LogoutAction::LogoutAction() :
-	StandardAction(i18n("Logout"), "system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
+	StandardAction(
+		#ifdef Q_WS_WIN
+		i18n("Log Off"),
+		#else
+		i18n("Logout"),
+		#endif // Q_WS_WIN
+		"system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
 
 	addCommandLineArg("l", "logout");
 }
