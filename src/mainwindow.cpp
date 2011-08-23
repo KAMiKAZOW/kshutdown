@@ -121,8 +121,9 @@ bool MainWindow::checkCommandLine() {
 		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
 		
 		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" + i18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now") + "</td></tr>\n";
-		
-		table += "<tr><td colspan=\"2\"><a href=\"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line\">" + i18n("More Info...") + "</a></td></tr>\n";
+
+// FIXME: non-clickable links in Oxygen Style (?)
+		table += "<tr><td colspan=\"2\"><a href=\"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line\">http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line</a></td></tr>\n";
 
 		table += "</table>";
 		
@@ -1067,17 +1068,17 @@ void MainWindow::onAbout() {
 		KS_COPYRIGHT "<br>" \
 		"<br>" \
 		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
-		"<a href=\"" KS_CONTACT "\">" KS_CONTACT "</a><br>" \
 		"<br>" \
 "This program is free software; you can redistribute it and/or modify<br>" \
-"it under the terms of the <a href=\"http://www.gnu.org/licenses/\">GNU General Public License</a> as published by<br>" \
+"it under the terms of the GNU General Public License as published by<br>" \
 "the Free Software Foundation; either version 2 of the License, or<br>" \
 "(at your option) any later version.<br>" \
 "<br>" \
 "This program is distributed in the hope that it will be useful,<br>" \
 "but WITHOUT ANY WARRANTY; without even the implied warranty of<br>" \
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br>" \
-"GNU General Public License for more details." \
+"GNU General Public License for more details.<br>" \
+"&lt;<a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>&gt;"
 		"</qt>"
 	);
 }
