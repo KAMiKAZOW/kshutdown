@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+# Encoding: UTF-8
+# TODO: GNOME, Xfce?
+Exec=dbus-send --print-reply --dest=org.kde.krunner /ScreenSaver org.freedesktop.ScreenSaver.SetActive boolean:false
+Icon=object-unlocked
+Name=Unlock Screen (KDE)
+Name[pl]=Odblokuj ekran (KDE)
+Type=Application
+# TODO: Add support for: OnlyShowIn=KDE;
