@@ -194,6 +194,7 @@ QString MainWindow::getDisplayStatus(const int options) {
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
 	
+	bool appName = (options & DISPLAY_STATUS_APP_NAME) != 0;
 	bool html = (options & DISPLAY_STATUS_HTML) != 0;
 	bool noAction = (options & DISPLAY_STATUS_HTML_NO_ACTION) != 0;
 
@@ -206,11 +207,19 @@ QString MainWindow::getDisplayStatus(const int options) {
 		s += "<qt>";
 
 	if (html) {
+		if (appName)
+			s += "KShutdown<br><br>";
+	
 		if (!noAction)
-			s += "<b>" + actionText + "</b><br>";
+			s += i18n("Action: %0").arg("<b>" + actionText + "</b>") + "<br>";
 
-		if (!triggerStatus.isEmpty())
+		if (!triggerStatus.isEmpty()) {
 			s += i18n("Remaining time: %0").arg("<b>" + triggerStatus + "</b>");
+			// HACK: wrap long text
+			int i = s.indexOf(" (");
+			if (i != -1)
+				s.insert(i, "<br>");
+		}
 	}
 	// simple - single line, no HTML
 	else {
@@ -418,7 +427,7 @@ void MainWindow::setActive(const bool yes) {
 		ProgressBar::freeInstance();
 	}
 
-	setTitle(QString::null);
+	setTitle(QString::null, QString::null);
 	updateWidgets();
 }
 
@@ -619,7 +628,7 @@ MainWindow::MainWindow() :
 
 	readConfig();
 
-	setTitle(QString::null);
+	setTitle(QString::null, QString::null);
 	m_ignoreUpdateWidgets = false;
 	updateWidgets();
 	
@@ -909,18 +918,19 @@ int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
 	return index;
 }
 
-void MainWindow::setTitle(const QString &title) {
+void MainWindow::setTitle(const QString &plain, const QString &html) {
 #ifdef KS_NATIVE_KDE
-	setCaption(title);
+	setCaption(plain);
 #else
-	if (title.isEmpty())
+	if (plain.isEmpty())
 		setWindowTitle("KShutdown");
 	else
-		setWindowTitle(title + " - KShutdown");
+		setWindowTitle(plain + " - KShutdown");
 #endif // KS_NATIVE_KDE
-	m_systemTray->setToolTip(windowTitle());
+	QString s = html.isEmpty() ? "KShutdown" : html;
+	m_systemTray->setToolTip(s);
 	if (ProgressBar::isInstance())
-		ProgressBar::self()->setToolTip(windowTitle());
+		ProgressBar::self()->setToolTip(s);
 }
 
 void MainWindow::setTrayIcon() {
@@ -1130,7 +1140,9 @@ void MainWindow::onCheckTrigger() {
 	}
 	// update status
 	else {
-		setTitle(getDisplayStatus(DISPLAY_STATUS_SIMPLE));
+		QString html = getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_APP_NAME);
+		QString simple = getDisplayStatus(DISPLAY_STATUS_SIMPLE);
+		setTitle(simple, html);
 	}
 }
 

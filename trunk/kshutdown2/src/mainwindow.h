@@ -50,7 +50,8 @@ public:
 	enum DisplayStatus {
 		DISPLAY_STATUS_HTML = 1 << 0,
 		DISPLAY_STATUS_HTML_NO_ACTION = 1 << 1,
-		DISPLAY_STATUS_SIMPLE = 1 << 2
+		DISPLAY_STATUS_SIMPLE = 1 << 2,
+		DISPLAY_STATUS_APP_NAME = 1 << 3
 	};
 	virtual ~MainWindow();
 	QHash<QString, Action*> actionHash() const { return m_actionHash; }
@@ -121,7 +122,7 @@ private:
 	void pluginConfig(const bool read);
 	void readConfig();
 	int selectById(U_COMBO_BOX *comboBox, const QString &id);
-	void setTitle(const QString &title);
+	void setTitle(const QString &plain, const QString &html);
 	void setTrayIcon();
 	void updateWidgets();
 	void writeConfig();
