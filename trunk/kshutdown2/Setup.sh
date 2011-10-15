@@ -29,11 +29,11 @@ function doCompile()
 		if ./Setup-qt4.sh; then
 			dialog \
 				--msgbox \
-"Compiled KShutdown program (\"kshutdown\" file)\n
+"Compiled KShutdown program (\"kshutdown-qt\" file)\n
 can be found in the \"${PWD}\" directory.
 \n\nNo installation required." \
 				0 0
-			./src/kshutdown
+			./src/kshutdown-qt
 		else
 			doError "Build failed. See README.html for troubleshooting information."
 		fi

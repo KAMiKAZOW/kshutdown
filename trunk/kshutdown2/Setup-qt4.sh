@@ -27,7 +27,7 @@ make
 
 popd
 
-cp src/kshutdown .
+cp src/kshutdown-qt .
 ks_info "See the \"$(pwd)\" directory; no installation required:"
-ls -lh kshutdown
+ls -lh kshutdown-qt
 echo

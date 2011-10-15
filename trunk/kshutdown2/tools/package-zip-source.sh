@@ -19,12 +19,14 @@ KS_ZIP="kshutdown-source-$KS_FILE_VERSION.zip"
 # clean before copy
 
 rm -f ./kshutdown
+rm -f ./kshutdown-qt
 rm -fR "$KS_DIR"
 rm -fR "$KS_DIST_DIR"
 
 pushd "src"
 make clean
 rm ./kshutdown
+rm ./kshutdown-qt
 rm ./Makefile
 popd
 

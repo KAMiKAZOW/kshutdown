@@ -1,11 +1,13 @@
 TEMPLATE = app
-TARGET = kshutdown
+TARGET = kshutdown-qt
 DEPENDPATH += .
 INCLUDEPATH += .
 
 DEFINES += KS_PURE_QT
-include(portable.pri)
-#QT += xml
+exists(portable.pri) {
+	include(portable.pri)
+	message("Building portable version...")
+}
 
 unix {
 	CONFIG += qdbus
