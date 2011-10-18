@@ -2,11 +2,11 @@
 Version=1.0
 # Encoding=UTF-8
 
-Name=KShutdown
-Name[sr]=К-Гашење
-Name[sr@latin]=K-Gašenje
-Name[sr@ijekavian]=К-Гашење
-Name[sr@ijekavianlatin]=K-Gašenje
+Name=KShutdown (Qt)
+Name[sr]=К-Гашење (Qt)
+Name[sr@latin]=K-Gašenje (Qt)
+Name[sr@ijekavian]=К-Гашење (Qt)
+Name[sr@ijekavianlatin]=K-Gašenje (Qt)
 
 Comment=An advanced shut down utility
 
@@ -36,12 +36,12 @@ GenericName[sr@latin]=Napredna alatka za gašenje
 GenericName[sr@ijekavian]=Напредна алатка за гашење
 GenericName[sr@ijekavianlatin]=Napredna alatka za gašenje
 
-Exec=kshutdown
+Exec=kshutdown-qt
 Icon=kshutdown
 Type=Application
 
 # DOC: http://api.kde.org/4.x-api/kdelibs-apidocs/kdecore/html/classKAboutData.html
 X-DBUS-ServiceName=net.sf.kshutdown
 # DOC: http://standards.freedesktop.org/menu-spec/latest/apa.html
-Categories=Utility;KDE;Qt;
-OnlyShowIn=KDE;
+Categories=Utility;Qt;
+OnlyShowIn=GNOME;XFCE;

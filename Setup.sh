@@ -30,10 +30,13 @@ function doCompile()
 			dialog \
 				--msgbox \
 "Compiled KShutdown program (\"kshutdown-qt\" file)\n
-can be found in the \"${PWD}\" directory.
-\n\nNo installation required." \
+can be found in the \"${PWD}\" directory.\n
+\n
+Installation is not required.\n
+However, you can run \"cd src; sudo make install\"\n
+to setup menu shortcut (Utilities section),\n
+and copy \"kshutdown-qt\" to \"/usr\" directory." \
 				0 0
-			./src/kshutdown-qt
 		else
 			doError "Build failed. See README.html for troubleshooting information."
 		fi
