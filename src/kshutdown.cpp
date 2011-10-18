@@ -865,8 +865,12 @@ RebootAction::RebootAction() :
 
 	addCommandLineArg("r", "reboot");
 	
-	if (Utils::isXfce() || Utils::isGDM() || Utils::isGNOME())
-		disable(i18n("%0 is not supported").arg("GDM/GNOME/Xfce"));
+	if (Utils::isXfce()) {
+		setEnabled(true);
+	}
+	else if (Utils::isGDM() || Utils::isGNOME()) {
+		disable(i18n("%0 is not supported").arg("GDM/GNOME"));
+	}
 }
 
 // ShutDownAction
@@ -883,7 +887,11 @@ ShutDownAction::ShutDownAction() :
 
 	addCommandLineArg("h", "halt");
 	addCommandLineArg("s", "shutdown");
-	
-	if (Utils::isXfce() || Utils::isGDM() || Utils::isGNOME())
-		disable(i18n("%0 is not supported").arg("GDM/GNOME/Xfce"));
+
+	if (Utils::isXfce()) {
+		setEnabled(true);
+	}
+	else if (Utils::isGDM() || Utils::isGNOME()) {
+		disable(i18n("%0 is not supported").arg("GDM/GNOME"));
+	}
 }
