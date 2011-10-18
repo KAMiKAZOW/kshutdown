@@ -112,7 +112,7 @@ QDBusInterface *LockAction::getQDBusInterface() {
 			"/ScreenSaver",
 			"org.freedesktop.ScreenSaver"
 		);
-		if (!m_qdbusInterface->isValid()) {
+		if (!m_qdbusInterface->isValid() && Utils::isKDE_4()) {
 			delete m_qdbusInterface;
 			
 			U_DEBUG << "LockAction::getQDBusInterface(): using org.kde.krunner" U_END;

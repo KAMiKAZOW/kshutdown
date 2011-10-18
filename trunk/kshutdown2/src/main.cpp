@@ -97,11 +97,11 @@ int main(int argc, char **argv) {
 	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
 	KS_DEBUG_SYSTEM("KDM", Utils::isKDM());
 
-	if (Utils::isGDM() || Utils::isGNOME() || Utils::isXfce()) {
+	if (Utils::isGDM() || Utils::isGNOME()) {
 		qWarning("kshutdown: WARNING:");
-		qWarning("  GNOME/Xfce desktop and/or GDM (login manager) are not supported yet.");
+		qWarning("  GNOME desktop and/or GDM (login manager) are not supported yet.");
 		qWarning("  Some functions may be unavailable.");
-		qWarning("  Try GShutdown which is more compatible with GNOME/GDM and Xfce.");
+		qWarning("  Try GShutdown which is more compatible with GNOME/GDM.");
 		qWarning("  http://gshutdown.tuxfamily.org/");
 	}
 

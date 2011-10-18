@@ -124,10 +124,12 @@ bool Utils::isHelpArg() {
 #endif // KS_NATIVE_KDE
 }
 
+// TODO: test me
 bool Utils::isGDM() {
 	return m_env.contains("GDMSESSION");
 }
 
+// TODO: test me
 bool Utils::isGNOME() {
 	return
 		m_env.contains("GNOME_DESKTOP_SESSION_ID") ||
@@ -144,8 +146,7 @@ bool Utils::isKDE_4() {
 	return
 		isKDEFullSession() &&
 		(
-			desktopSession.startsWith("kde-") ||
-			(desktopSession == "kde4") ||
+			desktopSession.contains("kde", Qt::CaseInsensitive) ||
 			(m_env.value("KDE_SESSION_VERSION").toInt() >= 4)
 		);
 }
@@ -165,7 +166,7 @@ bool Utils::isRestricted(const QString &action) {
 }
 
 bool Utils::isXfce() {
-	return m_env.value("DESKTOP_SESSION") == "xfce";
+	return m_env.value("DESKTOP_SESSION").contains("xfce", Qt::CaseInsensitive);
 }
 
 void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
