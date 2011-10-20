@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
 # Encoding: UTF-8
-Exec=dcop kaffeine KaffeineIface stop
+Exec=dbus-send --print-reply --dest=org.kde.kaffeine /Player org.freedesktop.MediaPlayer.Stop
 Icon=kaffeine
-Name=Kaffeine 0.8+/KDE 3
-Name[sr]=Кафеин 0.8+/КДЕ 3
-Name[sr@latin]=Kafein 0.8+/KDE 3
-Name[sr@ijekavian]=Кафеин 0.8+/КДЕ 3
-Name[sr@ijekavianlatin]=Kafein 0.8+/KDE 3
+Name=Kaffeine
+Name[sr]=Кафеин
+Name[sr@latin]=Kafein
+Name[sr@ijekavian]=Кафеин
+Name[sr@ijekavianlatin]=Kafein
 Type=Application
