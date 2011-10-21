@@ -768,7 +768,27 @@ bool StandardAction::onAction() {
 		if (launch("gnome-session-save", args))
 			return true;
 	}
+
+// TODO: LXDE
+
+	// LXDE
 	
+	else if (Utils::isLXDE()) {
+		switch (m_type) {
+			case U_SHUTDOWN_TYPE_LOGOUT: {
+				//_LXSESSION_PID
+			} break;
+			case U_SHUTDOWN_TYPE_REBOOT: {
+			} break;
+			case U_SHUTDOWN_TYPE_HALT: {
+			} break;
+			default:
+				U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
+
+				return false; // do nothing
+		}
+	}
+
 	// Xfce
 	
 	else if (Utils::isXfce()) {

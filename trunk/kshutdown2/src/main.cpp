@@ -92,6 +92,7 @@ int main(int argc, char **argv) {
 		qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
 	KS_DEBUG_SYSTEM("GDM", Utils::isGDM());
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
+	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
 	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
 	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
@@ -114,7 +115,7 @@ int main(int argc, char **argv) {
 	KShutdownApplication program(argc, argv);
 
 	#ifdef Q_WS_X11
-	if (Utils::isGNOME() || Utils::isXfce()) {
+	if (Utils::isGNOME() || Utils::isLXDE() || Utils::isXfce()) {
 		QStyle *gtkStyle = QStyleFactory::create("gtk+");
 		if (gtkStyle)
 			QApplication::setStyle(gtkStyle);
