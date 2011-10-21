@@ -76,13 +76,9 @@ bool LockAction::onAction() {
 	
 	if (error.type() == QDBusError::NoError)
 		return true;
-
-	// try "xdg-screensaver" command
+	
 	QStringList args;
-	args << "lock";
-	if (launch("xdg-screensaver", args))
-		return true;
-		
+	
 	// try "gnome-screensaver-command" command
 	if (Utils::isGNOME()) {
 		args.clear();
@@ -90,6 +86,20 @@ bool LockAction::onAction() {
 		if (launch("gnome-screensaver-command", args))
 			return true;
 	}
+
+	// try "lxlock"
+	if (Utils::isLXDE()) {
+		args.clear();
+		if (launch("lxlock", args))
+			return true;
+	}
+
+	// try "xdg-screensaver" command
+	args.clear();
+	args << "lock";
+	if (launch("xdg-screensaver", args))
+		return true;
+// TODO: xflock4
 	
 	// try "xscreensaver-command" command
 	args.clear();

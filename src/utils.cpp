@@ -155,6 +155,10 @@ bool Utils::isKDM() {
 	return m_env.contains("XDM_MANAGED");
 }
 
+bool Utils::isLXDE() {
+	return m_env.value("DESKTOP_SESSION").contains("LXDE", Qt::CaseInsensitive);
+}
+
 bool Utils::isRestricted(const QString &action) {
 #ifdef KS_NATIVE_KDE
 	return !KAuthorized::authorize(action);
