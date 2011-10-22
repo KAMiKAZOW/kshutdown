@@ -34,16 +34,11 @@
 // public:
 
 PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
-	U_DIALOG(parent),
+	UDialog(parent, newPasswordMode ? i18n("Enter New Password") : "KShutdown"),
 	m_newPasswordMode(newPasswordMode) {
 	U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
 
-	if (newPasswordMode)
-		setWindowTitle(i18n("Enter New Password"));
-	else
-		setWindowTitle("KShutdown");
-
-	QVBoxLayout *mainLayout = new QVBoxLayout(this);
+	QVBoxLayout *mainLayout = this->mainLayout();
 
 	// caption
 
@@ -96,22 +91,9 @@ PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
 		m_confirmPassword = 0;
 		m_status = 0;
 	}
-
-// TODO: common code (abstract UDialog class)
-	U_DIALOG_BUTTON_BOX *dialogButtonBox;
-#ifdef KS_NATIVE_KDE
-	dialogButtonBox = new U_DIALOG_BUTTON_BOX(this);
-	m_acceptButton = dialogButtonBox->addButton(KStandardGuiItem::ok(), U_DIALOG_BUTTON_BOX::AcceptRole);
-	dialogButtonBox->addButton(KStandardGuiItem::cancel(), U_DIALOG_BUTTON_BOX::RejectRole);
-#else
-	dialogButtonBox = new U_DIALOG_BUTTON_BOX(U_DIALOG_BUTTON_BOX::Ok | U_DIALOG_BUTTON_BOX::Cancel);
-	m_acceptButton = dialogButtonBox->button(U_DIALOG_BUTTON_BOX::Ok);
-#endif // KS_NATIVE_KDE
-	connect(dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
-	connect(dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
-	mainLayout->addSpacing(10);
-	mainLayout->addWidget(dialogButtonBox);
 	
+	addButtonBox();
+
 	m_password->setFocus();
 }
 
@@ -192,7 +174,7 @@ void PasswordDialog::updateStatus() {
 			m_status->setText(QString::null, InfoWidget::ErrorType);
 	}
 
-	m_acceptButton->setEnabled(ok);
+	acceptButton()->setEnabled(ok);
 	resize(sizeHint());
 }
 
@@ -243,7 +225,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	
 	m_userActionList = new U_LIST_WIDGET();
 	m_userActionList->setAlternatingRowColors(true);
-	foreach (Action *action, MainWindow::self()->actionHash().values()) {
+	foreach (const Action *action, MainWindow::self()->actionHash().values()) {
 		addItem(
 			"kshutdown/action/" + action->id(),
 			action->originalText(),

@@ -18,13 +18,13 @@
 #ifndef KSHUTDOWN_PASSWORD_H
 #define KSHUTDOWN_PASSWORD_H
 
-#include "pureqt.h"
+#include "udialog.h"
 
 class InfoWidget;
 
 class QCheckBox;
 
-class PasswordDialog: public U_DIALOG {
+class PasswordDialog: public UDialog {
 	Q_OBJECT
 public:
 	explicit PasswordDialog(QWidget *parent, const bool newPasswordMode);
@@ -37,7 +37,6 @@ private:
 	bool m_newPasswordMode;
 	InfoWidget *m_status;
 	QLabel *m_caption;
-	QPushButton *m_acceptButton;
 	U_LINE_EDIT *m_confirmPassword;
 	U_LINE_EDIT *m_password;
 	void updateStatus();

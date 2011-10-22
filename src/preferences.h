@@ -18,13 +18,13 @@
 #ifndef KSHUTDOWN_PREFERENCES_H
 #define KSHUTDOWN_PREFERENCES_H
 
-#include "pureqt.h"
+#include "udialog.h"
 
 class PasswordPreferences;
 
 class QCheckBox;
 
-class Preferences: public U_DIALOG {
+class Preferences: public UDialog {
 	Q_OBJECT
 public:
 	explicit Preferences(QWidget *parent);
