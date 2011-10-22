@@ -34,7 +34,7 @@
 // public:
 
 PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
-	UDialog(parent, newPasswordMode ? i18n("Enter New Password") : "KShutdown"),
+	UDialog(parent, newPasswordMode ? i18n("Enter New Password") : "KShutdown", false),
 	m_newPasswordMode(newPasswordMode) {
 	U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
 

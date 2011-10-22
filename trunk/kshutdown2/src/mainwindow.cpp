@@ -238,7 +238,7 @@ QString MainWindow::getDisplayStatus(const int options) {
 }
 
 void MainWindow::init() {
-	Utils::init();
+	Utils::initArgs();
 
 	U_DEBUG << "MainWindow::init(): Actions" U_END;
 	m_actionHash = QHash<QString, Action*>();
@@ -740,7 +740,10 @@ void MainWindow::initMenuBar() {
 
 	// settings menu
 
-	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"), menuBar);
+	U_MENU *settingsMenu = new U_MENU(
+		Utils::isGTKStyle() ? i18n("&Edit") : i18n("&Settings"),
+		menuBar
+	);
 #ifdef KS_NATIVE_KDE
 // FIXME: Details -> Shortcut Schemes
 	U_ACTION *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
@@ -757,7 +760,8 @@ void MainWindow::initMenuBar() {
 	preferencesAction->setEnabled(!Utils::isRestricted("action/options_configure"));
 	settingsMenu->addAction(preferencesAction);
 #else
-	settingsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()));
+	settingsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
+		->setIcon(U_STOCK_ICON("configure"));
 #endif // KS_NATIVE_KDE
 	menuBar->addMenu(settingsMenu);
 
@@ -836,7 +840,7 @@ void MainWindow::initWidgets() {
 	m_force->hide();
 #endif // Q_WS_WIN
 
-	m_triggerBox = new QGroupBox(i18n("S&elect a time/event"));
+	m_triggerBox = new QGroupBox(i18n("Se&lect a time/event"));
 	m_triggerBox->setObjectName("trigger-box");
 	m_triggerBox->setLayout(new QVBoxLayout());
 
@@ -975,12 +979,15 @@ void MainWindow::updateWidgets() {
 		: KStandardGuiItem::ok()
 	);
 #else
+	bool hasIcon = m_okCancelButton->style()->styleHint(QStyle::SH_DialogButtonBox_ButtonsHaveIcons);
 	if (m_active) {
-		m_okCancelButton->setIcon(U_STOCK_ICON("dialog-cancel"));
+		if (hasIcon)
+			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-cancel"));
 		m_okCancelButton->setText(i18n("Cancel"));
 	}
 	else {
-		m_okCancelButton->setIcon(U_STOCK_ICON("dialog-ok"));
+		if (hasIcon)
+			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-ok"));
 		m_okCancelButton->setText(i18n("OK"));
 	}
 #endif // KS_NATIVE_KDE
@@ -1206,7 +1213,7 @@ void MainWindow::onPreferences() {
 
 	// DOC: http://www.kdedevelopers.org/node/3919
 	QPointer<Preferences> dialog = new Preferences(this);
-	if (dialog->exec() == Preferences::Accepted) {
+	if ((dialog->exec() == Preferences::Accepted) || Utils::isGTKStyle()) {
 		dialog->apply();
 		
 		// update icon colors

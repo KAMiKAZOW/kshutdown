@@ -29,23 +29,32 @@
 
 // public:
 
-UDialog::UDialog(QWidget *parent, const QString &windowTitle) :
+UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple) :
 	QDialog(parent) {
 	U_DEBUG << "UDialog::UDialog()" U_END;
 	setWindowTitle(windowTitle);
 
 #ifdef KS_NATIVE_KDE
 	m_dialogButtonBox = new KDialogButtonBox(this);
-	m_acceptButton = m_dialogButtonBox->addButton(KStandardGuiItem::ok(), KDialogButtonBox::AcceptRole);
-	m_dialogButtonBox->addButton(KStandardGuiItem::cancel(), KDialogButtonBox::RejectRole);
-	connect(m_dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
-	connect(m_dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
+	if (simple) {
+		m_acceptButton = m_dialogButtonBox->addButton(KStandardGuiItem::close(), KDialogButtonBox::AcceptRole);
+	}
+	else {
+		m_acceptButton = m_dialogButtonBox->addButton(KStandardGuiItem::ok(), KDialogButtonBox::AcceptRole);
+		m_dialogButtonBox->addButton(KStandardGuiItem::cancel(), KDialogButtonBox::RejectRole);
+	}
 #else
-	m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-	m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Ok);
+	if (simple) {
+		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Close);
+	}
+	else {
+		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Ok);
+	}
+#endif // KS_NATIVE_KDE
 	connect(m_dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 	connect(m_dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
-#endif // KS_NATIVE_KDE
 
 	m_mainLayout = new QVBoxLayout(this);
 	m_mainLayout->setMargin(10);

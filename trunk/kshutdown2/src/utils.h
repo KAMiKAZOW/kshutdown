@@ -31,10 +31,12 @@ public:
 	static QString getTimeOption();
 	static QString getUser();
 	static void init();
+	static void initArgs();
 	static bool isArg(const QString &name);
 	static bool isHelpArg();
 	static bool isGDM();
 	static bool isGNOME();
+	static bool isGTKStyle();
 	static bool isKDEFullSession();
 	static bool isKDE_4();
 	static bool isKDM();
@@ -50,6 +52,7 @@ private:
 	static QStringList m_args;
 #endif // KS_NATIVE_KDE
 	static QProcessEnvironment m_env;
+	static QString m_desktopSession;
 	Utils() { }
 };
 

@@ -36,7 +36,7 @@ class UDialog: public QDialog {
 #endif // KS_PURE_QT
 	Q_OBJECT
 public:
-	explicit UDialog(QWidget *parent, const QString &windowTitle);
+	explicit UDialog(QWidget *parent, const QString &windowTitle, const bool simple);
 	virtual ~UDialog();
 protected:
 	inline QPushButton *acceptButton() { return m_acceptButton; }

@@ -34,6 +34,7 @@
 	QStringList Utils::m_args;
 #endif // KS_NATIVE_KDE
 QProcessEnvironment Utils::m_env = QProcessEnvironment::systemEnvironment();
+QString Utils::m_desktopSession;
 
 // public
 
@@ -101,6 +102,10 @@ QString Utils::getUser() {
 }
 
 void Utils::init() {
+	m_desktopSession = m_env.value("DESKTOP_SESSION");
+}
+
+void Utils::initArgs() {
 #ifdef KS_NATIVE_KDE
 	m_args = KCmdLineArgs::parsedArgs();
 #else
@@ -133,7 +138,11 @@ bool Utils::isGDM() {
 bool Utils::isGNOME() {
 	return
 		m_env.contains("GNOME_DESKTOP_SESSION_ID") ||
-		(m_env.value("DESKTOP_SESSION") == "gnome");
+		(m_desktopSession == "gnome");
+}
+
+bool Utils::isGTKStyle() {
+	return isGNOME() || isLXDE() || isXfce();
 }
 
 bool Utils::isKDEFullSession() {
@@ -141,12 +150,10 @@ bool Utils::isKDEFullSession() {
 }
 
 bool Utils::isKDE_4() {
-	QString desktopSession = m_env.value("DESKTOP_SESSION");
-
 	return
 		isKDEFullSession() &&
 		(
-			desktopSession.contains("kde", Qt::CaseInsensitive) ||
+			m_desktopSession.contains("kde", Qt::CaseInsensitive) ||
 			(m_env.value("KDE_SESSION_VERSION").toInt() >= 4)
 		);
 }
@@ -156,7 +163,7 @@ bool Utils::isKDM() {
 }
 
 bool Utils::isLXDE() {
-	return m_env.value("DESKTOP_SESSION").contains("LXDE", Qt::CaseInsensitive);
+	return m_desktopSession.contains("LXDE", Qt::CaseInsensitive);
 }
 
 bool Utils::isRestricted(const QString &action) {
@@ -170,7 +177,7 @@ bool Utils::isRestricted(const QString &action) {
 }
 
 bool Utils::isXfce() {
-	return m_env.value("DESKTOP_SESSION").contains("xfce", Qt::CaseInsensitive);
+	return m_desktopSession.contains("xfce", Qt::CaseInsensitive);
 }
 
 void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
