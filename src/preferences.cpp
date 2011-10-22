@@ -21,6 +21,7 @@
 #include "config.h"
 #include "password.h"
 #include "preferences.h"
+#include "utils.h"
 
 #ifdef KS_NATIVE_KDE
 	#include <KRun>
@@ -29,7 +30,7 @@
 // public
 
 Preferences::Preferences(QWidget *parent) :
-	UDialog(parent, i18n("Preferences")) {
+	UDialog(parent, i18n("Preferences"), Utils::isGTKStyle()) {
 	U_DEBUG << "Preferences::Preferences()" U_END;
 
 	U_TAB_WIDGET *tabs = new U_TAB_WIDGET();
