@@ -27,8 +27,6 @@
 #include <QApplication>
 #include <QComboBox>
 #include <QDebug>
-#include <QDialog>
-#include <QDialogButtonBox>
 #include <QIcon>
 #include <QLineEdit>
 #include <QListWidget>
@@ -47,8 +45,6 @@
 #include <KApplication>
 #include <KComboBox>
 #include <KDebug>
-#include <KDialog>
-#include <KDialogButtonBox>
 #include <KIcon>
 #include <KLineEdit>
 #include <KListWidget>
@@ -61,8 +57,6 @@
 #include <KTabWidget>
 
 #endif // KS_PURE_QT
-
-#define U_DIALOG QDialog
 
 #ifdef KS_PURE_QT
 	#undef KS_NATIVE_KDE
@@ -80,7 +74,6 @@
 		) == QMessageBox::Ok)
 
 	#define U_DEBUG qDebug()
-	#define U_DIALOG_BUTTON_BOX QDialogButtonBox
 	#define U_END
 	#define U_ERROR qCritical()
 	#define U_ERROR_MESSAGE(parent, text) \
@@ -115,7 +108,6 @@
 			(title) \
 		) == KMessageBox::Yes)
 	#define U_DEBUG kDebug()
-	#define U_DIALOG_BUTTON_BOX KDialogButtonBox
 	#define U_END << endl
 	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \

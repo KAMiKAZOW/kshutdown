@@ -29,38 +29,21 @@
 // public
 
 Preferences::Preferences(QWidget *parent) :
-	U_DIALOG(parent) {
+	UDialog(parent, i18n("Preferences")) {
 	U_DEBUG << "Preferences::Preferences()" U_END;
-
-	setWindowTitle(i18n("Preferences"));
-
-	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-	mainLayout->setMargin(10);
-	mainLayout->setSpacing(10);
 
 	U_TAB_WIDGET *tabs = new U_TAB_WIDGET();
 	tabs->addTab(createGeneralWidget(), i18n("General"));
 	
 	m_passwordPreferences = new PasswordPreferences(this);
-//!!!	tabs->addTab(m_passwordPreferences, i18n("Password"));
+//!!! tabs->addTab(m_passwordPreferences, i18n("Password"));
 	
 // TODO: actions/triggers config.
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
 
-	mainLayout->addWidget(tabs);
-	
-	U_DIALOG_BUTTON_BOX *dialogButtonBox;
-#ifdef KS_NATIVE_KDE
-	dialogButtonBox = new U_DIALOG_BUTTON_BOX(this);
-	dialogButtonBox->addButton(KStandardGuiItem::ok(), U_DIALOG_BUTTON_BOX::AcceptRole);
-	dialogButtonBox->addButton(KStandardGuiItem::cancel(), U_DIALOG_BUTTON_BOX::RejectRole);
-#else
-	dialogButtonBox = new U_DIALOG_BUTTON_BOX(U_DIALOG_BUTTON_BOX::Ok | U_DIALOG_BUTTON_BOX::Cancel);
-#endif // KS_NATIVE_KDE
-	connect(dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
-	connect(dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
-	mainLayout->addWidget(dialogButtonBox);
+	mainLayout()->addWidget(tabs);
+	addButtonBox();
 }
 
 Preferences::~Preferences() {
