@@ -1,4 +1,4 @@
-call C:\Qt\2010.05\bin\qtenv.bat
+call C:\Qt\4.7.4\bin\qtvars.bat
 cd src
 
 rem goto skip_portable
@@ -9,7 +9,7 @@ mingw32-make.exe clean
 mingw32-make.exe
 if not %errorlevel% == 0 goto quit
 mkdir ..\kshutdown-portable
-copy release\kshutdown.exe ..\kshutdown-portable
+copy release\kshutdown-qt.exe ..\kshutdown-portable\kshutdown.exe
 del portable.pri
 
 :skip_portable
@@ -26,10 +26,10 @@ cd ..
 if not %errorlevel% == 0 goto quit
 kshutdown-2.1.1beta-win32.exe
 
-copy C:\Qt\2010.05\mingw\bin\libgcc_s_dw2-1.dll kshutdown-portable
-copy C:\Qt\2010.05\mingw\bin\mingwm10.dll kshutdown-portable
-copy C:\Qt\2010.05\qt\bin\QtCore4.dll kshutdown-portable
-copy C:\Qt\2010.05\qt\bin\QtGui4.dll kshutdown-portable
+copy C:\mingw\bin\libgcc_s_dw2-1.dll kshutdown-portable
+copy C:\mingw\bin\mingwm10.dll kshutdown-portable
+copy C:\Qt\4.7.4\bin\QtCore4.dll kshutdown-portable
+copy C:\Qt\4.7.4\bin\QtGui4.dll kshutdown-portable
 
 :quit
 
