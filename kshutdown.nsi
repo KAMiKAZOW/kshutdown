@@ -38,12 +38,12 @@ Section "-"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "http://kshutdown.sourceforge.net/download.html"
 	
 	File src\images\kshutdown.ico
-	File src\release\kshutdown.exe
+	File /oname=kshutdown.exe src\release\kshutdown-qt.exe
 	File LICENSE
-	File C:\Qt\2010.05\mingw\bin\libgcc_s_dw2-1.dll
-	File C:\Qt\2010.05\mingw\bin\mingwm10.dll
-	File C:\Qt\2010.05\qt\bin\QtCore4.dll
-	File C:\Qt\2010.05\qt\bin\QtGui4.dll
+	File C:\mingw\bin\libgcc_s_dw2-1.dll
+	File C:\mingw\bin\mingwm10.dll
+	File C:\Qt\4.7.4\bin\QtCore4.dll
+	File C:\Qt\4.7.4\bin\QtGui4.dll
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
