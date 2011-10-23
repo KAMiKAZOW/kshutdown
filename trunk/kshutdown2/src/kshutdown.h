@@ -18,6 +18,10 @@
 #ifndef KSHUTDOWN_KSHUTDOWN_H
 #define KSHUTDOWN_KSHUTDOWN_H
 
+#ifdef Q_WS_X11
+	#include <sys/types.h>
+#endif // Q_WS_X11
+
 #include "pureqt.h"
 
 #include <QDateTime>
@@ -255,6 +259,9 @@ public:
 	virtual bool onAction();
 private:
 	Q_DISABLE_COPY(StandardAction)
+	#ifdef Q_WS_X11
+	pid_t m_lxsession;
+	#endif // Q_WS_X11
 	UShutdownType m_type;
 };
 
