@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=./src/kshutdown
+BIN=./src/kshutdown-qt
 echo "Testing ${BIN}..."
 
 valgrind \
