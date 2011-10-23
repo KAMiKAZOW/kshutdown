@@ -17,6 +17,11 @@
 
 #include "pureqt.h"
 
+#ifdef Q_WS_X11
+	#include <errno.h>
+	#include <signal.h>
+#endif // Q_WS_X11
+
 #include <QDateTimeEdit>
 #include <QProcess>
 #ifdef Q_WS_WIN
@@ -682,6 +687,20 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 	}
 #endif // KS_NATIVE_KDE
 
+	#ifdef Q_WS_X11
+	m_lxsession = 0;
+	if (Utils::isLXDE() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
+		bool ok = false;
+		int i = qgetenv("_LXSESSION_PID").toInt(&ok);
+		if (ok) {
+			m_lxsession = i;
+			U_DEBUG << "LXDE session found: " << m_lxsession U_END;
+		}
+		else {
+			disable("No lxsession found");
+		}
+	}
+	#endif // Q_WS_X11
 }
 
 bool StandardAction::onAction() {
@@ -776,7 +795,10 @@ bool StandardAction::onAction() {
 	else if (Utils::isLXDE()) {
 		switch (m_type) {
 			case U_SHUTDOWN_TYPE_LOGOUT: {
-				//_LXSESSION_PID
+				#ifdef Q_WS_X11
+				if (m_lxsession && (::kill(m_lxsession, SIGTERM) == 0))
+					return true;
+				#endif // Q_WS_X11
 			} break;
 			case U_SHUTDOWN_TYPE_REBOOT: {
 			} break;
