@@ -2,11 +2,12 @@
 Version=1.0
 # Encoding=UTF-8
 
-Name=KShutdown (Qt)
-Name[sr]=К-Гашење (Qt)
-Name[sr@latin]=K-Gašenje (Qt)
-Name[sr@ijekavian]=К-Гашење (Qt)
-Name[sr@ijekavianlatin]=K-Gašenje (Qt)
+Name=KShutdown/Qt
+# TODO: add "/Qt" suffix
+#Name[sr]=К-Гашење
+#Name[sr@latin]=K-Gašenje
+#Name[sr@ijekavian]=К-Гашење
+#Name[sr@ijekavianlatin]=K-Gašenje
 
 Comment=An advanced shut down utility
 

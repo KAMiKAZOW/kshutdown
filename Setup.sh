@@ -14,7 +14,7 @@ function doError()
 function doCompile()
 {
 	clear
-	if [ $1 == "kde4" ]; then
+	if [ $1 == "kshutdown" ]; then
 		if ./Setup-kde4.sh; then
 			pushd build.tmp
 			echo
@@ -25,7 +25,7 @@ function doCompile()
 		else
 			doError "Build failed. See README.html for troubleshooting information."
 		fi
-	elif [ $1 == "qt4" ]; then
+	elif [ $1 == "kshutdown-qt" ]; then
 		if ./Setup-qt4.sh; then
 			dialog \
 				--msgbox \
@@ -51,20 +51,21 @@ function doQuit()
 }
 
 if [[ $DESKTOP_SESSION == "kde4" || $DESKTOP_SESSION == "kde" || $DESKTOP_SESSION == "kde-plasma" ]]; then
-	default_item="kde4"
+	default_item="kshutdown"
 else
-	default_item="qt4"
+	default_item="kshutdown-qt"
 fi
 
 out=`dialog \
 	--backtitle "KShutdown $kshutdown_full_version Setup" \
 	--default-item "$default_item" \
-	--ok-label "Compile" \
+	--ok-label "OK, compile!" \
+	--cancel-label "Maybe later" \
 	--stdout \
-	--title "Select KShutdown version to build:" \
+	--title "Select a KShutdown version to build:" \
 	--menu "" 0 0 0 \
-	"kde4" "KDE 4 - better integration with KDE 4 + extra features" \
-	"qt4"  "Qt 4  - does NOT require KDE 4 libraries"`
+	"kshutdown" "Version for KDE 4 with additional features" \
+	"kshutdown-qt"  "Version for Xfce, LXDE, etc. - lightweight, no KDE 4 libraries"`
 
 case $? in
 	0) doCompile $out;;
