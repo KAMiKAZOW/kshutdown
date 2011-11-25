@@ -42,6 +42,9 @@
 #endif // KS_NATIVE_KDE
 
 class QDateTimeEdit;
+#ifdef Q_WS_X11
+class QDBusInterface;
+#endif // Q_WS_X11
 
 namespace KShutdown {
 	
@@ -257,8 +260,17 @@ class U_EXPORT StandardAction: public Action {
 public:
 	explicit StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
 	virtual bool onAction();
+protected:
+	#ifdef Q_WS_X11
+	static QDBusInterface *m_consoleKitInterface;
+	static QDBusInterface *m_halInterface;
+	#endif // Q_WS_X11
+	void checkAvailable(const UShutdownType type, const QString &consoleKitName, const QString &halName);
 private:
 	Q_DISABLE_COPY(StandardAction)
+	#ifdef KS_NATIVE_KDE
+	bool m_kdeShutDownAvailable;
+	#endif // KS_NATIVE_KDE
 	#ifdef Q_WS_X11
 	pid_t m_lxsession;
 	#endif // Q_WS_X11
