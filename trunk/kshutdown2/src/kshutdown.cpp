@@ -45,6 +45,10 @@
 using namespace KShutdown;
 
 bool Action::m_totalExit = false;
+#ifdef Q_WS_X11
+QDBusInterface *StandardAction::m_consoleKitInterface = 0;
+QDBusInterface *StandardAction::m_halInterface = 0;
+#endif // Q_WS_X11
 
 // Base
 
@@ -170,7 +174,7 @@ void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) 
 
 void Action::disable(const QString &reason) {
 	setEnabled(false);
-	m_disableReason = reason;
+	m_disableReason = reason.isEmpty() ? i18n("Unknown error") : reason;
 }
 
 bool Action::launch(const QString &program, const QStringList &args) {
@@ -498,7 +502,7 @@ bool PowerAction::onAction() {
 	if (Config::lockScreenBeforeHibernate()) {
 		LockAction::self()->activate(false);
 
-		// wait for screensaver
+		// HACK: wait for screensaver
 		::sleep(2);
 	}
 	
@@ -547,6 +551,9 @@ bool PowerAction::onAction() {
 
 		return false;
 	}
+	
+	// update date/time after resume
+	emit statusChanged(false);
 
 	return true;
 #endif // Q_WS_WIN
@@ -674,19 +681,12 @@ SuspendAction::SuspendAction() :
 
 StandardAction::StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type) :
 	Action(text, iconName, id),
+	#ifdef KS_NATIVE_KDE
+	m_kdeShutDownAvailable(false),
+	#endif // KS_NATIVE_KDE
 	m_type(type) {
-#ifdef KS_NATIVE_KDE
-	if ((type != U_SHUTDOWN_TYPE_LOGOUT) && Utils::isKDEFullSession()) {
-		if (!KWorkSpace::canShutDown(
-			KWorkSpace::ShutdownConfirmNo,
-			m_type,
-			KWorkSpace::ShutdownModeForceNow
-		)) {
-			disable("Check \"Offer shutdown options\"<br>in the \"Session Management\" settings<br>(KDE System Settings).");
-		}
-	}
-#endif // KS_NATIVE_KDE
 
+// TODO: clean up kshutdown.cpp, move this to LogoutAction
 	#ifdef Q_WS_X11
 	m_lxsession = 0;
 	if (Utils::isLXDE() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
@@ -788,26 +788,16 @@ bool StandardAction::onAction() {
 			return true;
 	}
 
-// TODO: LXDE
-
 	// LXDE
 	
 	else if (Utils::isLXDE()) {
-		switch (m_type) {
-			case U_SHUTDOWN_TYPE_LOGOUT: {
-				#ifdef Q_WS_X11
-				if (m_lxsession && (::kill(m_lxsession, SIGTERM) == 0))
-					return true;
-				#endif // Q_WS_X11
-			} break;
-			case U_SHUTDOWN_TYPE_REBOOT: {
-			} break;
-			case U_SHUTDOWN_TYPE_HALT: {
-			} break;
-			default:
-				U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
-
-				return false; // do nothing
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			#ifdef Q_WS_X11
+			if (m_lxsession && (::kill(m_lxsession, SIGTERM) == 0))
+				return true;
+			#else
+				return false;
+			#endif // Q_WS_X11
 		}
 	}
 
@@ -839,25 +829,104 @@ bool StandardAction::onAction() {
 				return false; // do nothing
 		}
 	}
+	
+	// native KDE shutdown API
 
 	#ifdef KS_NATIVE_KDE
-		if (KWorkSpace::requestShutDown(
-			KWorkSpace::ShutdownConfirmNo,
-			m_type,
-			KWorkSpace::ShutdownModeForceNow
-		))
-			return true;
+	if (m_kdeShutDownAvailable && KWorkSpace::requestShutDown(
+		KWorkSpace::ShutdownConfirmNo,
+		m_type,
+		KWorkSpace::ShutdownModeForceNow
+	))
+		return true;
+	#endif // KS_NATIVE_KDE
+	
+	// fallback to ConsoleKit or HAL
+	
+	#ifdef Q_WS_X11
+	if ((m_type == U_SHUTDOWN_TYPE_HALT) && m_consoleKitInterface && m_consoleKitInterface->isValid()) {
+		QDBusReply<void> reply = m_consoleKitInterface->call("Stop");
 
-		m_error = i18n(
-			"Could not logout properly.\n" \
-			"The KDE Session Manager cannot be contacted." \
+		if (reply.isValid())
+			return true;
+	}
+	else if ((m_type == U_SHUTDOWN_TYPE_REBOOT) && m_consoleKitInterface && m_consoleKitInterface->isValid()) {
+		QDBusReply<void> reply = m_consoleKitInterface->call("Restart");
+
+		if (reply.isValid())
+			return true;
+	}
+	#endif // Q_WS_X11
+	
+	// show error
+	
+	return unsupportedAction();
+#endif // Q_WS_WIN
+}
+
+// protected
+
+void StandardAction::checkAvailable(const UShutdownType type, const QString &consoleKitName, const QString &halName) {
+	#ifdef KS_PURE_QT
+	Q_UNUSED(type)
+	#endif // KS_PURE_QT
+	Q_UNUSED(halName)
+
+	bool available = false;
+	QString error = "";
+
+	#ifdef Q_WS_WIN
+// TODO: win32: check if shutdown/reboot action is available
+	return;
+	#endif // Q_WS_WIN
+
+	#ifdef KS_NATIVE_KDE
+	if (Utils::isKDEFullSession()) {
+		m_kdeShutDownAvailable = KWorkSpace::canShutDown(
+			KWorkSpace::ShutdownConfirmNo,
+			type,
+			KWorkSpace::ShutdownModeForceNow
 		);
 
-		return false;
-	#else
-		return unsupportedAction();
+		if (m_kdeShutDownAvailable)
+			return;
+
+		error = "Check \"Offer shutdown options\"<br>in the \"Session Management\" settings<br>(KDE System Settings).";
+	}
 	#endif // KS_NATIVE_KDE
-#endif // Q_WS_WIN
+
+	#ifdef Q_WS_X11
+	if (!consoleKitName.isEmpty()) {
+		error = ""; // reset
+	
+		if (!m_consoleKitInterface) {
+			m_consoleKitInterface = new QDBusInterface(
+				"org.freedesktop.ConsoleKit",
+				"/org/freedesktop/ConsoleKit/Manager",
+				"org.freedesktop.ConsoleKit.Manager",
+				QDBusConnection::systemBus()
+			);
+		}
+		if (m_consoleKitInterface->isValid()) {
+			QDBusReply<bool> reply = m_consoleKitInterface->call(consoleKitName);
+			if (!reply.isValid()) {
+				U_ERROR << reply.error().message() U_END;
+				error = reply.error().name();
+			}
+			else {
+				available = reply.value();
+			}
+		}
+		else {
+			error = "No valid org.freedesktop.ConsoleKit interface found";
+		}
+	}
+	#endif // Q_WS_X11
+
+// TODO: halName
+
+	if (!available)
+		disable(error);
 }
 
 // LogoutAction
@@ -871,9 +940,15 @@ LogoutAction::LogoutAction() :
 		#else
 		i18n("Logout"),
 		#endif // Q_WS_WIN
-		"system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT) {
-
+		"system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT
+) {
 	addCommandLineArg("l", "logout");
+	
+// TODO: KDE 4 logout
+	#ifdef KS_PURE_QT
+	if (Utils::isKDE_4())
+		disable("");
+	#endif // KS_PURE_QT
 }
 
 // RebootAction
@@ -907,12 +982,7 @@ RebootAction::RebootAction() :
 
 	addCommandLineArg("r", "reboot");
 	
-	if (Utils::isXfce()) {
-		setEnabled(true);
-	}
-	else if (Utils::isGDM() || Utils::isGNOME()) {
-		disable(i18n("%0 is not supported").arg("GDM/GNOME"));
-	}
+	checkAvailable(U_SHUTDOWN_TYPE_REBOOT, "CanRestart", "");
 }
 
 // ShutDownAction
@@ -930,10 +1000,5 @@ ShutDownAction::ShutDownAction() :
 	addCommandLineArg("h", "halt");
 	addCommandLineArg("s", "shutdown");
 
-	if (Utils::isXfce()) {
-		setEnabled(true);
-	}
-	else if (Utils::isGDM() || Utils::isGNOME()) {
-		disable(i18n("%0 is not supported").arg("GDM/GNOME"));
-	}
+	checkAvailable(U_SHUTDOWN_TYPE_HALT, "CanStop", "");
 }
