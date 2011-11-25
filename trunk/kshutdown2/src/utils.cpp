@@ -130,11 +130,6 @@ bool Utils::isHelpArg() {
 }
 
 // TODO: test me
-bool Utils::isGDM() {
-	return m_env.contains("GDMSESSION");
-}
-
-// TODO: test me
 bool Utils::isGNOME() {
 	return
 		m_env.contains("GNOME_DESKTOP_SESSION_ID") ||
@@ -156,10 +151,6 @@ bool Utils::isKDE_4() {
 			m_desktopSession.contains("kde", Qt::CaseInsensitive) ||
 			(m_env.value("KDE_SESSION_VERSION").toInt() >= 4)
 		);
-}
-
-bool Utils::isKDM() {
-	return m_env.contains("XDM_MANAGED");
 }
 
 bool Utils::isLXDE() {
