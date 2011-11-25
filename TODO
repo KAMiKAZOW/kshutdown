@@ -22,7 +22,6 @@ Misc.:
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
-* Warn if KDM is not running: https://launchpad.net/ubuntu/+source/kshutdown/+bug/42230
 * Plasmoid
 * Include in KDE 4
 * "K" menu integration
@@ -33,10 +32,8 @@ Misc.:
 * Command before action:
   http://sourceforge.net/projects/kshutdown/forums/forum/324058/topic/1366875
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
-* Support for GNOME/GDM
 * Switch to console mode (tty) [by DigitalCyanide]
 * Add test button for "Close CD"
-* KDM configurator, auto configuration
 * Optionally force application exit
 * Save KDE session if possible
 * Remote reboot or shutdown (via SSH)

@@ -34,12 +34,10 @@ public:
 	static void initArgs();
 	static bool isArg(const QString &name);
 	static bool isHelpArg();
-	static bool isGDM();
 	static bool isGNOME();
 	static bool isGTKStyle();
 	static bool isKDEFullSession();
 	static bool isKDE_4();
-	static bool isKDM();
 	static bool isLXDE();
 	static bool isRestricted(const QString &action);
 	static bool isXfce();

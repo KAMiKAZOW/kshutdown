@@ -91,15 +91,13 @@ int main(int argc, char **argv) {
 	Utils::init();
 	#define KS_DEBUG_SYSTEM(f, d) \
 		qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
-	KS_DEBUG_SYSTEM("GDM", Utils::isGDM());
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
 	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
 	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
-	KS_DEBUG_SYSTEM("KDM", Utils::isKDM());
 
-	if (Utils::isGDM() || Utils::isGNOME()) {
+	if (Utils::isGNOME()) {
 		qWarning("kshutdown: WARNING:");
 		qWarning("  GNOME desktop and/or GDM (login manager) are not supported yet.");
 		qWarning("  Some functions may be unavailable.");
