@@ -41,20 +41,32 @@
 		padding: 2px;
 	}
 	
+	td.build {
+		font-weight: bold;
+	}
+
 	td.na {
-		color: blue;
-		font-style: italic;
+		background-color: #BFD9FF;
 		text-align: center;
 	}
 	
 	td.ok {
-		color: green;
+		background-color: #D8E8C2;
+		text-align: center;
+	}
+	
+	td.ok:hover {
+		background-color: #FFFFBF;
+		cursor: help;
+	}
+	
+	td.todo {
+		background-color: orange;
 		text-align: center;
 	}
 
 	td.wip {
-		color: red;
-		font-weight: bold;
+		background-color: #F9CCCA;
 		text-align: center;
 	}
 	
@@ -63,8 +75,9 @@
 		text-align: center;
 	}
 	
-	tr.hl {
-		background-color: #f0f0f0;
+	thead td {
+		padding: 5px;
+		width: 10%;
 	}
 	</style>
 </head>
@@ -88,12 +101,11 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<li><a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)</li>
 </ul>
 
-<div><a name="kde4linux"></a></div>
-<h2>KDE 4 Build @ Linux</h2>
+<h2 id="kde4linux">KDE 4 Build @ Linux</h2>
 
 <h3>Minimal Requirements</h3>
 <ol>
-	<li>KDE 4.4+, KDM (KDE Display Manager)</li>
+	<li>KDE 4.4+</li>
 	<li>Qt 4.6+</li>
 </ol>
 
@@ -140,11 +152,10 @@ To display default prefix for KDE 4 applications, run <code>kde4-config --prefix
 	<li>Install: <code>make install</code></li>
 </ol>
 
-<div><a name="qt4linux"></a></div>
-<h2>Qt 4 Build @ Linux</h2>
+<h2 id="qt4linux">Qt 4 Build @ Linux</h2>
 
 <p><b>Note:</b> Some functions may be unavailable in this build.
-See <a href="#supported">Qt4 @</a> table for more info.</p>
+See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 
 <h3>Minimal Requirements</h3>
 <ol>
@@ -157,8 +168,7 @@ See <a href="#supported">Qt4 @</a> table for more info.</p>
 	<li>Installation is not required</li>
 </ol>
 
-<div><a name="qt4windows"></a></div>
-<h2>Qt 4 Build @ Windows</h2>
+<h2 id="qt4windows">Qt 4 Build @ Windows</h2>
 
 <p>Note: You can <a href="http://kshutdown.sourceforge.net/download.html">download</a> a binary (already compiled) KShutdown version for Windows.</p>
 
@@ -176,8 +186,7 @@ See <a href="#supported">Qt4 @</a> table for more info.</p>
 	<li><b>Experimental:</b> To compile KShutdown under Wine/Linux run: <code>./Setup-wine.sh</code></li>
 </ol>
 
-<div><a name="supported"></a></div>
-<h2>Supported Functions/Platforms</h2>
+<h2 id="supported">Supported Functions/Platforms</h2>
 
 <div>
 <table border="1">
@@ -185,7 +194,6 @@ See <a href="#supported">Qt4 @</a> table for more info.</p>
 <thead>
 
 <tr>
-<td></td>
 <td>Turn Off Computer</td>
 <td>Restart Computer</td>
 <td>Suspend</td>
@@ -193,234 +201,157 @@ See <a href="#supported">Qt4 @</a> table for more info.</p>
 <td>Lock Screen</td>
 <td>Logout</td>
 <td>Extras</td>
-<td>User Inactivity Monitor</td>
+<td>Waiting for a selected application</td>
+<td>Inactivity Monitor</td>
 </tr>
 
 </thead>
 
 <tfoot>
 
-<tr>
-<td colspan="9" style="font-weight: bold; text-align: center">Legend</td>
-</tr>
+<tr><td colspan="9" style="font-weight: bold">Legend</td></tr>
 
-<tr>
-<td class="ok">OK<br/>[TODO - implementation details]</td><td colspan="8">Done.</td>
-</tr>
+<tr><td class="ok">OK<!-- TODO: implementation details --></td><td colspan="8">Done (hover an item to display implementation details)</td></tr>
+<tr><td class="na">N/A</td><td colspan="8">Function is not available on this platform/KShutdown version</td></tr>
+<tr><td class="wip">WIP</td><td colspan="8">Work In Progress - to be implemented in a future...</td></tr>
 
-<tr>
-<td class="na">N/A</td><td colspan="8">Function is not available on this platform/KShutdown version</td>
-</tr>
-
-<tr>
-<td class="wip">WIP</td><td colspan="8">Work In Progress - to be implemented in a future...</td>
-</tr>
-
-<tr>
-<td>GUI</td><td colspan="8">Function is available in main window (example: menu item, combo box entry, etc.)</td>
-</tr>
-
-<tr>
-<td>CLI</td><td colspan="8">Command Line Interface (example: kshutdown --lock)</td>
-</tr>
-
-<tr>
-<td>GDM</td><td colspan="8">GNOME Display Manager</td>
-</tr>
-
-<tr>
-<td>KDM</td><td colspan="8">KDE Display Manager</td>
-</tr>
-
-<tr>
-<td>Win</td><td colspan="8">Microsoft Windows XP/Vista/7 or compatible</td>
-</tr>
-
-<tr>
-<td><i>Build</i> @ <i>Platform</i></td><td colspan="8">Qt4 <i>Build</i> - a KShutdown version compiled without KDE4 libraries (Qt only)<br/>
-KDE4 <i>Build</i> - a KShutdown version compiled using KDE4 libraries (better KDE integration + extra features)<br/><i>Platform</i> - a desktop environment or operating system name</td>
-</tr>
+<tr><td>KDE 4 Build</td><td colspan="8">A KShutdown version compiled using KDE4 libraries (better KDE integration + extra features)</td></tr>
+<tr><td>Qt 4 Build</td><td colspan="8">A KShutdown version compiled without KDE4 libraries (Qt only)</td></tr>
+<tr><td>CLI</td><td colspan="8">Function available via Command Line (example: kshutdown --lock)</td></tr>
+<tr><td>Windows</td><td colspan="8">Microsoft Windows XP/Vista/7 or compatible</td></tr>
 
 </tfoot>
 
 <tbody>
 
+<tr><td class="build" colspan="9"><a href="http://kde.org/">KDE</a> 4 (KDE 4 Build)</td></tr>
 <tr>
-<td>KDE4 @ KDE4/KDM (GUI)</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
+<td class="ok" title="KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmNo, KWorkSpace::ShutdownTypeNone, KWorkSpace::ShutdownModeForceNow)">OK</td>
+<td class="todo">TODO</td>
+<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
+<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
-<tr class="hl">
-<td>KDE4 @ KDE4/KDM (CLI)</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="na">N/A</td>
-</tr>
-
+<tr><td class="build" colspan="9">Windows (Qt 4 Build), <small>KDE 4 Build not supported</small></td></tr>
 <tr>
-<td>Qt4 @ Win (GUI)</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="na">N/A</td>
-<td class="ok">OK</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
-<tr class="hl">
-<td>Qt4 @ Win (CLI)</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="na">N/A</td>
-<td class="na">N/A</td>
-</tr>
-
+<tr><td class="build" colspan="9"><a href="http://www.xfce.org/">Xfce</a> 4.8 (Qt 4 Build), <small>KDE 4 Build not supported</small></td></tr>
 <tr>
-<td>KDE3</td>
-<td class="na" colspan="8">N/A - use older KShutdown 1.0.x</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
-<tr class="hl">
-<td>KDE4 @ Win</td>
-<td class="na" colspan="8">N/A - see Qt4 @ Win</td>
-</tr>
-
+<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/LXDE">LXDE</a> (Qt 4 Build), <small>KDE 4 Build not supported</small></td></tr>
 <tr>
-<td>KDE4 @ Xfce/GDM</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="ok" title="lxlock, xdg-screensaver, xscreensaver-command">OK</td>
+<td class="ok" title="::kill(_LXSESSION_PID, SIGTERM)">OK</td>
 <td class="na">N/A</td>
+<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
+<td class="wip">WIP</td>
 </tr>
 
-<tr class="hl">
-<td>Qt4 @ Xfce/GDM</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="na">N/A</td>
-<td class="na">N/A</td>
-</tr>
-
+<tr><td class="build" colspan="9"><a href="http://www.gnome.org/">GNOME</a> 2 (Qt 4 Build), <small>KDE 4 Build not supported</small></td></tr>
 <tr>
-<td>KDE4 @ GNOME 2.x/GDM</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
-<tr class="hl">
-<td>Qt4 @ GNOME 2.x/GDM</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="na">N/A</td>
-<td class="wip">WIP</td>
-</tr>
-
+<tr><td class="build" colspan="9">KDE 4 (Qt 4 Build)</td></tr>
 <tr>
-<td>Qt4 @ KDE4</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
 <td class="wip">WIP</td>
 <td class="na">N/A</td>
-<td class="wip">WIP</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
-<tr class="hl">
-<td>KDE4 @ KDE4/GDM (GUI)</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
-<td class="wip">WIP</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-<td class="ok">OK</td>
-</tr>
-
+<tr><td class="build" colspan="9">GNOME 3</td></tr>
 <tr>
-<td>KDE4 @ GNOME 3.x</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
+<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/Unity_%28user_interface%29">Unity</a></td></tr>
 <tr>
-<td>Qt4 @ GNOME 3.x</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
+<tr><td class="build" colspan="9"><a href="http://openbox.org/">Openbox</a></td></tr>
 <tr>
-<td>KDE4 @ Unity</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
+<tr><td class="build" colspan="9">KDE 3</td></tr>
 <tr>
-<td>Qt4 @ Unity</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
-<td class="wip">WIP</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
+<td class="todo">TODO</td>
 </tr>
 
 </tbody>
@@ -428,8 +359,7 @@ KDE4 <i>Build</i> - a KShutdown version compiled using KDE4 libraries (better KD
 </table>
 </div>
 
-<div><a name="compatibility"></a></div>
-<h2>Compatibility with old KShutdown 1.0.x</h2>
+<h2 id="compatibility">Compatibility with old KShutdown 1.0.x</h2>
 
 <p>Some configuration and command line options in KShutdown 2.x
 may be not fully compatible with the old KShutdown 1.0.x.</p>

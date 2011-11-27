@@ -181,8 +181,21 @@ bool Action::launch(const QString &program, const QStringList &args) {
 	U_DEBUG << "Launching \"" << program << "\" with \"" << args << "\" arguments" U_END;
 
 	int exitCode = QProcess::execute(program, args);
-	U_DEBUG << "Exit code: " << exitCode U_END;
 
+	if (exitCode == -2) {
+		U_DEBUG << "Process failed to start (-2)" U_END;
+		
+		return false;
+	}
+
+	if (exitCode == -1) {
+		U_DEBUG << "Process crashed (-1)" U_END;
+		
+		return false;
+	}
+
+	U_DEBUG << "Exit code: " << exitCode U_END;
+// TODO: ?
 	return (exitCode != 255);
 }
 
@@ -833,11 +846,15 @@ bool StandardAction::onAction() {
 	// native KDE shutdown API
 
 	#ifdef KS_NATIVE_KDE
-	if (m_kdeShutDownAvailable && KWorkSpace::requestShutDown(
-		KWorkSpace::ShutdownConfirmNo,
-		m_type,
-		KWorkSpace::ShutdownModeForceNow
-	))
+	if (
+// TODO: check if logout is available
+		(m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT)) &&
+		KWorkSpace::requestShutDown(
+			KWorkSpace::ShutdownConfirmNo,
+			m_type,
+			KWorkSpace::ShutdownModeForceNow
+		)
+	)
 		return true;
 	#endif // KS_NATIVE_KDE
 	
@@ -887,6 +904,8 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 			type,
 			KWorkSpace::ShutdownModeForceNow
 		);
+		
+		U_DEBUG << "KDE ShutDown API available:" << m_kdeShutDownAvailable U_END;
 
 		if (m_kdeShutDownAvailable)
 			return;
