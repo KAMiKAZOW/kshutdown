@@ -45,4 +45,4 @@ Type=Application
 X-DBUS-ServiceName=net.sf.kshutdown
 # DOC: http://standards.freedesktop.org/menu-spec/latest/apa.html
 Categories=Utility;Qt;
-OnlyShowIn=GNOME;LXDE;XFCE;
+OnlyShowIn=GNOME;LXDE;XFCE;Unity;

@@ -94,16 +94,12 @@ int main(int argc, char **argv) {
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
+	KS_DEBUG_SYSTEM("Unity", Utils::isUnity());
 	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
 	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
 
-	if (Utils::isGNOME()) {
-		qWarning("kshutdown: WARNING:");
-		qWarning("  GNOME desktop and/or GDM (login manager) are not supported yet.");
-		qWarning("  Some functions may be unavailable.");
-		qWarning("  Try GShutdown which is more compatible with GNOME/GDM.");
-		qWarning("  http://gshutdown.tuxfamily.org/");
-	}
+	if (Utils::isGNOME() || Utils::isUnity())
+		qWarning("kshutdown: WARNING: GNOME/Unity desktop is not fully supported yet.");
 
 #ifdef KS_PURE_QT
 

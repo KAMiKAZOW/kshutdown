@@ -130,14 +130,15 @@ bool Utils::isHelpArg() {
 }
 
 // TODO: test me
+// TODO: Utils::isGNOME_3, 2...
 bool Utils::isGNOME() {
 	return
-		m_env.contains("GNOME_DESKTOP_SESSION_ID") ||
-		(m_desktopSession == "gnome");
+		m_env.contains("GNOME_DESKTOP_SESSION_ID") || // for backward compatibility
+		m_desktopSession.contains("gnome", Qt::CaseInsensitive);
 }
 
 bool Utils::isGTKStyle() {
-	return isGNOME() || isLXDE() || isXfce();
+	return isGNOME() || isLXDE() || isXfce() || isUnity();
 }
 
 bool Utils::isKDEFullSession() {
@@ -165,6 +166,11 @@ bool Utils::isRestricted(const QString &action) {
 
 	return false;
 #endif // KS_NATIVE_KDE
+}
+
+// HACK: various Unity workarounds
+bool Utils::isUnity() {
+	return m_desktopSession.contains("UBUNTU", Qt::CaseInsensitive);
 }
 
 bool Utils::isXfce() {

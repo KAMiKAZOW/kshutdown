@@ -279,7 +279,7 @@ void MainWindow::maybeShow() {
 		return;
 	}
 
-	if (!U_SYSTEM_TRAY::isSystemTrayAvailable()) {
+	if (!U_SYSTEM_TRAY::isSystemTrayAvailable() || Utils::isUnity()) {
 		show();
 
 		return;
@@ -518,17 +518,24 @@ void MainWindow::setWaitForProcess(const qlonglong pid) {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 	writeConfig();
-
+	
 	// normal close
 	if (!e->spontaneous() || m_forceQuit || Action::totalExit()) {
 		e->accept();
 
 		return;
 	}
-
-	// hide in system tray instead of close
+	
 	e->ignore();
-	hide();
+
+	// no system tray, minimize instead
+	if (Utils::isUnity()) {
+		showMinimized();
+	}
+	// hide in system tray instead of close
+	else {
+		hide();
+	}
 
 	if (m_active) {
 		if (m_showActiveWarning) {
@@ -547,7 +554,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 // private
 
 MainWindow::MainWindow() :
-	U_MAIN_WINDOW(0, Qt::Dialog),
+	U_MAIN_WINDOW(
+		0,
+		Utils::isUnity()
+			? Qt::Window // no system tray, show minimize button instead
+			: Qt::Dialog
+	),
 	m_active(false),
 	m_forceQuit(false),
 	m_ignoreUpdateWidgets(true),
