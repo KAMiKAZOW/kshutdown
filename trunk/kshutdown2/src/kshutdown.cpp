@@ -174,7 +174,7 @@ void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) 
 
 void Action::disable(const QString &reason) {
 	setEnabled(false);
-	m_disableReason = reason.isEmpty() ? i18n("Unknown error") : reason;
+	m_disableReason = reason;
 }
 
 bool Action::launch(const QString &program, const QStringList &args) {
@@ -211,8 +211,9 @@ bool Action::unsupportedAction() {
 void Action::slotFire() {
 	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]" U_END;
 
-	if (!isEnabled() && !m_disableReason.isEmpty()) {
-		U_ERROR_MESSAGE(0, m_disableReason);
+	if (!isEnabled()) {
+		QString s = m_disableReason.isEmpty() ? i18n("Unknown error") : m_disableReason;
+		U_ERROR_MESSAGE(0, text() + ": " + s);
 		
 		return;
 	}
@@ -221,8 +222,8 @@ void Action::slotFire() {
 	if (!onAction()) {
 		m_totalExit = false;
 		if (!m_error.isNull()) {
-			QString text = m_error.isEmpty() ? i18n("Unknown error") : m_error;
-			U_ERROR_MESSAGE(0, text);
+			QString s = m_error.isEmpty() ? i18n("Unknown error") : m_error;
+			U_ERROR_MESSAGE(0, text() + ": " + s);
 		}
 	}
 }
@@ -790,9 +791,24 @@ bool StandardAction::onAction() {
 
 	return true;
 #else
-	
-	// GNOME
 
+	// GNOME Shell, Unity
+	
+	if (Utils::isGNOME_3() || Utils::isUnity()) {
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			QStringList args;
+			args << "--logout";
+			args << "--no-prompt";
+			if (launch("gnome-session-quit", args)) {
+				// HACK: session save issue?
+				U_APP->quit();
+			
+				return true;
+			}
+		}
+	}
+
+/* TODO: GNOME shutdown
 	if (Utils::isGNOME()) {
 		QStringList args;
 		args << "--kill";
@@ -800,6 +816,7 @@ bool StandardAction::onAction() {
 		if (launch("gnome-session-save", args))
 			return true;
 	}
+*/
 
 	// LXDE
 	
@@ -963,10 +980,14 @@ LogoutAction::LogoutAction() :
 ) {
 	addCommandLineArg("l", "logout");
 	
-// TODO: KDE 4 logout
+// TODO: KDE 4 logout, test
 	#ifdef KS_PURE_QT
+	#ifdef Q_WS_X11
 	if (Utils::isKDE_4())
 		disable("");
+	else if (Utils::isXfce())
+		disable("");
+	#endif // Q_WS_X11
 	#endif // KS_PURE_QT
 }
 
@@ -996,7 +1017,11 @@ RebootAction::RebootAction() :
 */
 	setIcon(U_STOCK_ICON("system-reboot"));
 #else
-	setIcon(U_STOCK_ICON("system-reboot"));
+	if (Utils::isKDE_4())
+		setIcon(U_STOCK_ICON("system-reboot"));
+	// HACK: missing "system-reboot" icon
+	else
+		setIcon(U_STOCK_ICON("view-refresh"));
 #endif // KS_NATIVE_KDE
 
 	addCommandLineArg("r", "reboot");

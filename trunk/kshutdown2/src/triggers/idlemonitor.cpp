@@ -46,7 +46,7 @@ IdleMonitor::IdleMonitor()
 #ifdef Q_WS_WIN
 	m_supported = true;
 #else
-	m_supported = LockAction::getQDBusInterface()->isValid() && !(Utils::isGNOME() || Utils::isXfce() || Utils::isLXDE() || Utils::isUnity());
+	m_supported = LockAction::getQDBusInterface()->isValid() && !(Utils::isGNOME() || Utils::isGNOME_3() || Utils::isXfce() || Utils::isLXDE() || Utils::isUnity());
 #endif // Q_WS_WIN
 
 	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");

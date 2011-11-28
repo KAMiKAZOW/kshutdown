@@ -279,7 +279,7 @@ void MainWindow::maybeShow() {
 		return;
 	}
 
-	if (!U_SYSTEM_TRAY::isSystemTrayAvailable() || Utils::isUnity()) {
+	if (!U_SYSTEM_TRAY::isSystemTrayAvailable()) {
 		show();
 
 		return;
@@ -290,6 +290,8 @@ void MainWindow::maybeShow() {
 
 	if (!Utils::isArg("init") && !U_APP->isSessionRestored())
 		show();
+	else if (Utils::isUnity())
+		showMinimized();
 }
 
 void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const bool absolute) {
@@ -1029,13 +1031,10 @@ void MainWindow::updateWidgets() {
 	else {
 		m_okCancelButton->setEnabled(false);
 // TODO: show solution dialog
-		m_infoWidget->setText(
-			"<qt>" +
-			i18n("Action not available: %0").arg(action->originalText()) + "<br>" +
-			action->disableReason() +
-			"</qt>",
-			InfoWidget::ErrorType
-		);
+		QString s = i18n("Action not available: %0").arg(action->originalText());
+		if (!action->disableReason().isEmpty())
+			s += ("<br>" + action->disableReason());
+		m_infoWidget->setText("<qt>" + s + "</qt>", InfoWidget::ErrorType);
 	}
 	
 	// update "Cancel" action
