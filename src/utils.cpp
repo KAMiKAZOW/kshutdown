@@ -35,6 +35,7 @@
 #endif // KS_NATIVE_KDE
 QProcessEnvironment Utils::m_env = QProcessEnvironment::systemEnvironment();
 QString Utils::m_desktopSession;
+QString Utils::m_xdgCurrentDesktop;
 
 // public
 
@@ -103,6 +104,7 @@ QString Utils::getUser() {
 
 void Utils::init() {
 	m_desktopSession = m_env.value("DESKTOP_SESSION");
+	m_xdgCurrentDesktop = m_env.value("XDG_CURRENT_DESKTOP");
 }
 
 void Utils::initArgs() {
@@ -130,15 +132,24 @@ bool Utils::isHelpArg() {
 }
 
 // TODO: test me
-// TODO: Utils::isGNOME_3, 2...
 bool Utils::isGNOME() {
 	return
-		m_env.contains("GNOME_DESKTOP_SESSION_ID") || // for backward compatibility
-		m_desktopSession.contains("gnome", Qt::CaseInsensitive);
+		m_desktopSession.contains("gnome", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("gnome", Qt::CaseInsensitive);
+}
+
+// FIXME: test GNOME 2
+bool Utils::isGNOME_3() {
+	bool g3 =
+		m_desktopSession.contains("gnome-shell", Qt::CaseInsensitive) ||
+		m_desktopSession.contains("gnome-classic", Qt::CaseInsensitive) ||
+		m_desktopSession.contains("gnome-fallback", Qt::CaseInsensitive);
+	
+	return g3 ? true : isUnity();
 }
 
 bool Utils::isGTKStyle() {
-	return isGNOME() || isLXDE() || isXfce() || isUnity();
+	return isGNOME() || isGNOME_3() || isLXDE() || isXfce() || isUnity();
 }
 
 bool Utils::isKDEFullSession() {
@@ -150,12 +161,15 @@ bool Utils::isKDE_4() {
 		isKDEFullSession() &&
 		(
 			m_desktopSession.contains("kde", Qt::CaseInsensitive) ||
+			m_xdgCurrentDesktop.contains("kde", Qt::CaseInsensitive) ||
 			(m_env.value("KDE_SESSION_VERSION").toInt() >= 4)
 		);
 }
 
 bool Utils::isLXDE() {
-	return m_desktopSession.contains("LXDE", Qt::CaseInsensitive);
+	return
+		m_desktopSession.contains("LXDE", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("LXDE", Qt::CaseInsensitive);
 }
 
 bool Utils::isRestricted(const QString &action) {
@@ -170,11 +184,15 @@ bool Utils::isRestricted(const QString &action) {
 
 // HACK: various Unity workarounds
 bool Utils::isUnity() {
-	return m_desktopSession.contains("UBUNTU", Qt::CaseInsensitive);
+	return
+		m_desktopSession.contains("UBUNTU", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("UNITY", Qt::CaseInsensitive);
 }
 
 bool Utils::isXfce() {
-	return m_desktopSession.contains("xfce", Qt::CaseInsensitive);
+	return
+		m_desktopSession.contains("xfce", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("xfce", Qt::CaseInsensitive);
 }
 
 void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {

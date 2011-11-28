@@ -50,24 +50,26 @@ bool LockAction::onAction() {
 #else
 	// HACK: This is a workaround for "lazy" initial kscreensaver repaint.
 	// Now the screen content is hidden immediately.
-	QWidget blackScreen(
-		0,
-		Qt::FramelessWindowHint |
-		Qt::WindowStaysOnTopHint |
-		Qt::X11BypassWindowManagerHint |
-		Qt::Tool
-	);
-	// set black background color
-	blackScreen.setAutoFillBackground(true);
-	QPalette p;
-	p.setColor(QPalette::Window, Qt::black);
-	blackScreen.setPalette(p);
-	// set full screen size
-	QRect screenGeometry = QApplication::desktop()->screenGeometry();
-	blackScreen.resize(screenGeometry.size());
-	// show and force repaint
-	blackScreen.show();
-	QApplication::processEvents();
+	if (Utils::isKDE_4()) {
+		QWidget blackScreen(
+			0,
+			Qt::FramelessWindowHint |
+			Qt::WindowStaysOnTopHint |
+			Qt::X11BypassWindowManagerHint |
+			Qt::Tool
+		);
+		// set black background color
+		blackScreen.setAutoFillBackground(true);
+		QPalette p;
+		p.setColor(QPalette::Window, Qt::black);
+		blackScreen.setPalette(p);
+		// set full screen size
+		QRect screenGeometry = QApplication::desktop()->screenGeometry();
+		blackScreen.resize(screenGeometry.size());
+		// show and force repaint
+		blackScreen.show();
+		QApplication::processEvents();
+	}
 
 	// try DBus
 	QDBusInterface *dbus = getQDBusInterface();
@@ -78,12 +80,28 @@ bool LockAction::onAction() {
 		return true;
 	
 	QStringList args;
+
+	// Unity, GNOME Shell
 	
+	if (Utils::isGNOME_3() || Utils::isUnity()) {
+		args.clear();
+		args << "--activate";
+		if (launch("gnome-screensaver-command", args))
+			return true;
+	}
+
 	// try "gnome-screensaver-command" command
 	if (Utils::isGNOME()) {
 		args.clear();
 		args << "--lock";
 		if (launch("gnome-screensaver-command", args))
+			return true;
+	}
+
+	// try "xflock4"
+	if (Utils::isXfce()) {
+		args.clear();
+		if (launch("xflock4", args))
 			return true;
 	}
 
@@ -99,7 +117,6 @@ bool LockAction::onAction() {
 	args << "lock";
 	if (launch("xdg-screensaver", args))
 		return true;
-// TODO: xflock4
 	
 	// try "xscreensaver-command" command
 	args.clear();

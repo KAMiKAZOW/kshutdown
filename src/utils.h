@@ -35,6 +35,7 @@ public:
 	static bool isArg(const QString &name);
 	static bool isHelpArg();
 	static bool isGNOME();
+	static bool isGNOME_3();
 	static bool isGTKStyle();
 	static bool isKDEFullSession();
 	static bool isKDE_4();
@@ -52,6 +53,7 @@ private:
 #endif // KS_NATIVE_KDE
 	static QProcessEnvironment m_env;
 	static QString m_desktopSession;
+	static QString m_xdgCurrentDesktop;
 	Utils() { }
 };
 

@@ -92,14 +92,12 @@ int main(int argc, char **argv) {
 	#define KS_DEBUG_SYSTEM(f, d) \
 		qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
+	KS_DEBUG_SYSTEM("GNOME 3", Utils::isGNOME_3());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
 	KS_DEBUG_SYSTEM("Unity", Utils::isUnity());
 	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
 	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
-
-	if (Utils::isGNOME() || Utils::isUnity())
-		qWarning("kshutdown: WARNING: GNOME/Unity desktop is not fully supported yet.");
 
 #ifdef KS_PURE_QT
 
