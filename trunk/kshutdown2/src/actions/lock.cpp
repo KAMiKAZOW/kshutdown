@@ -111,6 +111,16 @@ bool LockAction::onAction() {
 		if (launch("lxlock", args))
 			return true;
 	}
+	
+	// Enlightenment
+
+	if (Utils::isEnlightenment()) {
+// TODO: use D-Bus
+		args.clear();
+		args << "-desktop-lock";
+		if (launch("enlightenment_remote", args))
+			return true;
+	}
 
 	// try "xdg-screensaver" command
 	args.clear();

@@ -123,6 +123,10 @@ bool Utils::isArg(const QString &name) {
 #endif // KS_NATIVE_KDE
 }
 
+bool Utils::isEnlightenment() {
+	return m_desktopSession.contains("enlightenment", Qt::CaseInsensitive);
+}
+
 bool Utils::isHelpArg() {
 #ifdef KS_NATIVE_KDE
 	return false; // "--help" argument handled by KDE
@@ -180,6 +184,13 @@ bool Utils::isRestricted(const QString &action) {
 
 	return false;
 #endif // KS_NATIVE_KDE
+}
+
+bool Utils::isSystemTraySupported() {
+	if (isUnity() || !U_SYSTEM_TRAY::isSystemTrayAvailable())
+		return false;
+	
+	return true;
 }
 
 // HACK: various Unity workarounds

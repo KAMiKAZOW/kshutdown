@@ -290,7 +290,7 @@ void MainWindow::maybeShow() {
 
 	if (!Utils::isArg("init") && !U_APP->isSessionRestored())
 		show();
-	else if (Utils::isUnity())
+	else if (!Utils::isSystemTraySupported())
 		showMinimized();
 }
 
@@ -531,7 +531,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	e->ignore();
 
 	// no system tray, minimize instead
-	if (Utils::isUnity()) {
+	if (!Utils::isSystemTraySupported()) {
 		showMinimized();
 	}
 	// hide in system tray instead of close
@@ -556,12 +556,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 // private
 
 MainWindow::MainWindow() :
-	U_MAIN_WINDOW(
-		0,
-		Utils::isUnity()
-			? Qt::Window // no system tray, show minimize button instead
-			: Qt::Dialog
-	),
+	U_MAIN_WINDOW(0, Qt::Window),
 	m_active(false),
 	m_forceQuit(false),
 	m_ignoreUpdateWidgets(true),
@@ -808,6 +803,8 @@ void MainWindow::initSystemTray() {
 	U_DEBUG << "MainWindow::initSystemTray()" U_END;
 
 	m_systemTray = new U_SYSTEM_TRAY(this);
+	//U_DEBUG << "U_SYSTEM_TRAY::isSystemTrayAvailable:" << U_SYSTEM_TRAY::isSystemTrayAvailable() U_END;
+	U_DEBUG << "Utils::isSystemTraySupported:" << Utils::isSystemTraySupported() U_END;
 #ifdef KS_NATIVE_KDE
 // TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
 // Currently it's lower case "kshutdown".
