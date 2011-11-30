@@ -91,6 +91,14 @@ int main(int argc, char **argv) {
 	Utils::init();
 	#define KS_DEBUG_SYSTEM(f, d) \
 		qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
+	
+	bool e17 = Utils::isEnlightenment();
+	KS_DEBUG_SYSTEM("Enlightenment", e17);
+	if (e17) {
+		qWarning("kshutdown: Enlightenment: Load System->DBus Extension module for Lock Screen action support");
+		qWarning("kshutdown: Enlightenment: Load Utilities->Systray module for system tray support");
+	}
+	
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
 	KS_DEBUG_SYSTEM("GNOME 3", Utils::isGNOME_3());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());

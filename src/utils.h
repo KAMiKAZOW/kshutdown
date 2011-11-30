@@ -33,6 +33,7 @@ public:
 	static void init();
 	static void initArgs();
 	static bool isArg(const QString &name);
+	static bool isEnlightenment();
 	static bool isHelpArg();
 	static bool isGNOME();
 	static bool isGNOME_3();
@@ -41,6 +42,7 @@ public:
 	static bool isKDE_4();
 	static bool isLXDE();
 	static bool isRestricted(const QString &action);
+	static bool isSystemTraySupported();
 	static bool isUnity();
 	static bool isXfce();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);

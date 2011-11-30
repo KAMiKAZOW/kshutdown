@@ -859,7 +859,19 @@ bool StandardAction::onAction() {
 				return false; // do nothing
 		}
 	}
-	
+
+	// Enlightenment
+
+	else if (Utils::isEnlightenment()) {
+// TODO: use D-Bus
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			QStringList args;
+			args << "-exit";
+			if (launch("enlightenment_remote", args))
+				return true;
+		}
+	}
+
 	// native KDE shutdown API
 
 	#ifdef KS_NATIVE_KDE
