@@ -34,7 +34,7 @@ class Process: public QObject {
 public:
 	explicit Process(QObject *parent);
 	bool isRunning();
-	QString toString();
+	QString toString() const;
 private:
 	Q_DISABLE_COPY(Process)
 	friend class ProcessMonitor;
@@ -60,11 +60,13 @@ private:
 	QWidget *m_widget;
 	U_COMBO_BOX *m_processes;
 	void errorMessage(const QString &message);
+	void updateStatus(const Process *process);
 public slots:
 	void onRefresh();
 private slots:
 	void onError(QProcess::ProcessError error);
 	void onFinished(int exitCode, QProcess::ExitStatus exitStatus);
+	void onProcessSelect(const int index);
 	void onReadyReadStandardOutput();
 };
 
