@@ -58,7 +58,7 @@ bool Process::isRunning() {
 #endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
-QString Process::toString() {
+QString Process::toString() const {
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	return QString("%0 (pid %1, %2)")
 		.arg(m_command)
@@ -88,8 +88,7 @@ bool ProcessMonitor::canActivateAction() {
 
 	int index = m_processes->currentIndex();
 	Process *p = m_processList.value(index);
-	m_status = i18n("Waiting for \"%0\"")
-		.arg(p->toString());
+	updateStatus(p);
 
 	return !p->isRunning();
 }
@@ -105,6 +104,7 @@ QWidget *ProcessMonitor::getWidget() {
 		m_processes->view()->setAlternatingRowColors(true);
 		m_processes->setFocusPolicy(Qt::StrongFocus);
 		m_processes->setToolTip(i18n("List of the running processes"));
+		connect(m_processes, SIGNAL(activated(int)), SLOT(onProcessSelect(const int)));
 		layout->addWidget(m_processes);
 		
 		U_PUSH_BUTTON *refreshButton = new U_PUSH_BUTTON(m_widget);
@@ -138,6 +138,8 @@ void ProcessMonitor::setPID(const pid_t pid) {
 // private
 
 void ProcessMonitor::errorMessage(const QString &message) {
+	U_APP->restoreOverrideCursor();
+
 	m_processes->clear();
 	m_processes->setEnabled(false);
 	m_processList.clear();
@@ -148,10 +150,22 @@ void ProcessMonitor::errorMessage(const QString &message) {
 	);
 }
 
+void ProcessMonitor::updateStatus(const Process *process) {
+	if (process) {
+		m_status = i18n("Waiting for \"%0\"")
+			.arg(process->toString());
+	}
+	else {
+		m_status = QString::null;
+	}
+}
+
 // public slots
 
 void ProcessMonitor::onRefresh() {
 #ifdef KS_TRIGGER_PROCESS_MONITOR
+	U_APP->setOverrideCursor(Qt::WaitCursor);
+	
 	m_processes->clear();
 	m_processes->setEnabled(true);
 	m_processList.clear();
@@ -203,8 +217,11 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 #ifdef KS_TRIGGER_PROCESS_MONITOR
 	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
 	
-	if (!m_processList.isEmpty())
+	if (!m_processList.isEmpty()) {
+		U_APP->restoreOverrideCursor();
+		
 		return;
+	}
 	
 	if (exitStatus == QProcess::NormalExit) {
 		QString user = Utils::getUser();
@@ -231,7 +248,19 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 	else { // QProcess::CrashExit
 		errorMessage(i18n("Error, exit code: %0").arg(exitCode));
 	}
+	
+	U_APP->restoreOverrideCursor();
+	
+	updateStatus(m_processList.isEmpty() ? 0 : m_processList.value(0));
+	emit statusChanged(false);
 #endif // KS_TRIGGER_PROCESS_MONITOR
+}
+
+void ProcessMonitor::onProcessSelect(const int index) {
+	#ifdef KS_TRIGGER_PROCESS_MONITOR
+	updateStatus(m_processList.value(index));
+	emit statusChanged(false);
+	#endif // KS_TRIGGER_PROCESS_MONITOR
 }
 
 void ProcessMonitor::onReadyReadStandardOutput() {
