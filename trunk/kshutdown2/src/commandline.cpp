@@ -41,7 +41,7 @@ void TimeOption::init() {
 		return;
 	
 	U_DEBUG << "Time option: " << m_option U_END;
-	if (m_option.compare("NOW", Qt::CaseInsensitive) == 0) {
+	if ((m_option == "0") || (m_option.compare("NOW", Qt::CaseInsensitive) == 0)) {
 		m_time = QTime(0, 0);
 		m_relative = true;
 	}
