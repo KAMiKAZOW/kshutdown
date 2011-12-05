@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- TODO: validate me -->
 <head>
 	<title>KShutdown - README</title>
 	<meta charset="UTF-8" />
@@ -33,13 +32,13 @@
 	}
 	
 	table {
-		border: 1px solid gray;
+		border: 1px solid black;
 		border-collapse: collapse;
-		width: 100%;
 	}
 	
 	td {
-		padding: 2px;
+		border: 1px solid black;
+		padding: 4px;
 	}
 	
 	td.build {
@@ -71,13 +70,12 @@
 		text-align: center;
 	}
 	
-	thead {
+	thead td {
 		font-weight: bold;
 		text-align: center;
 	}
-	
-	thead td {
-		padding: 5px;
+
+	table#supported_table thead td {
 		width: 10%;
 	}
 	</style>
@@ -93,6 +91,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <h2>Table of Contents</h2>
 <ul>
+	<li><a href="#kdevsqt">KDE 4 Build vs. Qt 4 Build</a></li>
 	<li><a href="#kde4linux">KDE 4 Build @ Linux</a></li>
 	<li><a href="#qt4linux">Qt 4 Build @ Linux</a></li>
 	<li><a href="#qt4windows">Qt 4 Build @ Windows</a></li>
@@ -101,6 +100,62 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<li><a href="http://kshutdown.sourceforge.net/contact.html">Contact</a></li>
 	<li><a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)</li>
 </ul>
+
+<h2 id="kdevsqt">KDE 4 Build vs. Qt 4 Build</h2>
+
+<table>
+
+<thead>
+<tr>
+	<td></td>
+	<td>KDE 4 Build</td>
+	<td>Qt 4 Build</td>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+	<td>Summary</td>
+	<td>A KShutdown version compiled using KDE4 libraries (super integration with KDE platform + extra features)</td>
+	<td>A KShutdown version compiled without KDE4 libraries (Qt only, for Xfce, GNOME, etc.)</td>
+</tr>
+
+<tr>
+	<td>Compilation Script</td>
+	<td>./Setup-kde4.sh</td>
+	<td>./Setup-qt4.sh</td>
+</tr>
+
+<tr>
+	<td>Required Libraries</td>
+	<td>libqtgui4, libqt4-dbus,<br><b>libkworkspace4</b>, <b>base KDE libraries</b></td>
+	<td>libqtgui4, libqt4-dbus</td>
+</tr>
+
+<tr>
+	<td>Menu Shortcut Name</td>
+	<td>KShutdown</td>
+	<td>KShutdown<b>/Qt</b></td>
+</tr>
+
+<tr>
+	<td>Default Program Location (after "make install")</td>
+	<td>/usr/bin/kshutdown</td>
+	<td>/usr/bin/kshutdown<b>-qt</b></td>
+</tr>
+
+<tr>
+	<td>C++ #define</td>
+	<td>KS_NATIVE_KDE</td>
+	<td>KS_PURE_QT</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<p>See <a href="#supported">Supported Functions/Platforms</a> table for more info.</p>
 
 <h2 id="kde4linux">KDE 4 Build @ Linux</h2>
 
@@ -190,7 +245,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <h2 id="supported">Supported Functions/Platforms</h2>
 
 <div>
-<table border="1">
+<table id="supported_table" style="width: 100%">
 
 <thead>
 
@@ -212,13 +267,11 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 
 <tr><td colspan="9" style="font-weight: bold">Legend</td></tr>
 
-<tr><td class="todo">TODO</td><td colspan="8">Testing...</td></tr>
+<tr><td class="todo">TODO</td><td colspan="8">Should work, still testing ;)</td></tr>
 <tr><td class="ok">OK<!-- TODO: implementation details --></td><td colspan="8">Done (hover an item to display implementation details)</td></tr>
 <tr><td class="na">N/A</td><td colspan="8">Function is not available on this platform/KShutdown version</td></tr>
 <tr><td class="wip">TODO/FIXME</td><td colspan="8">Work In Progress - to be implemented in a future...</td></tr>
 
-<tr><td>KDE 4 Build</td><td colspan="8">A KShutdown version compiled using KDE4 libraries (better KDE integration + extra features)</td></tr>
-<tr><td>Qt 4 Build</td><td colspan="8">A KShutdown version compiled without KDE4 libraries (Qt only)</td></tr>
 <tr><td>CLI</td><td colspan="8">Function available via Command Line (example: kshutdown --lock)</td></tr>
 <tr><td>Windows</td><td colspan="8">Microsoft Windows XP/Vista/7 or compatible</td></tr>
 <tr><td>*</td><td colspan="8"><i>KDE 4 Build</i> not supported</td></tr>
@@ -240,7 +293,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
-<tr><td class="build" colspan="9">Windows (Qt 4 Build) *</small></td></tr>
+<tr><td class="build" colspan="9">Windows (Qt 4 Build) *</td></tr>
 <tr>
 <td class="todo">TODO</td>
 <td class="todo">TODO</td>
