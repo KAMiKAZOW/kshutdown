@@ -41,6 +41,7 @@ IdleMonitor::IdleMonitor()
 	),
 	m_idleTime(0)
 {
+	m_dateTime.setTime(QTime(1, 0, 0)); // set default
 	m_checkTimeout = 5000;
 	
 #ifdef Q_WS_WIN
@@ -84,8 +85,8 @@ QWidget *IdleMonitor::getWidget() {
 		DateTimeTriggerBase::getWidget();
 
 		m_edit->setDisplayFormat(KShutdown::TIME_DISPLAY_FORMAT);
-		m_edit->setMinimumTime(QTime(0, 1));
-		m_edit->setTime(m_dateTime.time());
+		m_edit->setTime(m_dateTime.time()); // 1.
+		m_edit->setMinimumTime(QTime(0, 1)); // 2.
 		m_edit->setToolTip(i18n("Enter a maximum user inactivity in \"HH:MM\" format (Hours:Minutes)"));
 	}
 
