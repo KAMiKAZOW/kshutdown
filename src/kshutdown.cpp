@@ -420,7 +420,9 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 // public
 
 DateTimeTrigger::DateTimeTrigger() :
-	DateTimeTriggerBase(i18n("At Date/Time"), "view-pim-calendar", "date-time") {
+	DateTimeTriggerBase(i18n("At Date/Time"), "view-pim-calendar", "date-time")
+{
+	m_dateTime = QDateTime::currentDateTime().addSecs(60 * 60/* hour */); // set default
 }
 
 QWidget *DateTimeTrigger::getWidget() {
@@ -468,7 +470,9 @@ QDateTime NoDelayTrigger::calcEndTime() {
 // public
 
 TimeFromNowTrigger::TimeFromNowTrigger() :
-	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "chronometer", "time-from-now") {
+	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "chronometer", "time-from-now")
+{
+	m_dateTime.setTime(QTime(1, 0, 0)); // set default
 }
 
 QWidget *TimeFromNowTrigger::getWidget() {
