@@ -48,7 +48,7 @@ private:
 	U_MENU *m_menu;
 	U_PUSH_BUTTON *m_menuButton;
 	Extras();
-	CommandAction *createCommandAction(const QFileInfo &fileInfo);
+	CommandAction *createCommandAction(const QFileInfo &fileInfo, const bool returnNull);
 	U_MENU *createMenu();
 	void createMenu(U_MENU *parentMenu, const QString &parentDir);
 	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text);

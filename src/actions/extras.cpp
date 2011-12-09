@@ -53,7 +53,7 @@ bool Extras::onAction() {
 			return false;
 		}
 		
-// FIXME: error detection
+// FIXME: error detection, double error message box
 		if (KRun::run(service, KUrl::List(), U_APP->activeWindow()))
 			return true;
 		
@@ -89,12 +89,7 @@ void Extras::setCommand(const QString &command) {
 	}
 	else {
 		QFileInfo fileInfo(m_command);
-		if (fileInfo.exists()) {
-			setCommandAction(createCommandAction(fileInfo));
-		}
-		else {
-			setCommandAction(0);
-		}
+		setCommandAction(createCommandAction(fileInfo, false));
 	}
 }
 
@@ -122,12 +117,16 @@ Extras::Extras() :
 	addCommandLineArg("e", "extra");
 }
 
-CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo) {
-#ifdef KS_NATIVE_KDE
-	if (!fileInfo.isFile())
-		return 0;
-	
+CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool returnNull) {
+	#ifdef KS_NATIVE_KDE
 	QString text = fileInfo.baseName();
+
+	if (!fileInfo.exists())
+		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo.filePath());
+
+	if (!fileInfo.isFile())
+		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo.filePath());
+	
 	if (KDesktopFile::isDesktopFile(fileInfo.filePath())) {
 		U_ICON icon = readDesktopInfo(fileInfo, text);
 
@@ -143,13 +142,13 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo) {
 		return new CommandAction(icon, text, this, fileInfo.filePath());
 	}
 	else {
-		return 0;
+		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("Error: %0").arg(text), this, fileInfo.filePath());
 	}
-#else
+	#else
 	Q_UNUSED(fileInfo)
 
 	return 0;
-#endif // KS_NATIVE_KDE
+	#endif // KS_NATIVE_KDE
 }
 
 U_MENU *Extras::createMenu() {
@@ -191,7 +190,7 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			parentMenu->addMenu(dirMenu);
 		}
 		else {
-			CommandAction *action = createCommandAction(i);
+			CommandAction *action = createCommandAction(i, true);
 			if (action)
 				parentMenu->addAction(action);
 		}

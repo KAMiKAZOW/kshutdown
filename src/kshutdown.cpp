@@ -836,7 +836,8 @@ bool StandardAction::onAction() {
 	}
 
 	// Xfce
-	
+
+/* FIXME: causes IO error in session manager (?)
 	else if (Utils::isXfce()) {
 		switch (m_type) {
 			case U_SHUTDOWN_TYPE_LOGOUT: {
@@ -863,6 +864,7 @@ bool StandardAction::onAction() {
 				return false; // do nothing
 		}
 	}
+*/
 
 	// Enlightenment
 
