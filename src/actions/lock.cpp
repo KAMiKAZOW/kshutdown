@@ -50,8 +50,9 @@ bool LockAction::onAction() {
 #else
 	// HACK: This is a workaround for "lazy" initial kscreensaver repaint.
 	// Now the screen content is hidden immediately.
+	QWidget *blackScreen = 0;
 	if (Utils::isKDE_4()) {
-		QWidget blackScreen(
+		blackScreen = new QWidget(
 			0,
 			Qt::FramelessWindowHint |
 			Qt::WindowStaysOnTopHint |
@@ -59,15 +60,15 @@ bool LockAction::onAction() {
 			Qt::Tool
 		);
 		// set black background color
-		blackScreen.setAutoFillBackground(true);
+		blackScreen->setAutoFillBackground(true);
 		QPalette p;
 		p.setColor(QPalette::Window, Qt::black);
-		blackScreen.setPalette(p);
+		blackScreen->setPalette(p);
 		// set full screen size
 		QRect screenGeometry = QApplication::desktop()->screenGeometry();
-		blackScreen.resize(screenGeometry.size());
+		blackScreen->resize(screenGeometry.size());
 		// show and force repaint
-		blackScreen.show();
+		blackScreen->show();
 		QApplication::processEvents();
 	}
 
@@ -75,6 +76,9 @@ bool LockAction::onAction() {
 	QDBusInterface *dbus = getQDBusInterface();
 	dbus->call("Lock");
 	QDBusError error = dbus->lastError();
+	
+	if (blackScreen)
+		delete blackScreen;
 	
 	if (error.type() == QDBusError::NoError)
 		return true;
