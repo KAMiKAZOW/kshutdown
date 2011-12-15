@@ -79,6 +79,7 @@ public slots:
 	Q_SCRIPTABLE void setSelectedTrigger(const QString &id);
 	Q_SCRIPTABLE void setTime(const QString &trigger, const QString &time);
 	Q_SCRIPTABLE void setWaitForProcess(const qlonglong pid);
+	void writeConfig();
 protected:
 	virtual void closeEvent(QCloseEvent *e);
 private:
@@ -125,7 +126,6 @@ private:
 	void setTitle(const QString &plain, const QString &html);
 	void setTrayIcon();
 	void updateWidgets();
-	void writeConfig();
 private slots:
 #ifdef KS_PURE_QT
 	void onAbout();

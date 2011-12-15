@@ -1045,7 +1045,7 @@ void MainWindow::updateWidgets() {
 	}
 }
 
-void MainWindow::writeConfig() {
+void MainWindow::writeConfig() { // public
 	U_DEBUG << "MainWindow::writeConfig()" U_END;
 
 	pluginConfig(false); // write
@@ -1097,7 +1097,7 @@ QString license =
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br>" \
 "GNU General Public License for more details.<br>" \
 "&lt;<a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>&gt;";
-license = license.replace(" ", "&nbsp;"); // no wrap
+license = license.replace(' ', "&nbsp;"); // no wrap
 
 	QMessageBox::about( // krazy:exclude=qclasses
 		this,

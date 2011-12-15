@@ -896,6 +896,10 @@ bool StandardAction::onAction() {
 	// fallback to ConsoleKit or HAL
 	
 	#ifdef Q_WS_X11
+	MainWindow::self()->writeConfig();
+	
+	// try ConsoleKit
+	
 	if ((m_type == U_SHUTDOWN_TYPE_HALT) && m_consoleKitInterface && m_consoleKitInterface->isValid()) {
 		QDBusReply<void> reply = m_consoleKitInterface->call("Stop");
 
@@ -908,6 +912,22 @@ bool StandardAction::onAction() {
 		if (reply.isValid())
 			return true;
 	}
+
+	// try HAL
+
+	else if ((m_type == U_SHUTDOWN_TYPE_HALT) && m_halInterface && m_halInterface->isValid()) {
+		QDBusReply<int> reply = m_halInterface->call("Shutdown");
+
+		if (reply.isValid())
+			return true;
+	}
+	else if ((m_type == U_SHUTDOWN_TYPE_REBOOT) && m_halInterface && m_halInterface->isValid()) {
+		QDBusReply<int> reply = m_halInterface->call("Reboot");
+
+		if (reply.isValid())
+			return true;
+	}
+
 	#endif // Q_WS_X11
 	
 	// show error
@@ -918,11 +938,10 @@ bool StandardAction::onAction() {
 
 // protected
 
-void StandardAction::checkAvailable(const UShutdownType type, const QString &consoleKitName, const QString &halName) {
+void StandardAction::checkAvailable(const UShutdownType type, const QString &consoleKitName) {
 	#ifdef KS_PURE_QT
 	Q_UNUSED(type)
 	#endif // KS_PURE_QT
-	Q_UNUSED(halName)
 
 	bool available = false;
 	QString error = "";
@@ -975,9 +994,23 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 			error = "No valid org.freedesktop.ConsoleKit interface found";
 		}
 	}
-	#endif // Q_WS_X11
 
-// TODO: halName
+	if (!m_halInterface) {
+		m_halInterface = new QDBusInterface(
+			"org.freedesktop.Hal",
+			"/org/freedesktop/Hal/devices/computer",
+			"org.freedesktop.Hal.Device.SystemPowerManagement",
+			QDBusConnection::systemBus()
+		);
+	}
+	if (m_halInterface->isValid()) {
+		available = true;
+	}
+	else {
+		if (error.isEmpty())
+			error = "No valid org.freedesktop.Hal interface found";
+	}
+	#endif // Q_WS_X11
 
 	if (!available)
 		disable(error);
@@ -1044,7 +1077,7 @@ RebootAction::RebootAction() :
 
 	addCommandLineArg("r", "reboot");
 	
-	checkAvailable(U_SHUTDOWN_TYPE_REBOOT, "CanRestart", "");
+	checkAvailable(U_SHUTDOWN_TYPE_REBOOT, "CanRestart");
 }
 
 // ShutDownAction
@@ -1062,5 +1095,5 @@ ShutDownAction::ShutDownAction() :
 	addCommandLineArg("h", "halt");
 	addCommandLineArg("s", "shutdown");
 
-	checkAvailable(U_SHUTDOWN_TYPE_HALT, "CanStop", "");
+	checkAvailable(U_SHUTDOWN_TYPE_HALT, "CanStop");
 }

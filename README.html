@@ -146,9 +146,25 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 </tr>
 
 <tr>
+	<td colspan="3" style="font-weight: bold">Dev Info</td>
+</tr>
+
+<tr>
 	<td>C++ #define</td>
-	<td>KS_NATIVE_KDE</td>
-	<td>KS_PURE_QT</td>
+	<td><code>KS_NATIVE_KDE</code></td>
+	<td><code>KS_PURE_QT</code></td>
+</tr>
+
+<tr>
+	<td>Build System</td>
+	<td><a href="http://www.cmake.org/">CMake</a> (CMakeLists.txt files)</td>
+	<td><a href="http://doc.qt.nokia.com/latest/qmake-manual.html">QMake</a> (src/src.pro file)</td>
+</tr>
+
+<tr>
+	<td>Language Translation System (input: po/*.po)</td>
+	<td>Gettext (output: build.tmp/po/*.mo)</td>
+	<td>Gettext (output: src/i18n/*.qm), kshutdown.qrc</td>
 </tr>
 
 </tbody>
@@ -250,8 +266,8 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <thead>
 
 <tr>
-<td>Turn Off Computer</td>
-<td>Restart Computer</td>
+<td>Turn Off Computer**</td>
+<td>Restart Computer**</td>
 <td>Suspend</td>
 <td>Hibernate</td>
 <td>Lock Screen</td>
@@ -275,6 +291,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <tr><td>CLI</td><td colspan="8">Function available via Command Line (example: kshutdown --lock)</td></tr>
 <tr><td>Windows</td><td colspan="8">Microsoft Windows XP/Vista/7 or compatible</td></tr>
 <tr><td>*</td><td colspan="8"><i>KDE 4 Build</i> not supported</td></tr>
+<tr><td>**</td><td colspan="8">D-Bus commands should work with <abbr title="GNOME Display Manager">GDM</abbr>, <abbr title="KDE Display Manager">KDM</abbr>, and LightDM</td></tr>
 
 </tfoot>
 
@@ -284,11 +301,11 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <tr>
 <td class="todo">TODO</td>
 <td class="todo">TODO</td>
-<td class="todo">TODO</td>
-<td class="todo">TODO</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
 <td class="ok" title="KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmNo, KWorkSpace::ShutdownTypeNone, KWorkSpace::ShutdownModeForceNow)">OK</td>
-<td class="todo">TODO</td>
+<td class="ok">OK</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
@@ -301,15 +318,15 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="todo">TODO</td>
 <td class="todo">TODO</td>
 <td class="todo">TODO</td>
-<td class="todo">TODO</td>
-<td class="todo">TODO</td>
+<td class="na">N/A</td>
+<td class="wip">TODO</td>
 <td class="todo">TODO</td>
 </tr>
 
 <tr><td class="build" colspan="9"><a href="http://www.xfce.org/">Xfce</a> 4.8 (Qt 4 Build) *</td></tr>
 <tr>
-<td class="todo">TODO</td>
-<td class="todo">TODO</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="xflock4, xdg-screensaver, xscreensaver-command">OK</td>
@@ -321,8 +338,8 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 
 <tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/LXDE">LXDE</a> (Qt 4 Build) *</td></tr>
 <tr>
-<td class="todo">TODO</td>
-<td class="todo">TODO</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="lxlock, xdg-screensaver, xscreensaver-command">OK</td>
@@ -336,13 +353,13 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <tr>
 <td class="todo">TODO</td>
 <td class="todo">TODO</td>
-<td class="todo">TODO</td>
-<td class="todo">TODO</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
 <td class="wip">TODO</td>
 <td class="na">N/A</td>
-<td class="todo">TODO</td>
-<td class="todo">TODO</td>
+<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
+<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
 <tr><td class="build" colspan="9">GNOME 3 (Qt 4 Build) *</td></tr>

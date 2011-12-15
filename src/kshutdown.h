@@ -265,7 +265,7 @@ protected:
 	static QDBusInterface *m_consoleKitInterface;
 	static QDBusInterface *m_halInterface;
 	#endif // Q_WS_X11
-	void checkAvailable(const UShutdownType type, const QString &consoleKitName, const QString &halName);
+	void checkAvailable(const UShutdownType type, const QString &consoleKitName);
 private:
 	Q_DISABLE_COPY(StandardAction)
 	#ifdef KS_NATIVE_KDE
