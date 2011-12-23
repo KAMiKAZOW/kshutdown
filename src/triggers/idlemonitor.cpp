@@ -20,6 +20,9 @@
 #include "idlemonitor.h"
 
 #ifdef Q_WS_WIN
+	#ifndef WIN32_LEAN_AND_MEAN
+		#define WIN32_LEAN_AND_MEAN
+	#endif // WIN32_LEAN_AND_MEAN
 	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
 	#include <windows.h>
 #else
