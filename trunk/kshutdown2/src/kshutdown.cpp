@@ -994,6 +994,8 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 			}
 		}
 		else {
+// FIXME: this sometimes returns error (service timeout?)
+			U_ERROR << "ConsoleKit Error:" << m_consoleKitInterface->lastError().message() U_END;
 			error = "No valid org.freedesktop.ConsoleKit interface found";
 		}
 	}
@@ -1010,6 +1012,7 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 		available = true;
 	}
 	else {
+		U_ERROR << "HAL Error:" << m_halInterface->lastError().message() U_END;
 		if (error.isEmpty())
 			error = "No valid org.freedesktop.Hal interface found";
 	}

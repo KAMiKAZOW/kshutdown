@@ -1,10 +1,80 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2011/11/!!!  3.0 Beta 2
+2011/12/30  3.0 Beta 2
+
+* Version change: 2.1.1 Beta -> 3.0 Beta 2 (yes, 3.0 :)
+* Serbian translation updates
+* More readable tool tip text in tray icon and progress bar
+* Command Line: Allow '0' time option (no delay)
+* Better default date/time values
+* Updated Polish translation
+
+Linux:
+
+* NEW: Shutdown/Reboot via ConsoleKit and/or HAL D-Bus interface.
+  The Shutdown/Reboot action now should work
+  with all Desktop Environments and Display Managers.
+* NEW: KShutdown/Qt
+  (version for Xfce and other non-KDE Desktop Environments,
+  see README.html for details)
+* Fixed: Added workaround for non-clickable HTML links in Oxygen Style
+* Better integration with GTK-based Desktop Environments (Xfce, LXDE, etc.)
+* Do not show button icons if this option is disabled by user
+* Improved Desktop Environment detection
+
+Linux/KDE:
+
+* NEW: Option to Unlock the screen. See Extras -> Unlock Screen
+* Extras: Updated Kaffeine entry
+* Extras: Removed kdetv (KDE 3 only) entry
+* Extras: Show error message if file does not exist
+
+Linux/Xfce 4:
+
+* Support Turn Off and Restart actions
+* Fixed: Do not start krunner in non-KDE sessions
+* Fixed missing icons in menu and combo box
+
+Linux/LXDE:
+
+* Logout Action
+
+Linux/GNOME 3:
+
+* More supported actions
+
+Linux/Unity:
+
+* Workaround for missing system tray support...
+
+Linux/E17:
+
+* Basic support
+  - Load System->DBus Extension module for Lock Screen action support
+  - Load Utilities->Systray module for system tray support
+
+Windows:
+
+* Use Windows terminology (Logout -> Log Off, Suspend Computer -> Sleep)
+* Updated Qt DLLs (4.7.4)
+
+Source:
+
+* Fixed "Unable to find file for inclusion portable.pri" warning
+* Fixed all *.desktop file warnings
+* Added UDialog class - a base dialog
+* Updated README.html and build scripts
+
+Qt 4 Build (Setup-qt4.sh):
+
+* Binary program is now called "kshutdown-qt"
+* Added "make install" command.
+  This will install kshutdown-qt,
+  icons, and menu shortcut under /usr prefix directory.
 
 
-2011/07/24  3.0 Beta 1 (aka 2.1 Beta)
+2011/07/24  2.1 Beta (alias 3.0 Beta 1)
 
 * Added Portuguese language translation (pt.po, bug #3292202)
   Thanks to Américo Monteiro
@@ -481,4 +551,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 562:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 596:HEAD|xsel -i -b && kwrite ChangeLog
