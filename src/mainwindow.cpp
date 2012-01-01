@@ -834,7 +834,7 @@ void MainWindow::initWidgets() {
 	mainLayout->setMargin(5);
 	mainLayout->setSpacing(10);
 
-	m_actionBox = new QGroupBox(i18n("Select an &action"));
+	m_actionBox = new QGroupBox(i18n("Selec&t an action"));
 	m_actionBox->setObjectName("action-box");
 	m_actionBox->setLayout(new QVBoxLayout());
 
