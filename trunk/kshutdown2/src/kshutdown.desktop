@@ -31,10 +31,10 @@ GenericName=System Shut Down Utility
 #GenericName[fr]=Gestionnaire d'arrêt du système
 
 GenericName[pl]=Narzędzie do zamykania systemu
-GenericName[sr]=Напредна алатка за гашење
-GenericName[sr@latin]=Napredna alatka za gašenje
-GenericName[sr@ijekavian]=Напредна алатка за гашење
-GenericName[sr@ijekavianlatin]=Napredna alatka za gašenje
+GenericName[sr]=Алатка за гашење система
+GenericName[sr@latin]=Alatka za gašenje sistema
+GenericName[sr@ijekavian]=Алатка за гашење система
+GenericName[sr@ijekavianlatin]=Alatka za gašenje sistema
 
 Exec=kshutdown
 Icon=kshutdown

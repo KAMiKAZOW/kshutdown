@@ -6,5 +6,9 @@ Exec=dbus-send --print-reply --dest=org.kde.krunner /ScreenSaver org.freedesktop
 Icon=object-unlocked
 Name=Unlock Screen (KDE)
 Name[pl]=Odblokuj ekran (KDE)
+Name[sr]=Откључај екран (КДЕ)
+Name[sr@ijekavian]=Откључај екран (КДЕ)
+Name[sr@latin]=Otključaj ekran (KDE)
+Name[sr@ijekavianlatin]=Otključaj ekran (KDE)
 Type=Application
 # TODO: Add support for: OnlyShowIn=KDE;
