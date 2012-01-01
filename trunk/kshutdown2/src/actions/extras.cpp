@@ -146,6 +146,7 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool
 	}
 	#else
 	Q_UNUSED(fileInfo)
+	Q_UNUSED(returnNull)
 
 	return 0;
 	#endif // KS_NATIVE_KDE
