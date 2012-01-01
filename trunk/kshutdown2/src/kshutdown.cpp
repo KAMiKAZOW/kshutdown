@@ -884,16 +884,17 @@ bool StandardAction::onAction() {
 	// native KDE shutdown API
 
 	#ifdef KS_NATIVE_KDE
-	if (
+	if (m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT)) {
 // TODO: check if logout is available
-		(m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT)) &&
+		// BUG #3467712: http://sourceforge.net/tracker/index.php?func=detail&aid=3467712&group_id=93707&atid=605270
 		KWorkSpace::requestShutDown(
 			KWorkSpace::ShutdownConfirmNo,
 			m_type,
 			KWorkSpace::ShutdownModeForceNow
-		)
-	)
+		);
+
 		return true;
+	}
 	#endif // KS_NATIVE_KDE
 	
 	// fallback to ConsoleKit or HAL
