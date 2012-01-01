@@ -4,10 +4,10 @@ Version=1.0
 
 Name=KShutdown/Qt
 # TODO: add "/Qt" suffix
-#Name[sr]=К-Гашење
-#Name[sr@latin]=K-Gašenje
-#Name[sr@ijekavian]=К-Гашење
-#Name[sr@ijekavianlatin]=K-Gašenje
+Name[sr]=К-Гашење/Кјут
+Name[sr@latin]=K-Gašenje/Qt
+Name[sr@ijekavian]=К-Гашење/Кјут
+Name[sr@ijekavianlatin]=K-Gašenje/Qt
 
 Comment=An advanced shut down utility
 
@@ -32,10 +32,10 @@ GenericName=System Shut Down Utility
 #GenericName[fr]=Gestionnaire d'arrêt du système
 
 GenericName[pl]=Narzędzie do zamykania systemu
-GenericName[sr]=Напредна алатка за гашење
-GenericName[sr@latin]=Napredna alatka za gašenje
-GenericName[sr@ijekavian]=Напредна алатка за гашење
-GenericName[sr@ijekavianlatin]=Napredna alatka za gašenje
+GenericName[sr]=Алатка за гашење рачунара
+GenericName[sr@latin]=Alatka za gašenje računara
+GenericName[sr@ijekavian]=Алатка за гашење рачунара
+GenericName[sr@ijekavianlatin]=Alatka za gašenje računara
 
 Exec=kshutdown-qt
 Icon=kshutdown
