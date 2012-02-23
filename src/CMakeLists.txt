@@ -8,6 +8,7 @@ set(
 	actions/test.cpp
 	triggers/idlemonitor.cpp
 	triggers/processmonitor.cpp
+	bookmarks.cpp
 	commandline.cpp
 	config.cpp
 	infowidget.cpp
@@ -26,6 +27,7 @@ set(
 	actions/extras.h
 	triggers/idlemonitor.h
 	triggers/processmonitor.h
+	bookmarks.h
 	kshutdown.h
 	mainwindow.h
 	password.h
