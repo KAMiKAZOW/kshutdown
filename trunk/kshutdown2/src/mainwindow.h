@@ -35,6 +35,7 @@
 class QCheckBox;
 class QGroupBox;
 
+class BookmarksButton;
 class InfoWidget;
 
 using namespace KShutdown;
@@ -87,6 +88,7 @@ private:
 #ifdef KS_NATIVE_KDE
 	KActionCollection *m_actionCollection;
 #endif // KS_NATIVE_KDE
+	BookmarksButton *m_bookmarksButton;
 	bool m_active;
 	bool m_forceQuit;
 	bool m_ignoreUpdateWidgets;

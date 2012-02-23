@@ -48,6 +48,7 @@
 #include "actions/test.h"
 #include "triggers/idlemonitor.h"
 #include "triggers/processmonitor.h"
+#include "bookmarks.h"
 #include "commandline.h"
 #include "infowidget.h"
 #include "mainwindow.h"
@@ -828,6 +829,10 @@ void MainWindow::initSystemTray() {
 }
 
 void MainWindow::initWidgets() {
+// TODO: bookmarks
+	m_bookmarksButton = new BookmarksButton(this);
+	m_bookmarksButton->hide();
+
 	QWidget *mainWidget = new QWidget();
 	mainWidget->setObjectName("main-widget");
 	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
@@ -873,7 +878,15 @@ void MainWindow::initWidgets() {
 	mainLayout->addStretch();
 	mainLayout->addWidget(m_infoWidget);
 	mainLayout->addStretch();
-	mainLayout->addWidget(m_okCancelButton);
+
+	QWidget *buttonsWidget = new QWidget();
+	QHBoxLayout *buttonsLayout = new QHBoxLayout(buttonsWidget);
+	buttonsLayout->setMargin(0);
+	buttonsLayout->setSpacing(10);
+	buttonsLayout->addWidget(m_okCancelButton);
+	buttonsLayout->addWidget(m_bookmarksButton);
+	mainLayout->addWidget(buttonsWidget);
+
 	setCentralWidget(mainWidget);
 	
 	m_cancelAction = new U_ACTION(this);
@@ -979,6 +992,7 @@ void MainWindow::updateWidgets() {
 	if (m_currentTriggerWidget)
 		m_currentTriggerWidget->setEnabled(enabled);
 
+	m_bookmarksButton->setEnabled(enabled);
 	m_force->setEnabled(enabled);
 
 	bool canCancel = !Utils::isRestricted("kshutdown/action/cancel");
