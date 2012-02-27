@@ -36,9 +36,12 @@ private:
 	QCheckBox *m_bwTrayIcon;
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
+	QCheckBox *m_noMinimizeToSystemTrayIcon;
 	QCheckBox *m_progressBarEnabled;
+	QCheckBox *m_systemTrayIconEnabled;
 	//QWidget *createActionsWidget();
 	QWidget *createGeneralWidget();
+	QWidget *createSystemTrayWidget();
 	//QWidget *createTriggersWidget();
 private slots:
 #ifdef KS_NATIVE_KDE
