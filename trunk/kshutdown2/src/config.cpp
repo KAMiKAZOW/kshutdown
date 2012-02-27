@@ -77,6 +77,14 @@ void Config::setLockScreenBeforeHibernate(const bool value) {
 	write("General", "Lock Screen Before Hibernate", value);
 }
 
+bool Config::minimizeToSystemTrayIcon() {
+	return readBool("General", "Minimize To System Tray Icon", true);
+}
+
+void Config::setMinimizeToSystemTrayIcon(const bool value) {
+	write("General", "Minimize To System Tray Icon", value);
+}
+
 bool Config::progressBarEnabled() {
 	return readBool("Progress Bar", "Enabled", false);
 }
@@ -99,6 +107,14 @@ void Config::setProgressBarAlignment(const Qt::Alignment value) {
 	config->beginGroup("Progress Bar");
 	config->write("Alignment", (int)value);
 	config->endGroup();
+}
+
+bool Config::systemTrayIconEnabled() {
+	return readBool("General", "System Tray Icon Enabled", true);
+}
+
+void Config::setSystemTrayIconEnabled(const bool value) {
+	write("General", "System Tray Icon Enabled", value);
 }
 
 QVariant Config::read(const QString &key, const QVariant &defaultValue) {

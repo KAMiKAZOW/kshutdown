@@ -285,14 +285,18 @@ void MainWindow::maybeShow() {
 
 		return;
 	}
-	else {
-		m_systemTray->show();
-	}
 
-	if (!Utils::isArg("init") && !U_APP->isSessionRestored())
+	bool trayIconEnabled = Config::systemTrayIconEnabled();
+	if (trayIconEnabled)
+		m_systemTray->show();
+
+	if (Utils::isArg("init") || U_APP->isSessionRestored()) {
+		if (!trayIconEnabled)
+			showMinimized();
+	}
+	else {
 		show();
-	else if (!Utils::isSystemTraySupported())
-		showMinimized();
+	}
 }
 
 void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const bool absolute) {
@@ -523,8 +527,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	writeConfig();
 	
 	// normal close
-	if (!e->spontaneous() || m_forceQuit || Action::totalExit()) {
+	if (
+		!e->spontaneous() || m_forceQuit || Action::totalExit() ||
+		!Config::minimizeToSystemTrayIcon() || !Config::systemTrayIconEnabled()
+	) {
 		e->accept();
+		U_APP->quit();
 
 		return;
 	}
@@ -1238,6 +1246,7 @@ void MainWindow::onPreferences() {
 	if ((dialog->exec() == Preferences::Accepted) || Utils::isGTKStyle()) {
 		dialog->apply();
 		
+		m_systemTray->setVisible(Config::systemTrayIconEnabled());
 		// update icon colors
 		if (!m_active)
 			setTrayIcon();

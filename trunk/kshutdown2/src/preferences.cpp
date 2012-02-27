@@ -35,6 +35,7 @@ Preferences::Preferences(QWidget *parent) :
 
 	U_TAB_WIDGET *tabs = new U_TAB_WIDGET();
 	tabs->addTab(createGeneralWidget(), i18n("General"));
+	tabs->addTab(createSystemTrayWidget(), i18n("System Tray"));
 	
 	m_passwordPreferences = new PasswordPreferences(this);
 //!!! tabs->addTab(m_passwordPreferences, i18n("Password"));
@@ -55,9 +56,10 @@ void Preferences::apply() {
 	Config::setBlackAndWhiteSystemTrayIcon(m_bwTrayIcon->isChecked());
 	Config::setConfirmAction(m_confirmAction->isChecked());
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
-	
+	Config::setMinimizeToSystemTrayIcon(!m_noMinimizeToSystemTrayIcon->isChecked());
 // FIXME: show/hide/update progress bar on option change
 	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
+	Config::setSystemTrayIconEnabled(m_systemTrayIconEnabled->isChecked());
 	
 	m_passwordPreferences->apply();
 
@@ -94,13 +96,6 @@ QWidget *Preferences::createGeneralWidget() {
 	m_lockScreenBeforeHibernate->hide();
 #endif // Q_WS_WIN
 
-	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
-	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
-	l->addWidget(m_bwTrayIcon);
-#ifdef KS_PURE_QT
-	m_bwTrayIcon->hide();
-#endif // KS_PURE_QT
-
 	l->addStretch();
 
 #ifdef KS_NATIVE_KDE
@@ -110,6 +105,34 @@ QWidget *Preferences::createGeneralWidget() {
 	l->addWidget(kdeRelatedSettingsPushButton);
 	connect(kdeRelatedSettingsPushButton, SIGNAL(clicked()), SLOT(onKDERelatedSettings()));
 #endif // KS_NATIVE_KDE
+
+	return w;
+}
+
+QWidget *Preferences::createSystemTrayWidget() {
+	QWidget *w = new QWidget();
+	QVBoxLayout *l = new QVBoxLayout(w);
+	l->setMargin(10);
+
+	m_systemTrayIconEnabled = new QCheckBox(i18n("Enable System Tray Icon"));
+	m_systemTrayIconEnabled->setChecked(Config::systemTrayIconEnabled());
+	l->addWidget(m_systemTrayIconEnabled);
+
+	m_noMinimizeToSystemTrayIcon = new QCheckBox(i18n("Quit instead of minimizing to System Tray Icon"));
+	m_noMinimizeToSystemTrayIcon->setChecked(!Config::minimizeToSystemTrayIcon());
+	l->addWidget(m_noMinimizeToSystemTrayIcon);
+
+	m_noMinimizeToSystemTrayIcon->setEnabled(m_systemTrayIconEnabled->isChecked());
+	connect(m_systemTrayIconEnabled, SIGNAL(toggled(bool)), m_noMinimizeToSystemTrayIcon, SLOT(setEnabled(bool)));
+
+	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
+	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
+	l->addWidget(m_bwTrayIcon);
+	#ifdef KS_PURE_QT
+	m_bwTrayIcon->hide();
+	#endif // KS_PURE_QT
+
+	l->addStretch();
 
 	return w;
 }

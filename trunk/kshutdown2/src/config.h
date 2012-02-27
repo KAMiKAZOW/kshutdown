@@ -47,11 +47,17 @@ public:
 	static bool lockScreenBeforeHibernate();
 	static void setLockScreenBeforeHibernate(const bool value);
 
+	static bool minimizeToSystemTrayIcon();
+	static void setMinimizeToSystemTrayIcon(const bool value);
+
 	static bool progressBarEnabled();
 	static void setProgressBarEnabled(const bool value);
 
 	static Qt::Alignment progressBarAlignment();
 	static void setProgressBarAlignment(const Qt::Alignment value);
+
+	static bool systemTrayIconEnabled();
+	static void setSystemTrayIconEnabled(const bool value);
 
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);
