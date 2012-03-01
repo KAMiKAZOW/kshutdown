@@ -3,7 +3,7 @@
 #define KSHUTDOWN_VERSION_H
 
 #define KS_BUILD "20120301"
-#define KS_FILE_VERSION "3.0beta3"
-#define KS_FULL_VERSION "3.0 Beta 3"
+#define KS_FILE_VERSION "3.0beta4"
+#define KS_FULL_VERSION "3.0 Beta 4"
 
 #endif // KSHUTDOWN_VERSION_H
