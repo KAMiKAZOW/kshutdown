@@ -527,12 +527,13 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	writeConfig();
 	
 	// normal close
-	if (
-		!e->spontaneous() || m_forceQuit || Action::totalExit() ||
-		!Config::minimizeToSystemTrayIcon() || !Config::systemTrayIconEnabled()
-	) {
+	bool hideInTray = Config::minimizeToSystemTrayIcon() && Config::systemTrayIconEnabled();
+	if (!e->spontaneous() || m_forceQuit || Action::totalExit() || !hideInTray) {
 		e->accept();
-		U_APP->quit();
+
+		// HACK: ?
+		if (!hideInTray)
+			U_APP->quit();
 
 		return;
 	}
