@@ -1,7 +1,27 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2012/01/!!!  3.0 Beta 3
+2012/03/01  3.0 Beta 3
+
+* NEW: Option to quit program when pressing close button
+  instead of minimizing to tray (RFE #3494853)
+* NEW: Option to hide system tray icon
+* Fixed Alt+A keyboard shortcut which clashed with the C&ancel button
+  (English translation only)
+
+Updated language translations:
+
+* Czech translation update. Thanks to Pavel Fric.
+* Danish translation updates
+* Italian translation updates
+* Serbian translation updates
+
+Source:
+
+* KDE 4: Auto run "kdesudo" to install compiled KShutdown
+* KDE 4: Fixed: KShutDown doesn't build on KDE 4.8
+  Bug: http://sourceforge.net/tracker/index.php?func=detail&aid=3467712&group_id=93707&atid=605270
+* Fixed compilation warnings
 
 
 2011/12/30  3.0 Beta 2
@@ -554,4 +574,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 596:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 611:HEAD|xsel -i -b && kwrite ChangeLog
