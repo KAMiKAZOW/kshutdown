@@ -699,7 +699,7 @@ void MainWindow::initMenuBar() {
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
 
 	// "No Delay" warning
-	QString warningText = i18n("Select Action (no delay)");
+	QString warningText = i18n("No Delay");
 #ifdef KS_NATIVE_KDE
 	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), warningText);
 #else
