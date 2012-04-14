@@ -35,7 +35,6 @@ SOURCES += bookmarks.cpp commandline.cpp config.cpp infowidget.cpp kshutdown.cpp
 
 RESOURCES = kshutdown.qrc
 
-# TODO: clean up
 unix {
 	target.path = /usr/bin
 
