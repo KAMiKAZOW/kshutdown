@@ -113,7 +113,8 @@ bool MainWindow::checkCommandLine() {
 		
 		table += "<tr><td colspan=\"2\"><b>" + i18n("Miscellaneous") + "</b></td></tr>\n";
 
-		table += "<tr><td><code>-i, --inactivity</code></td><td>" + i18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity") + "</td></tr>\n";
+		if (m_actionHash.contains("idle-monitor"))
+			table += "<tr><td><code>-i, --inactivity</code></td><td>" + i18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity") + "</td></tr>\n";
 
 		table += "<tr><td><code>--confirm</code></td><td>" + i18n("Confirm command line action") + "</td></tr>\n";
 
@@ -303,12 +304,15 @@ void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const 
 	setActive(false);
 
 	setSelectedTrigger(selectTrigger);
-	DateTimeTriggerBase *dateTimeTrigger = dynamic_cast<DateTimeTriggerBase *>(
-		getSelectedTrigger()
-	);
+	Trigger *trigger = getSelectedTrigger();
+	DateTimeTriggerBase *dateTimeTrigger = dynamic_cast<DateTimeTriggerBase *>(trigger);
 	
-	if (!dateTimeTrigger)
+	// ensure the trigger exists and is valid
+	if (!dateTimeTrigger || (trigger->id() != selectTrigger)) {
+		U_ERROR_MESSAGE(this, i18n("Unsupported action: %0").arg(selectTrigger));
+	
 		return;
+	}
 
 	QDate date = QDate::currentDate();
 
@@ -316,7 +320,7 @@ void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const 
 	if (absolute && (time < QTime::currentTime()))
 		date = date.addDays(1);
 	dateTimeTrigger->setDateTime(QDateTime(date, time));
-	
+
 	setActive(true);
 }
 
@@ -364,6 +368,13 @@ void MainWindow::setActive(const bool yes) {
 	}
 
 	Trigger *trigger = getSelectedTrigger();
+	if (yes && !m_triggerHash.contains(trigger->id())) {
+// TODO: GUI
+		U_DEBUG << "MainWindow::setActive: trigger disabled: " << trigger->text() << ", " << trigger->disableReason() U_END;
+	
+		return;
+	}
+	
 	m_active = yes;
 	
 #ifdef KS_NATIVE_KDE
@@ -485,13 +496,23 @@ void MainWindow::setExtrasCommand(const QString &command) {
 void MainWindow::setSelectedAction(const QString &id) {
 	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
 
-	onActionActivated(selectById(m_actions, id));
+	int index = m_actions->findData(id);
+	if (index == -1)
+		index = m_actions->findData("test");
+	if (index == -1)
+		index = 0;
+	m_actions->setCurrentIndex(index);
+	onActionActivated(index);
 }
 
 void MainWindow::setSelectedTrigger(const QString &id) {
 	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
 
-	onTriggerActivated(selectById(m_triggers, id));
+	int index = m_triggers->findData(id);
+	if (index == -1)
+		index = 0;
+	m_triggers->setCurrentIndex(index);
+	onTriggerActivated(index);
 }
 
 void MainWindow::setTime(const QString &trigger, const QString &time) {
@@ -944,15 +965,6 @@ void MainWindow::readConfig() {
 #ifdef KS_NATIVE_KDE
 	m_actionCollection->readSettings();
 #endif // KS_NATIVE_KDE
-}
-
-int MainWindow::selectById(U_COMBO_BOX *comboBox, const QString &id) {
-	int index = comboBox->findData(id);
-	if (index == -1)
-		index = 0;
-	comboBox->setCurrentIndex(index);
-
-	return index;
 }
 
 void MainWindow::setTitle(const QString &plain, const QString &html) {

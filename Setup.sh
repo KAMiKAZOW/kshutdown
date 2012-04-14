@@ -35,7 +35,7 @@ can be found in the \"${PWD}\" directory.\n
 Installation is not required.\n
 However, you can run \"cd src; sudo make install\"\n
 to setup menu shortcut (Utilities section),\n
-and copy \"kshutdown-qt\" to \"/usr\" directory." \
+and copy \"kshutdown-qt\" to the \"/usr/bin\" directory." \
 				0 0
 		else
 			doError "Build failed. See README.html for troubleshooting information."

@@ -99,5 +99,4 @@ void TimeOption::setupMainWindow() {
 	}
 
 	mainWindow->setTime(trigger, m_time, m_absolute);
-	mainWindow->setActive(true);
 }

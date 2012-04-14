@@ -124,7 +124,6 @@ private:
 	void initWidgets();
 	void pluginConfig(const bool read);
 	void readConfig();
-	int selectById(U_COMBO_BOX *comboBox, const QString &id);
 	void setTitle(const QString &plain, const QString &html);
 	void setTrayIcon();
 	void updateWidgets();
