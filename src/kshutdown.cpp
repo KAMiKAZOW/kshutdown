@@ -270,6 +270,7 @@ void ConfirmAction::slotFire() {
 
 Trigger::Trigger(const QString &text, const QString &iconName, const QString &id) :
 	Base(id),
+	m_supportsProgressBar(false),
 	m_checkTimeout(500),
 	m_icon(U_STOCK_ICON(iconName)),
 	m_text(text),
@@ -300,10 +301,8 @@ bool DateTimeTriggerBase::canActivateAction() {
 	m_status = createStatus(now, secsTo);
 
 	if (secsTo > 0) {
-		if (ProgressBar::isInstance())
-			ProgressBar::self()->setProgress(secsTo);
-
 		MainWindow *mainWindow = MainWindow::self();
+		mainWindow->progressBar()->setValue(secsTo);
 		
 		QString id = QString::null;
 		if ((secsTo < 60) && (secsTo > 55))
@@ -362,10 +361,13 @@ void DateTimeTriggerBase::setState(const State state) {
 	if (state == StartState) {
 		m_endDateTime = calcEndTime();
 		
-		if (Config::user()->progressBarEnabled()) {
+		// reset progress bar
+		if (m_supportsProgressBar) {
 			QDateTime now = QDateTime::currentDateTime();
 			int secsTo = now.secsTo(m_endDateTime);
-			ProgressBar::self()->setTotal(secsTo);
+			ProgressBar *progressBar = MainWindow::self()->progressBar();
+			progressBar->setTotal(secsTo);
+			progressBar->setValue(0);
 		}
 	}
 }
@@ -426,6 +428,7 @@ DateTimeTrigger::DateTimeTrigger() :
 	DateTimeTriggerBase(i18n("At Date/Time"), "view-pim-calendar", "date-time")
 {
 	m_dateTime = QDateTime::currentDateTime().addSecs(60 * 60/* hour */); // set default
+	m_supportsProgressBar = true;
 }
 
 QWidget *DateTimeTrigger::getWidget() {
@@ -476,6 +479,7 @@ TimeFromNowTrigger::TimeFromNowTrigger() :
 	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "chronometer", "time-from-now")
 {
 	m_dateTime.setTime(QTime(1, 0, 0)); // set default
+	m_supportsProgressBar = true;
 }
 
 QWidget *TimeFromNowTrigger::getWidget() {

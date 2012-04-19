@@ -24,8 +24,6 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-ProgressBar *ProgressBar::m_instance = 0;
-
 // public
 
 ProgressBar::~ProgressBar() {
@@ -49,7 +47,6 @@ void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfi
 	else {
 		move(2, 0);
 	}
-	show();
 }
 
 void ProgressBar::setHeight(const int value) {
@@ -57,18 +54,20 @@ void ProgressBar::setHeight(const int value) {
 	resize(width(), newHeight);
 }
 
-void ProgressBar::setProgress(const int value) {
-	int complete = m_total - value;
-	if (m_complete != complete) {
-		m_complete = complete;
-		repaint();
-	}
+void ProgressBar::setTotal(const int total) {
+	m_total = total;
+	m_completeWidth = 0; // reset
 }
 
-void ProgressBar::setTotal(const int total) {
-	if (m_total != total) {
-		m_complete = 0; // reset
-		m_total = total;
+void ProgressBar::setValue(const int value) {
+	m_value = value;
+	
+	if (m_total == 0)
+		return;
+
+	int newCompleteWidth = (int)((float)width() * ((float)(m_total - m_value) / (float)m_total));
+	if (newCompleteWidth != m_completeWidth) {
+		m_completeWidth = newCompleteWidth;
 		repaint();
 	}
 }
@@ -118,16 +117,15 @@ void ProgressBar::paintEvent(QPaintEvent *e) {
 	int h = height();
 	g.fillRect(0, 0, w, h, palette().window());
 
-	if ((m_complete <= 0) || (m_total <= 0))
+	if ((m_completeWidth <= 0) || (m_total <= 0) || (m_value <= 0))
 		return;
 
-	w = (int)((float)w * ((float)m_complete * 100.0f / (float)m_total) / 100.0f);
-	g.fillRect(0, 0, w, h, palette().windowText());
+	g.fillRect(0, 0, m_completeWidth, h, palette().windowText());
 }
 
 // private
 
-ProgressBar::ProgressBar()
+ProgressBar::ProgressBar() // public
 	: QWidget(
 		0,
 		Qt::FramelessWindowHint |
@@ -135,8 +133,9 @@ ProgressBar::ProgressBar()
 		Qt::X11BypassWindowManagerHint |
 		Qt::Tool
 	),
-	m_complete(0),
-	m_total(0) {
+	m_completeWidth(0),
+	m_total(0),
+	m_value(0) {
 	
 	U_DEBUG << "ProgressBar::ProgressBar()" U_END;
 
@@ -152,6 +151,7 @@ ProgressBar::ProgressBar()
 // TODO: size configuration
 	setHeight(3);
 
+// TODO: auto align on screen size change
 	setAlignment(Config::user()->progressBarAlignment(), false);
 }
 

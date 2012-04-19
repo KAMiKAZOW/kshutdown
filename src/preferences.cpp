@@ -57,7 +57,6 @@ void Preferences::apply() {
 	Config::setConfirmAction(m_confirmAction->isChecked());
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
 	Config::setMinimizeToSystemTrayIcon(!m_noMinimizeToSystemTrayIcon->isChecked());
-// FIXME: show/hide/update progress bar on option change
 	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
 	Config::setSystemTrayIconEnabled(m_systemTrayIconEnabled->isChecked());
 	

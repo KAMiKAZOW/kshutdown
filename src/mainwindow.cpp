@@ -75,6 +75,10 @@ MainWindow::~MainWindow() {
 
 	Config::shutDown();
 	Utils::shutDown();
+	if (m_progressBar) {
+		delete m_progressBar;
+		m_progressBar = 0;
+	}
 }
 
 bool MainWindow::checkCommandLine() {
@@ -432,6 +436,9 @@ void MainWindow::setActive(const bool yes) {
 		m_triggerTimer->start(trigger->checkTimeout());
 		action->setState(Base::StartState);
 		trigger->setState(Base::StartState);
+
+		if (trigger->supportsProgressBar() && Config::user()->progressBarEnabled())
+			m_progressBar->show();
 	}
 	else {
 #ifdef Q_WS_WIN
@@ -442,7 +449,7 @@ void MainWindow::setActive(const bool yes) {
 		action->setState(Base::StopState);
 		trigger->setState(Base::StopState);
 		
-		ProgressBar::freeInstance();
+		m_progressBar->hide();
 	}
 
 	setTitle(QString::null, QString::null);
@@ -593,6 +600,7 @@ MainWindow::MainWindow() :
 	m_ignoreUpdateWidgets(true),
 	m_showActiveWarning(true),
 	m_showMinimizeInfo(true),
+	m_progressBar(0),
 	m_lastNotificationID(QString::null),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(0),
@@ -859,6 +867,8 @@ void MainWindow::initSystemTray() {
 }
 
 void MainWindow::initWidgets() {
+	m_progressBar = new ProgressBar();
+
 // TODO: bookmarks
 	m_bookmarksButton = new BookmarksButton(this);
 	m_bookmarksButton->hide();
@@ -978,8 +988,7 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 #endif // KS_NATIVE_KDE
 	QString s = html.isEmpty() ? "KShutdown" : html;
 	m_systemTray->setToolTip(s);
-	if (ProgressBar::isInstance())
-		ProgressBar::self()->setToolTip(s);
+	m_progressBar->setToolTip(s);
 }
 
 void MainWindow::setTrayIcon() {
@@ -1259,6 +1268,7 @@ void MainWindow::onPreferences() {
 	if ((dialog->exec() == Preferences::Accepted) || Utils::isGTKStyle()) {
 		dialog->apply();
 		
+		m_progressBar->setVisible(m_active && getSelectedTrigger()->supportsProgressBar() && Config::progressBarEnabled());
 		m_systemTray->setVisible(Config::systemTrayIconEnabled());
 		// update icon colors
 		if (!m_active)
