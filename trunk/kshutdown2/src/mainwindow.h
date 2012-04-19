@@ -37,6 +37,7 @@ class QGroupBox;
 
 class BookmarksButton;
 class InfoWidget;
+class ProgressBar;
 
 using namespace KShutdown;
 
@@ -59,6 +60,7 @@ public:
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
 	static void init();
+	inline ProgressBar *progressBar() { return m_progressBar; }
 	inline static MainWindow *self() {
 		if (!m_instance)
 			m_instance = new MainWindow();
@@ -97,6 +99,7 @@ private:
 	ConfirmAction *m_confirmLockAction;
 	InfoWidget *m_infoWidget;
 	static MainWindow *m_instance;
+	ProgressBar *m_progressBar;
 	QCheckBox *m_force;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;

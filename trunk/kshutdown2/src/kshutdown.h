@@ -159,12 +159,14 @@ public:
 	inline int checkTimeout() const {
 		return m_checkTimeout;
 	}
+	inline bool supportsProgressBar() { return m_supportsProgressBar; }
 	inline QString text() const {
 		return m_text;
 	}
 	inline QString whatsThis() const { return m_whatsThis; }
 	inline void setWhatsThis(const QString &value) { m_whatsThis = value; }
 protected:
+	bool m_supportsProgressBar;
 	int m_checkTimeout;
 private:
 	Q_DISABLE_COPY(Trigger)

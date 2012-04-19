@@ -23,35 +23,22 @@
 class ProgressBar: public QWidget {
 	Q_OBJECT
 public:
+	ProgressBar();
 	virtual ~ProgressBar();
 	inline Qt::Alignment alignment() const { return m_alignment; }
 	void setAlignment(const Qt::Alignment value, const bool updateConfig);
-	inline static void freeInstance() {
-		if (m_instance) {
-			delete m_instance;
-			m_instance = 0;
-		}
-	}
-	inline static bool isInstance() { return m_instance; }
-	inline static ProgressBar *self() {
-		if (!m_instance)
-			m_instance = new ProgressBar();
-
-		return m_instance;
-	}
 	void setHeight(const int value);
-	void setProgress(const int complete);
 	void setTotal(const int total);
+	void setValue(const int value);
 protected:
 	void mousePressEvent(QMouseEvent *e);
 	void paintEvent(QPaintEvent *e);
 private:
 	Q_DISABLE_COPY(ProgressBar)
-	int m_complete;
+	int m_completeWidth;
 	int m_total;
-	static ProgressBar *m_instance;
+	int m_value;
 	Qt::Alignment m_alignment;
-	ProgressBar();
 private slots:
 	void onSetBottomAlignment();
 	void onSetTopAlignment();
