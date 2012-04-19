@@ -186,6 +186,13 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<li>Additional requirements: installed <code>"kdelibs-dev"</code> package, CMake 2.4, and Gettext Utilities</li>
 	<li>To compile and install KShutdown run: <code>./Setup-kde4.sh</code></li>
 	<li>To change the installation directory (prefix) run: <code>./Setup-kde4.sh "/your/prefix/dir"</code></li>
+	<li>Clang support (an alternative C++ compiler):
+		<ul>
+		<li><code>export CXX=/usr/bin/clang++</code></li>
+		<li><code>export CXXFLAGS=-march=i686</code> (in case of <i>Illegal Instruction</i> errors on some hardware)</li>
+		<li>Go to step 2.</li>
+		</ul>
+	</li>
 </ol>
 
 <h3>Common Errors</h3>
@@ -210,7 +217,7 @@ Try to run
 <code>sudo sh Setup-kde4.sh</code>
 </p>
 
-<h3>Compilation &amp; Installation (alternate method; for Geeks only)</h3>
+<h3>Compilation &amp; Installation (alternative method; for geeks and nerds only)</h3>
 <p>
 <i>BUILDTYPE</i> can be <code>Release</code> or <code>Debug</code>.
 You can change the installation directory (prefix) by setting the <code>CMAKE_INSTALL_PREFIX</code> environment variable.
@@ -238,6 +245,12 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <ol>
 	<li>To compile KShutdown run: <code>./Setup-qt4.sh</code></li>
 	<li>Installation is not required</li>
+	<li>Clang support (an alternative C++ compiler):
+		<ol>
+		<li><code>cd src; qmake -spec /usr/share/qt4/mkspecs/unsupported/linux-clang/</code></li>
+		<li><code>make</code></li>
+		</ol>
+	</li>
 </ol>
 
 <h2 id="qt4windows">Qt 4 Build @ Windows</h2>
@@ -246,8 +259,14 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 
 <h3>Minimal Requirements (for compilation)</h3>
 <ol>
+	<li>MinGW - Minimalist GNU for Windows
+		<ul>
+		<li>Download and launch <a href="http://sourceforge.net/projects/mingw/files/Installer/mingw-get-inst/">MinGW Installer</a></li>
+		<li>Choose <code>C:\mingw</code> as the install directory (default)</li>
+		<li>Install <b>C++ Compiler</b> component</li>
+		</ul>
+	</li>
 	<li><a href="http://qt.nokia.com/downloads/downloads#qt-lib">Qt libraries for Windows (minGW, LGPL version)</a> 4.6 or newer</li>
-	<li><a href="http://www.blogistan.co.uk/qt/2009/12/where_get_mingw_qt_46.php">MinGW</a></li>
 	<li><a href="http://nsis.sourceforge.net/">Nullsoft Scriptable Install System</a> (NSIS)</li>
 	<li>Windows XP/Vista/7 or compatible (including <a href="http://www.winehq.org/">Wine</a>)</li>
 </ol>
