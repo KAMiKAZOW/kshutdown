@@ -36,6 +36,7 @@ private:
 	Q_DISABLE_COPY(IdleMonitor)
 	bool m_supported;
 	quint32 m_idleTime;
+	quint32 getMaximumIdleTime();
 	void getSessionIdleTime();
 };
 
