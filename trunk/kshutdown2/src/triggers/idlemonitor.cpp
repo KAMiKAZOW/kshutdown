@@ -17,6 +17,8 @@
 
 #include <QDateTimeEdit>
 
+#include "../mainwindow.h"
+#include "../progressbar.h"
 #include "idlemonitor.h"
 
 #ifdef Q_WS_WIN
@@ -46,12 +48,13 @@ IdleMonitor::IdleMonitor()
 {
 	m_dateTime.setTime(QTime(1, 0, 0)); // set default
 	m_checkTimeout = 5000;
+	m_supportsProgressBar = true;
 	
-#ifdef Q_WS_WIN
+	#ifdef Q_WS_WIN
 	m_supported = true;
-#else
+	#else
 	m_supported = LockAction::getQDBusInterface()->isValid() && Utils::isKDE_4();
-#endif // Q_WS_WIN
+	#endif // Q_WS_WIN
 
 	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
 }
@@ -67,17 +70,19 @@ bool IdleMonitor::canActivateAction() {
 		return false;
 	}
 
-	QTime time = m_dateTime.time();
-	quint32 timeout = ((time.hour() * 60) + time.minute()) * 60;
-	U_DEBUG << "timeout=" << timeout U_END;
+	quint32 maximumIdleTime = getMaximumIdleTime();
+	U_DEBUG << "maximumIdleTime=" << maximumIdleTime U_END;
 	
-	if (m_idleTime >= timeout)
+	if (m_idleTime >= maximumIdleTime)
 		return true;
 
-	quint32 remainingTime = timeout - m_idleTime;
-	QTime t = QTime();
-	m_status = '~' + t.addSecs(remainingTime).toString("HH:mm:ss");
-	
+	quint32 remainingTime = maximumIdleTime - m_idleTime;
+	QTime time = QTime();
+	m_status = '~' + time.addSecs(remainingTime).toString("HH:mm:ss");
+
+	MainWindow *mainWindow = MainWindow::self();
+	mainWindow->progressBar()->setValue(remainingTime);
+
 	//m_status += (" {DEBUG:" + QString::number(m_idleTime) + "}");
 
 	return false;
@@ -100,10 +105,14 @@ void IdleMonitor::setState(const State state) {
 	if (state == StartState) {
 		m_idleTime = 0;
 
-#ifdef Q_WS_X11
+		ProgressBar *progressBar = MainWindow::self()->progressBar();
+		progressBar->setTotal(getMaximumIdleTime());
+		progressBar->setValue(0);
+
+		#ifdef Q_WS_X11
 		if (m_supported)
 			LockAction::getQDBusInterface()->call("SimulateUserActivity");
-#endif // Q_WS_X11
+		#endif // Q_WS_X11
 	}
 	else if (state == StopState) {
 		m_idleTime = 0;
@@ -129,6 +138,12 @@ void IdleMonitor::updateStatus() {
 }
 
 // private
+
+quint32 IdleMonitor::getMaximumIdleTime() {
+	QTime time = m_dateTime.time();
+
+	return ((time.hour() * 60) + time.minute()) * 60;
+}
 
 /**
  * Sets the @c m_idleTime to the current session idle time (in seconds).
