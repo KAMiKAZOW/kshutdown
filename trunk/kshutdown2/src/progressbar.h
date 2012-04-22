@@ -41,6 +41,7 @@ private:
 	Qt::Alignment m_alignment;
 private slots:
 	void onSetBottomAlignment();
+	void onSetColor();
 	void onSetTopAlignment();
 };
 
