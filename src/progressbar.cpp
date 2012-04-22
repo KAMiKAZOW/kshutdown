@@ -20,6 +20,7 @@
 #include "pureqt.h"
 #include "utils.h"
 
+#include <QColorDialog>
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <QPainter>
@@ -81,15 +82,19 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 	if (e->button() == Qt::RightButton) {
 		// show popup menu
 		U_MENU *menu = new U_MENU(this);
-#ifdef KS_NATIVE_KDE
+
+		#ifdef KS_NATIVE_KDE
 		menu->addTitle(U_APP->windowIcon(), KGlobal::caption());
-#endif // KS_PURE_QT
+		#endif // KS_NATIVE_KDE
+
 		menu->addAction(i18n("Hide"), this, SLOT(hide()));
-#ifdef KS_NATIVE_KDE
+		menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()));
+
+		#ifdef KS_NATIVE_KDE
 		menu->addTitle(i18n("Position"));
-#else
+		#else
 		menu->addSeparator();
-#endif // KS_PURE_QT
+		#endif // KS_NATIVE_KDE
 
 		QActionGroup *ag = new QActionGroup(this);
 
@@ -142,10 +147,17 @@ ProgressBar::ProgressBar() // public
 	setAttribute(Qt::WA_AlwaysShowToolTips, true);
 	setObjectName("progress-bar");
 
-// TODO: color configuration
 	QPalette p;
-	p.setColor(QPalette::Window, Qt::black);
-	p.setColor(QPalette::WindowText, QColor(0xF8FFBF /* lime 1 */));
+	QColor background = QColor(Qt::black);
+	p.setColor(QPalette::Window, background);
+	
+	Config *config = Config::user();
+	config->beginGroup("Progress Bar");
+	QColor defaultForeground = QColor(0xF8FFBF /* lime 1 */);
+	QColor foreground = config->read("Foreground Color", defaultForeground).value<QColor>();
+	config->endGroup();
+	p.setColor(QPalette::WindowText, (foreground.rgb() == background.rgb()) ? defaultForeground : foreground);
+	
 	setPalette(p);
 
 // TODO: size configuration
@@ -159,6 +171,27 @@ ProgressBar::ProgressBar() // public
 
 void ProgressBar::onSetBottomAlignment() {
 	setAlignment(Qt::AlignBottom, true);
+}
+
+void ProgressBar::onSetColor() {
+	QColor currentColor = palette().color(QPalette::WindowText);
+	QColor newColor = QColorDialog::getColor(
+		currentColor,
+		this,
+		QString::null // use default title
+	);
+	if (newColor.isValid()) {
+		QPalette p(palette());
+		p.setColor(QPalette::WindowText, newColor);
+		setPalette(p);
+		repaint();
+
+		Config *config = Config::user();
+		config->beginGroup("Progress Bar");
+		config->write("Foreground Color", newColor);
+		config->endGroup();
+		config->sync();
+	}
 }
 
 void ProgressBar::onSetTopAlignment() {
