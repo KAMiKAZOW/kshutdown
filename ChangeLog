@@ -1,7 +1,26 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2012/03/!!!  3.0 Beta 4
+2012/04/23  3.0 Beta 4
+
+Progress Bar:
+
+* Fixed: Show/hide progress bar on settings change
+* Show progress bar in user inactivity detector
+* NEW: Customizable color (progress bar -> context menu -> Set Color...)
+
+Misc.:
+
+* A more compact "Action" and system tray context menu
+* Czech translation update
+* Updated Polish translation
+* Show error message if trigger (e.g. user inactivity detector) is not available
+* Windows: Updated Qt DLLs (v4.8.1) and MinGW
+
+README:
+
+* Updated MinGW docs
+* Added Clang (alternate C++ compiler) docs
 
 
 2012/03/01  3.0 Beta 3
@@ -577,4 +596,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 611:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 623:HEAD|xsel -i -b && kwrite ChangeLog
