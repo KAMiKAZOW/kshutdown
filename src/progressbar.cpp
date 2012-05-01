@@ -20,10 +20,15 @@
 #include "pureqt.h"
 #include "utils.h"
 
-#include <QColorDialog>
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <QPainter>
+
+#ifdef KS_NATIVE_KDE
+	#include <KColorDialog>
+#else
+	#include <QColorDialog>
+#endif // KS_NATIVE_KDE
 
 // public
 
@@ -87,8 +92,11 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		menu->addTitle(U_APP->windowIcon(), KGlobal::caption());
 		#endif // KS_NATIVE_KDE
 
+		bool canConfigure = !Utils::isRestricted("action/options_configure");
+
 		menu->addAction(i18n("Hide"), this, SLOT(hide()));
-		menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()));
+		menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()))
+			->setEnabled(canConfigure);
 
 		#ifdef KS_NATIVE_KDE
 		menu->addTitle(i18n("Position"));
@@ -102,11 +110,13 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		a->setActionGroup(ag);
 		a->setCheckable(true);
 		a->setChecked(m_alignment.testFlag(Qt::AlignTop));
+		a->setEnabled(canConfigure);
 		
 		a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
 		a->setActionGroup(ag);
 		a->setCheckable(true);
 		a->setChecked(m_alignment.testFlag(Qt::AlignBottom));
+		a->setEnabled(canConfigure);
 		
 		menu->popup(e->globalPos());
 		e->accept();
@@ -175,11 +185,17 @@ void ProgressBar::onSetBottomAlignment() {
 
 void ProgressBar::onSetColor() {
 	QColor currentColor = palette().color(QPalette::WindowText);
+	#ifdef KS_NATIVE_KDE
+	QColor newColor;
+	if (KColorDialog::getColor(newColor, currentColor, this) != KColorDialog::Accepted)
+		return;
+	#else
 	QColor newColor = QColorDialog::getColor(
 		currentColor,
 		this,
 		QString::null // use default title
 	);
+	#endif // KS_NATIVE_KDE
 	if (newColor.isValid()) {
 		QPalette p(palette());
 		p.setColor(QPalette::WindowText, newColor);

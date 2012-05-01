@@ -154,15 +154,35 @@ bool Action::isCommandLineArgSupported() {
 bool Action::showConfirmationMessage(QWidget *parent) {
 // TODO: show confirmation message near the system tray icon
 // if main window is hidden
-// TODO: use action name as a OK-button text
-	return U_CONFIRM(
+
+	QString text = i18n("Are you sure?");
+	QString title = i18n("Confirm Action");
+
+	#ifdef KS_NATIVE_KDE
+	return KMessageBox::warningYesNo(
 		parent,
-		i18n("Confirm"),
-		"<qt>" \
-		"<p>" + i18n("Action: <b>%0</b>").arg(originalText()) + "</p>" +
-		"<p>" + i18n("Are you sure?") + "</p>" \
-		"</qt>"
+		text,
+		title,
+		KGuiItem(originalText(), KIcon(icon())),
+		KStandardGuiItem::cancel()
+	) == KMessageBox::Yes;
+	#else
+	QMessageBox *message = new QMessageBox(
+		QMessageBox::Warning,
+		title,
+		text,
+		QMessageBox::Ok | QMessageBox::Cancel,
+		parent
 	);
+	message->setDefaultButton(QMessageBox::Cancel);
+	QAbstractButton *ok = message->button(QMessageBox::Ok);
+	ok->setIcon(icon());
+	ok->setText(originalText());
+	bool accepted = message->exec() == QMessageBox::Ok;
+	delete message;
+	
+	return accepted;
+	#endif // KS_NATIVE_KDE
 }
 
 // protected
@@ -250,7 +270,6 @@ ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
 // private
 
 void ConfirmAction::slotFire() {
-// FIXME: remove MainWindow deps.
 	if (m_impl->shouldStopTimer())
 		MainWindow::self()->setActive(false);
 
