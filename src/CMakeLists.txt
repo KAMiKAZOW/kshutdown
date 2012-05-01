@@ -19,6 +19,7 @@ set(
 	preferences.cpp
 	progressbar.cpp
 	udialog.cpp
+	usystemtray.cpp
 	utils.cpp
 )
 
@@ -34,6 +35,7 @@ set(
 	preferences.h
 	progressbar.h
 	udialog.h
+	usystemtray.h
 )
 qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 

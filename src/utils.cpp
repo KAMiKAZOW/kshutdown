@@ -186,13 +186,6 @@ bool Utils::isRestricted(const QString &action) {
 #endif // KS_NATIVE_KDE
 }
 
-bool Utils::isSystemTraySupported() {
-	if (isUnity() || !U_SYSTEM_TRAY::isSystemTrayAvailable())
-		return false;
-	
-	return true;
-}
-
 // HACK: various Unity workarounds
 bool Utils::isUnity() {
 	return

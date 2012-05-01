@@ -33,10 +33,7 @@
 
 	#include "version.h" // for about()
 #else
-	#include <QPainter>
-
 	#include <KActionCollection>
-	#include <KIconEffect>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
 	#include <KShortcutsDialog>
@@ -55,6 +52,7 @@
 #include "password.h"
 #include "preferences.h"
 #include "progressbar.h"
+#include "usystemtray.h"
 #include "utils.h"
 
 MainWindow *MainWindow::m_instance = 0;
@@ -280,12 +278,12 @@ void MainWindow::init() {
 void MainWindow::maybeShow() {
 	if (Utils::isArg("hide-ui")) {
 		hide();
-		m_systemTray->hide();
+		m_systemTray->setVisible(false);
 		
 		return;
 	}
 
-	if (!U_SYSTEM_TRAY::isSystemTrayAvailable()) {
+	if (!m_systemTray->isSupported()) {
 		show();
 
 		return;
@@ -293,7 +291,7 @@ void MainWindow::maybeShow() {
 
 	bool trayIconEnabled = Config::systemTrayIconEnabled();
 	if (trayIconEnabled)
-		m_systemTray->show();
+		m_systemTray->setVisible(true);
 
 	if (Utils::isArg("init") || U_APP->isSessionRestored()) {
 		if (!trayIconEnabled)
@@ -380,46 +378,7 @@ void MainWindow::setActive(const bool yes) {
 	}
 	
 	m_active = yes;
-	
-#ifdef KS_NATIVE_KDE
-// TODO: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
-	if (m_active) {
-		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
-
-		QRect iconSize = m_systemTray->geometry();
-		if (iconSize.size().isEmpty()) {
-			U_DEBUG << "MainWindow::setActive: empty system tray icon size: " << iconSize U_END;
-		}
-		else {
-			U_DEBUG << "MainWindow::setActive: system tray icon size: " << iconSize U_END;
-			int iconW = qBound(24, iconSize.width(), 64);
-			int iconH = qBound(24, iconSize.height(), 64);
-			QImage i = defaultIcon.pixmap(iconW, iconH).toImage();
-			if (Config::blackAndWhiteSystemTrayIcon())
-				KIconEffect::deSaturate(i, 0.5f);
-			else
-				KIconEffect::colorize(i, Qt::yellow, 0.5f);
-		
-			// show icons of the active action/trigger
-			QPainter *p = new QPainter(&i);
-			p->setOpacity(0.8);
-			// left/bottom
-			iconW /= 2;
-			iconH /= 2;
-			QPixmap actionOverlay = action->icon().pixmap(iconW, iconH);
-			p->drawPixmap(0, iconH, actionOverlay);
-			// right/bottom
-			QPixmap triggerOverlay = trigger->icon().pixmap(iconW, iconH);
-			p->drawPixmap(iconW, iconH, triggerOverlay);
-			delete p;
-		
-			m_systemTray->setIcon(QPixmap::fromImage(i));
-		}
-	}
-	else {
-		setTrayIcon();
-	}
-#endif // KS_NATIVE_KDE
+	m_systemTray->setActive(m_active, action, trigger);
 
 	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
 	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
@@ -484,12 +443,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 	noHTML.replace("<br>", "\n");
 	noHTML.remove(QRegExp("\\<\\w+\\>"));
 	noHTML.remove(QRegExp("\\</\\w+\\>"));
-	m_systemTray->showMessage(
-		"KShutdown",
-		noHTML,
-		QSystemTrayIcon::Warning,
-		4000
-	);
+	m_systemTray->warning(noHTML);
 #endif // KS_PURE_QT
 }
 
@@ -569,7 +523,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	e->ignore();
 
 	// no system tray, minimize instead
-	if (!Utils::isSystemTraySupported()) {
+	if (!m_systemTray->isSupported()) {
 		showMinimized();
 	}
 	// hide in system tray instead of close
@@ -580,13 +534,13 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	if (m_active) {
 		if (m_showActiveWarning) {
 			m_showActiveWarning = false;
-			m_systemTray->showMessage("KShutdown", i18n("KShutdown is still active!"), QSystemTrayIcon::Warning, 2000);
+			m_systemTray->warning(i18n("KShutdown is still active!"));
 		}
 	}
 	else {
 		if (m_showMinimizeInfo) {
 			m_showMinimizeInfo = false;
-			m_systemTray->showMessage("KShutdown", i18n("KShutdown has been minimized"), QSystemTrayIcon::Information, 2000);
+			m_systemTray->info(i18n("KShutdown has been minimized"));
 		}
 	}
 }
@@ -671,7 +625,7 @@ MainWindow::MainWindow() :
 	m_triggers->setMaxVisibleItems(m_triggers->count());
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
 	
-	initSystemTray();
+	m_systemTray = new USystemTray(this);
 	initMenuBar();
 
 	readConfig();
@@ -838,34 +792,6 @@ void MainWindow::initMenuBar() {
 	setMenuBar(menuBar);
 }
 
-void MainWindow::initSystemTray() {
-	U_DEBUG << "MainWindow::initSystemTray()" U_END;
-
-	m_systemTray = new U_SYSTEM_TRAY(this);
-	//U_DEBUG << "U_SYSTEM_TRAY::isSystemTrayAvailable:" << U_SYSTEM_TRAY::isSystemTrayAvailable() U_END;
-	U_DEBUG << "Utils::isSystemTraySupported:" << Utils::isSystemTraySupported() U_END;
-#ifdef KS_NATIVE_KDE
-// TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
-// Currently it's lower case "kshutdown".
-	setTrayIcon();
-#endif // KS_NATIVE_KDE
-#ifdef KS_PURE_QT
-	#ifdef Q_WS_X11
-	if (Utils::isKDE_4())
-		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
-	else
-		m_systemTray->setIcon(windowIcon());
-	#else
-	m_systemTray->setIcon(windowIcon());
-	#endif // Q_WS_X11
-
-	connect(
-		m_systemTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
-	);
-#endif // KS_PURE_QT
-}
-
 void MainWindow::initWidgets() {
 	m_progressBar = new ProgressBar();
 
@@ -991,20 +917,6 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 	m_progressBar->setToolTip(s);
 }
 
-void MainWindow::setTrayIcon() {
-#ifdef KS_NATIVE_KDE
-	if (Config::blackAndWhiteSystemTrayIcon()) {
-		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
-		QImage i = defaultIcon.pixmap(24, 24).toImage();
-		KIconEffect::toGray(i, 1.0f);
-		m_systemTray->setIcon(QPixmap::fromImage(i));
-	}
-	else {
-		m_systemTray->setIcon(U_STOCK_ICON("system-shutdown"));
-	}
-#endif // KS_NATIVE_KDE
-}
-
 void MainWindow::updateWidgets() {
 	if (m_ignoreUpdateWidgets) {
 		U_DEBUG << "MainWindow::updateWidgets(): IGNORE" U_END;
@@ -1116,7 +1028,7 @@ void MainWindow::onQuit() {
 		return;
 
 	m_forceQuit = true;
-	m_systemTray->hide();
+	m_systemTray->setVisible(false);
 	close();
 	U_APP->quit();
 }
@@ -1272,31 +1184,10 @@ void MainWindow::onPreferences() {
 		m_systemTray->setVisible(Config::systemTrayIconEnabled());
 		// update icon colors
 		if (!m_active)
-			setTrayIcon();
+			m_systemTray->updateIcon();
 	}
 	delete dialog;
 }
-
-#ifdef KS_PURE_QT
-void MainWindow::onRestore(QSystemTrayIcon::ActivationReason reason) {
-	U_DEBUG << "MainWindow::onRestore()" U_END;
-
-	switch (reason) {
-		case QSystemTrayIcon::Trigger:
-			if (isVisible()) {
-				hide();
-			}
-			else {
-				show();
-				activateWindow();
-			}
-			break;
-		default:
-			break;
-			// ignore
-	}
-}
-#endif // KS_PURE_QT
 
 void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 	U_DEBUG << "onStatusChange(" << aUpdateWidgets << ")" U_END;

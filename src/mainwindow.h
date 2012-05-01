@@ -26,6 +26,7 @@
 #ifdef KS_PURE_QT
 	class QComboBox;
 #else
+	class KActionCollection;
 	class KCmdLineArgs;
 	class KComboBox;
 #endif // KS_PURE_QT
@@ -38,6 +39,7 @@ class QGroupBox;
 class BookmarksButton;
 class InfoWidget;
 class ProgressBar;
+class USystemTray;
 
 using namespace KShutdown;
 
@@ -115,20 +117,18 @@ private:
 	U_COMBO_BOX *m_actions;
 	U_COMBO_BOX *m_triggers;
 	U_PUSH_BUTTON *m_okCancelButton;
-	U_SYSTEM_TRAY *m_systemTray;
+	USystemTray *m_systemTray;
 	MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
 	Action *getSelectedAction() const;
 	Trigger *getSelectedTrigger() const;
 	void initMenuBar();
-	void initSystemTray();
 	void initTriggers();
 	void initWidgets();
 	void pluginConfig(const bool read);
 	void readConfig();
 	void setTitle(const QString &plain, const QString &html);
-	void setTrayIcon();
 	void updateWidgets();
 private slots:
 #ifdef KS_PURE_QT
@@ -146,9 +146,6 @@ private slots:
 	void onOKCancel();
 	void onPreferences();
 	void onQuit();
-#ifdef KS_PURE_QT
-	void onRestore(QSystemTrayIcon::ActivationReason reason);
-#endif // KS_PURE_QT
 	void onStatusChange(const bool updateWidgets);
 	void onTriggerActivated(int index);
 };

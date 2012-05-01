@@ -42,7 +42,6 @@ public:
 	static bool isKDE_4();
 	static bool isLXDE();
 	static bool isRestricted(const QString &action);
-	static bool isSystemTraySupported();
 	static bool isUnity();
 	static bool isXfce();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
