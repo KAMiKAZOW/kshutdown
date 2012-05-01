@@ -35,7 +35,6 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QPushButton>
-#include <QSystemTrayIcon>
 #include <QTabWidget>
 
 #else
@@ -53,7 +52,6 @@
 #include <KMenuBar>
 #include <KMessageBox>
 #include <KPushButton>
-#include <KSystemTrayIcon>
 #include <KTabWidget>
 
 #endif // KS_PURE_QT
@@ -89,7 +87,6 @@
 	#define U_MENU_BAR QMenuBar
 	#define U_PUSH_BUTTON QPushButton
 	#define U_STOCK_ICON(name) QIcon::fromTheme((name))
-	#define U_SYSTEM_TRAY QSystemTrayIcon
 	#define U_TAB_WIDGET QTabWidget
 
 	#define i18n(text) QApplication::translate(0, (text))
@@ -123,7 +120,6 @@
 	#define U_MENU_BAR KMenuBar
 	#define U_PUSH_BUTTON KPushButton
 	#define U_STOCK_ICON(name) KIcon((name))
-	#define U_SYSTEM_TRAY KSystemTrayIcon
 	#define U_TAB_WIDGET KTabWidget
 	
 	// use i18n from KLocale
