@@ -49,7 +49,7 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 	else
 		m_trayIcon->setIcon(mainWindow->windowIcon());
 	#else
-	m_trayIcon->setIcon(windowIcon());
+	m_trayIcon->setIcon(mainWindow->windowIcon());
 	#endif // Q_WS_X11
 
 	connect(
@@ -70,10 +70,7 @@ void USystemTray::info(const QString &message) const {
 }
 
 bool USystemTray::isSupported() const {
-	if (Utils::isUnity() || !QSystemTrayIcon::isSystemTrayAvailable())
-		return false;
-	
-	return true;
+	return QSystemTrayIcon::isSystemTrayAvailable();
 }
 
 void USystemTray::setActive(const bool active, KShutdown::Action *action, KShutdown::Trigger *trigger) const {
