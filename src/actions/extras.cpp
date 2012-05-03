@@ -53,6 +53,12 @@ bool Extras::onAction() {
 			return false;
 		}
 		
+		// HACK: chmod +x to avoid "antivirus" security dialog
+		if (!fileInfo.isExecutable()) {
+			U_DEBUG << "Setting executable permission to: " << fileInfo.filePath() U_END;
+			QFile::setPermissions(fileInfo.filePath(), fileInfo.permissions() | QFile::ExeOwner);
+		}
+		
 // FIXME: error detection, double error message box
 		if (KRun::run(service, KUrl::List(), U_APP->activeWindow()))
 			return true;
@@ -119,12 +125,9 @@ Extras::Extras() :
 
 CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool returnNull) {
 	#ifdef KS_NATIVE_KDE
-	QString text = fileInfo.baseName();
+	QString text = fileInfo.fileName();
 
-	if (!fileInfo.exists())
-		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo.filePath());
-
-	if (!fileInfo.isFile())
+	if (!fileInfo.exists() || !fileInfo.isFile())
 		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo.filePath());
 	
 	if (KDesktopFile::isDesktopFile(fileInfo.filePath())) {
@@ -214,11 +217,20 @@ U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text) {
 	if (!desktopComment.isEmpty())
 		text += (" - " + desktopComment);
 
-/* TODO: show actual "Exec" command
-	QString desktopExec = desktopFile.desktopGroup().readEntry("Exec", "");
-	if (!desktopExec.isEmpty())
-		text += (" - " + desktopExec);
-*/
+	QString exec = desktopFile.desktopGroup().readEntry("Exec", "");
+	if (!exec.isEmpty()) {
+		// simplify
+		exec.remove("dbus-send --print-reply --dest=");
+
+		// trim
+		int max = 20;
+		if (exec.length() > max) {
+			exec.truncate(max);
+			exec = exec.trimmed();
+			exec.append("...");
+		}
+		text += (" - " + exec);
+	}
 
 	return U_STOCK_ICON(desktopFile.readIcon());
 #else
