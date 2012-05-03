@@ -145,7 +145,12 @@ int main(int argc, char **argv) {
 		ki18n("KShutdown"), // program name
 		KS_FULL_VERSION
 	);
-	about.setBugAddress(KS_CONTACT);
+	#define KS_EMAIL \
+		"twardowski" \
+		"@" \
+		"gmail" \
+		".com"
+	about.setBugAddress(KS_EMAIL);
 	about.setCopyrightStatement(ki18n(KS_COPYRIGHT));
 	about.setHomepage(KS_HOME_PAGE);
 	about.setLicense(KAboutData::License_GPL_V2);
@@ -155,6 +160,11 @@ int main(int argc, char **argv) {
 	about.setOrganizationDomain("sf.net");
 	
 	about.setShortDescription(ki18n("An advanced shutdown utility"));
+
+	about.addAuthor(ki18n("Konrad Twardowski"), ki18n("Maintainer"), KS_EMAIL, KS_CONTACT);
+	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Credits");
+	// DOC: http://api.kde.org/4.8-api/kdelibs-apidocs/kdecore/html/classKAboutData.html
+// TODO: about.setTranslator(ki18n("Your names"), ki18n("Your emails"));
 
 	KCmdLineArgs::init(argc, argv, &about);
 	
