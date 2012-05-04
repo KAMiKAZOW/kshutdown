@@ -27,16 +27,14 @@ class QCheckBox;
 class PasswordDialog: public UDialog {
 	Q_OBJECT
 public:
-	explicit PasswordDialog(QWidget *parent, const bool newPasswordMode);
+	explicit PasswordDialog(QWidget *parent);
 	virtual ~PasswordDialog();
 	void apply();
 	static bool authorize(QWidget *parent, const QString &caption, const QString &userAction);
 	static QString toHash(const QString &password);
 private:
 	Q_DISABLE_COPY(PasswordDialog)
-	bool m_newPasswordMode;
 	InfoWidget *m_status;
-	QLabel *m_caption;
 	U_LINE_EDIT *m_confirmPassword;
 	U_LINE_EDIT *m_password;
 	void updateStatus();

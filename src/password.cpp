@@ -20,7 +20,12 @@
 #include "mainwindow.h"
 #include "password.h"
 
+#ifdef KS_NATIVE_KDE
+	#include <KPasswordDialog>
+#endif // KS_NATIVE_KDE
+
 #ifdef KS_PURE_QT
+	#include <QInputDialog>
 	#include <QPointer>
 #endif // KS_PURE_QT
 
@@ -33,24 +38,11 @@
 
 // public:
 
-PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
-	UDialog(parent, newPasswordMode ? i18n("Enter New Password") : "KShutdown", false),
-	m_newPasswordMode(newPasswordMode) {
+PasswordDialog::PasswordDialog(QWidget *parent) :
+	UDialog(parent, i18n("Enter New Password"), false) {
 	U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
 
 	QVBoxLayout *mainLayout = this->mainLayout();
-
-	// caption
-
-	if (newPasswordMode) {
-		m_caption = 0;
-	}
-	else {
-		m_caption = new QLabel();
-		mainLayout->addSpacing(10);
-		mainLayout->addWidget(m_caption);
-		mainLayout->addSpacing(10);
-	}
 
 	// form
 
@@ -65,32 +57,26 @@ PasswordDialog::PasswordDialog(QWidget *parent, const bool newPasswordMode) :
 	);
 	formLayout->addRow(i18n("Password:"), m_password);
 	
-	if (newPasswordMode) {
-		m_confirmPassword = new U_LINE_EDIT();
-		m_confirmPassword->setEchoMode(U_LINE_EDIT::Password);
-		connect(
-			m_confirmPassword, SIGNAL(textEdited(const QString &)),
-			SLOT(onConfirmPasswordChange(const QString &))
-		);
-		formLayout->addRow(i18n("Confirm Password:"), m_confirmPassword);
+	m_confirmPassword = new U_LINE_EDIT();
+	m_confirmPassword->setEchoMode(U_LINE_EDIT::Password);
+	connect(
+		m_confirmPassword, SIGNAL(textEdited(const QString &)),
+		SLOT(onConfirmPasswordChange(const QString &))
+	);
+	formLayout->addRow(i18n("Confirm Password:"), m_confirmPassword);
 		
-		// status/hint
+	// status/hint
 		
-		m_status = new InfoWidget(this);
-		m_status->setText(
-			"<qt>" +
-			i18n("The password will be saved as SHA-1 hash.") + "<br>" +
-			i18n("Short password can be easily cracked.") +
-			"</qt>",
-			InfoWidget::WarningType
-		);
-		mainLayout->addSpacing(10);
-		mainLayout->addWidget(m_status);
-	}
-	else {
-		m_confirmPassword = 0;
-		m_status = 0;
-	}
+	m_status = new InfoWidget(this);
+	m_status->setText(
+		"<qt>" +
+		i18n("The password will be saved as SHA-1 hash.") + "<br>" +
+		i18n("Short password can be easily cracked.") +
+		"</qt>",
+		InfoWidget::WarningType
+	);
+	mainLayout->addSpacing(10);
+	mainLayout->addWidget(m_status);
 	
 	addButtonBox();
 
@@ -129,21 +115,42 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 	if (hash.isEmpty())
 		return true;
 
-	QPointer<PasswordDialog> dialog = new PasswordDialog(parent, false);
-	dialog->m_caption->setText(i18n("Enter password to perform action: %0").arg(caption));
-	
-	bool ok = false;
-	if (dialog->exec() == PasswordDialog::Accepted) {
-		if (hash != toHash(dialog->m_password->text())) {
-			U_ERROR_MESSAGE(parent, i18n("Invalid password"));
-		}
-		else {
-			ok = true;
-		}
-	}
-	delete dialog;
+	QString password = QString::null;
+	QString prompt = i18n("Enter password to perform action: %0").arg(caption);
 
-	return ok;
+	#ifdef KS_NATIVE_KDE
+	KPasswordDialog *dialog = new KPasswordDialog(parent);
+	dialog->setPixmap(U_ICON("kshutdown").pixmap(48, 48));
+	dialog->setPrompt(prompt);
+	bool ok = dialog->exec();
+	if (ok)
+		password = dialog->password();
+	delete dialog;
+	
+	if (!ok)
+		return false;
+	#else
+	bool ok;
+	password = QInputDialog::getText(
+		parent,
+		"KShutdown", // title
+		prompt,
+		QLineEdit::Password,
+		"",
+		&ok
+	);
+
+	if (!ok)
+		return false;
+	#endif // KS_NATIVE_KDE
+
+	if (hash != toHash(password)) {
+		U_ERROR_MESSAGE(parent, i18n("Invalid password"));
+		
+		return false;
+	}
+	
+	return true;
 }
 
 QString PasswordDialog::toHash(const QString &password) {
@@ -158,9 +165,6 @@ QString PasswordDialog::toHash(const QString &password) {
 // private:
 
 void PasswordDialog::updateStatus() {
-	if (!m_newPasswordMode)
-		return;
-
 	bool ok = (m_password->text() == m_confirmPassword->text());
 	if (!ok) {
 		m_status->setText(i18n("Confirmation password is different"), InfoWidget::ErrorType);
@@ -291,7 +295,7 @@ void PasswordPreferences::updateWidgets(const bool passwordEnabled) {
 
 void PasswordPreferences::onEnablePassword(int state) {
 	if (state == Qt::Checked) {
-		QPointer<PasswordDialog> dialog = new PasswordDialog(this, true);
+		QPointer<PasswordDialog> dialog = new PasswordDialog(this);
 		if (dialog->exec() == PasswordDialog::Accepted)
 			dialog->apply();
 		else

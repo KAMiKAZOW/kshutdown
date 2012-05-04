@@ -56,6 +56,9 @@ IdleMonitor::IdleMonitor()
 	m_supported = LockAction::getQDBusInterface()->isValid() && Utils::isKDE_4();
 	#endif // Q_WS_WIN
 
+// TODO: KDE: fallback to KIdleTime if DBus is not available
+// <http://api.kde.org/4.8-api/kdelibs-apidocs/kutils/html/classKIdleTime.html>
+
 	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
 }
 
