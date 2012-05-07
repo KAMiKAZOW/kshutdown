@@ -20,16 +20,29 @@
 
 #include "pureqt.h"
 
-class BookmarksButton: public U_PUSH_BUTTON {
+class BookmarkAction: public U_ACTION {
 	Q_OBJECT
 public:
-	explicit BookmarksButton(QWidget *parent);
-	virtual ~BookmarksButton();
+	explicit BookmarkAction(QWidget *parent, const QString &actionID, const QString &triggerID, const QString &time);
+	virtual ~BookmarkAction();
 private:
-	U_ACTION *m_toggleBookmarkAction;
-	U_MENU *m_menu;
-	Q_DISABLE_COPY(BookmarksButton)
+	Q_DISABLE_COPY(BookmarkAction)
+	QString m_actionID;
+	QString m_triggerID;
+	QString m_time;
 private slots:
+	void onAction();
+};
+
+class BookmarksMenu: public U_MENU {
+	Q_OBJECT
+public:
+	explicit BookmarksMenu(QWidget *parent);
+	virtual ~BookmarksMenu();
+private:
+	Q_DISABLE_COPY(BookmarksMenu)
+private slots:
+	void onToggleBookmark();
 	void onUpdateMenu();
 };
 

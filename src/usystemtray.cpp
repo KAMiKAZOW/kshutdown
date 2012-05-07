@@ -70,7 +70,7 @@ void USystemTray::info(const QString &message) const {
 }
 
 bool USystemTray::isSupported() const {
-	return QSystemTrayIcon::isSystemTrayAvailable();
+	return !Utils::isUnity() && QSystemTrayIcon::isSystemTrayAvailable();
 }
 
 void USystemTray::setActive(const bool active, KShutdown::Action *action, KShutdown::Trigger *trigger) const {
