@@ -36,7 +36,7 @@
 class QCheckBox;
 class QGroupBox;
 
-class BookmarksButton;
+class BookmarksMenu;
 class InfoWidget;
 class ProgressBar;
 class USystemTray;
@@ -61,6 +61,8 @@ public:
 	QHash<QString, Action*> actionHash() const { return m_actionHash; }
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
+	Action *getSelectedAction() const;
+	Trigger *getSelectedTrigger() const;
 	static void init();
 	inline ProgressBar *progressBar() { return m_progressBar; }
 	inline static MainWindow *self() {
@@ -71,6 +73,7 @@ public:
 	}
 	void maybeShow();
 	void setTime(const QString &trigger, const QTime &time, const bool absolute);
+	QHash<QString, Trigger*> triggerHash() const { return m_triggerHash; }
 public slots:
 	Q_SCRIPTABLE QStringList actionList(const bool showDescription);
 	Q_SCRIPTABLE QStringList triggerList(const bool showDescription);
@@ -92,7 +95,7 @@ private:
 #ifdef KS_NATIVE_KDE
 	KActionCollection *m_actionCollection;
 #endif // KS_NATIVE_KDE
-	BookmarksButton *m_bookmarksButton;
+	BookmarksMenu *m_bookmarksMenu;
 	bool m_active;
 	bool m_forceQuit;
 	bool m_ignoreUpdateWidgets;
@@ -121,8 +124,6 @@ private:
 	MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
-	Action *getSelectedAction() const;
-	Trigger *getSelectedTrigger() const;
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();

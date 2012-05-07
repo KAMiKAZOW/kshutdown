@@ -662,15 +662,13 @@ void MainWindow::addTrigger(Trigger *trigger) {
 	m_triggerList.append(trigger);
 }
 
-Action *MainWindow::getSelectedAction() const {
+Action *MainWindow::getSelectedAction() const { // public
 	return m_actionHash[m_actions->itemData(m_actions->currentIndex()).toString()];
 }
 
-Trigger *MainWindow::getSelectedTrigger() const {
+Trigger *MainWindow::getSelectedTrigger() const { // public
 	return m_triggerHash[m_triggers->itemData(m_triggers->currentIndex()).toString()];
 }
-
-// TODO: customizable action/trigger presets
 
 void MainWindow::initMenuBar() {
 	U_DEBUG << "MainWindow::initMenuBar()" U_END;
@@ -694,7 +692,6 @@ void MainWindow::initMenuBar() {
 	warningAction->setIcon(U_STOCK_ICON("dialog-warning"));
 	warningAction->setText(warningText);
 	fileMenu->addAction(warningAction);
-	//fileMenu->addSeparator();
 #endif // KS_NATIVE_KDE
 
 	Action *a;
@@ -739,6 +736,10 @@ void MainWindow::initMenuBar() {
 #endif // KS_NATIVE_KDE
 	menuBar->addMenu(fileMenu);
 	m_systemTray->setContextMenu(fileMenu);
+
+	// bookmarks menu
+	
+// TODO: menuBar->addMenu(m_bookmarksMenu);
 
 	// settings menu
 
@@ -795,9 +796,7 @@ void MainWindow::initMenuBar() {
 void MainWindow::initWidgets() {
 	m_progressBar = new ProgressBar();
 
-// TODO: bookmarks
-	m_bookmarksButton = new BookmarksButton(this);
-	m_bookmarksButton->hide();
+	m_bookmarksMenu = new BookmarksMenu(this);
 
 	QWidget *mainWidget = new QWidget();
 	mainWidget->setObjectName("main-widget");
@@ -844,14 +843,7 @@ void MainWindow::initWidgets() {
 	mainLayout->addStretch();
 	mainLayout->addWidget(m_infoWidget);
 	mainLayout->addStretch();
-
-	QWidget *buttonsWidget = new QWidget();
-	QHBoxLayout *buttonsLayout = new QHBoxLayout(buttonsWidget);
-	buttonsLayout->setMargin(0);
-	buttonsLayout->setSpacing(10);
-	buttonsLayout->addWidget(m_okCancelButton);
-	buttonsLayout->addWidget(m_bookmarksButton);
-	mainLayout->addWidget(buttonsWidget);
+	mainLayout->addWidget(m_okCancelButton);
 
 	setCentralWidget(mainWidget);
 	
@@ -934,7 +926,7 @@ void MainWindow::updateWidgets() {
 	if (m_currentTriggerWidget)
 		m_currentTriggerWidget->setEnabled(enabled);
 
-	m_bookmarksButton->setEnabled(enabled);
+	m_bookmarksMenu->setEnabled(enabled);
 	m_force->setEnabled(enabled);
 
 	bool canCancel = !Utils::isRestricted("kshutdown/action/cancel");
