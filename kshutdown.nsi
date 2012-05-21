@@ -6,6 +6,8 @@ OutFile "kshutdown-${APP_FILE_VERSION}-win32.exe"
 InstallDir "$PROGRAMFILES\KShutdown"
 InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
 
+SetCompressor /SOLID lzma
+
 !define APP_UNINSTALL_REG "Software\Microsoft\Windows\CurrentVersion\Uninstall\KShutdown"
 
 !define MUI_ABORTWARNING
@@ -48,13 +50,14 @@ Section "-"
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
-# TODO: support for silent mode
 SectionEnd
 
 Section "Autostart" SectionAutostart
 	SetShellVarContext all
+	IfSilent NoAutostart
 	CreateDirectory "$SMSTARTUP"
 	CreateShortCut "$SMSTARTUP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "--init" "$INSTDIR\kshutdown.ico"
+NoAutostart:
 SectionEnd
 
 Section "Uninstall"
