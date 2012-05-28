@@ -85,8 +85,9 @@ bool Extras::onAction() {
 	}
 #else
 	bool ok = false;
+	QString suffix = fileInfo.suffix();
 
-	if (fileInfo.suffix() == "desktop") {
+	if (suffix == "desktop") {
 		QSettings settings(path, QSettings::IniFormat);
 		settings.beginGroup("Desktop Entry");
 		QString exec = settings.value("Exec", "").toString();
@@ -102,8 +103,13 @@ bool Extras::onAction() {
 		}
 		settings.endGroup();
 	}
+	#ifdef Q_WS_WIN
+	else if (suffix == "lnk") { // shortcut
+		ok = QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+	}
+	#endif // Q_WS_WIN
 	else if (fileInfo.isExecutable()) {
-		ok = (QProcess::execute(path) == 0);
+		ok = (QProcess::execute(path, QStringList()) == 0);
 	}
 	else {
 		ok = QDesktopServices::openUrl(QUrl::fromLocalFile(path));
