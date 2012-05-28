@@ -725,7 +725,7 @@ void MainWindow::initMenuBar() {
 	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
 	fileMenu->addAction(quitAction);
 #else
-	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Q"))
+	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Shift+Q"))
 		->setIcon(U_STOCK_ICON("application-exit"));
 #endif // KS_NATIVE_KDE
 	menuBar->addMenu(fileMenu);
@@ -899,7 +899,13 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 		setWindowTitle(plain + " - KShutdown");
 #endif // KS_NATIVE_KDE
 	QString s = html.isEmpty() ? "KShutdown" : html;
+
+	#ifdef Q_WS_WIN
+	m_systemTray->setToolTip(plain.isEmpty() ? "KShutdown" : (plain + " - KShutdown"));
+	#else
 	m_systemTray->setToolTip(s);
+	#endif // Q_WS_WIN
+
 	m_progressBar->setToolTip(s);
 }
 
