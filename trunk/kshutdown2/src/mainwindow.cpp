@@ -160,7 +160,6 @@ bool MainWindow::checkCommandLine() {
 		}
 	}
 	if (actionToActivate) {
-#ifdef KS_NATIVE_KDE
 		if (actionToActivate == Extras::self()) {
 			// NOTE: Sync. with extras.cpp (constructor)
 			QString command = Utils::getOption("extra");
@@ -168,7 +167,6 @@ bool MainWindow::checkCommandLine() {
 				command = Utils::getOption("e");
 			Extras::self()->setCommand(command);
 		}
-#endif // KS_NATIVE_KDE
 
 		// setup main window and execute action later
 		if (TimeOption::isValid()) {
@@ -253,9 +251,7 @@ void MainWindow::init() {
 	addAction(new SuspendAction());
 	addAction(LockAction::self());
 	addAction(new LogoutAction());
-#ifdef KS_NATIVE_KDE
 	addAction(Extras::self());
-#endif // KS_NATIVE_KDE
 	addAction(new TestAction());
 
 	U_DEBUG << "MainWindow::init(): Triggers" U_END;
@@ -447,12 +443,10 @@ void MainWindow::notify(const QString &id, const QString &text) {
 #endif // KS_PURE_QT
 }
 
-#ifdef KS_NATIVE_KDE
 void MainWindow::setExtrasCommand(const QString &command) {
 	setSelectedAction("extras");
 	Extras::self()->setCommand(command);
 }
-#endif // KS_NATIVE_KDE
 
 void MainWindow::setSelectedAction(const QString &id) {
 	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
@@ -953,7 +947,6 @@ void MainWindow::updateWidgets() {
 
 	Action *action = getSelectedAction();
 	if (action->isEnabled()) {
-#ifdef KS_NATIVE_KDE
 		if ((action == Extras::self()) && Extras::self()->command().isEmpty()) {
 			m_okCancelButton->setEnabled(false);
 			m_infoWidget->setText(
@@ -963,9 +956,7 @@ void MainWindow::updateWidgets() {
 				InfoWidget::WarningType
 			);
 		}
-		else
-#endif // KS_NATIVE_KDE
-		{
+		else {
 			if (m_active)
 				m_okCancelButton->setEnabled(canCancel);
 			else
