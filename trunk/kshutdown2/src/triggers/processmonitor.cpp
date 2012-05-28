@@ -15,35 +15,40 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	#include <sys/types.h>
-#endif // KS_TRIGGER_PROCESS_MONITOR
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 #include "../utils.h"
 #include "processmonitor.h"
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	#include <errno.h>
 	#include <signal.h>
-#endif // KS_TRIGGER_PROCESS_MONITOR
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 #include <QAbstractItemView>
 #include <QHBoxLayout>
 
 // public
 
-Process::Process(QObject *parent)
+Process::Process(QObject *parent, const QString &command)
 	: QObject(parent),
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+	m_command(command),
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	m_pid(0),
-#endif // KS_TRIGGER_PROCESS_MONITOR
-	m_command(QString::null),
 	m_user(QString::null)
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	m_pid(0),
+	m_visible(false),
+	m_windowHandle(NULL)
+#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 {
 }
 
-bool Process::isRunning() {
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+bool Process::isRunning() const {
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	if (::kill(m_pid, 0)) { // check if process exists
 		switch (errno) {
 			case EINVAL: return false;
@@ -53,20 +58,26 @@ bool Process::isRunning() {
 	}
 
 	return true;
-#else
-	return false;
-#endif // KS_TRIGGER_PROCESS_MONITOR
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	return ::IsWindow(m_windowHandle) != 0;
+#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 }
 
 QString Process::toString() const {
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	return QString("%0 (pid %1, %2)")
 		.arg(m_command)
 		.arg(m_pid)
 		.arg(m_user);
-#else
-	return QString();
-#endif // KS_TRIGGER_PROCESS_MONITOR
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	return QString("%0 (pid %1)")
+		.arg(m_command)
+		.arg(m_pid);
+#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 }
 
 // public
@@ -77,16 +88,20 @@ ProcessMonitor::ProcessMonitor()
 	m_refreshProcess(0),
 	m_refreshBuf(QString::null),
 	m_widget(0),
-	m_processes(0)
+	m_processesComboBox(0)
 {
 	m_checkTimeout = 2000;
+}
+
+void ProcessMonitor::addProcess(Process *process) {
+	m_processList.append(process);
 }
 
 bool ProcessMonitor::canActivateAction() {
 	if (m_processList.isEmpty())
 		return false;
 
-	int index = m_processes->currentIndex();
+	int index = m_processesComboBox->currentIndex();
 	Process *p = m_processList.value(index);
 	updateStatus(p);
 
@@ -100,12 +115,12 @@ QWidget *ProcessMonitor::getWidget() {
 		layout->setMargin(0);
 		layout->setSpacing(5);
 
-		m_processes = new U_COMBO_BOX(m_widget);
-		m_processes->view()->setAlternatingRowColors(true);
-		m_processes->setFocusPolicy(Qt::StrongFocus);
-		m_processes->setToolTip(i18n("List of the running processes"));
-		connect(m_processes, SIGNAL(activated(int)), SLOT(onProcessSelect(const int)));
-		layout->addWidget(m_processes);
+		m_processesComboBox = new U_COMBO_BOX(m_widget);
+		m_processesComboBox->view()->setAlternatingRowColors(true);
+		m_processesComboBox->setFocusPolicy(Qt::StrongFocus);
+		m_processesComboBox->setToolTip(i18n("List of the running processes"));
+		connect(m_processesComboBox, SIGNAL(activated(int)), SLOT(onProcessSelect(const int)));
+		layout->addWidget(m_processesComboBox);
 		
 		U_PUSH_BUTTON *refreshButton = new U_PUSH_BUTTON(m_widget);
 		refreshButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
@@ -122,17 +137,16 @@ QWidget *ProcessMonitor::getWidget() {
 }
 
 void ProcessMonitor::setPID(const pid_t pid) {
-	m_processes->clear();
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	m_processesComboBox->clear();
 	m_processList.clear();
 	
-	Process *p = new Process(this);
-	p->m_command = '?';
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+	Process *p = new Process(this, "?");
 	p->m_pid = pid;
-#endif // KS_TRIGGER_PROCESS_MONITOR
 	p->m_user = '?';
-	m_processList.append(p);
-	m_processes->addItem(U_ICON(), p->toString());
+	addProcess(p);
+	m_processesComboBox->addItem(U_ICON(), p->toString());
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 }
 
 // private
@@ -140,11 +154,11 @@ void ProcessMonitor::setPID(const pid_t pid) {
 void ProcessMonitor::errorMessage(const QString &message) {
 	U_APP->restoreOverrideCursor();
 
-	m_processes->clear();
-	m_processes->setEnabled(false);
+	m_processesComboBox->clear();
+	m_processesComboBox->setEnabled(false);
 	m_processList.clear();
 
-	m_processes->addItem(
+	m_processesComboBox->addItem(
 		U_STOCK_ICON("dialog-error"),
 		message
 	);
@@ -162,12 +176,12 @@ void ProcessMonitor::updateStatus(const Process *process) {
 
 // public slots
 
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 void ProcessMonitor::onRefresh() {
-#ifdef KS_TRIGGER_PROCESS_MONITOR
 	U_APP->setOverrideCursor(Qt::WaitCursor);
 	
-	m_processes->clear();
-	m_processes->setEnabled(true);
+	m_processesComboBox->clear();
+	m_processesComboBox->setEnabled(true);
 	m_processList.clear();
 	m_refreshBuf = QString::null;
 
@@ -204,8 +218,95 @@ void ProcessMonitor::onRefresh() {
 
 	// start process
 	m_refreshProcess->start("ps", args);
-#endif // KS_TRIGGER_PROCESS_MONITOR
 }
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+
+// CREDITS: http://stackoverflow.com/questions/7001222/enumwindows-pointer-error
+BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
+	// exclude KShutdown...
+	DWORD pid = 0;
+	::GetWindowThreadProcessId(windowHandle, &pid);
+
+	if (pid == U_APP->applicationPid())
+		return TRUE;
+
+	ProcessMonitor *processMonitor = (ProcessMonitor *)param;
+
+	int textLength = ::GetWindowTextLengthW(windowHandle) + 1;
+	wchar_t textBuf[textLength];
+	int result = ::GetWindowTextW(windowHandle, textBuf, textLength);
+	if (result > 0) {
+// TODO: common code: trim
+		int max = 30;
+		QString title = QString::fromWCharArray(textBuf);
+		if (title.length() > max) {
+			title.truncate(max);
+			title = title.trimmed();
+			title.append("...");
+		}
+
+		Process *p = new Process(processMonitor, title);
+		p->setPID(pid);
+		p->setVisible(::IsWindowVisible(windowHandle));
+		p->setWindowHandle(windowHandle);
+		processMonitor->addProcess(p);
+	}
+	
+	return TRUE;
+}
+
+// sort alphabetically, visible first
+bool compareProcess(const Process *p1, const Process *p2) {
+	bool v1 = p1->visible();
+	bool v2 = p2->visible();
+	
+	if (v1 && !v2)
+		return true;
+	
+	if (!v1 && v2)
+		return false;
+
+	QString s1 = p1->toString();
+	QString s2 = p2->toString();
+		
+	return QString::compare(s1, s2, Qt::CaseInsensitive) < 0;
+}
+
+void ProcessMonitor::onRefresh() {
+	qDeleteAll(m_processList);//!!!review all
+	m_processesComboBox->clear();
+	m_processList.clear();
+	
+	::EnumWindows(EnumWindowsCallback, (LPARAM)this);
+
+// TODO: error message
+	if (m_processList.isEmpty()) {
+		errorMessage(i18n("Error"));
+	}
+	else {
+		qSort(m_processList.begin(), m_processList.end(), compareProcess);
+		bool firstHidden = true;
+		foreach (Process *i, m_processList) {
+			// CREDITS: http://stackoverflow.com/questions/5542423/wm-geticon-sometimes-returns-no-icon-handle
+			DWORD iconHandle = ::GetClassLongPtr(i->windowHandle(), GCLP_HICONSM);
+			if (iconHandle != 0) {
+				m_processesComboBox->addItem(QPixmap::fromWinHICON((HICON)iconHandle), i->toString());
+
+				// separate hidden windows
+				if (firstHidden && !i->visible()) {
+					firstHidden = false;
+					m_processesComboBox->insertSeparator(m_processesComboBox->count() - 1);
+				}
+			}
+		}
+	}
+
+	updateStatus(m_processList.isEmpty() ? 0 : m_processList.value(0));
+	emit statusChanged(false);
+}
+#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 
 // private slots
 
@@ -214,7 +315,7 @@ void ProcessMonitor::onError(QProcess::ProcessError error) {
 }
 
 void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
 	
 	if (!m_processList.isEmpty()) {
@@ -229,12 +330,11 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 		foreach (const QString &i, processLines) {
 			QStringList processInfo = i.simplified().split(' ');
 			if (processInfo.count() >= 3) {
-				Process *p = new Process(this);
+				Process *p = new Process(this, processInfo[2]/* command */);
 				p->m_user = processInfo[0];
 				p->m_pid = processInfo[1].toLong();
-				p->m_command = processInfo[2];
-				m_processList.append(p);
-				m_processes->addItem(
+				addProcess(p);
+				m_processesComboBox->addItem(
 					// show icons for the current user only (faster)
 					(p->m_user == user) ? U_STOCK_ICON(p->m_command) : U_ICON(),
 					p->toString()
@@ -253,7 +353,7 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 	
 	updateStatus(m_processList.isEmpty() ? 0 : m_processList.value(0));
 	emit statusChanged(false);
-#endif // KS_TRIGGER_PROCESS_MONITOR
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 }
 
 void ProcessMonitor::onProcessSelect(const int index) {
