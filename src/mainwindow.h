@@ -80,9 +80,7 @@ public slots:
 	Q_SCRIPTABLE inline bool active() const { return m_active; }
 	Q_SCRIPTABLE void setActive(const bool yes);
 	void notify(const QString &id, const QString &text);
-#ifdef KS_NATIVE_KDE
 	Q_SCRIPTABLE void setExtrasCommand(const QString &command);
-#endif // KS_NATIVE_KDE
 	Q_SCRIPTABLE void setSelectedAction(const QString &id);
 	Q_SCRIPTABLE void setSelectedTrigger(const QString &id);
 	Q_SCRIPTABLE void setTime(const QString &trigger, const QString &time);

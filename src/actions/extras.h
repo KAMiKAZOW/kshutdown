@@ -51,6 +51,7 @@ private:
 	CommandAction *createCommandAction(const QFileInfo &fileInfo, const bool returnNull);
 	U_MENU *createMenu();
 	void createMenu(U_MENU *parentMenu, const QString &parentDir);
+	QString getFilesDirectory() const;
 	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text);
 	void setCommandAction(const CommandAction *command);
 private slots:
