@@ -20,11 +20,23 @@
 
 #if defined(Q_OS_LINUX) || defined(__FreeBSD_kernel__) || defined(Q_OS_HURD)
 	#define KS_TRIGGER_PROCESS_MONITOR
+	#define KS_TRIGGER_PROCESS_MONITOR_UNIX
 #endif // Q_OS_LINUX
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+#ifdef Q_WS_WIN
+	#ifndef WIN32_LEAN_AND_MEAN
+		#define WIN32_LEAN_AND_MEAN
+	#endif // WIN32_LEAN_AND_MEAN
+	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
+	#include <windows.h>
+
+	#define KS_TRIGGER_PROCESS_MONITOR
+	#define KS_TRIGGER_PROCESS_MONITOR_WIN
+#endif // Q_WS_WIN
+
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	#include <sys/types.h>
-#endif // KS_TRIGGER_PROCESS_MONITOR
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 #include "../kshutdown.h"
 
@@ -32,23 +44,38 @@
 
 class Process: public QObject {
 public:
-	explicit Process(QObject *parent);
-	bool isRunning();
+	explicit Process(QObject *parent, const QString &command);
+	bool isRunning() const;
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	inline void setPID(const DWORD value) { m_pid = value; }
+	inline bool visible() const { return m_visible; }
+	inline void setVisible(const bool value) { m_visible = value; }
+	inline HWND windowHandle() const { return m_windowHandle; }
+	inline void setWindowHandle(const HWND windowHandle) { m_windowHandle = windowHandle; }
+	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 	QString toString() const;
 private:
 	Q_DISABLE_COPY(Process)
 	friend class ProcessMonitor;
-#ifdef KS_TRIGGER_PROCESS_MONITOR
+	QString m_command; // a process command or window title (e.g. "firefox")
+	
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	pid_t m_pid;
-#endif // KS_TRIGGER_PROCESS_MONITOR
-	QString m_command; // a process command (e.g. "firefox")
 	QString m_user; // an owner of the process (e.g. "root")
+	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+	
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	DWORD m_pid;
+	bool m_visible;
+	HWND m_windowHandle;
+	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 };
 
 class ProcessMonitor: public KShutdown::Trigger {
 	Q_OBJECT
 public:
 	ProcessMonitor();
+	void addProcess(Process *process);
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
 	void setPID(const pid_t pid);
@@ -58,7 +85,7 @@ private:
 	QProcess *m_refreshProcess;
 	QString m_refreshBuf;
 	QWidget *m_widget;
-	U_COMBO_BOX *m_processes;
+	U_COMBO_BOX *m_processesComboBox;
 	void errorMessage(const QString &message);
 	void updateStatus(const Process *process);
 public slots:
