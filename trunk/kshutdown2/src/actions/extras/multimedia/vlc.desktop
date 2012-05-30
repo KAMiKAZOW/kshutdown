@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+# Encoding: UTF-8
+Exec=dbus-send --print-reply --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
+Icon=vlc
+Name=VLC
+Type=Application
