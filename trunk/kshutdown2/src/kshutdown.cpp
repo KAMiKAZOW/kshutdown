@@ -263,6 +263,7 @@ ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
 	setEnabled(action->isEnabled());
 	setIcon(action->icon());
 	setMenu(action->menu());
+	setShortcut(action->shortcut());
 	setText(action->text());
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
@@ -908,6 +909,7 @@ bool StandardAction::onAction() {
 
 	#ifdef KS_NATIVE_KDE
 	if (m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT)) {
+// TODO: remove KWorkSpace API deps (?)
 // TODO: check if logout is available
 		// BUG #3467712: http://sourceforge.net/tracker/index.php?func=detail&aid=3467712&group_id=93707&atid=605270
 		KWorkSpace::requestShutDown(

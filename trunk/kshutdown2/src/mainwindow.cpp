@@ -711,6 +711,7 @@ void MainWindow::initMenuBar() {
 #ifdef KS_NATIVE_KDE
 		m_actionCollection->addAction("kshutdown/" + id, confirmAction);
 		confirmAction->setGlobalShortcut(KShortcut());
+// TODO: show global shortcuts: confirmAction->setShortcut(confirmAction->globalShortcut());
 #endif // KS_NATIVE_KDE
 
 		fileMenu->addAction(confirmAction);
@@ -846,6 +847,7 @@ void MainWindow::initWidgets() {
 	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
 	m_actionCollection->addAction("kshutdown/cancel", m_cancelAction);
 	m_cancelAction->setGlobalShortcut(KShortcut());
+// TODO: show global shortcut: m_cancelAction->setShortcut(m_cancelAction->globalShortcut());
 #else
 	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));
 #endif // KS_NATIVE_KDE

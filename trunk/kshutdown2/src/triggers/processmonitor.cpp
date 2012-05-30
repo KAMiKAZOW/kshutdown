@@ -238,16 +238,9 @@ BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 	wchar_t textBuf[textLength];
 	int result = ::GetWindowTextW(windowHandle, textBuf, textLength);
 	if (result > 0) {
-// TODO: common code: trim
-		int max = 30;
 		QString title = QString::fromWCharArray(textBuf);
-		if (title.length() > max) {
-			title.truncate(max);
-			title = title.trimmed();
-			title.append("...");
-		}
 
-		Process *p = new Process(processMonitor, title);
+		Process *p = new Process(processMonitor, Utils::trim(title, 30));
 		p->setPID(pid);
 		p->setVisible(::IsWindowVisible(windowHandle));
 		p->setWindowHandle(windowHandle);
