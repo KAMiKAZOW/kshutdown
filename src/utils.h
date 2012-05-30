@@ -46,6 +46,7 @@ public:
 	static bool isXfce();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
 	static void shutDown();
+	static QString trim(QString &text, const int maxLength);
 private:
 #ifdef KS_NATIVE_KDE
 	static KCmdLineArgs *m_args;

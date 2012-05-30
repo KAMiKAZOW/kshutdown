@@ -22,7 +22,6 @@ Misc.:
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
-* Plasmoid
 * Include in KDE 4
 * "K" menu integration
 * Shutdown everyday to save energy:
@@ -44,6 +43,8 @@ Misc.:
   <http://sourceforge.net/projects/kshutdown/forums/forum/324059/topic/1758589>
   - Related: https://bugs.kde.org/show_bug.cgi?id=198255
   - API: http://api.kde.org/4.x-api/kdebase-workspace-apidocs/libs/kworkspace/html/classKDisplayManager.html
+  - http://ksmanis.wordpress.com/2011/04/21/hello-planet-and-grub2-support-for-kdm/
+* Offer one time autologin on reboot <https://bugs.kde.org/show_bug.cgi?id=198255>
 
 Scripting:
 

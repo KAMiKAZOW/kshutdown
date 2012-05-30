@@ -66,7 +66,7 @@ class CommandAction: private U_ACTION {
 private:
 	Q_DISABLE_COPY(CommandAction)
 	QString m_command;
-	explicit CommandAction(const U_ICON &icon, const QString &text, QObject *parent, const QString &command);
+	explicit CommandAction(const U_ICON &icon, QString text, QObject *parent, const QString &command);
 private slots:
 	void slotFire();
 };

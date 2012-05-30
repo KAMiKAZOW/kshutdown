@@ -34,6 +34,7 @@
 	#include <QUrl>
 #endif // KS_PURE_QT
 
+#include "../utils.h"
 #include "extras.h"
 
 // Extras
@@ -267,14 +268,6 @@ U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text) {
 	if (!exec.isEmpty()) {
 		// simplify
 		exec.remove("dbus-send --print-reply --dest=");
-
-		// trim
-		int max = 20;
-		if (exec.length() > max) {
-			exec.truncate(max);
-			exec = exec.trimmed();
-			exec.append("...");
-		}
 		text += (" - " + exec);
 	}
 
@@ -371,8 +364,8 @@ void Extras::updateMenu() {
 
 // private
 
-CommandAction::CommandAction(const U_ICON &icon, const QString &text, QObject *parent, const QString &command) :
-	U_ACTION(icon, text, parent),
+CommandAction::CommandAction(const U_ICON &icon, QString text, QObject *parent, const QString &command) :
+	U_ACTION(icon, Utils::trim(text, 30), parent),
 	m_command(command) {
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }

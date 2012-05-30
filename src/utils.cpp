@@ -219,3 +219,13 @@ void Utils::shutDown() {
 		m_args->clear();
 #endif // KS_NATIVE_KDE
 }
+
+QString Utils::trim(QString &text, const int maxLength) {
+	if (text.length() > maxLength) {
+		text.truncate(maxLength);
+		text = text.trimmed();
+		text.append("...");
+	}
+	
+	return text;
+}
