@@ -46,6 +46,9 @@ class Process: public QObject {
 public:
 	explicit Process(QObject *parent, const QString &command);
 	bool isRunning() const;
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	inline bool own() const { return m_own; }
+	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
 	inline void setPID(const DWORD value) { m_pid = value; }
 	inline bool visible() const { return m_visible; }
@@ -60,6 +63,7 @@ private:
 	QString m_command; // a process command or window title (e.g. "firefox")
 	
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	bool m_own;
 	pid_t m_pid;
 	QString m_user; // an owner of the process (e.g. "root")
 	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
