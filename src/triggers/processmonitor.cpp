@@ -36,6 +36,7 @@ Process::Process(QObject *parent, const QString &command)
 	: QObject(parent),
 	m_command(command),
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	m_own(false),
 	m_pid(0),
 	m_user(QString::null)
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
@@ -280,19 +281,14 @@ void ProcessMonitor::onRefresh() {
 	}
 	else {
 		qSort(m_processList.begin(), m_processList.end(), compareProcess);
-		bool firstHidden = true;
+
 		foreach (Process *i, m_processList) {
 			// CREDITS: http://stackoverflow.com/questions/5542423/wm-geticon-sometimes-returns-no-icon-handle
 			DWORD iconHandle = ::GetClassLongPtr(i->windowHandle(), GCLP_HICONSM);
-			if (iconHandle != 0) {
+			if (iconHandle != 0)
 				m_processesComboBox->addItem(QPixmap::fromWinHICON((HICON)iconHandle), i->toString());
-
-				// separate hidden windows
-				if (firstHidden && !i->visible()) {
-					firstHidden = false;
-					m_processesComboBox->insertSeparator(m_processesComboBox->count() - 1);
-				}
-			}
+			else
+				m_processesComboBox->addItem(U_ICON(), i->toString());
 		}
 	}
 
@@ -307,6 +303,25 @@ void ProcessMonitor::onError(QProcess::ProcessError error) {
 	errorMessage(i18n("Error: %0").arg(error));
 }
 
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+// sort alphabetically, own first
+bool compareProcess(const Process *p1, const Process *p2) {
+	bool o1 = p1->own();
+	bool o2 = p2->own();
+	
+	if (o1 && !o2)
+		return true;
+	
+	if (!o1 && o2)
+		return false;
+
+	QString s1 = p1->toString();
+	QString s2 = p2->toString();
+		
+	return QString::compare(s1, s2, Qt::CaseInsensitive) < 0;
+}
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
 void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
@@ -318,7 +333,6 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 	}
 	
 	if (exitStatus == QProcess::NormalExit) {
-		QString user = Utils::getUser();
 		QStringList processLines = m_refreshBuf.split('\n');
 		foreach (const QString &i, processLines) {
 			QStringList processInfo = i.simplified().split(' ');
@@ -327,16 +341,27 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 				p->m_user = processInfo[0];
 				p->m_pid = processInfo[1].toLong();
 				addProcess(p);
-				m_processesComboBox->addItem(
-					// show icons for the current user only (faster)
-					(p->m_user == user) ? U_STOCK_ICON(p->m_command) : U_ICON(),
-					p->toString()
-				);
 			}
 		}
 		
-		if (m_processList.isEmpty())
+		if (m_processList.isEmpty()) {
 			errorMessage(i18n("Error, exit code: %0").arg(exitCode));
+		}
+		else {
+			QString user = Utils::getUser();
+			foreach (Process *i, m_processList)
+				i->m_own = (i->m_user == user);
+
+			qSort(m_processList.begin(), m_processList.end(), compareProcess);
+
+			foreach (Process *i, m_processList) {
+				m_processesComboBox->addItem(
+					// show icons for own processes only (faster)
+					i->own() ? U_STOCK_ICON(i->m_command) : U_ICON(),
+					i->toString()
+				);
+			}
+		}
 	}
 	else { // QProcess::CrashExit
 		errorMessage(i18n("Error, exit code: %0").arg(exitCode));
