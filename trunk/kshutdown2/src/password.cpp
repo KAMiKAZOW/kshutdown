@@ -119,7 +119,7 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 	QString prompt = i18n("Enter password to perform action: %0").arg(caption);
 
 	#ifdef KS_NATIVE_KDE
-	KPasswordDialog *dialog = new KPasswordDialog(parent);
+	QPointer<KPasswordDialog> dialog = new KPasswordDialog(parent);
 	dialog->setPixmap(U_ICON("kshutdown").pixmap(48, 48));
 	dialog->setPrompt(prompt);
 	bool ok = dialog->exec();
@@ -131,11 +131,11 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 		return false;
 	#else
 	bool ok;
-	password = QInputDialog::getText(
+	password = QInputDialog::getText( // krazy:exclude=qclasses
 		parent,
 		"KShutdown", // title
 		prompt,
-		QLineEdit::Password,
+		QLineEdit::Password, // krazy:exclude=qclasses
 		"",
 		&ok
 	);

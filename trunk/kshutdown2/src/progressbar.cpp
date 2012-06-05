@@ -190,7 +190,7 @@ void ProgressBar::onSetColor() {
 	if (KColorDialog::getColor(newColor, currentColor, this) != KColorDialog::Accepted)
 		return;
 	#else
-	QColor newColor = QColorDialog::getColor(
+	QColor newColor = QColorDialog::getColor( // krazy:exclude=qclasses
 		currentColor,
 		this,
 		QString::null // use default title
