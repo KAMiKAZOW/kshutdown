@@ -323,7 +323,7 @@ void Extras::slotModify() {
 	QString command = "dolphin \"" + getFilesDirectory() + "\"";
 	KRun::run(command, KUrl::List(), U_APP->activeWindow());
 	#else
-	QMessageBox::information(0, originalText(), text);
+	QMessageBox::information(0, originalText(), text); // krazy:exclude=qclasses
 	QUrl command = QUrl::fromLocalFile(getFilesDirectory());
 	QDesktopServices::openUrl(command);
 	#endif // KS_NATIVE_KDE

@@ -38,6 +38,10 @@
 	#include <unistd.h> // for sleep
 #endif // Q_WS_WIN
 
+#ifdef KS_PURE_QT
+	#include <QPointer>
+#endif // KS_PURE_QT
+
 #include "actions/lock.h"
 #include "kshutdown.h"
 #include "mainwindow.h"
@@ -167,18 +171,18 @@ bool Action::showConfirmationMessage(QWidget *parent) {
 		KStandardGuiItem::cancel()
 	) == KMessageBox::Yes;
 	#else
-	QMessageBox *message = new QMessageBox(
+	QPointer<QMessageBox> message = new QMessageBox( // krazy:exclude=qclasses
 		QMessageBox::Warning,
 		title,
 		text,
-		QMessageBox::Ok | QMessageBox::Cancel,
+		QMessageBox::Ok | QMessageBox::Cancel, // krazy:exclude=qclasses
 		parent
 	);
 	message->setDefaultButton(QMessageBox::Cancel);
 	QAbstractButton *ok = message->button(QMessageBox::Ok);
 	ok->setIcon(icon());
 	ok->setText(originalText());
-	bool accepted = message->exec() == QMessageBox::Ok;
+	bool accepted = message->exec() == QMessageBox::Ok; // krazy:exclude=qclasses
 	delete message;
 	
 	return accepted;
