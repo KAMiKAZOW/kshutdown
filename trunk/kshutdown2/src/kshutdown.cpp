@@ -95,17 +95,18 @@ void Base::writeConfig(const QString &group, Config *config) {
 #ifdef Q_WS_WIN
 // CREDITS: http://lists.trolltech.com/qt-solutions/2005-05/msg00005.html
 void Base::setLastError() {
+	DWORD lastError = ::GetLastError();
 	char *buffer = 0;
 	::FormatMessageA(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
 		0,
-		::GetLastError(),
+		lastError,
 		0,
 		(char *)&buffer,
 		0,
 		0
 	);
-	m_error = QString::fromLocal8Bit(buffer);
+	m_error = QString::fromLocal8Bit(buffer) + " (error code: " + QString::number(lastError) + ", 0x" + QString::number(lastError, 16) + ")";
 	if (buffer)
 		::LocalFree(buffer);
 }
@@ -811,17 +812,67 @@ bool StandardAction::onAction() {
 		return false;
 	}
 
-	flags += EWX_FORCEIFHUNG;
-	if (m_force) {
-		flags += EWX_FORCE;
-		m_force = false;
+/*
+	OSVERSIONINFO os;
+	::ZeroMemory(&os, sizeof(OSVERSIONINFO));
+	os.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	if (
+		::GetVersionEx(&os) &&
+		((os.dwMajorVersion == 5) && (os.dwMinorVersion == 1)) // win xp
+	) {
 	}
-	#define SHTDN_REASON_MAJOR_APPLICATION 0x00040000
-	#define SHTDN_REASON_FLAG_PLANNED 0x80000000
-	if (::ExitWindowsEx(flags, SHTDN_REASON_MAJOR_APPLICATION | SHTDN_REASON_FLAG_PLANNED) == 0) {
-		setLastError();
+*/
+		
+	if (
+		(m_type == U_SHUTDOWN_TYPE_HALT) ||
+		(m_type == U_SHUTDOWN_TYPE_REBOOT)
+	) {
+		BOOL bForceAppsClosed = m_force ? TRUE : FALSE;
+		m_force = false;
+		
+		BOOL bRebootAfterShutdown = (m_type == U_SHUTDOWN_TYPE_REBOOT) ? TRUE : FALSE;
+		
+		if (::InitiateSystemShutdown(
+			NULL, NULL, 0, // unused
+			bForceAppsClosed,
+			bRebootAfterShutdown
+		) == 0) {
+// TODO: handle ERROR_NOT_READY
+			if (::GetLastError() == ERROR_MACHINE_LOCKED) {
+				
+				bForceAppsClosed = TRUE;
+				
+				if (::InitiateSystemShutdown(
+					NULL, NULL, 0, // unused
+					bForceAppsClosed,
+					bRebootAfterShutdown
+				) == 0) {
+					setLastError();
+					
+					return false;
+				}
+			}
+			else {
+				setLastError();
+				
+				return false;
+			}
+		}
+	}
+	else {
+		flags += EWX_FORCEIFHUNG;
+		if (m_force) {
+			flags += EWX_FORCE;
+			m_force = false;
+		}
 
-		return false;
+		#define SHTDN_REASON_MAJOR_APPLICATION 0x00040000
+		#define SHTDN_REASON_FLAG_PLANNED 0x80000000
+		if (::ExitWindowsEx(flags, SHTDN_REASON_MAJOR_APPLICATION | SHTDN_REASON_FLAG_PLANNED) == 0) {
+			setLastError();
+
+			return false;
+		}
 	}
 
 	return true;

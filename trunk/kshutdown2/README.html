@@ -272,10 +272,19 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
-<ol>
-	<li>To compile and install KShutdown run: <code>Setup-qt4.bat</code> (this will build both portable and installable version)</li>
+<ul>
+	<li>To compile and install KShutdown run: <code>Setup-qt4.bat</code> (this will rebuild both portable and installable version)</li>
+	<li>To quick compile and test:
+		<ol>
+		<li>Launch "Command Prompt" (<code>cmd.exe</code>)</li>
+		<li><code>cd your-kshutdown-source-dir\src</code></li>
+		<li>Run <code>c:\qt\&lt;your-qt-version&gt;\bin\qtvars.bat</code> (it should print <i>Setting up a MinGW/Qt only environment...</i>)</li>
+		<li>Run <code>make &amp;&amp; release\kshutdown-qt.exe</code></li>
+		<li>Right-click <code>kshutdown.nsi</code> and select <i>Compile NSIS Script</i> to build and test installer</li>
+		</ol>
+	</li>
 	<li><b>Experimental:</b> To compile KShutdown under Wine/Linux run: <code>./Setup-wine.sh</code></li>
-</ol>
+</ul>
 
 <h2 id="supported">Supported Functions/Platforms</h2>
 
@@ -331,8 +340,8 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 
 <tr><td class="build" colspan="9">Windows (Qt 4 Build) *</td></tr>
 <tr>
-<td class="ok" title="::ExitWindowsEx">OK</td>
-<td class="ok" title="::ExitWindowsEx">OK</td>
+<td class="ok" title="::InitiateSystemShutdown">OK</td>
+<td class="ok" title="::InitiateSystemShutdown">OK</td>
 <td class="ok" title="::SetSuspendState">OK</td>
 <td class="ok" title="::SetSuspendState">OK</td>
 <td class="ok" title="::LockWorkStation">OK</td>
