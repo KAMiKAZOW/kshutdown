@@ -52,7 +52,7 @@ Section "-"
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
 SectionEnd
 
-Section "Autostart" SectionAutostart
+Section /o "Autostart" SectionAutostart
 	SetShellVarContext all
 	IfSilent NoAutostart
 	CreateDirectory "$SMSTARTUP"

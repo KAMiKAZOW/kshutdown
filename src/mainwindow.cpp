@@ -808,13 +808,10 @@ void MainWindow::initWidgets() {
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
 	m_actionBox->layout()->addWidget(m_actions);
 
-	m_force = new QCheckBox(i18n("Do not save session"));
+	m_force = new QCheckBox(i18n("Do not save session / Force shutdown"));
 	m_force->setObjectName("force");
 	connect(m_force, SIGNAL(clicked()), SLOT(onForceClick()));
 	m_actionBox->layout()->addWidget(m_force);
-#ifndef Q_WS_WIN
-	m_force->hide();
-#endif // Q_WS_WIN
 
 	m_triggerBox = new QGroupBox(i18n("Se&lect a time/event"));
 	m_triggerBox->setObjectName("trigger-box");
@@ -1072,6 +1069,14 @@ void MainWindow::onActionActivated(int index) {
 	}
 
 	Action *action = getSelectedAction();
+	
+	#ifdef Q_WS_WIN
+	QString id = action->id();
+	m_force->setVisible((id == "shutdown") || (id == "reboot") || (id == "logout"));
+	#else
+	m_force->hide();
+	#endif // Q_WS_WIN
+
 	m_currentActionWidget = action->getWidget();
 	if (m_currentActionWidget) {
 		m_actionBox->layout()->addWidget(m_currentActionWidget);
