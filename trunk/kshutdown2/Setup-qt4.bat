@@ -12,6 +12,9 @@ mkdir ..\kshutdown-portable
 copy release\kshutdown-qt.exe ..\kshutdown-portable\kshutdown.exe
 del portable.pri
 
+rem cd ..
+rem goto skip_normal
+
 :skip_portable
 
 rem normal version
@@ -26,6 +29,8 @@ cd ..
 if not %errorlevel% == 0 goto quit
 kshutdown-3.0beta5-win32.exe
 
+:skip_normal
+copy README.html kshutdown-portable
 copy C:\mingw\bin\libgcc_s_dw2-1.dll kshutdown-portable
 copy C:\mingw\bin\libstdc++-6.dll kshutdown-portable
 copy C:\mingw\bin\mingwm10.dll kshutdown-portable
