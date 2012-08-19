@@ -45,6 +45,7 @@ Misc.:
   - API: http://api.kde.org/4.x-api/kdebase-workspace-apidocs/libs/kworkspace/html/classKDisplayManager.html
   - http://ksmanis.wordpress.com/2011/04/21/hello-planet-and-grub2-support-for-kdm/
 * Offer one time autologin on reboot <https://bugs.kde.org/show_bug.cgi?id=198255>
+* Settings: Auto Start options (Linux/Windows)
 
 Scripting:
 
