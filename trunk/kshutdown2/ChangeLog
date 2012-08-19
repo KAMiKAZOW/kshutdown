@@ -1,7 +1,56 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2012/05/!!!  3.0 Beta 5
+2012/08/!!!  3.0 Beta 5
+
+Progress Bar:
+
+* Improved Kiosk support
+  <http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Kiosk>
+* Use KDE native color chooser
+
+Extras:
+
+* NEW: Support for non-KDE KShutdown versions
+  <http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Extras>
+* NEW: Added Extras -> Stop -> VLC
+* KDE: Do not show security/confirmation dialog for new *.desktop files
+* Show command name in menu item
+
+User Interface:
+
+* Improved confirmation message box
+* Changed "Quit" shortcut to Ctrl+Shift+Q
+* KDE: Show credits, author, and bug report address in About box
+* KDE: Show action keyboard shortcuts in menu
+* Process Monitor: Linux: Show own processes on top of the list
+
+Misc.:
+
+* Updated Polish translation
+* Smaller portable package compressed using 7-Zip
+
+Windows:
+
+* NEW: Added "When selected application exit" trigger
+* Show icons in message panes
+* Fixed: Removed "<qt>" tags from system tray tool tip
+* Fixed: Force shutdown if screen is locked (Windows XP)
+* Fixed shutdown issues caused by multiple logged in users
+* Fixed: Hide "Do not save session" option if it's not needed
+
+Windows Installer:
+
+* "Autostart" option is now unselected by default
+* Support for silent mode ("/S" option). Installer launched with /S option will
+  install KShutdown in a default location without asking any questions :)
+* Reduced installer size
+
+Source:
+
+* Fixed/suppressed issues reported by Krazy2 tool
+* Win32: Fixed compilation
+* Win32: Updated compilation instructions
 
 
 2012/04/23  3.0 Beta 4
@@ -391,151 +440,21 @@ Source package:
 * Fixed application shortcut
 
 
-2008/04/02  2.0 Alpha 5
-
-* Fixed the source package (kshutdown-source-*.zip file)
-* Updated README.html file
-* Fixed system tray tool tip text
-* Fixed Setup-win32.bat build script
-* Fixed command line support
-* Added experimental Setup-wine.sh script to build win32 version under Wine
-
-Setup-kde4.sh:
-
-* Added option to specify installation directory (prefix).
-  Example: ./Setup-kde4.sh /usr/local
-* Fixed: Added "kworkspace" detection
-
-
-2008/01/20  2.0 Alpha 4
-
-* Fixed date/time icons
-* Updated Oxygen Icon Theme
-* Extras: Removed deprecated "Encoding" keys;
-  added "Version" key (BUG #1849625); additionaly removed unused keys
-* Fixed: Do not show main window on session restore
-* Fixed: Always show main window if system tray is not available
-* NEW: Added option to disable action confirmation message
-* NEW: Added "Preferences" dialog (menu -> Settings)
-* Added icons with small and large sizes
-* NEW KShutdown icon
-* Fixed: Do not quit application if window is hidden in the system tray
-* Added "init" command line option (like in KShutdown 1.x)
-* Fixed: Wait for screensaver before hibernate/suspend
-* Added *unofficial* support for Themes
-* Show reason if action is not available
-* Fixed "empty" error messages
-* NEW: Added initial support for command line options (not documented yet)
-* Show warning message for the "force" option
-
-KDE 4:
-
-* Fixed compilation errors
-* Fixed: Install KShutdown icons and menu shortcut
-
-GNOME:
-
-* Fixed "Logout" command
-* Fixed "Lock Screen" command
-
-Windows:
-
-* NEW: Portable version for Windows
-* Added "kshutdown.exe" to the "apppath"
-  so you can run it via Start -> Run...
-* Do not create desktop shortcut
-* Autostart is now enabled by default after installation
-* Fixed icons
-* Fixed: Disable "Lock Screen" action if countdown is active
-
-Source:
-
-* NEW: Re-added "Extras" actions (disabled in this version)
-* Updated TODO file
-* Fixed "Setup" scripts
-* NEW: Added new icon formats (Windows Icon and SVG)
-
-
-2007/11/25  2.0 Alpha 3
-
-KDE
-
-* Fixed compilation error on KDE 4.0 RC 1
-* Changed action names to match KDE workspace
-* Fixed system tray
-* Fixed about box
-
-Windows
-
-* Updated Qt libraries to version 4.3.2
-* NEW: KShutdown is now statically linked with Qt library
-  (smaller download size)
-* Updated installer to version 2.33
-* NEW: Added "Force" option
-
-Qt/Linux
-
-* Fixed "Hibernate Computer" action
-* Fixed "Lock Screen" action (added support for xdg-screensaver and xscreensaver)
-
-Misc.
-
-* Fixed "Lock Session" action
-* NEW: Added confirmation message
-* Disabled confirmation for "Lock" action
-* Improved system tray messages
-* Fixed main window
-* Fixed "COMPAT" warnings
-* Smaller date/time font size
-* Fixed suspend to RAM (need testing)
-* Use larger font in date/time editor
-* Changed order of menu/combo box items
-* + Minor updates and fixes
-
-Source and API
-
-* Source clean up
-* Updated TODO list
-* Added "U_APP" macro
-* Setup-qt4-win32.bat -> Setup-qt4.bat
-
-
-2007/07/08  2.0 Alpha 2
-
-- Select "Turn Off Computer" and "Time From Now" by default
-
-- Fixed configuration reading/writing in Qt build
-
-- Minor fixes
-
-
-2007/06/24  2.0 Alpha 1
-
-- NEW: KShutDown -> KShutdown (note lower case "d")
-
-- NEW: KShutdown has been rewritten from scratch
-
-- NEW: KShutdown 2.x requires KDE 4.x or Qt 4.3
-
-- NEW: Now KShutdown uses "CMake" to build from sources.
-  Simply run "./Setup-kde4.sh" to automatically compile and install KShutdown...
-
-- NEW: Added "Hibernate Computer" and "Suspend Computer" actions
-
-- NEW: Calendar popup in "At Date/Time" action
-
-- REMOVED: "Statistics" dialog is no longer available
-
-- REMOVED: Some functions are *temporarily* disabled or not available
-
-
-Release History:
-
 ---- Release History ----                                                                  
-                                                                                           
+
 Old ChangeLogs can be found in the SVN repository at:                                      
 http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown/ChangeLog?view=markup
 http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog?view=markup
+
+2008/04/02  2.0 Alpha 5
+
+2008/01/20  2.0 Alpha 4
+
+2007/11/25  2.0 Alpha 3
+
+2007/07/08  2.0 Alpha 2
+
+2007/06/24  2.0 Alpha 1
 
 2009/??/??  1.0.5 for KDE 3 (never released)
 
@@ -599,4 +518,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 623:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 644:HEAD|xsel -i -b && kwrite ChangeLog
