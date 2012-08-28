@@ -90,6 +90,7 @@ private:
 	QString m_refreshBuf;
 	QWidget *m_widget;
 	U_COMBO_BOX *m_processesComboBox;
+	void clearAll();
 	void errorMessage(const QString &message);
 	void updateStatus(const Process *process);
 public slots:

@@ -139,8 +139,7 @@ QWidget *ProcessMonitor::getWidget() {
 
 void ProcessMonitor::setPID(const pid_t pid) {
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	m_processesComboBox->clear();
-	m_processList.clear();
+	clearAll();
 	
 	Process *p = new Process(this, "?");
 	p->m_pid = pid;
@@ -152,12 +151,17 @@ void ProcessMonitor::setPID(const pid_t pid) {
 
 // private
 
+void ProcessMonitor::clearAll() {
+	qDeleteAll(m_processList);
+	m_processesComboBox->clear();
+	m_processList.clear();
+}
+
 void ProcessMonitor::errorMessage(const QString &message) {
 	U_APP->restoreOverrideCursor();
 
-	m_processesComboBox->clear();
+	clearAll();
 	m_processesComboBox->setEnabled(false);
-	m_processList.clear();
 
 	m_processesComboBox->addItem(
 		U_STOCK_ICON("dialog-error"),
@@ -181,9 +185,9 @@ void ProcessMonitor::updateStatus(const Process *process) {
 void ProcessMonitor::onRefresh() {
 	U_APP->setOverrideCursor(Qt::WaitCursor);
 	
-	m_processesComboBox->clear();
+	clearAll();
 	m_processesComboBox->setEnabled(true);
-	m_processList.clear();
+
 	m_refreshBuf = QString::null;
 
 	if (!m_refreshProcess) {
@@ -269,9 +273,7 @@ bool compareProcess(const Process *p1, const Process *p2) {
 }
 
 void ProcessMonitor::onRefresh() {
-	qDeleteAll(m_processList);//!!!review all
-	m_processesComboBox->clear();
-	m_processList.clear();
+	clearAll();
 	
 	::EnumWindows(EnumWindowsCallback, (LPARAM)this);
 
@@ -283,11 +285,12 @@ void ProcessMonitor::onRefresh() {
 		qSort(m_processList.begin(), m_processList.end(), compareProcess);
 
 		foreach (Process *i, m_processList) {
-			// CREDITS: http://stackoverflow.com/questions/5542423/wm-geticon-sometimes-returns-no-icon-handle
+/* FIXME: crash
 			DWORD iconHandle = ::GetClassLongPtr(i->windowHandle(), GCLP_HICONSM);
 			if (iconHandle != 0)
 				m_processesComboBox->addItem(QPixmap::fromWinHICON((HICON)iconHandle), i->toString());
 			else
+*/
 				m_processesComboBox->addItem(U_ICON(), i->toString());
 		}
 	}
