@@ -319,14 +319,11 @@ void Extras::slotModify() {
 
 	#ifdef KS_NATIVE_KDE
 	KMessageBox::information(0, text, originalText(), "ModifyExtras");
-// TODO: consider QDesktopServices::openUrl
-	QString command = "dolphin \"" + getFilesDirectory() + "\"";
-	KRun::run(command, KUrl::List(), U_APP->activeWindow());
 	#else
 	QMessageBox::information(0, originalText(), text); // krazy:exclude=qclasses
-	QUrl command = QUrl::fromLocalFile(getFilesDirectory());
-	QDesktopServices::openUrl(command);
 	#endif // KS_NATIVE_KDE
+	QUrl url = QUrl::fromLocalFile(getFilesDirectory());
+	QDesktopServices::openUrl(url);
 }
 
 void Extras::updateMenu() {
