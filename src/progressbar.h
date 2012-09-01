@@ -40,6 +40,7 @@ private:
 	int m_value;
 	Qt::Alignment m_alignment;
 private slots:
+	void onResize(int screen);
 	void onSetBottomAlignment();
 	void onSetColor();
 	void onSetTopAlignment();

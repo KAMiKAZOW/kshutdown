@@ -43,6 +43,7 @@ void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfi
 		config->sync();
 	}
 
+// FIXME: it's sometimes invisible in low resolution (bottom, 640x480)
 	m_alignment = value;
 	QDesktopWidget *desktop = QApplication::desktop();
 	resize(desktop->width() - 4, height());
@@ -173,11 +174,20 @@ ProgressBar::ProgressBar() // public
 // TODO: size configuration
 	setHeight(3);
 
-// TODO: auto align on screen size change
 	setAlignment(Config::user()->progressBarAlignment(), false);
+	
+	QDesktopWidget *desktop = QApplication::desktop();
+	connect(desktop, SIGNAL(resized(int)), SLOT(onResize(int)));
 }
 
 // private slots
+
+void ProgressBar::onResize(int screen) {
+	Q_UNUSED(screen)
+
+	// update window location on screen size change
+	setAlignment(m_alignment, false);
+}
 
 void ProgressBar::onSetBottomAlignment() {
 	setAlignment(Qt::AlignBottom, true);
