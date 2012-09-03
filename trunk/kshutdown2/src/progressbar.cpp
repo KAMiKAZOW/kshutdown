@@ -105,20 +105,52 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		menu->addSeparator();
 		#endif // KS_NATIVE_KDE
 
-		QActionGroup *ag = new QActionGroup(this);
-
+		QActionGroup *positionGroup = new QActionGroup(this);
+// TODO: common code
 		QAction *a = menu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
-		a->setActionGroup(ag);
+		a->setActionGroup(positionGroup);
 		a->setCheckable(true);
 		a->setChecked(m_alignment.testFlag(Qt::AlignTop));
 		a->setEnabled(canConfigure);
 		
 		a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
-		a->setActionGroup(ag);
+		a->setActionGroup(positionGroup);
 		a->setCheckable(true);
 		a->setChecked(m_alignment.testFlag(Qt::AlignBottom));
 		a->setEnabled(canConfigure);
+
+		#ifdef KS_NATIVE_KDE
+		menu->addTitle(i18n("Size"));
+		#else
+		menu->addSeparator();
+		#endif // KS_NATIVE_KDE
+
+		QActionGroup *sizeGroup = new QActionGroup(this);
 		
+		a = menu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
+		a->setActionGroup(sizeGroup);
+		a->setCheckable(true);
+		a->setChecked(height() == Small);
+		a->setEnabled(canConfigure);
+
+		a = menu->addAction(i18n("Normal"), this, SLOT(onSetSizeNormal()));
+		a->setActionGroup(sizeGroup);
+		a->setCheckable(true);
+		a->setChecked(height() == Normal);
+		a->setEnabled(canConfigure);
+
+		a = menu->addAction(i18n("Medium"), this, SLOT(onSetSizeMedium()));
+		a->setActionGroup(sizeGroup);
+		a->setCheckable(true);
+		a->setChecked(height() == Medium);
+		a->setEnabled(canConfigure);
+
+		a = menu->addAction(i18n("Large"), this, SLOT(onSetSizeLarge()));
+		a->setActionGroup(sizeGroup);
+		a->setCheckable(true);
+		a->setChecked(height() == Large);
+		a->setEnabled(canConfigure);
+
 		menu->popup(e->globalPos());
 		e->accept();
 	}
@@ -161,23 +193,35 @@ ProgressBar::ProgressBar() // public
 	QPalette p;
 	QColor background = QColor(Qt::black);
 	p.setColor(QPalette::Window, background);
-	
+
+// TODO: transparent
 	Config *config = Config::user();
 	config->beginGroup("Progress Bar");
 	QColor defaultForeground = QColor(0xF8FFBF /* lime 1 */);
 	QColor foreground = config->read("Foreground Color", defaultForeground).value<QColor>();
+	
+	setHeight(qBound(Small, (Size)config->read("Size", Normal).toInt(), Large));
+	
 	config->endGroup();
 	p.setColor(QPalette::WindowText, (foreground.rgb() == background.rgb()) ? defaultForeground : foreground);
 	
 	setPalette(p);
 
-// TODO: size configuration
-	setHeight(3);
-
 	setAlignment(Config::user()->progressBarAlignment(), false);
 	
 	QDesktopWidget *desktop = QApplication::desktop();
 	connect(desktop, SIGNAL(resized(int)), SLOT(onResize(int)));
+}
+
+void ProgressBar::setSize(const Size size) {
+	setHeight(size);
+	setAlignment(m_alignment, false);
+
+	Config *config = Config::user();
+	config->beginGroup("Progress Bar");
+	config->write("Size", size);
+	config->endGroup();
+	config->sync();
 }
 
 // private slots
@@ -218,6 +262,22 @@ void ProgressBar::onSetColor() {
 		config->endGroup();
 		config->sync();
 	}
+}
+
+void ProgressBar::onSetSizeLarge() {
+	setSize(Large);
+}
+
+void ProgressBar::onSetSizeMedium() {
+	setSize(Medium);
+}
+
+void ProgressBar::onSetSizeNormal() {
+	setSize(Normal);
+}
+
+void ProgressBar::onSetSizeSmall() {
+	setSize(Small);
 }
 
 void ProgressBar::onSetTopAlignment() {
