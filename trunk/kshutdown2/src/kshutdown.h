@@ -27,6 +27,7 @@
 #include <QDateTime>
 
 #include "config.h"
+#include "infowidget.h"
 
 #ifdef KS_NATIVE_KDE
 	#include <kworkspace/kworkspace.h>
@@ -75,8 +76,12 @@ public:
 	inline QString status() const {
 		return m_status;
 	}
+	inline InfoWidget::Type statusType() const {
+		return m_statusType;
+	}
 	virtual void writeConfig(const QString &group, Config *config);
 protected:
+	InfoWidget::Type m_statusType;
 	QString m_disableReason;
 	QString m_error;
 	QString m_id;
@@ -87,9 +92,9 @@ protected:
 	QString m_originalText;
 
 	QString m_status;
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	void setLastError();
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 };
 
 class U_EXPORT Action: public U_ACTION, public Base {
@@ -206,6 +211,7 @@ class U_EXPORT DateTimeTrigger: public DateTimeTriggerBase {
 public:
 	DateTimeTrigger();
 	virtual QWidget *getWidget();
+	virtual void setState(const State state);
 protected:
 	virtual QDateTime calcEndTime();
 private:

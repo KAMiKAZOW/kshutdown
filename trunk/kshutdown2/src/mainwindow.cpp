@@ -383,11 +383,11 @@ void MainWindow::setActive(const bool yes) {
 	m_lastNotificationID = QString::null;
 
 	if (m_active) {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 		// HACK: disable "Lock Screen" action if countdown is active
 		if (action != LockAction::self())
 			m_confirmLockAction->setEnabled(false);
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 		m_triggerTimer->start(trigger->checkTimeout());
 		action->setState(Base::StartState);
 		trigger->setState(Base::StartState);
@@ -396,10 +396,10 @@ void MainWindow::setActive(const bool yes) {
 			m_progressBar->show();
 	}
 	else {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 		if (action != LockAction::self())
 			m_confirmLockAction->setEnabled(true);
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 		m_triggerTimer->stop();
 		action->setState(Base::StopState);
 		trigger->setState(Base::StopState);
@@ -899,11 +899,11 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 #endif // KS_NATIVE_KDE
 	QString s = html.isEmpty() ? "KShutdown" : html;
 
-	#ifdef Q_WS_WIN
+	#ifdef Q_OS_WIN32
 	m_systemTray->setToolTip(plain.isEmpty() ? "KShutdown" : (plain + " - KShutdown"));
 	#else
 	m_systemTray->setToolTip(s);
-	#endif // Q_WS_WIN
+	#endif // Q_OS_WIN32
 
 	m_progressBar->setToolTip(s);
 }
@@ -954,6 +954,7 @@ void MainWindow::updateWidgets() {
 	if (action->isEnabled()) {
 		if ((action == Extras::self()) && Extras::self()->command().isEmpty()) {
 			m_okCancelButton->setEnabled(false);
+// TODO: move to Extras class
 			m_infoWidget->setText(
 				"<qt>" +
 				i18n("Please select an Extras command<br>from the menu above.") +
@@ -966,7 +967,7 @@ void MainWindow::updateWidgets() {
 				m_okCancelButton->setEnabled(canCancel);
 			else
 				m_okCancelButton->setEnabled(true);
-			m_infoWidget->setText(QString::null);
+			onStatusChange(false);
 		}
 	}
 	else {
@@ -1070,12 +1071,12 @@ void MainWindow::onActionActivated(int index) {
 
 	Action *action = getSelectedAction();
 	
-	#ifdef Q_WS_WIN
+	#ifdef Q_OS_WIN32
 	QString id = action->id();
 	m_force->setVisible((id == "shutdown") || (id == "reboot") || (id == "logout"));
 	#else
 	m_force->hide();
-	#endif // Q_WS_WIN
+	#endif // Q_OS_WIN32
 
 	m_currentActionWidget = action->getWidget();
 	if (m_currentActionWidget) {
@@ -1111,6 +1112,9 @@ void MainWindow::onCheckTrigger() {
 			U_DEBUG << "Activate action: force=" << m_force->isChecked() U_END;
 			action->activate(m_force->isChecked());
 		}
+		
+		// update date/time after resume from suspend, etc.
+		onStatusChange(false);
 	}
 	// update status
 	else {
@@ -1190,15 +1194,25 @@ void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 	
 	QString displayStatus = getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION);
 	
+	InfoWidget::Type type;
+	Action *action = getSelectedAction();
+	Trigger *trigger = getSelectedTrigger();
+	if (action->statusType() != InfoWidget::InfoType)
+		type = action->statusType();
+	else if (trigger->statusType() != InfoWidget::InfoType)
+		type = trigger->statusType();
+	else
+		type = InfoWidget::InfoType;
+	
 	if (aUpdateWidgets) {
 		updateWidgets();
 		
 		// do not override status set in "updateWidgets()"
 		if (!displayStatus.isEmpty() && !m_infoWidget->isVisible())
-			m_infoWidget->setText(displayStatus);
+			m_infoWidget->setText(displayStatus, type);
 	}
 	else {
-		m_infoWidget->setText(displayStatus);
+		m_infoWidget->setText(displayStatus, type);
 	}
 }
 
@@ -1218,6 +1232,7 @@ void MainWindow::onTriggerActivated(int index) {
 	}
 	
 	m_triggers->setWhatsThis(trigger->whatsThis());
-	
+
+// FIXME: update date/time status	
 	onStatusChange(true);
 }
