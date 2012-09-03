@@ -24,7 +24,7 @@
 
 #include <QDateTimeEdit>
 #include <QProcess>
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
 	#endif // WIN32_LEAN_AND_MEAN
@@ -36,7 +36,7 @@
 	#include <QDBusReply>
 
 	#include <unistd.h> // for sleep
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 
 #ifdef KS_PURE_QT
 	#include <QPointer>
@@ -62,6 +62,7 @@ QDBusInterface *StandardAction::m_halInterface = 0;
 // public
 
 Base::Base(const QString &id) :
+	m_statusType(InfoWidget::InfoType),
 	m_disableReason(QString::null),
 	m_error(QString::null),
 	m_id(id),
@@ -92,7 +93,7 @@ void Base::writeConfig(const QString &group, Config *config) {
 
 // protected
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 // CREDITS: http://lists.trolltech.com/qt-solutions/2005-05/msg00005.html
 void Base::setLastError() {
 	DWORD lastError = ::GetLastError();
@@ -110,7 +111,7 @@ void Base::setLastError() {
 	if (buffer)
 		::LocalFree(buffer);
 }
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 
 // Action
 
@@ -344,7 +345,7 @@ bool DateTimeTriggerBase::canActivateAction() {
 			emit notify(id, mainWindow->getDisplayStatus(MainWindow::DISPLAY_STATUS_HTML));
 		}
 	}
-
+	
 	return now >= m_endDateTime;
 }
 
@@ -418,6 +419,8 @@ void DateTimeTriggerBase::syncDateTime() {
 // private
 
 QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
+	m_statusType = InfoWidget::InfoType;
+	
 	secsTo = now.secsTo(m_endDateTime);
 	if (secsTo > 0) {
 		const int DAY = 86400;
@@ -441,6 +444,8 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		return QString::null;
 	}
 	else /* if (secsTo < 0) */ {
+		m_statusType = InfoWidget::WarningType;
+	
 		return i18n("Invalid date/time");
 	}
 }
@@ -470,6 +475,22 @@ QWidget *DateTimeTrigger::getWidget() {
 	m_edit->setToolTip(i18n("Enter date and time"));
 
 	return m_edit;
+}
+
+void DateTimeTrigger::setState(const State state) {
+	DateTimeTriggerBase::setState(state);
+	
+	if (state == StopState) {
+		// show warning if selected date/time is invalid
+		if (QDateTime::currentDateTime() >= m_edit->dateTime()) {
+			m_status = i18n("Invalid date/time");
+			m_statusType = InfoWidget::WarningType;
+		}
+		else {
+			updateStatus();
+		}
+		emit statusChanged(false);
+	}
 }
 
 // protected
@@ -537,7 +558,7 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 
 bool PowerAction::onAction() {
 // TODO: KDE: use Solid API (?)
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	BOOL hibernate = (m_methodName == "Hibernate");
 	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE); // krazy:exclude=captruefalse
 	if (result == 0) {
@@ -601,18 +622,15 @@ bool PowerAction::onAction() {
 
 		return false;
 	}
-	
-	// update date/time after resume
-	emit statusChanged(false);
 
 	return true;
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 }
 
 // protected
 
 bool PowerAction::isAvailable(const PowerActionType feature) const {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	if (feature == Hibernate)
 		return ::IsPwrHibernateAllowed();
 
@@ -679,7 +697,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 	}
 	
 	return false;
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 }
 
 // HibernateAction
@@ -710,11 +728,11 @@ HibernateAction::HibernateAction() :
 
 SuspendAction::SuspendAction() :
 	PowerAction(
-		#ifdef Q_WS_WIN
+		#ifdef Q_OS_WIN32
 		i18n("Sleep"),
 		#else
 		i18n("Suspend Computer"),
-		#endif // Q_WS_WIN
+		#endif // Q_OS_WIN32
 		"system-suspend", "suspend") {
 	m_methodName = "Suspend";
 	if (!isAvailable(Suspend))
@@ -755,7 +773,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 
 bool StandardAction::onAction() {
 	m_totalExit = true;
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	UINT flags = 0;
 	switch (m_type) {
 		case U_SHUTDOWN_TYPE_LOGOUT:
@@ -1017,7 +1035,7 @@ bool StandardAction::onAction() {
 	// show error
 	
 	return unsupportedAction();
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 }
 
 // protected
@@ -1030,10 +1048,10 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 	bool available = false;
 	QString error = "";
 
-	#ifdef Q_WS_WIN
+	#ifdef Q_OS_WIN32
 // TODO: win32: check if shutdown/reboot action is available
 	return;
-	#endif // Q_WS_WIN
+	#endif // Q_OS_WIN32
 
 	#ifdef KS_NATIVE_KDE
 	if (Utils::isKDEFullSession()) {
@@ -1109,11 +1127,11 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 
 LogoutAction::LogoutAction() :
 	StandardAction(
-		#ifdef Q_WS_WIN
+		#ifdef Q_OS_WIN32
 		i18n("Log Off"),
 		#else
 		i18n("Logout"),
-		#endif // Q_WS_WIN
+		#endif // Q_OS_WIN32
 		"system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT
 ) {
 	addCommandLineArg("l", "logout");
@@ -1174,9 +1192,9 @@ RebootAction::RebootAction() :
 ShutDownAction::ShutDownAction() :
 	StandardAction(i18n("Turn Off Computer"), "system-shutdown", "shutdown", U_SHUTDOWN_TYPE_HALT) {
 /* TODO: IsPwrShutdownAllowed()
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	setEnabled();
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 */
 
 	addCommandLineArg("h", "halt");
