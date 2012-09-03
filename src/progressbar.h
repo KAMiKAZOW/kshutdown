@@ -23,6 +23,7 @@
 class ProgressBar: public QWidget {
 	Q_OBJECT
 public:
+	enum Size { Small = 2, Normal = 3, Medium = 6, Large = 9 };
 	ProgressBar();
 	virtual ~ProgressBar();
 	inline Qt::Alignment alignment() const { return m_alignment; }
@@ -39,10 +40,15 @@ private:
 	int m_total;
 	int m_value;
 	Qt::Alignment m_alignment;
+	void setSize(const Size size);
 private slots:
 	void onResize(int screen);
 	void onSetBottomAlignment();
 	void onSetColor();
+	void onSetSizeLarge();
+	void onSetSizeMedium();
+	void onSetSizeNormal();
+	void onSetSizeSmall();
 	void onSetTopAlignment();
 };
 
