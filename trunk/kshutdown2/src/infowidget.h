@@ -32,11 +32,11 @@ private:
 	Q_DISABLE_COPY(InfoWidget)
 	QLabel *m_icon;
 	QLabel *m_text;
-	#ifdef Q_WS_WIN
+	#ifdef Q_OS_WIN32
 	void setIcon(const QStyle::StandardPixmap standardIcon);
 	#else
 	void setIcon(const QString &iconName);
-	#endif // Q_WS_WIN
+	#endif // Q_OS_WIN32
 };
 
 #endif // KSHUTDOWN_INFOWIDGET_H

@@ -18,12 +18,14 @@
 #ifndef KSHUTDOWN_PROCESSMONITOR_H
 #define KSHUTDOWN_PROCESSMONITOR_H
 
-#if defined(Q_OS_LINUX) || defined(__FreeBSD_kernel__) || defined(Q_OS_HURD)
+#include "../kshutdown.h"
+
+#ifdef KS_UNIX
 	#define KS_TRIGGER_PROCESS_MONITOR
 	#define KS_TRIGGER_PROCESS_MONITOR_UNIX
-#endif // Q_OS_LINUX
+#endif // KS_UNIX
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
 	#endif // WIN32_LEAN_AND_MEAN
@@ -32,13 +34,11 @@
 
 	#define KS_TRIGGER_PROCESS_MONITOR
 	#define KS_TRIGGER_PROCESS_MONITOR_WIN
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	#include <sys/types.h>
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-
-#include "../kshutdown.h"
 
 #include <QProcess>
 
