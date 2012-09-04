@@ -20,10 +20,12 @@
 
 #include <QWidget>
 
+class QActionGroup;
+
 class ProgressBar: public QWidget {
 	Q_OBJECT
 public:
-	enum Size { Small = 2, Normal = 3, Medium = 6, Large = 9 };
+	enum Size { SmallSize = 2, NormalSize = 3, MediumSize = 6, LargeSize = 9 };
 	ProgressBar();
 	virtual ~ProgressBar();
 	inline Qt::Alignment alignment() const { return m_alignment; }
@@ -40,6 +42,7 @@ private:
 	int m_total;
 	int m_value;
 	Qt::Alignment m_alignment;
+	void makeRadioButton(QAction *action, QActionGroup *group, const bool checked);
 	void setSize(const Size size);
 private slots:
 	void onResize(int screen);

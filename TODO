@@ -5,6 +5,10 @@ Tracker @ SourceForge.net:
 * RFE: http://sourceforge.net/tracker/?group_id=93707&atid=605273
 * Patches: http://sourceforge.net/tracker/?group_id=93707&atid=605272
 
+Porting to Qt 5:
+
+* Q_WS_* -> Q_OS_*
+
 Old KShutDown 1.0.x features:
 
 * Settings: Link creator
