@@ -106,18 +106,12 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		#endif // KS_NATIVE_KDE
 
 		QActionGroup *positionGroup = new QActionGroup(this);
-// TODO: common code
+
 		QAction *a = menu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
-		a->setActionGroup(positionGroup);
-		a->setCheckable(true);
-		a->setChecked(m_alignment.testFlag(Qt::AlignTop));
-		a->setEnabled(canConfigure);
+		makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignTop));
 		
 		a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
-		a->setActionGroup(positionGroup);
-		a->setCheckable(true);
-		a->setChecked(m_alignment.testFlag(Qt::AlignBottom));
-		a->setEnabled(canConfigure);
+		makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
 
 		#ifdef KS_NATIVE_KDE
 		menu->addTitle(i18n("Size"));
@@ -128,28 +122,16 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		QActionGroup *sizeGroup = new QActionGroup(this);
 		
 		a = menu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
-		a->setActionGroup(sizeGroup);
-		a->setCheckable(true);
-		a->setChecked(height() == Small);
-		a->setEnabled(canConfigure);
+		makeRadioButton(a, sizeGroup, height() == SmallSize);
 
 		a = menu->addAction(i18n("Normal"), this, SLOT(onSetSizeNormal()));
-		a->setActionGroup(sizeGroup);
-		a->setCheckable(true);
-		a->setChecked(height() == Normal);
-		a->setEnabled(canConfigure);
+		makeRadioButton(a, sizeGroup, height() == NormalSize);
 
 		a = menu->addAction(i18n("Medium"), this, SLOT(onSetSizeMedium()));
-		a->setActionGroup(sizeGroup);
-		a->setCheckable(true);
-		a->setChecked(height() == Medium);
-		a->setEnabled(canConfigure);
+		makeRadioButton(a, sizeGroup, height() == MediumSize);
 
 		a = menu->addAction(i18n("Large"), this, SLOT(onSetSizeLarge()));
-		a->setActionGroup(sizeGroup);
-		a->setCheckable(true);
-		a->setChecked(height() == Large);
-		a->setEnabled(canConfigure);
+		makeRadioButton(a, sizeGroup, height() == LargeSize);
 
 		menu->popup(e->globalPos());
 		e->accept();
@@ -200,7 +182,7 @@ ProgressBar::ProgressBar() // public
 	QColor defaultForeground = QColor(0xF8FFBF /* lime 1 */);
 	QColor foreground = config->read("Foreground Color", defaultForeground).value<QColor>();
 	
-	setHeight(qBound(Small, (Size)config->read("Size", Normal).toInt(), Large));
+	setHeight(qBound(SmallSize, (Size)config->read("Size", NormalSize).toInt(), LargeSize));
 	
 	config->endGroup();
 	p.setColor(QPalette::WindowText, (foreground.rgb() == background.rgb()) ? defaultForeground : foreground);
@@ -211,6 +193,13 @@ ProgressBar::ProgressBar() // public
 	
 	QDesktopWidget *desktop = QApplication::desktop();
 	connect(desktop, SIGNAL(resized(int)), SLOT(onResize(int)));
+}
+
+void ProgressBar::makeRadioButton(QAction *action, QActionGroup *group, const bool checked) {
+	action->setActionGroup(group);
+	action->setCheckable(true);
+	action->setChecked(checked);
+	action->setEnabled(!Utils::isRestricted("action/options_configure"));
 }
 
 void ProgressBar::setSize(const Size size) {
@@ -265,19 +254,19 @@ void ProgressBar::onSetColor() {
 }
 
 void ProgressBar::onSetSizeLarge() {
-	setSize(Large);
+	setSize(LargeSize);
 }
 
 void ProgressBar::onSetSizeMedium() {
-	setSize(Medium);
+	setSize(MediumSize);
 }
 
 void ProgressBar::onSetSizeNormal() {
-	setSize(Normal);
+	setSize(NormalSize);
 }
 
 void ProgressBar::onSetSizeSmall() {
-	setSize(Small);
+	setSize(SmallSize);
 }
 
 void ProgressBar::onSetTopAlignment() {
