@@ -18,7 +18,7 @@
 #include "lock.h"
 #include "../utils.h"
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
 	#endif // WIN32_LEAN_AND_MEAN
@@ -27,21 +27,21 @@
 #else
 	#include <QDBusInterface>
 	#include <QDesktopWidget>
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 
 // LockAction
 
 // private
 
 LockAction *LockAction::m_instance = 0;
-#ifdef Q_WS_X11
+#ifdef KS_DBUS
 QDBusInterface *LockAction::m_qdbusInterface = 0;
-#endif // Q_WS_X11
+#endif // KS_DBUS
 
 // public
 
 bool LockAction::onAction() {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	BOOL result = ::LockWorkStation();
 	if (result == 0) {
 		setLastError();
@@ -145,10 +145,10 @@ bool LockAction::onAction() {
 	U_ERROR << "Could not lock the screen" U_END;
 	
 	return false;
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 }
 
-#ifdef Q_WS_X11
+#ifdef KS_DBUS
 QDBusInterface *LockAction::getQDBusInterface() {
 	if (!m_qdbusInterface) {
 		m_qdbusInterface = new QDBusInterface(
@@ -173,7 +173,7 @@ QDBusInterface *LockAction::getQDBusInterface() {
 	
 	return m_qdbusInterface;
 }
-#endif // Q_WS_X11
+#endif // KS_DBUS
 
 // private
 

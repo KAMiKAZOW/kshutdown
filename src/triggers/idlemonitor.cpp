@@ -21,7 +21,7 @@
 #include "../progressbar.h"
 #include "idlemonitor.h"
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
 	#endif // WIN32_LEAN_AND_MEAN
@@ -33,7 +33,7 @@
  	
  	#include "../utils.h"
  	#include "../actions/lock.h"
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 
 // public
 
@@ -50,11 +50,11 @@ IdleMonitor::IdleMonitor()
 	m_checkTimeout = 5000;
 	m_supportsProgressBar = true;
 	
-	#ifdef Q_WS_WIN
+	#ifdef Q_OS_WIN32
 	m_supported = true;
 	#else
 	m_supported = LockAction::getQDBusInterface()->isValid() && Utils::isKDE_4();
-	#endif // Q_WS_WIN
+	#endif // Q_OS_WIN32
 
 // TODO: KDE: fallback to KIdleTime if DBus is not available
 // <http://api.kde.org/4.8-api/kdelibs-apidocs/kutils/html/classKIdleTime.html>
@@ -112,10 +112,10 @@ void IdleMonitor::setState(const State state) {
 		progressBar->setTotal(getMaximumIdleTime());
 		progressBar->setValue(0);
 
-		#ifdef Q_WS_X11
+		#ifdef KS_DBUS
 		if (m_supported)
 			LockAction::getQDBusInterface()->call("SimulateUserActivity");
-		#endif // Q_WS_X11
+		#endif // KS_DBUS
 	}
 	else if (state == StopState) {
 		m_idleTime = 0;
@@ -159,7 +159,7 @@ void IdleMonitor::getSessionIdleTime() {
 		return;
 	}
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 	LASTINPUTINFO lii;
 	lii.cbSize = sizeof(LASTINPUTINFO);
 	BOOL result = ::GetLastInputInfo(&lii);
@@ -184,5 +184,5 @@ void IdleMonitor::getSessionIdleTime() {
 	else {
 		m_idleTime = 0;
 	}
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
 }

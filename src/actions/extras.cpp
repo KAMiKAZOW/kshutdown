@@ -104,11 +104,11 @@ bool Extras::onAction() {
 		}
 		settings.endGroup();
 	}
-	#ifdef Q_WS_WIN
+	#ifdef Q_OS_WIN32
 	else if (suffix == "lnk") { // shortcut
 		ok = QDesktopServices::openUrl(QUrl::fromLocalFile(path));
 	}
-	#endif // Q_WS_WIN
+	#endif // Q_OS_WIN32
 	else if (fileInfo.isExecutable()) {
 		ok = (QProcess::execute(path, QStringList()) == 0);
 	}

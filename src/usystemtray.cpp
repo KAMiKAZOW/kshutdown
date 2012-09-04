@@ -43,14 +43,14 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 
 #ifdef KS_PURE_QT
 	m_trayIcon = new QSystemTrayIcon(mainWindow);
-	#ifdef Q_WS_X11
+	#ifdef KS_UNIX
 	if (Utils::isKDE_4())
 		m_trayIcon->setIcon(U_STOCK_ICON("system-shutdown"));
 	else
 		m_trayIcon->setIcon(mainWindow->windowIcon());
 	#else
 	m_trayIcon->setIcon(mainWindow->windowIcon());
-	#endif // Q_WS_X11
+	#endif // KS_UNIX
 
 	connect(
 		m_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),

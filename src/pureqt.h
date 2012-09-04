@@ -56,6 +56,11 @@
 
 #endif // KS_PURE_QT
 
+#if defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD) || defined(Q_OS_HURD)
+	#define KS_DBUS
+	#define KS_UNIX
+#endif
+
 #ifdef KS_PURE_QT
 	#undef KS_NATIVE_KDE
 

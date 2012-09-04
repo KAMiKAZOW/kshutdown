@@ -18,9 +18,9 @@
 #ifdef KS_PURE_QT
 	#include <QApplication>
 	#include <QLocale>
-	#ifdef Q_WS_X11
+	#ifdef KS_UNIX
 		#include <QStyleFactory>
-	#endif // Q_WS_X11
+	#endif // KS_UNIX
 	#include <QTranslator>
 #else
 	#include <KAboutData>
@@ -115,13 +115,13 @@ int main(int argc, char **argv) {
 	QApplication::setApplicationName("KShutdown");
 	KShutdownApplication program(argc, argv);
 
-	#ifdef Q_WS_X11
+	#ifdef KS_UNIX
 	if (Utils::isGTKStyle()) {
 		QStyle *gtkStyle = QStyleFactory::create("gtk+");
 		if (gtkStyle)
 			QApplication::setStyle(gtkStyle);
 	}
-	#endif // Q_WS_X11
+	#endif // KS_UNIX
 
 	// init i18n
 	QString lang = QLocale::system().name();

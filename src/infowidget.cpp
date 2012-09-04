@@ -60,27 +60,27 @@ void InfoWidget::setText(const QString &text, const Type type) {
 	switch (type) {
 		case ErrorType:
 			background = 0xF9CCCA; // brick red 1
-			#ifdef Q_WS_WIN
+			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxCritical);
 			#else
 			setIcon("dialog-error");
-			#endif // Q_WS_WIN
+			#endif // Q_OS_WIN32
 			break;
 		case InfoType:
 			background = 0xEEEEEE; // gray 1
-			#ifdef Q_WS_WIN
+			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxInformation);
 			#else
 			setIcon("dialog-information");
-			#endif // Q_WS_WIN
+			#endif // Q_OS_WIN32
 			break;
 		default: // WarningType
 			background = 0xF8FFBF; // lime 1
-			#ifdef Q_WS_WIN
+			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxWarning);
 			#else
 			setIcon("dialog-warning");
-			#endif // Q_WS_WIN
+			#endif // Q_OS_WIN32
 			break;
 	}
 	
@@ -97,7 +97,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 
 // private
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 void InfoWidget::setIcon(const QStyle::StandardPixmap standardIcon) {
 	m_icon->setPixmap(U_APP->style()->standardIcon(standardIcon).pixmap(24, 24));
 }
@@ -105,4 +105,4 @@ void InfoWidget::setIcon(const QStyle::StandardPixmap standardIcon) {
 void InfoWidget::setIcon(const QString &iconName) {
 	m_icon->setPixmap(U_STOCK_ICON(iconName).pixmap(24, 24));
 }
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN32
