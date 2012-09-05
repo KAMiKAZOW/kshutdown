@@ -23,9 +23,9 @@
 #include <QLayout>
 #include <QTimer>
 
-#ifdef Q_WS_X11
+#ifdef KS_DBUS
 	#include <QDBusConnection>
-#endif // Q_WS_X11
+#endif // KS_DBUS
 
 #ifdef KS_PURE_QT
 	#include <QPointer>
@@ -408,7 +408,7 @@ void MainWindow::setActive(const bool yes) {
 	}
 
 	setTitle(QString::null, QString::null);
-	updateWidgets();
+	onStatusChange(true);
 }
 
 void MainWindow::notify(const QString &id, const QString &text) {
@@ -633,7 +633,7 @@ MainWindow::MainWindow() :
 		this, SLOT(onFocusChange(QWidget *, QWidget *))
 	);
 	
-#ifdef Q_WS_X11
+#ifdef KS_DBUS
 	QDBusConnection dbus = QDBusConnection::sessionBus();
 	#ifdef KS_PURE_QT
 	dbus.registerService("net.sf.kshutdown");
@@ -643,7 +643,7 @@ MainWindow::MainWindow() :
 		this,
 		QDBusConnection::ExportScriptableSlots
 	);
-#endif // Q_WS_X11
+#endif // KS_DBUS
 }
 
 void MainWindow::addAction(Action *action) {
@@ -1086,7 +1086,7 @@ void MainWindow::onActionActivated(int index) {
 	
 	m_actions->setWhatsThis(action->whatsThis());
 
-	updateWidgets();
+	onStatusChange(true);
 }
 
 void MainWindow::onCancel() {
@@ -1166,6 +1166,19 @@ void MainWindow::onOKCancel() {
 	if (m_active && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))//!!!cli
 		return;
 	
+	// show error message if selected date/time is invalid
+	if (!m_active) {
+		DateTimeTrigger *dateTimeTrigger = dynamic_cast<DateTimeTrigger *>(getSelectedTrigger());
+		if (
+			dateTimeTrigger &&
+			(dateTimeTrigger->dateTime() <= QDateTime::currentDateTime())
+		) {
+			U_ERROR_MESSAGE(this, i18n("Invalid time: %0").arg(dateTimeTrigger->dateTime().toString(KShutdown::DATE_TIME_DISPLAY_FORMAT)));
+		
+			return;
+		}
+	}
+	
 	setActive(!m_active);
 }
 
@@ -1191,12 +1204,19 @@ void MainWindow::onPreferences() {
 
 void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 	U_DEBUG << "onStatusChange(" << aUpdateWidgets << ")" U_END;
-	
-	QString displayStatus = getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION);
-	
-	InfoWidget::Type type;
+
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
+	
+	action->setState(Action::InvalidStatusState);
+	trigger->setState(Trigger::InvalidStatusState);
+
+	QString displayStatus =
+		m_active
+		? QString::null
+		: getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION);
+	
+	InfoWidget::Type type;
 	if (action->statusType() != InfoWidget::InfoType)
 		type = action->statusType();
 	else if (trigger->statusType() != InfoWidget::InfoType)
@@ -1233,6 +1253,5 @@ void MainWindow::onTriggerActivated(int index) {
 	
 	m_triggers->setWhatsThis(trigger->whatsThis());
 
-// FIXME: update date/time status	
 	onStatusChange(true);
 }

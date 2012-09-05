@@ -18,11 +18,11 @@
 #ifndef KSHUTDOWN_KSHUTDOWN_H
 #define KSHUTDOWN_KSHUTDOWN_H
 
-#ifdef Q_WS_X11
-	#include <sys/types.h>
-#endif // Q_WS_X11
-
 #include "pureqt.h"
+
+#ifdef KS_UNIX
+	#include <sys/types.h>
+#endif // KS_UNIX
 
 #include <QDateTime>
 
@@ -43,9 +43,9 @@
 #endif // KS_NATIVE_KDE
 
 class QDateTimeEdit;
-#ifdef Q_WS_X11
+#ifdef KS_DBUS
 class QDBusInterface;
-#endif // Q_WS_X11
+#endif // KS_DBUS
 
 namespace KShutdown {
 	
@@ -55,7 +55,7 @@ const QString TIME_PARSE_FORMAT = "h:mm";
 
 class U_EXPORT Base {
 public:
-	enum State { StartState, StopState };
+	enum State { StartState, StopState, InvalidStatusState };
 	Base(const QString &id);
 	virtual ~Base();
 	inline QString disableReason() const {
@@ -210,6 +210,7 @@ private:
 class U_EXPORT DateTimeTrigger: public DateTimeTriggerBase {
 public:
 	DateTimeTrigger();
+	QDateTime dateTime();
 	virtual QWidget *getWidget();
 	virtual void setState(const State state);
 protected:
@@ -269,19 +270,19 @@ public:
 	explicit StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
 	virtual bool onAction();
 protected:
-	#ifdef Q_WS_X11
+	#ifdef KS_DBUS
 	static QDBusInterface *m_consoleKitInterface;
 	static QDBusInterface *m_halInterface;
-	#endif // Q_WS_X11
+	#endif // KS_DBUS
 	void checkAvailable(const UShutdownType type, const QString &consoleKitName);
 private:
 	Q_DISABLE_COPY(StandardAction)
 	#ifdef KS_NATIVE_KDE
 	bool m_kdeShutDownAvailable;
 	#endif // KS_NATIVE_KDE
-	#ifdef Q_WS_X11
+	#ifdef KS_UNIX
 	pid_t m_lxsession;
-	#endif // Q_WS_X11
+	#endif // KS_UNIX
 	UShutdownType m_type;
 };
 

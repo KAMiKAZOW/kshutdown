@@ -18,9 +18,6 @@
 #ifdef KS_PURE_QT
 	#include <QApplication>
 	#include <QLocale>
-	#ifdef KS_UNIX
-		#include <QStyleFactory>
-	#endif // KS_UNIX
 	#include <QTranslator>
 #else
 	#include <KAboutData>
@@ -33,6 +30,10 @@
 #include "commandline.h"
 #include "mainwindow.h"
 #include "utils.h"
+
+#if defined(KS_PURE_QT) && defined(KS_UNIX)
+	#include <QStyleFactory>
+#endif // defined(KS_PURE_QT) && defined(KS_UNIX)
 
 class KShutdownApplication: public
 #ifdef KS_NATIVE_KDE
