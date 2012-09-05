@@ -1,7 +1,27 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2012/08/!!!  3.0 Beta 5
+2012/09/!!!  3.0 Beta 5
+
+-- Test 2 ----------------------------------------------------------------------
+
+* Fixed: https://bugs.launchpad.net/ubuntu/+source/kshutdown/+bug/1044213
+  (update date/time status after resume)
+* Include README.html file in portable package
+* KDE: Extras: Use current/default file manager
+  instead of hardcoded "/usr/bin/dolphin"
+* Fixed small memory leaks
+
+Progress Bar:
+
+* NEW: Size configuration (see context menu)
+* Fixed: Auto update location/width on screen size change
+
+Source:
+
+* Qt 5: Q_WS_* -> Q_OS_*, KS_UNIX, KS_DBUS
+
+-- Test 1 ----------------------------------------------------------------------
 
 Progress Bar:
 
@@ -518,4 +538,4 @@ http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 644:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 653:HEAD|xsel -i -b && kwrite ChangeLog
