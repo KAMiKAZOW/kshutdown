@@ -17,10 +17,10 @@
 
 #include "pureqt.h"
 
-#ifdef Q_WS_X11
+#ifdef KS_UNIX
 	#include <errno.h>
 	#include <signal.h>
-#endif // Q_WS_X11
+#endif // KS_UNIX
 
 #include <QDateTimeEdit>
 #include <QProcess>
@@ -52,10 +52,10 @@
 using namespace KShutdown;
 
 bool Action::m_totalExit = false;
-#ifdef Q_WS_X11
+#ifdef KS_DBUS
 QDBusInterface *StandardAction::m_consoleKitInterface = 0;
 QDBusInterface *StandardAction::m_halInterface = 0;
-#endif // Q_WS_X11
+#endif // KS_DBUS
 
 // Base
 
@@ -461,6 +461,12 @@ DateTimeTrigger::DateTimeTrigger() :
 	m_supportsProgressBar = true;
 }
 
+QDateTime DateTimeTrigger::dateTime() {
+	DateTimeTriggerBase::getWidget();
+
+	return m_edit->dateTime();
+}
+
 QWidget *DateTimeTrigger::getWidget() {
 	DateTimeTriggerBase::getWidget();
 
@@ -480,16 +486,15 @@ QWidget *DateTimeTrigger::getWidget() {
 void DateTimeTrigger::setState(const State state) {
 	DateTimeTriggerBase::setState(state);
 	
-	if (state == StopState) {
+	if (state == InvalidStatusState) {
 		// show warning if selected date/time is invalid
-		if (QDateTime::currentDateTime() >= m_edit->dateTime()) {
+		if (QDateTime::currentDateTime() >= dateTime()) {
 			m_status = i18n("Invalid date/time");
 			m_statusType = InfoWidget::WarningType;
 		}
 		else {
 			updateStatus();
 		}
-		emit statusChanged(false);
 	}
 }
 
@@ -755,7 +760,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 	m_type(type) {
 
 // TODO: clean up kshutdown.cpp, move this to LogoutAction
-	#ifdef Q_WS_X11
+	#ifdef KS_UNIX
 	m_lxsession = 0;
 	if (Utils::isLXDE() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
 		bool ok = false;
@@ -768,7 +773,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 			disable("No lxsession found");
 		}
 	}
-	#endif // Q_WS_X11
+	#endif // KS_UNIX
 }
 
 bool StandardAction::onAction() {
@@ -926,12 +931,12 @@ bool StandardAction::onAction() {
 	
 	else if (Utils::isLXDE()) {
 		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
-			#ifdef Q_WS_X11
+			#ifdef KS_UNIX
 			if (m_lxsession && (::kill(m_lxsession, SIGTERM) == 0))
 				return true;
 			#else
 				return false;
-			#endif // Q_WS_X11
+			#endif // KS_UNIX
 		}
 	}
 
@@ -997,7 +1002,7 @@ bool StandardAction::onAction() {
 	
 	// fallback to ConsoleKit or HAL
 	
-	#ifdef Q_WS_X11
+	#ifdef KS_DBUS
 	MainWindow::self()->writeConfig();
 	
 	// try ConsoleKit
@@ -1030,7 +1035,7 @@ bool StandardAction::onAction() {
 			return true;
 	}
 
-	#endif // Q_WS_X11
+	#endif // KS_DBUS
 	
 	// show error
 	
@@ -1070,7 +1075,7 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 	}
 	#endif // KS_NATIVE_KDE
 
-	#ifdef Q_WS_X11
+	#ifdef KS_DBUS
 	if (!consoleKitName.isEmpty()) {
 		error = ""; // reset
 	
@@ -1115,7 +1120,7 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 		if (error.isEmpty())
 			error = "No valid org.freedesktop.Hal interface found";
 	}
-	#endif // Q_WS_X11
+	#endif // KS_DBUS
 
 	if (!available)
 		disable(error);
@@ -1138,12 +1143,12 @@ LogoutAction::LogoutAction() :
 	
 // TODO: KDE 4 logout, test
 	#ifdef KS_PURE_QT
-	#ifdef Q_WS_X11
+	#ifdef KS_UNIX
 	if (Utils::isKDE_4())
 		disable("");
 	else if (Utils::isXfce())
 		disable("");
-	#endif // Q_WS_X11
+	#endif // KS_UNIX
 	#endif // KS_PURE_QT
 }
 
