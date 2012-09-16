@@ -1,4 +1,4 @@
-// main.cpp - An advanced shutdown utility
+// main.cpp - A graphical shutdown utility
 // Copyright (C) 2007  Konrad Twardowski
 //
 // This program is free software; you can redistribute it and/or modify
@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 	// (net.sf.kshutdown.kshutdown)
 	about.setOrganizationDomain("sf.net");
 	
-	about.setShortDescription(ki18n("An advanced shutdown utility"));
+	about.setShortDescription(ki18n("A graphical shutdown utility"));
 
 	about.addAuthor(ki18n("Konrad Twardowski"), ki18n("Maintainer"), KS_EMAIL, KS_CONTACT);
 	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Credits");

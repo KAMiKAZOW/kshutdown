@@ -9,7 +9,7 @@ Name[sr@latin]=K-Gašenje/Qt
 Name[sr@ijekavian]=К-Гашење/Кјут
 Name[sr@ijekavianlatin]=K-Gašenje/Qt
 
-Comment=An advanced shut down utility
+Comment=A graphical shutdown utility
 
 # TODO: Imported from KShutdown 1.0.x; please update and uncomment
 #Comment[cs]=Vypínací utilita pro KDE
@@ -18,7 +18,7 @@ Comment=An advanced shut down utility
 #Comment[fr]=Utilitaire de gestion d'arrêt pour KDE
 #Comment[it]=Una utilit�KDE per lo spegnimento del sistema
 
-Comment[pl]=Zaawansowane narzędzie do zamykania systemu
+Comment[pl]=Graficzne narzędzie do zamykania systemu
 Comment[sr]=Напредна алатка за гашење рачунара
 Comment[sr@latin]=Napredna alatka za gašenje računara
 Comment[sr@ijekavian]=Напредна алатка за гашење рачунара

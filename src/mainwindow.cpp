@@ -1049,7 +1049,7 @@ license = license.replace(' ', "&nbsp;"); // no wrap
 		i18n("About"),
 		"<qt>" \
 		"<h1>KShutdown " + version + "</h1>" +
-		i18n("An advanced shutdown utility") + "<br>" \
+		i18n("A graphical shutdown utility") + "<br>" \
 		"<br>" \
 		KS_COPYRIGHT "<br>" \
 		"<br>" \
