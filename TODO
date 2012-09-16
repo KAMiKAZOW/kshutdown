@@ -1,9 +1,9 @@
 
 Tracker @ SourceForge.net:
 
-* Bugs: http://sourceforge.net/tracker/?group_id=93707&atid=605270
-* RFE: http://sourceforge.net/tracker/?group_id=93707&atid=605273
-* Patches: http://sourceforge.net/tracker/?group_id=93707&atid=605272
+* Bugs: http://sourceforge.net/p/kshutdown/bugs/
+* RFE: http://sourceforge.net/p/kshutdown/feature-requests/
+* Patches: http://sourceforge.net/p/kshutdown/patches/
 
 Old KShutDown 1.0.x features:
 
@@ -25,11 +25,11 @@ Misc.:
 * Include in KDE 4
 * "K" menu integration
 * Shutdown everyday to save energy:
-  http://sourceforge.net/projects/kshutdown/forums/forum/324058/topic/1438962
+  http://sourceforge.net/p/kshutdown/discussion/324058/thread/538d9af2
 * Execute a command:
-  http://sourceforge.net/projects/kshutdown/forums/forum/324058/topic/1073402
+  http://sourceforge.net/p/kshutdown/discussion/324058/thread/e28a7ef9
 * Command before action:
-  http://sourceforge.net/projects/kshutdown/forums/forum/324058/topic/1366875
+  http://sourceforge.net/p/kshutdown/discussion/324058/thread/1725b7c5
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
 * Switch to console mode (tty) [by DigitalCyanide]
 * Add test button for "Close CD"
@@ -39,8 +39,8 @@ Misc.:
 * Detect unsaved documents (is there any KDE API to do this?)
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
-  http://sourceforge.net/tracker/?func=detail&aid=1484842&group_id=93707&atid=605273
-  <http://sourceforge.net/projects/kshutdown/forums/forum/324059/topic/1758589>
+  http://sourceforge.net/p/kshutdown/feature-requests/1/
+  <http://sourceforge.net/p/kshutdown/discussion/324059/thread/ab1a37d2>
   - Related: https://bugs.kde.org/show_bug.cgi?id=198255
   - API: http://api.kde.org/4.x-api/kdebase-workspace-apidocs/libs/kworkspace/html/classKDisplayManager.html
   - http://ksmanis.wordpress.com/2011/04/21/hello-planet-and-grub2-support-for-kdm/

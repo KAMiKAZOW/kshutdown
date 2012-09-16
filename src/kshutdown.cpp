@@ -989,7 +989,7 @@ bool StandardAction::onAction() {
 	if (m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT)) {
 // TODO: remove KWorkSpace API deps (?)
 // TODO: check if logout is available
-		// BUG #3467712: http://sourceforge.net/tracker/index.php?func=detail&aid=3467712&group_id=93707&atid=605270
+		// BUG #3467712: http://sourceforge.net/p/kshutdown/bugs/13/
 		KWorkSpace::requestShutDown(
 			KWorkSpace::ShutdownConfirmNo,
 			m_type,

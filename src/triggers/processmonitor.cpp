@@ -215,7 +215,7 @@ void ProcessMonitor::onRefresh() {
 	args << "-A";
 	// order: user pid command
 // TODO: args << "-o" << "user=,pid=,command=";
-// http://sourceforge.net/tracker/?func=detail&aid=3292203&group_id=93707&atid=605270
+// http://sourceforge.net/p/kshutdown/bugs/11/
 	args << "-o" << "user=,pid=,comm=";
 	// sort by command
 	//args << "--sort" << "command";
