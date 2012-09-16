@@ -463,8 +463,8 @@ Source package:
 ---- Release History ----                                                                  
 
 Old ChangeLogs can be found in the SVN repository at:                                      
-http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown/ChangeLog?view=markup
-http://kshutdown.svn.sourceforge.net/viewvc/kshutdown/trunk/kshutdown2/ChangeLog?view=markup
+http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown2/ChangeLog?force=True
+http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?force=True
 
 2008/04/02  2.0 Alpha 5
 
