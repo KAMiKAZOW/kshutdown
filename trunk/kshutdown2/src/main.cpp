@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
 	about.setShortDescription(ki18n("A graphical shutdown utility"));
 
 	about.addAuthor(ki18n("Konrad Twardowski"), ki18n("Maintainer"), KS_EMAIL, KS_CONTACT);
-	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Credits");
+	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "http://sourceforge.net/p/kshutdown/wiki/Credits/");
 	// DOC: http://api.kde.org/4.8-api/kdelibs-apidocs/kdecore/html/classKAboutData.html
 // TODO: about.setTranslator(ki18n("Your names"), ki18n("Your emails"));
 
@@ -210,7 +210,7 @@ int main(int argc, char **argv) {
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("+[time]", ki18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"));
 	
-	options.add("", ki18n("More Info...\nhttp://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line"));
+	options.add("", ki18n("More Info...\nhttp://sourceforge.net/p/kshutdown/wiki/Command%20Line/"));
 	
 	KCmdLineArgs::addCmdLineOptions(options);
 	// BUG: --nofork option does not work like in KShutdown 1.0.x (?)

@@ -303,7 +303,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 // private slots
 
 void Extras::showHelp() {
-	QDesktopServices::openUrl(QUrl("http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Extras"));
+	QDesktopServices::openUrl(QUrl("http://sourceforge.net/p/kshutdown/wiki/Extras/"));
 }
 
 void Extras::slotModify() {
