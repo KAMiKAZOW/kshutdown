@@ -127,7 +127,7 @@ bool MainWindow::checkCommandLine() {
 		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" + i18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now") + "</td></tr>\n";
 
 		// HACK: non-clickable links in Oxygen Style
-		table += "<tr><td colspan=\"2\"><a href=\"http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line\">http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Command_Line</a></td></tr>\n";
+		table += "<tr><td colspan=\"2\"><a href=\"http://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">http://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a></td></tr>\n";
 
 		table += "</table>";
 		

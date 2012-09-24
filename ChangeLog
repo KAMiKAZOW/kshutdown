@@ -26,13 +26,13 @@ Source:
 Progress Bar:
 
 * Improved Kiosk support
-  <http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Kiosk>
+  <http://sourceforge.net/p/kshutdown/wiki/Kiosk/>
 * Use KDE native color chooser
 
 Extras:
 
 * NEW: Support for non-KDE KShutdown versions
-  <http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Extras>
+  <http://sourceforge.net/p/kshutdown/wiki/Extras/>
 * NEW: Added Extras -> Stop -> VLC
 * KDE: Do not show security/confirmation dialog for new *.desktop files
 * Show command name in menu item
@@ -210,7 +210,7 @@ KDE 4:
 * NEW: Added "Black and White System Tray Icon" option for better integration
   with dark color themes
 * NEW: (Re)Added KDE Kiosk support. Documentation:
-  http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=Kiosk
+  http://sourceforge.net/p/kshutdown/wiki/Kiosk/
 * NEW: (Re)Added Local and Global keyboard shortcuts
   (see menu -> Settings -> Configure Shortcuts...)
 * Use KDE UI elements in KDE4 version for better platform integration
@@ -230,7 +230,7 @@ Version for Linux:
 * Support for the UPower suspend/hibernate backend (patch #3224666)
   Thanks to Stanislav Nikolov
 * Updated D-Bus Documentation:
-  http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=D-Bus
+  http://sourceforge.net/p/kshutdown/wiki/D-Bus/
 
 Updated Language Translations:
 
@@ -251,7 +251,7 @@ Version for Windows:
 Linux:
 
 * NEW: Added D-Bus support. Run "qdbus net.sf.kshutdown /kshutdown" for details.
-  Documentation: http://sourceforge.net/apps/mediawiki/kshutdown/index.php?title=D-Bus
+  Documentation: http://sourceforge.net/p/kshutdown/wiki/D-Bus/
 * Fixed bug #3140645 (kde 4.6 + qt 4.7.1 + kshutdown crash)
 * Setup.sh: Auto select kde4 menu item (if available)
 * Show error message if "Turn Off Computer" or "Restart Computer" function
@@ -460,9 +460,9 @@ Source package:
 * Fixed application shortcut
 
 
----- Release History ----                                                                  
+---- Release History ----
 
-Old ChangeLogs can be found in the SVN repository at:                                      
+Old ChangeLogs can be found in the SVN repository at:
 http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown2/ChangeLog?force=True
 http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?force=True
 
