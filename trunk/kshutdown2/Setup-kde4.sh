@@ -4,11 +4,11 @@ echo
 echo "TIP: Run \"$0 /your/prefix/dir\" to specify custom installation directory"
 echo
 
+KDE4_CONFIG=$(which kde4-config)
 PREFIX="$1"
 BUILD_TYPE="$2"
 
 if [ -z "$PREFIX" ]; then
-	KDE4_CONFIG=$(which kde4-config)
 	if [ -z "$KDE4_CONFIG" ]; then
 		PREFIX=/usr/local
 		echo "WARNING: \"kde4-config\" not found; using default installation prefix: $PREFIX"
@@ -37,9 +37,26 @@ echo "INFO: Build type         : $BUILD_TYPE"
 
 cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
 make
-echo
-echo "TIP: Run \"cd build.tmp; make install\" to install KShutdown (may require administrator privileges)"
-echo -e "\tUbuntu: cd build.tmp; sudo make install"
-kdesudo --comment "Install KShutdown" -n -t -c "make install"
+if [ -n "$KDE4_CONFIG" ]; then
+	KDESU="`$KDE4_CONFIG --path libexec`kdesu"
+	if [ -x "$KDESU" ]; then
+		echo "INFO: Installing KShutdown..."
+		if ! "$KDESU" -n -t -c "make install"; then
+			echo "INFO: Skipping installation"
+		fi
+	else
+		echo "INFO: Skipping installation"
+	fi
+else
+	echo
+	echo "INFO: Enter the \"root\" password to install KShutdown:"
+	echo
+	if ! sudo make install; then
+		echo "INFO: Skipping installation"
+		echo
+		echo "TIP: Run \"cd build.tmp; make install\" to install KShutdown (may require administrator privileges)"
+		echo "     Ubuntu: cd build.tmp; sudo make install"
+	fi
+fi
 
 popd
