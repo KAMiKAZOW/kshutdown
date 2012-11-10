@@ -1,7 +1,22 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2012/09/!!!  3.0 Beta 5
+2012/11/!!!  3.0 Beta 5
+
+-- Test 3 ----------------------------------------------------------------------
+
+Setup scripts:
+
+* Removed kdesudo (optional package) dependency
+  <http://sourceforge.net/p/kshutdown/bugs/16/>
+* Fixed confusing "ERROR: Build failed..." message
+
+* Updated application description
+* Updated sf.net and Wiki links
+
+Source:
+
+* Helper test script for Wine (./tools/test-wine.bat)
 
 -- Test 2 ----------------------------------------------------------------------
 
@@ -538,4 +553,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 653:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 661:HEAD|xsel -i -b && kwrite ChangeLog
