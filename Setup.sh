@@ -15,14 +15,7 @@ function doCompile()
 {
 	clear
 	if [ $1 == "kshutdown" ]; then
-		if ./Setup-kde4.sh; then
-			pushd build.tmp
-			echo
-			echo "INFO: Enter the \"root\" password to install KShutdown:"
-			echo
-			sudo make install
-			popd
-		else
+		if ! ./Setup-kde4.sh; then
 			doError "Build failed. See README.html for troubleshooting information."
 		fi
 	elif [ $1 == "kshutdown-qt" ]; then
@@ -61,6 +54,8 @@ out=`dialog \
 	--default-item "$default_item" \
 	--ok-label "OK, compile!" \
 	--cancel-label "Maybe later" \
+	--no-lines \
+	--no-shadow \
 	--stdout \
 	--title "Select a KShutdown version to build:" \
 	--menu "" 0 0 0 \
