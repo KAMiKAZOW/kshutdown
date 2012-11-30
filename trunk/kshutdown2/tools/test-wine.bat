@@ -1,7 +1,7 @@
 
 rem Usage: wineconsole tools/test-wine.bat
 
-call C:\Qt\4.8.1\bin\qtvars.bat
+call C:\Qt\4.8.4\bin\qtvars.bat
 cd src
 qmake -config release
 mingw32-make.exe
