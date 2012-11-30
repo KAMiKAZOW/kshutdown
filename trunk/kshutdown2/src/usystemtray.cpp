@@ -75,7 +75,7 @@ bool USystemTray::isSupported() const {
 
 void USystemTray::setActive(const bool active, KShutdown::Action *action, KShutdown::Trigger *trigger) const {
 	#ifdef KS_NATIVE_KDE
-// TODO: Qt 4.6: http://doc.qt.nokia.com/4.6/qgraphicscolorizeeffect.html
+// TODO: Qt 4.6+: http://qt-project.org/doc/qt-4.8/qgraphicscolorizeeffect.html
 	if (active) {
 		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
 
