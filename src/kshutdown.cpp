@@ -1054,6 +1054,8 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 	QString error = "";
 
 	#ifdef Q_OS_WIN32
+	Q_UNUSED(consoleKitName)
+	
 // TODO: win32: check if shutdown/reboot action is available
 	return;
 	#endif // Q_OS_WIN32

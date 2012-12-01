@@ -146,6 +146,8 @@ void ProcessMonitor::setPID(const pid_t pid) {
 	p->m_user = '?';
 	addProcess(p);
 	m_processesComboBox->addItem(U_ICON(), p->toString());
+#else
+	Q_UNUSED(pid)
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 }
 
@@ -374,6 +376,9 @@ void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 	
 	updateStatus(m_processList.isEmpty() ? 0 : m_processList.value(0));
 	emit statusChanged(false);
+#else
+	Q_UNUSED(exitCode)
+	Q_UNUSED(exitStatus)
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 }
 
