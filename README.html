@@ -94,10 +94,10 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <h2>Table of Contents</h2>
 <ul>
-	<li><a href="#kdevsqt">KDE 4 Build vs. Qt 4 Build</a></li>
-	<li><a href="#kde4linux">KDE 4 Build @ Linux</a></li>
-	<li><a href="#qt4linux">Qt 4 Build @ Linux</a></li>
-	<li><a href="#qt4windows">Qt 4 Build @ Windows</a></li>
+	<li><a href="#kdevsqt">KDE Build vs. Qt Build</a></li>
+	<li><a href="#kde4linux">KDE Build @ Linux</a></li>
+	<li><a href="#qt4linux">Qt Build @ Linux</a></li>
+	<li><a href="#qt4windows">Qt Build @ Windows</a></li>
 	<li><a href="#supported">Supported Functions/Platforms</a></li>
 	<li><a href="#compatibility">Compatibility</a></li>
 	<li><a href="http://sourceforge.net/p/kshutdown/wiki/Credits/">Credits</a></li>
@@ -105,15 +105,15 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<li><a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)</li>
 </ul>
 
-<h2 id="kdevsqt">KDE 4 Build vs. Qt 4 Build</h2>
+<h2 id="kdevsqt">KDE Build vs. Qt Build</h2>
 
 <table>
 
 <thead>
 <tr>
 	<td></td>
-	<td>KDE 4 Build</td>
-	<td>Qt 4 Build</td>
+	<td>KDE Build</td>
+	<td>Qt Build</td>
 </tr>
 </thead>
 
@@ -177,12 +177,12 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <p>See <a href="#supported">Supported Functions/Platforms</a> table for more info.</p>
 
-<h2 id="kde4linux">KDE 4 Build @ Linux</h2>
+<h2 id="kde4linux">KDE Build @ Linux</h2>
 
 <h3>Minimal Requirements</h3>
 <ol>
 	<li>KDE 4.4+</li>
-	<li>Qt 4.8+</li>
+	<li>Qt 4.8+ or Qt 5.x</li>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
@@ -225,7 +225,7 @@ Try to run
 <p>
 <i>BUILDTYPE</i> can be <code>Release</code> or <code>Debug</code>.
 You can change the installation directory (prefix) by setting the <code>CMAKE_INSTALL_PREFIX</code> environment variable.
-To display default prefix for KDE 4 applications, run <code>kde4-config --prefix</code>.
+To display default prefix for KDE applications, run <code>kde4-config --prefix</code>.
 </p>
 <ol>
 	<li>Create output directory: <code>mkdir build &amp;&amp; cd build</code></li>
@@ -235,14 +235,14 @@ To display default prefix for KDE 4 applications, run <code>kde4-config --prefix
 	<li>Install: <code>make install</code></li>
 </ol>
 
-<h2 id="qt4linux">Qt 4 Build @ Linux</h2>
+<h2 id="qt4linux">Qt Build @ Linux</h2>
 
 <p><b>Note:</b> Some functions may be unavailable in this build.
-See <a href="#supported">Qt 4 Build</a> table for more info.</p>
+See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <h3>Minimal Requirements</h3>
 <ol>
-	<li>Qt 4.8+ (KDE libraries are <b>not</b> required)</li>
+	<li>Qt 4.8+ or Qt 5.x (KDE libraries are <b>not</b> required)</li>
 </ol>
 
 <h3>Compilation &amp; Installation</h3>
@@ -257,7 +257,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 	</li>
 </ol>
 
-<h2 id="qt4windows">Qt 4 Build @ Windows</h2>
+<h2 id="qt4windows">Qt Build @ Windows</h2>
 
 <p>Note: You can <a href="http://kshutdown.sourceforge.net/download.html">download</a> a binary (already compiled) KShutdown version for Windows.</p>
 
@@ -270,7 +270,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 		<li>Install <b>C++ Compiler</b> component</li>
 		</ul>
 	</li>
-	<li><a href="http://qt-project.org/downloads">Qt libraries for Windows (minGW, LGPL version)</a> 4.8+</li>
+	<li><a href="http://qt-project.org/downloads">Qt libraries for Windows (minGW, LGPL version)</a> 4.8+/5.x</li>
 	<li><a href="http://nsis.sourceforge.net/">Nullsoft Scriptable Install System</a> (NSIS)</li>
 	<li>Windows XP/Vista/7/8 or compatible (including <a href="http://www.winehq.org/">Wine</a>)</li>
 </ol>
@@ -322,14 +322,14 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 
 <tr><td>CLI</td><td colspan="8">Function available via Command Line (example: kshutdown --lock)</td></tr>
 <tr><td>Windows</td><td colspan="8">Microsoft Windows XP/Vista/7/8 or compatible</td></tr>
-<tr><td>*</td><td colspan="8"><i>KDE 4 Build</i> not supported</td></tr>
+<tr><td>*</td><td colspan="8"><i>KDE Build</i> not supported</td></tr>
 <tr><td>**</td><td colspan="8">D-Bus commands should work with <abbr title="GNOME Display Manager">GDM</abbr>, <abbr title="KDE Display Manager">KDM</abbr>, and LightDM</td></tr>
 
 </tfoot>
 
 <tbody>
 
-<tr><td class="build" colspan="9"><a href="http://kde.org/">KDE</a> 4 (KDE 4 Build)</td></tr>
+<tr><td class="build" colspan="9"><a href="http://kde.org/">KDE</a> 4 (KDE Build)</td></tr>
 <tr>
 <td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow, D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow, D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
@@ -342,7 +342,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
-<tr><td class="build" colspan="9">Windows (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9">Windows (Qt Build) *</td></tr>
 <tr>
 <td class="ok" title="::InitiateSystemShutdown">OK</td>
 <td class="ok" title="::InitiateSystemShutdown">OK</td>
@@ -355,7 +355,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="ok" title="::GetLastInputInfo">OK</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://www.xfce.org/">Xfce</a> 4.8 (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="http://www.xfce.org/">Xfce</a> 4.8 (Qt Build) *</td></tr>
 <tr>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
@@ -368,7 +368,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/LXDE">LXDE</a> (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/LXDE">LXDE</a> (Qt Build) *</td></tr>
 <tr>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
@@ -381,7 +381,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9">KDE 4 (Qt 4 Build)</td></tr>
+<tr><td class="build" colspan="9">KDE 4 (Qt Build)</td></tr>
 <tr>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
@@ -394,7 +394,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
-<tr><td class="build" colspan="9">GNOME 3 (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9">GNOME 3 (Qt Build) *</td></tr>
 <tr>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
@@ -407,7 +407,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/Unity_%28user_interface%29">Unity</a> (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/Unity_%28user_interface%29">Unity</a> (Qt Build) *</td></tr>
 <tr>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
@@ -420,7 +420,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://www.enlightenment.org/">Enlightenment</a> (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="http://www.enlightenment.org/">Enlightenment</a> (Qt Build) *</td></tr>
 <tr>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
@@ -433,7 +433,7 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://razor-qt.org/">Razor-qt</a> (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="http://razor-qt.org/">Razor-qt</a> (Qt Build) *</td></tr>
 <tr>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
@@ -446,27 +446,27 @@ See <a href="#supported">Qt 4 Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://openbox.org/">Openbox</a> (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="http://openbox.org/">Openbox</a> (Qt Build) *</td></tr>
 <tr>
 <td class="wip" colspan="9">TODO (?)</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://www.gnome.org/">GNOME</a> 2 (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="http://www.gnome.org/">GNOME</a> 2 (Qt Build) *</td></tr>
 <tr>
 <td class="wip" colspan="9">TODO (?)</td>
 </tr>
 
-<tr><td class="build" colspan="9">Mac OS X (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9">Mac OS X (Qt Build) *</td></tr>
 <tr>
 <td class="wip" colspan="9">TODO (?)</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="https://www.haiku-os.org">Haiku</a> (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9"><a href="https://www.haiku-os.org">Haiku</a> (Qt Build) *</td></tr>
 <tr>
 <td class="wip" colspan="9">TODO (?)</td>
 </tr>
 
-<tr><td class="build" colspan="9">KDE 3 (Qt 4 Build) *</td></tr>
+<tr><td class="build" colspan="9">KDE 3 (Qt Build) *</td></tr>
 <tr>
 <td class="wip" colspan="9">TODO (?); KShutDown 1.0.x exists but it's outdated and not supported...</td>
 </tr>

@@ -427,7 +427,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		
 		QString result;
 		if (secsTo < DAY) {
-			result = '+' + QTime().addSecs(secsTo).toString(TIME_DISPLAY_FORMAT + "' ':' 'ss's'");
+			result = '+' + QTime(0, 0).addSecs(secsTo).toString(TIME_DISPLAY_FORMAT + "' ':' 'ss's'");
 		}
 		else {
 			result += "24:00+";

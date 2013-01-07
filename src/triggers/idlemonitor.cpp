@@ -80,7 +80,7 @@ bool IdleMonitor::canActivateAction() {
 		return true;
 
 	quint32 remainingTime = maximumIdleTime - m_idleTime;
-	QTime time = QTime();
+	QTime time = QTime(0, 0);
 	m_status = '~' + time.addSecs(remainingTime).toString("HH:mm:ss");
 
 	MainWindow *mainWindow = MainWindow::self();
