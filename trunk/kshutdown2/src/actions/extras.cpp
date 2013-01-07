@@ -239,7 +239,13 @@ QString Extras::getFilesDirectory() const {
 	#ifdef KS_PORTABLE
 	QDir dir = QDir(QApplication::applicationDirPath() + QDir::separator() + "extras");
 	#else
+	
+	#if QT_VERSION >= 0x050000
+	QDir dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QDir::separator() + "extras");
+	#else
 	QDir dir = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + "extras";
+	#endif // QT_VERSION
+	
 	#endif // KS_PORTABLE
 
 	//U_DEBUG << "Extras dir: " << dir U_END;

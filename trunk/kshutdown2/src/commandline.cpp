@@ -54,7 +54,7 @@ void TimeOption::init() {
 		bool ok;
 		int minutes = m_option.toInt(&ok);
 		if (ok && (minutes > 0)) {
-			m_time = m_time.addSecs(minutes * 60);
+			m_time = QTime(0, 0).addSecs(minutes * 60);
 			m_relative = true;
 		}
 	}

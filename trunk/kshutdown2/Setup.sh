@@ -54,13 +54,14 @@ out=`dialog \
 	--default-item "$default_item" \
 	--ok-label "OK, compile!" \
 	--cancel-label "Maybe later" \
+	--item-help \
 	--no-lines \
 	--no-shadow \
 	--stdout \
 	--title "Select a KShutdown version to build:" \
 	--menu "" 0 0 0 \
-	"kshutdown" "Version for KDE 4 with additional features" \
-	"kshutdown-qt"  "Version for Xfce, LXDE, etc. - lightweight, no KDE 4 libraries"`
+	"kshutdown" "Version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs, libkworkspace4" \
+	"kshutdown-qt"  "Version for Xfce, LXDE, etc. - lightweight" "Required libraries: Qt 4.8+ or Qt 5.x, no KDE 4 libs"`
 
 case $? in
 	0) doCompile $out;;

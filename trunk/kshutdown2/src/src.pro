@@ -9,8 +9,17 @@ exists(portable.pri) {
 	message("Building portable version...")
 }
 
+contains(QT_MAJOR_VERSION, 5) {
+	QT += widgets
+}
+
 unix {
-	CONFIG += qdbus
+	contains(QT_MAJOR_VERSION, 5) {
+		QT += dbus
+	}
+	else {
+		CONFIG += qdbus
+	}
 }
 
 win32 {
