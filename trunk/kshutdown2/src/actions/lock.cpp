@@ -58,6 +58,8 @@ bool LockAction::onAction() {
 		blackScreen = new QWidget(
 			0,
 			Qt::FramelessWindowHint |
+			Qt::NoDropShadowWindowHint |
+			Qt::WindowDoesNotAcceptFocus |
 			Qt::WindowStaysOnTopHint |
 			Qt::X11BypassWindowManagerHint |
 			Qt::Tool
