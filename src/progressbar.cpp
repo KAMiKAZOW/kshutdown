@@ -159,6 +159,8 @@ ProgressBar::ProgressBar() // public
 	: QWidget(
 		0,
 		Qt::FramelessWindowHint |
+		Qt::NoDropShadowWindowHint |
+		Qt::WindowDoesNotAcceptFocus |
 		Qt::WindowStaysOnTopHint |
 		Qt::X11BypassWindowManagerHint |
 		Qt::Tool
@@ -171,6 +173,7 @@ ProgressBar::ProgressBar() // public
 
 	setAttribute(Qt::WA_AlwaysShowToolTips, true);
 	setObjectName("progress-bar");
+	setWindowTitle("KShutdown - " + i18n("Progress Bar"));
 
 	QPalette p;
 	QColor background = QColor(Qt::black);
