@@ -32,11 +32,13 @@
 	#include <windows.h>
 	#include <powrprof.h>
 #else
-	#include <QDBusInterface>
-	#include <QDBusReply>
-
 	#include <unistd.h> // for sleep
 #endif // Q_OS_WIN32
+
+#ifdef KS_DBUS
+	#include <QDBusInterface>
+	#include <QDBusReply>
+#endif // KS_DBUS
 
 #ifdef KS_PURE_QT
 	#include <QPointer>
@@ -573,6 +575,8 @@ bool PowerAction::onAction() {
 	}
 
 	return true;
+#elif defined(Q_OS_HAIKU)
+	return false;
 #else
 	// lock screen before hibernate/suspend
 	if (Config::lockScreenBeforeHibernate()) {
@@ -641,6 +645,10 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 
 	if (feature == Suspend)
 		return ::IsPwrSuspendAllowed();
+
+	return false;
+#elif defined(Q_OS_HAIKU)
+	Q_UNUSED(feature)
 
 	return false;
 #else
@@ -899,6 +907,25 @@ bool StandardAction::onAction() {
 	}
 
 	return true;
+
+#elif defined(Q_OS_HAIKU)
+
+	if (m_type == U_SHUTDOWN_TYPE_REBOOT) {
+		QStringList args;
+		args << "-r";
+		
+		if (launch("shutdown", args))
+			return true;
+	}
+	else if (m_type == U_SHUTDOWN_TYPE_HALT) {
+		QStringList args;
+		
+		if (launch("shutdown", args))
+			return true;
+	}
+	
+	return false;
+	
 #else
 
 	// GNOME Shell, Unity
@@ -928,7 +955,7 @@ bool StandardAction::onAction() {
 */
 
 	// LXDE
-	
+
 	else if (Utils::isLXDE()) {
 		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
 			#ifdef KS_UNIX
@@ -1053,6 +1080,12 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 	bool available = false;
 	QString error = "";
 
+	#ifdef Q_OS_HAIKU
+	Q_UNUSED(consoleKitName)
+	
+	return;
+	#endif //  Q_OS_HAIKU
+
 	#ifdef Q_OS_WIN32
 	Q_UNUSED(consoleKitName)
 	
@@ -1142,6 +1175,10 @@ LogoutAction::LogoutAction() :
 		"system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT
 ) {
 	addCommandLineArg("l", "logout");
+
+	#ifdef Q_OS_HAIKU
+	disable("");
+	#endif // Q_OS_HAIKU
 	
 // TODO: KDE 4 logout, test
 	#ifdef KS_PURE_QT

@@ -14,11 +14,16 @@ contains(QT_MAJOR_VERSION, 5) {
 }
 
 unix {
-	contains(QT_MAJOR_VERSION, 5) {
-		QT += dbus
+	haiku-g++ {
+		message("Building without D-Bus")
 	}
 	else {
-		CONFIG += qdbus
+		contains(QT_MAJOR_VERSION, 5) {
+			QT += dbus
+		}
+		else {
+			CONFIG += qdbus
+		}
 	}
 }
 

@@ -28,12 +28,14 @@
 	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
 	#include <windows.h>
 #else
-	#include <QDBusInterface>
- 	#include <QDBusReply>
- 	
  	#include "../utils.h"
  	#include "../actions/lock.h"
 #endif // Q_OS_WIN32
+
+#ifdef KS_DBUS
+	#include <QDBusInterface>
+ 	#include <QDBusReply>
+#endif // KS_DBUS
 
 // public
 
@@ -52,6 +54,8 @@ IdleMonitor::IdleMonitor()
 	
 	#ifdef Q_OS_WIN32
 	m_supported = true;
+	#elif defined(Q_OS_HAIKU)
+	m_supported = false;
 	#else
 	m_supported = LockAction::getQDBusInterface()->isValid() && Utils::isKDE_4();
 	#endif // Q_OS_WIN32
@@ -173,6 +177,8 @@ void IdleMonitor::getSessionIdleTime() {
 	else {
 		m_idleTime = 0;
 	}
+#elif defined(Q_OS_HAIKU)
+	m_idleTime = 0;
 #else
 	QDBusReply<quint32> reply = LockAction::getQDBusInterface()->call("GetSessionIdleTime");
 	

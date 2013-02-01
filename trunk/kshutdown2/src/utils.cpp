@@ -153,7 +153,19 @@ bool Utils::isGNOME_3() {
 }
 
 bool Utils::isGTKStyle() {
+	#ifdef Q_OS_HAIKU
+	return true;
+	#else
 	return isGNOME() || isGNOME_3() || isLXDE() || isXfce() || isUnity();
+	#endif // Q_OS_HAIKU
+}
+
+bool Utils::isHaiku() {
+	#ifdef Q_OS_HAIKU
+	return true;
+	#else
+	return false;
+	#endif // Q_OS_HAIKU
 }
 
 bool Utils::isKDEFullSession() {

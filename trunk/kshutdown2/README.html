@@ -98,6 +98,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<li><a href="#kde4linux">KDE Build @ Linux</a></li>
 	<li><a href="#qt4linux">Qt Build @ Linux</a></li>
 	<li><a href="#qt4windows">Qt Build @ Windows</a></li>
+	<li><a href="#qthaiku">Qt Build @ Haiku</a></li>
 	<li><a href="#supported">Supported Functions/Platforms</a></li>
 	<li><a href="#compatibility">Compatibility</a></li>
 	<li><a href="http://sourceforge.net/p/kshutdown/wiki/Credits/">Credits</a></li>
@@ -290,6 +291,20 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 	<li><b>Experimental:</b> To compile KShutdown under Wine/Linux run: <code>./Setup-wine.sh</code></li>
 </ul>
 
+<h2 id="qthaiku">Qt Build @ Haiku</h2>
+
+<p>Requires KShutdown 3.0 Beta 6 or later.</p>
+
+<h3>Compilation</h3>
+<ol>
+	<li>Download and install <a href="http://qt-haiku.ru/">Qt for Haiku</a></li>
+	<li>Download and unpack <a href="http://kshutdown.sourceforge.net/download.html">KShutdown source</a></li>
+	<li>Open terminal with KShutdown source: <code>cd src</code></li>
+	<li>Change the default C++ compiler to GCC 4: <code>setgcc gcc4</code></li>
+	<li>Create Makefiles: <code>qmake</code></li>
+	<li>Build "kshutdown-qt" binary: <code>make</code></li>
+</ol>
+
 <h2 id="supported">Supported Functions/Platforms</h2>
 
 <div>
@@ -350,7 +365,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="::SetSuspendState">OK</td>
 <td class="ok" title="::LockWorkStation">OK</td>
 <td class="ok" title="::ExitWindowsEx">OK</td>
-<td class="na">N/A</td>
+<td class="ok">OK</td>
 <td class="wip">TODO</td>
 <td class="ok" title="::GetLastInputInfo">OK</td>
 </tr>
@@ -363,7 +378,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="xflock4, xdg-screensaver, xscreensaver-command">OK</td>
 <td class="wip">FIXME</td>
-<td class="na">N/A</td>
+<td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="wip">TODO</td>
 </tr>
@@ -376,7 +391,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="lxlock, xdg-screensaver, xscreensaver-command">OK</td>
 <td class="ok" title="::kill(_LXSESSION_PID, SIGTERM)">OK</td>
-<td class="na">N/A</td>
+<td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="wip">TODO</td>
 </tr>
@@ -389,7 +404,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
 <td class="wip">TODO</td>
-<td class="na">N/A</td>
+<td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
@@ -402,7 +417,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="gnome-screensaver-command">OK</td>
 <td class="ok" title="gnome-session-quit">OK</td>
-<td class="na">N/A</td>
+<td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="wip">TODO</td>
 </tr>
@@ -415,7 +430,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="gnome-screensaver-command">OK</td>
 <td class="ok" title="gnome-session-quit">OK</td>
-<td class="na">N/A</td>
+<td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="wip">TODO</td>
 </tr>
@@ -428,7 +443,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="enlightenment_remote">OK</td>
 <td class="ok" title="enlightenment_remote">OK</td>
-<td class="na">N/A</td>
+<td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="wip">TODO</td>
 </tr>
@@ -441,8 +456,21 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="test">TEST</td>
 <td class="wip">TODO</td>
 <td class="wip">TODO</td>
+<td class="test">TEST</td>
+<td class="test">TEST</td>
+<td class="wip">TODO</td>
+</tr>
+
+<tr><td class="build" colspan="9"><a href="https://www.haiku-os.org">Haiku</a> (Qt Build) *</td></tr>
+<tr>
+<td class="ok" title="shutdown">OK</td>
+<td class="ok" title="shutdown -r">OK</td>
+<td class="na">N/A</td>
+<td class="na">N/A</td>
+<td class="na">N/A</td>
 <td class="na">N/A</td>
 <td class="test">TEST</td>
+<td class="wip">TODO</td>
 <td class="wip">TODO</td>
 </tr>
 
@@ -457,11 +485,6 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 </tr>
 
 <tr><td class="build" colspan="9">Mac OS X (Qt Build) *</td></tr>
-<tr>
-<td class="wip" colspan="9">TODO (?)</td>
-</tr>
-
-<tr><td class="build" colspan="9"><a href="https://www.haiku-os.org">Haiku</a> (Qt Build) *</td></tr>
 <tr>
 <td class="wip" colspan="9">TODO (?)</td>
 </tr>
