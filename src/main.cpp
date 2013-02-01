@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
 	KShutdownApplication program(argc, argv);
 
 	#ifdef KS_UNIX
-	if (Utils::isGTKStyle()) {
+	if (Utils::isGTKStyle() && !Utils::isHaiku()) {
 		QStyle *gtkStyle = QStyleFactory::create("gtk+");
 		if (gtkStyle)
 			QApplication::setStyle(gtkStyle);

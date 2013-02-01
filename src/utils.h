@@ -38,6 +38,7 @@ public:
 	static bool isGNOME();
 	static bool isGNOME_3();
 	static bool isGTKStyle();
+	static bool isHaiku();
 	static bool isKDEFullSession();
 	static bool isKDE_4();
 	static bool isLXDE();

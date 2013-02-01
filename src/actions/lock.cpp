@@ -25,9 +25,12 @@
 	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
 	#include <windows.h>
 #else
-	#include <QDBusInterface>
 	#include <QDesktopWidget>
 #endif // Q_OS_WIN32
+
+#ifdef KS_DBUS
+	#include <QDBusInterface>
+#endif // KS_DBUS
 
 // LockAction
 
@@ -79,16 +82,20 @@ bool LockAction::onAction() {
 		QApplication::processEvents();
 	}
 
+	#ifdef KS_DBUS
 	// try DBus
 	QDBusInterface *dbus = getQDBusInterface();
 	dbus->call("Lock");
 	QDBusError error = dbus->lastError();
+	#endif // KS_DBUS
 	
 	if (blackScreen)
 		delete blackScreen;
 	
+	#ifdef KS_DBUS
 	if (error.type() == QDBusError::NoError)
 		return true;
+	#endif // KS_DBUS
 	
 	QStringList args;
 
@@ -186,4 +193,8 @@ LockAction::LockAction() :
 	setShouldStopTimer(false);
 
 	addCommandLineArg("k", "lock");
+	
+	#ifdef Q_OS_HAIKU
+	disable("");
+	#endif // Q_OS_HAIKU
 }

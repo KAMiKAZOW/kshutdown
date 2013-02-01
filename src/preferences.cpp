@@ -91,7 +91,7 @@ QWidget *Preferences::createGeneralWidget() {
 	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate"));
 	m_lockScreenBeforeHibernate->setChecked(Config::lockScreenBeforeHibernate());
 	l->addWidget(m_lockScreenBeforeHibernate);
-#ifdef Q_OS_WIN32
+#if defined(Q_OS_WIN32) || defined(Q_OS_HAIKU)
 	m_lockScreenBeforeHibernate->hide();
 #endif // Q_OS_WIN32
 

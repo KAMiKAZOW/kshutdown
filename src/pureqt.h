@@ -58,6 +58,9 @@
 
 #if defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD) || defined(Q_OS_HURD)
 	#define KS_DBUS
+#endif
+
+#if defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD) || defined(Q_OS_HURD) || defined(Q_OS_HAIKU)
 	#define KS_UNIX
 #endif
 

@@ -899,7 +899,7 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 #endif // KS_NATIVE_KDE
 	QString s = html.isEmpty() ? "KShutdown" : html;
 
-	#ifdef Q_OS_WIN32
+	#if defined(Q_OS_WIN32) || defined(Q_OS_HAIKU)
 	m_systemTray->setToolTip(plain.isEmpty() ? "KShutdown" : (plain + " - KShutdown"));
 	#else
 	m_systemTray->setToolTip(s);
