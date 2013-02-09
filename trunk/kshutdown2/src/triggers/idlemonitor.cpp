@@ -28,14 +28,18 @@
 	#define _WIN32_WINNT 0x0500 // for LockWorkStation, etc
 	#include <windows.h>
 #else
- 	#include "../utils.h"
- 	#include "../actions/lock.h"
+	#include "../utils.h"
+	#include "../actions/lock.h"
 #endif // Q_OS_WIN32
 
 #ifdef KS_DBUS
 	#include <QDBusInterface>
- 	#include <QDBusReply>
+	#include <QDBusReply>
 #endif // KS_DBUS
+
+#ifdef KS_NATIVE_KDE
+	#include <KIdleTime>
+#endif // KS_NATIVE_KDE
 
 // public
 
@@ -51,17 +55,14 @@ IdleMonitor::IdleMonitor()
 	m_dateTime.setTime(QTime(1, 0, 0)); // set default
 	m_checkTimeout = 5000;
 	m_supportsProgressBar = true;
-	
-	#ifdef Q_OS_WIN32
+
+	#if defined(KS_NATIVE_KDE) || defined(Q_OS_WIN32)
 	m_supported = true;
 	#elif defined(Q_OS_HAIKU)
 	m_supported = false;
 	#else
 	m_supported = LockAction::getQDBusInterface()->isValid() && Utils::isKDE_4();
 	#endif // Q_OS_WIN32
-
-// TODO: KDE: fallback to KIdleTime if DBus is not available
-// <http://api.kde.org/4.8-api/kdelibs-apidocs/kutils/html/classKIdleTime.html>
 
 	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
 }
@@ -78,7 +79,7 @@ bool IdleMonitor::canActivateAction() {
 	}
 
 	quint32 maximumIdleTime = getMaximumIdleTime();
-	U_DEBUG << "maximumIdleTime=" << maximumIdleTime U_END;
+	//U_DEBUG << "maximumIdleTime=" << maximumIdleTime U_END;
 	
 	if (m_idleTime >= maximumIdleTime)
 		return true;
@@ -116,10 +117,14 @@ void IdleMonitor::setState(const State state) {
 		progressBar->setTotal(getMaximumIdleTime());
 		progressBar->setValue(0);
 
+#ifdef KS_NATIVE_KDE
+		KIdleTime::instance()->simulateUserActivity();
+#else
 		#ifdef KS_DBUS
 		if (m_supported)
 			LockAction::getQDBusInterface()->call("SimulateUserActivity");
 		#endif // KS_DBUS
+#endif // KS_NATIVE_KDE
 	}
 	else if (state == StopState) {
 		m_idleTime = 0;
@@ -177,6 +182,8 @@ void IdleMonitor::getSessionIdleTime() {
 	else {
 		m_idleTime = 0;
 	}
+#elif defined(KS_NATIVE_KDE)
+	m_idleTime = KIdleTime::instance()->idleTime() / 1000;
 #elif defined(Q_OS_HAIKU)
 	m_idleTime = 0;
 #else
