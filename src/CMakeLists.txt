@@ -42,7 +42,7 @@ qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(kshutdown ${QT_LIBRARIES} kdeui kio kworkspace ${KDE4_KNOTIFYCONFIG_LIBS})
+target_link_libraries(kshutdown ${QT_LIBRARIES} kdeui kio kworkspace ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KUTILS_LIBS})
 
 install(
 	PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
