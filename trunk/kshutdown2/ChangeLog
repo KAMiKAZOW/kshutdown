@@ -1,6 +1,30 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2013/02/12  3.0 Beta 6
+
+* NEW: Haiku OS support (see README.html for build instructions)
+* NEW: Qt 5 support
+* Disable drop shadow and input focus in progress bar and screen lock windows
+* KDE: Extras: Removed unreliable "Unlock Screen" action
+* KDE: Workaround for org.freedesktop.ScreenSaver.GetSessionIdleTime bug
+  (causes wrong time calculations in the "Inactivity Detector")
+
+Windows:
+
+* Updated Qt libs/dlls (v4.8.4)
+
+Documentation:
+
+* Fixed broken www links
+
+Source:
+
+* Changed minimal required Qt version from 4.6 to 4.8
+* Fixed compiler warnings
+* Fixed FreeBSD detection <http://sourceforge.net/p/kshutdown/bugs/18/>
+
+
 2012/11/24  3.0 Beta 5
 
 -- Test 3 ----------------------------------------------------------------------
@@ -553,4 +577,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 662:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 674:HEAD|xsel -i -b && kwrite ChangeLog
