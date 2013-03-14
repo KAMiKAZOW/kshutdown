@@ -19,6 +19,9 @@
 #define KSHUTDOWN_INFOWIDGET_H
 
 #include <QFrame>
+#ifdef Q_OS_WIN32
+	#include <QStyle>
+#endif // Q_OS_WIN32
 
 class KMessageWidget;
 

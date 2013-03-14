@@ -151,7 +151,7 @@ bool MainWindow::checkCommandLine() {
 	bool confirm = Utils::isArg("confirm");
 	foreach (Action *action, m_actionList) {
 		if (action->isCommandLineArgSupported()) {
-			if (confirm && !action->showConfirmationMessage(0))
+			if (confirm && !action->showConfirmationMessage())
 				return false;
 			
 			actionToActivate = action;

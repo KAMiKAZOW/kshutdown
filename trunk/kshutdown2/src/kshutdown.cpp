@@ -159,12 +159,17 @@ bool Action::isCommandLineArgSupported() {
 	return false;
 }
 
-bool Action::showConfirmationMessage(QWidget *parent) {
-// TODO: show confirmation message near the system tray icon
-// if main window is hidden
-
+bool Action::showConfirmationMessage() {
 	QString text = i18n("Are you sure?");
 	QString title = i18n("Confirm Action");
+
+	MainWindow *mainWindow = MainWindow::self();
+	QWidget *parent;
+	
+	if (mainWindow->isVisible())
+		parent = mainWindow;
+	else
+		parent = 0;
 
 	#ifdef KS_NATIVE_KDE
 	return KMessageBox::warningYesNo(
@@ -285,7 +290,7 @@ void ConfirmAction::slotFire() {
 	if (
 		!Config::confirmAction() ||
 		(m_impl == LockAction::self()) || // lock action - no confirmation
-		m_impl->showConfirmationMessage(0)
+		m_impl->showConfirmationMessage()
 	) {
 		if (m_impl->authorize(0))
 			m_impl->activate(false);
