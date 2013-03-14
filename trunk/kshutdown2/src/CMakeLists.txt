@@ -29,6 +29,7 @@ set(
 	triggers/idlemonitor.h
 	triggers/processmonitor.h
 	bookmarks.h
+	infowidget.h
 	kshutdown.h
 	mainwindow.h
 	password.h
