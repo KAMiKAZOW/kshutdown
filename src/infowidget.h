@@ -20,16 +20,24 @@
 
 #include <QFrame>
 
+class KMessageWidget;
+
 class QLabel;
 
 class InfoWidget: public QFrame {
+	Q_OBJECT
 public:
 	enum Type { ErrorType, InfoType, WarningType };
 	explicit InfoWidget(QWidget *parent);
 	virtual ~InfoWidget();
 	void setText(const QString &text, const Type type = InfoType);
+private slots:
+	void onLinkActivated(const QString &contents);
 private:
 	Q_DISABLE_COPY(InfoWidget)
+#ifdef KS_NATIVE_KDE
+	KMessageWidget *m_messageWidget;
+#else
 	QLabel *m_icon;
 	QLabel *m_text;
 	#ifdef Q_OS_WIN32
@@ -37,6 +45,7 @@ private:
 	#else
 	void setIcon(const QString &iconName);
 	#endif // Q_OS_WIN32
+#endif // KS_NATIVE_KDE
 };
 
 #endif // KSHUTDOWN_INFOWIDGET_H

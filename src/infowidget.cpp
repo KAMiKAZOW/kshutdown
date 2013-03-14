@@ -21,8 +21,14 @@
 
 #include "pureqt.h"
 
+#ifdef KS_NATIVE_KDE
+	#include <KMessageWidget>
+#endif // KS_NATIVE_KDE
+
+#include <QDesktopServices>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QUrl>
 
 #include "infowidget.h"
 #include "utils.h"
@@ -32,30 +38,58 @@
 InfoWidget::InfoWidget(QWidget *parent) :
 	QFrame(parent) {
 
+	setObjectName("info-widget");
+	setVisible(false);
+
+	QHBoxLayout *mainLayout = new QHBoxLayout(this);
+
+#ifdef KS_NATIVE_KDE
+	m_messageWidget = new KMessageWidget(this);
+	m_messageWidget->setCloseButtonVisible(false);
+	#if KDE_IS_VERSION(4, 10, 0)
+	connect(
+		m_messageWidget, SIGNAL(linkActivated(const QString &)),
+		SLOT(onLinkActivated(const QString &))
+	);
+	#endif // KDE_IS_VERSION
+	mainLayout->addWidget(m_messageWidget);
+#else
 	// smaller font
 	Utils::setFont(this, -1, false);
 
 	setAutoFillBackground(true);
 	setFrameStyle(Panel | Sunken);
 	setLineWidth(1);
-	setObjectName("info-widget");
-	setVisible(false);
 
 	m_icon = new QLabel();
 	m_text = new QLabel();
 	m_text->setOpenExternalLinks(true);
 
-	QHBoxLayout *mainLayout = new QHBoxLayout(this);
 	mainLayout->setMargin(5);
 	mainLayout->setSpacing(10);
 	mainLayout->addWidget(m_icon);
 	mainLayout->addWidget(m_text);
 	mainLayout->addStretch();
+#endif // KS_NATIVE_KDE
 }
 
 InfoWidget::~InfoWidget() { }
 
 void InfoWidget::setText(const QString &text, const Type type) {
+#ifdef KS_NATIVE_KDE
+	switch (type) {
+		case ErrorType:
+			m_messageWidget->setMessageType(KMessageWidget::Error);
+			break;
+		case InfoType:
+			m_messageWidget->setMessageType(KMessageWidget::Information);
+			break;
+		case WarningType:
+			m_messageWidget->setMessageType(KMessageWidget::Warning);
+			break;
+	}
+	m_messageWidget->setText(text);
+#else
 	QRgb background; // picked from the Oxygen palette
 	switch (type) {
 		case ErrorType:
@@ -90,13 +124,22 @@ void InfoWidget::setText(const QString &text, const Type type) {
 	setPalette(p);
 	
 	m_text->setText(text);
+#endif // KS_NATIVE_KDE
+
 	setVisible(!text.isEmpty() && (text != "<qt></qt>"));
 	if (isVisible())
 		repaint(0, 0, width(), height());
 }
 
+// private slots
+
+void InfoWidget::onLinkActivated(const QString &contents) {
+	QDesktopServices::openUrl(QUrl(contents));
+}
+
 // private
 
+#ifdef KS_PURE_QT
 #ifdef Q_OS_WIN32
 void InfoWidget::setIcon(const QStyle::StandardPixmap standardIcon) {
 	m_icon->setPixmap(U_APP->style()->standardIcon(standardIcon).pixmap(24, 24));
@@ -106,3 +149,4 @@ void InfoWidget::setIcon(const QString &iconName) {
 	m_icon->setPixmap(U_STOCK_ICON(iconName).pixmap(24, 24));
 }
 #endif // Q_OS_WIN32
+#endif // KS_PURE_QT
