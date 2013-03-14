@@ -120,7 +120,7 @@ public:
 	inline void setShowInMenu(const bool value) {
 		m_showInMenu = value;
 	}
-	bool showConfirmationMessage(QWidget *parent);
+	bool showConfirmationMessage();
 	inline static bool totalExit() {
 		return m_totalExit;
 	}
