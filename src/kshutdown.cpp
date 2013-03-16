@@ -231,8 +231,8 @@ bool Action::launch(const QString &program, const QStringList &args) {
 	}
 
 	U_DEBUG << "Exit code: " << exitCode U_END;
-// TODO: ?
-	return (exitCode != 255);
+
+	return (exitCode == 0);
 }
 
 bool Action::unsupportedAction() {
@@ -569,7 +569,6 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 }
 
 bool PowerAction::onAction() {
-// TODO: KDE: use Solid API (?)
 #ifdef Q_OS_WIN32
 	BOOL hibernate = (m_methodName == "Hibernate");
 	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE); // krazy:exclude=captruefalse
@@ -1240,11 +1239,6 @@ RebootAction::RebootAction() :
 
 ShutDownAction::ShutDownAction() :
 	StandardAction(i18n("Turn Off Computer"), "system-shutdown", "shutdown", U_SHUTDOWN_TYPE_HALT) {
-/* TODO: IsPwrShutdownAllowed()
-#ifdef Q_OS_WIN32
-	setEnabled();
-#endif // Q_OS_WIN32
-*/
 
 	addCommandLineArg("h", "halt");
 	addCommandLineArg("s", "shutdown");
