@@ -18,8 +18,6 @@
 #ifndef KSHUTDOWN_USYSTEMTRAY_H
 #define KSHUTDOWN_USYSTEMTRAY_H
 
-#include "kshutdown.h"
-
 #include <QObject>
 
 #ifdef KS_PURE_QT
@@ -39,11 +37,10 @@ public:
 	virtual ~USystemTray();
 	void info(const QString &message) const;
 	bool isSupported() const;
-	void setActive(const bool active, KShutdown::Action *action, KShutdown::Trigger *trigger) const;
 	void setContextMenu(QMenu *menu) const;
 	void setToolTip(const QString &toolTip) const;
 	void setVisible(const bool visible) const;
-	void updateIcon() const;
+	void updateIcon(MainWindow *mainWindow) const;
 	void warning(const QString &message) const;
 private:
 	Q_DISABLE_COPY(USystemTray)
@@ -52,7 +49,6 @@ private:
 	#else
 	KSystemTrayIcon *m_trayIcon;
 	#endif // KS_PURE_QT
-
 #ifdef KS_PURE_QT
 private slots:
 	void onRestore(QSystemTrayIcon::ActivationReason reason);

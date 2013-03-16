@@ -127,9 +127,6 @@ QWidget *Preferences::createSystemTrayWidget() {
 	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
 	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
 	l->addWidget(m_bwTrayIcon);
-	#ifdef KS_PURE_QT
-	m_bwTrayIcon->hide();
-	#endif // KS_PURE_QT
 
 	l->addStretch();
 

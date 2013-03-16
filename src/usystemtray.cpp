@@ -21,11 +21,7 @@
 #include "usystemtray.h"
 #include "utils.h"
 
-#ifdef KS_NATIVE_KDE
-	#include <KIconEffect>
-
-	#include <QPainter>
-#endif // KS_NATIVE_KDE
+#include <QPainter>
 
 // public:
 
@@ -38,25 +34,18 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 	m_trayIcon = new KSystemTrayIcon(mainWindow);
 // TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
 // Currently it's lower case "kshutdown".
-	updateIcon();
 #endif // KS_NATIVE_KDE
 
 #ifdef KS_PURE_QT
 	m_trayIcon = new QSystemTrayIcon(mainWindow);
-	#ifdef KS_UNIX
-	if (Utils::isKDE_4())
-		m_trayIcon->setIcon(U_STOCK_ICON("system-shutdown"));
-	else
-		m_trayIcon->setIcon(mainWindow->windowIcon());
-	#else
-	m_trayIcon->setIcon(mainWindow->windowIcon());
-	#endif // KS_UNIX
-
+	
 	connect(
 		m_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
 	);
 #endif // KS_PURE_QT
+
+	updateIcon(mainWindow);
 
 	U_DEBUG << "USystemTray::isSupported:" << isSupported() U_END;
 }
@@ -71,54 +60,6 @@ void USystemTray::info(const QString &message) const {
 
 bool USystemTray::isSupported() const {
 	return !Utils::isUnity() && QSystemTrayIcon::isSystemTrayAvailable();
-}
-
-void USystemTray::setActive(const bool active, KShutdown::Action *action, KShutdown::Trigger *trigger) const {
-	#ifdef KS_NATIVE_KDE
-// TODO: Qt 4.6+: http://qt-project.org/doc/qt-4.8/qgraphicscolorizeeffect.html
-	if (active) {
-		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
-
-		QRect iconSize = m_trayIcon->geometry();
-		if (iconSize.size().isEmpty()) {
-			U_DEBUG << "USystemTray::setActive: empty system tray icon size: " << iconSize U_END;
-		}
-		else {
-			U_DEBUG << "USystemTray::setActive: system tray icon size: " << iconSize U_END;
-			int iconW = qBound(24, iconSize.width(), 64);
-			int iconH = qBound(24, iconSize.height(), 64);
-			QImage i = defaultIcon.pixmap(iconW, iconH).toImage();
-			if (Config::blackAndWhiteSystemTrayIcon())
-				KIconEffect::deSaturate(i, 0.5f);
-			else
-				KIconEffect::colorize(i, Qt::yellow, 0.5f);
-		
-			// show icons of the active action/trigger
-			QPainter *p = new QPainter(&i);
-			p->setOpacity(0.8);
-			// left/bottom
-			iconW /= 2;
-			iconH /= 2;
-			QPixmap actionOverlay = action->icon().pixmap(iconW, iconH);
-			p->drawPixmap(0, iconH, actionOverlay);
-			// right/bottom
-			QPixmap triggerOverlay = trigger->icon().pixmap(iconW, iconH);
-			p->drawPixmap(iconW, iconH, triggerOverlay);
-			delete p;
-		
-			m_trayIcon->setIcon(QPixmap::fromImage(i));
-		}
-	}
-	else {
-		updateIcon();
-	}
-	#endif // KS_NATIVE_KDE
-	
-	#ifdef KS_PURE_QT
-	Q_UNUSED(active)
-	Q_UNUSED(action)
-	Q_UNUSED(trigger)
-	#endif // KS_PURE_QT
 }
 
 void USystemTray::setContextMenu(QMenu *menu) const {
@@ -136,18 +77,93 @@ void USystemTray::setVisible(const bool visible) const {
 		m_trayIcon->hide();
 }
 
-void USystemTray::updateIcon() const {
-	#ifdef KS_NATIVE_KDE
-	if (Config::blackAndWhiteSystemTrayIcon()) {
-		U_ICON defaultIcon = U_STOCK_ICON("system-shutdown");
-		QImage i = defaultIcon.pixmap(24, 24).toImage();
-		KIconEffect::toGray(i, 1.0f);
-		m_trayIcon->setIcon(QPixmap::fromImage(i));
+void USystemTray::updateIcon(MainWindow *mainWindow) const {
+	bool active = mainWindow->active();
+	bool bw = Config::blackAndWhiteSystemTrayIcon();
+	
+	// get base icon
+	
+	QIcon icon;
+	#ifdef KS_UNIX
+	if (Utils::isKDE_4())
+		icon = U_STOCK_ICON("system-shutdown");
+	else
+		icon = mainWindow->windowIcon();
+	#else
+	icon = mainWindow->windowIcon();
+	#endif // KS_UNIX
+
+	// convert base icon to pixmap
+
+	int w = 24;
+	int h = 24;
+	QRect iconSize = m_trayIcon->geometry();
+	if (iconSize.size().isEmpty()) {
+		U_DEBUG << "USystemTray::updateIcon: empty system tray icon size: " << iconSize U_END;
 	}
 	else {
-		m_trayIcon->setIcon(U_STOCK_ICON("system-shutdown"));
+		U_DEBUG << "USystemTray::updateIcon: system tray icon size: " << iconSize U_END;
+		w = qBound(24, iconSize.width(), 64);
+		h = qBound(24, iconSize.height(), 64);
 	}
-	#endif // KS_NATIVE_KDE
+
+	QPixmap pixmap = icon.pixmap(w, h);
+	QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32_Premultiplied);
+
+	// add some effects
+
+	// CREDITS: http://stackoverflow.com/questions/2095039/qt-qimage-pixel-manipulation
+	if (active || bw) {
+		QRgb *line = (QRgb *)image.bits();
+		int c = image.width() * image.height();
+		int h, s, l;
+		QColor temp;
+		for (int i = 0; i < c; i++) {
+			QRgb rgb = *line;
+			
+			// invisible pixel, skip
+			if (rgb == 0) {
+				line++;
+			
+				continue; // for
+			}
+
+			// convert RGB to HSL
+			temp.setRgba(rgb);
+			temp.getHsl(&h, &s, &l);
+			
+			if (active) {
+				//h = 200; // ~blue
+				h = 42; // ~orange
+				//l = qMin(255, (int)(l * 1.2));
+			}
+			else if (bw) {
+				s *= 0.2; // desaturate
+			}
+
+			// convert back to RGBA
+			temp.setHsl(h, s, l, qAlpha(rgb));
+			*line = temp.rgba();
+			line++;
+		}
+	}
+
+	// add overlay icons (active trigger/action)
+	
+	w = pixmap.width() / 2;
+	if (active && (w >= 12)) {
+		h = pixmap.height() / 2;
+
+		QPainter p(&image);
+		p.setOpacity(0.7);
+		
+		// left/bottom
+		mainWindow->getSelectedAction()->icon().paint(&p, 0, h, w, h);
+		// right/bottom
+		mainWindow->getSelectedTrigger()->icon().paint(&p, w, h, w, h);
+	}
+
+	m_trayIcon->setIcon(QPixmap::fromImage(image));
 }
 
 void USystemTray::warning(const QString &message) const {
