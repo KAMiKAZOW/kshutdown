@@ -15,10 +15,6 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-// TODO: Use KMessageWidget in KDE 4 build
-// http://agateau.wordpress.com/2011/04/21/kde-ux-2011/
-// http://community.kde.org/Sprints/UX2011/KMessageWidget
-
 #include "pureqt.h"
 
 #ifdef KS_NATIVE_KDE
