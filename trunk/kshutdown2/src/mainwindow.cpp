@@ -374,7 +374,7 @@ void MainWindow::setActive(const bool yes) {
 	}
 	
 	m_active = yes;
-	m_systemTray->setActive(m_active, action, trigger);
+	m_systemTray->updateIcon(this);
 
 	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
 	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
@@ -1195,9 +1195,7 @@ void MainWindow::onPreferences() {
 		
 		m_progressBar->setVisible(m_active && getSelectedTrigger()->supportsProgressBar() && Config::progressBarEnabled());
 		m_systemTray->setVisible(Config::systemTrayIconEnabled());
-		// update icon colors
-		if (!m_active)
-			m_systemTray->updateIcon();
+		m_systemTray->updateIcon(this); // update colors
 	}
 	delete dialog;
 }
