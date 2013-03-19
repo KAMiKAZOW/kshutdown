@@ -1018,8 +1018,6 @@ bool StandardAction::onAction() {
 
 	#ifdef KS_NATIVE_KDE
 	if (m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT)) {
-// TODO: remove KWorkSpace API deps (?)
-// TODO: check if logout is available
 		// BUG #3467712: http://sourceforge.net/p/kshutdown/bugs/13/
 		KWorkSpace::requestShutDown(
 			KWorkSpace::ShutdownConfirmNo,
@@ -1105,12 +1103,11 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 			KWorkSpace::ShutdownModeForceNow
 		);
 		
-		U_DEBUG << "KDE ShutDown API available:" << m_kdeShutDownAvailable U_END;
-
-		if (m_kdeShutDownAvailable)
-			return;
-
-		error = "Check \"Offer shutdown options\"<br>in the \"Session Management\" settings<br>(KDE System Settings).";
+		if (!m_kdeShutDownAvailable) {
+			U_DEBUG << "No KDE ShutDown API available" U_END;
+			
+			error = "Check \"Offer shutdown options\"<br>in the \"Session Management\" settings<br>(KDE System Settings).";
+		}
 	}
 	#endif // KS_NATIVE_KDE
 
