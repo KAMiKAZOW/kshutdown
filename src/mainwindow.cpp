@@ -827,7 +827,6 @@ void MainWindow::initWidgets() {
 	m_okCancelButton = new U_PUSH_BUTTON();
 	m_okCancelButton->setObjectName("ok-cancel-button");
 	m_okCancelButton->setDefault(true);
-	m_okCancelButton->setToolTip(i18n("Click to activate/cancel the selected action"));
 	connect(m_okCancelButton, SIGNAL(clicked()), SLOT(onOKCancel()));
 
 	mainLayout->addWidget(m_actionBox);
@@ -949,6 +948,7 @@ void MainWindow::updateWidgets() {
 		m_okCancelButton->setText(i18n("OK"));
 	}
 #endif // KS_NATIVE_KDE
+	m_okCancelButton->setToolTip(i18n("Click to activate/cancel the selected action"));
 
 	Action *action = getSelectedAction();
 	if (action->isEnabled()) {

@@ -95,16 +95,17 @@ void USystemTray::updateIcon(MainWindow *mainWindow) const {
 
 	// convert base icon to pixmap
 
-	int w = 24;
-	int h = 24;
+	int w = 22;
+	int h = 22;
 	QRect iconSize = m_trayIcon->geometry();
-	if (iconSize.size().isEmpty()) {
-		U_DEBUG << "USystemTray::updateIcon: empty system tray icon size: " << iconSize U_END;
+	// HACK: https://bugreports.qt-project.org/browse/QTBUG-24683
+	if (!iconSize.size().isEmpty() && (iconSize.width() <= 64) && (iconSize.height() <= 64)) {
+		U_DEBUG << "USystemTray::updateIcon: system tray icon size: " << iconSize U_END;
+		w = qBound(22, iconSize.width(), 64);
+		h = qBound(22, iconSize.height(), 64);
 	}
 	else {
-		U_DEBUG << "USystemTray::updateIcon: system tray icon size: " << iconSize U_END;
-		w = qBound(24, iconSize.width(), 64);
-		h = qBound(24, iconSize.height(), 64);
+		U_DEBUG << "USystemTray::updateIcon: using safe tray icon size; reported geometry = " << iconSize U_END;
 	}
 
 	QPixmap pixmap = icon.pixmap(w, h);
@@ -151,7 +152,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) const {
 	// add overlay icons (active trigger/action)
 	
 	w = pixmap.width() / 2;
-	if (active && (w >= 12)) {
+	if (active && (w >= 11)) {
 		h = pixmap.height() / 2;
 
 		QPainter p(&image);
