@@ -188,6 +188,10 @@ bool Utils::isLXDE() {
 		m_xdgCurrentDesktop.contains("LXDE", Qt::CaseInsensitive);
 }
 
+bool Utils::isRazor() {
+	return m_desktopSession.contains("RAZOR", Qt::CaseInsensitive);
+}
+
 bool Utils::isRestricted(const QString &action) {
 #ifdef KS_NATIVE_KDE
 	return !KAuthorized::authorize(action);

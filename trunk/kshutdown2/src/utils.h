@@ -42,6 +42,7 @@ public:
 	static bool isKDEFullSession();
 	static bool isKDE_4();
 	static bool isLXDE();
+	static bool isRazor();
 	static bool isRestricted(const QString &action);
 	static bool isUnity();
 	static bool isXfce();
