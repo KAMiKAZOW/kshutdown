@@ -57,6 +57,7 @@ bool Action::m_totalExit = false;
 #ifdef KS_DBUS
 QDBusInterface *StandardAction::m_consoleKitInterface = 0;
 QDBusInterface *StandardAction::m_halInterface = 0;
+QDBusInterface *StandardAction::m_razorSessionInterface = 0;
 #endif // KS_DBUS
 
 // Base
@@ -707,7 +708,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		foreach (const QString &featureName, featureNames) {
 			reply =  i_hal.call("GetProperty", featureName);
 			if (reply.isValid())
-				return reply.value();	
+				return reply.value();
 		}
 
 		U_ERROR << reply.error() U_END;
@@ -772,6 +773,22 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 	m_type(type) {
 
 // TODO: clean up kshutdown.cpp, move this to LogoutAction
+	#ifdef KS_DBUS
+	if (Utils::isRazor() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
+		m_razorSessionInterface = new QDBusInterface(
+			"org.razorqt.session",
+			"/RazorSession",
+			"org.razorqt.session"
+		);
+		QDBusReply<bool> reply = m_razorSessionInterface->call("canLogout");
+		if (!reply.isValid() || !reply.value()) {
+			delete m_razorSessionInterface;
+			m_razorSessionInterface = 0;
+			disable("No Razor-qt session found");
+		}
+	}
+	#endif // KS_DBUS
+
 	#ifdef KS_UNIX
 	m_lxsession = 0;
 	if (Utils::isLXDE() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
@@ -970,6 +987,19 @@ bool StandardAction::onAction() {
 			#endif // KS_UNIX
 		}
 	}
+	
+	// Razor-qt
+	
+	#ifdef KS_DBUS
+	else if (Utils::isRazor()) {
+		if ((m_type == U_SHUTDOWN_TYPE_LOGOUT) && m_razorSessionInterface && m_razorSessionInterface->isValid()) {
+			QDBusReply<void> reply = m_razorSessionInterface->call("logout");
+
+			if (reply.isValid())
+				return true;
+		}
+	}
+	#endif // KS_DBUS
 
 	// Xfce
 

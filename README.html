@@ -354,7 +354,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow">OK</td>
 <td class="ok">OK</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
-<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
+<td class="ok" title="KIdleTime, D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
 <tr><td class="build" colspan="9">Windows (Qt Build) *</td></tr>
@@ -366,7 +366,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="::LockWorkStation">OK</td>
 <td class="ok" title="::ExitWindowsEx">OK</td>
 <td class="ok">OK</td>
-<td class="wip">TODO</td>
+<td class="ok" title="::IsWindow">OK, no CLI</td>
 <td class="ok" title="::GetLastInputInfo">OK</td>
 </tr>
 
@@ -450,14 +450,14 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tr><td class="build" colspan="9"><a href="http://razor-qt.org/">Razor-qt</a> (Qt Build) *</td></tr>
 <tr>
-<td class="test">TEST</td>
-<td class="test">TEST</td>
-<td class="test">TEST</td>
-<td class="test">TEST</td>
-<td class="wip">TODO</td>
-<td class="wip">TODO</td>
-<td class="test">TEST</td>
-<td class="test">TEST</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="xdg-screensaver, xscreensaver-command">OK</td>
+<td class="ok" title="D-Bus (org.razorqt.session)">OK</td>
+<td class="ok">OK</td>
+<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="wip">TODO</td>
 </tr>
 

@@ -273,6 +273,7 @@ protected:
 	#ifdef KS_DBUS
 	static QDBusInterface *m_consoleKitInterface;
 	static QDBusInterface *m_halInterface;
+	static QDBusInterface *m_razorSessionInterface;
 	#endif // KS_DBUS
 	void checkAvailable(const UShutdownType type, const QString &consoleKitName);
 private:
