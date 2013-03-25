@@ -160,12 +160,14 @@ bool MainWindow::checkCommandLine() {
 		}
 	}
 	if (actionToActivate) {
+		QString extrasCommand = QString::null;
+	
 		if (actionToActivate == Extras::self()) {
 			// NOTE: Sync. with extras.cpp (constructor)
-			QString command = Utils::getOption("extra");
-			if (command.isEmpty())
-				command = Utils::getOption("e");
-			Extras::self()->setCommand(command);
+			extrasCommand = Utils::getOption("extra");
+			if (extrasCommand.isEmpty())
+				extrasCommand = Utils::getOption("e");
+			Extras::self()->setCommand(extrasCommand);
 		}
 
 		// setup main window and execute action later
@@ -175,7 +177,11 @@ bool MainWindow::checkCommandLine() {
 			return false;
 		}
 		else {
-			if (TimeOption::isError()) {
+			if (
+				TimeOption::isError() &&
+				// HACK: fix command line: -e <extrasCommand> <TimeOption::value()>
+				(TimeOption::value() != extrasCommand)
+			) {
 				U_ERROR_MESSAGE(0, i18n("Invalid time: %0").arg(TimeOption::value()));
 				
 				return false;
