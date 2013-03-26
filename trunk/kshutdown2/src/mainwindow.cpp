@@ -749,7 +749,6 @@ void MainWindow::initMenuBar() {
 		menuBar
 	);
 #ifdef KS_NATIVE_KDE
-// FIXME: Details -> Shortcut Schemes
 	U_ACTION *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
 	configureShortcutsAction->setEnabled(!Utils::isRestricted("action/options_configure_keybinding"));
 	settingsMenu->addAction(configureShortcutsAction);
@@ -1142,7 +1141,7 @@ void MainWindow::onConfigureShortcuts() {
 	if (!PasswordDialog::authorize(this, i18n("Preferences"), "action/options_configure_keybinding"))
 		return;
 
-	KShortcutsDialog dialog;
+	KShortcutsDialog dialog(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsDisallowed, this);
 	dialog.addCollection(m_actionCollection);
 	dialog.configure();
 }
