@@ -31,7 +31,6 @@ class UDialog: public QDialog {
 #else
 class KDialogButtonBox;
 
-// TODO: KDialog?
 class UDialog: public QDialog {
 #endif // KS_PURE_QT
 	Q_OBJECT

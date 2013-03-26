@@ -1230,7 +1230,7 @@ RebootAction::RebootAction() :
 	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT) {
 
 #ifdef KS_NATIVE_KDE
-/* FIXME: crash on KDE 4.5.0
+/* HACK: crash on KDE 4.5.0
 	QPixmap p = KIconLoader::global()->loadIcon(
 		"system-reboot",
 		//"dialog-ok",
@@ -1246,11 +1246,13 @@ RebootAction::RebootAction() :
 	else
 		setIcon(p);
 */
+	// NOTE: follow the Icon Naming Specification and use "system-reboot" instead of "system-restart"
+	// <http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html>
 	setIcon(U_STOCK_ICON("system-reboot"));
 #else
 	if (Utils::isKDE_4())
 		setIcon(U_STOCK_ICON("system-reboot"));
-	// HACK: missing "system-reboot" icon
+	// HACK: missing "system-reboot" in some icon themes
 	else
 		setIcon(U_STOCK_ICON("view-refresh"));
 #endif // KS_NATIVE_KDE

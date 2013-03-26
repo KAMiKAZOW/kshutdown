@@ -146,7 +146,8 @@ QWidget *Preferences::createTriggersWidget() {
 #ifdef KS_NATIVE_KDE
 void Preferences::onKDERelatedSettings() {
 	KRun::run(
-// FIXME: Ubuntu Natty, Qt 4.7.2, KDE 4.6.2: "kdm" module resets all fonts to "Ubuntu" ?!
+// HACK: Ubuntu Natty, Qt 4.7.2, KDE 4.6.2: "kdm" module resets all fonts to "Ubuntu"
+// <https://bugs.launchpad.net/ubuntu/+source/kdebase/+bug/766145>
 		"kcmshell4 screensaver kcmsmserver powerdevilglobalconfig powerdevilprofilesconfig autostart kcmkded kgrubeditor keys",
 		KUrl::List(),
 		this
