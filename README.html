@@ -20,64 +20,88 @@
 	}
 
 	h2 {
+		border-bottom: 2px dashed #009900;
 		color: #009900;
 		margin-top: 2em;
+		padding-bottom: 4px;
 	}
 	
 	h4 {
 		color: #990000;
 	}
 	
-	p.footer {
-		font-size: smaller;
-	}
-	
 	table {
-		border: 1px solid black;
+		border: 1px solid gray;
 		border-collapse: collapse;
 	}
 	
 	td {
-		border: 1px solid black;
-		padding: 4px;
+		padding: 8px;
 	}
 	
 	td.build {
+		background-color: #EEEEEE;
 		font-weight: bold;
+	}
+
+	tr:nth-child(odd) td.build {
+		background-color: #FAFAFA;
+	}
+	
+	td.header, thead td {
+		background-color: gray;
+		color: white;
+		font-weight: bold;
+		text-align: center;
 	}
 
 	td.na {
 		background-color: #BFD9FF;
 		text-align: center;
 	}
-	
+
+	tr:nth-child(odd) td.na {
+		background-color: #D6E7FF;
+	}
+
 	td.ok {
 		background-color: #D8E8C2;
 		text-align: center;
 	}
+
+	tr:nth-child(odd) td.ok {
+		background-color: #E5F0D6;
+	}
 	
 	td.ok:hover {
-		background-color: #FFFFBF;
+		background-color: #FFFFBF !important;
 		cursor: help;
 	}
 	
 	td.test {
-		background-color: orange;
+		background-color: #FFD9B0;
 		text-align: center;
+	}
+	
+	tr:nth-child(odd) td.test {
+		background-color: #FFE6CC;
 	}
 
 	td.wip {
 		background-color: #F9CCCA;
 		text-align: center;
 	}
-	
-	thead td {
-		font-weight: bold;
-		text-align: center;
+
+	tr:nth-child(odd) td.wip {
+		background-color: #FBE0DF;
 	}
 
-	table#supported_table thead td {
-		width: 10%;
+	table#build_table td {
+		border: 1px solid gray;
+	}
+
+	table#supported_table {
+		width: 100%;
 	}
 	</style>
 </head>
@@ -86,7 +110,7 @@
 <h1>KShutdown - README</h1>
 
 <p>A graphical shutdown utility for Linux and Windows</p>
-
+<p>&copy; Konrad Twardowski</p>
 <p>
 Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 <a href="http://sourceforge.net/p/kshutdown/wiki/Home/">Wiki</a> for more info.
@@ -108,7 +132,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <h2 id="kdevsqt">KDE Build vs. Qt Build</h2>
 
-<table>
+<table id="build_table">
 
 <thead>
 <tr>
@@ -151,7 +175,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 </tr>
 
 <tr>
-	<td colspan="3" style="font-weight: bold">Dev Info</td>
+	<td class="header" colspan="3">Dev Info</td>
 </tr>
 
 <tr>
@@ -308,13 +332,14 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <h2 id="supported">Supported Functions/Platforms</h2>
 
 <div>
-<table id="supported_table" style="width: 100%">
+<table id="supported_table">
 
 <thead>
 
 <tr>
-<td>Turn Off Computer**</td>
-<td>Restart Computer**</td>
+<td>Desktop Environment/Platform</td>
+<td>Turn Off Computer<sup>1</sup></td>
+<td>Restart Computer<sup>1</sup></td>
 <td>Suspend</td>
 <td>Hibernate</td>
 <td>Lock Screen</td>
@@ -328,24 +353,22 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tfoot>
 
-<tr><td colspan="9" style="font-weight: bold">Legend</td></tr>
+<tr><td class="header" colspan="10">Legend</td></tr>
 
-<tr><td class="test">TEST</td><td colspan="8">Should work, still testing ;)</td></tr>
-<tr><td class="ok">OK<!-- TODO: implementation details --></td><td colspan="8">Done (hover an item to display implementation details)</td></tr>
-<tr><td class="na">N/A</td><td colspan="8">Function is not available on this platform/KShutdown version</td></tr>
-<tr><td class="wip">TODO/FIXME</td><td colspan="8">Work In Progress - to be implemented in a future...</td></tr>
+<tr><td class="test">TEST</td><td colspan="9">Should work, still testing ;)</td></tr>
+<tr><td class="ok">OK<!-- TODO: implementation details --></td><td colspan="9">Done (hover an item to display implementation details)</td></tr>
+<tr><td class="na">N/A</td><td colspan="9">Function is not available on this platform/KShutdown version</td></tr>
+<tr><td class="wip">TODO/FIXME</td><td colspan="9">Work In Progress - to be implemented in a future...</td></tr>
 
-<tr><td>CLI</td><td colspan="8">Function available via Command Line (example: kshutdown --lock)</td></tr>
-<tr><td>Windows</td><td colspan="8">Microsoft Windows XP/Vista/7/8 or compatible</td></tr>
-<tr><td>*</td><td colspan="8"><i>KDE Build</i> not supported</td></tr>
-<tr><td>**</td><td colspan="8">D-Bus commands should work with <abbr title="GNOME Display Manager">GDM</abbr>, <abbr title="KDE Display Manager">KDM</abbr>, and LightDM</td></tr>
+<tr><td>CLI</td><td colspan="9">Function available via Command Line (example: kshutdown --lock)</td></tr>
+<tr><td colspan="10"><sup>1</sup> D-Bus commands should work with <abbr title="GNOME Display Manager">GDM</abbr>, <abbr title="KDE Display Manager">KDM</abbr>, LightDM, and other Display Managers</td></tr>
 
 </tfoot>
 
 <tbody>
 
-<tr><td class="build" colspan="9"><a href="http://kde.org/">KDE</a> 4 (KDE Build)</td></tr>
 <tr>
+<td class="build"><a href="http://kde.org/">KDE</a> 4 (KDE Build)</td>
 <td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow, D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow, D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -357,8 +380,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="KIdleTime, D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
-<tr><td class="build" colspan="9">Windows (Qt Build) *</td></tr>
 <tr>
+<td class="build">Windows XP/Vista/7/8</td>
 <td class="ok" title="::InitiateSystemShutdown">OK</td>
 <td class="ok" title="::InitiateSystemShutdown">OK</td>
 <td class="ok" title="::SetSuspendState">OK</td>
@@ -370,8 +393,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="::GetLastInputInfo">OK</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://www.xfce.org/">Xfce</a> 4.8 (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://www.xfce.org/">Xfce</a> 4.8+</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -383,8 +406,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/LXDE">LXDE</a> (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://en.wikipedia.org/wiki/LXDE">LXDE</a></td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -396,8 +419,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9">KDE 4 (Qt Build)</td></tr>
 <tr>
+<td class="build">KDE 4 (Qt Build)</td>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -409,8 +432,21 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
-<tr><td class="build" colspan="9">GNOME 3 (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://mate-desktop.org/">MATE</a></td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
+<td class="test">TEST</td>
+<td class="ok" title="mate-screensaver-command">OK</td>
+<td class="ok" title="mate-session-save">OK</td>
+<td class="ok">OK</td>
+<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
+<td class="wip">TODO</td>
+</tr>
+
+<tr>
+<td class="build"><a href="http://www.gnome.org/">GNOME</a> 3</td>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -422,8 +458,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://en.wikipedia.org/wiki/Unity_%28user_interface%29">Unity</a> (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://en.wikipedia.org/wiki/Unity_%28user_interface%29">Unity</a></td>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -435,8 +471,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://www.enlightenment.org/">Enlightenment</a> (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://www.enlightenment.org/">Enlightenment</a></td>
 <td class="test">TEST</td>
 <td class="test">TEST</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -448,8 +484,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://razor-qt.org/">Razor-qt</a> (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://razor-qt.org/">Razor-qt</a></td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -461,8 +497,8 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="https://www.haiku-os.org">Haiku</a> (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="https://www.haiku-os.org">Haiku</a></td>
 <td class="ok" title="shutdown">OK</td>
 <td class="ok" title="shutdown -r">OK</td>
 <td class="na">N/A</td>
@@ -474,23 +510,24 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="wip">TODO</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://openbox.org/">Openbox</a> (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://openbox.org/">Openbox</a></td>
 <td class="wip" colspan="9">TODO (?)</td>
 </tr>
 
-<tr><td class="build" colspan="9"><a href="http://www.gnome.org/">GNOME</a> 2 (Qt Build) *</td></tr>
 <tr>
+<td class="build"><a href="http://www.gnome.org/">GNOME</a> 2</td>
+<td class="test" colspan="8">TEST (?)</td>
+<td class="wip">TODO</td>
+</tr>
+
+<tr>
+<td class="build">Mac OS X</td>
 <td class="wip" colspan="9">TODO (?)</td>
 </tr>
 
-<tr><td class="build" colspan="9">Mac OS X (Qt Build) *</td></tr>
 <tr>
-<td class="wip" colspan="9">TODO (?)</td>
-</tr>
-
-<tr><td class="build" colspan="9">KDE 3 (Qt Build) *</td></tr>
-<tr>
+<td class="build">KDE 3</td>
 <td class="wip" colspan="9">TODO (?); KShutDown 1.0.x exists but it's outdated and not supported...</td>
 </tr>
 
@@ -503,8 +540,6 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <p>Some configuration and command line options in KShutdown 2.x
 may be not fully compatible with the old KShutdown 1.0.x.</p>
-
-<p class="footer">&copy; Konrad Twardowski</p>
 
 </body>
 </html>
