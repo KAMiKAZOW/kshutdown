@@ -116,6 +116,15 @@ bool LockAction::onAction() {
 			return true;
 	}
 
+	// MATE
+	
+	if (Utils::isMATE()) {
+		args.clear();
+		args << "--lock";
+		if (launch("mate-screensaver-command", args))
+			return true;
+	}
+
 	// try "xflock4"
 	if (Utils::isXfce()) {
 		args.clear();

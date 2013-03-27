@@ -156,7 +156,7 @@ bool Utils::isGTKStyle() {
 	#ifdef Q_OS_HAIKU
 	return true;
 	#else
-	return isGNOME() || isGNOME_3() || isLXDE() || isXfce() || isUnity();
+	return isGNOME() || isGNOME_3() || isLXDE() || isMATE() || isXfce() || isUnity();
 	#endif // Q_OS_HAIKU
 }
 
@@ -186,6 +186,10 @@ bool Utils::isLXDE() {
 	return
 		m_desktopSession.contains("LXDE", Qt::CaseInsensitive) ||
 		m_xdgCurrentDesktop.contains("LXDE", Qt::CaseInsensitive);
+}
+
+bool Utils::isMATE() {
+	return m_desktopSession.contains("mate", Qt::CaseInsensitive);
 }
 
 bool Utils::isRazor() {

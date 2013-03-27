@@ -91,7 +91,7 @@ public:
 int main(int argc, char **argv) {
 	Utils::init();
 	#define KS_DEBUG_SYSTEM(f, d) \
-		qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
+		if (d) qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
 	
 	bool e17 = Utils::isEnlightenment();
 	KS_DEBUG_SYSTEM("Enlightenment", e17);
@@ -103,6 +103,7 @@ int main(int argc, char **argv) {
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
 	KS_DEBUG_SYSTEM("GNOME 3", Utils::isGNOME_3());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
+	KS_DEBUG_SYSTEM("MATE", Utils::isMATE());
 	KS_DEBUG_SYSTEM("Razor-qt", Utils::isRazor());
 	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
 	KS_DEBUG_SYSTEM("Unity", Utils::isUnity());

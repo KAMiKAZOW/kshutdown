@@ -988,6 +988,17 @@ bool StandardAction::onAction() {
 		}
 	}
 	
+	// MATE
+
+	else if (Utils::isMATE()) {
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			QStringList args;
+			args << "--logout";
+			if (launch("mate-session-save", args))
+				return true;
+		}
+	}
+
 	// Razor-qt
 	
 	#ifdef KS_DBUS
