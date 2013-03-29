@@ -43,7 +43,6 @@ void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfi
 		config->sync();
 	}
 
-// FIXME: it's sometimes invisible in low resolution (bottom, 640x480)
 	m_alignment = value;
 	QDesktopWidget *desktop = QApplication::desktop();
 	resize(desktop->width() - 4, height());
