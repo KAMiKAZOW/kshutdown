@@ -879,10 +879,10 @@ bool StandardAction::onAction() {
 		(m_type == U_SHUTDOWN_TYPE_HALT) ||
 		(m_type == U_SHUTDOWN_TYPE_REBOOT)
 	) {
-		BOOL bForceAppsClosed = m_force ? TRUE : FALSE;
+		BOOL bForceAppsClosed = m_force ? TRUE : FALSE; // krazy:exclude=captruefalse
 		m_force = false;
 		
-		BOOL bRebootAfterShutdown = (m_type == U_SHUTDOWN_TYPE_REBOOT) ? TRUE : FALSE;
+		BOOL bRebootAfterShutdown = (m_type == U_SHUTDOWN_TYPE_REBOOT) ? TRUE : FALSE; // krazy:exclude=captruefalse
 		
 		if (::InitiateSystemShutdown(
 			NULL, NULL, 0, // unused
@@ -892,7 +892,7 @@ bool StandardAction::onAction() {
 // TODO: handle ERROR_NOT_READY
 			if (::GetLastError() == ERROR_MACHINE_LOCKED) {
 				
-				bForceAppsClosed = TRUE;
+				bForceAppsClosed = TRUE; // krazy:exclude=captruefalse
 				
 				if (::InitiateSystemShutdown(
 					NULL, NULL, 0, // unused

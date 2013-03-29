@@ -297,7 +297,7 @@ void MainWindow::maybeShow() {
 
 	if (Utils::isArg("init") || U_APP->isSessionRestored()) {
 		if (!trayIconEnabled)
-			showMinimized();
+			showMinimized(); // krazy:exclude=qmethods
 	}
 	else {
 		show();
@@ -524,7 +524,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 
 	// no system tray, minimize instead
 	if (!m_systemTray->isSupported()) {
-		showMinimized();
+		showMinimized(); // krazy:exclude=qmethods
 	}
 	// hide in system tray instead of close
 	else {

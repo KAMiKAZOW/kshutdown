@@ -56,7 +56,7 @@ const QString TIME_PARSE_FORMAT = "h:mm";
 class U_EXPORT Base {
 public:
 	enum State { StartState, StopState, InvalidStatusState };
-	Base(const QString &id);
+	explicit Base(const QString &id);
 	virtual ~Base();
 	inline QString disableReason() const {
 		return m_disableReason;
