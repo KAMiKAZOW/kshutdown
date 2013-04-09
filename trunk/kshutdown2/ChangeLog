@@ -1,6 +1,24 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2013/04/09  3.0 Beta 7
+
+* NEW: MATE Desktop Environment support
+* NEW: Razor-qt Desktop Environment support
+* Updated Serbian translations
+* Updated Brazilian Portuguese translation
+* Unified system tray icon view and options in all KShutdown versions
+* Fixed -e and --extras command line options
+* Fixed transparent background in "kshutdown" icons; reduced "kshutdown.ico" size
+
+KDE:
+
+* NEW: Use native message views (KMessageWidget class)
+* Require KDE 4.7+ instead of 4.4+
+* Fixed: Fallback to ConsoleKit if KDE shutdown API is unavailable
+* Disallow one-letter keyboard shortcuts
+
+
 2013/02/12  3.0 Beta 6
 
 * NEW: Haiku OS support (see README.html for build instructions)
@@ -577,4 +595,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 674:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 689:HEAD|xsel -i -b && kwrite ChangeLog
