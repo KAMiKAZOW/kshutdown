@@ -199,6 +199,8 @@ QDBusInterface *LockAction::getQDBusInterface() {
 
 LockAction::LockAction() :
 	Action(i18n("Lock Screen"), "system-lock-screen", "lock") {
+	
+	setCanBookmark(true);
 	setShouldStopTimer(false);
 
 	addCommandLineArg("k", "lock");

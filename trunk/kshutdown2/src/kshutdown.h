@@ -58,12 +58,24 @@ public:
 	enum State { StartState, StopState, InvalidStatusState };
 	explicit Base(const QString &id);
 	virtual ~Base();
+	
+	bool canBookmark() const { return m_canBookmark; }
+	
+	void setCanBookmark(const bool value) { m_canBookmark = value; }
+	
 	inline QString disableReason() const {
 		return m_disableReason;
 	}
 	inline QString error() const {
 		return m_error;
 	}
+	
+	virtual QString getStringOption() { return QString::null; }
+	
+	virtual void setStringOption(const QString &option) {
+		Q_UNUSED(option)
+	}
+	
 	virtual QWidget *getWidget();
 	inline QString id() const {
 		return m_id;
@@ -95,6 +107,8 @@ protected:
 #ifdef Q_OS_WIN32
 	void setLastError();
 #endif // Q_OS_WIN32
+private:
+	bool m_canBookmark;
 };
 
 class U_EXPORT Action: public U_ACTION, public Base {
@@ -232,6 +246,8 @@ private:
 class U_EXPORT TimeFromNowTrigger: public DateTimeTriggerBase {
 public:
 	TimeFromNowTrigger();
+	virtual QString getStringOption();
+	virtual void setStringOption(const QString &option);
 	virtual QWidget *getWidget();
 protected:
 	virtual QDateTime calcEndTime();

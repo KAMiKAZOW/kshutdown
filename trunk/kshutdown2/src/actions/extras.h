@@ -29,7 +29,8 @@ class Extras: public KShutdown::Action {
 	Q_OBJECT
 	friend class CommandAction;
 public:
-	inline QString command() { return m_command; }
+	virtual QString getStringOption();
+	virtual void setStringOption(const QString &option);
 	virtual QWidget *getWidget();
 	virtual bool onAction();
 	virtual void readConfig(const QString &group, Config *config);
@@ -39,7 +40,6 @@ public:
 
 		return m_instance;
 	}
-	void setCommand(const QString &command);
 	virtual void writeConfig(const QString &group, Config *config);
 private:
 	Q_DISABLE_COPY(Extras)

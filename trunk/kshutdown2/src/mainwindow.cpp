@@ -167,7 +167,7 @@ bool MainWindow::checkCommandLine() {
 			extrasCommand = Utils::getOption("extra");
 			if (extrasCommand.isEmpty())
 				extrasCommand = Utils::getOption("e");
-			Extras::self()->setCommand(extrasCommand);
+			Extras::self()->setStringOption(extrasCommand);
 		}
 
 		// setup main window and execute action later
@@ -451,7 +451,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 
 void MainWindow::setExtrasCommand(const QString &command) {
 	setSelectedAction("extras");
-	Extras::self()->setCommand(command);
+	Extras::self()->setStringOption(command);
 }
 
 void MainWindow::setSelectedAction(const QString &id) {
@@ -740,7 +740,7 @@ void MainWindow::initMenuBar() {
 
 	// bookmarks menu
 	
-// TODO: menuBar->addMenu(m_bookmarksMenu);
+	menuBar->addMenu(m_bookmarksMenu);
 
 	// settings menu
 
@@ -957,7 +957,7 @@ void MainWindow::updateWidgets() {
 
 	Action *action = getSelectedAction();
 	if (action->isEnabled()) {
-		if ((action == Extras::self()) && Extras::self()->command().isEmpty()) {
+		if ((action == Extras::self()) && Extras::self()->getStringOption().isEmpty()) {
 			m_okCancelButton->setEnabled(false);
 // TODO: move to Extras class
 			m_infoWidget->setText(

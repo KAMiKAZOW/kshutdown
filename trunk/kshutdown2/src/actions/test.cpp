@@ -23,6 +23,8 @@
 
 TestAction::TestAction() :
 	Action(i18n("Test Action (does nothing)"), "dialog-ok", "test") {
+	
+	setCanBookmark(true);
 	setShowInMenu(false);
 
 	addCommandLineArg(QString::null, "test");

@@ -70,7 +70,8 @@ Base::Base(const QString &id) :
 	m_error(QString::null),
 	m_id(id),
 	m_originalText(QString::null),
-	m_status(QString::null) {
+	m_status(QString::null),
+	m_canBookmark(false) {
 }
 
 Base::~Base() {
@@ -518,6 +519,8 @@ QDateTime DateTimeTrigger::calcEndTime() {
 
 NoDelayTrigger::NoDelayTrigger() :
 	Trigger(i18n("No Delay"), "dialog-warning", "no-delay") {
+	
+	setCanBookmark(true);
 }
 
 bool NoDelayTrigger::canActivateAction() {
@@ -537,8 +540,25 @@ QDateTime NoDelayTrigger::calcEndTime() {
 TimeFromNowTrigger::TimeFromNowTrigger() :
 	DateTimeTriggerBase(i18n("Time From Now (HH:MM)"), "chronometer", "time-from-now")
 {
+	setCanBookmark(true);
+
 	m_dateTime.setTime(QTime(1, 0, 0)); // set default
 	m_supportsProgressBar = true;
+}
+
+QString TimeFromNowTrigger::getStringOption() {
+	if (!m_edit)
+		return QString::null;
+
+	return m_edit->time().toString(TIME_PARSE_FORMAT);
+}
+
+void TimeFromNowTrigger::setStringOption(const QString &option) {
+	if (!m_edit)
+		return;
+
+	QTime time = QTime::fromString(option, TIME_PARSE_FORMAT);
+	m_edit->setTime(time);
 }
 
 QWidget *TimeFromNowTrigger::getWidget() {
@@ -567,6 +587,8 @@ QDateTime TimeFromNowTrigger::calcEndTime() {
 PowerAction::PowerAction(const QString &text, const QString &iconName, const QString &id) :
 	Action(text, iconName, id),
 	m_methodName(QString::null) {
+	
+	setCanBookmark(true);
 }
 
 bool PowerAction::onAction() {
@@ -771,6 +793,8 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 	m_kdeShutDownAvailable(false),
 	#endif // KS_NATIVE_KDE
 	m_type(type) {
+	
+	setCanBookmark(true);
 
 // TODO: clean up kshutdown.cpp, move this to LogoutAction
 	#ifdef KS_DBUS
