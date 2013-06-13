@@ -65,6 +65,8 @@ public:
 	static bool readBool(const QString &group, const QString &key, const bool defaultValue);
 	static void write(const QString &group, const QString &key, const bool value);
 	
+	void removeAllKeys();
+	
 	inline static void shutDown() {
 		if (m_user) {
 			delete m_user;

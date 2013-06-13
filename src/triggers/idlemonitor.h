@@ -26,6 +26,8 @@ public:
 	IdleMonitor();
 	virtual ~IdleMonitor();
 	virtual bool canActivateAction();
+	virtual QString getStringOption();
+	virtual void setStringOption(const QString &option);
 	virtual QWidget *getWidget();
 	inline bool isSupported() const { return m_supported; }
 	virtual void setState(const State state);

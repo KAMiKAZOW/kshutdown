@@ -45,6 +45,19 @@ Extras *Extras::m_instance = 0;
 
 // public
 
+QString Extras::getStringOption() { return m_command; }
+
+void Extras::setStringOption(const QString &option) {
+	m_command = option;
+	if (m_command.isEmpty()) {
+		setCommandAction(0);
+	}
+	else {
+		QFileInfo fileInfo(m_command);
+		setCommandAction(createCommandAction(fileInfo, false));
+	}
+}
+
 QWidget *Extras::getWidget() { return m_menuButton; }
 
 bool Extras::onAction() {
@@ -127,19 +140,8 @@ void Extras::readConfig(const QString &group, Config *config) {
 	config->beginGroup(group);
 	// do not override command set via "e" command line option
 	if (m_command.isNull())
-		setCommand(config->read("Command", "").toString());
+		setStringOption(config->read("Command", "").toString());
 	config->endGroup();
-}
-
-void Extras::setCommand(const QString &command) {
-	m_command = command;
-	if (m_command.isEmpty()) {
-		setCommandAction(0);
-	}
-	else {
-		QFileInfo fileInfo(m_command);
-		setCommandAction(createCommandAction(fileInfo, false));
-	}
 }
 
 void Extras::writeConfig(const QString &group, Config *config) {
@@ -155,6 +157,7 @@ Extras::Extras() :
 	m_command(QString::null),
 	m_menu(0) {
 	
+	setCanBookmark(true);
 	setMenu(createMenu());
 	setShowInMenu(false);
 	m_menuButton = new U_PUSH_BUTTON();

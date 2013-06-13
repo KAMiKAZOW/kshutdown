@@ -52,6 +52,8 @@ IdleMonitor::IdleMonitor()
 	),
 	m_idleTime(0)
 {
+	setCanBookmark(true);
+
 	m_dateTime.setTime(QTime(1, 0, 0)); // set default
 	m_checkTimeout = 5000;
 	m_supportsProgressBar = true;
@@ -94,6 +96,21 @@ bool IdleMonitor::canActivateAction() {
 	//m_status += (" {DEBUG:" + QString::number(m_idleTime) + "}");
 
 	return false;
+}
+
+QString IdleMonitor::getStringOption() {
+	if (!m_edit)
+		return QString::null;
+
+	return m_edit->time().toString(KShutdown::TIME_PARSE_FORMAT);
+}
+
+void IdleMonitor::setStringOption(const QString &option) {
+	if (!m_edit)
+		return;
+
+	QTime time = QTime::fromString(option, KShutdown::TIME_PARSE_FORMAT);
+	m_edit->setTime(time);
 }
 
 QWidget *IdleMonitor::getWidget() {

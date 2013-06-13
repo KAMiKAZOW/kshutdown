@@ -149,6 +149,14 @@ void Config::write(const QString &group, const QString &key, const bool value) {
 	config->endGroup();
 }
 
+void Config::removeAllKeys() {
+#ifdef KS_NATIVE_KDE
+	m_group.deleteGroup();
+#else
+	m_engine->remove("");
+#endif // KS_NATIVE_KDE
+}
+
 void Config::sync() {
 	m_engine->sync();
 }
