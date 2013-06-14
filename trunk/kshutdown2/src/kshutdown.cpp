@@ -111,7 +111,7 @@ void Base::setLastError() {
 		0,
 		0
 	);
-	m_error = QString::fromLocal8Bit(buffer) + " (error code: " + QString::number(lastError) + ", 0x" + QString::number(lastError, 16) + ")";
+	m_error = QString::fromLocal8Bit(buffer) + " (error code: " + QString::number(lastError) + ", 0x" + QString::number(lastError, 16) + ')';
 	if (buffer)
 		::LocalFree(buffer);
 }
@@ -466,6 +466,8 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 DateTimeTrigger::DateTimeTrigger() :
 	DateTimeTriggerBase(i18n("At Date/Time"), "view-pim-calendar", "date-time")
 {
+	setCanBookmark(true);
+
 	m_dateTime = QDateTime::currentDateTime().addSecs(60 * 60/* hour */); // set default
 	m_supportsProgressBar = true;
 }
@@ -476,13 +478,38 @@ QDateTime DateTimeTrigger::dateTime() {
 	return m_edit->dateTime();
 }
 
+QString DateTimeTrigger::getStringOption() {
+	if (!m_edit)
+		return QString::null;
+	
+	return m_edit->time().toString(TIME_PARSE_FORMAT);
+}
+
+void DateTimeTrigger::setStringOption(const QString &option) {
+	if (!m_edit)
+		return;
+
+	QDate date;
+	QTime time = QTime::fromString(option, TIME_PARSE_FORMAT);
+
+	// select next day if time is less than current time
+	if (time < QTime::currentTime())
+		date = QDate::currentDate().addDays(1);
+	else
+		date = m_edit->date();
+	m_edit->setDateTime(QDateTime(date, time));
+}
+
 QWidget *DateTimeTrigger::getWidget() {
+	bool initDateTime = !m_edit;
+
 	DateTimeTriggerBase::getWidget();
 
 	m_edit->setCalendarPopup(true);
 	
 	// Fix for BUG #2444169 - remember the previous shutdown settings
-	m_edit->setDateTime(QDateTime(QDate::currentDate(), m_dateTime.time()));
+	if (initDateTime)
+		m_edit->setDateTime(QDateTime(QDate::currentDate(), m_dateTime.time()));
 	
 	m_edit->setDisplayFormat(DATE_TIME_DISPLAY_FORMAT);
 	m_edit->setMinimumDate(QDate::currentDate());

@@ -225,6 +225,8 @@ class U_EXPORT DateTimeTrigger: public DateTimeTriggerBase {
 public:
 	DateTimeTrigger();
 	QDateTime dateTime();
+	virtual QString getStringOption();
+	virtual void setStringOption(const QString &option);
 	virtual QWidget *getWidget();
 	virtual void setState(const State state);
 protected:

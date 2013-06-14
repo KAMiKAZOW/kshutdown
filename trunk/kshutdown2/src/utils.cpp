@@ -153,7 +153,9 @@ bool Utils::isGNOME_3() {
 }
 
 bool Utils::isGTKStyle() {
-	#ifdef Q_OS_HAIKU
+	#ifdef Q_OS_WIN32
+	return false;
+	#elif defined(Q_OS_HAIKU)
 	return true;
 	#else
 	return isGNOME() || isGNOME_3() || isLXDE() || isMATE() || isXfce() || isUnity();
