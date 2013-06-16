@@ -1,6 +1,14 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2013/06/16  3.0 Beta 8
+
+* NEW: Bookmarks menu
+* Linux: Fixed bug #19 (kshutdown refusing to do shutdown)
+* Czech translation update
+* Updated Polish translation
+
+
 2013/04/09  3.0 Beta 7
 
 * NEW: MATE Desktop Environment support
@@ -595,4 +603,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 689:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 698:HEAD|xsel -i -b && kwrite ChangeLog
