@@ -239,8 +239,19 @@ void BookmarksMenu::onUpdateMenu() {
 	
 	if (!list()->isEmpty()) {
 		addSeparator();
+
+		QString actionOption = action->getStringOption();
+		QString triggerOption = trigger->getStringOption();
+
+		QActionGroup *group = new QActionGroup(this);
 		foreach (BookmarkAction *i, *list()) {
-// TODO: select active bookmark (radio button menu item)
+			bool current =
+				(action->id() == i->m_actionID) && (actionOption == i->m_actionOption) &&
+				(trigger->id() == i->m_triggerID) && (triggerOption == i->m_triggerOption);
+
+			i->setActionGroup(group);
+			i->setCheckable(true);
+			i->setChecked(current);
 			addAction(i);
 		}
 	}
