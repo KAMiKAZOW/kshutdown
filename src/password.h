@@ -51,6 +51,7 @@ public:
 	void apply();
 private:
 	Q_DISABLE_COPY(PasswordPreferences)
+	int m_configKeyRole;
 	QCheckBox *m_enablePassword;
 	U_LIST_WIDGET *m_userActionList;
 	QListWidgetItem *addItem(const QString &key, const QString &text, const QIcon &icon);

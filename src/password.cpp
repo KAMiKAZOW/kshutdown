@@ -201,7 +201,9 @@ void PasswordDialog::onPasswordChange(const QString &text) {
 // public:
 
 PasswordPreferences::PasswordPreferences(QWidget *parent) :
-	QWidget(parent) {
+	QWidget(parent),
+	m_configKeyRole(Qt::UserRole)
+{
 	U_DEBUG << "PasswordPreferences::PasswordPreferences()" U_END;
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -262,8 +264,7 @@ void PasswordPreferences::apply() {
 	int count = m_userActionList->count();
 	for (int i = 0; i < count; i++) {
 		QListWidgetItem *item = static_cast<QListWidgetItem *>(m_userActionList->item(i));
-// FIXME: use proper user data
-		QString key = item->data(Qt::ToolTipRole).toString();
+		QString key = item->data(m_configKeyRole).toString();
 		config->write(key, item->checkState() == Qt::Checked);
 	}
 
@@ -280,7 +281,7 @@ QListWidgetItem *PasswordPreferences::addItem(const QString &key, const QString 
 		? Qt::Checked
 		: Qt::Unchecked
 	);
-	item->setData(Qt::ToolTipRole, key);
+	item->setData(m_configKeyRole, key);
 	item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 	item->setIcon(icon);
 	
