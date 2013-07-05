@@ -1,4 +1,4 @@
-call C:\Qt\4.8.4\bin\qtvars.bat
+call C:\Qt\4.8.5\bin\qtvars.bat
 cd src
 
 rem goto skip_portable
@@ -34,8 +34,8 @@ copy README.html kshutdown-portable
 copy C:\mingw\bin\libgcc_s_dw2-1.dll kshutdown-portable
 copy C:\mingw\bin\libstdc++-6.dll kshutdown-portable
 copy C:\mingw\bin\mingwm10.dll kshutdown-portable
-copy C:\Qt\4.8.4\bin\QtCore4.dll kshutdown-portable
-copy C:\Qt\4.8.4\bin\QtGui4.dll kshutdown-portable
+copy C:\Qt\4.8.5\bin\QtCore4.dll kshutdown-portable
+copy C:\Qt\4.8.5\bin\QtGui4.dll kshutdown-portable
 
 :quit
 
