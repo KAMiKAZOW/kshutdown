@@ -914,12 +914,12 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 
 void MainWindow::updateWidgets() {
 	if (m_ignoreUpdateWidgets) {
-		U_DEBUG << "MainWindow::updateWidgets(): IGNORE" U_END;
+		//U_DEBUG << "MainWindow::updateWidgets(): IGNORE" U_END;
 	
 		return;
 	}
 
-	U_DEBUG << "MainWindow::updateWidgets()" U_END;
+	//U_DEBUG << "MainWindow::updateWidgets()" U_END;
 
 	bool enabled = !m_active;
 	m_actions->setEnabled(enabled);
@@ -1067,7 +1067,8 @@ license = license.replace(' ', "&nbsp;"); // no wrap
 #endif // KS_PURE_QT
 
 void MainWindow::onActionActivated(int index) {
-	U_DEBUG << "MainWindow::onActionActivated( " << index << " )" U_END;
+	Q_UNUSED(index)
+	//U_DEBUG << "MainWindow::onActionActivated( " << index << " )" U_END;
 
 	if (m_currentActionWidget) {
 		m_actionBox->layout()->removeWidget(m_currentActionWidget);
@@ -1206,7 +1207,7 @@ void MainWindow::onPreferences() {
 }
 
 void MainWindow::onStatusChange(const bool aUpdateWidgets) {
-	U_DEBUG << "onStatusChange(" << aUpdateWidgets << ")" U_END;
+	//U_DEBUG << "onStatusChange(" << aUpdateWidgets << ")" U_END;
 
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
@@ -1240,7 +1241,8 @@ void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 }
 
 void MainWindow::onTriggerActivated(int index) {
-	U_DEBUG << "MainWindow::onTriggerActivated( " << index << " )" U_END;
+	Q_UNUSED(index)
+	//U_DEBUG << "MainWindow::onTriggerActivated( " << index << " )" U_END;
 
 	if (m_currentTriggerWidget) {
 		m_triggerBox->layout()->removeWidget(m_currentTriggerWidget);

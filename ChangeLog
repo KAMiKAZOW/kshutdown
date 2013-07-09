@@ -1,6 +1,15 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2013/07/09  3.0
+
+* Updated Czech translation
+* Updated Simplified Chinese translation (by xStone)
+* Bookmarks menu: Mark the current/selected bookmark
+* Windows: Use the latest Qt 4.8.5
+* README: Added alternate Qt 5.1 build instructions
+
+
 2013/06/16  3.0 Beta 8
 
 * NEW: Bookmarks menu
@@ -603,4 +612,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 698:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 704:HEAD|xsel -i -b && kwrite ChangeLog
