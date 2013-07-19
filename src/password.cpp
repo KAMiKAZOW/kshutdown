@@ -269,7 +269,6 @@ void PasswordPreferences::apply() {
 	}
 
 	config->endGroup();
-	config->sync();
 }
 
 // private:

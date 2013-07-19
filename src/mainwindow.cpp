@@ -506,11 +506,11 @@ void MainWindow::setWaitForProcess(const qlonglong pid) {
 // protected
 
 void MainWindow::closeEvent(QCloseEvent *e) {
-	writeConfig();
-	
 	// normal close
 	bool hideInTray = Config::minimizeToSystemTrayIcon() && Config::systemTrayIconEnabled();
 	if (!e->spontaneous() || m_forceQuit || Action::totalExit() || !hideInTray) {
+		writeConfig();
+	
 		e->accept();
 
 		// HACK: ?
