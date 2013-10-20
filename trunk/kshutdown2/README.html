@@ -145,59 +145,66 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 <tbody>
 
 <tr>
-	<td>Summary</td>
-	<td>A KShutdown version compiled using KDE4 libraries (super integration with KDE platform + extra features)</td>
+	<td class="header">Summary</td>
+	<td>A KShutdown version compiled using KDE4 libraries</td>
 	<td>A KShutdown version compiled without KDE4 libraries (Qt only, for Xfce, GNOME, etc.)</td>
 </tr>
 
 <tr>
-	<td>Compilation Script</td>
+	<td class="header">Additional Features</td>
+	<td>Better visual and functional integration with KDE, better User Interface elements and standard dialog windows, global and local keyboard shortcuts configuration, customizable notifications (e.g. sounds), improved language translations and localization</td>
+	<td>None (just plain Qt)</td>
+</tr>
+
+<tr>
+	<td class="header">Compilation Script</td>
 	<td>./Setup-kde4.sh</td>
 	<td>./Setup-qt4.sh</td>
 </tr>
 
 <tr>
-	<td>Required Libraries</td>
-	<td>libqtgui4, libqt4-dbus,<br><b>libkworkspace4</b>, <b>base KDE libraries</b></td>
+	<td class="header">Required Libraries</td>
+	<td>libqtgui4, libqt4-dbus, +minimal set of KDE libraries (NOTE: since version 3.1 Beta libkworkspace4 and kdebase-workspace-dev are no longer required)</td>
 	<td>libqtgui4, libqt4-dbus</td>
 </tr>
 
 <tr>
-	<td>Menu Shortcut Name</td>
+	<td class="header">Menu Shortcut Name</td>
 	<td>KShutdown</td>
 	<td>KShutdown<b>/Qt</b></td>
 </tr>
 
 <tr>
-	<td>Default User Configuration Directory</td>
+	<td class="header">Default User Configuration Directory</td>
 	<td>~/.kde/share/apps/kshutdown, ~/.kde/share/config</td>
 	<td>~/.config/kshutdown.sf.net, ~/.local/share/data/kshutdown.sf.net</td>
 </tr>
 
 <tr>
-	<td>Default Program Location (after "make install")</td>
+	<td class="header">Default Program Location (after "make install")</td>
 	<td>/usr/bin/kshutdown</td>
 	<td>/usr/bin/kshutdown<b>-qt</b></td>
 </tr>
 
 <tr>
-	<td class="header" colspan="3">Dev Info</td>
+	<td class="header"></td>
+	<td class="header" colspan="2">Developer Info</td>
 </tr>
 
 <tr>
-	<td>C++ #define</td>
+	<td class="header">C++ #define</td>
 	<td><code>KS_NATIVE_KDE</code></td>
 	<td><code>KS_PURE_QT</code></td>
 </tr>
 
 <tr>
-	<td>Build System</td>
+	<td class="header">Build System</td>
 	<td><a href="http://www.cmake.org/">CMake</a> (CMakeLists.txt files)</td>
 	<td><a href="http://qt-project.org/doc/qt-4.8/qmake-manual.html">QMake</a> (src/src.pro file)</td>
 </tr>
 
 <tr>
-	<td>Language Translation System (input: po/*.po)</td>
+	<td class="header">Language Translation System (input: po/*.po)</td>
 	<td>Gettext (output: build.tmp/po/*.mo)</td>
 	<td>Gettext (output: src/i18n/*.qm), kshutdown.qrc</td>
 </tr>
@@ -238,7 +245,7 @@ CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72 (MESSAGE):
 ERROR: cmake/modules/FindKDE4Internal.cmake not found in
 ...;/usr/lib/kde4/share/kde4/apps
 </pre>
-<p>Install "kdelibs-dev" (sometimes called kdelibs5-dev) and "kdebase-workspace-dev" packages for your KDE version.</p>
+<p>Install "kdelibs-dev" (sometimes called kdelibs5-dev) packages for your KDE version.</p>
 
 <h4>CMake Error at (...) Phonon library or includes NOT found!</h4>
 <p>This may happed after Ubuntu upgrade
@@ -382,12 +389,12 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tr>
 <td class="build"><a href="http://kde.org/">KDE</a> 4 (KDE Build)</td>
-<td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow, D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow, D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
-<td class="ok" title="KWorkSpace::requestShutDown/KWorkSpace::ShutdownModeForceNow">OK</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver)">OK</td>
 <td class="ok">OK</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="ok" title="KIdleTime, D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
@@ -434,12 +441,12 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tr>
 <td class="build">KDE 4 (Qt Build)</td>
-<td class="test">TEST</td>
-<td class="test">TEST</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
-<td class="wip">TODO</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver)">OK (3.1&nbsp;Beta)</td>
 <td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
 <td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
@@ -521,6 +528,11 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 <td class="test">TEST</td>
 <td class="wip">TODO</td>
 <td class="wip">TODO</td>
+</tr>
+
+<tr>
+<td class="build"><a href="http://cinnamon.linuxmint.com/">Cinnamon</a></td>
+<td class="wip" colspan="9">TODO</td>
 </tr>
 
 <tr>

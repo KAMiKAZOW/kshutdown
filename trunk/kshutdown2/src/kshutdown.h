@@ -29,18 +29,11 @@
 #include "config.h"
 #include "infowidget.h"
 
-#ifdef KS_NATIVE_KDE
-	#include <kworkspace/kworkspace.h>
-	typedef KWorkSpace::ShutdownType UShutdownType;
-	#define U_SHUTDOWN_TYPE_LOGOUT KWorkSpace::ShutdownTypeNone
-	#define U_SHUTDOWN_TYPE_REBOOT KWorkSpace::ShutdownTypeReboot
-	#define U_SHUTDOWN_TYPE_HALT KWorkSpace::ShutdownTypeHalt
-#else
-	typedef int UShutdownType;
-	#define U_SHUTDOWN_TYPE_LOGOUT 1
-	#define U_SHUTDOWN_TYPE_REBOOT 2
-	#define U_SHUTDOWN_TYPE_HALT 3
-#endif // KS_NATIVE_KDE
+typedef int UShutdownType;
+// This is mapped to the values in kworkspace.h
+const UShutdownType U_SHUTDOWN_TYPE_LOGOUT = 0; // KDE: ShutdownTypeNone
+const UShutdownType U_SHUTDOWN_TYPE_REBOOT = 1; // KDE: ShutdownTypeReboot
+const UShutdownType U_SHUTDOWN_TYPE_HALT = 2; // KDE: ShutdownTypeHalt
 
 class QDateTimeEdit;
 #ifdef KS_DBUS
@@ -291,14 +284,15 @@ protected:
 	#ifdef KS_DBUS
 	static QDBusInterface *m_consoleKitInterface;
 	static QDBusInterface *m_halInterface;
+	static QDBusInterface *m_kdeSessionInterface;
 	static QDBusInterface *m_razorSessionInterface;
+	void checkAvailable(const QString &consoleKitName);
 	#endif // KS_DBUS
-	void checkAvailable(const UShutdownType type, const QString &consoleKitName);
 private:
 	Q_DISABLE_COPY(StandardAction)
-	#ifdef KS_NATIVE_KDE
-	bool m_kdeShutDownAvailable;
-	#endif // KS_NATIVE_KDE
+	#ifdef KS_DBUS
+	static bool m_kdeShutDownAvailable;
+	#endif // KS_DBUS
 	#ifdef KS_UNIX
 	pid_t m_lxsession;
 	#endif // KS_UNIX
