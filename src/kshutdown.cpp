@@ -55,8 +55,10 @@ using namespace KShutdown;
 
 bool Action::m_totalExit = false;
 #ifdef KS_DBUS
+bool StandardAction::m_kdeShutDownAvailable = false;
 QDBusInterface *StandardAction::m_consoleKitInterface = 0;
 QDBusInterface *StandardAction::m_halInterface = 0;
+QDBusInterface *StandardAction::m_kdeSessionInterface = 0;
 QDBusInterface *StandardAction::m_razorSessionInterface = 0;
 #endif // KS_DBUS
 
@@ -816,15 +818,25 @@ SuspendAction::SuspendAction() :
 
 StandardAction::StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type) :
 	Action(text, iconName, id),
-	#ifdef KS_NATIVE_KDE
-	m_kdeShutDownAvailable(false),
-	#endif // KS_NATIVE_KDE
 	m_type(type) {
 	
 	setCanBookmark(true);
 
 // TODO: clean up kshutdown.cpp, move this to LogoutAction
 	#ifdef KS_DBUS
+	if (!m_kdeSessionInterface) {
+		m_kdeSessionInterface = new QDBusInterface(
+			"org.kde.ksmserver",
+			"/KSMServer",
+			"org.kde.KSMServerInterface"
+		);
+		QDBusReply<bool> reply = m_kdeSessionInterface->call("canShutdown");
+		m_kdeShutDownAvailable = reply.isValid() && reply.value();
+
+		if (Utils::isKDEFullSession() && !m_kdeShutDownAvailable && (type != U_SHUTDOWN_TYPE_LOGOUT))
+			U_DEBUG << "No KDE shutdown API available (check \"Offer shutdown options\" in the \"Session Management\" settings)" U_END;
+	}
+
 	if (Utils::isRazor() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
 		m_razorSessionInterface = new QDBusInterface(
 			"org.razorqt.session",
@@ -1108,18 +1120,26 @@ bool StandardAction::onAction() {
 
 	// native KDE shutdown API
 
-	#ifdef KS_NATIVE_KDE
-	if (m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT)) {
-		// BUG #3467712: http://sourceforge.net/p/kshutdown/bugs/13/
-		KWorkSpace::requestShutDown(
-			KWorkSpace::ShutdownConfirmNo,
+	#ifdef KS_DBUS
+	if (
+		Utils::isKDEFullSession() &&
+		(m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT))
+	) {
+		/*QDBusReply<void> reply = */m_kdeSessionInterface->call(
+			"logout",
+			0, // KWorkSpace::ShutdownConfirmNo
 			m_type,
-			KWorkSpace::ShutdownModeForceNow
+			2 // KWorkSpace::ShutdownModeForceNow
 		);
+
+/* TODO: error checking?
+		if (reply.isValid())
+			return true;
+*/
 
 		return true;
 	}
-	#endif // KS_NATIVE_KDE
+	#endif // KS_DBUS
 	
 	// fallback to ConsoleKit or HAL
 	
@@ -1166,45 +1186,13 @@ bool StandardAction::onAction() {
 
 // protected
 
-void StandardAction::checkAvailable(const UShutdownType type, const QString &consoleKitName) {
-	#ifdef KS_PURE_QT
-	Q_UNUSED(type)
-	#endif // KS_PURE_QT
-
+#ifdef KS_DBUS
+void StandardAction::checkAvailable(const QString &consoleKitName) {
 	bool available = false;
 	QString error = "";
 
-	#ifdef Q_OS_HAIKU
-	Q_UNUSED(consoleKitName)
-	
-	return;
-	#endif //  Q_OS_HAIKU
-
-	#ifdef Q_OS_WIN32
-	Q_UNUSED(consoleKitName)
-	
 // TODO: win32: check if shutdown/reboot action is available
-	return;
-	#endif // Q_OS_WIN32
 
-	#ifdef KS_NATIVE_KDE
-	if (Utils::isKDEFullSession()) {
-		m_kdeShutDownAvailable = KWorkSpace::canShutDown(
-			KWorkSpace::ShutdownConfirmNo,
-			type,
-			KWorkSpace::ShutdownModeForceNow
-		);
-
-		if (!m_kdeShutDownAvailable) {
-			U_DEBUG << "No KDE ShutDown API available" U_END;
-			
-			if (error.isEmpty())
-				error = "Check \"Offer shutdown options\"<br>in the \"Session Management\" settings<br>(KDE System Settings).";
-		}
-	}
-	#endif // KS_NATIVE_KDE
-
-	#ifdef KS_DBUS
 	if (!consoleKitName.isEmpty()) {
 		if (!m_consoleKitInterface) {
 			m_consoleKitInterface = new QDBusInterface(
@@ -1249,17 +1237,12 @@ void StandardAction::checkAvailable(const UShutdownType type, const QString &con
 		if (error.isEmpty())
 			error = "No valid org.freedesktop.Hal interface found";
 	}
-	#endif // KS_DBUS
-
-	#ifdef KS_NATIVE_KDE
+	
 	// BUG #19 - disable only if both ConsoleKit and native KDE API is unavailable
 	if (!available && !m_kdeShutDownAvailable)
 		disable(error);
-	#else
-	if (!available)
-		disable(error);
-	#endif // KS_NATIVE_KDE
 }
+#endif // KS_DBUS
 
 // LogoutAction
 
@@ -1280,15 +1263,11 @@ LogoutAction::LogoutAction() :
 	disable("");
 	#endif // Q_OS_HAIKU
 	
-// TODO: KDE 4 logout, test
-	#ifdef KS_PURE_QT
 	#ifdef KS_UNIX
-	if (Utils::isKDE_4())
-		disable("");
-	else if (Utils::isXfce())
+// HACK:
+	if (Utils::isXfce())
 		disable("");
 	#endif // KS_UNIX
-	#endif // KS_PURE_QT
 }
 
 // RebootAction
@@ -1328,7 +1307,9 @@ RebootAction::RebootAction() :
 
 	addCommandLineArg("r", "reboot");
 	
-	checkAvailable(U_SHUTDOWN_TYPE_REBOOT, "CanRestart");
+	#ifdef KS_DBUS
+	checkAvailable("CanRestart");
+	#endif // KS_DBUS
 }
 
 // ShutDownAction
@@ -1341,5 +1322,7 @@ ShutDownAction::ShutDownAction() :
 	addCommandLineArg("h", "halt");
 	addCommandLineArg("s", "shutdown");
 
-	checkAvailable(U_SHUTDOWN_TYPE_HALT, "CanStop");
+	#ifdef KS_DBUS
+	checkAvailable("CanStop");
+	#endif // KS_DBUS
 }

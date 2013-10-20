@@ -60,8 +60,8 @@ out=`dialog \
 	--stdout \
 	--title "Select a KShutdown version to build:" \
 	--menu "" 0 0 0 \
-	"kshutdown" "Version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs, libkworkspace4" \
-	"kshutdown-qt"  "Version for Xfce, LXDE, etc. - lightweight" "Required libraries: Qt 4.8+ or Qt 5.x, no KDE 4 libs"`
+	"kshutdown" "Version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
+	"kshutdown-qt"  "Version for Xfce, LXDE, MATE, KDE, etc. - lightweight" "Required libraries: Qt 4.8+ or Qt 5.x, NO KDE 4 libs"`
 
 case $? in
 	0) doCompile $out;;
