@@ -23,9 +23,15 @@
 class U_EXPORT TestAction: public KShutdown::Action {
 public:
 	TestAction();
+	virtual QWidget *getWidget();
 	virtual bool onAction();
+	virtual void readConfig(const QString &group, Config *config);
+	virtual void writeConfig(const QString &group, Config *config);
 private:
 	Q_DISABLE_COPY(TestAction)
+	QString m_defaultText;
+	QWidget *m_widget;
+	U_LINE_EDIT *m_textField;
 };
 
 #endif // KSHUTDOWN_TEST_H

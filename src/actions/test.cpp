@@ -17,12 +17,21 @@
 
 #include "test.h"
 
+#include <QHBoxLayout>
+#include <QLabel>
+
 // TestAction
 
 // public
 
 TestAction::TestAction() :
-	Action(i18n("Test Action (does nothing)"), "dialog-ok", "test") {
+	Action(i18n("Show Message (no shutdown)"), "dialog-ok", "test"),
+	m_widget(0) {
+
+// TODO: sound beep
+
+	m_defaultText = "<qt><h1 style=\"background-color: red; color: white\">" + i18n("Test") + "</h1></qt>";
+	m_textField = new U_LINE_EDIT();
 	
 	setCanBookmark(true);
 	setShowInMenu(false);
@@ -30,8 +39,43 @@ TestAction::TestAction() :
 	addCommandLineArg(QString::null, "test");
 }
 
+QWidget *TestAction::getWidget() {
+	if (!m_widget) {
+		m_widget = new QWidget();
+
+		QHBoxLayout *layout = new QHBoxLayout(m_widget);
+		layout->setMargin(0);
+		layout->setSpacing(5);
+		
+		QLabel *label = new QLabel(i18n("Text:"), m_widget);
+		label->setBuddy(m_textField);
+		
+		layout->addWidget(label);
+		layout->addWidget(m_textField);
+	}
+	
+	return m_widget;
+}
+
 bool TestAction::onAction() {
-	U_INFO_MESSAGE(0, text());
+	QString text = m_textField->text();
+	text = text.trimmed();
+	if (text.isEmpty())
+		text = m_defaultText;
+
+	U_INFO_MESSAGE(0, text);
 	
 	return true;
+}
+
+void TestAction::readConfig(const QString &group, Config *config) {
+	config->beginGroup(group);
+	m_textField->setText(config->read("Text", "").toString());
+	config->endGroup();
+}
+
+void TestAction::writeConfig(const QString &group, Config *config) {
+	config->beginGroup(group);
+	config->write("Text", m_textField->text());
+	config->endGroup();
 }

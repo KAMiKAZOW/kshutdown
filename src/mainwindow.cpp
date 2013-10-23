@@ -188,8 +188,13 @@ bool MainWindow::checkCommandLine() {
 			}
 			
 			// execute action and quit now
-			if (actionToActivate->authorize(0))
+			if (actionToActivate->authorize(0)) {
+				// HACK:
+				if ("test" == actionToActivate->id())
+					actionToActivate->readConfig("KShutdown Action " + actionToActivate->id(), Config::user());
+			
 				actionToActivate->activate(false);
+			}
 			
 			return true;
 		}
