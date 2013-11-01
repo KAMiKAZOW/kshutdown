@@ -263,7 +263,7 @@ void PasswordPreferences::apply() {
 
 	int count = m_userActionList->count();
 	for (int i = 0; i < count; i++) {
-		QListWidgetItem *item = static_cast<QListWidgetItem *>(m_userActionList->item(i));
+		auto *item = static_cast<QListWidgetItem *>(m_userActionList->item(i));
 		QString key = item->data(m_configKeyRole).toString();
 		config->write(key, item->checkState() == Qt::Checked);
 	}

@@ -314,7 +314,7 @@ void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const 
 
 	setSelectedTrigger(selectTrigger);
 	Trigger *trigger = getSelectedTrigger();
-	DateTimeTriggerBase *dateTimeTrigger = dynamic_cast<DateTimeTriggerBase *>(trigger);
+	auto *dateTimeTrigger = dynamic_cast<DateTimeTriggerBase *>(trigger);
 	
 	// ensure the trigger exists and is valid
 	if (!dateTimeTrigger || (trigger->id() != selectTrigger)) {
@@ -496,7 +496,7 @@ void MainWindow::setWaitForProcess(const qlonglong pid) {
 	setActive(false);
 
 	setSelectedTrigger("process-monitor");
-	ProcessMonitor *processMonitor = dynamic_cast<ProcessMonitor *>(
+	auto *processMonitor = dynamic_cast<ProcessMonitor *>(
 		getSelectedTrigger()
 	);
 	
@@ -1179,7 +1179,7 @@ void MainWindow::onOKCancel() {
 	
 	// show error message if selected date/time is invalid
 	if (!m_active) {
-		DateTimeTrigger *dateTimeTrigger = dynamic_cast<DateTimeTrigger *>(getSelectedTrigger());
+		auto *dateTimeTrigger = dynamic_cast<DateTimeTrigger *>(getSelectedTrigger());
 		if (
 			dateTimeTrigger &&
 			(dateTimeTrigger->dateTime() <= QDateTime::currentDateTime())

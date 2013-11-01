@@ -8,6 +8,7 @@ cmake_minimum_required(VERSION 2.4.0)
 find_package(KDE4 REQUIRED)
 
 add_definitions(${KDE4_DEFINITIONS})
+add_definitions(-std=c++0x)
 
 include_directories(${KDE4_INCLUDES})
 link_directories(${KDE4_LIB_DIR})
