@@ -13,6 +13,8 @@ contains(QT_MAJOR_VERSION, 5) {
 	QT += widgets
 }
 
+QMAKE_CXXFLAGS += -std=c++0x
+
 unix {
 	haiku-g++ {
 		message("Building without D-Bus")

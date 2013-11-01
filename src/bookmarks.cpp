@@ -36,8 +36,8 @@ BookmarkAction::BookmarkAction(
 	connect(this, SIGNAL(triggered()), SLOT(onAction()));
 	
 	MainWindow *mainWindow = MainWindow::self();
-	Action *action = mainWindow->actionHash()[actionID];
-	KShutdown::Trigger *trigger = mainWindow->triggerHash()[triggerID];
+	auto *action = mainWindow->actionHash()[actionID];
+	auto *trigger = mainWindow->triggerHash()[triggerID];
 	
 	if (action)
 		setIcon(action->icon());
@@ -54,8 +54,8 @@ void BookmarkAction::onAction() {
 	mainWindow->setSelectedAction(m_actionID);
 	mainWindow->setSelectedTrigger(m_triggerID);
 	
-	KShutdown::Action *action = mainWindow->getSelectedAction();
-	KShutdown::Trigger *trigger = mainWindow->getSelectedTrigger();
+	auto *action = mainWindow->getSelectedAction();
+	auto *trigger = mainWindow->getSelectedTrigger();
 	
 	if ((action->id() != m_actionID) || (trigger->id() != m_triggerID))
 		return;
@@ -183,8 +183,8 @@ bool compareBookmarkAction(const BookmarkAction *a1, const BookmarkAction *a2) {
 
 void BookmarksMenu::onAddBookmark() {
 	MainWindow *mainWindow = MainWindow::self();
-	KShutdown::Action *action = mainWindow->getSelectedAction();
-	KShutdown::Trigger *trigger = mainWindow->getSelectedTrigger();
+	auto *action = mainWindow->getSelectedAction();
+	auto *trigger = mainWindow->getSelectedTrigger();
 
 	BookmarkAction *bookmark = new BookmarkAction(
 		this,
@@ -202,8 +202,8 @@ void BookmarksMenu::onAddBookmark() {
 
 void BookmarksMenu::onRemoveBookmark() {
 	MainWindow *mainWindow = MainWindow::self();
-	KShutdown::Action *action = mainWindow->getSelectedAction();
-	KShutdown::Trigger *trigger = mainWindow->getSelectedTrigger();
+	auto *action = mainWindow->getSelectedAction();
+	auto *trigger = mainWindow->getSelectedTrigger();
 
 	int i = findBookmark(action, trigger);
 	if (i != -1) {
@@ -214,8 +214,8 @@ void BookmarksMenu::onRemoveBookmark() {
 
 void BookmarksMenu::onUpdateMenu() {
 	MainWindow *mainWindow = MainWindow::self();
-	KShutdown::Action *action = mainWindow->getSelectedAction();
-	KShutdown::Trigger *trigger = mainWindow->getSelectedTrigger();
+	auto *action = mainWindow->getSelectedAction();
+	auto *trigger = mainWindow->getSelectedTrigger();
 
 	QString bookmarkName = makeText(action, trigger, QString::null, QString::null);
 
