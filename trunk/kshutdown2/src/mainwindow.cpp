@@ -23,6 +23,8 @@
 #include <QLayout>
 #include <QTimer>
 
+// TODO: #define KS_CLASSIC
+
 #ifdef KS_DBUS
 	#include <QDBusConnection>
 #endif // KS_DBUS
@@ -858,6 +860,13 @@ void MainWindow::initWidgets() {
 	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));
 #endif // KS_NATIVE_KDE
 	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
+
+	#ifdef KS_CLASSIC
+	QPalette windowPalette;
+	windowPalette.setColor(QPalette::Window, QColor(0xA7DC6B));
+	windowPalette.setColor(QPalette::WindowText, Qt::black);
+	setPalette(windowPalette);
+	#endif // KS_CLASSIC
 }
 
 void MainWindow::pluginConfig(const bool read) {
@@ -938,6 +947,19 @@ void MainWindow::updateWidgets() {
 	m_force->setEnabled(enabled);
 
 	bool canCancel = !Utils::isRestricted("kshutdown/action/cancel");
+
+	#ifdef KS_CLASSIC
+	QPalette buttonPalette;
+	if (m_active) {
+		buttonPalette.setColor(QPalette::Button, QColor(0xDCD86A));
+		buttonPalette.setColor(QPalette::ButtonText, Qt::black);
+	}
+	else {
+		buttonPalette.setColor(QPalette::Button, QColor(0xDC6A6E));
+		buttonPalette.setColor(QPalette::ButtonText, Qt::white);
+	}
+	m_okCancelButton->setPalette(buttonPalette);
+	#endif // KS_CLASSIC
 
 #ifdef KS_NATIVE_KDE
 	m_okCancelButton->setGuiItem(
