@@ -492,7 +492,7 @@ void MainWindow::setTime(const QString &trigger, const QString &time) {
 	setTime(trigger, t, absolute);
 }
 
-void MainWindow::setWaitForProcess(const qlonglong pid) {
+void MainWindow::setWaitForProcess(const qint64 pid) {
 	U_DEBUG << "MainWindow::setWaitForProcess( " << pid << " )" U_END;
 
 	setActive(false);
