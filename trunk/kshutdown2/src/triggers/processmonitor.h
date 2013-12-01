@@ -82,7 +82,7 @@ public:
 	void addProcess(Process *process);
 	virtual bool canActivateAction();
 	virtual QWidget *getWidget();
-	void setPID(const pid_t pid);
+	void setPID(const qint64 pid);
 private:
 	Q_DISABLE_COPY(ProcessMonitor)
 	QList<Process*> m_processList;

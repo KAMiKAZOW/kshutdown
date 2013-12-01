@@ -137,7 +137,7 @@ QWidget *ProcessMonitor::getWidget() {
 	return m_widget;
 }
 
-void ProcessMonitor::setPID(const pid_t pid) {
+void ProcessMonitor::setPID(const qint64 pid) {
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	clearAll();
 	

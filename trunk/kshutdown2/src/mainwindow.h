@@ -84,7 +84,7 @@ public slots:
 	Q_SCRIPTABLE void setSelectedAction(const QString &id);
 	Q_SCRIPTABLE void setSelectedTrigger(const QString &id);
 	Q_SCRIPTABLE void setTime(const QString &trigger, const QString &time);
-	Q_SCRIPTABLE void setWaitForProcess(const qlonglong pid);
+	Q_SCRIPTABLE void setWaitForProcess(const qint64 pid);
 	void writeConfig();
 protected:
 	virtual void closeEvent(QCloseEvent *e);
