@@ -17,6 +17,7 @@
 
 #include "bookmarks.h"
 #include "mainwindow.h"
+#include "password.h"
 #include "utils.h"
 
 // public:
@@ -182,6 +183,9 @@ bool compareBookmarkAction(const BookmarkAction *a1, const BookmarkAction *a2) {
 }
 
 void BookmarksMenu::onAddBookmark() {
+	if (!PasswordDialog::authorizeSettings(MainWindow::self()))
+		return;
+
 	MainWindow *mainWindow = MainWindow::self();
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
@@ -201,6 +205,9 @@ void BookmarksMenu::onAddBookmark() {
 }
 
 void BookmarksMenu::onRemoveBookmark() {
+	if (!PasswordDialog::authorizeSettings(MainWindow::self()))
+		return;
+
 	MainWindow *mainWindow = MainWindow::self();
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();

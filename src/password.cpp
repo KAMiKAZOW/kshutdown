@@ -83,11 +83,6 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	m_password->setFocus();
 }
 
-/*!!!
-changing settings by a password
-shutdown,hib,etc.
-*/
-
 PasswordDialog::~PasswordDialog() {
 	U_DEBUG << "PasswordDialog::~PasswordDialog()" U_END;
 }
@@ -101,9 +96,6 @@ void PasswordDialog::apply() {
 }
 
 bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QString &userAction) {
-	if (true)
-		return true;//!!!
-
 	if (!Config::readBool("Password Protection", userAction, false))
 		return true;
 
@@ -153,11 +145,15 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 	return true;
 }
 
+bool PasswordDialog::authorizeSettings(QWidget *parent) {
+	return PasswordDialog::authorize(parent, i18n("Preferences"), "action/settings");
+}
+
 QString PasswordDialog::toHash(const QString &password) {
 	if (password.isEmpty())
 		return "";
 	
-	QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1);
+	QByteArray hash = QCryptographicHash::hash(("kshutdown-" + password).toUtf8(), QCryptographicHash::Sha1);
 	
 	return QString(hash.toHex());
 }
@@ -165,17 +161,24 @@ QString PasswordDialog::toHash(const QString &password) {
 // private:
 
 void PasswordDialog::updateStatus() {
-	bool ok = (m_password->text() == m_confirmPassword->text());
+	int minLength = 6;
+	bool ok = m_password->text().length() >= minLength;
 	if (!ok) {
-		m_status->setText(i18n("Confirmation password is different"), InfoWidget::ErrorType);
+		m_status->setText(i18n("Password is too short (need %1 characters or more)").arg(minLength), InfoWidget::ErrorType);
 	}
 	else {
-		if (m_password->text() == "123456")
-			m_status->setText(":-(", InfoWidget::WarningType);
-		else if (m_password->text() == "dupa.8")
-			m_status->setText("O_o", InfoWidget::InfoType);
-		else
-			m_status->setText(QString::null, InfoWidget::ErrorType);
+		ok = (m_password->text() == m_confirmPassword->text());
+		if (!ok) {
+			m_status->setText(i18n("Confirmation password is different"), InfoWidget::ErrorType);
+		}
+		else {
+			if (m_password->text() == "123456")
+				m_status->setText(":-(", InfoWidget::WarningType);
+			else if (m_password->text() == "dupa.8")
+				m_status->setText("O_o", InfoWidget::InfoType);
+			else
+				m_status->setText(QString::null, InfoWidget::ErrorType);
+		}
 	}
 
 	acceptButton()->setEnabled(ok);
@@ -231,6 +234,9 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	
 	m_userActionList = new U_LIST_WIDGET();
 	m_userActionList->setAlternatingRowColors(true);
+	
+	addItem("action/settings", i18n("Settings (all)"), U_ICON("configure"));
+	
 	foreach (const Action *action, MainWindow::self()->actionHash().values()) {
 		addItem(
 			"kshutdown/action/" + action->id(),
@@ -238,7 +244,10 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 			action->icon()
 		);
 	}
-	
+
+	addItem("kshutdown/action/cancel", i18n("Cancel"), U_ICON("dialog-cancel"));
+	addItem("action/file_quit", i18n("Quit"), U_ICON("application-exit"));
+
 	userActionListLabel->setBuddy(m_userActionList);
 	mainLayout->addWidget(m_userActionList);
 

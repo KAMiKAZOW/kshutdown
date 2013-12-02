@@ -31,6 +31,7 @@ public:
 	virtual ~PasswordDialog();
 	void apply();
 	static bool authorize(QWidget *parent, const QString &caption, const QString &userAction);
+	static bool authorizeSettings(QWidget *parent);
 	static QString toHash(const QString &password);
 private:
 	Q_DISABLE_COPY(PasswordDialog)
