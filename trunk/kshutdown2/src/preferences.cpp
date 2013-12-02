@@ -38,7 +38,7 @@ Preferences::Preferences(QWidget *parent) :
 	tabs->addTab(createSystemTrayWidget(), i18n("System Tray"));
 	
 	m_passwordPreferences = new PasswordPreferences(this);
-//!!! tabs->addTab(m_passwordPreferences, i18n("Password"));
+	tabs->addTab(m_passwordPreferences, i18n("Password"));
 	
 // TODO: actions/triggers config.
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));

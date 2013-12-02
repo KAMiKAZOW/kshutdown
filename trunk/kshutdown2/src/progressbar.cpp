@@ -16,6 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "config.h"
+#include "password.h"
 #include "progressbar.h"
 #include "pureqt.h"
 #include "utils.h"
@@ -94,7 +95,7 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 
 		bool canConfigure = !Utils::isRestricted("action/options_configure");
 
-		menu->addAction(i18n("Hide"), this, SLOT(hide()));
+		menu->addAction(i18n("Hide"), this, SLOT(onHide()));
 		menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()))
 			->setEnabled(canConfigure);
 
@@ -199,6 +200,10 @@ ProgressBar::ProgressBar() // public
 	connect(desktop, SIGNAL(resized(int)), SLOT(onResize(int)));
 }
 
+bool ProgressBar::authorize() {
+	return PasswordDialog::authorizeSettings(this);
+}
+
 void ProgressBar::makeRadioButton(QAction *action, QActionGroup *group, const bool checked) {
 	action->setActionGroup(group);
 	action->setCheckable(true);
@@ -219,6 +224,13 @@ void ProgressBar::setSize(const Size size) {
 
 // private slots
 
+void ProgressBar::onHide() {
+	if (!authorize())
+		return;
+
+	hide();
+}
+
 void ProgressBar::onResize(int screen) {
 	Q_UNUSED(screen)
 
@@ -227,10 +239,16 @@ void ProgressBar::onResize(int screen) {
 }
 
 void ProgressBar::onSetBottomAlignment() {
+	if (!authorize())
+		return;
+
 	setAlignment(Qt::AlignBottom, true);
 }
 
 void ProgressBar::onSetColor() {
+	if (!authorize())
+		return;
+
 	QColor currentColor = palette().color(QPalette::WindowText);
 	#ifdef KS_NATIVE_KDE
 	QColor newColor;
@@ -258,21 +276,36 @@ void ProgressBar::onSetColor() {
 }
 
 void ProgressBar::onSetSizeLarge() {
+	if (!authorize())
+		return;
+
 	setSize(LargeSize);
 }
 
 void ProgressBar::onSetSizeMedium() {
+	if (!authorize())
+		return;
+
 	setSize(MediumSize);
 }
 
 void ProgressBar::onSetSizeNormal() {
+	if (!authorize())
+		return;
+
 	setSize(NormalSize);
 }
 
 void ProgressBar::onSetSizeSmall() {
+	if (!authorize())
+		return;
+
 	setSize(SmallSize);
 }
 
 void ProgressBar::onSetTopAlignment() {
+	if (!authorize())
+		return;
+
 	setAlignment(Qt::AlignTop, true);
 }

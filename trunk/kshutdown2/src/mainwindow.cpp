@@ -365,6 +365,9 @@ void MainWindow::setActive(const bool yes) {
 	if (m_active == yes)
 		return;
 
+	if (!yes && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))
+		return;
+
 	Action *action = getSelectedAction();
 	
 	if (yes && !action->isEnabled()) {
@@ -1123,9 +1126,6 @@ void MainWindow::onActionActivated(int index) {
 }
 
 void MainWindow::onCancel() {
-	if (!PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))//!!!
-		return;
-
 	setActive(false);
 }
 
@@ -1159,14 +1159,14 @@ void MainWindow::onCheckTrigger() {
 
 #ifdef KS_NATIVE_KDE
 void MainWindow::onConfigureNotifications() {
-	if (!PasswordDialog::authorize(this, i18n("Preferences"), "action/options_configure_notifications"))
+	if (!PasswordDialog::authorizeSettings(this))
 		return;
 
 	KNotifyConfigWidget::configure(this);
 }
 
 void MainWindow::onConfigureShortcuts() {
-	if (!PasswordDialog::authorize(this, i18n("Preferences"), "action/options_configure_keybinding"))
+	if (!PasswordDialog::authorizeSettings(this))
 		return;
 
 	KShortcutsDialog dialog(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsDisallowed, this);
@@ -1195,9 +1195,6 @@ void MainWindow::onForceClick() {
 
 void MainWindow::onOKCancel() {
 	U_DEBUG << "MainWindow::onOKCancel()" U_END;
-
-	if (m_active && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))//!!!cli
-		return;
 	
 	// show error message if selected date/time is invalid
 	if (!m_active) {
@@ -1218,7 +1215,7 @@ void MainWindow::onOKCancel() {
 void MainWindow::onPreferences() {
 	U_DEBUG << "MainWindow::onPreferences()" U_END;
 	
-	if (!PasswordDialog::authorize(this, i18n("Preferences"), "action/options_configure"))
+	if (!PasswordDialog::authorizeSettings(this))
 		return;
 
 	// DOC: http://www.kdedevelopers.org/node/3919

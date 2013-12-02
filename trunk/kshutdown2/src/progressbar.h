@@ -42,9 +42,11 @@ private:
 	int m_total;
 	int m_value;
 	Qt::Alignment m_alignment;
+	bool authorize();
 	void makeRadioButton(QAction *action, QActionGroup *group, const bool checked);
 	void setSize(const Size size);
 private slots:
+	void onHide();
 	void onResize(int screen);
 	void onSetBottomAlignment();
 	void onSetColor();

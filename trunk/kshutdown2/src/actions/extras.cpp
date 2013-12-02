@@ -15,6 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "../mainwindow.h"
+#include "../password.h"
 #include "../pureqt.h"
 
 #include <QDesktopServices>
@@ -316,6 +318,9 @@ void Extras::showHelp() {
 }
 
 void Extras::slotModify() {
+	if (!PasswordDialog::authorizeSettings(MainWindow::self()))
+		return;
+
 	QString text =
 		"<qt>" +
 		i18n("Use context menu to add/edit/remove actions.") +
