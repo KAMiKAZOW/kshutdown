@@ -164,7 +164,7 @@ void PasswordDialog::updateStatus() {
 	int minLength = 6;
 	bool ok = m_password->text().length() >= minLength;
 	if (!ok) {
-		m_status->setText(i18n("Password is too short (need %1 characters or more)").arg(minLength), InfoWidget::ErrorType);
+		m_status->setText(i18n("Password is too short (need %0 characters or more)").arg(minLength), InfoWidget::ErrorType);
 	}
 	else {
 		ok = (m_password->text() == m_confirmPassword->text());
@@ -235,7 +235,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	m_userActionList = new U_LIST_WIDGET();
 	m_userActionList->setAlternatingRowColors(true);
 	
-	addItem("action/settings", i18n("Settings (all)"), U_ICON("configure"));
+	addItem("action/settings", i18n("Settings (recommended)"), U_ICON("configure"));
 	
 	foreach (const Action *action, MainWindow::self()->actionHash().values()) {
 		addItem(
