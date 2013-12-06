@@ -1,6 +1,27 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2013-12-06  3.1 Beta
+
+* NEW: Simple password protection
+  (see menu bar -> Settings -> Password tab)
+* Updated README.html
+* Updated the Spanish translation (by moray33)
+* Updated the Polish translation
+* Qt Build: Allow logout from KDE 4
+* NEW: "Test" action:
+  - Renamed to "Show Message"
+  - Configurable text
+
+Source:
+
+* NEW: Removed "kworkspace" library dependency
+  (libkworkspace is no longer required to build KShutdown for KDE)
+* Enable C++11 support
+* cppcheck tool support (./tools/cppcheck.sh)
+* Windows: Fixed compilation errors
+
+
 2013/07/09  3.0
 
 * Updated Czech translation
@@ -612,4 +633,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 704:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 716:HEAD|xsel -i -b && kwrite ChangeLog
