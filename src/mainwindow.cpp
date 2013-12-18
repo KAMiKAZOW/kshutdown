@@ -1067,17 +1067,16 @@ void MainWindow::onAbout() {
 #endif // KS_PORTABLE
 
 QString license =
-"This program is free software; you can redistribute it and/or modify<br>" \
-"it under the terms of the GNU General Public License as published by<br>" \
-"the Free Software Foundation; either version 2 of the License, or<br>" \
-"(at your option) any later version.<br>" \
-"<br>" \
-"This program is distributed in the hope that it will be useful,<br>" \
-"but WITHOUT ANY WARRANTY; without even the implied warranty of<br>" \
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br>" \
-"GNU General Public License for more details.<br>" \
+"This program is <b>free software</b>; you can redistribute it and/or modify\n" \
+"it under the terms of the GNU General Public License as published by\n" \
+"the Free Software Foundation; either version 2 of the License, or\n" \
+"(at your option) any later version.\n" \
+"\n" \
+"This program is distributed in the hope that it will be useful,\n" \
+"but <b>WITHOUT ANY WARRANTY</b>; without even the implied warranty of\n" \
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n" \
+"GNU General Public License for more details.\n" \
 "&lt;<a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>&gt;";
-license = license.replace(' ', "&nbsp;"); // no wrap
 
 	QMessageBox::about( // krazy:exclude=qclasses
 		this,
@@ -1085,12 +1084,9 @@ license = license.replace(' ', "&nbsp;"); // no wrap
 		"<qt>" \
 		"<h1>KShutdown " + version + "</h1>" +
 		i18n("A graphical shutdown utility") + "<br>" \
-		"<br>" \
 		KS_COPYRIGHT "<br>" \
-		"<br>" \
 		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
-		"<br>" +
-		license +
+		"<pre>" + license + "</pre>" +
 		"</qt>"
 	);
 }

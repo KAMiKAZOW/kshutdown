@@ -17,6 +17,7 @@
 
 #ifdef KS_PURE_QT
 	#include <QApplication>
+	#include <QLibraryInfo>
 	#include <QLocale>
 	#include <QTranslator>
 #else
@@ -129,7 +130,7 @@ int main(int argc, char **argv) {
 	// init i18n
 	QString lang = QLocale::system().name();
 	QTranslator qt_trans;
-	qt_trans.load("qt_" + lang);
+	qt_trans.load("qt_" + lang, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 	program.installTranslator(&qt_trans);
 	QTranslator kshutdown_trans;
 	kshutdown_trans.load("kshutdown_" + lang, ":/i18n");
