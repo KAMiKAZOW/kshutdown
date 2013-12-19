@@ -32,6 +32,7 @@ TestAction::TestAction() :
 
 	m_defaultText = "<qt><h1 style=\"background-color: red; color: white\">" + i18n("Test") + "</h1></qt>";
 	m_textField = new U_LINE_EDIT();
+	m_textField->setPlaceholderText(i18n("Enter a message"));
 	
 	setCanBookmark(true);
 	setShowInMenu(false);
