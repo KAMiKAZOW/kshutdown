@@ -102,7 +102,11 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		#ifdef KS_NATIVE_KDE
 		menu->addTitle(i18n("Position"));
 		#else
-		menu->addSeparator();
+			#if QT_VERSION >= 0x050200
+			menu->addSection(i18n("Position"));
+			#else
+			menu->addSeparator();
+			#endif // QT_VERSION
 		#endif // KS_NATIVE_KDE
 
 		QActionGroup *positionGroup = new QActionGroup(this);
@@ -116,7 +120,11 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		#ifdef KS_NATIVE_KDE
 		menu->addTitle(i18n("Size"));
 		#else
-		menu->addSeparator();
+			#if QT_VERSION >= 0x050200
+			menu->addSection(i18n("Size"));
+			#else
+			menu->addSeparator();
+			#endif // QT_VERSION
 		#endif // KS_NATIVE_KDE
 
 		QActionGroup *sizeGroup = new QActionGroup(this);
