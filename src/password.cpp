@@ -50,17 +50,23 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	mainLayout->addLayout(formLayout);
 
 	m_password = new U_LINE_EDIT();
+	#if QT_VERSION >= 0x050200
+	m_password->setClearButtonEnabled(true);
+	#endif
 	m_password->setEchoMode(U_LINE_EDIT::Password);
 	connect(
-		m_password, SIGNAL(textEdited(const QString &)),
+		m_password, SIGNAL(textChanged(const QString &)),
 		SLOT(onPasswordChange(const QString &))
 	);
 	formLayout->addRow(i18n("Password:"), m_password);
 	
 	m_confirmPassword = new U_LINE_EDIT();
+	#if QT_VERSION >= 0x050200
+	m_confirmPassword->setClearButtonEnabled(true);
+	#endif
 	m_confirmPassword->setEchoMode(U_LINE_EDIT::Password);
 	connect(
-		m_confirmPassword, SIGNAL(textEdited(const QString &)),
+		m_confirmPassword, SIGNAL(textChanged(const QString &)),
 		SLOT(onConfirmPasswordChange(const QString &))
 	);
 	formLayout->addRow(i18n("Confirm Password:"), m_confirmPassword);
@@ -81,6 +87,8 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	addButtonBox();
 
 	m_password->setFocus();
+	
+	updateStatus();
 }
 
 PasswordDialog::~PasswordDialog() {
