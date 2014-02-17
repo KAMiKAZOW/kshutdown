@@ -35,6 +35,7 @@ const UShutdownType U_SHUTDOWN_TYPE_LOGOUT = 0; // KDE: ShutdownTypeNone
 const UShutdownType U_SHUTDOWN_TYPE_REBOOT = 1; // KDE: ShutdownTypeReboot
 const UShutdownType U_SHUTDOWN_TYPE_HALT = 2; // KDE: ShutdownTypeHalt
 
+class BootEntryComboBox;
 class QDateTimeEdit;
 #ifdef KS_DBUS
 class QDBusInterface;
@@ -309,8 +310,10 @@ private:
 class U_EXPORT RebootAction: public StandardAction {
 public:
 	RebootAction();
+	virtual QWidget *getWidget();
 private:
 	Q_DISABLE_COPY(RebootAction)
+	BootEntryComboBox *m_bootEntryComboBox;
 };
 
 class U_EXPORT ShutDownAction: public StandardAction {

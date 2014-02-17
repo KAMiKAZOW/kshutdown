@@ -44,6 +44,7 @@
 	#include <QPointer>
 #endif // KS_PURE_QT
 
+#include "actions/bootentry.h"
 #include "actions/lock.h"
 #include "kshutdown.h"
 #include "mainwindow.h"
@@ -1275,7 +1276,8 @@ LogoutAction::LogoutAction() :
 // public
 
 RebootAction::RebootAction() :
-	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT) {
+	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
+	m_bootEntryComboBox(0) {
 
 #ifdef KS_NATIVE_KDE
 /* HACK: crash on KDE 4.5.0
@@ -1310,6 +1312,16 @@ RebootAction::RebootAction() :
 	#ifdef KS_DBUS
 	checkAvailable("CanRestart");
 	#endif // KS_DBUS
+}
+
+QWidget *RebootAction::getWidget() {
+/* TODO: boot entry combo box
+	#ifdef Q_OS_LINUX
+	if (!m_bootEntryComboBox)
+		m_bootEntryComboBox = new BootEntryComboBox();
+	#endif // Q_OS_LINUX
+*/
+	return m_bootEntryComboBox;
 }
 
 // ShutDownAction

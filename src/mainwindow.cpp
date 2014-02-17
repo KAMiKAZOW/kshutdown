@@ -42,6 +42,7 @@
 	#include <KStandardAction>
 #endif // KS_PURE_QT
 
+#include "actions/bootentry.h"
 #include "actions/extras.h"
 #include "actions/lock.h"
 #include "actions/test.h"
@@ -731,8 +732,20 @@ void MainWindow::initMenuBar() {
 #endif // KS_NATIVE_KDE
 
 		fileMenu->addAction(confirmAction);
-		if ((id == "reboot") || (id == "suspend"))
+
+		if (id == "reboot") {
+/* TODO: boot menu
+			#ifdef Q_OS_LINUX
+			QStringList bootEntryList = BootEntry::getList();
+			if (!bootEntryList.isEmpty())
+				fileMenu->addMenu(new BootEntryMenu(this));
+			#endif // Q_OS_LINUX
+*/
 			fileMenu->addSeparator();
+		}
+		else if (id == "suspend") {
+			fileMenu->addSeparator();
+		}
 	}
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_cancelAction);

@@ -37,12 +37,14 @@ win32 {
 # Input
 
 HEADERS += bookmarks.h commandline.h config.h infowidget.h kshutdown.h mainwindow.h password.h preferences.h progressbar.h pureqt.h udialog.h usystemtray.h utils.h version.h \
+	actions/bootentry.h \
 	actions/extras.h \
 	actions/test.h \
 	triggers/idlemonitor.h \
 	triggers/processmonitor.h
 
 SOURCES += bookmarks.cpp commandline.cpp config.cpp infowidget.cpp kshutdown.cpp main.cpp mainwindow.cpp password.cpp preferences.cpp progressbar.cpp udialog.cpp usystemtray.cpp utils.cpp \
+	actions/bootentry.cpp \
 	actions/extras.cpp \
 	actions/lock.cpp \
 	actions/test.cpp \

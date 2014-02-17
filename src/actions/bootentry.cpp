@@ -1,0 +1,110 @@
+// bootentry.cpp - Boot Entry
+// Copyright (C) 2014  Konrad Twardowski
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+#include "bootentry.h"
+
+#include <QFile>
+
+// BootEntry
+
+// private:
+
+QStringList BootEntry::m_list = QStringList();
+
+// public:
+
+QStringList BootEntry::getList() {
+	if (!m_list.isEmpty())
+		return m_list;
+
+	m_list += i18n("Default System");
+
+	QString grubConfigPath = "/boot/grub/grub.cfg";
+	QFile grubConfigFile(grubConfigPath);
+	if (grubConfigFile.open(QFile::ReadOnly)) {
+		QTextStream text(&grubConfigFile);
+		QString menuEntryID = "menuentry ";
+		QString line;
+		do {
+			line = text.readLine();
+			line = line.simplified();
+
+			if (!line.startsWith(menuEntryID))
+				continue; // do
+			
+			line = line.mid(menuEntryID.length());
+			
+			QChar quoteChar;
+			int quoteStart = -1;
+			int quoteEnd = -1;
+			for (int i = 0; i < line.length(); i++) {
+				QChar c = line[i];
+				if (quoteStart == -1) {
+					quoteStart = i + 1;
+					quoteChar = c;
+				}
+// FIXME: unescape, quotes (?)
+				else if ((quoteEnd == -1) && (c == quoteChar)) {
+					quoteEnd = i - 1;
+					
+					break; // for
+				}
+			}
+			
+			if ((quoteStart != -1) && (quoteEnd != -1) && (quoteEnd > quoteStart))
+				line = line.mid(quoteStart, quoteEnd);
+			else
+				U_ERROR << "Error parsing menuentry: " << line U_END;
+			
+			U_DEBUG << line U_END;
+			m_list << line;
+		} while (!line.isNull());
+	}
+	else {
+		U_ERROR << "Could not read GRUB menu entries: " << grubConfigPath U_END;
+	}
+
+	return m_list;
+}
+
+// BootEntryAction
+
+// public:
+
+BootEntryAction::BootEntryAction(const QString &name) :
+	U_ACTION(0),
+	m_name(name) {
+	setText(name);
+}
+
+// BootEntryComboBox
+
+// public:
+
+BootEntryComboBox::BootEntryComboBox() :
+	U_COMBO_BOX() {
+	view()->setAlternatingRowColors(true);
+	addItems(BootEntry::getList());
+}
+
+// BootEntryMenu
+
+// public:
+
+BootEntryMenu::BootEntryMenu(QWidget *parent) :
+	U_MENU(i18n("Restart Computer"), parent) {
+}

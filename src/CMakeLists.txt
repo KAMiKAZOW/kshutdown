@@ -3,6 +3,7 @@
 
 set(
 	kshutdown_SRC
+	actions/bootentry.cpp
 	actions/extras.cpp
 	actions/lock.cpp
 	actions/test.cpp
@@ -25,6 +26,7 @@ set(
 
 set(
 	kshutdown_MOC_HEADERS
+	actions/bootentry.h
 	actions/extras.h
 	triggers/idlemonitor.h
 	triggers/processmonitor.h
