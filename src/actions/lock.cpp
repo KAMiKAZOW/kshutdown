@@ -82,6 +82,8 @@ bool LockAction::onAction() {
 		QApplication::processEvents();
 	}
 
+// TODO: systemd/logind
+
 	#ifdef KS_DBUS
 	// try DBus
 	QDBusInterface *dbus = getQDBusInterface();
