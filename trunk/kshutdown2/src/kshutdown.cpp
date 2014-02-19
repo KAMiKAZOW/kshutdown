@@ -56,6 +56,7 @@ using namespace KShutdown;
 
 bool Action::m_totalExit = false;
 #ifdef KS_DBUS
+QDBusInterface *Action::m_loginInterface = 0;
 bool StandardAction::m_kdeShutDownAvailable = false;
 QDBusInterface *StandardAction::m_consoleKitInterface = 0;
 QDBusInterface *StandardAction::m_halInterface = 0;
@@ -217,6 +218,26 @@ void Action::disable(const QString &reason) {
 	setEnabled(false);
 	m_disableReason = reason;
 }
+
+#ifdef KS_DBUS
+// DOC: http://www.freedesktop.org/wiki/Software/systemd/logind/
+QDBusInterface *Action::getLoginInterface() {
+	if (!m_loginInterface) {
+		m_loginInterface = new QDBusInterface(
+			"org.freedesktop.login1",
+			"/org/freedesktop/login1",
+			"org.feedesktop.login1.Manager",
+			QDBusConnection::systemBus()
+		);
+		if (m_loginInterface->isValid())
+			U_DEBUG << "systemd/logind backend found..." U_END;
+		else
+			U_DEBUG << "systemd/logind backend NOT found..." U_END;
+	}
+
+	return m_loginInterface;
+}
+#endif // KS_DBUS
 
 bool Action::launch(const QString &program, const QStringList &args) {
 	U_DEBUG << "Launching \"" << program << "\" with \"" << args << "\" arguments" U_END;
@@ -643,6 +664,8 @@ bool PowerAction::onAction() {
 		::sleep(2);
 	}
 	
+	QDBusInterface *login = getLoginInterface();
+	
 	// DOC: http://upower.freedesktop.org/docs/UPower.html
 	QDBusInterface i_upower(
 		"org.freedesktop.UPower",
@@ -661,7 +684,13 @@ bool PowerAction::onAction() {
 	
 	QDBusError error;
 	
-	if (i_upower.isValid())
+	if (login->isValid()) {
+// TODO: test interactivity
+		login->call(m_methodName, false);
+		
+		error = login->lastError();
+	}
+	else if (i_upower.isValid())
 	{
 		i_upower.call(m_methodName);
 		
@@ -669,7 +698,7 @@ bool PowerAction::onAction() {
 	}
 	else if (i_hal.isValid())
 	{
-	  	if (m_methodName == "Suspend")
+		if (m_methodName == "Suspend")
 			i_hal.call(m_methodName, 0);
 		else
 			i_hal.call(m_methodName); // no args
@@ -709,7 +738,25 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 
 	return false;
 #else
-	
+	QDBusInterface *login = getLoginInterface();
+	if (login->isValid()) {
+		switch (feature) {
+			case Suspend: {
+				QDBusReply<QString> reply = login->call("CanSuspend");
+				U_DEBUG << "systemd: CanSuspend: " << reply U_END;
+				
+				return reply.isValid() && (reply.value() == "yes");
+			} break;
+			case Hibernate: {
+				QDBusReply<QString> reply = login->call("CanHibernate");
+				U_DEBUG << "systemd: CanHibernate: " << reply U_END;
+				
+				return reply.isValid() && (reply.value() == "yes");
+			} break;
+		}
+	}
+
+// TODO: init once
 	// Use the UPower backend if available
 	QDBusInterface i_upower(
 		"org.freedesktop.UPower",
@@ -718,6 +765,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		QDBusConnection::systemBus()
 	);
 
+// TODO: lazy init
 	// Use the legacy HAL backend if UPower not available
 	QDBusInterface i_hal(
 		"org.freedesktop.Hal",
@@ -1142,10 +1190,27 @@ bool StandardAction::onAction() {
 	}
 	#endif // KS_DBUS
 	
-	// fallback to ConsoleKit or HAL
+	// fallback to systemd/logind/ConsoleKit/HAL/whatever
 	
 	#ifdef KS_DBUS
 	MainWindow::self()->writeConfig();
+	
+	// try systemd/logind
+
+	QDBusInterface *login = getLoginInterface();
+	if ((m_type == U_SHUTDOWN_TYPE_HALT) && login->isValid()) {
+// TODO: check CanPowerOff/CanReboot
+		QDBusReply<void> reply = login->call("PowerOff", false);
+
+		if (reply.isValid())
+			return true;
+	}
+	else if ((m_type == U_SHUTDOWN_TYPE_REBOOT) && login->isValid()) {
+		QDBusReply<void> reply = login->call("Reboot", false);
+
+		if (reply.isValid())
+			return true;
+	}
 	
 	// try ConsoleKit
 	
@@ -1164,7 +1229,7 @@ bool StandardAction::onAction() {
 
 	// try HAL
 
-	else if ((m_type == U_SHUTDOWN_TYPE_HALT) && m_halInterface && m_halInterface->isValid()) {
+	if ((m_type == U_SHUTDOWN_TYPE_HALT) && m_halInterface && m_halInterface->isValid()) {
 		QDBusReply<int> reply = m_halInterface->call("Shutdown");
 
 		if (reply.isValid())

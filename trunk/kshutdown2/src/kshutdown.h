@@ -137,10 +137,16 @@ protected:
 	static bool m_totalExit;
 	void addCommandLineArg(const QString &shortArg, const QString &longArg);
 	void disable(const QString &reason);
+	#ifdef KS_DBUS
+	static QDBusInterface *getLoginInterface();
+	#endif // KS_DBUS
 	bool launch(const QString &program, const QStringList &args);
 	bool unsupportedAction();
 private:
 	Q_DISABLE_COPY(Action)
+	#ifdef KS_DBUS
+	static QDBusInterface *m_loginInterface;
+	#endif // KS_DBUS
 	bool m_shouldStopTimer;
 	bool m_showInMenu;
 	QStringList m_commandLineArgs;
