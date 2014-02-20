@@ -135,21 +135,11 @@ bool Utils::isHelpArg() {
 #endif // KS_NATIVE_KDE
 }
 
-// TODO: test me
+// FIXME: test GNOME 2
 bool Utils::isGNOME() {
 	return
 		m_desktopSession.contains("gnome", Qt::CaseInsensitive) ||
 		m_xdgCurrentDesktop.contains("gnome", Qt::CaseInsensitive);
-}
-
-// FIXME: test GNOME 2
-bool Utils::isGNOME_3() {
-	bool g3 =
-		m_desktopSession.contains("gnome-shell", Qt::CaseInsensitive) ||
-		m_desktopSession.contains("gnome-classic", Qt::CaseInsensitive) ||
-		m_desktopSession.contains("gnome-fallback", Qt::CaseInsensitive);
-	
-	return g3 ? true : isUnity();
 }
 
 bool Utils::isGTKStyle() {
@@ -158,7 +148,7 @@ bool Utils::isGTKStyle() {
 	#elif defined(Q_OS_HAIKU)
 	return true;
 	#else
-	return isGNOME() || isGNOME_3() || isLXDE() || isMATE() || isXfce() || isUnity();
+	return isGNOME() || isLXDE() || isMATE() || isXfce() || isUnity();
 	#endif // Q_OS_HAIKU
 }
 

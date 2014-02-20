@@ -226,7 +226,7 @@ QDBusInterface *Action::getLoginInterface() {
 		m_loginInterface = new QDBusInterface(
 			"org.freedesktop.login1",
 			"/org/freedesktop/login1",
-			"org.feedesktop.login1.Manager",
+			"org.freedesktop.login1.Manager",
 			QDBusConnection::systemBus()
 		);
 		if (m_loginInterface->isValid())
@@ -1063,7 +1063,7 @@ bool StandardAction::onAction() {
 
 	// GNOME Shell, Unity
 	
-	if (Utils::isGNOME_3() || Utils::isUnity()) {
+	if (Utils::isGNOME() || Utils::isUnity()) {
 		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
 			QStringList args;
 			args << "--logout";
@@ -1077,7 +1077,7 @@ bool StandardAction::onAction() {
 		}
 	}
 
-/* TODO: GNOME shutdown
+/* TODO: GNOME 2 shutdown
 	if (Utils::isGNOME()) {
 		QStringList args;
 		args << "--kill";
@@ -1211,7 +1211,7 @@ bool StandardAction::onAction() {
 		if (reply.isValid())
 			return true;
 	}
-	
+
 	// try ConsoleKit
 	
 	if ((m_type == U_SHUTDOWN_TYPE_HALT) && m_consoleKitInterface && m_consoleKitInterface->isValid()) {
@@ -1241,7 +1241,6 @@ bool StandardAction::onAction() {
 		if (reply.isValid())
 			return true;
 	}
-
 	#endif // KS_DBUS
 	
 	// show error
@@ -1258,6 +1257,12 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 	QString error = "";
 
 // TODO: win32: check if shutdown/reboot action is available
+
+	QDBusInterface *login = getLoginInterface();
+	if (login->isValid()) {
+// TODO: CanPowerOff, etc.
+		available = true;
+	}
 
 	if (!consoleKitName.isEmpty()) {
 		if (!m_consoleKitInterface) {

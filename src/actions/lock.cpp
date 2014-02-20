@@ -103,7 +103,7 @@ bool LockAction::onAction() {
 
 	// Unity, GNOME Shell
 	
-	if (Utils::isGNOME_3() || Utils::isUnity()) {
+	if (Utils::isGNOME() || Utils::isUnity()) {
 		args.clear();
 		args << "--activate";
 		if (launch("gnome-screensaver-command", args))
@@ -111,6 +111,7 @@ bool LockAction::onAction() {
 	}
 
 	// try "gnome-screensaver-command" command
+// TODO: test GNOME 2
 	if (Utils::isGNOME()) {
 		args.clear();
 		args << "--lock";
