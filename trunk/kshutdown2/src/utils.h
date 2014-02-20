@@ -36,7 +36,6 @@ public:
 	static bool isEnlightenment();
 	static bool isHelpArg();
 	static bool isGNOME();
-	static bool isGNOME_3();
 	static bool isGTKStyle();
 	static bool isHaiku();
 	static bool isKDEFullSession();

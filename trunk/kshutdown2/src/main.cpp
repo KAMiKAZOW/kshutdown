@@ -102,7 +102,6 @@ int main(int argc, char **argv) {
 	}
 	
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
-	KS_DEBUG_SYSTEM("GNOME 3", Utils::isGNOME_3());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("MATE", Utils::isMATE());
 	KS_DEBUG_SYSTEM("Razor-qt", Utils::isRazor());
