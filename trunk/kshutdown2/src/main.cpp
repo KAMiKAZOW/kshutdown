@@ -101,6 +101,7 @@ int main(int argc, char **argv) {
 		qWarning("kshutdown: Enlightenment: Load Utilities->Systray module for system tray support");
 	}
 	
+	KS_DEBUG_SYSTEM("Cinnamon", Utils::isCinnamon());
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("MATE", Utils::isMATE());

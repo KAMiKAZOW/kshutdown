@@ -123,6 +123,10 @@ bool Utils::isArg(const QString &name) {
 #endif // KS_NATIVE_KDE
 }
 
+bool Utils::isCinnamon() {
+	return m_desktopSession.contains("cinnamon", Qt::CaseInsensitive);
+}
+
 bool Utils::isEnlightenment() {
 	return m_desktopSession.contains("enlightenment", Qt::CaseInsensitive);
 }
@@ -148,7 +152,7 @@ bool Utils::isGTKStyle() {
 	#elif defined(Q_OS_HAIKU)
 	return true;
 	#else
-	return isGNOME() || isLXDE() || isMATE() || isXfce() || isUnity();
+	return isGNOME() || isLXDE() || isMATE() || isXfce() || isUnity() || isCinnamon();
 	#endif // Q_OS_HAIKU
 }
 
