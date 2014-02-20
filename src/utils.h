@@ -33,6 +33,7 @@ public:
 	static void init();
 	static void initArgs();
 	static bool isArg(const QString &name);
+	static bool isCinnamon();
 	static bool isEnlightenment();
 	static bool isHelpArg();
 	static bool isGNOME();

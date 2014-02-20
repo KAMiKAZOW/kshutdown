@@ -101,6 +101,16 @@ bool LockAction::onAction() {
 	
 	QStringList args;
 
+	// Cinnamon
+	
+	if (Utils::isCinnamon()) {
+		args.clear();
+		args << "--lock";
+		if (launch("cinnamon-screensaver-command", args))
+			return true;
+	}
+
+// FIXME: GNOME Shell
 	// Unity, GNOME Shell
 	
 	if (Utils::isGNOME() || Utils::isUnity()) {

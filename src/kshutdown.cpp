@@ -1061,9 +1061,26 @@ bool StandardAction::onAction() {
 	
 #else
 
-	// GNOME Shell, Unity
+	// Cinnamon
+
+	if (Utils::isCinnamon()) {
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			QStringList args;
+			args << "--logout";
+			args << "--no-prompt";
+			if (launch("cinnamon-session-quit", args)) {
+				// HACK: session save issue?
+				U_APP->quit();
+			
+				return true;
+			}
+		}
+	}
 	
-	if (Utils::isGNOME() || Utils::isUnity()) {
+	// GNOME Shell, Unity
+
+// FIXME: KDE build causes huge delay in session manager or something (?)
+	else if (Utils::isGNOME() || Utils::isUnity()) {
 		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
 			QStringList args;
 			args << "--logout";
