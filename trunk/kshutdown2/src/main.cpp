@@ -221,7 +221,9 @@ int main(int argc, char **argv) {
 	KShutdownApplication::addCmdLineOptions();
 
 	if (!KShutdownApplication::start()) {
-		U_DEBUG << "KShutdown is already running" U_END;
+		// HACK: U_DEBUG is unavailble here
+		//U_DEBUG << "KShutdown is already running" U_END;
+		qDebug("KShutdown is already running");
 		
 		return 0;
 	}
