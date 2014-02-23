@@ -20,7 +20,7 @@
 
 #include "../kshutdown.h"
 
-class U_EXPORT TestAction: public KShutdown::Action {
+class TestAction: public KShutdown::Action {
 public:
 	TestAction();
 	virtual QWidget *getWidget();

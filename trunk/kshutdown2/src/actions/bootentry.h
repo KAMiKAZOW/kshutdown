@@ -31,7 +31,7 @@ private:
 class BootEntryAction: public U_ACTION {
 	Q_OBJECT
 public:
-	BootEntryAction(const QString &name);
+	explicit BootEntryAction(const QString &name);
 private:
 	Q_DISABLE_COPY(BootEntryAction)
 	QString m_name;
@@ -47,7 +47,7 @@ private:
 class BootEntryMenu: public U_MENU {
 	Q_OBJECT
 public:
-	BootEntryMenu(QWidget *parent);
+	explicit BootEntryMenu(QWidget *parent);
 private:
 	Q_DISABLE_COPY(BootEntryMenu)
 };

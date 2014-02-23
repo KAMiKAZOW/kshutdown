@@ -89,7 +89,7 @@ QString BookmarksMenu::makeText(KShutdown::Action *action, KShutdown::Trigger *t
 			text += (" - " + Utils::trim(option, 30));
 	}
 	else {
-		text += "?";
+		text += '?';
 	}
 	
 	text += " - ";
@@ -102,7 +102,7 @@ QString BookmarksMenu::makeText(KShutdown::Action *action, KShutdown::Trigger *t
 			text += (" - " + Utils::trim(option, 30));
 	}
 	else {
-		text += "?";
+		text += '?';
 	}
 
 	return text;

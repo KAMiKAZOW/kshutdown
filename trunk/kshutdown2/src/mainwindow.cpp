@@ -1075,9 +1075,12 @@ void MainWindow::onQuit() {
 #ifdef KS_PURE_QT
 void MainWindow::onAbout() {
 	QString version = KS_FULL_VERSION;
+	version += "&nbsp;(";
+	version += KS_BUILD;
 #ifdef KS_PORTABLE
-	version += " (portable)";
+	version += ",&nbsp;portable";
 #endif // KS_PORTABLE
+	version += ')';
 
 QString license =
 "This program is <b>free software</b>; you can redistribute it and/or modify\n" \
@@ -1095,7 +1098,7 @@ QString license =
 		this,
 		i18n("About"),
 		"<qt>" \
-		"<h1>KShutdown " + version + "</h1>" +
+		"<h1>KShutdown&nbsp;" + version + "</h1>" +
 		i18n("A graphical shutdown utility") + "<br>" \
 		KS_COPYRIGHT "<br>" \
 		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \

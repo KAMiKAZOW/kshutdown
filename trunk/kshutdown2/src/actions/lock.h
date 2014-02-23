@@ -24,7 +24,7 @@
 class QDBusInterface;
 #endif // KS_DBUS
 
-class U_EXPORT LockAction: public KShutdown::Action {
+class LockAction: public KShutdown::Action {
 public:
 	virtual bool onAction();
 	#ifdef KS_DBUS
