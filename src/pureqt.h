@@ -85,7 +85,6 @@
 	#define U_ERROR qCritical()
 	#define U_ERROR_MESSAGE(parent, text) \
 		QMessageBox::critical((parent), i18n("Error"), (text));
-	#define U_EXPORT Q_DECL_EXPORT
 	#define U_ICON QIcon
 	#define U_INFO_MESSAGE(parent, text) \
 		QMessageBox::information((parent), i18n("Information"), (text));
@@ -118,7 +117,6 @@
 	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \
 		KMessageBox::error((parent), (text));
-	#define U_EXPORT KDE_EXPORT
 	#define U_ICON KIcon
 	#define U_INFO_MESSAGE(parent, text) \
 		KMessageBox::information((parent), (text));

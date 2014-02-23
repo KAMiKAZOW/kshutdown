@@ -47,7 +47,7 @@ const QString DATE_TIME_DISPLAY_FORMAT = "MMM d dddd hh:mm";
 const QString TIME_DISPLAY_FORMAT = "hh'h ':' 'mm'm'";
 const QString TIME_PARSE_FORMAT = "h:mm";
 
-class U_EXPORT Base {
+class Base {
 public:
 	enum State { StartState, StopState, InvalidStatusState };
 	explicit Base(const QString &id);
@@ -105,7 +105,7 @@ private:
 	bool m_canBookmark;
 };
 
-class U_EXPORT Action: public U_ACTION, public Base {
+class Action: public U_ACTION, public Base {
 	Q_OBJECT
 public:
 	explicit Action(const QString &text, const QString &iconName, const QString &id);
@@ -167,7 +167,7 @@ private slots:
 	void slotFire();
 };
 
-class U_EXPORT Trigger: public QObject, public Base {
+class Trigger: public QObject, public Base {
 	Q_OBJECT
 public:
 	explicit Trigger(const QString &text, const QString &iconName, const QString &id);
@@ -197,7 +197,7 @@ signals:
 	void statusChanged(const bool updateWidgets);
 };
 
-class U_EXPORT DateTimeTriggerBase: public Trigger {
+class DateTimeTriggerBase: public Trigger {
 	Q_OBJECT
 public:
 	explicit DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
@@ -221,7 +221,7 @@ private:
 	QString createStatus(const QDateTime &now, int &secsTo);
 };
 
-class U_EXPORT DateTimeTrigger: public DateTimeTriggerBase {
+class DateTimeTrigger: public DateTimeTriggerBase {
 public:
 	DateTimeTrigger();
 	QDateTime dateTime();
@@ -235,7 +235,7 @@ private:
 	Q_DISABLE_COPY(DateTimeTrigger)
 };
 
-class U_EXPORT NoDelayTrigger: public Trigger {
+class NoDelayTrigger: public Trigger {
 public:
 	NoDelayTrigger();
 	virtual bool canActivateAction();
@@ -245,7 +245,7 @@ private:
 	Q_DISABLE_COPY(NoDelayTrigger)
 };
 
-class U_EXPORT TimeFromNowTrigger: public DateTimeTriggerBase {
+class TimeFromNowTrigger: public DateTimeTriggerBase {
 public:
 	TimeFromNowTrigger();
 	virtual QString getStringOption();
@@ -257,7 +257,7 @@ private:
 	Q_DISABLE_COPY(TimeFromNowTrigger)
 };
 
-class U_EXPORT PowerAction: public Action {
+class PowerAction: public Action {
 public:
 	explicit PowerAction(const QString &text, const QString &iconName, const QString &id);
 	virtual bool onAction();
@@ -269,21 +269,21 @@ private:
 	Q_DISABLE_COPY(PowerAction)
 };
 
-class U_EXPORT HibernateAction: public PowerAction {
+class HibernateAction: public PowerAction {
 public:
 	HibernateAction();
 private:
 	Q_DISABLE_COPY(HibernateAction)
 };
 
-class U_EXPORT SuspendAction: public PowerAction {
+class SuspendAction: public PowerAction {
 public:
 	SuspendAction();
 private:
 	Q_DISABLE_COPY(SuspendAction)
 };
 
-class U_EXPORT StandardAction: public Action {
+class StandardAction: public Action {
 public:
 	explicit StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
 	virtual bool onAction();
@@ -306,14 +306,14 @@ private:
 	UShutdownType m_type;
 };
 
-class U_EXPORT LogoutAction: public StandardAction {
+class LogoutAction: public StandardAction {
 public:
 	LogoutAction();
 private:
 	Q_DISABLE_COPY(LogoutAction)
 };
 
-class U_EXPORT RebootAction: public StandardAction {
+class RebootAction: public StandardAction {
 public:
 	RebootAction();
 	virtual QWidget *getWidget();
@@ -322,7 +322,7 @@ private:
 	BootEntryComboBox *m_bootEntryComboBox;
 };
 
-class U_EXPORT ShutDownAction: public StandardAction {
+class ShutDownAction: public StandardAction {
 public:
 	ShutDownAction();
 private:
