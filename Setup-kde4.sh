@@ -49,14 +49,10 @@ if [ -n "$KDE4_CONFIG" ]; then
 	fi
 else
 	echo
-	echo "INFO: Enter the \"root\" password to install KShutdown:"
-	echo
-	if ! sudo make install; then
-		echo "INFO: Skipping installation"
-		echo
-		echo "TIP: Run \"cd build.tmp; make install\" to install KShutdown (may require administrator privileges)"
-		echo "     Ubuntu: cd build.tmp; sudo make install"
-	fi
+	echo "TIP: Run \"make install\" to install KShutdown"
+	echo "     (may require administrator privileges). Examples:"
+	echo "     cd build.tmp; sudo make install  (Ubuntu, etc.)"
+	echo "     cd build.tmp; su -c \"make install\"  (Fedora, etc.)"
 fi
 
 popd

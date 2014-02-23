@@ -20,16 +20,20 @@ function doCompile()
 		fi
 	elif [ $1 == "kshutdown-qt" ]; then
 		if ./Setup-qt4.sh; then
-			dialog \
-				--msgbox \
+			dialog --msgbox \
 "Compiled KShutdown program (\"kshutdown-qt\" file)\n
 can be found in the \"${PWD}\" directory.\n
 \n
 Installation is not required.\n
-However, you can run \"cd src; sudo make install\"\n
+However, you can run\n
+\n
+cd src; sudo make install  (Ubuntu, etc.)\n
+or\n
+cd src; su -c \"make install\"  (Fedora, etc.)\n
+\n
 to setup menu shortcut (Utilities section),\n
 and copy \"kshutdown-qt\" to the \"/usr/bin\" directory." \
-				0 0
+0 0
 		else
 			doError "Build failed. See README.html for troubleshooting information."
 		fi

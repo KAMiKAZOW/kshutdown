@@ -358,10 +358,10 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tr>
 <td>Desktop Environment/Platform</td>
-<td>Turn Off Computer<sup>1</sup></td>
-<td>Restart Computer<sup>1</sup></td>
-<td>Suspend</td>
-<td>Hibernate</td>
+<td>Turn Off Computer<sup>1</sup>&nbsp;<sup>2</sup></td>
+<td>Restart Computer<sup>1</sup>&nbsp;<sup>2</sup></td>
+<td>Suspend<sup>2</sup></td>
+<td>Hibernate<sup>2</sup></td>
 <td>Lock Screen</td>
 <td>Logout</td>
 <td>Extras</td>
@@ -382,11 +382,13 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tr><td>CLI</td><td colspan="9">Function available via Command Line (example: kshutdown --lock)</td></tr>
 <tr><td colspan="10"><sup>1</sup> D-Bus commands should work with <abbr title="GNOME Display Manager">GDM</abbr>, <abbr title="KDE Display Manager">KDM</abbr>, LightDM, and other Display Managers</td></tr>
+<tr><td colspan="10"><sup>2</sup> systemd (org.freedesktop.login1 D-Bus interface) is supported since KShutdown 3.2</td></tr>
 
 </tfoot>
 
 <tbody>
 
+<!-- TODO: document systemd support -->
 <tr>
 <td class="build"><a href="http://kde.org/">KDE</a> 4 (KDE Build)</td>
 <td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
@@ -467,11 +469,11 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tr>
 <td class="build"><a href="http://www.gnome.org/">GNOME</a> 3</td>
-<td class="test">TEST</td>
-<td class="test">TEST</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="gnome-screensaver-command">OK</td>
+<td class="wip">FIXME</td>
 <td class="ok" title="gnome-session-quit">OK</td>
 <td class="test">TEST</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
@@ -532,18 +534,26 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <tr>
 <td class="build"><a href="http://cinnamon.linuxmint.com/">Cinnamon</a></td>
-<td class="wip" colspan="9">TODO</td>
-</tr>
-
-<tr>
-<td class="build"><a href="http://openbox.org/">Openbox</a></td>
-<td class="wip" colspan="9">TODO (?)</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="cinnamon-screensaver-command">OK</td>
+<td class="ok" title="cinnamon-session-quit">OK</td>
+<td class="test">TEST</td>
+<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
+<td class="wip">TODO</td>
 </tr>
 
 <tr>
 <td class="build"><a href="http://www.gnome.org/">GNOME</a> 2</td>
 <td class="test" colspan="8">TEST (?)</td>
 <td class="wip">TODO</td>
+</tr>
+
+<tr>
+<td class="build"><a href="http://openbox.org/">Openbox</a></td>
+<td class="wip" colspan="9">TODO (?)</td>
 </tr>
 
 <tr>

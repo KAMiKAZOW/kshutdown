@@ -1,6 +1,21 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2014-02-23  3.2
+
+* Czech translation update
+* Updated the Polish translation
+* Fixed language translations in some common UI elements
+* Minor User Inteface tweaks
+* Fixed: Disable "OK" button if new password is invalid
+
+Linux:
+
+* NEW: systemd/logind support (Power Off, Reboot, Hibernate, Suspend)
+* NEW: Added basic Cinnamon Desktop Environment support
+* GNOME 3: Fixed detection and logout action
+
+
 2013-12-06  3.1 Beta
 
 * NEW: Simple password protection
@@ -633,4 +648,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 716:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 727:HEAD|xsel -i -b && kwrite ChangeLog
