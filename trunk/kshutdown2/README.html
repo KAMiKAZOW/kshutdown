@@ -123,11 +123,14 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<li><a href="#qt4linux">Qt Build @ Linux</a></li>
 	<li><a href="#qt4windows">Qt Build @ Windows</a></li>
 	<li><a href="#qthaiku">Qt Build @ Haiku</a></li>
+	<li><a href="#common_compilation_errors">Common Compilation Errors</a></li>
 	<li><a href="#supported">Supported Functions/Platforms</a></li>
-	<li><a href="#compatibility">Compatibility</a></li>
-	<li><a href="http://sourceforge.net/p/kshutdown/wiki/Credits/">Credits</a></li>
-	<li><a href="http://kshutdown.sourceforge.net/contact.html">Support</a></li>
-	<li><a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)</li>
+	<li><a href="#issues">Issues</a></li>
+	<li>
+		<a href="http://sourceforge.net/p/kshutdown/wiki/Credits/">Credits</a> |
+		<a href="http://kshutdown.sourceforge.net/contact.html">Support</a> |
+		<a href="http://www.gnu.org/copyleft/gpl.html">License</a> (GPL)
+	</li>
 </ul>
 
 <h2 id="kdevsqt">KDE Build vs. Qt Build</h2>
@@ -237,28 +240,6 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	</li>
 </ol>
 
-<h3>Common Errors</h3>
-
-<h4>CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72</h4>
-<pre>
-CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72 (MESSAGE):
-ERROR: cmake/modules/FindKDE4Internal.cmake not found in
-...;/usr/lib/kde4/share/kde4/apps
-</pre>
-<p>Install "kdelibs-dev" (sometimes called kdelibs5-dev) packages for your KDE version.</p>
-
-<h4>CMake Error at (...) Phonon library or includes NOT found!</h4>
-<p>This may happed after Ubuntu upgrade
-even if required Phonon files are already installed. [<a href="http://osdir.com/ml/digikam-users/2009-11/msg00024.html">Solution</a>]</p>
-
-<h4>"pushd: not found" error</h4>
-<p>
-Try to run
-<code>./Setup-kde4.sh</code> and
-<code>cd build.tmp; sudo make install</code> instead of 
-<code>sudo sh Setup-kde4.sh</code>
-</p>
-
 <h3>Compilation &amp; Installation (alternative method; for geeks and nerds only)</h3>
 <p>
 <i>BUILDTYPE</i> can be <code>Release</code> or <code>Debug</code>.
@@ -348,6 +329,35 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 	<li>Create Makefiles: <code>qmake</code></li>
 	<li>Build "kshutdown-qt" binary: <code>make</code></li>
 </ol>
+
+<h2 id="common_compilation_errors">Common Compilation Errors</h2>
+
+<h3>cmake</h3>
+
+<h4>CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72</h4>
+<pre>
+CMake Error at /usr/share/cmake-2.6/Modules/FindKDE4.cmake:72 (MESSAGE):
+ERROR: cmake/modules/FindKDE4Internal.cmake not found in
+...;/usr/lib/kde4/share/kde4/apps
+</pre>
+<p>Install "kdelibs-dev" (sometimes called kdelibs5-dev) packages for your KDE version.</p>
+
+<h4>CMake Error at (...) Phonon library or includes NOT found!</h4>
+<p>This may happen after Ubuntu upgrade
+even if required Phonon files are already installed. [<a href="http://osdir.com/ml/digikam-users/2009-11/msg00024.html">Solution</a>]</p>
+
+<h4>make[2]: *** No rule to make target `/usr/lib/libknotifyconfig.so.4.xx', needed by `src/kshutdown'.  Stop.</h4>
+<p>This may happen after KDE upgrade. Run <code>./Setup-kde4.sh</code> to refresh Makefiles.</p>
+
+<h3>Setup</h3>
+
+<h4>"pushd: not found" error</h4>
+<p>
+Try to run
+<code>./Setup-kde4.sh</code> and
+<code>cd build.tmp; sudo make install</code> instead of 
+<code>sudo sh Setup-kde4.sh</code>
+</p>
 
 <h2 id="supported">Supported Functions/Platforms</h2>
 
@@ -571,8 +581,17 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 </table>
 </div>
 
-<h2 id="compatibility">Compatibility with old KShutdown 1.0.x</h2>
+<h2 id="issues">Issues</h2>
 
+<h3>Linux: Hibernate/Suspend does not work</h3>
+<p>If your Linux distribution supports <i>systemd</i> then try to install KShutdown 3.2+; otherwise install "upower" package.</p>
+<p>As a workaround you can try to create a <a href="http://sourceforge.net/p/kshutdown/wiki/Extras/">custom action</a>
+with a <a href="https://wiki.archlinux.org/index.php/systemd#Power_management"><code>systemctl</code> command</a>.</p>
+
+<h3>Linux: Turn Off Computer/Restart Computer does not work</h3>
+<p>If your Linux distribution supports <i>systemd</i> then try to install KShutdown 3.2+; otherwise install "consolekit" package.</p>
+
+<h3>KShutdown 1.0.x</h3>
 <p>Some configuration and command line options in KShutdown 2.x
 may be not fully compatible with the old KShutdown 1.0.x.</p>
 
