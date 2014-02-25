@@ -55,7 +55,8 @@ public:
 		DISPLAY_STATUS_HTML = 1 << 0,
 		DISPLAY_STATUS_HTML_NO_ACTION = 1 << 1,
 		DISPLAY_STATUS_SIMPLE = 1 << 2,
-		DISPLAY_STATUS_APP_NAME = 1 << 3
+		DISPLAY_STATUS_APP_NAME = 1 << 3,
+		DISPLAY_STATUS_OK_HINT = 1 << 4
 	};
 	virtual ~MainWindow();
 	QHash<QString, Action*> actionHash() const { return m_actionHash; }

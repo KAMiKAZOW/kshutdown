@@ -213,14 +213,12 @@ QString MainWindow::getDisplayStatus(const int options) {
 	bool appName = (options & DISPLAY_STATUS_APP_NAME) != 0;
 	bool html = (options & DISPLAY_STATUS_HTML) != 0;
 	bool noAction = (options & DISPLAY_STATUS_HTML_NO_ACTION) != 0;
+	bool okHint = (options & DISPLAY_STATUS_OK_HINT) != 0;
 
 	QString actionText = action->originalText();
 	QString triggerStatus = trigger->status();
 	
 	QString s = "";
-	
-	if (html)
-		s += "<qt>";
 
 	if (html) {
 		if (appName)
@@ -236,6 +234,18 @@ QString MainWindow::getDisplayStatus(const int options) {
 			if (i != -1)
 				s.insert(i, "<br>");
 		}
+		
+		if (okHint && m_okCancelButton->isEnabled()) {
+			#ifdef KS_NATIVE_KDE
+			QString okText = KStandardGuiItem::ok().text();
+			okText.remove("&");
+			#else
+			QString okText = i18n("OK");
+			#endif // KS_NATIVE_KDE
+			if (!s.isEmpty())
+				s += "<br><br>";
+			s += i18n("Press %0 to activate KShutdown").arg("<b>" + okText + "</b>");
+		}
 	}
 	// simple - single line, no HTML
 	else {
@@ -246,7 +256,7 @@ QString MainWindow::getDisplayStatus(const int options) {
 	}
 	
 	if (html)
-		s += "</qt>";
+		s = "<qt>" + s + "</qt>";
 
 	//U_DEBUG << s U_END;
 
@@ -1254,7 +1264,7 @@ void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 	QString displayStatus =
 		m_active
 		? QString::null
-		: getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION);
+		: getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION | DISPLAY_STATUS_OK_HINT);
 	
 	InfoWidget::Type type;
 	if (action->statusType() != InfoWidget::InfoType)
