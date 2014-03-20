@@ -36,6 +36,9 @@ GenericName[sr@latin]=Alatka za gašenje sistema
 GenericName[sr@ijekavian]=Алатка за гашење система
 GenericName[sr@ijekavianlatin]=Alatka za gašenje sistema
 
+Keywords=Shutdown;Halt;Reboot;Hibernate;Suspend;Lock;Logout;
+Keywords[pl]=Wyłącz;Zamknij;Uruchom;Hibernuj;Wstrzymaj;Zablokuj;Wyloguj;
+
 Exec=kshutdown
 Icon=kshutdown
 Type=Application
