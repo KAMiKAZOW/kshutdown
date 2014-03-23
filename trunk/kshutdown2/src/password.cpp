@@ -245,7 +245,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	
 	addItem("action/settings", i18n("Settings (recommended)"), U_ICON("configure"));
 	
-	foreach (const Action *action, MainWindow::self()->actionHash().values()) {
+	foreach (const Action *action, MainWindow::self()->actionList()) {
 		addItem(
 			"kshutdown/action/" + action->id(),
 			action->originalText(),

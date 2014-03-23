@@ -349,23 +349,25 @@ void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const 
 // public slots
 
 QStringList MainWindow::actionList(const bool showDescription) {
-	if (!showDescription)
-		return m_actionHash.keys();
-
 	QStringList sl;
-	foreach (const Action *i, m_actionHash)
-		sl.append(i->id() + " - " + i->originalText());
+	foreach (const Action *i, m_actionList) {
+		if (showDescription)
+			sl.append(i->id() + " - " + i->originalText());
+		else
+			sl.append(i->id());
+	}
 
 	return sl;
 }
 
 QStringList MainWindow::triggerList(const bool showDescription) {
-	if (!showDescription)
-		return m_triggerHash.keys();
-
 	QStringList sl;
-	foreach (const Trigger *i, m_triggerHash)
-		sl.append(i->id() + " - " + i->text());
+	foreach (const Trigger *i, m_triggerList) {
+		if (showDescription)
+			sl.append(i->id() + " - " + i->text());
+		else
+			sl.append(i->id());
+	}
 
 	return sl;
 }
