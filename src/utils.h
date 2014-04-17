@@ -35,6 +35,7 @@ public:
 	static bool isArg(const QString &name);
 	static bool isCinnamon();
 	static bool isEnlightenment();
+	static bool isGUI();
 	static bool isHelpArg();
 	static bool isGNOME();
 	static bool isGTKStyle();
@@ -51,6 +52,7 @@ public:
 	static void shutDown();
 	static QString trim(QString &text, const int maxLength);
 private:
+	static bool m_gui;
 #ifdef KS_NATIVE_KDE
 	static KCmdLineArgs *m_args;
 #else

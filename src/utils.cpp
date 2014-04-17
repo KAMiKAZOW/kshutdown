@@ -28,6 +28,7 @@
 
 // private
 
+bool Utils::m_gui = true;
 #ifdef KS_NATIVE_KDE
 	KCmdLineArgs *Utils::m_args = 0;
 #else
@@ -103,6 +104,12 @@ QString Utils::getUser() {
 }
 
 void Utils::init() {
+	#ifdef KS_CONSOLE
+	m_gui = false;
+	#else
+	m_gui = true;
+	#endif // KS_CONSOLE
+
 	m_desktopSession = m_env.value("DESKTOP_SESSION");
 	m_xdgCurrentDesktop = m_env.value("XDG_CURRENT_DESKTOP");
 }
@@ -130,6 +137,8 @@ bool Utils::isCinnamon() {
 bool Utils::isEnlightenment() {
 	return m_desktopSession.contains("enlightenment", Qt::CaseInsensitive);
 }
+
+bool Utils::isGUI() { return m_gui; }
 
 bool Utils::isHelpArg() {
 #ifdef KS_NATIVE_KDE

@@ -4,6 +4,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 DEFINES += KS_PURE_QT
+#DEFINES += KS_CONSOLE
 exists(portable.pri) {
 	include(portable.pri)
 	message("Building portable version...")

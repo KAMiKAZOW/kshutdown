@@ -46,7 +46,7 @@ QApplication
 public:
 #ifdef KS_PURE_QT
 	KShutdownApplication(int &argc, char **argv)
-		: QApplication(argc, argv) {
+		: QApplication(argc, argv, Utils::isGUI()) {
 	}
 #endif // KS_PURE_QT
 
