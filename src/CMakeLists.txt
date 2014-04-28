@@ -1,6 +1,3 @@
-
-# DOC: http://qtnode.net/wiki/Qt_with_cmake
-
 set(
 	kshutdown_SRC
 	actions/bootentry.cpp
@@ -40,19 +37,32 @@ set(
 	udialog.h
 	usystemtray.h
 )
-qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
+if(KS_PURE_QT)
+	QT5_WRAP_CPP(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
+else()
+	qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
+endif()
 
 add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(kshutdown kdecore kdeui kio ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KUTILS_LIBS})
+if(KS_PURE_QT)
+	target_link_libraries(kshutdown ${Qt5Widgets_LIBRARIES} ${Qt5DBus_LIBRARIES})
+else()
+	target_link_libraries(kshutdown kdecore kdeui kio ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KUTILS_LIBS})
+endif()
 
 install(
 	PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
 	DESTINATION bin
 )
+if(KS_PURE_QT)
+	set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share/apps CACHE FILEPATH "Replacement for KDE4 variable")
+	set(XDG_APPS_INSTALL_DIR ${DATA_INSTALL_DIR}/share/applications CACHE FILEPATH "Install path for .desktop files")
+else()
+	install(FILES kshutdown.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kshutdown)
+endif()
 install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES kshutdown.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kshutdown)
 
 add_subdirectory(actions)
 add_subdirectory(images)
