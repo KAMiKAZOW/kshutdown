@@ -470,6 +470,10 @@ void MainWindow::notify(const QString &id, const QString &text) {
 	noHTML.remove(QRegExp("\\</\\w+\\>"));
 	m_systemTray->warning(noHTML);
 #endif // KS_PURE_QT
+
+	// flash taskbar button
+	if ((id == "1m") || (id == "5m"))
+		U_APP->alert(this, 10000);
 }
 
 void MainWindow::setExtrasCommand(const QString &command) {
