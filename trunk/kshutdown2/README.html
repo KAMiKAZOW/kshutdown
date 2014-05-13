@@ -43,6 +43,11 @@
 		background-color: #EEEEEE;
 		font-weight: bold;
 	}
+	
+	td.build del:after {
+		color: darkgray;
+		content: " (deprecated)";
+	}
 
 	tr:nth-child(odd) td.build {
 		background-color: #FAFAFA;
@@ -439,7 +444,12 @@ Try to run
 </tr>
 
 <tr>
-<td class="build"><a href="http://en.wikipedia.org/wiki/LXDE">LXDE</a></td>
+<td class="build"><a href="http://lxqt.org/">LXQt</a></td>
+<td class="wip" colspan="9">TODO</td>
+</tr>
+
+<tr>
+<td class="build"><a href="http://en.wikipedia.org/wiki/LXDE"><del>LXDE</del></a></td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -517,7 +527,7 @@ Try to run
 </tr>
 
 <tr>
-<td class="build"><a href="http://razor-qt.org/">Razor-qt</a></td>
+<td class="build"><a href="http://razor-qt.org/"><del>Razor-qt</del></a></td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
