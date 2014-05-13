@@ -98,6 +98,8 @@ void ProcessMonitor::addProcess(Process *process) {
 	m_processList.append(process);
 }
 
+// TODO: show warning if selected process does not exist anymore
+
 bool ProcessMonitor::canActivateAction() {
 	if (m_processList.isEmpty())
 		return false;
