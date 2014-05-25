@@ -37,6 +37,7 @@ public:
 
 	void beginGroup(const QString &name);
 	void endGroup();
+	static bool isPortable();
 
 	static bool blackAndWhiteSystemTrayIcon();
 	static void setBlackAndWhiteSystemTrayIcon(const bool value);

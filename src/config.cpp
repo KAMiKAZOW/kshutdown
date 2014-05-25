@@ -18,10 +18,12 @@
 #include "pureqt.h"
 
 #ifdef KS_PURE_QT
+	#include <QDir>
 	#include <QSettings>
 #endif // KS_PURE_QT
 
 #include "config.h"
+#include "utils.h"
 
 // private
 
@@ -51,6 +53,14 @@ void Config::endGroup() {
 #ifdef KS_PURE_QT
 	m_engine->endGroup();
 #endif // KS_PURE_QT
+}
+
+bool Config::isPortable() {
+	#ifdef KS_PORTABLE
+	return true;
+	#else
+	return Utils::isArg("portable");
+	#endif // KS_PORTABLE
 }
 
 bool Config::blackAndWhiteSystemTrayIcon() {
@@ -171,10 +181,11 @@ Config::Config() :
 #ifdef KS_NATIVE_KDE
 	m_engine = KGlobal::config().data();
 #else
-	#ifdef KS_PORTABLE
-		m_engine = new QSettings(QApplication::applicationDirPath() + "\\kshutdown.ini", QSettings::IniFormat);
-	#else
+	bool portable = isPortable();
+	U_DEBUG << "Config::isPortable(): " << portable U_END;
+	if (portable)
+		m_engine = new QSettings(QApplication::applicationDirPath() + QDir::separator() + "kshutdown.ini", QSettings::IniFormat);
+	else
 		m_engine = new QSettings();
-	#endif // KS_PORTABLE
 #endif // KS_NATIVE_KDE
 }

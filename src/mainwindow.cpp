@@ -127,6 +127,10 @@ bool MainWindow::checkCommandLine() {
 		
 		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
 		
+		#ifndef KS_PORTABLE
+		table += "<tr><td><code>--portable</code></td><td>" + i18n("Run in \"portable\" mode") + "</td></tr>\n";
+		#endif // KS_PORTABLE
+		
 		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" + i18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now") + "</td></tr>\n";
 
 		// HACK: non-clickable links in Oxygen Style
@@ -238,7 +242,7 @@ QString MainWindow::getDisplayStatus(const int options) {
 		if (okHint && m_okCancelButton->isEnabled()) {
 			#ifdef KS_NATIVE_KDE
 			QString okText = KStandardGuiItem::ok().text();
-			okText.remove("&");
+			okText.remove('&');
 			#else
 			QString okText = i18n("OK");
 			#endif // KS_NATIVE_KDE
@@ -1093,9 +1097,8 @@ void MainWindow::onAbout() {
 	QString version = KS_FULL_VERSION;
 	version += "&nbsp;(";
 	version += KS_BUILD;
-#ifdef KS_PORTABLE
-	version += ",&nbsp;portable";
-#endif // KS_PORTABLE
+	if (Config::isPortable())
+		version += ",&nbsp;portable";
 	version += ')';
 
 QString license =
