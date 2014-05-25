@@ -241,17 +241,17 @@ QString Extras::getFilesDirectory() const {
 #ifdef KS_NATIVE_KDE
 	return KGlobal::dirs()->saveLocation("data", "kshutdown/extras");
 #else
-	#ifdef KS_PORTABLE
-	QDir dir = QDir(QApplication::applicationDirPath() + QDir::separator() + "extras");
-	#else
-	
-	#if QT_VERSION >= 0x050000
-	QDir dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QDir::separator() + "extras");
-	#else
-	QDir dir = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + "extras";
-	#endif // QT_VERSION
-	
-	#endif // KS_PORTABLE
+	QDir dir;
+	if (Config::isPortable()) {
+		dir = QDir(QApplication::applicationDirPath() + QDir::separator() + "extras");
+	}
+	else {
+		#if QT_VERSION >= 0x050000
+		dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QDir::separator() + "extras");
+		#else
+		dir = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + "extras";
+		#endif // QT_VERSION
+	}
 
 	//U_DEBUG << "Extras dir: " << dir U_END;
 	// CREDITS: http://stackoverflow.com/questions/6232631/how-to-recursively-create-a-directory-in-qt ;-)
