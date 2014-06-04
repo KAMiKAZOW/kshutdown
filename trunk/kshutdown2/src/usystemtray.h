@@ -40,11 +40,12 @@ public:
 	void setContextMenu(QMenu *menu) const;
 	void setToolTip(const QString &toolTip) const;
 	void setVisible(const bool visible) const;
-	void updateIcon(MainWindow *mainWindow) const;
+	void updateIcon(MainWindow *mainWindow);
 	void warning(const QString &message) const;
 private:
 	Q_DISABLE_COPY(USystemTray)
 	#ifdef KS_PURE_QT
+	bool m_applyGeometryHack;
 	QSystemTrayIcon *m_trayIcon;
 	#else
 	KSystemTrayIcon *m_trayIcon;
