@@ -27,6 +27,9 @@
 
 USystemTray::USystemTray(MainWindow *mainWindow)
 	: QObject(mainWindow)
+	#ifdef KS_PURE_QT
+	, m_applyGeometryHack(true)
+	#endif // KS_PURE_QT
 {
 	U_DEBUG << "USystemTray::USystemTray()" U_END;
 
@@ -38,13 +41,13 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 
 #ifdef KS_PURE_QT
 	m_trayIcon = new QSystemTrayIcon(mainWindow);
-	
+
 	connect(
 		m_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
 	);
 #endif // KS_PURE_QT
-
+	
 	updateIcon(mainWindow);
 
 	U_DEBUG << "USystemTray::isSupported:" << isSupported() U_END;
@@ -77,7 +80,18 @@ void USystemTray::setVisible(const bool visible) const {
 		m_trayIcon->hide();
 }
 
-void USystemTray::updateIcon(MainWindow *mainWindow) const {
+void USystemTray::updateIcon(MainWindow *mainWindow) {
+	// HACK: We need to show an empty system tray icon first to get proper geometry() value later.
+	// Wrong/unknown geometry (or something) causes bad icon alignment and background repaint issues...
+	#ifdef KS_PURE_QT
+	if (m_applyGeometryHack) {
+		m_applyGeometryHack = false;
+
+		if (Utils::isMATE() && Config::systemTrayIconEnabled())
+			m_trayIcon->show();
+	}
+	#endif // KS_PURE_QT
+
 	bool active = mainWindow->active();
 	bool bw = Config::blackAndWhiteSystemTrayIcon();
 	
