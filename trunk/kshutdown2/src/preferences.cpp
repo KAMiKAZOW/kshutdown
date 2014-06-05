@@ -33,19 +33,36 @@ Preferences::Preferences(QWidget *parent) :
 	UDialog(parent, i18n("Preferences"), Utils::isGTKStyle()) {
 	U_DEBUG << "Preferences::Preferences()" U_END;
 
-	U_TAB_WIDGET *tabs = new U_TAB_WIDGET();
-	tabs->addTab(createGeneralWidget(), i18n("General"));
-	tabs->addTab(createSystemTrayWidget(), i18n("System Tray"));
+	m_tabs = new U_TAB_WIDGET();
+	m_tabs->addTab(createGeneralWidget(), i18n("General"));
+	m_tabs->addTab(createSystemTrayWidget(), i18n("System Tray"));
 	
 	m_passwordPreferences = new PasswordPreferences(this);
-	tabs->addTab(m_passwordPreferences, i18n("Password"));
+	m_tabs->addTab(m_passwordPreferences, i18n("Password"));
 	
 // TODO: actions/triggers config.
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
 
-	mainLayout()->addWidget(tabs);
+	#ifdef KS_NATIVE_KDE
+	int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
+	m_tabs->setIconSize(QSize(iconSize, iconSize));
+	m_tabs->setTabIcon(0, U_STOCK_ICON("edit-bomb")); // General
+	m_tabs->setTabIcon(1, U_STOCK_ICON("user-desktop")); // System Tray
+	m_tabs->setTabIcon(2, U_STOCK_ICON("dialog-password")); // Password
+	#endif // KS_NATIVE_KDE
+
+	mainLayout()->addWidget(m_tabs);
 	addButtonBox();
+
+	// show recently used tab
+	Config *config = Config::user();
+	config->beginGroup("Preferences");
+	int currentTabIndex = qBound(0, config->read("Current Tab Index", 0).toInt(), m_tabs->count() - 1);
+	config->endGroup();
+	m_tabs->setCurrentIndex(currentTabIndex);
+	
+	connect(this, SIGNAL(finished(int)), SLOT(onFinish(int)));
 }
 
 Preferences::~Preferences() {
@@ -117,6 +134,7 @@ QWidget *Preferences::createSystemTrayWidget() {
 	m_systemTrayIconEnabled->setChecked(Config::systemTrayIconEnabled());
 	l->addWidget(m_systemTrayIconEnabled);
 
+// FIXME: last "j" letter truncated #Qt4.8 #PL
 	m_noMinimizeToSystemTrayIcon = new QCheckBox(i18n("Quit instead of minimizing to System Tray Icon"));
 	m_noMinimizeToSystemTrayIcon->setChecked(!Config::minimizeToSystemTrayIcon());
 	l->addWidget(m_noMinimizeToSystemTrayIcon);
@@ -142,6 +160,16 @@ QWidget *Preferences::createTriggersWidget() {
 */
 
 // private slots
+
+void Preferences::onFinish(int result) {
+	U_DEBUG << "Finish: " << result U_END;
+
+	// save recently used tab
+	Config *config = Config::user();
+	config->beginGroup("Preferences");
+	config->write("Current Tab Index", m_tabs->currentIndex());
+	config->endGroup();
+}
 
 #ifdef KS_NATIVE_KDE
 void Preferences::onKDERelatedSettings() {

@@ -43,7 +43,9 @@ private:
 	QWidget *createGeneralWidget();
 	QWidget *createSystemTrayWidget();
 	//QWidget *createTriggersWidget();
+	U_TAB_WIDGET *m_tabs;
 private slots:
+	void onFinish(int result);
 #ifdef KS_NATIVE_KDE
 	void onKDERelatedSettings();
 #endif // KS_NATIVE_KDE
