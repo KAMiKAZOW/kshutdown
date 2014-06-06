@@ -227,6 +227,14 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 				dirMenu = new U_MENU(text);
 			}
 			createMenu(dirMenu, i.filePath()); // recursive scan
+
+			if (dirMenu->isEmpty()) {
+				U_ACTION *emptyAction = new U_ACTION(dirMenu);
+				emptyAction->setEnabled(false);
+				emptyAction->setText("(" + i18n("Empty") + ")");
+				dirMenu->addAction(emptyAction);
+			}
+
 			parentMenu->addMenu(dirMenu);
 		}
 		else {

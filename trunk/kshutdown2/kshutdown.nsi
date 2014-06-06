@@ -1,7 +1,7 @@
 !include "MUI.nsh"
 !include "kshutdown.nsh"
 
-Name "KShutdown for Windows"
+Name "KShutdown"
 OutFile "kshutdown-${APP_FILE_VERSION}-win32.exe"
 InstallDir "$PROGRAMFILES\KShutdown"
 InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
@@ -13,7 +13,9 @@ SetCompressor /SOLID lzma
 !define MUI_ABORTWARNING
 !define MUI_COMPONENTSPAGE_NODESC
 
+!define MUI_LICENSEPAGE_TEXT_TOP "tl;dr http://tldrlegal.com/l/gpl2"
 !insertmacro MUI_PAGE_LICENSE "LICENSE"
+
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -52,7 +54,7 @@ Section "-"
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
 SectionEnd
 
-Section /o "Autostart" SectionAutostart
+Section /o "Autostart with Windows" SectionAutostart
 	SetShellVarContext all
 	IfSilent NoAutostart
 	CreateDirectory "$SMSTARTUP"
