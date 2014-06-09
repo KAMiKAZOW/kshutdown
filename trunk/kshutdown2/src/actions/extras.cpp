@@ -31,6 +31,10 @@
 #endif // KS_NATIVE_KDE
 
 #ifdef KS_PURE_QT
+	#if QT_VERSION >= 0x050200
+		#include <QCheckBox>
+	#endif // QT_VERSION
+	#include <QPointer>
 	#include <QProcess>
 	#include <QSettings>
 	#include <QUrl>
@@ -342,7 +346,36 @@ void Extras::slotModify() {
 	#ifdef KS_NATIVE_KDE
 	KMessageBox::information(0, text, originalText(), "ModifyExtras");
 	#else
-	QMessageBox::information(0, originalText(), text); // krazy:exclude=qclasses
+	Config *config = Config::user();
+	config->beginGroup("KShutdown Action extras");
+	bool showInfo = config->read("Show Info", true).toBool();
+	config->endGroup();
+	
+	if (showInfo) {
+		QPointer<QMessageBox> message = new QMessageBox( // krazy:exclude=qclasses
+			QMessageBox::Information, // krazy:exclude=qclasses
+			originalText(),
+			text,
+			QMessageBox::Ok // krazy:exclude=qclasses
+		);
+
+		#if QT_VERSION >= 0x050200
+		QCheckBox *doNotShowAgainCheckBox = new QCheckBox(i18n("Do not show this message again"));
+		message->setCheckBox(doNotShowAgainCheckBox);
+		#endif // QT_VERSION
+
+		message->exec();
+
+		#if QT_VERSION >= 0x050200
+		if (doNotShowAgainCheckBox->isChecked()) {
+			config->beginGroup("KShutdown Action extras");
+			config->write("Show Info", false);
+			config->endGroup();
+		}
+		#endif // QT_VERSION
+
+		delete message;
+	}
 	#endif // KS_NATIVE_KDE
 	QUrl url = QUrl::fromLocalFile(getFilesDirectory());
 	QDesktopServices::openUrl(url);

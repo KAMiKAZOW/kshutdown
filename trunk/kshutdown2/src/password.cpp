@@ -49,6 +49,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	QFormLayout *formLayout = new QFormLayout();
 	mainLayout->addLayout(formLayout);
 
+// TODO: show warning if Caps Lock is turned on (no reliable solution in Qt)
 	m_password = new U_LINE_EDIT();
 	#if QT_VERSION >= 0x050200
 	m_password->setClearButtonEnabled(true);
@@ -232,8 +233,8 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	config->endGroup();
 	
 	connect(
-		m_enablePassword, SIGNAL(stateChanged(int)),
-		SLOT(onEnablePassword(int))
+		m_enablePassword, SIGNAL(clicked(bool)),
+		SLOT(onEnablePassword(bool))
 	);
 	mainLayout->addWidget(m_enablePassword);
 	
@@ -263,7 +264,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"http://sourceforge.net/p/kshutdown/wiki/Kiosk/\">Kiosk</a>") + "</qt>", InfoWidget::InfoType);
 	mainLayout->addWidget(kioskInfo);
 	
-	updateWidgets(m_enablePassword->checkState() == Qt::Checked);
+	updateWidgets(m_enablePassword->isChecked());
 }
 
 PasswordPreferences::~PasswordPreferences() {
@@ -275,7 +276,7 @@ void PasswordPreferences::apply() {
 	
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
-	if (m_enablePassword->checkState() != Qt::Checked)
+	if (!m_enablePassword->isChecked())
 		config->write("Hash", "");
 
 	int count = m_userActionList->count();
@@ -310,14 +311,16 @@ void PasswordPreferences::updateWidgets(const bool passwordEnabled) {
 
 // private slots:
 
-void PasswordPreferences::onEnablePassword(int state) {
-	if (state == Qt::Checked) {
+void PasswordPreferences::onEnablePassword(bool checked) {
+	U_DEBUG << "PasswordPreferences::onEnablePassword: " << checked U_END;
+	
+	if (checked) {
 		QPointer<PasswordDialog> dialog = new PasswordDialog(this);
 		if (dialog->exec() == PasswordDialog::Accepted)
 			dialog->apply();
 		else
-			m_enablePassword->setCheckState(Qt::Unchecked);
+			m_enablePassword->setChecked(false);
 		delete dialog;
 	}
-	updateWidgets(m_enablePassword->checkState() == Qt::Checked);
+	updateWidgets(m_enablePassword->isChecked());
 }

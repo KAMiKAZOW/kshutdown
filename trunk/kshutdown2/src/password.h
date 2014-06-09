@@ -58,7 +58,7 @@ private:
 	QListWidgetItem *addItem(const QString &key, const QString &text, const QIcon &icon);
 	void updateWidgets(const bool passwordEnabled);
 private slots:
-	void onEnablePassword(int state);
+	void onEnablePassword(bool checked);
 };
 
 #endif // KSHUTDOWN_PASSWORD_H
