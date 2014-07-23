@@ -40,7 +40,7 @@
 
 PasswordDialog::PasswordDialog(QWidget *parent) :
 	UDialog(parent, i18n("Enter New Password"), false) {
-	U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
+	//U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
 
 	QVBoxLayout *mainLayout = this->mainLayout();
 
@@ -93,7 +93,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 }
 
 PasswordDialog::~PasswordDialog() {
-	U_DEBUG << "PasswordDialog::~PasswordDialog()" U_END;
+	//U_DEBUG << "PasswordDialog::~PasswordDialog()" U_END;
 }
 
 void PasswordDialog::apply() {
@@ -216,7 +216,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	QWidget(parent),
 	m_configKeyRole(Qt::UserRole)
 {
-	U_DEBUG << "PasswordPreferences::PasswordPreferences()" U_END;
+	//U_DEBUG << "PasswordPreferences::PasswordPreferences()" U_END;
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setMargin(10);
@@ -255,7 +255,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	}
 
 	addItem("kshutdown/action/cancel", i18n("Cancel"), U_ICON("dialog-cancel"));
-	addItem("action/file_quit", i18n("Quit"), U_ICON("application-exit"));
+	addItem("action/file_quit", i18n("Quit KShutdown"), U_ICON("application-exit"));
 
 	userActionListLabel->setBuddy(m_userActionList);
 	mainLayout->addWidget(m_userActionList);
@@ -268,11 +268,11 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 }
 
 PasswordPreferences::~PasswordPreferences() {
-	U_DEBUG << "PasswordPreferences::~PasswordPreferences()" U_END;
+	//U_DEBUG << "PasswordPreferences::~PasswordPreferences()" U_END;
 }
 
 void PasswordPreferences::apply() {
-	U_DEBUG << "PasswordPreferences::apply()" U_END;
+	//U_DEBUG << "PasswordPreferences::apply()" U_END;
 	
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
@@ -312,7 +312,7 @@ void PasswordPreferences::updateWidgets(const bool passwordEnabled) {
 // private slots:
 
 void PasswordPreferences::onEnablePassword(bool checked) {
-	U_DEBUG << "PasswordPreferences::onEnablePassword: " << checked U_END;
+	//U_DEBUG << "PasswordPreferences::onEnablePassword: " << checked U_END;
 	
 	if (checked) {
 		QPointer<PasswordDialog> dialog = new PasswordDialog(this);

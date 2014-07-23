@@ -354,6 +354,14 @@ even if required Phonon files are already installed. [<a href="http://osdir.com/
 <h4>make[2]: *** No rule to make target `/usr/lib/libknotifyconfig.so.4.xx', needed by `src/kshutdown'.  Stop.</h4>
 <p>This may happen after KDE upgrade. Run <code>./Setup-kde4.sh</code> to refresh Makefiles.</p>
 
+<h4>CMake Error: The following variables are used in this project, but they are set to NOTFOUND.<br />
+Please set them or make sure they are set and tested correctly in the CMake files:<br />
+QT_QT_INCLUDE_DIR (...)</h4>
+<p>
+This may happen if both Qt 4 and 5 qmake is installed.
+Try to uninstall <code>qt5-qmake</code> package.
+</p>
+
 <h3>Setup</h3>
 
 <h4>"pushd: not found" error</h4>
