@@ -67,7 +67,7 @@ QList<Trigger*> MainWindow::m_triggerList;
 // public
 
 MainWindow::~MainWindow() {
-	U_DEBUG << "MainWindow::~MainWindow()" U_END;
+	//U_DEBUG << "MainWindow::~MainWindow()" U_END;
 
 	foreach (Action *action, m_actionList)
 		delete action;
@@ -377,10 +377,10 @@ QStringList MainWindow::triggerList(const bool showDescription) {
 }
 
 void MainWindow::setActive(const bool yes) {
-	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
-
 	if (m_active == yes)
 		return;
+
+	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
 
 	if (!yes && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))
 		return;
@@ -409,8 +409,8 @@ void MainWindow::setActive(const bool yes) {
 	m_active = yes;
 	m_systemTray->updateIcon(this);
 
-	U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
-	U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
+	//U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
+	//U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
 
 	// reset notifications
 	m_lastNotificationID = QString::null;
@@ -486,7 +486,7 @@ void MainWindow::setExtrasCommand(const QString &command) {
 }
 
 void MainWindow::setSelectedAction(const QString &id) {
-	U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
+	//U_DEBUG << "MainWindow::setSelectedAction( " << id << " )" U_END;
 
 	int index = m_actions->findData(id);
 	if (index == -1)
@@ -498,7 +498,7 @@ void MainWindow::setSelectedAction(const QString &id) {
 }
 
 void MainWindow::setSelectedTrigger(const QString &id) {
-	U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
+	//U_DEBUG << "MainWindow::setSelectedTrigger( " << id << " )" U_END;
 
 	int index = m_triggers->findData(id);
 	if (index == -1)
@@ -517,7 +517,7 @@ void MainWindow::setTime(const QString &trigger, const QString &time) {
 }
 
 void MainWindow::setWaitForProcess(const qint64 pid) {
-	U_DEBUG << "MainWindow::setWaitForProcess( " << pid << " )" U_END;
+	//U_DEBUG << "MainWindow::setWaitForProcess( " << pid << " )" U_END;
 
 	setActive(false);
 
@@ -591,7 +591,7 @@ MainWindow::MainWindow() :
 	m_currentActionWidget(0),
 	m_currentTriggerWidget(0) {
 
-	U_DEBUG << "MainWindow::MainWindow()" U_END;
+	//U_DEBUG << "MainWindow::MainWindow()" U_END;
 
 #ifdef KS_NATIVE_KDE
 	m_actionCollection = new KActionCollection(this);
@@ -622,13 +622,12 @@ MainWindow::MainWindow() :
 
 		QString id = action->id();
 		m_actions->addItem(action->icon(), action->text(), id);
-		int index = m_actions->count() - 1;
 		
 		// insert separator like in menu
 		if ((id == "reboot") || (id == "suspend") || (id == "logout"))
 			m_actions->insertSeparator(m_actions->count());
 
-		U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;
+		//U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;
 	}
 	m_actions->setMaxVisibleItems(m_actions->count());
 
@@ -645,13 +644,12 @@ MainWindow::MainWindow() :
 
 		QString id = trigger->id();
 		m_triggers->addItem(trigger->icon(), trigger->text(), id);
-		int index = m_triggers->count() - 1;
 		
 		// insert separator
 		if (id == "date-time")
 			m_triggers->insertSeparator(m_triggers->count());
 
-		U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;	
+		//U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;	
 	}
 	m_triggers->setMaxVisibleItems(m_triggers->count());
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
@@ -702,7 +700,7 @@ Trigger *MainWindow::getSelectedTrigger() const { // public
 }
 
 void MainWindow::initMenuBar() {
-	U_DEBUG << "MainWindow::initMenuBar()" U_END;
+	//U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
 	U_MENU_BAR *menuBar = new U_MENU_BAR();
 
@@ -770,14 +768,24 @@ void MainWindow::initMenuBar() {
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_cancelAction);
 	//fileMenu->addSeparator();
+
+	U_ACTION *quitAction;
 #ifdef KS_NATIVE_KDE
-	U_ACTION *quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
+	quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
 	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
-	fileMenu->addAction(quitAction);
+	
 #else
-	fileMenu->addAction(i18n("Quit"), this, SLOT(onQuit()), QKeySequence("Ctrl+Shift+Q"))
-		->setIcon(U_STOCK_ICON("application-exit"));
+	quitAction = new U_ACTION(this);
+	quitAction->setIcon(U_STOCK_ICON("application-exit"));
+	quitAction->setShortcut(QKeySequence("Ctrl+Shift+Q"));
+	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
 #endif // KS_NATIVE_KDE
+	// NOTE: Use "Quit KShutdown" instead of "Quit" because
+	// it may be too similar to "Turn Off" in some language translations.
+	quitAction->setText(i18n("Quit KShutdown"));
+
+	fileMenu->addAction(quitAction);
+
 	menuBar->addMenu(fileMenu);
 	m_systemTray->setContextMenu(fileMenu);
 
@@ -927,7 +935,7 @@ void MainWindow::pluginConfig(const bool read) {
 }
 
 void MainWindow::readConfig() {
-	U_DEBUG << "MainWindow::readConfig()" U_END;
+	//U_DEBUG << "MainWindow::readConfig()" U_END;
 
 	pluginConfig(true); // read
 
@@ -1059,7 +1067,7 @@ void MainWindow::updateWidgets() {
 }
 
 void MainWindow::writeConfig() { // public
-	U_DEBUG << "MainWindow::writeConfig()" U_END;
+	//U_DEBUG << "MainWindow::writeConfig()" U_END;
 
 	pluginConfig(false); // write
 
@@ -1079,9 +1087,9 @@ void MainWindow::writeConfig() { // public
 // public slots
 
 void MainWindow::onQuit() {
-	U_DEBUG << "MainWindow::onQuit()" U_END;
+	//U_DEBUG << "MainWindow::onQuit()" U_END;
 	
-	if (!PasswordDialog::authorize(this, i18n("Quit"), "action/file_quit"))
+	if (!PasswordDialog::authorize(this, i18n("Quit KShutdown"), "action/file_quit"))
 		return;
 
 	m_forceQuit = true;
@@ -1211,7 +1219,7 @@ void MainWindow::onFocusChange(QWidget *old, QWidget *now) {
 
 	// update trigger status info on focus gain
 	if (now && (now == m_currentTriggerWidget)) {
-		U_DEBUG << "MainWindow::onFocusChange()" U_END;
+		//U_DEBUG << "MainWindow::onFocusChange()" U_END;
 		onStatusChange(false);
 	}
 }
@@ -1225,7 +1233,7 @@ void MainWindow::onForceClick() {
 }
 
 void MainWindow::onOKCancel() {
-	U_DEBUG << "MainWindow::onOKCancel()" U_END;
+	//U_DEBUG << "MainWindow::onOKCancel()" U_END;
 	
 	// show error message if selected date/time is invalid
 	if (!m_active) {
@@ -1244,7 +1252,7 @@ void MainWindow::onOKCancel() {
 }
 
 void MainWindow::onPreferences() {
-	U_DEBUG << "MainWindow::onPreferences()" U_END;
+	//U_DEBUG << "MainWindow::onPreferences()" U_END;
 	
 	if (!PasswordDialog::authorizeSettings(this))
 		return;

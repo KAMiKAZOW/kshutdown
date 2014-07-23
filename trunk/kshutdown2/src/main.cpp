@@ -115,12 +115,31 @@ int main(int argc, char **argv) {
 
 	// Pure Qt startup
 
+	#ifdef KS_UNIX
+	// NOTE: run this before QApplication constructor
+	bool userStyle = false;
+	if (argc > 1) {
+		for (int i = 1; i < argc; i++) {
+			QString arg(argv[i]);
+			if (arg.startsWith("-style")) {
+				userStyle = true;
+			
+				break; // for
+			}
+		}
+	}
+	#endif // KS_UNIX
+
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
 	KShutdownApplication program(argc, argv);
 
 	#ifdef KS_UNIX
-	if (Utils::isGTKStyle() && !Utils::isHaiku()) {
+	if (
+		!userStyle && // do not override user style option
+		Utils::isGTKStyle() &&
+		!Utils::isHaiku()
+	) {
 		QStyle *gtkStyle = QStyleFactory::create("gtk+");
 		if (gtkStyle)
 			QApplication::setStyle(gtkStyle);
