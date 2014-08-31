@@ -31,7 +31,7 @@
 
 UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple) :
 	QDialog(parent) {
-	U_DEBUG << "UDialog::UDialog()" U_END;
+	//U_DEBUG << "UDialog::UDialog()" U_END;
 	setWindowTitle(windowTitle);
 
 #ifdef KS_NATIVE_KDE
@@ -62,10 +62,8 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 }
 
 UDialog::~UDialog() {
-	U_DEBUG << "UDialog::~UDialog()" U_END;
+	//U_DEBUG << "UDialog::~UDialog()" U_END;
 }
-
-// protected:
 
 void UDialog::addButtonBox() {
 	m_mainLayout->addSpacing(10);

@@ -27,16 +27,20 @@ class BookmarkAction: public U_ACTION {
 	Q_OBJECT
 public:
 	explicit BookmarkAction(
+		const QString &text,
 		BookmarksMenu *menu,
 		const QString &actionID, const QString &triggerID,
 		const QString &actionOption, const QString &triggerOption
 	);
 	virtual ~BookmarkAction();
+	inline QString originalText() const { return m_originalText; }
 private:
 	Q_DISABLE_COPY(BookmarkAction)
 	friend class BookmarksMenu;
+	bool m_userText;
 	QString m_actionID;
 	QString m_actionOption;
+	QString m_originalText;
 	QString m_triggerID;
 	QString m_triggerOption;
 private slots:
@@ -52,7 +56,7 @@ public:
 private:
 	Q_DISABLE_COPY(BookmarksMenu)
 	QList<BookmarkAction *> *m_list;
-	int findBookmark(KShutdown::Action *action, KShutdown::Trigger *trigger);
+	BookmarkAction *findBookmark(KShutdown::Action *action, KShutdown::Trigger *trigger);
 	QList<BookmarkAction *> *list();
 	void syncConfig();
 private slots:

@@ -15,6 +15,8 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include <QFormLayout>
+
 #include "bookmarks.h"
 #include "mainwindow.h"
 #include "password.h"
@@ -23,6 +25,7 @@
 // public:
 
 BookmarkAction::BookmarkAction(
+	const QString &text,
 	BookmarksMenu *menu,
 	const QString &actionID, const QString &triggerID,
 	const QString &actionOption, const QString &triggerOption
@@ -42,8 +45,12 @@ BookmarkAction::BookmarkAction(
 	
 	if (action)
 		setIcon(action->icon());
-		
-	setText(menu->makeText(action, trigger, actionOption, triggerOption));
+	
+	QString actionText = menu->makeText(action, trigger, actionOption, triggerOption);
+	m_userText = !text.isEmpty() && (text != actionText);
+	m_originalText = m_userText ? text : actionText;
+
+	setText(m_originalText);
 }
 
 BookmarkAction::~BookmarkAction() { }
@@ -110,8 +117,7 @@ QString BookmarksMenu::makeText(KShutdown::Action *action, KShutdown::Trigger *t
 
 // private:
 
-int BookmarksMenu::findBookmark(KShutdown::Action *action, KShutdown::Trigger *trigger) {
-	int index = 0;
+BookmarkAction *BookmarksMenu::findBookmark(KShutdown::Action *action, KShutdown::Trigger *trigger) {
 	QString actionOption = action->getStringOption();
 	QString triggerOption = trigger->getStringOption();
 	
@@ -120,13 +126,11 @@ int BookmarksMenu::findBookmark(KShutdown::Action *action, KShutdown::Trigger *t
 			(action->id() == i->m_actionID) && (actionOption == i->m_actionOption) &&
 			(trigger->id() == i->m_triggerID) && (triggerOption == i->m_triggerOption)
 		) {
-			return index;
+			return i;
 		}
-		
-		index++;
 	}
 	
-	return -1;
+	return 0;
 }
 
 QList<BookmarkAction *> *BookmarksMenu::list() {
@@ -140,12 +144,14 @@ QList<BookmarkAction *> *BookmarksMenu::list() {
 	int count = config->read("Count", 0).toInt();
 	if (count > 0) {
 		for (int i = 0; i < count; i++) {
+			QString index = QString::number(i);
 			m_list->append(new BookmarkAction(
+				config->read("Text " + index, "").toString(),
 				this,
-				config->read("Action " + QString::number(i), "").toString(),
-				config->read("Trigger " + QString::number(i), "").toString(),
-				config->read("Action Option " + QString::number(i), "").toString(),
-				config->read("Trigger Option " + QString::number(i), "").toString()
+				config->read("Action " + index, "").toString(),
+				config->read("Trigger " + index, "").toString(),
+				config->read("Action Option " + index, "").toString(),
+				config->read("Trigger Option " + index, "").toString()
 			));
 		}
 	}
@@ -161,13 +167,15 @@ void BookmarksMenu::syncConfig() {
 	config->removeAllKeys();
 	config->write("Count", list()->count());
 	
-	int index = 0;
-	foreach (BookmarkAction *i, *list()) {
-		config->write("Action " + QString::number(index), i->m_actionID);
-		config->write("Action Option " + QString::number(index), i->m_actionOption);
-		config->write("Trigger " + QString::number(index), i->m_triggerID);
-		config->write("Trigger Option " + QString::number(index), i->m_triggerOption);
-		index++;
+	int i = 0;
+	foreach (BookmarkAction *bookmarkAction, *list()) {
+		QString index = QString::number(i);
+		config->write("Text " + index, bookmarkAction->m_userText ? bookmarkAction->originalText() : "");
+		config->write("Action " + index, bookmarkAction->m_actionID);
+		config->write("Action Option " + index, bookmarkAction->m_actionOption);
+		config->write("Trigger " + index, bookmarkAction->m_triggerID);
+		config->write("Trigger Option " + index, bookmarkAction->m_triggerOption);
+		i++;
 	}
 	
 	config->endGroup();
@@ -177,9 +185,9 @@ void BookmarksMenu::syncConfig() {
 
 // private slots:
 
-// sort alphabetically, by action text
+// sort alphabetically, by original action text
 bool compareBookmarkAction(const BookmarkAction *a1, const BookmarkAction *a2) {
-	return QString::compare(a1->text(), a2->text(), Qt::CaseInsensitive) < 0;
+	return QString::compare(a1->originalText(), a2->originalText(), Qt::CaseInsensitive) < 0;
 }
 
 void BookmarksMenu::onAddBookmark() {
@@ -190,7 +198,35 @@ void BookmarksMenu::onAddBookmark() {
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
 
+	UDialog *dialog = new UDialog(mainWindow, i18n("Add Bookmark"), false);
+	dialog->acceptButton()->setText(i18n("Add"));
+
+	U_LINE_EDIT *nameField = new U_LINE_EDIT(makeText(action, trigger, QString::null, QString::null));
+	#if QT_VERSION >= 0x050200
+	nameField->setClearButtonEnabled(true);
+	#endif
+
+// TODO: U_CHECK_BOX *autoStartCheckBox = new U_CHECK_BOX(i18n("Start Automatically"));
+
+	QFormLayout *formLayout = new QFormLayout();
+	dialog->mainLayout()->addLayout(formLayout);
+	formLayout->addRow(i18n("Name:"), nameField);
+
+	dialog->addButtonBox();
+
+	nameField->setFocus();
+	nameField->selectAll();
+
+	bool ok = dialog->exec();
+	QString name = nameField->text();
+	//bool autoStart = autoStartCheckBox->isChecked();
+	delete dialog;
+
+	if (!ok)
+		return;
+
 	BookmarkAction *bookmark = new BookmarkAction(
+		name.trimmed(),
 		this,
 		action->id(),
 		trigger->id(),
@@ -212,9 +248,9 @@ void BookmarksMenu::onRemoveBookmark() {
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
 
-	int i = findBookmark(action, trigger);
-	if (i != -1) {
-		list()->removeAt(i);
+	auto bookmark = findBookmark(action, trigger);
+	if (bookmark) {
+		list()->removeOne(bookmark);
 		syncConfig();
 	}
 }
@@ -224,20 +260,19 @@ void BookmarksMenu::onUpdateMenu() {
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
 
-	QString bookmarkName = makeText(action, trigger, QString::null, QString::null);
-
 	U_ACTION *toggleBookmarkAction = new U_ACTION(this);
-	int i = findBookmark(action, trigger);
-	if (i == -1) {
+	auto *bookmark = findBookmark(action, trigger);
+	if (!bookmark) {
 		toggleBookmarkAction->setEnabled(action->canBookmark() && trigger->canBookmark());
 		
 		toggleBookmarkAction->setIcon(U_ICON("bookmark-new"));
-		toggleBookmarkAction->setText(i18n("Add: %0").arg(bookmarkName));
+		QString text = makeText(action, trigger, QString::null, QString::null);
+		toggleBookmarkAction->setText(i18n("Add: %0").arg(text));
 		connect(toggleBookmarkAction, SIGNAL(triggered()), SLOT(onAddBookmark()));
 	}
 	else {
 		toggleBookmarkAction->setIcon(U_ICON("edit-delete"));
-		toggleBookmarkAction->setText(i18n("Remove: %0").arg(bookmarkName));
+		toggleBookmarkAction->setText(i18n("Remove: %0").arg(bookmark->originalText()));
 		connect(toggleBookmarkAction, SIGNAL(triggered()), SLOT(onRemoveBookmark()));
 	}
 
