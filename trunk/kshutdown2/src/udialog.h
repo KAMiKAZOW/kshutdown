@@ -37,7 +37,6 @@ class UDialog: public QDialog {
 public:
 	explicit UDialog(QWidget *parent, const QString &windowTitle, const bool simple);
 	virtual ~UDialog();
-protected:
 	inline QPushButton *acceptButton() { return m_acceptButton; }
 	void addButtonBox();
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
