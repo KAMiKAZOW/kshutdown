@@ -31,7 +31,7 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 	, m_applyGeometryHack(true)
 	#endif // KS_PURE_QT
 {
-	U_DEBUG << "USystemTray::USystemTray()" U_END;
+	//U_DEBUG << "USystemTray::USystemTray()" U_END;
 
 #ifdef KS_NATIVE_KDE
 	m_trayIcon = new KSystemTrayIcon(mainWindow);
@@ -54,7 +54,7 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 }
 
 USystemTray:: ~USystemTray() {
-	U_DEBUG << "USystemTray::~USystemTray()" U_END;
+	//U_DEBUG << "USystemTray::~USystemTray()" U_END;
 }
 
 void USystemTray::info(const QString &message) const {
@@ -87,8 +87,10 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	if (m_applyGeometryHack) {
 		m_applyGeometryHack = false;
 
-		if (Utils::isMATE() && Config::systemTrayIconEnabled())
+		if (Utils::isMATE() && Config::systemTrayIconEnabled()) {
+			m_trayIcon->setIcon(mainWindow->windowIcon()); // suppress Qt warning
 			m_trayIcon->show();
+		}
 	}
 	#endif // KS_PURE_QT
 
@@ -114,13 +116,15 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	QRect iconSize = m_trayIcon->geometry();
 	// HACK: https://bugreports.qt-project.org/browse/QTBUG-24683
 	if (!iconSize.size().isEmpty() && (iconSize.width() <= 64) && (iconSize.height() <= 64)) {
-		U_DEBUG << "USystemTray::updateIcon: system tray icon size: " << iconSize U_END;
+		//U_DEBUG << "USystemTray::updateIcon: system tray icon size: " << iconSize U_END;
 		w = qBound(22, iconSize.width(), 64);
 		h = qBound(22, iconSize.height(), 64);
 	}
+/*
 	else {
 		U_DEBUG << "USystemTray::updateIcon: using safe tray icon size; reported geometry = " << iconSize U_END;
 	}
+*/
 
 	QPixmap pixmap = icon.pixmap(w, h);
 	QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32_Premultiplied);
@@ -189,7 +193,7 @@ void USystemTray::warning(const QString &message) const {
 
 #ifdef KS_PURE_QT
 void USystemTray::onRestore(QSystemTrayIcon::ActivationReason reason) {
-	U_DEBUG << "USystemTray::onRestore()" U_END;
+	//U_DEBUG << "USystemTray::onRestore()" U_END;
 
 	if (reason == QSystemTrayIcon::Trigger) {
 		MainWindow *mainWindow = MainWindow::self();

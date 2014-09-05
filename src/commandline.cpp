@@ -58,13 +58,13 @@ void TimeOption::init() {
 			m_relative = true;
 		}
 	}
-	U_DEBUG << "Absolute: " << m_absolute U_END;
-	U_DEBUG << "Relative: " << m_relative U_END;
-	U_DEBUG << "QTime: " << m_time U_END;
-	U_DEBUG << "QTime.isNull(): " << m_time.isNull() U_END;
-	U_DEBUG << "QTime.isValid(): " << m_time.isValid() U_END;
-	U_DEBUG << "TimeOption::isError(): " << isError() U_END;
-	U_DEBUG << "TimeOption::isValid(): " << isValid() U_END;
+	//U_DEBUG << "Absolute: " << m_absolute U_END;
+	//U_DEBUG << "Relative: " << m_relative U_END;
+	//U_DEBUG << "QTime: " << m_time U_END;
+	//U_DEBUG << "QTime.isNull(): " << m_time.isNull() U_END;
+	//U_DEBUG << "QTime.isValid(): " << m_time.isValid() U_END;
+	//U_DEBUG << "TimeOption::isError(): " << isError() U_END;
+	//U_DEBUG << "TimeOption::isValid(): " << isValid() U_END;
 }
 
 bool TimeOption::isError() {
@@ -76,7 +76,7 @@ bool TimeOption::isValid() {
 }
 
 void TimeOption::setupMainWindow() {
-	U_DEBUG << "TimeOption::setupMainWindow(): " << m_action->text() U_END;
+	//U_DEBUG << "TimeOption::setupMainWindow(): " << m_action->text() U_END;
 	
 	MainWindow *mainWindow = MainWindow::self();
 	mainWindow->setActive(false);

@@ -31,7 +31,7 @@
 
 Preferences::Preferences(QWidget *parent) :
 	UDialog(parent, i18n("Preferences"), Utils::isGTKStyle()) {
-	U_DEBUG << "Preferences::Preferences()" U_END;
+	//U_DEBUG << "Preferences::Preferences()" U_END;
 
 	m_tabs = new U_TAB_WIDGET();
 	m_tabs->addTab(createGeneralWidget(), i18n("General"));
@@ -66,7 +66,7 @@ Preferences::Preferences(QWidget *parent) :
 }
 
 Preferences::~Preferences() {
-	U_DEBUG << "Preferences::~Preferences()" U_END;
+	//U_DEBUG << "Preferences::~Preferences()" U_END;
 }
 
 void Preferences::apply() {
@@ -162,7 +162,8 @@ QWidget *Preferences::createTriggersWidget() {
 // private slots
 
 void Preferences::onFinish(int result) {
-	U_DEBUG << "Finish: " << result U_END;
+	Q_UNUSED(result)
+	//U_DEBUG << "Finish: " << result U_END;
 
 	// save recently used tab
 	Config *config = Config::user();

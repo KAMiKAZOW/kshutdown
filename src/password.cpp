@@ -136,7 +136,7 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 		parent,
 		"KShutdown", // title
 		prompt,
-		QLineEdit::Password, // krazy:exclude=qclasses
+		U_LINE_EDIT::Password,
 		"",
 		&ok
 	);
