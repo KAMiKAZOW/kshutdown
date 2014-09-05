@@ -34,7 +34,7 @@
 // public
 
 ProgressBar::~ProgressBar() {
-	U_DEBUG << "ProgressBar::~ProgressBar()" U_END;
+	//U_DEBUG << "ProgressBar::~ProgressBar()" U_END;
 }
 
 void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfig) {
@@ -179,7 +179,7 @@ ProgressBar::ProgressBar() // public
 	m_total(0),
 	m_value(0) {
 	
-	U_DEBUG << "ProgressBar::ProgressBar()" U_END;
+	//U_DEBUG << "ProgressBar::ProgressBar()" U_END;
 
 	setAttribute(Qt::WA_AlwaysShowToolTips, true);
 	setObjectName("progress-bar");

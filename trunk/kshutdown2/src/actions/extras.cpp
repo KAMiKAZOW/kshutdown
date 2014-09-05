@@ -307,7 +307,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 	if (command) {
 		m_command = command->m_command;
 		
-		U_DEBUG << "Extras::setCommandAction: " << m_command U_END;
+		//U_DEBUG << "Extras::setCommandAction: " << m_command U_END;
 		m_menuButton->setIcon(U_ICON(command->icon()));
 		m_menuButton->setText(command->text());
 		//m_status = (originalText() + " - " + command->text());
@@ -315,7 +315,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 	else {
 		m_command = QString::null;
 	
-		U_DEBUG << "Extras::setCommandAction: NULL" U_END;
+		//U_DEBUG << "Extras::setCommandAction: NULL" U_END;
 		m_menuButton->setIcon(U_STOCK_ICON("arrow-down"));
 		m_menuButton->setText(i18n("Select a command..."));
 		//m_status = QString::null;

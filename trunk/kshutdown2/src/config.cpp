@@ -32,7 +32,7 @@ Config *Config::m_user = 0;
 // public
 
 Config::~Config() {
-	U_DEBUG << "Config::~Config()" U_END;
+	//U_DEBUG << "Config::~Config()" U_END;
 #ifdef KS_PURE_QT
 	if (m_engine) {
 		delete m_engine;
@@ -176,7 +176,7 @@ void Config::sync() {
 Config::Config() :
 	QObject(0) {
 
-	U_DEBUG << "Config::Config()" U_END;
+	//U_DEBUG << "Config::Config()" U_END;
 	
 #ifdef KS_NATIVE_KDE
 	m_engine = KGlobal::config().data();

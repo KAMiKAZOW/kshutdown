@@ -63,7 +63,8 @@ IdleMonitor::IdleMonitor()
 	#elif defined(Q_OS_HAIKU)
 	m_supported = false;
 	#else
-	m_supported = LockAction::getQDBusInterface()->isValid() && Utils::isKDE_4();
+// FIXME: returns invalid time on KDE (known bug)
+	m_supported = LockAction::getQDBusInterface()->isValid() && !Utils::isKDE_4();
 	#endif // Q_OS_WIN32
 
 	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
@@ -207,7 +208,7 @@ void IdleMonitor::getSessionIdleTime() {
 	QDBusReply<quint32> reply = LockAction::getQDBusInterface()->call("GetSessionIdleTime");
 	
 	if (reply.isValid()) {
-		U_DEBUG << "org.freedesktop.ScreenSaver: reply=" << reply.value() U_END;
+		//U_DEBUG << "org.freedesktop.ScreenSaver: reply=" << reply.value() U_END;
 
 		m_idleTime = reply.value();
 	}
