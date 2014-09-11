@@ -23,8 +23,6 @@
 #include <QLayout>
 #include <QTimer>
 
-// TODO: #define KS_CLASSIC
-
 #ifdef KS_DBUS
 	#include <QDBusConnection>
 #endif // KS_DBUS
@@ -52,6 +50,7 @@
 #include "commandline.h"
 #include "infowidget.h"
 #include "mainwindow.h"
+#include "mod.h"
 #include "password.h"
 #include "preferences.h"
 #include "progressbar.h"
@@ -126,6 +125,8 @@ bool MainWindow::checkCommandLine() {
 		table += "<tr><td><code>--hide-ui</code></td><td>" + i18n("Hide main window and system tray icon") + "</td></tr>\n";
 		
 		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
+		
+		table += "<tr><td><code>--mod</code></td><td>" + i18n("A list of modifications") + "</td></tr>\n";
 		
 		#ifndef KS_PORTABLE
 		table += "<tr><td><code>--portable</code></td><td>" + i18n("Run in \"portable\" mode") + "</td></tr>\n";
@@ -268,7 +269,8 @@ QString MainWindow::getDisplayStatus(const int options) {
 }
 
 void MainWindow::init() {
-	Utils::initArgs();
+	Utils::initArgs(); // 1.
+	Mod::init(); // 2.
 
 	U_DEBUG << "MainWindow::init(): Actions" U_END;
 	m_actionHash = QHash<QString, Action*>();
@@ -703,6 +705,8 @@ void MainWindow::initMenuBar() {
 	//U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
 	U_MENU_BAR *menuBar = new U_MENU_BAR();
+	if (Mod::getBool("ui-hide-menu-bar"))
+		menuBar->hide();
 
 	// file menu
 
@@ -790,8 +794,8 @@ void MainWindow::initMenuBar() {
 	m_systemTray->setContextMenu(fileMenu);
 
 	// bookmarks menu
-	
-	menuBar->addMenu(m_bookmarksMenu);
+	if (!Mod::getBool("ui-hide-bookmarks-menu"))
+		menuBar->addMenu(m_bookmarksMenu);
 
 	// settings menu
 
@@ -904,13 +908,6 @@ void MainWindow::initWidgets() {
 	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));
 #endif // KS_NATIVE_KDE
 	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
-
-	#ifdef KS_CLASSIC
-	QPalette windowPalette;
-	windowPalette.setColor(QPalette::Window, QColor(0xA7DC6B));
-	windowPalette.setColor(QPalette::WindowText, Qt::black);
-	setPalette(windowPalette);
-	#endif // KS_CLASSIC
 }
 
 void MainWindow::pluginConfig(const bool read) {
@@ -992,18 +989,7 @@ void MainWindow::updateWidgets() {
 
 	bool canCancel = !Utils::isRestricted("kshutdown/action/cancel");
 
-	#ifdef KS_CLASSIC
-	QPalette buttonPalette;
-	if (m_active) {
-		buttonPalette.setColor(QPalette::Button, QColor(0xDCD86A));
-		buttonPalette.setColor(QPalette::ButtonText, Qt::black);
-	}
-	else {
-		buttonPalette.setColor(QPalette::Button, QColor(0xDC6A6E));
-		buttonPalette.setColor(QPalette::ButtonText, Qt::white);
-	}
-	m_okCancelButton->setPalette(buttonPalette);
-	#endif // KS_CLASSIC
+	Mod::applyMainWindowColors(this);
 
 #ifdef KS_NATIVE_KDE
 	m_okCancelButton->setGuiItem(

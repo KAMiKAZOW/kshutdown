@@ -44,6 +44,7 @@ class USystemTray;
 using namespace KShutdown;
 
 class MainWindow: public U_MAIN_WINDOW {
+	friend class Mod;
 	friend class TimeOption;
 	Q_OBJECT
 	#ifdef KS_PURE_QT
