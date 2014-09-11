@@ -195,6 +195,8 @@ int main(int argc, char **argv) {
 	// NOTE: Sync. with "addCommandLineArg"
 	KCmdLineOptions options;
 	
+	options.add(":", ki18n("Actions:"));
+	
 	options.add("h");
 	options.add("halt", ki18n("Turn Off Computer"));
 	
@@ -222,14 +224,19 @@ int main(int argc, char **argv) {
 	options.add("extra <file>", ki18n("Run executable file (example: Desktop shortcut or Shell script)"));
 	
 	// NOTE: sync. description with mainwindow.cpp/MainWindow::checkCommandLine()
+	
+	options.add(":", ki18n("Triggers:"));
 
 	options.add("i");
 	options.add("inactivity", ki18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"));
+
+	options.add(":", ki18n("Other Options:"));
 
 	options.add("cancel", ki18n("Cancel an active action"));
 	options.add("confirm", ki18n("Confirm command line action"));
 	options.add("hide-ui", ki18n("Hide main window and system tray icon"));
 	options.add("init", ki18n("Do not show main window on startup"));
+	options.add("mod <value>", ki18n("A list of modifications"));
 	options.add("+[time]", ki18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"));
 	
 	options.add("", ki18n("More Info...\nhttp://sourceforge.net/p/kshutdown/wiki/Command%20Line/")); // krazy:exclude=i18ncheckarg

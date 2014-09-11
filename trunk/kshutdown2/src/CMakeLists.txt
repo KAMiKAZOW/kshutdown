@@ -13,6 +13,7 @@ set(
 	kshutdown.cpp
 	main.cpp
 	mainwindow.cpp
+	mod.cpp
 	password.cpp
 	preferences.cpp
 	progressbar.cpp
