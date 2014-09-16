@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
 	bool userStyle = false;
 	if (argc > 1) {
 		for (int i = 1; i < argc; i++) {
-			QString arg(argv[i]);
+			QByteArray arg(argv[i]);
 			if (arg.startsWith("-style")) {
 				userStyle = true;
 			

@@ -28,6 +28,7 @@ public:
 	static void applyMainWindowColors(MainWindow *mainWindow);
 	static QVariant get(const QString &name, const QVariant &defaultValue);
 	static bool getBool(const QString &name, const bool defaultValue = false);
+	static QColor getColor(const QString &name, const QColor &defaultValue);
 	static void init();
 private:
 	Q_DISABLE_COPY(Mod)

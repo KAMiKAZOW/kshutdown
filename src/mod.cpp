@@ -30,10 +30,10 @@ QHash<QString, QVariant> *Mod::m_map = 0;
 void Mod::applyMainWindowColors(MainWindow *mainWindow) {
 // TODO: document properties
 // TODO: layout mod
-	QColor windowColor = get("ui-window-color", QVariant()).value<QColor>();
-	QColor windowText = get("ui-window-text", QVariant()).value<QColor>();
-	QColor buttonColorActive = get("ui-button-color-active", QVariant()).value<QColor>();
-	QColor buttonColorInactive = get("ui-button-color-inactive", QVariant()).value<QColor>();
+	QColor windowColor = getColor("ui-window-color", QColor());
+	QColor windowText = getColor("ui-window-text", QColor());
+	QColor buttonColorActive = getColor("ui-button-color-active", QColor());
+	QColor buttonColorInactive = getColor("ui-button-color-inactive", QColor());
 	QColor buttonText = QColor();
 
 	QString theme = get("ui-theme", "").toString();
@@ -88,6 +88,10 @@ bool Mod::getBool(const QString &name, const bool defaultValue) {
 	return get(name, defaultValue).toBool();
 }
 
+QColor Mod::getColor(const QString &name, const QColor &defaultValue) {
+	return get(name, defaultValue).value<QColor>();
+}
+
 void Mod::init() {
 	//U_DEBUG << "Mod::init()" U_END;
 
@@ -106,7 +110,7 @@ void Mod::init() {
 
 	if (!configMod.isEmpty()) { // 2. - add value from config - overrides command line entries
 		if (!mod.isEmpty())
-			mod += ",";
+			mod += ',';
 		mod += configMod;
 	}
 

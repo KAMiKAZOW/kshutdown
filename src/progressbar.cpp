@@ -16,6 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "config.h"
+#include "mod.h"
 #include "password.h"
 #include "progressbar.h"
 #include "pureqt.h"
@@ -185,14 +186,20 @@ ProgressBar::ProgressBar() // public
 	setObjectName("progress-bar");
 	setWindowTitle("KShutdown - " + i18n("Progress Bar"));
 
+	QVariant opacityVariant = Mod::get("ui-progress-bar-opacity", 1.0f);
+	bool opacityOK = false;
+	qreal opacity = opacityVariant.toReal(&opacityOK);
+	if (opacityOK)
+		setWindowOpacity(opacity);
+
 	QPalette p;
-	QColor background = QColor(Qt::black);
+
+	QColor background = Mod::getColor("ui-progress-bar-window-color", Qt::black);
 	p.setColor(QPalette::Window, background);
 
-// TODO: transparent
 	Config *config = Config::user();
 	config->beginGroup("Progress Bar");
-	QColor defaultForeground = QColor(0xF8FFBF /* lime 1 */);
+	QColor defaultForeground = 0xF8FFBF /* lime 1 */;
 	QColor foreground = config->read("Foreground Color", defaultForeground).value<QColor>();
 	
 	setHeight(qBound(SmallSize, (Size)config->read("Size", NormalSize).toInt(), LargeSize));
