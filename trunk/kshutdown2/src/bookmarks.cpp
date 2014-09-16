@@ -15,12 +15,15 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <QFormLayout>
-
 #include "bookmarks.h"
 #include "mainwindow.h"
 #include "password.h"
 #include "utils.h"
+
+#include <QFormLayout>
+#ifdef KS_PURE_QT
+	#include <QPointer>
+#endif // KS_PURE_QT
 
 // public:
 
@@ -198,7 +201,7 @@ void BookmarksMenu::onAddBookmark() {
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
 
-	UDialog *dialog = new UDialog(mainWindow, i18n("Add Bookmark"), false);
+	QPointer<UDialog> dialog = new UDialog(mainWindow, i18n("Add Bookmark"), false);
 	dialog->acceptButton()->setText(i18n("Add"));
 
 	U_LINE_EDIT *nameField = new U_LINE_EDIT(makeText(action, trigger, QString::null, QString::null));

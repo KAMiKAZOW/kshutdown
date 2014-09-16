@@ -235,7 +235,7 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			if (dirMenu->isEmpty()) {
 				U_ACTION *emptyAction = new U_ACTION(dirMenu);
 				emptyAction->setEnabled(false);
-				emptyAction->setText("(" + i18n("Empty") + ")");
+				emptyAction->setText('(' + i18n("Empty") + ')');
 				dirMenu->addAction(emptyAction);
 			}
 
