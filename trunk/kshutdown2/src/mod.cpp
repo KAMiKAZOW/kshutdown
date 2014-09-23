@@ -60,7 +60,7 @@ void Mod::applyMainWindowColors(MainWindow *mainWindow) {
 		QPalette buttonPalette;
 		buttonPalette.setColor(QPalette::Button, buttonColor);
 		buttonPalette.setColor(QPalette::ButtonText, buttonText.isValid() ? buttonText : getContrastBW(buttonColor));
-		mainWindow->m_okCancelButton->setPalette(buttonPalette);
+		mainWindow->okCancelButton()->setPalette(buttonPalette);
 	}
 
 	if (windowColor.isValid()) {

@@ -150,6 +150,21 @@ void Extras::readConfig(const QString &group, Config *config) {
 	config->endGroup();
 }
 
+void Extras::updateMainWindow(MainWindow *mainWindow) {
+	if (isEnabled() && getStringOption().isEmpty()) {
+		mainWindow->okCancelButton()->setEnabled(false);
+		mainWindow->infoWidget()->setText(
+			"<qt>" +
+			i18n("Please select an Extras command<br>from the menu above.") +
+			"</qt>",
+			InfoWidget::WarningType
+		);
+	}
+	else {
+		Action::updateMainWindow(mainWindow);
+	}
+}
+
 void Extras::writeConfig(const QString &group, Config *config) {
 	config->beginGroup(group);
 	config->write("Command", m_command);

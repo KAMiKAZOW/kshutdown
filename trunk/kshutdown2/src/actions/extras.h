@@ -40,6 +40,7 @@ public:
 
 		return m_instance;
 	}
+	virtual void updateMainWindow(MainWindow *mainWindow);
 	virtual void writeConfig(const QString &group, Config *config);
 private:
 	Q_DISABLE_COPY(Extras)

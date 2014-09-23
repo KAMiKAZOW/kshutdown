@@ -57,6 +57,7 @@ using namespace KShutdown;
 bool Action::m_totalExit = false;
 #ifdef KS_DBUS
 QDBusInterface *Action::m_loginInterface = 0;
+QDBusInterface *PowerAction::m_upowerInterface = 0;
 bool StandardAction::m_kdeShutDownAvailable = false;
 QDBusInterface *StandardAction::m_consoleKitInterface = 0;
 QDBusInterface *StandardAction::m_halInterface = 0;
@@ -202,6 +203,25 @@ bool Action::showConfirmationMessage() {
 	
 	return accepted;
 	#endif // KS_NATIVE_KDE
+}
+
+void Action::updateMainWindow(MainWindow *mainWindow) {
+	if (isEnabled()) {
+		if (mainWindow->active())
+			mainWindow->okCancelButton()->setEnabled(!Utils::isRestricted("kshutdown/action/cancel"));
+		else
+			mainWindow->okCancelButton()->setEnabled(true);
+		emit statusChanged(false);
+	}
+	else {
+		mainWindow->okCancelButton()->setEnabled(false);
+// TODO: show solution dialog
+		QString s = i18n("Action not available: %0").arg(originalText());
+		if (!disableReason().isEmpty())
+			s += ("<br>" + disableReason());
+		mainWindow->infoWidget()->setText("<qt>" + s + "</qt>", InfoWidget::ErrorType);
+	}
+
 }
 
 // protected
@@ -642,6 +662,24 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 	setCanBookmark(true);
 }
 
+QDBusInterface *PowerAction::getUPowerInterface() {
+	// DOC: http://upower.freedesktop.org/docs/UPower.html
+	if (!m_upowerInterface) {
+		m_upowerInterface = new QDBusInterface(
+			"org.freedesktop.UPower",
+			"/org/freedesktop/UPower",
+			"org.freedesktop.UPower",
+			QDBusConnection::systemBus()
+		);
+		if (m_upowerInterface->isValid())
+			U_DEBUG << "UPower backend found..." U_END;
+		else
+			U_DEBUG << "UPower backend NOT found..." U_END;
+	}
+	
+	return m_upowerInterface;
+}
+
 bool PowerAction::onAction() {
 #ifdef Q_OS_WIN32
 	BOOL hibernate = (m_methodName == "Hibernate");
@@ -665,22 +703,8 @@ bool PowerAction::onAction() {
 	}
 	
 	QDBusInterface *login = getLoginInterface();
+	QDBusInterface *upower = getUPowerInterface();
 	
-	// DOC: http://upower.freedesktop.org/docs/UPower.html
-	QDBusInterface i_upower(
-		"org.freedesktop.UPower",
-		"/org/freedesktop/UPower",
-		"org.freedesktop.UPower",
-		QDBusConnection::systemBus()
-	);
-	
-	// DOC: http://people.freedesktop.org/~david/hal-spec/hal-spec.html
-	QDBusInterface i_hal(
-		"org.freedesktop.Hal",
-		"/org/freedesktop/Hal/devices/computer",
-		"org.freedesktop.Hal.Device.SystemPowerManagement",
-		QDBusConnection::systemBus()
-	);
 	
 	QDBusError error;
 	
@@ -690,20 +714,27 @@ bool PowerAction::onAction() {
 		
 		error = login->lastError();
 	}
-	else if (i_upower.isValid())
-	{
-		i_upower.call(m_methodName);
+	else if (upower->isValid()) {
+		upower->call(m_methodName);
 		
-		error = i_upower.lastError();
+		error = upower->lastError();
 	}
-	else if (i_hal.isValid())
-	{
-		if (m_methodName == "Suspend")
-			i_hal.call(m_methodName, 0);
-		else
-			i_hal.call(m_methodName); // no args
+	else {
+		// DOC: http://people.freedesktop.org/~david/hal-spec/hal-spec.html
+		QDBusInterface i_hal(
+			"org.freedesktop.Hal",
+			"/org/freedesktop/Hal/devices/computer",
+			"org.freedesktop.Hal.Device.SystemPowerManagement",
+			QDBusConnection::systemBus()
+		);
+		if (i_hal.isValid()) {
+			if (m_methodName == "Suspend")
+				i_hal.call(m_methodName, 0);
+			else
+				i_hal.call(m_methodName); // no args
 		
-		error = i_hal.lastError();
+			error = i_hal.lastError();
+		}
 	}
 	
 	if (
@@ -756,16 +787,18 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		}
 	}
 
-// TODO: init once
 	// Use the UPower backend if available
-	QDBusInterface i_upower(
-		"org.freedesktop.UPower",
-		"/org/freedesktop/UPower",
-		"org.freedesktop.UPower",
-		QDBusConnection::systemBus()
-	);
+	QDBusInterface *upower = getUPowerInterface();
+	if (upower->isValid()) {
+		switch (feature) {
+			case Suspend:
+				return upower->property("CanSuspend").toBool();
+			case Hibernate:
+				return upower->property("CanHibernate").toBool();
+		}
+	}
 
-// TODO: lazy init
+// TODO: singleton
 	// Use the legacy HAL backend if UPower not available
 	QDBusInterface i_hal(
 		"org.freedesktop.Hal",
@@ -774,20 +807,9 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		QDBusConnection::systemBus()
 	);
 
-	if (i_upower.isValid())
+	if (i_hal.isValid())
 	{
-		U_DEBUG << "UPower backend found ..." U_END;
-
-		switch (feature) {
-			case Suspend:
-				return i_upower.property("CanSuspend").toBool();
-			case Hibernate:
-				return i_upower.property("CanHibernate").toBool();
-		}
-	}	
-	else if (i_hal.isValid())
-	{
-		U_DEBUG << "HAL backend found ..." U_END;
+		U_DEBUG << "HAL backend found..." U_END;
 			
 		// try old property name as well, for backward compat.
 		QList<QString> featureNames;
@@ -1272,7 +1294,7 @@ bool StandardAction::onAction() {
 void StandardAction::checkAvailable(const QString &consoleKitName) {
 	bool available = false;
 	QString error = "";
-
+// TODO: clean up; return bool
 // TODO: win32: check if shutdown/reboot action is available
 
 	QDBusInterface *login = getLoginInterface();
