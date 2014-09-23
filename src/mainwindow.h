@@ -66,7 +66,9 @@ public:
 	QString getDisplayStatus(const int options);
 	Action *getSelectedAction() const;
 	Trigger *getSelectedTrigger() const;
+	inline InfoWidget *infoWidget() { return m_infoWidget; }
 	static void init();
+	inline U_PUSH_BUTTON *okCancelButton() { return m_okCancelButton; }
 	inline ProgressBar *progressBar() { return m_progressBar; }
 	inline static MainWindow *self() {
 		if (!m_instance)

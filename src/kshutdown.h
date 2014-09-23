@@ -36,6 +36,7 @@ const UShutdownType U_SHUTDOWN_TYPE_REBOOT = 1; // KDE: ShutdownTypeReboot
 const UShutdownType U_SHUTDOWN_TYPE_HALT = 2; // KDE: ShutdownTypeHalt
 
 class BootEntryComboBox;
+class MainWindow;
 class QDateTimeEdit;
 #ifdef KS_DBUS
 class QDBusInterface;
@@ -132,6 +133,7 @@ public:
 	inline static bool totalExit() {
 		return m_totalExit;
 	}
+	virtual void updateMainWindow(MainWindow *mainWindow);
 protected:
 	bool m_force;
 	static bool m_totalExit;
@@ -260,6 +262,9 @@ private:
 class PowerAction: public Action {
 public:
 	explicit PowerAction(const QString &text, const QString &iconName, const QString &id);
+	#ifdef KS_DBUS
+	static QDBusInterface *getUPowerInterface();
+	#endif // KS_DBUS
 	virtual bool onAction();
 	enum PowerActionType { Suspend, Hibernate };
 protected:
@@ -267,6 +272,9 @@ protected:
 	bool isAvailable(const PowerActionType feature) const;
 private:
 	Q_DISABLE_COPY(PowerAction)
+	#ifdef KS_DBUS
+	static QDBusInterface *m_upowerInterface;
+	#endif // KS_DBUS
 };
 
 class HibernateAction: public PowerAction {

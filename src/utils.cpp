@@ -48,7 +48,7 @@ QString Utils::getOption(const QString &name) {
 	if (i == -1) {
 		i = m_args.indexOf("--" + name, 1);
 		if (i == -1) {
-			U_DEBUG << "Argument not found: " << name U_END;
+			//U_DEBUG << "Argument not found: " << name U_END;
 
 			return QString::null;
 		}
@@ -57,12 +57,12 @@ QString Utils::getOption(const QString &name) {
 	int argIndex = (i + 1);
 
 	if (argIndex < m_args.size()) {
-		U_DEBUG << "Value of " << name << " is " << m_args[argIndex] U_END;
+		//U_DEBUG << "Value of " << name << " is " << m_args[argIndex] U_END;
 
 		return m_args[argIndex];
 	}
 
-	U_DEBUG << "Argument value is not set: " << name U_END;
+	//U_DEBUG << "Argument value is not set: " << name U_END;
 
 	return QString::null;
 #endif // KS_NATIVE_KDE
@@ -77,7 +77,7 @@ QString Utils::getTimeOption() {
 #else
 	if (m_args.size() > 2) {
 		QString timeOption = m_args.last();
-		
+// FIXME: clash with --mod and --extra
 		if (!timeOption.isEmpty() && (timeOption.at(0) != '-')) {
 			//U_DEBUG << timeOption U_END;
 			
@@ -186,6 +186,12 @@ bool Utils::isKDE_4() {
 			(m_env.value("KDE_SESSION_VERSION").toInt() >= 4)
 		);
 }
+
+/* TODO: LXQt
+bool Utils::isLXQt() {
+	return m_desktopSession.contains("LXQT", Qt::CaseInsensitive);
+}
+*/
 
 bool Utils::isLXDE() {
 	return

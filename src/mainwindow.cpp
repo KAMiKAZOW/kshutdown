@@ -987,8 +987,6 @@ void MainWindow::updateWidgets() {
 	m_bookmarksMenu->setEnabled(enabled);
 	m_force->setEnabled(enabled);
 
-	bool canCancel = !Utils::isRestricted("kshutdown/action/cancel");
-
 	Mod::applyMainWindowColors(this);
 
 #ifdef KS_NATIVE_KDE
@@ -1013,37 +1011,11 @@ void MainWindow::updateWidgets() {
 	m_okCancelButton->setToolTip(i18n("Click to activate/cancel the selected action"));
 
 	Action *action = getSelectedAction();
-	if (action->isEnabled()) {
-		if ((action == Extras::self()) && Extras::self()->getStringOption().isEmpty()) {
-			m_okCancelButton->setEnabled(false);
-// TODO: move to Extras class
-			m_infoWidget->setText(
-				"<qt>" +
-				i18n("Please select an Extras command<br>from the menu above.") +
-				"</qt>",
-				InfoWidget::WarningType
-			);
-		}
-		else {
-			if (m_active)
-				m_okCancelButton->setEnabled(canCancel);
-			else
-				m_okCancelButton->setEnabled(true);
-			onStatusChange(false);
-		}
-	}
-	else {
-		m_okCancelButton->setEnabled(false);
-// TODO: show solution dialog
-		QString s = i18n("Action not available: %0").arg(action->originalText());
-		if (!action->disableReason().isEmpty())
-			s += ("<br>" + action->disableReason());
-		m_infoWidget->setText("<qt>" + s + "</qt>", InfoWidget::ErrorType);
-	}
-	
+	action->updateMainWindow(this);
+
 	// update "Cancel" action
 	if (m_active) {
-		m_cancelAction->setEnabled(canCancel);
+		m_cancelAction->setEnabled(!Utils::isRestricted("kshutdown/action/cancel"));
 		m_cancelAction->setText(i18n("Cancel: %0").arg(action->originalText()));
 	}
 	else {
