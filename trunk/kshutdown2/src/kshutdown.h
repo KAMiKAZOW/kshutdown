@@ -263,6 +263,8 @@ class PowerAction: public Action {
 public:
 	explicit PowerAction(const QString &text, const QString &iconName, const QString &id);
 	#ifdef KS_DBUS
+	static QDBusInterface *getHalDeviceInterface();
+	static QDBusInterface *getHalDeviceSystemPMInterface();
 	static QDBusInterface *getUPowerInterface();
 	#endif // KS_DBUS
 	virtual bool onAction();
@@ -273,6 +275,8 @@ protected:
 private:
 	Q_DISABLE_COPY(PowerAction)
 	#ifdef KS_DBUS
+	static QDBusInterface *m_halDeviceInterface;
+	static QDBusInterface *m_halDeviceSystemPMInterface;
 	static QDBusInterface *m_upowerInterface;
 	#endif // KS_DBUS
 };
@@ -298,7 +302,6 @@ public:
 protected:
 	#ifdef KS_DBUS
 	static QDBusInterface *m_consoleKitInterface;
-	static QDBusInterface *m_halInterface;
 	static QDBusInterface *m_kdeSessionInterface;
 	static QDBusInterface *m_razorSessionInterface;
 	void checkAvailable(const QString &consoleKitName);

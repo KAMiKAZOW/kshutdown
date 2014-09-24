@@ -57,10 +57,13 @@ using namespace KShutdown;
 bool Action::m_totalExit = false;
 #ifdef KS_DBUS
 QDBusInterface *Action::m_loginInterface = 0;
+
+QDBusInterface *PowerAction::m_halDeviceInterface = 0;
+QDBusInterface *PowerAction::m_halDeviceSystemPMInterface = 0;
 QDBusInterface *PowerAction::m_upowerInterface = 0;
+
 bool StandardAction::m_kdeShutDownAvailable = false;
 QDBusInterface *StandardAction::m_consoleKitInterface = 0;
-QDBusInterface *StandardAction::m_halInterface = 0;
 QDBusInterface *StandardAction::m_kdeSessionInterface = 0;
 QDBusInterface *StandardAction::m_razorSessionInterface = 0;
 #endif // KS_DBUS
@@ -662,6 +665,41 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 	setCanBookmark(true);
 }
 
+#ifdef KS_DBUS
+QDBusInterface *PowerAction::getHalDeviceInterface() {
+	if (!m_halDeviceInterface) {
+		// DOC: http://people.freedesktop.org/~dkukawka/hal-spec-git/hal-spec.html
+		m_halDeviceInterface = new QDBusInterface(
+			"org.freedesktop.Hal",
+			"/org/freedesktop/Hal/devices/computer",
+			"org.freedesktop.Hal.Device",
+			QDBusConnection::systemBus()
+		);
+	}
+	if (m_halDeviceInterface->isValid())
+		U_DEBUG << "HAL backend found..." U_END;
+	else
+		U_ERROR << "HAL backend NOT found: " << m_halDeviceInterface->lastError().message() U_END;
+
+	return m_halDeviceInterface;
+}
+
+QDBusInterface *PowerAction::getHalDeviceSystemPMInterface() {
+	if (!m_halDeviceSystemPMInterface) {
+		// DOC: http://people.freedesktop.org/~dkukawka/hal-spec-git/hal-spec.html
+		m_halDeviceSystemPMInterface = new QDBusInterface(
+			"org.freedesktop.Hal",
+			"/org/freedesktop/Hal/devices/computer",
+			"org.freedesktop.Hal.Device.SystemPowerManagement",
+			QDBusConnection::systemBus()
+		);
+	}
+	if (!m_halDeviceSystemPMInterface->isValid())
+		U_ERROR << "No valid org.freedesktop.Hal interface found: " << m_halDeviceSystemPMInterface->lastError().message() U_END;
+
+	return m_halDeviceSystemPMInterface;
+}
+
 QDBusInterface *PowerAction::getUPowerInterface() {
 	// DOC: http://upower.freedesktop.org/docs/UPower.html
 	if (!m_upowerInterface) {
@@ -679,6 +717,7 @@ QDBusInterface *PowerAction::getUPowerInterface() {
 	
 	return m_upowerInterface;
 }
+#endif // KS_DBUS
 
 bool PowerAction::onAction() {
 #ifdef Q_OS_WIN32
@@ -708,32 +747,34 @@ bool PowerAction::onAction() {
 	
 	QDBusError error;
 	
+	// systemd
+
 	if (login->isValid()) {
-// TODO: test interactivity
+// TODO: test interactivity option
 		login->call(m_methodName, false);
 		
 		error = login->lastError();
 	}
+
+	// UPower
+
 	else if (upower->isValid()) {
 		upower->call(m_methodName);
 		
 		error = upower->lastError();
 	}
+
+	// HAL (lazy init)
+
 	else {
-		// DOC: http://people.freedesktop.org/~david/hal-spec/hal-spec.html
-		QDBusInterface i_hal(
-			"org.freedesktop.Hal",
-			"/org/freedesktop/Hal/devices/computer",
-			"org.freedesktop.Hal.Device.SystemPowerManagement",
-			QDBusConnection::systemBus()
-		);
-		if (i_hal.isValid()) {
+		QDBusInterface *hal = getHalDeviceSystemPMInterface();
+		if (hal->isValid()) {
 			if (m_methodName == "Suspend")
-				i_hal.call(m_methodName, 0);
+				hal->call(m_methodName, 0);
 			else
-				i_hal.call(m_methodName); // no args
+				hal->call(m_methodName); // no args
 		
-			error = i_hal.lastError();
+			error = hal->lastError();
 		}
 	}
 	
@@ -798,19 +839,9 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		}
 	}
 
-// TODO: singleton
-	// Use the legacy HAL backend if UPower not available
-	QDBusInterface i_hal(
-		"org.freedesktop.Hal",
-		"/org/freedesktop/Hal/devices/computer",
-		"org.freedesktop.Hal.Device",
-		QDBusConnection::systemBus()
-	);
-
-	if (i_hal.isValid())
-	{
-		U_DEBUG << "HAL backend found..." U_END;
-			
+	// Use the legacy HAL backend if systemd or UPower not available
+	QDBusInterface *hal = getHalDeviceInterface();
+	if (hal->isValid()) {
 		// try old property name as well, for backward compat.
 		QList<QString> featureNames;
 		switch (feature) {
@@ -828,7 +859,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		
 		// Try the alternative feature names in order; if we get a valid answer, return it
 		foreach (const QString &featureName, featureNames) {
-			reply =  i_hal.call("GetProperty", featureName);
+			reply = hal->call("GetProperty", featureName);
 			if (reply.isValid())
 				return reply.value();
 		}
@@ -1266,16 +1297,18 @@ bool StandardAction::onAction() {
 			return true;
 	}
 
-	// try HAL
+	// try HAL (lazy init)
+	
+	QDBusInterface *hal = PowerAction::getHalDeviceSystemPMInterface();
 
-	if ((m_type == U_SHUTDOWN_TYPE_HALT) && m_halInterface && m_halInterface->isValid()) {
-		QDBusReply<int> reply = m_halInterface->call("Shutdown");
+	if ((m_type == U_SHUTDOWN_TYPE_HALT) && hal->isValid()) {
+		QDBusReply<int> reply = hal->call("Shutdown");
 
 		if (reply.isValid())
 			return true;
 	}
-	else if ((m_type == U_SHUTDOWN_TYPE_REBOOT) && m_halInterface && m_halInterface->isValid()) {
-		QDBusReply<int> reply = m_halInterface->call("Reboot");
+	else if ((m_type == U_SHUTDOWN_TYPE_REBOOT) && hal->isValid()) {
+		QDBusReply<int> reply = hal->call("Reboot");
 
 		if (reply.isValid())
 			return true;
@@ -1297,11 +1330,15 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 // TODO: clean up; return bool
 // TODO: win32: check if shutdown/reboot action is available
 
+	// try systemd
+
 	QDBusInterface *login = getLoginInterface();
 	if (login->isValid()) {
 // TODO: CanPowerOff, etc.
 		available = true;
 	}
+
+	// try ConsoleKit
 
 	if (!consoleKitName.isEmpty()) {
 		if (!m_consoleKitInterface) {
@@ -1325,27 +1362,17 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 		}
 		else {
 // FIXME: this sometimes returns error (service timeout?)
-			U_ERROR << "ConsoleKit Error:" << m_consoleKitInterface->lastError().message() U_END;
+			U_ERROR << "ConsoleKit Error: " << m_consoleKitInterface->lastError().message() U_END;
 			if (error.isEmpty())
 				error = "No valid org.freedesktop.ConsoleKit interface found";
 		}
 	}
-
-	if (!m_halInterface) {
-		m_halInterface = new QDBusInterface(
-			"org.freedesktop.Hal",
-			"/org/freedesktop/Hal/devices/computer",
-			"org.freedesktop.Hal.Device.SystemPowerManagement",
-			QDBusConnection::systemBus()
-		);
-	}
-	if (m_halInterface->isValid()) {
-		available = true;
-	}
-	else {
-		U_ERROR << "HAL Error:" << m_halInterface->lastError().message() U_END;
-		if (error.isEmpty())
-			error = "No valid org.freedesktop.Hal interface found";
+	
+	// try HAL (lazy init)
+	
+	if (!available) {
+		QDBusInterface *hal = PowerAction::getHalDeviceSystemPMInterface();
+		available = hal->isValid();
 	}
 	
 	// BUG #19 - disable only if both ConsoleKit and native KDE API is unavailable
