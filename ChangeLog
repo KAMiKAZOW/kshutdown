@@ -1,6 +1,59 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2014-10-!!!  3.3 Beta
+
+---- Alpha 1 -------------------------------------------------------------------
+
+* NEW: Allow custom bookmark names
+* Updated the Polish and Russian translations
+* Updated README documentation
+* Fixed: Reduce the number of debug messages printed to stderr/console
+* Renamed "Quit" action to "Quit KShutdown"
+* NEW: Add "--mod" command-line option
+  (allows various UI tweaks such as progress bar opacity or color themes;
+  to be documented and continued...)
+* NEW: Added "--portable" command-line option to run KShutdown in a portable mode.
+  This works only with "kshutdown-qt" build and KShutdown for Windows.
+  The standard version for KDE will stop with "Unknown option 'portable'" error.
+* Flash taskbar button 1 or 5 minutes before action timeout
+* Updated About window (show build date in yyyy-mm-dd format; better text layout)
+* Show "Press OK to activate KShutdown" hint
+* Update/simplify installer for Windows
+
+Linux:
+
+* Fixed: Do not override/ignore "-style" command-line option
+* Added keywords to the KShutdown menu entry
+  (for example you can type "halt" or "logout" to search for KShutdown launcher)
+* D-Bus: Show actions/triggers list in sane order
+  (example: qdbus net.sf.kshutdown /kshutdown triggerList false)
+* MATE: Fixed minor system tray icon issues
+* Qt Build: Disable idle detector on KDE (known KDE bug)
+* Fixed: Do not initialize deprecated HAL D-Bus interface on application startup
+* KDE: Better "--help" output
+
+Extras Action:
+
+* Fixed: Show "(Empty)" text if Extras folder does not contain any items
+* Added "Do not show this message again" option
+
+Settings Window:
+
+* Autoselect recently visited tab
+* KDE: Added tab icons
+
+Source:
+
+* scan-build support (./tools/scan-build.sh)
+* Fix minor issues reported by static analyzers
+* A small code clean up
+* Updated examples in ./Setup* scripts
+* Improved ./tools/make-version.h
+* cmake: support Qt5 build <http://sourceforge.net/p/kshutdown/patches/4/>
+* Added flint++ (C++ Linter) support
+
+
 2014-02-23  3.2
 
 * Czech translation update
@@ -648,4 +701,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 727:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 752:HEAD|xsel -i -b && kwrite ChangeLog
