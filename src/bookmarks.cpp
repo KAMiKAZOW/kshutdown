@@ -53,6 +53,11 @@ BookmarkAction::BookmarkAction(
 	m_userText = !text.isEmpty() && (text != actionText);
 	m_originalText = m_userText ? text : actionText;
 
+/* TODO: menu item tool tip <https://bugreports.qt-project.org/browse/QTBUG-13663>
+	if (m_userText)
+		setToolTip(actionText);
+*/
+
 	setText(m_originalText);
 }
 

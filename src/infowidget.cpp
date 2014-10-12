@@ -101,6 +101,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxInformation);
 			#else
+// FIXME: empty icon in some Desktop Environments
 			setIcon("dialog-information");
 			#endif // Q_OS_WIN32
 			break;
