@@ -134,8 +134,12 @@ QWidget *Preferences::createSystemTrayWidget() {
 	m_systemTrayIconEnabled->setChecked(Config::systemTrayIconEnabled());
 	l->addWidget(m_systemTrayIconEnabled);
 
-// FIXME: last "j" letter truncated #Qt4.8 #PL
-	m_noMinimizeToSystemTrayIcon = new QCheckBox(i18n("Quit instead of minimizing to System Tray Icon"));
+	m_noMinimizeToSystemTrayIcon = new QCheckBox(
+		i18n("Quit instead of minimizing to System Tray Icon")
+		// HACK: For some reason the last letter "j" (Polish translation) is truncated
+		// in Oxygen style/Qt 4.8. Add trailing spaces to fix the layout :)
+		+ "  "
+	);
 	m_noMinimizeToSystemTrayIcon->setChecked(!Config::minimizeToSystemTrayIcon());
 	l->addWidget(m_noMinimizeToSystemTrayIcon);
 
