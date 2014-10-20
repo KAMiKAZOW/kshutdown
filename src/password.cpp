@@ -170,7 +170,7 @@ QString PasswordDialog::toHash(const QString &password) {
 // private:
 
 void PasswordDialog::updateStatus() {
-	int minLength = 6;
+	int minLength = 12;
 	bool ok = m_password->text().length() >= minLength;
 	if (!ok) {
 		m_status->setText(i18n("Password is too short (need %0 characters or more)").arg(minLength), InfoWidget::ErrorType);
