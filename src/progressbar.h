@@ -25,7 +25,7 @@ class QActionGroup;
 class ProgressBar: public QWidget {
 	Q_OBJECT
 public:
-	enum Size { SmallSize = 2, NormalSize = 3, MediumSize = 6, LargeSize = 9 };
+	enum/* non-class */Size { SmallSize = 2, NormalSize = 3, MediumSize = 6, LargeSize = 9 };
 	ProgressBar();
 	virtual ~ProgressBar();
 	inline Qt::Alignment alignment() const { return m_alignment; }
@@ -34,8 +34,8 @@ public:
 	void setTotal(const int total);
 	void setValue(const int value);
 protected:
-	void mousePressEvent(QMouseEvent *e);
-	void paintEvent(QPaintEvent *e);
+	virtual void mousePressEvent(QMouseEvent *e) override;
+	virtual void paintEvent(QPaintEvent *e) override;
 private:
 	Q_DISABLE_COPY(ProgressBar)
 	int m_completeWidth;

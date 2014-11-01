@@ -50,7 +50,7 @@ const QString TIME_PARSE_FORMAT = "h:mm";
 
 class Base {
 public:
-	enum State { StartState, StopState, InvalidStatusState };
+	enum class State { Start, Stop, InvalidStatus };
 	explicit Base(const QString &id);
 	virtual ~Base();
 	
@@ -204,12 +204,12 @@ class DateTimeTriggerBase: public Trigger {
 public:
 	explicit DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id);
 	virtual ~DateTimeTriggerBase();
-	virtual bool canActivateAction();
-	virtual QWidget *getWidget();
-	virtual void readConfig(const QString &group, Config *config);
-	virtual void writeConfig(const QString &group, Config *config);
+	virtual bool canActivateAction() override;
+	virtual QWidget *getWidget() override;
+	virtual void readConfig(const QString &group, Config *config) override;
+	virtual void writeConfig(const QString &group, Config *config) override;
 	void setDateTime(const QDateTime &dateTime);
-	virtual void setState(const State state);
+	virtual void setState(const State state) override;
 protected:
 	QDateTime m_dateTime;
 	QDateTime m_endDateTime;
@@ -227,12 +227,12 @@ class DateTimeTrigger: public DateTimeTriggerBase {
 public:
 	DateTimeTrigger();
 	QDateTime dateTime();
-	virtual QString getStringOption();
-	virtual void setStringOption(const QString &option);
-	virtual QWidget *getWidget();
-	virtual void setState(const State state);
+	virtual QString getStringOption() override;
+	virtual void setStringOption(const QString &option) override;
+	virtual QWidget *getWidget() override;
+	virtual void setState(const State state) override;
 protected:
-	virtual QDateTime calcEndTime();
+	virtual QDateTime calcEndTime() override;
 private:
 	Q_DISABLE_COPY(DateTimeTrigger)
 };
@@ -240,9 +240,7 @@ private:
 class NoDelayTrigger: public Trigger {
 public:
 	NoDelayTrigger();
-	virtual bool canActivateAction();
-protected:
-	virtual QDateTime calcEndTime();
+	virtual bool canActivateAction() override { return true; }
 private:
 	Q_DISABLE_COPY(NoDelayTrigger)
 };
@@ -250,11 +248,11 @@ private:
 class TimeFromNowTrigger: public DateTimeTriggerBase {
 public:
 	TimeFromNowTrigger();
-	virtual QString getStringOption();
-	virtual void setStringOption(const QString &option);
-	virtual QWidget *getWidget();
+	virtual QString getStringOption() override;
+	virtual void setStringOption(const QString &option) override;
+	virtual QWidget *getWidget() override;
 protected:
-	virtual QDateTime calcEndTime();
+	virtual QDateTime calcEndTime() override;
 private:
 	Q_DISABLE_COPY(TimeFromNowTrigger)
 };
@@ -267,8 +265,8 @@ public:
 	static QDBusInterface *getHalDeviceSystemPMInterface();
 	static QDBusInterface *getUPowerInterface();
 	#endif // KS_DBUS
-	virtual bool onAction();
-	enum PowerActionType { Suspend, Hibernate };
+	virtual bool onAction() override;
+	enum class PowerActionType { Suspend, Hibernate };
 protected:
 	QString m_methodName;
 	bool isAvailable(const PowerActionType feature) const;
@@ -298,7 +296,7 @@ private:
 class StandardAction: public Action {
 public:
 	explicit StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
-	virtual bool onAction();
+	virtual bool onAction() override;
 protected:
 	#ifdef KS_DBUS
 	static QDBusInterface *m_consoleKitInterface;
@@ -327,7 +325,7 @@ private:
 class RebootAction: public StandardAction {
 public:
 	RebootAction();
-	virtual QWidget *getWidget();
+	virtual QWidget *getWidget() override;
 private:
 	Q_DISABLE_COPY(RebootAction)
 	BootEntryComboBox *m_bootEntryComboBox;

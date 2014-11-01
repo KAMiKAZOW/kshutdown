@@ -26,11 +26,11 @@ class QDBusInterface;
 
 class LockAction: public KShutdown::Action {
 public:
-	virtual bool onAction();
+	virtual bool onAction() override;
 	#ifdef KS_DBUS
 	static QDBusInterface *getQDBusInterface();
 	#endif // KS_DBUS
-	inline static LockAction *self() {
+	static LockAction *self() {
 		if (!m_instance)
 			m_instance = new LockAction();
 

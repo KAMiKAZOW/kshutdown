@@ -128,7 +128,7 @@ QWidget *IdleMonitor::getWidget() {
 }
 
 void IdleMonitor::setState(const State state) {
-	if (state == StartState) {
+	if (state == State::Start) {
 		m_idleTime = 0;
 
 		ProgressBar *progressBar = MainWindow::self()->progressBar();
@@ -144,7 +144,7 @@ void IdleMonitor::setState(const State state) {
 		#endif // KS_DBUS
 #endif // KS_NATIVE_KDE
 	}
-	else if (state == StopState) {
+	else if (state == State::Stop) {
 		m_idleTime = 0;
 	}
 }

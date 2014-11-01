@@ -68,14 +68,14 @@ public:
 	
 	void removeAllKeys();
 	
-	inline static void shutDown() {
+	static void shutDown() {
 		if (m_user) {
 			delete m_user;
 			m_user = 0;
 		}
 	}
 	void sync();
-	inline static Config *user() {
+	static Config *user() {
 		if (!m_user)
 			m_user = new Config();
 

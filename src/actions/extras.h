@@ -29,19 +29,19 @@ class Extras: public KShutdown::Action {
 	Q_OBJECT
 	friend class CommandAction;
 public:
-	virtual QString getStringOption();
-	virtual void setStringOption(const QString &option);
-	virtual QWidget *getWidget();
-	virtual bool onAction();
-	virtual void readConfig(const QString &group, Config *config);
-	inline static Extras *self() {
+	virtual QString getStringOption() override;
+	virtual void setStringOption(const QString &option) override;
+	virtual QWidget *getWidget() override;
+	virtual bool onAction() override;
+	virtual void readConfig(const QString &group, Config *config) override;
+	static Extras *self() {
 		if (!m_instance)
 			m_instance = new Extras();
 
 		return m_instance;
 	}
-	virtual void updateMainWindow(MainWindow *mainWindow);
-	virtual void writeConfig(const QString &group, Config *config);
+	virtual void updateMainWindow(MainWindow *mainWindow) override;
+	virtual void writeConfig(const QString &group, Config *config) override;
 private:
 	Q_DISABLE_COPY(Extras)
 	static Extras *m_instance;
