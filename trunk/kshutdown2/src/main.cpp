@@ -52,7 +52,7 @@ public:
 
 #ifdef KS_NATIVE_KDE
 	/** http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKUniqueApplication.html */
-	virtual int newInstance() {
+	virtual int newInstance() override {
 		static bool first = true;
 		commonStartup(first);
 		first = false;

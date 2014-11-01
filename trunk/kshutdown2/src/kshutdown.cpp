@@ -73,7 +73,7 @@ QDBusInterface *StandardAction::m_razorSessionInterface = 0;
 // public
 
 Base::Base(const QString &id) :
-	m_statusType(InfoWidget::InfoType),
+	m_statusType(InfoWidget::Type::Info),
 	m_disableReason(QString::null),
 	m_error(QString::null),
 	m_id(id),
@@ -222,7 +222,7 @@ void Action::updateMainWindow(MainWindow *mainWindow) {
 		QString s = i18n("Action not available: %0").arg(originalText());
 		if (!disableReason().isEmpty())
 			s += ("<br>" + disableReason());
-		mainWindow->infoWidget()->setText("<qt>" + s + "</qt>", InfoWidget::ErrorType);
+		mainWindow->infoWidget()->setText("<qt>" + s + "</qt>", InfoWidget::Type::Error);
 	}
 
 }
@@ -440,7 +440,7 @@ void DateTimeTriggerBase::setDateTime(const QDateTime &dateTime) {
 }
 
 void DateTimeTriggerBase::setState(const State state) {
-	if (state == StartState) {
+	if (state == State::Start) {
 		m_endDateTime = calcEndTime();
 		
 		// reset progress bar
@@ -475,7 +475,7 @@ void DateTimeTriggerBase::syncDateTime() {
 // private
 
 QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
-	m_statusType = InfoWidget::InfoType;
+	m_statusType = InfoWidget::Type::Info;
 	
 	secsTo = now.secsTo(m_endDateTime);
 	if (secsTo > 0) {
@@ -500,7 +500,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		return QString::null;
 	}
 	else /* if (secsTo < 0) */ {
-		m_statusType = InfoWidget::WarningType;
+		m_statusType = InfoWidget::Type::Warning;
 	
 		return i18n("Invalid date/time");
 	}
@@ -569,11 +569,11 @@ QWidget *DateTimeTrigger::getWidget() {
 void DateTimeTrigger::setState(const State state) {
 	DateTimeTriggerBase::setState(state);
 	
-	if (state == InvalidStatusState) {
+	if (state == State::InvalidStatus) {
 		// show warning if selected date/time is invalid
 		if (QDateTime::currentDateTime() >= dateTime()) {
 			m_status = i18n("Invalid date/time");
-			m_statusType = InfoWidget::WarningType;
+			m_statusType = InfoWidget::Type::Warning;
 		}
 		else {
 			updateStatus();
@@ -595,16 +595,6 @@ NoDelayTrigger::NoDelayTrigger() :
 	Trigger(i18n("No Delay"), "dialog-warning", "no-delay") {
 	
 	setCanBookmark(true);
-}
-
-bool NoDelayTrigger::canActivateAction() {
-	return true;
-}
-
-// protected
-
-QDateTime NoDelayTrigger::calcEndTime() {
-	return QDateTime::currentDateTime();
 }
 
 // TimeFromNowTrigger
@@ -798,10 +788,10 @@ bool PowerAction::onAction() {
 
 bool PowerAction::isAvailable(const PowerActionType feature) const {
 #ifdef Q_OS_WIN32
-	if (feature == Hibernate)
+	if (feature == PowerActionType::Hibernate)
 		return ::IsPwrHibernateAllowed();
 
-	if (feature == Suspend)
+	if (feature == PowerActionType::Suspend)
 		return ::IsPwrSuspendAllowed();
 
 	return false;
@@ -813,13 +803,13 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 	QDBusInterface *login = getLoginInterface();
 	if (login->isValid()) {
 		switch (feature) {
-			case Suspend: {
+			case PowerActionType::Suspend: {
 				QDBusReply<QString> reply = login->call("CanSuspend");
 				U_DEBUG << "systemd: CanSuspend: " << reply U_END;
 				
 				return reply.isValid() && (reply.value() == "yes");
 			} break;
-			case Hibernate: {
+			case PowerActionType::Hibernate: {
 				QDBusReply<QString> reply = login->call("CanHibernate");
 				U_DEBUG << "systemd: CanHibernate: " << reply U_END;
 				
@@ -832,9 +822,9 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 	QDBusInterface *upower = getUPowerInterface();
 	if (upower->isValid()) {
 		switch (feature) {
-			case Suspend:
+			case PowerActionType::Suspend:
 				return upower->property("CanSuspend").toBool();
-			case Hibernate:
+			case PowerActionType::Hibernate:
 				return upower->property("CanHibernate").toBool();
 		}
 	}
@@ -845,11 +835,11 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		// try old property name as well, for backward compat.
 		QList<QString> featureNames;
 		switch (feature) {
-			case Suspend:
+			case PowerActionType::Suspend:
 				featureNames.append("power_management.can_suspend");
 				featureNames.append("power_management.can_suspend_to_ram");
 				break;
-			case Hibernate:
+			case PowerActionType::Hibernate:
 				featureNames.append("power_management.can_hibernate");
 				featureNames.append("power_management.can_suspend_to_disk");
 				break;
@@ -878,7 +868,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 HibernateAction::HibernateAction() :
 	PowerAction(i18n("Hibernate Computer"), "system-suspend-hibernate", "hibernate") {
 	m_methodName = "Hibernate";
-	if (!isAvailable(Hibernate))
+	if (!isAvailable(PowerActionType::Hibernate))
 		disable(i18n("Cannot hibernate computer"));
 
 	addCommandLineArg("H", "hibernate");
@@ -906,7 +896,7 @@ SuspendAction::SuspendAction() :
 		#endif // Q_OS_WIN32
 		"system-suspend", "suspend") {
 	m_methodName = "Suspend";
-	if (!isAvailable(Suspend))
+	if (!isAvailable(PowerActionType::Suspend))
 		disable(i18n("Cannot suspend computer"));
 
 	addCommandLineArg("S", "suspend");

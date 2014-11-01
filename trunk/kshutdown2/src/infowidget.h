@@ -30,10 +30,10 @@ class QLabel;
 class InfoWidget: public QFrame {
 	Q_OBJECT
 public:
-	enum Type { ErrorType, InfoType, WarningType };
+	enum class Type { Error, Info, Warning };
 	explicit InfoWidget(QWidget *parent);
 	virtual ~InfoWidget();
-	void setText(const QString &text, const Type type = InfoType);
+	void setText(const QString &text, const Type type = Type::Info);
 private slots:
 	void onLinkActivated(const QString &contents);
 private:

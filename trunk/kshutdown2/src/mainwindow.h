@@ -52,7 +52,7 @@ class MainWindow: public U_MAIN_WINDOW {
 	Q_CLASSINFO("D-Bus Interface", "net.sf.kshutdown.MainWindow")
 	#endif // KS_PURE_QT
 public:
-	enum DisplayStatus {
+	enum/* non-class */DisplayStatus {
 		DISPLAY_STATUS_HTML = 1 << 0,
 		DISPLAY_STATUS_HTML_NO_ACTION = 1 << 1,
 		DISPLAY_STATUS_SIMPLE = 1 << 2,
@@ -70,7 +70,7 @@ public:
 	static void init();
 	inline U_PUSH_BUTTON *okCancelButton() { return m_okCancelButton; }
 	inline ProgressBar *progressBar() { return m_progressBar; }
-	inline static MainWindow *self() {
+	static MainWindow *self() {
 		if (!m_instance)
 			m_instance = new MainWindow();
 
@@ -92,7 +92,7 @@ public slots:
 	Q_SCRIPTABLE void setWaitForProcess(const qint64 pid);
 	void writeConfig();
 protected:
-	virtual void closeEvent(QCloseEvent *e);
+	virtual void closeEvent(QCloseEvent *e) override;
 private:
 	Q_DISABLE_COPY(MainWindow)
 #ifdef KS_NATIVE_KDE

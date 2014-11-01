@@ -157,7 +157,7 @@ void Extras::updateMainWindow(MainWindow *mainWindow) {
 			"<qt>" +
 			i18n("Please select an Extras command<br>from the menu above.") +
 			"</qt>",
-			InfoWidget::WarningType
+			InfoWidget::Type::Warning
 		);
 	}
 	else {

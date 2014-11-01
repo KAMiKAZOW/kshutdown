@@ -424,8 +424,8 @@ void MainWindow::setActive(const bool yes) {
 			m_confirmLockAction->setEnabled(false);
 #endif // Q_OS_WIN32
 		m_triggerTimer->start(trigger->checkTimeout());
-		action->setState(Base::StartState);
-		trigger->setState(Base::StartState);
+		action->setState(Base::State::Start);
+		trigger->setState(Base::State::Start);
 
 		if (trigger->supportsProgressBar() && Config::user()->progressBarEnabled())
 			m_progressBar->show();
@@ -436,8 +436,8 @@ void MainWindow::setActive(const bool yes) {
 			m_confirmLockAction->setEnabled(true);
 #endif // Q_OS_WIN32
 		m_triggerTimer->stop();
-		action->setState(Base::StopState);
-		trigger->setState(Base::StopState);
+		action->setState(Base::State::Stop);
+		trigger->setState(Base::State::Stop);
 		
 		m_progressBar->hide();
 	}
@@ -1233,8 +1233,8 @@ void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
 	
-	action->setState(Action::InvalidStatusState);
-	trigger->setState(Trigger::InvalidStatusState);
+	action->setState(Action::State::InvalidStatus);
+	trigger->setState(Trigger::State::InvalidStatus);
 
 	QString displayStatus =
 		m_active
@@ -1242,12 +1242,12 @@ void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 		: getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION | DISPLAY_STATUS_OK_HINT);
 	
 	InfoWidget::Type type;
-	if (action->statusType() != InfoWidget::InfoType)
+	if (action->statusType() != InfoWidget::Type::Info)
 		type = action->statusType();
-	else if (trigger->statusType() != InfoWidget::InfoType)
+	else if (trigger->statusType() != InfoWidget::Type::Info)
 		type = trigger->statusType();
 	else
-		type = InfoWidget::InfoType;
+		type = InfoWidget::Type::Info;
 	
 	if (aUpdateWidgets) {
 		updateWidgets();

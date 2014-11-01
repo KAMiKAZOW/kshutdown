@@ -23,10 +23,10 @@
 class TestAction: public KShutdown::Action {
 public:
 	TestAction();
-	virtual QWidget *getWidget();
-	virtual bool onAction();
-	virtual void readConfig(const QString &group, Config *config);
-	virtual void writeConfig(const QString &group, Config *config);
+	virtual QWidget *getWidget() override;
+	virtual bool onAction() override;
+	virtual void readConfig(const QString &group, Config *config) override;
+	virtual void writeConfig(const QString &group, Config *config) override;
 private:
 	Q_DISABLE_COPY(TestAction)
 	QString m_defaultText;

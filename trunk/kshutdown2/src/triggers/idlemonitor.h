@@ -25,15 +25,15 @@ class IdleMonitor: public KShutdown::DateTimeTriggerBase {
 public:
 	IdleMonitor();
 	virtual ~IdleMonitor();
-	virtual bool canActivateAction();
-	virtual QString getStringOption();
-	virtual void setStringOption(const QString &option);
-	virtual QWidget *getWidget();
+	virtual bool canActivateAction() override;
+	virtual QString getStringOption() override;
+	virtual void setStringOption(const QString &option) override;
+	virtual QWidget *getWidget() override;
 	inline bool isSupported() const { return m_supported; }
-	virtual void setState(const State state);
+	virtual void setState(const State state) override;
 protected:
-	virtual QDateTime calcEndTime();
-	virtual void updateStatus();
+	virtual QDateTime calcEndTime() override;
+	virtual void updateStatus() override;
 private:
 	Q_DISABLE_COPY(IdleMonitor)
 	bool m_supported;

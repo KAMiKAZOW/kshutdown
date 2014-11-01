@@ -80,8 +80,8 @@ class ProcessMonitor: public KShutdown::Trigger {
 public:
 	ProcessMonitor();
 	void addProcess(Process *process);
-	virtual bool canActivateAction();
-	virtual QWidget *getWidget();
+	virtual bool canActivateAction() override;
+	virtual QWidget *getWidget() override;
 	void setPID(const qint64 pid);
 private:
 	Q_DISABLE_COPY(ProcessMonitor)

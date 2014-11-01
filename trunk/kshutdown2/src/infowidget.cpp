@@ -74,13 +74,13 @@ InfoWidget::~InfoWidget() { }
 void InfoWidget::setText(const QString &text, const Type type) {
 #ifdef KS_NATIVE_KDE
 	switch (type) {
-		case ErrorType:
+		case Type::Error:
 			m_messageWidget->setMessageType(KMessageWidget::Error);
 			break;
-		case InfoType:
+		case Type::Info:
 			m_messageWidget->setMessageType(KMessageWidget::Information);
 			break;
-		case WarningType:
+		case Type::Warning:
 			m_messageWidget->setMessageType(KMessageWidget::Warning);
 			break;
 	}
@@ -88,7 +88,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 #else
 	QRgb background; // picked from the Oxygen palette
 	switch (type) {
-		case ErrorType:
+		case Type::Error:
 			background = 0xF9CCCA; // brick red 1
 			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxCritical);
@@ -96,7 +96,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 			setIcon("dialog-error");
 			#endif // Q_OS_WIN32
 			break;
-		case InfoType:
+		case Type::Info:
 			background = 0xEEEEEE; // gray 1
 			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxInformation);
@@ -105,7 +105,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 			setIcon("dialog-information");
 			#endif // Q_OS_WIN32
 			break;
-		default: // WarningType
+		default: // Type::Warning
 			background = 0xF8FFBF; // lime 1
 			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxWarning);

@@ -80,7 +80,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 		i18n("The password will be saved as SHA-1 hash.") + "<br>" +
 		i18n("Short password can be easily cracked.") +
 		"</qt>",
-		InfoWidget::WarningType
+		InfoWidget::Type::Warning
 	);
 	mainLayout->addSpacing(10);
 	mainLayout->addWidget(m_status);
@@ -173,21 +173,14 @@ void PasswordDialog::updateStatus() {
 	int minLength = 12;
 	bool ok = m_password->text().length() >= minLength;
 	if (!ok) {
-		m_status->setText(i18n("Password is too short (need %0 characters or more)").arg(minLength), InfoWidget::ErrorType);
+		m_status->setText(i18n("Password is too short (need %0 characters or more)").arg(minLength), InfoWidget::Type::Error);
 	}
 	else {
 		ok = (m_password->text() == m_confirmPassword->text());
-		if (!ok) {
-			m_status->setText(i18n("Confirmation password is different"), InfoWidget::ErrorType);
-		}
-		else {
-			if (m_password->text() == "123456")
-				m_status->setText(":-(", InfoWidget::WarningType);
-			else if (m_password->text() == "dupa.8")
-				m_status->setText("O_o", InfoWidget::InfoType);
-			else
-				m_status->setText(QString::null, InfoWidget::ErrorType);
-		}
+		if (!ok)
+			m_status->setText(i18n("Confirmation password is different"), InfoWidget::Type::Error);
+		else
+			m_status->setText(QString::null, InfoWidget::Type::Error);
 	}
 
 	acceptButton()->setEnabled(ok);
@@ -261,7 +254,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	mainLayout->addWidget(m_userActionList);
 
 	InfoWidget *kioskInfo = new InfoWidget(this);
-	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"http://sourceforge.net/p/kshutdown/wiki/Kiosk/\">Kiosk</a>") + "</qt>", InfoWidget::InfoType);
+	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"http://sourceforge.net/p/kshutdown/wiki/Kiosk/\">Kiosk</a>") + "</qt>", InfoWidget::Type::Info);
 	mainLayout->addWidget(kioskInfo);
 	
 	updateWidgets(m_enablePassword->isChecked());
