@@ -237,7 +237,7 @@ QString MainWindow::getDisplayStatus(const int options) {
 			// HACK: wrap long text
 			int i = s.indexOf(" (");
 			if (i != -1)
-				s.insert(i, "<br>");
+				s.replace(i, 1, "<br>");
 		}
 		
 		if (okHint && m_okCancelButton->isEnabled()) {
@@ -472,8 +472,8 @@ void MainWindow::notify(const QString &id, const QString &text) {
 #endif // KS_NATIVE_KDE
 #ifdef KS_PURE_QT
 	noHTML.replace("<br>", "\n");
-	noHTML.remove(QRegExp("\\<\\w+\\>"));
-	noHTML.remove(QRegExp("\\</\\w+\\>"));
+	noHTML.remove(QRegExp(R"(\<\w+\>)"));
+	noHTML.remove(QRegExp(R"(\</\w+\>)"));
 	m_systemTray->warning(noHTML);
 #endif // KS_PURE_QT
 
@@ -1067,25 +1067,25 @@ void MainWindow::onAbout() {
 	version += ')';
 
 QString license =
-"This program is <b>free software</b>; you can redistribute it and/or modify\n" \
-"it under the terms of the GNU General Public License as published by\n" \
-"the Free Software Foundation; either version 2 of the License, or\n" \
-"(at your option) any later version.\n" \
-"\n" \
-"This program is distributed in the hope that it will be useful,\n" \
-"but <b>WITHOUT ANY WARRANTY</b>; without even the implied warranty of\n" \
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n" \
-"GNU General Public License for more details.\n" \
-"&lt;<a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>&gt;";
+R"(This program is <b>free software</b>; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but <b>WITHOUT ANY WARRANTY</b>; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+&lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;)";
 
 	QMessageBox::about( // krazy:exclude=qclasses
 		this,
 		i18n("About"),
 		"<qt>" \
 		"<h1 style=\"white-space: nowrap\">" + version + "</h1>" +
-		i18n("A graphical shutdown utility") + "<br>" \
-		KS_COPYRIGHT "<br>" \
-		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a><br>" \
+		i18n("A graphical shutdown utility") + "<br />" \
+		KS_COPYRIGHT "<br />" \
+		"&lt;<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a>&gt;<br />" \
 		"<h1>" + i18n("License") + "</h1>" \
 		"<pre>" + license + "</pre>" +
 		"</qt>"
