@@ -134,6 +134,11 @@ int main(int argc, char **argv) {
 	QApplication::setApplicationName("KShutdown");
 	KShutdownApplication program(argc, argv);
 
+/* TODO: program.setAttribute(Qt::AA_UseHighDpiPixmaps, true); #Qt5.4
+http://doc-snapshot.qt-project.org/qt5-5.4/highdpi.html
+http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
+*/
+
 	#ifdef KS_UNIX
 	if (
 		!userStyle && // do not override user style option
