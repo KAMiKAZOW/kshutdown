@@ -294,14 +294,11 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 
 <h3>Minimal Requirements (for compilation)</h3>
 <ol>
-	<li>MinGW - Minimalist GNU for Windows
-		<ul>
-		<li>Download and launch <a href="http://sourceforge.net/projects/mingw/files/Installer/mingw-get-inst/">MinGW Installer</a></li>
-		<li>Choose <code>C:\mingw</code> as the install directory (default)</li>
-		<li>Install <b>C++ Compiler</b> component</li>
-		</ul>
-	</li>
-	<li><a href="http://qt-project.org/downloads">Qt libraries for Windows (minGW, LGPL version)</a> 4.8+/5.x</li>
+	<li><a href="http://download.qt-project.org/archive/qt/4.8/">Qt 4.8.x</a> (<code>qt-opensource-windows-x86-mingw*.exe</code>, minGW, LGPL version)</li>
+	<ol>
+		<li>When asked about MinGW (Minimalist GNU for Windows) click download link and unpack archive into <code>C:\mingw32</code></li>
+		<li>Continue Qt installation</li>
+	</ol>
 	<li><a href="http://nsis.sourceforge.net/">Nullsoft Scriptable Install System</a> (NSIS)</li>
 	<li>Windows XP/Vista/7/8 or compatible (including <a href="http://www.winehq.org/">Wine</a>)</li>
 </ol>
@@ -318,7 +315,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 		<li>Right-click <code>kshutdown.nsi</code> and select <i>Compile NSIS Script</i> to build and test installer</li>
 		</ol>
 	</li>
-	<li><b>Experimental:</b> To compile KShutdown under Wine/Linux run: <code>./Setup-wine.sh</code></li>
+	<li><b>Experimental:</b> To compile/test KShutdown under Wine/Linux run: <code>./Setup-wine.sh</code> or <code>wineconsole tools/test-wine.bat</code></li>
 </ul>
 
 <h2 id="qthaiku">Qt Build @ Haiku</h2>
