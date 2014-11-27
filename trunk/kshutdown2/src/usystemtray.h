@@ -39,7 +39,7 @@ public:
 	bool isSupported() const;
 	void setContextMenu(QMenu *menu) const;
 	void setToolTip(const QString &toolTip) const;
-	void setVisible(const bool visible) const;
+	void setVisible(const bool visible);
 	void updateIcon(MainWindow *mainWindow);
 	void warning(const QString &message) const;
 private:
@@ -50,6 +50,7 @@ private:
 	#else
 	KSystemTrayIcon *m_trayIcon;
 	#endif // KS_PURE_QT
+	bool m_sessionRestored;
 #ifdef KS_PURE_QT
 private slots:
 	void onRestore(QSystemTrayIcon::ActivationReason reason);

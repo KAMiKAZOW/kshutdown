@@ -32,6 +32,8 @@ bool Utils::m_gui = true;
 #ifdef KS_NATIVE_KDE
 	KCmdLineArgs *Utils::m_args = 0;
 #else
+// TODO: use QCommandLineParser instead
+// <http://qt-project.org/doc/qt-5/qcommandlineparser.html> #Qt5.2
 	QStringList Utils::m_args;
 #endif // KS_NATIVE_KDE
 QProcessEnvironment Utils::m_env = QProcessEnvironment::systemEnvironment();
