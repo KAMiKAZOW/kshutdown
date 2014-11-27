@@ -34,12 +34,14 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 	//U_DEBUG << "USystemTray::USystemTray()" U_END;
 
 #ifdef KS_NATIVE_KDE
+	m_sessionRestored = false;
 	m_trayIcon = new KSystemTrayIcon(mainWindow);
 // TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
 // Currently it's lower case "kshutdown".
 #endif // KS_NATIVE_KDE
 
 #ifdef KS_PURE_QT
+	m_sessionRestored = U_APP->isSessionRestored();
 	m_trayIcon = new QSystemTrayIcon(mainWindow);
 
 	connect(
@@ -62,7 +64,11 @@ void USystemTray::info(const QString &message) const {
 }
 
 bool USystemTray::isSupported() const {
-	return !Utils::isUnity() && QSystemTrayIcon::isSystemTrayAvailable();
+	return
+		!Utils::isUnity() &&
+		QSystemTrayIcon::isSystemTrayAvailable() &&
+		// HACK: MATE launches KShutdown before system tray panel is created
+		!(Utils::isMATE() && m_sessionRestored);
 }
 
 void USystemTray::setContextMenu(QMenu *menu) const {
@@ -73,7 +79,9 @@ void USystemTray::setToolTip(const QString &toolTip) const {
 	m_trayIcon->setToolTip(toolTip);
 }
 
-void USystemTray::setVisible(const bool visible) const {
+void USystemTray::setVisible(const bool visible) {
+	m_sessionRestored = false; // clear flag
+
 	if (visible)
 		m_trayIcon->show();
 	else
