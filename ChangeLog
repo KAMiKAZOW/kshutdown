@@ -1,13 +1,12 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
-2014-10-!!!  3.3 Beta
-
----- Alpha 1 -------------------------------------------------------------------
+2014-12-02  3.3 Beta
 
 * NEW: Allow custom bookmark names
+* Increase minimum required password length to 12 characters
 * Updated the Polish and Russian translations
-* Updated README documentation
+* Updated README.html documentation
 * Fixed: Reduce the number of debug messages printed to stderr/console
 * Renamed "Quit" action to "Quit KShutdown"
 * NEW: Add "--mod" command-line option
@@ -16,10 +15,10 @@
 * NEW: Added "--portable" command-line option to run KShutdown in a portable mode.
   This works only with "kshutdown-qt" build and KShutdown for Windows.
   The standard version for KDE will stop with "Unknown option 'portable'" error.
-* Flash taskbar button 1 or 5 minutes before action timeout
+* NEW: Flash taskbar button 1 or 5 minutes before action timeout
 * Updated About window (show build date in yyyy-mm-dd format; better text layout)
 * Show "Press OK to activate KShutdown" hint
-* Update/simplify installer for Windows
+* Fix text wrap and spacing in notification text
 
 Linux:
 
@@ -27,11 +26,16 @@ Linux:
 * Added keywords to the KShutdown menu entry
   (for example you can type "halt" or "logout" to search for KShutdown launcher)
 * D-Bus: Show actions/triggers list in sane order
-  (example: qdbus net.sf.kshutdown /kshutdown triggerList false)
-* MATE: Fixed minor system tray icon issues
+  (example command: qdbus net.sf.kshutdown /kshutdown triggerList false)
+* MATE: Fixed various system tray icon issues
 * Qt Build: Disable idle detector on KDE (known KDE bug)
 * Fixed: Do not initialize deprecated HAL D-Bus interface on application startup
 * KDE: Better "--help" output
+
+Windows:
+
+* Support Qt 4.8.6 library and newer MinGW
+* Update/simplify installer
 
 Extras Action:
 
@@ -42,16 +46,25 @@ Settings Window:
 
 * Autoselect recently visited tab
 * KDE: Added tab icons
+* Fix minor UI layout issues
 
 Source:
 
-* scan-build support (./tools/scan-build.sh)
+* NEW: scan-build support (./tools/scan-build.sh)
 * Fix minor issues reported by static analyzers
-* A small code clean up
 * Updated examples in ./Setup* scripts
 * Improved ./tools/make-version.h
-* cmake: support Qt5 build <http://sourceforge.net/p/kshutdown/patches/4/>
-* Added flint++ (C++ Linter) support
+* NEW: cmake: support Qt5 build <http://sourceforge.net/p/kshutdown/patches/4/>
+* NEW: Added flint++ (C++ Linter) support (./tools/flint++.sh)
+* C++ code clean up:
+  - Add "override"
+  - Add missing "virtual"
+  - Use typesafe "enum class"
+  - Remove some "inline" directives
+  - Use C++11 R"( for better strings readability
+  - Fix _WIN32_WINNT-related warnings
+* Update build instructions for Wine/Win32
+* Updated utility scripts
 
 
 2014-02-23  3.2
@@ -701,4 +714,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 752:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 760:HEAD|xsel -i -b && kwrite ChangeLog
