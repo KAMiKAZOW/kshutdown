@@ -84,7 +84,7 @@ MainWindow::~MainWindow() {
 bool MainWindow::checkCommandLine() {
 #ifdef KS_PURE_QT
 	if (Utils::isHelpArg()) {
-		QString table = "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\" width=\"800\">\n";
+		QString table = "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" width=\"800\">\n";
 		
 		table += "<tr><td colspan=\"2\"><b>" + i18n("Actions") + "</b></td></tr>\n";
 		
@@ -93,7 +93,7 @@ bool MainWindow::checkCommandLine() {
 
 			// args
 			
-			table += "<td width=\"50%\"><code>";
+			table += "<td width=\"30%\"><code>";
 			QString argsCell = "";
 			foreach (const QString &arg, action->getCommandLineArgs()) {
 				if (!argsCell.isEmpty())
@@ -117,8 +117,14 @@ bool MainWindow::checkCommandLine() {
 		
 		table += "<tr><td colspan=\"2\"><b>" + i18n("Miscellaneous") + "</b></td></tr>\n";
 
-		if (m_actionHash.contains("idle-monitor"))
-			table += "<tr><td><code>-i, --inactivity</code></td><td>" + i18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity") + "</td></tr>\n";
+		if (m_actionHash.contains("idle-monitor")) {
+			table += "<tr><td><code>-i, --inactivity</code></td><td>" +
+			i18n( // NOTE: copied from main.cpp
+			"Detect user inactivity. Example:\n"
+			"--logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
+			).replace("\n", "<br />") +
+			"</td></tr>\n";
+		}
 
 		table += "<tr><td><code>--confirm</code></td><td>" + i18n("Confirm command line action") + "</td></tr>\n";
 
@@ -132,7 +138,14 @@ bool MainWindow::checkCommandLine() {
 		table += "<tr><td><code>--portable</code></td><td>" + i18n("Run in \"portable\" mode") + "</td></tr>\n";
 		#endif // KS_PORTABLE
 		
-		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" + i18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now") + "</td></tr>\n";
+		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" +
+		i18n( // NOTE: copied from main.cpp
+		"Activate countdown. Examples:\n"
+		"13:37 - absolute time (HH:MM)\n"
+		"10 or 10m - number of minutes from now\n"
+		"2h - two hours"
+		).replace("\n", "<br />") +
+		"</td></tr>\n";
 
 		// HACK: non-clickable links in Oxygen Style
 		table += "<tr><td colspan=\"2\"><a href=\"http://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">http://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a></td></tr>\n";
