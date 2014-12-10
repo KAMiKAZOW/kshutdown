@@ -52,8 +52,25 @@ void TimeOption::init() {
 	}
 	else {
 		bool ok;
-		int minutes = m_option.toInt(&ok);
-		if (ok && (minutes > 0)) {
+		int minutes = 0;
+		int size = m_option.size();
+
+		if ((size > 1) && m_option.endsWith('H', Qt::CaseInsensitive)) {
+			int hours = m_option.mid(0, size - 1).toInt(&ok);
+			if (ok) {
+				minutes = hours * 60;
+				if (hours == 24)
+					minutes--;
+			}
+		}
+		else if ((size > 1) && m_option.endsWith('M', Qt::CaseInsensitive)) {
+			minutes = m_option.mid(0, size - 1).toInt(&ok);
+		}
+		else {
+			minutes = m_option.toInt(&ok);
+		}
+
+		if (ok && (minutes > 0) && (minutes < 60 * 24)) {
 			m_time = QTime(0, 0).addSecs(minutes * 60);
 			m_relative = true;
 		}

@@ -207,33 +207,39 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	
 	options.add("s");
 	options.add("shutdown", ki18n("Turn Off Computer"));
-	
-	options.add("k");
-	options.add("lock", ki18n("Lock screen"));
-	
+
 	options.add("r");
 	options.add("reboot", ki18n("Restart Computer"));
-	
-	options.add("l");
-	options.add("logout", ki18n("Logout"));
-	
+
 	options.add("H");
 	options.add("hibernate", ki18n("Hibernate Computer"));
-	
-	options.add("test", ki18n("Test Action (does nothing)"));
-	
+
 	options.add("S");
 	options.add("suspend", ki18n("Suspend Computer"));
 
+	options.add("k");
+	options.add("lock", ki18n("Lock screen"));
+
+	options.add("l");
+	options.add("logout", ki18n("Logout"));
+
 	options.add("e");
 	options.add("extra <file>", ki18n("Run executable file (example: Desktop shortcut or Shell script)"));
+	
+	options.add("test", ki18n("Test Action (does nothing)"));
 	
 	// NOTE: sync. description with mainwindow.cpp/MainWindow::checkCommandLine()
 	
 	options.add(":", ki18n("Triggers:"));
 
 	options.add("i");
-	options.add("inactivity", ki18n("Detect user inactivity. Example: --logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"));
+	options.add(
+		"inactivity",
+		ki18n(
+			"Detect user inactivity. Example:\n"
+			"--logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
+		)
+	);
 
 	options.add(":", ki18n("Other Options:"));
 
@@ -242,7 +248,16 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	options.add("hide-ui", ki18n("Hide main window and system tray icon"));
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("mod <value>", ki18n("A list of modifications"));
-	options.add("+[time]", ki18n("Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of minutes from now"));
+// TODO: better AM/PM format support
+	options.add(
+		"+[time]",
+		ki18n(
+			"Activate countdown. Examples:\n"
+			"13:37 - absolute time (HH:MM)\n"
+			"10 or 10m - number of minutes from now\n"
+			"2h - two hours"
+		)
+	);
 	
 	options.add("", ki18n("More Info...\nhttp://sourceforge.net/p/kshutdown/wiki/Command%20Line/")); // krazy:exclude=i18ncheckarg
 	

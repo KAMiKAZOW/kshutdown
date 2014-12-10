@@ -199,7 +199,14 @@ bool Action::showConfirmationMessage() {
 	message->setDefaultButton(QMessageBox::Cancel);
 	QAbstractButton *ok = message->button(QMessageBox::Ok);
 	ok->setIcon(icon());
+
+	#ifdef Q_OS_WIN32
+	// HACK: add left/right margins
+	ok->setText(" " + originalText() + " ");
+	#else
 	ok->setText(originalText());
+	#endif // Q_OS_WIN32
+
 	bool accepted = message->exec() == QMessageBox::Ok; // krazy:exclude=qclasses
 	delete message;
 	

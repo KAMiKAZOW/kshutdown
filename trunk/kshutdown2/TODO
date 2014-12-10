@@ -5,26 +5,27 @@ Tracker @ SourceForge.net:
 * RFE: http://sourceforge.net/p/kshutdown/feature-requests/
 * Patches: http://sourceforge.net/p/kshutdown/patches/
 
+Qt 5.x Based:
+
+* Use QLockFile to force only one application instance
+
 Old KShutDown 1.0.x features:
 
-* Settings: Link creator
+* Settings: Link creator (e.g. in KDE menu or on Desktop)
 * Help: Handbook
 * Help: "What's this?" context help
 * Action configuration (command before action, pause before action)
 * Lock screen after login
-* Close CD-ROM before logout
+* Close CD-ROM before logout; add test button for "Close CD"
 
 Misc.:
 
-* Allow time parameter suffix: example kshutdown --lock 1h (lock after 1 hour)
 * Use http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKStatusNotifierItem.html (?)
 * Extras: Recent items
 * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=538873
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
-* Include in KDE 4
-* "K" menu integration
 * Shutdown everyday to save energy:
   http://sourceforge.net/p/kshutdown/discussion/324058/thread/538d9af2
 * Execute a command:
@@ -33,11 +34,9 @@ Misc.:
   http://sourceforge.net/p/kshutdown/discussion/324058/thread/1725b7c5
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
 * Switch to console mode (tty) [by DigitalCyanide]
-* Add test button for "Close CD"
-* Optionally force application exit
-* Save KDE session if possible
+* KDE: Optionally force application exit (no session save)
 * Remote reboot or shutdown (via SSH)
-* Detect unsaved documents (is there any KDE API to do this?)
+* Detect unsaved documents and show warning (is there any KDE API to do this?)
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
   http://sourceforge.net/p/kshutdown/feature-requests/1/
@@ -46,10 +45,6 @@ Misc.:
   - API: http://api.kde.org/4.x-api/kdebase-workspace-apidocs/libs/kworkspace/html/classKDisplayManager.html
   - http://ksmanis.wordpress.com/2011/04/21/hello-planet-and-grub2-support-for-kdm/
 * Offer one time autologin on reboot <https://bugs.kde.org/show_bug.cgi?id=198255>
-* Settings: Auto Start options (Linux/Windows)
-
-Scripting:
-
 * Activate action when the CPU usage goes under a certain level
   <http://www.autoshutdown.org/index.html>
   [by aaron-koensgen, luckymancvp]
