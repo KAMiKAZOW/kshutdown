@@ -54,6 +54,7 @@
 #include "password.h"
 #include "preferences.h"
 #include "progressbar.h"
+#include "stats.h"
 #include "usystemtray.h"
 #include "utils.h"
 
@@ -806,17 +807,47 @@ void MainWindow::initMenuBar() {
 	menuBar->addMenu(fileMenu);
 	m_systemTray->setContextMenu(fileMenu);
 
+#ifdef KS_PURE_QT
+
+	// edit menu
+
+	if (Utils::isGTKStyle()) {
+		U_MENU *editMenu = new U_MENU(i18n("&Edit"));
+		editMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
+			->setIcon(U_STOCK_ICON("configure"));
+		menuBar->addMenu(editMenu);
+	}
+#endif // KS_PURE_QT
+
 	// bookmarks menu
+
 	if (!Mod::getBool("ui-hide-bookmarks-menu"))
 		menuBar->addMenu(m_bookmarksMenu);
 
+	// tools menu
+
+	U_MENU *toolsMenu = new U_MENU(i18n("&Tools"), menuBar);
+
+	#ifndef Q_OS_WIN32
+	toolsMenu->addAction(i18n("Statistics"), this, SLOT(onStats()));
+	#endif // Q_OS_WIN32
+
+#ifdef KS_PURE_QT
+	if (!Utils::isGTKStyle()) {
+		toolsMenu->addSeparator();
+		toolsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
+			->setIcon(U_STOCK_ICON("configure"));
+	}
+#endif // KS_PURE_QT
+
+	menuBar->addMenu(toolsMenu);
+
+#ifdef KS_NATIVE_KDE
+
 	// settings menu
 
-	U_MENU *settingsMenu = new U_MENU(
-		Utils::isGTKStyle() ? i18n("&Edit") : i18n("&Settings"),
-		menuBar
-	);
-#ifdef KS_NATIVE_KDE
+	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"), menuBar);
+
 	U_ACTION *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
 	configureShortcutsAction->setEnabled(!Utils::isRestricted("action/options_configure_keybinding"));
 	settingsMenu->addAction(configureShortcutsAction);
@@ -830,11 +861,9 @@ void MainWindow::initMenuBar() {
 	U_ACTION *preferencesAction = KStandardAction::preferences(this, SLOT(onPreferences()), this);
 	preferencesAction->setEnabled(!Utils::isRestricted("action/options_configure"));
 	settingsMenu->addAction(preferencesAction);
-#else
-	settingsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
-		->setIcon(U_STOCK_ICON("configure"));
-#endif // KS_NATIVE_KDE
+	
 	menuBar->addMenu(settingsMenu);
+#endif // KS_NATIVE_KDE
 
 	// help menu
 
@@ -872,7 +901,7 @@ void MainWindow::initWidgets() {
 	mainLayout->setMargin(5);
 	mainLayout->setSpacing(10);
 
-	m_actionBox = new QGroupBox(i18n("Selec&t an action"));
+	m_actionBox = new QGroupBox(i18n("Select an &action"));
 	m_actionBox->setObjectName("action-box");
 	m_actionBox->setLayout(new QVBoxLayout());
 
@@ -1237,6 +1266,12 @@ void MainWindow::onPreferences() {
 		m_systemTray->setVisible(Config::systemTrayIconEnabled());
 		m_systemTray->updateIcon(this); // update colors
 	}
+	delete dialog;
+}
+
+void MainWindow::onStats() {
+	QPointer<Stats> dialog = new Stats(this);
+	dialog->exec();
 	delete dialog;
 }
 

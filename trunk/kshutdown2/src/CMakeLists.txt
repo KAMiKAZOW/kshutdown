@@ -17,6 +17,7 @@ set(
 	password.cpp
 	preferences.cpp
 	progressbar.cpp
+	stats.cpp
 	udialog.cpp
 	usystemtray.cpp
 	utils.cpp
@@ -35,6 +36,7 @@ set(
 	password.h
 	preferences.h
 	progressbar.h
+	stats.h
 	udialog.h
 	usystemtray.h
 )
