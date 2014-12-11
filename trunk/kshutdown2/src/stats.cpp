@@ -17,22 +17,22 @@
 
 #include "stats.h"
 
-#include <QPlainTextEdit>
 #include <QVBoxLayout>
 
 // public:
 
 Stats::Stats(QWidget *parent) :
-	UDialog(parent, i18n("Statistics"), true),
-	m_outputBuf("") {
+	UDialog(parent, i18n("Statistics"), true) {
 
 	resize(800, 600);
 
 	m_textView = new QPlainTextEdit(this);
 	m_textView->setLineWrapMode(QPlainTextEdit::NoWrap);
+	m_textView->setPlainText(i18n("Please Wait..."));
 	m_textView->setReadOnly(true);
-	m_textView->setStyleSheet("font-family: monospace");
+	m_textView->setStyleSheet("QPlainTextEdit { font-family: monospace; }");
 
+	mainLayout()->setSpacing(0);
 	mainLayout()->addWidget(m_textView);
 	addButtonBox();
 
