@@ -123,7 +123,7 @@ bool MainWindow::checkCommandLine() {
 			i18n( // NOTE: copied from main.cpp
 			"Detect user inactivity. Example:\n"
 			"--logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
-			).replace("\n", "<br />") +
+			).replace('\n', "<br />") +
 			"</td></tr>\n";
 		}
 
@@ -145,7 +145,7 @@ bool MainWindow::checkCommandLine() {
 		"13:37 - absolute time (HH:MM)\n"
 		"10 or 10m - number of minutes from now\n"
 		"2h - two hours"
-		).replace("\n", "<br />") +
+		).replace('\n', "<br />") +
 		"</td></tr>\n";
 
 		// HACK: non-clickable links in Oxygen Style
