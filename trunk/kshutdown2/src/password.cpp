@@ -15,10 +15,11 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "password.h"
+
 #include "config.h"
 #include "infowidget.h"
 #include "mainwindow.h"
-#include "password.h"
 
 #ifdef KS_NATIVE_KDE
 	#include <KPasswordDialog>
@@ -116,7 +117,6 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 	if (hash.isEmpty())
 		return true;
 
-	QString password = QString::null;
 	QString prompt = i18n("Enter password to perform action: %0").arg(caption);
 
 	#ifdef KS_NATIVE_KDE
@@ -124,15 +124,14 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 	dialog->setPixmap(U_ICON("kshutdown").pixmap(48, 48));
 	dialog->setPrompt(prompt);
 	bool ok = dialog->exec();
-	if (ok)
-		password = dialog->password();
+	QString password = ok ? dialog->password() : QString::null;
 	delete dialog;
 	
 	if (!ok)
 		return false;
 	#else
 	bool ok;
-	password = QInputDialog::getText( // krazy:exclude=qclasses
+	QString password = QInputDialog::getText( // krazy:exclude=qclasses
 		parent,
 		"KShutdown", // title
 		prompt,

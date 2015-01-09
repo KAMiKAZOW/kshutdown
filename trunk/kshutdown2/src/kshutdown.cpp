@@ -202,7 +202,7 @@ bool Action::showConfirmationMessage() {
 
 	#ifdef Q_OS_WIN32
 	// HACK: add left/right margins
-	ok->setText(" " + originalText() + " ");
+	ok->setText(' ' + originalText() + ' ');
 	#else
 	ok->setText(originalText());
 	#endif // Q_OS_WIN32

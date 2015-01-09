@@ -16,5 +16,5 @@ if [ -z "$dir" ]; then
 fi
 
 pushd "$dir"
-krazy2all
+krazy2all --check-sets c++,foss,kde5,qt5
 popd
