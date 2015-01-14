@@ -29,7 +29,6 @@
 
 #ifdef KS_PURE_QT
 	#include <QPointer>
-	#include <QWhatsThis>
 
 	#include "version.h" // for about()
 #else
@@ -807,18 +806,6 @@ void MainWindow::initMenuBar() {
 	menuBar->addMenu(fileMenu);
 	m_systemTray->setContextMenu(fileMenu);
 
-#ifdef KS_PURE_QT
-
-	// edit menu
-
-	if (Utils::isGTKStyle()) {
-		U_MENU *editMenu = new U_MENU(i18n("&Edit"));
-		editMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
-			->setIcon(U_STOCK_ICON("configure"));
-		menuBar->addMenu(editMenu);
-	}
-#endif // KS_PURE_QT
-
 	// bookmarks menu
 
 	if (!Mod::getBool("ui-hide-bookmarks-menu"))
@@ -830,46 +817,39 @@ void MainWindow::initMenuBar() {
 
 	#ifndef Q_OS_WIN32
 	toolsMenu->addAction(i18n("Statistics"), this, SLOT(onStats()));
+	toolsMenu->addSeparator();
 	#endif // Q_OS_WIN32
 
 #ifdef KS_PURE_QT
-	if (!Utils::isGTKStyle()) {
-		toolsMenu->addSeparator();
-		toolsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
-			->setIcon(U_STOCK_ICON("configure"));
-	}
+	toolsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
+		->setIcon(U_STOCK_ICON("configure"));
 #endif // KS_PURE_QT
 
-	menuBar->addMenu(toolsMenu);
-
 #ifdef KS_NATIVE_KDE
-
-	// settings menu
-
-	U_MENU *settingsMenu = new U_MENU(i18n("&Settings"), menuBar);
-
 	U_ACTION *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
 	configureShortcutsAction->setEnabled(!Utils::isRestricted("action/options_configure_keybinding"));
-	settingsMenu->addAction(configureShortcutsAction);
+	toolsMenu->addAction(configureShortcutsAction);
 
 	U_ACTION *configureNotificationsAction = KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this);
 	configureNotificationsAction->setEnabled(!Utils::isRestricted("action/options_configure_notifications"));
-	settingsMenu->addAction(configureNotificationsAction);
+	toolsMenu->addAction(configureNotificationsAction);
 	
-	settingsMenu->addSeparator();
+	toolsMenu->addSeparator();
 	
 	U_ACTION *preferencesAction = KStandardAction::preferences(this, SLOT(onPreferences()), this);
 	preferencesAction->setEnabled(!Utils::isRestricted("action/options_configure"));
-	settingsMenu->addAction(preferencesAction);
-	
-	menuBar->addMenu(settingsMenu);
+	toolsMenu->addAction(preferencesAction);
 #endif // KS_NATIVE_KDE
+
+	menuBar->addMenu(toolsMenu);
 
 	// help menu
 
 #ifdef KS_NATIVE_KDE
 	Config *config = Config::user();
 	config->beginGroup("KDE Action Restrictions");
+	// unused
+	config->write("action/help_whats_this", false);
 	// KDE version is in About dialog too
 	config->write("action/help_about_kde", false);
 	// no KShutdown Handbook yet
@@ -880,8 +860,6 @@ void MainWindow::initMenuBar() {
 	menuBar->addMenu(helpMenu());
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"), menuBar);
-	helpMenu->addAction(QWhatsThis::createAction(this));
-	helpMenu->addSeparator();
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
 	helpMenu->addAction(i18n("About Qt"), U_APP, SLOT(aboutQt()));
 	menuBar->addMenu(helpMenu);
@@ -1158,8 +1136,11 @@ void MainWindow::onActionActivated(int index) {
 		m_actionBox->layout()->addWidget(m_currentActionWidget);
 		m_currentActionWidget->show();
 	}
-	
-	m_actions->setWhatsThis(action->whatsThis());
+
+	if (action->toolTip() == action->originalText())
+		m_actions->setToolTip(QString::null);
+	else
+		m_actions->setToolTip(action->toolTip());
 
 	onStatusChange(true);
 }
@@ -1325,7 +1306,7 @@ void MainWindow::onTriggerActivated(int index) {
 		m_currentTriggerWidget->show();
 	}
 	
-	m_triggers->setWhatsThis(trigger->whatsThis());
+	m_triggers->setToolTip(trigger->toolTip());
 
 	onStatusChange(true);
 }

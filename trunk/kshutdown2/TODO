@@ -13,7 +13,6 @@ Old KShutDown 1.0.x features:
 
 * Settings: Link creator (e.g. in KDE menu or on Desktop)
 * Help: Handbook
-* Help: "What's this?" context help
 * Action configuration (command before action, pause before action)
 * Lock screen after login
 * Close CD-ROM before logout; add test button for "Close CD"

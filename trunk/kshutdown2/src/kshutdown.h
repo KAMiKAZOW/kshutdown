@@ -184,8 +184,8 @@ public:
 	inline QString text() const {
 		return m_text;
 	}
-	inline QString whatsThis() const { return m_whatsThis; }
-	inline void setWhatsThis(const QString &value) { m_whatsThis = value; }
+	inline QString toolTip() const { return m_toolTip; }
+	inline void setToolTip(const QString &value) { m_toolTip = value; }
 protected:
 	bool m_supportsProgressBar;
 	int m_checkTimeout;
@@ -193,7 +193,7 @@ private:
 	Q_DISABLE_COPY(Trigger)
 	U_ICON m_icon;
 	QString m_text;
-	QString m_whatsThis;
+	QString m_toolTip = QString::null;
 signals:
 	void notify(const QString &id, const QString &text);
 	void statusChanged(const bool updateWidgets);
