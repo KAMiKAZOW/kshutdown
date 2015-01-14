@@ -66,7 +66,7 @@ IdleMonitor::IdleMonitor()
 	m_supported = LockAction::getQDBusInterface()->isValid() && !Utils::isKDE_4();
 	#endif // Q_OS_WIN32
 
-	setWhatsThis("<qt>" + i18n("Use this trigger to detect user inactivity (example: no mouse clicks).") + "</qt>");
+	setToolTip(i18n("Use this trigger to detect user inactivity\n(example: no mouse clicks)."));
 }
 
 IdleMonitor::~IdleMonitor() { }

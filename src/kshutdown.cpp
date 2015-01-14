@@ -361,8 +361,7 @@ Trigger::Trigger(const QString &text, const QString &iconName, const QString &id
 	m_supportsProgressBar(false),
 	m_checkTimeout(500),
 	m_icon(U_STOCK_ICON(iconName)),
-	m_text(text),
-	m_whatsThis(QString::null) {
+	m_text(text) {
 }
 
 // DateTimeTriggerBase
@@ -878,15 +877,8 @@ HibernateAction::HibernateAction() :
 		disable(i18n("Cannot hibernate computer"));
 
 	addCommandLineArg("H", "hibernate");
-	
-	// NOTE: Copied from http://en.wikipedia.org/wiki/Hibernate_(OS_feature)
-	// Do not remove "Source" info.
-	setWhatsThis("<qt>" + i18n(
-"<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating systems where the contents of RAM are written to non-volatile storage such as a hard disk, as a file or on a separate partition, before powering off the computer.</p>" \
-"<p>When the computer is restarted it reloads the content of memory and is restored to the state it was in when hibernation was invoked.</p>" \
-"<p>Hibernating and later restarting is usually faster than closing down, later starting up, and starting all the programs that were running.</p>" \
-"<p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
-	) + "</qt>");
+
+	setToolTip(i18n("Save the contents of RAM to disk\nthen turn off the computer."));
 }
 
 // SuspendAction
@@ -907,7 +899,7 @@ SuspendAction::SuspendAction() :
 
 	addCommandLineArg("S", "suspend");
 // TODO: menu item tool tips
-	setWhatsThis(i18n("Enter in a low-power state mode."));
+	setToolTip(i18n("Enter in a low-power state mode."));
 }
 
 // StandardAction
