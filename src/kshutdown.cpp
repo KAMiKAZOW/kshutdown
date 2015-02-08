@@ -332,7 +332,9 @@ ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
 	setIcon(action->icon());
 	setMenu(action->menu());
 	setShortcut(action->shortcut());
+	setStatusTip(action->statusTip());
 	setText(action->text());
+	setToolTip(action->toolTip());
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 
@@ -878,7 +880,7 @@ HibernateAction::HibernateAction() :
 
 	addCommandLineArg("H", "hibernate");
 
-	setToolTip(i18n("Save the contents of RAM to disk\nthen turn off the computer."));
+	setStatusTip(i18n("Save the contents of RAM to disk\nthen turn off the computer."));
 }
 
 // SuspendAction
@@ -898,8 +900,8 @@ SuspendAction::SuspendAction() :
 		disable(i18n("Cannot suspend computer"));
 
 	addCommandLineArg("S", "suspend");
-// TODO: menu item tool tips
-	setToolTip(i18n("Enter in a low-power state mode."));
+
+	setStatusTip(i18n("Enter in a low-power state mode."));
 }
 
 // StandardAction

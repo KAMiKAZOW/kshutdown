@@ -53,10 +53,8 @@ BookmarkAction::BookmarkAction(
 	m_userText = !text.isEmpty() && (text != actionText);
 	m_originalText = m_userText ? text : actionText;
 
-/* TODO: menu item tool tip <https://bugreports.qt-project.org/browse/QTBUG-13663>
 	if (m_userText)
-		setToolTip(actionText);
-*/
+		setStatusTip(actionText);
 
 	setText(m_originalText);
 }
@@ -89,6 +87,9 @@ BookmarksMenu::BookmarksMenu(QWidget *parent)
 	m_list(0)
 {
 	connect(this, SIGNAL(aboutToShow()), SLOT(onUpdateMenu()));
+
+	// HACK: workaround for <https://bugreports.qt-project.org/browse/QTBUG-13663>
+	connect(this, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 }
 
 BookmarksMenu::~BookmarksMenu() { }
@@ -261,6 +262,10 @@ void BookmarksMenu::onRemoveBookmark() {
 		list()->removeOne(bookmark);
 		syncConfig();
 	}
+}
+
+void BookmarksMenu::onMenuHovered(QAction *action) {
+	Utils::showMenuToolTip(action);
 }
 
 void BookmarksMenu::onUpdateMenu() {

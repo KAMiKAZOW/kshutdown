@@ -62,6 +62,7 @@ private:
 private slots:
 	void onAddBookmark();
 	void onRemoveBookmark();
+	void onMenuHovered(QAction *action);
 	void onUpdateMenu();
 };
 

@@ -21,6 +21,7 @@
 #include <QProcessEnvironment>
 #include <QString>
 
+class QAction;
 class QWidget;
 
 class KCmdLineArgs;
@@ -49,6 +50,7 @@ public:
 	static bool isUnity();
 	static bool isXfce();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
+	static void showMenuToolTip(QAction *action);
 	static void shutDown();
 	static QString trim(QString &text, const int maxLength);
 private:

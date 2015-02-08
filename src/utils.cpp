@@ -17,6 +17,7 @@
 
 #include "pureqt.h"
 
+#include <QToolTip>
 #include <QWidget>
 
 #ifdef KS_NATIVE_KDE
@@ -244,6 +245,17 @@ void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
 		newFont.setPixelSize(qMax(8, size + relativeSize));
 	}
 	widget->setFont(newFont);
+}
+
+void Utils::showMenuToolTip(QAction *action) {
+	QList<QWidget *> list = action->associatedWidgets();
+	if (list.count() == 1) {
+		QWidget *widget = list.first();
+		QToolTip::showText(
+			QPoint(widget->x(), widget->y() + widget->height()),
+			action->statusTip()
+		);
+	}
 }
 
 void Utils::shutDown() {
