@@ -724,6 +724,7 @@ void MainWindow::initMenuBar() {
 	// file menu
 
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
+	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
 	// "No Delay" warning
 	QString warningText = i18n("No Delay");
@@ -1137,10 +1138,7 @@ void MainWindow::onActionActivated(int index) {
 		m_currentActionWidget->show();
 	}
 
-	if (action->toolTip() == action->originalText())
-		m_actions->setToolTip(QString::null);
-	else
-		m_actions->setToolTip(action->toolTip());
+	m_actions->setToolTip(action->statusTip()/*toolTip()*/);
 
 	onStatusChange(true);
 }
@@ -1211,6 +1209,10 @@ void MainWindow::onForceClick() {
 		!U_CONFIRM(this, i18n("Confirm"), i18n("Are you sure you want to enable this option?\n\nData in all unsaved documents will be lost!"))
 	)
 		m_force->setChecked(false);
+}
+
+void MainWindow::onMenuHovered(QAction *action) {
+	Utils::showMenuToolTip(action);
 }
 
 void MainWindow::onOKCancel() {

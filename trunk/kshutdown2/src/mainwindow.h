@@ -147,6 +147,7 @@ private slots:
 #endif // KS_NATIVE_KDE
 	void onFocusChange(QWidget *old, QWidget *now);
 	void onForceClick();
+	void onMenuHovered(QAction *action);
 	void onOKCancel();
 	void onPreferences();
 	void onQuit();
