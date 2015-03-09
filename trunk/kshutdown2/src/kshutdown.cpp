@@ -497,6 +497,10 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		}
 		
 		result += " (";
+
+		if (secsTo >= DAY)
+			result += i18n("not recommended") + ", ";
+
 // TODO: do not bold effective time
 		result += i18n("selected time: %0").arg(m_endDateTime.toString(DATE_TIME_DISPLAY_FORMAT));
 		result += ')';
