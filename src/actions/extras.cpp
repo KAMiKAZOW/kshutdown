@@ -96,7 +96,7 @@ bool Extras::onAction() {
 		return false;
 	}
 	else {
-		if (KRun::run(m_command, KUrl::List(), U_APP->activeWindow()))
+		if (KRun::run("\"" + m_command + "\"", KUrl::List(), U_APP->activeWindow()))
 			return true;
 		
 		m_error = i18n("Cannot execute \"Extras\" command");
@@ -194,31 +194,34 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool
 	QString text = fileInfo.fileName();
 
 	if (!fileInfo.exists() || !fileInfo.isFile())
-		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo.filePath());
-	
-	#ifdef KS_NATIVE_KDE
-	if (KDesktopFile::isDesktopFile(fileInfo.filePath())) {
-		U_ICON icon = readDesktopInfo(fileInfo, text);
+		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo, "");
 
-		return new CommandAction(icon, text, this, fileInfo.filePath());
+	QString statusTip = "";
+
+	if (fileInfo.suffix() == "desktop") {
+		U_ICON icon = readDesktopInfo(fileInfo, text, statusTip);
+
+		return new CommandAction(icon, text, this, fileInfo, statusTip);
 	}
-	#endif // KS_NATIVE_KDE
-	
+
+	statusTip = fileInfo.filePath();
+	statusTip = Utils::trim(statusTip, 100);
+
 	if (fileInfo.isExecutable()) {
 		QString iconName =
 			(fileInfo.suffix() == "sh")
 			? "application-x-executable-script"
 			: "application-x-executable";
-		U_ICON icon = U_STOCK_ICON(iconName);
 
-		return new CommandAction(icon, text, this, fileInfo.filePath());
+		return new CommandAction(U_STOCK_ICON(iconName), text, this, fileInfo, statusTip);
 	}
 
-	return new CommandAction(U_ICON(), text, this, fileInfo.filePath());
+	return new CommandAction(U_ICON(), text, this, fileInfo, statusTip);
 }
 
 U_MENU *Extras::createMenu() {
 	m_menu = new U_MENU();
+	connect(m_menu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
 	connect(m_menu, SIGNAL(aboutToShow()), this, SLOT(updateMenu()));
 
 	return m_menu;
@@ -235,16 +238,21 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 		fileName = i.fileName();
 		if (i.isDir() && (fileName != ".") && (fileName != "..")) {
 			QString dirProperties = i.filePath() + "/.directory";
-			QString text = i.baseName();
+
 			U_MENU *dirMenu;
 			if (QFile::exists(dirProperties)) {
-				U_ICON icon = readDesktopInfo(dirProperties, text);
-				dirMenu = new U_MENU(text);
+				QString text = i.baseName();
+				QString statusTip = "";
+				U_ICON icon = readDesktopInfo(dirProperties, text, statusTip);
+
+				dirMenu = new U_MENU(text); // use "text" from ".directory" file
 				dirMenu->setIcon(icon);
 			}
 			else {
-				dirMenu = new U_MENU(text);
+				dirMenu = new U_MENU(i.baseName());
 			}
+			connect(dirMenu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
+
 			createMenu(dirMenu, i.filePath()); // recursive scan
 
 			if (dirMenu->isEmpty()) {
@@ -290,32 +298,43 @@ QString Extras::getFilesDirectory() const {
 #endif // KS_NATIVE_KDE
 }
 
-U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text) {
+U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip) {
+	QString desktopName = "";
+	QString desktopComment = "";
+	QString exec = "";
+	QString icon = "";
+
 #ifdef KS_NATIVE_KDE
 	KDesktopFile desktopFile(fileInfo.filePath());
+	desktopName = desktopFile.readName();
+	desktopComment = desktopFile.readComment();
+	exec = desktopFile.desktopGroup().readEntry("Exec", "");
+	icon = desktopFile.readIcon();
+#else
+	QSettings settings(fileInfo.filePath(), QSettings::IniFormat);
+	settings.beginGroup("Desktop Entry");
+	desktopName = settings.value("Name", "").toString();
+	desktopComment = settings.value("Comment", "").toString();
+	exec = settings.value("Exec", "").toString();
+	icon = settings.value("Icon", "").toString();
+	settings.endGroup();
+#endif // KS_NATIVE_KDE
 
-	QString desktopName = desktopFile.readName();
+	if (!exec.isEmpty())
+		statusTip = Utils::trim(exec, 100);
+
+	if (!desktopComment.isEmpty()) {
+		if (!statusTip.isEmpty())
+			statusTip += "\n";
+		statusTip += Utils::trim(desktopComment, 100);
+	}
+
 	if (!desktopName.isEmpty())
 		text = desktopName;
 
-	QString desktopComment = desktopFile.readComment();
-	if (!desktopComment.isEmpty())
-		text += (" - " + desktopComment);
+	text = Utils::trim(text, 100);
 
-	QString exec = desktopFile.desktopGroup().readEntry("Exec", "");
-	if (!exec.isEmpty()) {
-		// simplify
-		exec.remove("dbus-send --print-reply --dest=");
-		text += (" - " + exec);
-	}
-
-	return U_STOCK_ICON(desktopFile.readIcon());
-#else
-	Q_UNUSED(fileInfo)//!!!
-	Q_UNUSED(text)
-
-	return U_ICON(); // return dummy icon
-#endif // KS_NATIVE_KDE
+	return U_STOCK_ICON(icon);
 }
 
 void Extras::setCommandAction(const CommandAction *command) {
@@ -340,6 +359,10 @@ void Extras::setCommandAction(const CommandAction *command) {
 
 // private slots
 
+void Extras::onMenuHovered(QAction *action) {
+	Utils::showMenuToolTip(action);
+}
+
 void Extras::showHelp() {
 	QDesktopServices::openUrl(QUrl("http://sourceforge.net/p/kshutdown/wiki/Extras/"));
 }
@@ -353,6 +376,7 @@ void Extras::slotModify() {
 		i18n("Use context menu to add/edit/remove actions.") +
 		"<ul>" +
 			"<li>" + i18n("Use <b>Context Menu</b> to create a new link to application (action)") + "</li>" +
+// TODO: built-in "New Folder" menu item
 			"<li>" + i18n("Use <b>Create New|Folder...</b> to create a new submenu") + "</li>" +
 			"<li>" + i18n("Use <b>Properties</b> to change icon, name, or command") + "</li>" +
 		"</ul>" +
@@ -431,9 +455,17 @@ void Extras::updateMenu() {
 
 // private
 
-CommandAction::CommandAction(const U_ICON &icon, QString text, QObject *parent, const QString &command) :
-	U_ACTION(icon, Utils::trim(text, 30), parent),
-	m_command(command) {
+CommandAction::CommandAction(
+	const U_ICON &icon,
+	const QString &text,
+	QObject *parent,
+	const QFileInfo &fileInfo,
+	const QString &statusTip
+) :
+	U_ACTION(icon, text, parent),
+	m_command(fileInfo.filePath()) {
+
+	setStatusTip(statusTip);
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 
