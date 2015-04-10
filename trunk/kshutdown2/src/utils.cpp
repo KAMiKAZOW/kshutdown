@@ -251,8 +251,9 @@ void Utils::showMenuToolTip(QAction *action) {
 	QList<QWidget *> list = action->associatedWidgets();
 	if (list.count() == 1) {
 		QWidget *widget = list.first();
+		int magicNumber = 5;
 		QToolTip::showText(
-			QPoint(widget->x(), widget->y() + widget->height()),
+			QPoint(widget->x() + magicNumber, widget->y() + widget->height() - (magicNumber * 2)),
 			action->statusTip()
 		);
 	}
