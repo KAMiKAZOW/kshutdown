@@ -739,7 +739,7 @@ bool PowerAction::onAction() {
 		LockAction::self()->activate(false);
 
 		// HACK: wait for screensaver
-		::sleep(2);
+		::sleep(1);
 	}
 	
 	QDBusInterface *login = getLoginInterface();
@@ -1343,6 +1343,17 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 				QDBusConnection::systemBus()
 			);
 		}
+		if (!available && !m_consoleKitInterface->isValid()) {
+			// HACK: wait for service start
+			U_DEBUG << "ConsoleKit: Trying again..." U_END;
+			delete m_consoleKitInterface;
+			m_consoleKitInterface = new QDBusInterface(
+				"org.freedesktop.ConsoleKit",
+				"/org/freedesktop/ConsoleKit/Manager",
+				"org.freedesktop.ConsoleKit.Manager",
+				QDBusConnection::systemBus()
+			);
+		}
 		if (m_consoleKitInterface->isValid()) {
 			QDBusReply<bool> reply = m_consoleKitInterface->call(consoleKitName);
 			if (!reply.isValid()) {
@@ -1355,7 +1366,6 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 			}
 		}
 		else {
-// FIXME: this sometimes returns error (service timeout?)
 			U_ERROR << "ConsoleKit Error: " << m_consoleKitInterface->lastError().message() U_END;
 			if (error.isEmpty())
 				error = "No valid org.freedesktop.ConsoleKit interface found";
@@ -1363,7 +1373,7 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 	}
 	
 	// try HAL (lazy init)
-	
+
 	if (!available) {
 		QDBusInterface *hal = PowerAction::getHalDeviceSystemPMInterface();
 		available = hal->isValid();
