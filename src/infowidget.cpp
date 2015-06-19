@@ -50,9 +50,6 @@ InfoWidget::InfoWidget(QWidget *parent) :
 	#endif // KDE_IS_VERSION
 	mainLayout->addWidget(m_messageWidget);
 #else
-	// smaller font
-	Utils::setFont(this, -1, false);
-
 	setAutoFillBackground(true);
 	setFrameStyle(Panel | Sunken);
 	setLineWidth(1);
