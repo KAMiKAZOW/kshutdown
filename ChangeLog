@@ -1,6 +1,41 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2015-07-02  3.3.1 Beta
+
+Linux:
+
+* Fixed: Workaround for "No valid org.freedesktop.ConsoleKit interface found" error
+* Add Tools|Statistics menu item (currently it is output from the "w" command)
+
+User Inteface:
+
+* Avoid smaller text fonts
+* Remove Help|What's This? menu item
+* Clean up menu bar
+* Show tool tips in Action and Bookmarks menus
+* Show a small note that 24h+ delay is not recommended
+* Fix minor issues
+
+Command-Line:
+
+* Allow "h" and "m" time suffixes.
+  Example: 2h (two hours), 10m (ten minutes)
+* Better "--help" output formatting
+
+Extras Menu:
+
+* Show command to execute in tool tip
+* Better menu item names
+* Fix launching commands with a long file name
+
+Source:
+
+* Clean up TODO list
+* Update Doxygen configuration
+* Minor code clean up; fix lint warnings
+
+
 2014-12-02  3.3 Beta
 
 * NEW: Allow custom bookmark names
@@ -714,4 +749,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 760:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 772:HEAD|xsel -i -b && kwrite ChangeLog
