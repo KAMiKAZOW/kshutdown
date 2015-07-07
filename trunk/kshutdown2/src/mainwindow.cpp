@@ -594,7 +594,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 // private
 
 MainWindow::MainWindow() :
-	U_MAIN_WINDOW(0, Qt::Window),
+	U_MAIN_WINDOW(
+		0,
+		Qt::Window |
+		// disable "Maximize" button; no Qt::WindowMaximizeButtonHint
+		Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint
+	),
 	m_active(false),
 	m_forceQuit(false),
 	m_ignoreUpdateWidgets(true),
@@ -677,6 +682,11 @@ MainWindow::MainWindow() :
 	setTitle(QString::null, QString::null);
 	m_ignoreUpdateWidgets = false;
 	updateWidgets();
+	
+	// HACK: avoid insane window stretching
+	// (dunno how to use setFixedSize correctly w/o breaking layout)
+	QSize hint = sizeHint();
+	setMaximumSize(hint.width() * 2, hint.height() * 2);
 	
 	connect(
 		U_APP, SIGNAL(focusChanged(QWidget *, QWidget *)),
