@@ -566,8 +566,15 @@ QWidget *DateTimeTrigger::getWidget() {
 	m_edit->setCalendarPopup(true);
 	
 	// Fix for BUG #2444169 - remember the previous shutdown settings
-	if (initDateTime)
-		m_edit->setDateTime(QDateTime(QDate::currentDate(), m_dateTime.time()));
+	if (initDateTime) {
+		QDate date = m_dateTime.date();
+		QTime time = m_dateTime.time();
+
+		// select next day if time is less than current time
+		if ((date == QDate::currentDate()) && (time < QTime::currentTime()))
+			date = date.addDays(1);
+		m_edit->setDateTime(QDateTime(date, time));
+	}
 	
 	m_edit->setDisplayFormat(DATE_TIME_DISPLAY_FORMAT);
 	m_edit->setMinimumDate(QDate::currentDate());

@@ -77,6 +77,7 @@ void Mod::applyMainWindowColors(MainWindow *mainWindow) {
 		//palette.setColor(QPalette::Text, text);
 		mainWindow->m_actions->setPalette(palette);
 		mainWindow->m_triggers->setPalette(palette);
+		mainWindow->menuBar()->setPalette(palette);
 	}
 }
 
