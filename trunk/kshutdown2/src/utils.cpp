@@ -115,6 +115,11 @@ void Utils::init() {
 
 	m_desktopSession = m_env.value("DESKTOP_SESSION");
 	m_xdgCurrentDesktop = m_env.value("XDG_CURRENT_DESKTOP");
+
+	#ifdef Q_OS_LINUX
+	if (m_gui && m_desktopSession.isEmpty() && m_xdgCurrentDesktop.isEmpty())
+		qWarning("kshutdown: WARNING: \"DESKTOP_SESSION\" and \"XDG_CURRENT_DESKTOP\" environment variables not set (unknown or unsupported Desktop Environment). Good luck.");
+	#endif // Q_OS_LINUX
 }
 
 void Utils::initArgs() {
@@ -134,11 +139,16 @@ bool Utils::isArg(const QString &name) {
 }
 
 bool Utils::isCinnamon() {
-	return m_desktopSession.contains("cinnamon", Qt::CaseInsensitive);
+// TODO: test
+	return
+		m_desktopSession.contains("cinnamon", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("cinnamon", Qt::CaseInsensitive);
 }
 
 bool Utils::isEnlightenment() {
-	return m_desktopSession.contains("enlightenment", Qt::CaseInsensitive);
+	return
+		m_desktopSession.contains("enlightenment", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("enlightenment", Qt::CaseInsensitive);
 }
 
 bool Utils::isGUI() { return m_gui; }
@@ -192,7 +202,9 @@ bool Utils::isKDE_4() {
 
 /* TODO: LXQt
 bool Utils::isLXQt() {
-	return m_desktopSession.contains("LXQT", Qt::CaseInsensitive);
+	return
+		m_desktopSession.contains("LXQT", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("LXQT", Qt::CaseInsensitive);
 }
 */
 
@@ -203,11 +215,16 @@ bool Utils::isLXDE() {
 }
 
 bool Utils::isMATE() {
-	return m_desktopSession.contains("mate", Qt::CaseInsensitive);
+	return
+		m_desktopSession.contains("mate", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("mate", Qt::CaseInsensitive);
 }
 
 bool Utils::isRazor() {
-	return m_desktopSession.contains("RAZOR", Qt::CaseInsensitive);
+// TODO: test
+	return
+		m_desktopSession.contains("RAZOR", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("RAZOR", Qt::CaseInsensitive);
 }
 
 bool Utils::isRestricted(const QString &action) {
