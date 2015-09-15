@@ -161,6 +161,17 @@ bool LockAction::onAction() {
 			return true;
 	}
 
+	// Trinity
+
+	if (Utils::isTrinity()) {
+		args.clear();
+		args << "kdesktop";
+		args << "KScreensaverIface";
+		args << "lock";
+		if (launch("dcop", args))
+			return true;
+	}
+
 	// try "xdg-screensaver" command
 	args.clear();
 	args << "lock";

@@ -237,6 +237,12 @@ bool Utils::isRestricted(const QString &action) {
 #endif // KS_NATIVE_KDE
 }
 
+bool Utils::isTrinity() {
+	return
+		m_desktopSession.contains("TRINITY", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("TRINITY", Qt::CaseInsensitive);
+}
+
 bool Utils::isUnity() {
 	return
 		m_desktopSession.contains("UBUNTU", Qt::CaseInsensitive) ||

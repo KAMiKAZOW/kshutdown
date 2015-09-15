@@ -81,7 +81,8 @@ public:
 		
 		if (useTimeOption)
 			TimeOption::setupMainWindow();
-		
+
+// TODO: wayland <http://blog.martin-graesslin.com/blog/2015/07/porting-qt-applications-to-wayland/>
 		if (!first)
 			MainWindow::self()->raise();
 
@@ -103,13 +104,14 @@ int main(int argc, char **argv) {
 	
 	KS_DEBUG_SYSTEM("Cinnamon", Utils::isCinnamon());
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
+	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
+	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("MATE", Utils::isMATE());
 	KS_DEBUG_SYSTEM("Razor-qt", Utils::isRazor());
-	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
+	KS_DEBUG_SYSTEM("Trinity", Utils::isTrinity());
 	KS_DEBUG_SYSTEM("Unity", Utils::isUnity());
-	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
-	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
+	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
 
 #ifdef KS_PURE_QT
 
