@@ -349,7 +349,7 @@ void ConfirmAction::slotFire() {
 		(m_impl == LockAction::self()) || // lock action - no confirmation
 		m_impl->showConfirmationMessage()
 	) {
-		if (m_impl->authorize(0))
+		if (m_impl->authorize(MainWindow::self()))
 			m_impl->activate(false);
 	}
 }
@@ -1194,6 +1194,25 @@ bool StandardAction::onAction() {
 		}
 	}
 	#endif // KS_DBUS
+
+	// Trinity
+
+	else if (Utils::isTrinity()) {
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			QStringList args;
+			args << "ksmserver";
+			args << "ksmserver"; // not a paste bug
+			args << "logout";
+
+			// DOC: http://api.kde.org/4.x-api/kde-workspace-apidocs/plasma-workspace/libkworkspace/html/namespaceKWorkSpace.html
+			args << "0"; // no confirm
+			args << "0"; // logout
+			args << "2"; // force now
+
+			if (launch("dcop", args))
+				return true;
+		}
+	}
 
 	// Xfce
 

@@ -47,6 +47,7 @@ public:
 	static bool isMATE();
 	static bool isRazor();
 	static bool isRestricted(const QString &action);
+	static bool isTrinity();
 	static bool isUnity();
 	static bool isXfce();
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
