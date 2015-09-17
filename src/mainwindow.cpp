@@ -626,6 +626,7 @@ MainWindow::MainWindow() :
 #ifdef KS_PURE_QT
 	// HACK: delete this on quit
 	setAttribute(Qt::WA_DeleteOnClose, true);
+// TODO: wayland <http://blog.martin-graesslin.com/blog/2015/07/porting-qt-applications-to-wayland/>
 	setWindowIcon(U_ICON(":/images/kshutdown.png"));
 #endif // KS_PURE_QT
 
@@ -692,10 +693,11 @@ MainWindow::MainWindow() :
 		U_APP, SIGNAL(focusChanged(QWidget *, QWidget *)),
 		this, SLOT(onFocusChange(QWidget *, QWidget *))
 	);
-	
+
 #ifdef KS_DBUS
 	QDBusConnection dbus = QDBusConnection::sessionBus();
 	#ifdef KS_PURE_QT
+// TODO: allow only one application instance
 	dbus.registerService("net.sf.kshutdown");
 	#endif // KS_PURE_QT
 	dbus.registerObject(
@@ -877,6 +879,12 @@ void MainWindow::initMenuBar() {
 #endif // KS_NATIVE_KDE
 
 	setMenuBar(menuBar);
+
+	// HACK: Fixes Bookmarks menu and key shortcuts
+	//       (Global app menus in Unity are all f*** - it's a fact)
+	// BUG: https://bugs.launchpad.net/appmenu-qt5/+bug/1449373
+	//      https://bugs.launchpad.net/appmenu-qt5/+bug/1380702
+	menuBar->show();
 }
 
 void MainWindow::initWidgets() {
