@@ -25,6 +25,7 @@
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QTimer>
 
 #ifdef KS_NATIVE_KDE
 	#include <KColorDialog>
@@ -54,6 +55,19 @@ void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfi
 	// Qt::AlignTop
 	else {
 		move(2, 0);
+	}
+}
+
+
+void ProgressBar::setDemo(const bool active) {
+	U_DEBUG << "ProgressBar::setDemo: " << active U_END;
+
+	if (active) {
+		m_demoWidth = 0;
+		m_demoTimer->start(50);
+	}
+	else {
+		m_demoTimer->stop();
 	}
 }
 
@@ -154,12 +168,19 @@ void ProgressBar::paintEvent(QPaintEvent *e) {
 	QPainter g(this);
 	int w = width();
 	int h = height();
-	g.fillRect(0, 0, w, h, palette().window());
 
-	if ((m_completeWidth <= 0) || (m_total <= 0) || (m_value <= 0))
-		return;
+	if (m_demoTimer->isActive()) {
+		g.fillRect(0, 0, w, h, Qt::black);
+		g.fillRect(0, 0, qMin(m_demoWidth, w), h, m_demoColor);
+	}
+	else {
+		g.fillRect(0, 0, w, h, palette().window());
 
-	g.fillRect(0, 0, m_completeWidth, h, palette().windowText());
+		if ((m_completeWidth <= 0) || (m_total <= 0) || (m_value <= 0))
+			return;
+
+		g.fillRect(0, 0, m_completeWidth, h, palette().windowText());
+	}
 }
 
 // private
@@ -175,16 +196,18 @@ ProgressBar::ProgressBar() // public
 		Qt::WindowStaysOnTopHint |
 		Qt::X11BypassWindowManagerHint |
 		Qt::Tool
-	),
-	m_completeWidth(0),
-	m_total(0),
-	m_value(0) {
+	) {
 	
 	//U_DEBUG << "ProgressBar::ProgressBar()" U_END;
 
+	m_demoTimer = new QTimer(this);
+	connect(m_demoTimer, SIGNAL(timeout()), SLOT(onDemoTimeout()));
+
 	setAttribute(Qt::WA_AlwaysShowToolTips, true);
 	setObjectName("progress-bar");
+
 	setWindowTitle("KShutdown - " + i18n("Progress Bar"));
+	setToolTip(windowTitle());
 
 	QVariant opacityVariant = Mod::get("ui-progress-bar-opacity", 1.0f);
 	bool opacityOK = false;
@@ -199,7 +222,10 @@ ProgressBar::ProgressBar() // public
 
 	Config *config = Config::user();
 	config->beginGroup("Progress Bar");
+
 	QColor defaultForeground = 0xF8FFBF /* lime 1 */;
+	m_demoColor = defaultForeground;
+
 	QColor foreground = config->read("Foreground Color", defaultForeground).value<QColor>();
 	
 	setHeight(qBound(SmallSize, (Size)config->read("Size", NormalSize).toInt(), LargeSize));
@@ -238,6 +264,24 @@ void ProgressBar::setSize(const Size size) {
 }
 
 // private slots
+
+void ProgressBar::onDemoTimeout() {
+	m_demoWidth += 5;
+	if (m_demoWidth > width() / 3) {
+		m_demoWidth = 0;
+		m_demoTimer->stop();
+		repaint();
+
+		return;
+	}
+
+	int h, s, v;
+	m_demoColor.getHsv(&h, &s, &v);
+	h = (h + 5) % 360;
+	m_demoColor.setHsv(h, s, v);
+
+	repaint();
+}
 
 void ProgressBar::onHide() {
 	if (!authorize())

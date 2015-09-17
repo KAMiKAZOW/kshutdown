@@ -32,6 +32,7 @@ public:
 	void apply();
 private:
 	Q_DISABLE_COPY(Preferences)
+	bool m_oldProgressBarVisible;
 	PasswordPreferences *m_passwordPreferences;
 	QCheckBox *m_bwTrayIcon;
 	QCheckBox *m_confirmAction;
@@ -46,6 +47,7 @@ private:
 	U_TAB_WIDGET *m_tabs;
 private slots:
 	void onFinish(int result);
+	void onProgressBarEnabled(bool enabled);
 #ifdef KS_NATIVE_KDE
 	void onKDERelatedSettings();
 #endif // KS_NATIVE_KDE
