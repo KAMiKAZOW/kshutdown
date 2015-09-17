@@ -19,8 +19,10 @@
 #include <QVBoxLayout>
 
 #include "config.h"
+#include "mainwindow.h"
 #include "password.h"
 #include "preferences.h"
+#include "progressbar.h"
 #include "utils.h"
 
 #ifdef KS_NATIVE_KDE
@@ -32,6 +34,9 @@
 Preferences::Preferences(QWidget *parent) :
 	UDialog(parent, i18n("Preferences"), Utils::isGTKStyle()) {
 	//U_DEBUG << "Preferences::Preferences()" U_END;
+
+	ProgressBar *progressBar = MainWindow::self()->progressBar();
+	m_oldProgressBarVisible = progressBar->isVisible();
 
 	m_tabs = new U_TAB_WIDGET();
 	m_tabs->addTab(createGeneralWidget(), i18n("General"));
@@ -103,6 +108,7 @@ QWidget *Preferences::createGeneralWidget() {
 
 	m_progressBarEnabled = new QCheckBox(i18n("Progress Bar"));
 	m_progressBarEnabled->setChecked(Config::progressBarEnabled());
+// TODO: connect(m_progressBarEnabled, SIGNAL(toggled(bool)), SLOT(onProgressBarEnabled(bool)));
 	l->addWidget(m_progressBarEnabled);
 
 	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate"));
@@ -169,11 +175,23 @@ void Preferences::onFinish(int result) {
 	Q_UNUSED(result)
 	//U_DEBUG << "Finish: " << result U_END;
 
+/*
+	ProgressBar *progressBar = MainWindow::self()->progressBar();
+	progressBar->setDemo(false);
+	progressBar->setVisible(m_oldProgressBarVisible);
+*/
+
 	// save recently used tab
 	Config *config = Config::user();
 	config->beginGroup("Preferences");
 	config->write("Current Tab Index", m_tabs->currentIndex());
 	config->endGroup();
+}
+
+void Preferences::onProgressBarEnabled(bool enabled) {
+	ProgressBar *progressBar = MainWindow::self()->progressBar();
+	progressBar->setDemo(enabled);
+	progressBar->setVisible(enabled || m_oldProgressBarVisible);
 }
 
 #ifdef KS_NATIVE_KDE

@@ -7,6 +7,7 @@ InstallDir "$PROGRAMFILES\KShutdown"
 InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
 
 SetCompressor /SOLID lzma
+# TODO: ManifestDPIAware true
 
 !define APP_UNINSTALL_REG "Software\Microsoft\Windows\CurrentVersion\Uninstall\KShutdown"
 

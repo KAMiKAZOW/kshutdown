@@ -30,6 +30,7 @@ public:
 	virtual ~ProgressBar();
 	inline Qt::Alignment alignment() const { return m_alignment; }
 	void setAlignment(const Qt::Alignment value, const bool updateConfig);
+	void setDemo(const bool active);
 	void setHeight(const int value);
 	void setTotal(const int total);
 	void setValue(const int value);
@@ -38,14 +39,18 @@ protected:
 	virtual void paintEvent(QPaintEvent *e) override;
 private:
 	Q_DISABLE_COPY(ProgressBar)
-	int m_completeWidth;
-	int m_total;
-	int m_value;
+	int m_completeWidth = 0;
+	int m_demoWidth = 0;
+	int m_total = 0;
+	int m_value = 0;
 	Qt::Alignment m_alignment;
+	QColor m_demoColor;
+	QTimer *m_demoTimer;
 	bool authorize();
 	void makeRadioButton(QAction *action, QActionGroup *group, const bool checked);
 	void setSize(const Size size);
 private slots:
+	void onDemoTimeout();
 	void onHide();
 	void onResize(int screen);
 	void onSetBottomAlignment();
