@@ -64,6 +64,15 @@ IdleMonitor::IdleMonitor()
 	#else
 // FIXME: returns invalid time on KDE (known bug)
 	m_supported = LockAction::getQDBusInterface()->isValid() && !Utils::isKDE_4();
+
+	// HACK: Check if it's actually implemented... (GNOME Shell)
+	if (m_supported) {
+		QDBusReply<quint32> reply = LockAction::getQDBusInterface()->call("GetSessionIdleTime");
+		if (!reply.isValid()) {
+			U_DEBUG << "GetSessionIdleTime not implemented" U_END;
+			m_supported = false;
+		}
+	}
 	#endif // Q_OS_WIN32
 
 	setToolTip(i18n("Use this trigger to detect user inactivity\n(example: no mouse clicks)."));
@@ -212,6 +221,7 @@ void IdleMonitor::getSessionIdleTime() {
 		m_idleTime = reply.value();
 	}
 	else {
+		//U_DEBUG << reply.error() U_END;
 		m_idleTime = 0;
 	}
 #endif // Q_OS_WIN32

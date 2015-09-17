@@ -10,4 +10,4 @@ valgrind \
 	--log-file="${LOG}" \
 	--show-reachable=yes \
 	--tool=memcheck \
-	"${BIN}" -style oxygen
+	"${BIN}" -style fusion
