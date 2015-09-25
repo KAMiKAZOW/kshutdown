@@ -19,9 +19,7 @@ Old KShutDown 1.0.x features:
 
 Misc.:
 
-* KDE 5 Port:
-  - http://quickgit.kde.org/?p=kdelibs.git&a=blob&h=bbc1c41b06b780301f0b890dcb79831b900dde86&f=KDE5PORTING.html&o=plain
-  - http://api.kde.org/frameworks-api/frameworks5-apidocs/kdelibs4support/html/deprecated.html
+* Warn if other application can block logout/shutdown
 * Use http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKStatusNotifierItem.html (?)
 * Extras: Recent items
 * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=538873

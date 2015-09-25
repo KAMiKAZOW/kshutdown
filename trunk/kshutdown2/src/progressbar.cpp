@@ -104,9 +104,15 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		// show popup menu
 		U_MENU *menu = new U_MENU(this);
 
-		#ifdef KS_NATIVE_KDE
-		menu->addTitle(U_APP->windowIcon(), KGlobal::caption());
-		#endif // KS_NATIVE_KDE
+		Utils::addTitle(menu, U_APP->windowIcon(),
+			#ifdef KS_KF5
+			QApplication::applicationDisplayName()
+			#elif defined(KS_NATIVE_KDE)
+			KGlobal::caption()
+			#else
+			i18n("KShutdown")
+			#endif // KS_KF5
+		);
 
 		bool canConfigure = !Utils::isRestricted("action/options_configure");
 
@@ -114,15 +120,7 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()))
 			->setEnabled(canConfigure);
 
-		#ifdef KS_NATIVE_KDE
-		menu->addTitle(i18n("Position"));
-		#else
-			#if QT_VERSION >= 0x050200
-			menu->addSection(i18n("Position"));
-			#else
-			menu->addSeparator();
-			#endif // QT_VERSION
-		#endif // KS_NATIVE_KDE
+		Utils::addTitle(menu, QIcon(), i18n("Position"));
 
 		QActionGroup *positionGroup = new QActionGroup(this);
 
@@ -132,15 +130,7 @@ void ProgressBar::mousePressEvent(QMouseEvent *e) {
 		a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
 		makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
 
-		#ifdef KS_NATIVE_KDE
-		menu->addTitle(i18n("Size"));
-		#else
-			#if QT_VERSION >= 0x050200
-			menu->addSection(i18n("Size"));
-			#else
-			menu->addSeparator();
-			#endif // QT_VERSION
-		#endif // KS_NATIVE_KDE
+		Utils::addTitle(menu, QIcon(), i18n("Size"));
 
 		QActionGroup *sizeGroup = new QActionGroup(this);
 		

@@ -18,16 +18,25 @@
 #ifndef KSHUTDOWN_UTILS_H
 #define KSHUTDOWN_UTILS_H
 
+#include "pureqt.h"
+
 #include <QProcessEnvironment>
 #include <QString>
+
+#ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+		#include <QCommandLineParser>
+	#else
+		#include <KCmdLineArgs>
+	#endif // KS_KF5
+#endif // KS_NATIVE_KDE
 
 class QAction;
 class QWidget;
 
-class KCmdLineArgs;
-
 class Utils {
 public:
+	static void addTitle(U_MENU *menu, const QIcon &icon, const QString &text);
 	static QString getOption(const QString &name);
 	static QString getTimeOption();
 	static QString getUser();
@@ -42,7 +51,7 @@ public:
 	static bool isGTKStyle();
 	static bool isHaiku();
 	static bool isKDEFullSession();
-	static bool isKDE_4();
+	static bool isKDE();
 	static bool isLXDE();
 	static bool isMATE();
 	static bool isRazor();
@@ -50,6 +59,9 @@ public:
 	static bool isTrinity();
 	static bool isUnity();
 	static bool isXfce();
+	#ifdef KS_KF5
+	static inline QCommandLineParser *parser() { return m_args; }
+	#endif // KS_KF5
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
 	static void showMenuToolTip(QAction *action);
 	static void shutDown();
@@ -57,7 +69,11 @@ public:
 private:
 	static bool m_gui;
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	static QCommandLineParser *m_args;
+	#else
 	static KCmdLineArgs *m_args;
+	#endif // KS_KF5
 #else
 	static QStringList m_args;
 #endif // KS_NATIVE_KDE

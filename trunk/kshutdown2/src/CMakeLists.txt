@@ -42,6 +42,8 @@ set(
 )
 if(KS_PURE_QT)
 	QT5_WRAP_CPP(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
+elseif(KS_KF5)
+	# TODO: ?
 else()
 	qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 endif()
@@ -51,6 +53,8 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 if(KS_PURE_QT)
 	target_link_libraries(kshutdown ${Qt5Widgets_LIBRARIES} ${Qt5DBus_LIBRARIES})
+elseif(KS_KF5)
+	target_link_libraries(kshutdown Qt5::Widgets Qt5::Core Qt5::DBus KF5::CoreAddons KF5::I18n KF5::WidgetsAddons KF5::KDELibs4Support KF5::IdleTime KF5::NotifyConfig)
 else()
 	target_link_libraries(kshutdown kdecore kdeui kio ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KUTILS_LIBS})
 endif()

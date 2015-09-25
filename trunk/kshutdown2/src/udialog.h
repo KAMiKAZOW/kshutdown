@@ -22,17 +22,15 @@
 
 #include <QDialog>
 
+#if defined(KS_PURE_QT) || defined(KS_KF5)
+	#include <QDialogButtonBox>
+#else
+	#include <KDialogButtonBox>
+#endif // KS_PURE_QT
+
 class QVBoxLayout;
 
-#ifdef KS_PURE_QT
-class QDialogButtonBox;
-
 class UDialog: public QDialog {
-#else
-class KDialogButtonBox;
-
-class UDialog: public QDialog {
-#endif // KS_PURE_QT
 	Q_OBJECT
 public:
 	explicit UDialog(QWidget *parent, const QString &windowTitle, const bool simple);
@@ -42,7 +40,7 @@ public:
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
 private:
 	Q_DISABLE_COPY(UDialog)
-	#ifdef KS_PURE_QT
+	#if defined(KS_PURE_QT) || defined(KS_KF5)
 	QDialogButtonBox *m_dialogButtonBox;
 	#else
 	KDialogButtonBox *m_dialogButtonBox;

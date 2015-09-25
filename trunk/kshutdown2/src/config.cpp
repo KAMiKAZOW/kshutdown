@@ -179,7 +179,11 @@ Config::Config() :
 	//U_DEBUG << "Config::Config()" U_END;
 	
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	m_engine = KSharedConfig::openConfig().data();
+	#else
 	m_engine = KGlobal::config().data();
+	#endif // KS_KF5
 #else
 	bool portable = isPortable();
 	U_DEBUG << "Config::isPortable(): " << portable U_END;

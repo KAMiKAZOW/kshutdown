@@ -17,6 +17,7 @@
 
 #include "bootentry.h"
 
+#include <QAbstractItemView>
 #include <QFile>
 
 // BootEntry

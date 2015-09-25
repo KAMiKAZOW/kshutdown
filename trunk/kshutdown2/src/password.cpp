@@ -27,13 +27,13 @@
 
 #ifdef KS_PURE_QT
 	#include <QInputDialog>
-	#include <QPointer>
 #endif // KS_PURE_QT
 
 #include <QCheckBox>
 #include <QCryptographicHash>
 #include <QFormLayout>
 #include <QLabel>
+#include <QPointer>
 
 // PasswordDialog
 

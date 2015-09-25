@@ -25,6 +25,10 @@
 
 #ifdef KS_PURE_QT
 	class QComboBox;
+#elif defined(KS_KF5)
+	class QComboBox;
+	
+	class KActionCollection;
 #else
 	class KActionCollection;
 	class KCmdLineArgs;

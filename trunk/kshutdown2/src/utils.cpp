@@ -22,7 +22,6 @@
 
 #ifdef KS_NATIVE_KDE
 	#include <KAuthorized>
-	#include <KCmdLineArgs>
 #endif // KS_NATIVE_KDE
 
 #include "utils.h"
@@ -31,7 +30,11 @@
 
 bool Utils::m_gui = true;
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	QCommandLineParser *Utils::m_args = 0;
+	#else
 	KCmdLineArgs *Utils::m_args = 0;
+	#endif // KS_KF5
 #else
 // TODO: use QCommandLineParser instead
 // <http://qt-project.org/doc/qt-5/qcommandlineparser.html> #Qt5.2
@@ -43,9 +46,31 @@ QString Utils::m_xdgCurrentDesktop;
 
 // public
 
+void Utils::addTitle(U_MENU *menu, const QIcon &icon, const QString &text) {
+	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
+	menu->addTitle(icon, text);
+	#else
+// FIXME: useless & unimplemented decoy API to annoy developers: menu->addSection(icon, text);
+	U_ACTION *action = new U_ACTION(menu);
+	QFont font = action->font();
+	font.setBold(true);
+	action->setEnabled(false);
+	action->setFont(font);
+	action->setIcon(icon);
+	action->setText("// " + text);
+	menu->addAction(action);
+	#endif // KS_NATIVE_KDE
+}
+
 QString Utils::getOption(const QString &name) {
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	QString option = m_args->value(name);
+	
+	return option.isEmpty() ? QString::null : option;
+	#else
 	return m_args->getOption(name.toAscii());
+	#endif // KS_KF5
 #else
 	int i = m_args.indexOf('-' + name, 1);
 	if (i == -1) {
@@ -73,10 +98,19 @@ QString Utils::getOption(const QString &name) {
 
 QString Utils::getTimeOption() {
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	QStringList pa = m_args->positionalArguments();
+
+	if (pa.count())
+		return pa.at(0);
+	
+	return QString::null;//!!!
+	#else
 	if (m_args->count())
 		return m_args->arg(0);
 	
 	return QString::null;
+	#endif // KS_KF5
 #else
 	if (m_args.size() > 2) {
 		QString timeOption = m_args.last();
@@ -122,9 +156,15 @@ void Utils::init() {
 	#endif // Q_OS_LINUX
 }
 
-void Utils::initArgs() {
+void Utils::initArgs() {//!!!
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	m_args = new QCommandLineParser();
+	m_args->addHelpOption();
+	m_args->addVersionOption();
+	#else
 	m_args = KCmdLineArgs::parsedArgs();
+	#endif // KS_KF5
 #else
 	m_args = U_APP->arguments();
 #endif // KS_NATIVE_KDE
@@ -132,7 +172,11 @@ void Utils::initArgs() {
 
 bool Utils::isArg(const QString &name) {
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	return m_args->isSet(name);
+	#else
 	return m_args->isSet(name.toAscii());
+	#endif // KS_KF5
 #else
 	return (m_args.contains('-' + name) || m_args.contains("--" + name));
 #endif // KS_NATIVE_KDE
@@ -190,7 +234,7 @@ bool Utils::isKDEFullSession() {
 	return m_env.value("KDE_FULL_SESSION") == "true";
 }
 
-bool Utils::isKDE_4() {
+bool Utils::isKDE() {
 	return
 		isKDEFullSession() &&
 		(
@@ -284,8 +328,10 @@ void Utils::showMenuToolTip(QAction *action) {
 
 void Utils::shutDown() {
 #ifdef KS_NATIVE_KDE
+	#ifndef KS_KF5
 	if (m_args)
 		m_args->clear();
+	#endif // KS_KF5
 #endif // KS_NATIVE_KDE
 }
 

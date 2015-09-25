@@ -21,9 +21,7 @@
 #include "utils.h"
 
 #include <QFormLayout>
-#ifdef KS_PURE_QT
-	#include <QPointer>
-#endif // KS_PURE_QT
+#include <QPointer>
 
 // public:
 

@@ -23,6 +23,7 @@
 #endif // KS_UNIX
 
 #include <QDateTimeEdit>
+#include <QPointer>
 #include <QProcess>
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
@@ -38,10 +39,6 @@
 	#include <QDBusInterface>
 	#include <QDBusReply>
 #endif // KS_DBUS
-
-#ifdef KS_PURE_QT
-	#include <QPointer>
-#endif // KS_PURE_QT
 
 #include "actions/bootentry.h"
 #include "actions/lock.h"
@@ -185,7 +182,7 @@ bool Action::showConfirmationMessage() {
 		parent,
 		text,
 		title,
-		KGuiItem(originalText(), KIcon(icon())),
+		KGuiItem(originalText(), U_ICON(icon())),
 		KStandardGuiItem::cancel()
 	) == KMessageBox::Yes;
 	#else
@@ -1466,7 +1463,7 @@ RebootAction::RebootAction() :
 	// <http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html>
 	setIcon(U_STOCK_ICON("system-reboot"));
 #else
-	if (Utils::isKDE_4())
+	if (Utils::isKDE())
 		setIcon(U_STOCK_ICON("system-reboot"));
 	// HACK: missing "system-reboot" in some icon themes
 	else

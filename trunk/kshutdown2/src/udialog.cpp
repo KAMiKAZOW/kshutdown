@@ -19,11 +19,7 @@
 
 #include "udialog.h"
 
-#ifdef KS_PURE_QT
-	#include <QDialogButtonBox>
-#else
-	#include <KDialogButtonBox>
-#endif // KS_PURE_QT
+// TODO: clean up all headers
 
 #include <QVBoxLayout>
 
@@ -34,7 +30,16 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 	//U_DEBUG << "UDialog::UDialog()" U_END;
 	setWindowTitle(windowTitle);
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
+	if (simple) {
+		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Close);
+	}
+	else {
+		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Ok);
+	}
+#elif defined(KS_NATIVE_KDE)
 	m_dialogButtonBox = new KDialogButtonBox(this);
 	if (simple) {
 		m_acceptButton = m_dialogButtonBox->addButton(KStandardGuiItem::close(), KDialogButtonBox::AcceptRole);
