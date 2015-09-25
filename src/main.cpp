@@ -37,20 +37,22 @@
 #endif // defined(KS_PURE_QT) && defined(KS_UNIX)
 
 class KShutdownApplication: public
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
+QApplication
+#elif defined(KS_NATIVE_KDE)
 KUniqueApplication
 #else
 QApplication
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 {
 public:
-#ifdef KS_PURE_QT
+#if defined(KS_PURE_QT) || defined(KS_KF5)
 	KShutdownApplication(int &argc, char **argv)
 		: QApplication(argc, argv, Utils::isGUI()) {
 	}
 #endif // KS_PURE_QT
 
-#ifdef KS_NATIVE_KDE
+#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
 	/** http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKUniqueApplication.html */
 	virtual int newInstance() override {
 		static bool first = true;
@@ -91,6 +93,11 @@ public:
 };
 
 int main(int argc, char **argv) {
+	#ifdef KS_KF5
+	#warning **** This build/port (KF5) is experimental and incomplete ****
+	qSetMessagePattern("%{appname}[%{time}] %{message}");
+	#endif // KS_KF5
+
 	Utils::init();
 	#define KS_DEBUG_SYSTEM(f, d) \
 		if (d) qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
@@ -105,7 +112,7 @@ int main(int argc, char **argv) {
 	KS_DEBUG_SYSTEM("Cinnamon", Utils::isCinnamon());
 	KS_DEBUG_SYSTEM("GNOME", Utils::isGNOME());
 	KS_DEBUG_SYSTEM("KDE Full Session", Utils::isKDEFullSession());
-	KS_DEBUG_SYSTEM("KDE 4", Utils::isKDE_4());
+	KS_DEBUG_SYSTEM("KDE", Utils::isKDE());
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("MATE", Utils::isMATE());
 	KS_DEBUG_SYSTEM("Razor-qt", Utils::isRazor());
@@ -134,6 +141,9 @@ int main(int argc, char **argv) {
 
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
+	#if QT_VERSION >= 0x050200
+	QApplication::setApplicationDisplayName("KShutdown");
+	#endif // QT_VERSION
 	KShutdownApplication program(argc, argv);
 
 /* TODO: program.setAttribute(Qt::AA_UseHighDpiPixmaps, true); #Qt5.4
@@ -169,35 +179,60 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 
 	// Native KDE startup
 
+	#ifdef KS_KF5
+	QApplication::setApplicationDisplayName("KShutdown");
+	#endif // KS_KF5
+
+	#define KS_EMAIL \
+		"twardowski" \
+		"@" \
+		"gmail" \
+		".com"
+	#ifdef KS_KF5
+	KAboutData about(
+		"kshutdown", // app name - used in config file name etc.
+		"KShutdown", // program display name
+		KS_FULL_VERSION
+	);
+	about.setBugAddress(KS_EMAIL);
+	about.setCopyrightStatement(i18n(KS_COPYRIGHT));
+	about.setHomepage(KS_HOME_PAGE);
+	about.setLicense(KAboutLicense::GPL_V2);
+	about.setShortDescription(i18n("A graphical shutdown utility"));
+
+	about.addAuthor("Konrad Twardowski", i18n("Maintainer"), KS_EMAIL, KS_CONTACT);
+	about.addCredit(i18n("Thanks To All!"), QString(), QString(), "http://sourceforge.net/p/kshutdown/wiki/Credits/");
+	#else
 	KAboutData about(
 		"kshutdown", // app name - used in config file name etc.
 		"kshutdown", // catalog name
 		ki18n("KShutdown"), // program name
 		KS_FULL_VERSION
 	);
-	#define KS_EMAIL \
-		"twardowski" \
-		"@" \
-		"gmail" \
-		".com"
 	about.setBugAddress(KS_EMAIL);
 	about.setCopyrightStatement(ki18n(KS_COPYRIGHT));
 	about.setHomepage(KS_HOME_PAGE);
 	about.setLicense(KAboutData::License_GPL_V2);
-	
-	// NOTE: "kshutdown.sf.net" produces too long DBus names
-	// (net.sf.kshutdown.kshutdown)
-	about.setOrganizationDomain("sf.net");
-	
 	about.setShortDescription(ki18n("A graphical shutdown utility"));
 
 	about.addAuthor(ki18n("Konrad Twardowski"), ki18n("Maintainer"), KS_EMAIL, KS_CONTACT);
 	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "http://sourceforge.net/p/kshutdown/wiki/Credits/");
+	#endif // KS_KF5
+
+	// NOTE: "kshutdown.sf.net" produces too long DBus names
+	// (net.sf.kshutdown.kshutdown)
+	about.setOrganizationDomain("sf.net");
+
 	// DOC: http://api.kde.org/4.8-api/kdelibs-apidocs/kdecore/html/classKAboutData.html
 // TODO: about.setTranslator(ki18n("Your names"), ki18n("Your emails"));
 
+	#ifdef KS_KF5
+	KAboutData::setApplicationData(about);
+	QCommandLineParser *options = Utils::parser();
+//	options->addOption(QCommandLineOption(QStringList() << "h" << "halt", i18n("Turn Off Computer")));
+	#else
 	KCmdLineArgs::init(argc, argv, &about);
-	
+
 	// add custom command line options
 	// NOTE: Sync. with "addCommandLineArg"
 	KCmdLineOptions options;
@@ -267,7 +302,9 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	// BUG: --nofork option does not work like in KShutdown 1.0.x (?)
 	// "KUniqueApplication: Can't setup D-Bus service. Probably already running."
 	KShutdownApplication::addCmdLineOptions();
+	#endif // KS_KF5
 
+	#ifndef KS_KF5
 	if (!KShutdownApplication::start()) {
 		// HACK: U_DEBUG is unavailble here
 		//U_DEBUG << "KShutdown is already running" U_END;
@@ -275,9 +312,17 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 		
 		return 0;
 	}
+	#endif // KS_KF5
 	
-	KShutdownApplication program;
+	#ifdef KS_KF5
+	KShutdownApplication program(argc, argv);
+	//!!!Utils::parser()->process(program);
 
+	if (!program.commonStartup(true))
+		return 0;
+	#else
+	KShutdownApplication program;
+	#endif // KS_KF5
 #endif // KS_PURE_QT
 
 	return program.exec();

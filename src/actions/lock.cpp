@@ -56,7 +56,7 @@ bool LockAction::onAction() {
 	// HACK: This is a workaround for "lazy" initial kscreensaver repaint.
 	// Now the screen content is hidden immediately.
 	QWidget *blackScreen = 0;
-	if (Utils::isKDE_4()) {
+	if (Utils::isKDE()) {
 		blackScreen = new QWidget(
 			0,
 			Qt::FramelessWindowHint |
@@ -109,7 +109,6 @@ bool LockAction::onAction() {
 			return true;
 	}
 
-// FIXME: GNOME Shell
 	// Unity, GNOME Shell
 	
 	if (Utils::isGNOME() || Utils::isUnity()) {
@@ -199,7 +198,7 @@ QDBusInterface *LockAction::getQDBusInterface() {
 			"/ScreenSaver",
 			"org.freedesktop.ScreenSaver"
 		);
-		if (!m_qdbusInterface->isValid() && Utils::isKDE_4()) {
+		if (!m_qdbusInterface->isValid() && Utils::isKDE()) {
 			delete m_qdbusInterface;
 			
 			U_DEBUG << "LockAction::getQDBusInterface(): using org.kde.krunner" U_END;

@@ -42,12 +42,10 @@ InfoWidget::InfoWidget(QWidget *parent) :
 #ifdef KS_NATIVE_KDE
 	m_messageWidget = new KMessageWidget(this);
 	m_messageWidget->setCloseButtonVisible(false);
-	#if KDE_IS_VERSION(4, 10, 0)
 	connect(
 		m_messageWidget, SIGNAL(linkActivated(const QString &)),
 		SLOT(onLinkActivated(const QString &))
 	);
-	#endif // KDE_IS_VERSION
 	mainLayout->addWidget(m_messageWidget);
 #else
 	setAutoFillBackground(true);

@@ -63,7 +63,7 @@ IdleMonitor::IdleMonitor()
 	m_supported = false;
 	#else
 // FIXME: returns invalid time on KDE (known bug)
-	m_supported = LockAction::getQDBusInterface()->isValid() && !Utils::isKDE_4();
+	m_supported = LockAction::getQDBusInterface()->isValid() && !Utils::isKDE();
 
 	// HACK: Check if it's actually implemented... (GNOME Shell)
 	if (m_supported) {

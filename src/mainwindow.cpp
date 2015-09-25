@@ -21,6 +21,7 @@
 #include <QCloseEvent>
 #include <QGroupBox>
 #include <QLayout>
+#include <QPointer>
 #include <QTimer>
 
 #ifdef KS_DBUS
@@ -28,11 +29,10 @@
 #endif // KS_DBUS
 
 #ifdef KS_PURE_QT
-	#include <QPointer>
-
 	#include "version.h" // for about()
 #else
 	#include <KActionCollection>
+	#include <KHelpMenu>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
 	#include <KShortcutsDialog>
@@ -738,20 +738,7 @@ void MainWindow::initMenuBar() {
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
-	// "No Delay" warning
-	QString warningText = i18n("No Delay");
-#ifdef KS_NATIVE_KDE
-	fileMenu->addTitle(U_STOCK_ICON("dialog-warning"), warningText);
-#else
-	U_ACTION *warningAction = new U_ACTION(menuBar);
-	QFont warningActionFont = warningAction->font();
-	warningActionFont.setBold(true);
-	warningAction->setEnabled(false);
-	warningAction->setFont(warningActionFont);
-	warningAction->setIcon(U_STOCK_ICON("dialog-warning"));
-	warningAction->setText(warningText);
-	fileMenu->addAction(warningAction);
-#endif // KS_NATIVE_KDE
+	Utils::addTitle(fileMenu, U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
 
 	Action *a;
 	QString id;
@@ -775,7 +762,7 @@ void MainWindow::initMenuBar() {
 
 #ifdef KS_NATIVE_KDE
 		m_actionCollection->addAction("kshutdown/" + id, confirmAction);
-		confirmAction->setGlobalShortcut(KShortcut());
+		//!!!confirmAction->setGlobalShortcut(KShortcut());
 // TODO: show global shortcuts: confirmAction->setShortcut(confirmAction->globalShortcut());
 #endif // KS_NATIVE_KDE
 
@@ -870,7 +857,12 @@ void MainWindow::initMenuBar() {
 	// mail bug report does not work (known bug)
 	config->write("action/help_report_bug", false);
 	config->endGroup();
+	#ifdef KS_KF5
+	KHelpMenu *helpMenu = new KHelpMenu(this);
+	menuBar->addMenu(helpMenu->menu());
+	#else
 	menuBar->addMenu(helpMenu());
+	#endif // KS_KF5
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"), menuBar);
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
@@ -941,7 +933,7 @@ void MainWindow::initWidgets() {
 #ifdef KS_NATIVE_KDE
 	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
 	m_actionCollection->addAction("kshutdown/cancel", m_cancelAction);
-	m_cancelAction->setGlobalShortcut(KShortcut());
+	//!!!m_cancelAction->setGlobalShortcut(KShortcut());
 // TODO: show global shortcut: m_cancelAction->setShortcut(m_cancelAction->globalShortcut());
 #else
 	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));
@@ -1029,11 +1021,25 @@ void MainWindow::updateWidgets() {
 	Mod::applyMainWindowColors(this);
 
 #ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
+	bool hasIcon = m_okCancelButton->style()->styleHint(QStyle::SH_DialogButtonBox_ButtonsHaveIcons);
+	if (m_active) {
+		if (hasIcon)
+			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-cancel"));
+		m_okCancelButton->setText(i18n("Cancel"));
+	}
+	else {
+		if (hasIcon)
+			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-ok"));
+		m_okCancelButton->setText(i18n("OK"));
+	}
+	#else
 	m_okCancelButton->setGuiItem(
 		m_active
 		? KStandardGuiItem::cancel()
 		: KStandardGuiItem::ok()
 	);
+	#endif // KS_KF5
 #else
 	bool hasIcon = m_okCancelButton->style()->styleHint(QStyle::SH_DialogButtonBox_ButtonsHaveIcons);
 	if (m_active) {

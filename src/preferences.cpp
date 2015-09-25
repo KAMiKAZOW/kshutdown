@@ -16,6 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <QCheckBox>
+#include <QProcess>
 #include <QVBoxLayout>
 
 #include "config.h"
@@ -24,10 +25,6 @@
 #include "preferences.h"
 #include "progressbar.h"
 #include "utils.h"
-
-#ifdef KS_NATIVE_KDE
-	#include <KRun>
-#endif // KS_NATIVE_KDE
 
 // public
 
@@ -50,11 +47,11 @@ Preferences::Preferences(QWidget *parent) :
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
 
 	#ifdef KS_NATIVE_KDE
-	int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
+/*!!!	int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
 	m_tabs->setIconSize(QSize(iconSize, iconSize));
 	m_tabs->setTabIcon(0, U_STOCK_ICON("edit-bomb")); // General
 	m_tabs->setTabIcon(1, U_STOCK_ICON("user-desktop")); // System Tray
-	m_tabs->setTabIcon(2, U_STOCK_ICON("dialog-password")); // Password
+	m_tabs->setTabIcon(2, U_STOCK_ICON("dialog-password")); // Password*/
 	#endif // KS_NATIVE_KDE
 
 	mainLayout()->addWidget(m_tabs);
@@ -196,12 +193,13 @@ void Preferences::onProgressBarEnabled(bool enabled) {
 
 #ifdef KS_NATIVE_KDE
 void Preferences::onKDERelatedSettings() {
-	KRun::run(
+	QProcess *process = new QProcess(0);
+	#ifdef KS_KF5
+	process->start("kcmshell5 autostart kcmsmserver kcm_sddm keys powerdevilglobalconfig powerdevilprofilesconfig screenlocker");
+	#else
 // HACK: Ubuntu Natty, Qt 4.7.2, KDE 4.6.2: "kdm" module resets all fonts to "Ubuntu"
 // <https://bugs.launchpad.net/ubuntu/+source/kdebase/+bug/766145>
-		"kcmshell4 screensaver kcmsmserver powerdevilglobalconfig powerdevilprofilesconfig autostart kcmkded kgrubeditor keys",
-		KUrl::List(),
-		this
-	);
+	process->start("kcmshell4 screensaver kcmsmserver powerdevilglobalconfig powerdevilprofilesconfig autostart kcmkded kgrubeditor keys");
+	#endif // KS_KF5
 }
 #endif // KS_NATIVE_KDE

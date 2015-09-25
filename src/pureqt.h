@@ -39,20 +39,34 @@
 
 #else
 
-// K-Files
-#include <KAction>
-#include <KApplication>
-#include <KComboBox>
-#include <KDebug>
-#include <KIcon>
-#include <KLineEdit>
-#include <KListWidget>
-#include <KMainWindow>
-#include <KMenu>
-#include <KMenuBar>
-#include <KMessageBox>
-#include <KPushButton>
-#include <KTabWidget>
+	#ifdef KS_KF5
+		#include <QAction>
+		#include <QApplication>
+		#include <QComboBox>
+		#include <QDebug>
+		#include <QIcon>
+		#include <QLineEdit>
+		#include <QListWidget>
+		#include <QMenu>
+		#include <QMenuBar>
+		#include <QPushButton>
+		#include <QTabWidget>
+	#else
+		#include <KAction>
+		#include <KApplication>
+		#include <KComboBox>
+		#include <KDebug>
+		#include <KIcon>
+		#include <KLineEdit>
+		#include <KListWidget>
+		#include <KMenu>
+		#include <KMenuBar>
+		#include <KPushButton>
+		#include <KTabWidget>
+	#endif // KS_KF5
+
+	#include <KMainWindow>
+	#include <KMessageBox>
 
 #endif // KS_PURE_QT
 
@@ -66,6 +80,7 @@
 #endif
 
 #ifdef KS_PURE_QT
+	#undef KS_KF5
 	#undef KS_NATIVE_KDE
 
 	#define U_ACTION QAction
@@ -79,7 +94,6 @@
 			QMessageBox::Ok | QMessageBox::Cancel, \
 			QMessageBox::Ok \
 		) == QMessageBox::Ok)
-
 	#define U_DEBUG qDebug()
 	#define U_END
 	#define U_ERROR qCritical()
@@ -103,32 +117,49 @@
 
 	#define KS_NATIVE_KDE
 
-	#define U_ACTION KAction
-	#define U_APP kapp
-	#define U_COMBO_BOX KComboBox
 	#define U_CONFIRM(parent, title, text) \
 		(KMessageBox::questionYesNo( \
 			(parent), \
 			(text), \
 			(title) \
 		) == KMessageBox::Yes)
-	#define U_DEBUG kDebug()
-	#define U_END << endl
-	#define U_ERROR kError()
 	#define U_ERROR_MESSAGE(parent, text) \
 		KMessageBox::error((parent), (text));
-	#define U_ICON KIcon
 	#define U_INFO_MESSAGE(parent, text) \
 		KMessageBox::information((parent), (text));
-	#define U_LINE_EDIT KLineEdit
-	#define U_LIST_WIDGET KListWidget
 	#define U_MAIN_WINDOW KMainWindow
-	#define U_MENU KMenu
-	#define U_MENU_BAR KMenuBar
-	#define U_PUSH_BUTTON KPushButton
-	#define U_STOCK_ICON(name) KIcon((name))
-	#define U_TAB_WIDGET KTabWidget
-	
+	#ifdef KS_KF5
+		#define U_APP qApp
+		#define U_ACTION QAction
+		#define U_COMBO_BOX QComboBox
+		#define U_DEBUG qDebug()
+		#define U_END
+		#define U_ERROR qCritical()
+		#define U_ICON QIcon
+		#define U_LINE_EDIT QLineEdit
+		#define U_LIST_WIDGET QListWidget
+		#define U_MENU QMenu
+		#define U_MENU_BAR QMenuBar
+		#define U_PUSH_BUTTON QPushButton
+		#define U_STOCK_ICON(name) QIcon::fromTheme((name))
+		#define U_TAB_WIDGET QTabWidget
+	#else
+		#define U_APP kapp
+		#define U_ACTION KAction
+		#define U_COMBO_BOX KComboBox
+		#define U_DEBUG kDebug()
+		#define U_END << endl
+		#define U_ERROR kError()
+		#define U_ICON KIcon
+		#define U_LINE_EDIT KLineEdit
+		#define U_LIST_WIDGET KListWidget
+		#define U_MENU KMenu
+		#define U_MENU_BAR KMenuBar
+		#define U_PUSH_BUTTON KPushButton
+		#define U_STOCK_ICON(name) KIcon((name))
+		#define U_TAB_WIDGET KTabWidget
+	#endif // KS_KF5
+
 	// use i18n from KLocale
 #endif // KS_PURE_QT
 

@@ -1,6 +1,10 @@
 project(kshutdown)
 
-cmake_minimum_required(VERSION 2.4.0)
+if(KS_KF5)
+	cmake_minimum_required(VERSION 3.0.0)
+else()
+	cmake_minimum_required(VERSION 2.4.0)
+endif()
 
 add_definitions(-std=c++0x)
 
@@ -11,6 +15,24 @@ if(KS_PURE_QT)
 
 	add_definitions(-DKS_PURE_QT)
 	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_PURE_QT)
+elseif(KS_KF5)
+	find_package(ECM REQUIRED NO_MODULE)
+	set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
+	find_package(Qt5 REQUIRED Widgets DBus)
+	
+	add_definitions(${Qt5Widgets_DEFINITIONS} ${Qt5DBus_DEFINITIONS})
+	#include_directories(${Qt5Widgets_INCLUDES} ${Qt5DBus_INCLUDES} ${KF5_Includes})
+
+
+	include(KDEInstallDirs)
+	include(KDECompilerSettings)
+	include(KDECMakeSettings)
+	include(FeatureSummary)
+	find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n WidgetsAddons KDELibs4Support IdleTime NotifyConfig)
+
+	add_definitions(-DKS_KF5)
+	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_KF5)
 else()
 	find_package(KDE4 REQUIRED)
 	add_definitions(${KDE4_DEFINITIONS})
@@ -22,3 +44,5 @@ else()
 endif()
 
 add_subdirectory(src)
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

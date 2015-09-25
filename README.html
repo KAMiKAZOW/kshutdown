@@ -128,7 +128,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <h2>Table of Contents</h2>
 <ul>
-	<li><a href="#kdevsqt">KDE Build vs. Qt Build</a></li>
+	<li><a href="#kdevsqt">What's KDE/KF5/Qt Build?</a></li>
 	<li><a href="#kde4linux">KDE Build @ Linux</a></li>
 	<li><a href="#qt4linux">Qt Build @ Linux</a></li>
 	<li><a href="#qt4windows">Qt Build @ Windows</a></li>
@@ -143,7 +143,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	</li>
 </ul>
 
-<h2 id="kdevsqt">KDE Build vs. Qt Build</h2>
+<h2 id="kdevsqt">What's KDE/KF5/Qt Build?</h2>
 
 <table id="build_table">
 
@@ -151,6 +151,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 <tr>
 	<td></td>
 	<td>KDE Build</td>
+	<td>KF5 Build (experimental)</td>
 	<td>Qt Build</td>
 </tr>
 </thead>
@@ -159,66 +160,73 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <tr>
 	<td class="header">Summary</td>
-	<td>A KShutdown version compiled using KDE4 libraries</td>
-	<td>A KShutdown version compiled without KDE4 libraries (Qt only, for Xfce, GNOME, etc.)</td>
+	<td>A KShutdown version compiled using KDE 4 libraries</td>
+	<td>A KShutdown version compiled using KDE Frameworks 5 libraries</td>
+	<td>A KShutdown version compiled without KDE 4 libraries (Qt only, for Xfce, GNOME, etc.)</td>
 </tr>
 
 <tr>
 	<td class="header">Additional Features</td>
-	<td>Better visual and functional integration with KDE, better User Interface elements and standard dialog windows, global and local keyboard shortcuts configuration, customizable notifications (e.g. sounds), improved language translations and localization</td>
+	<td colspan="2">Better visual and functional integration with KDE, better User Interface elements and standard dialog windows, global and local keyboard shortcuts configuration, customizable notifications (e.g. sounds), improved language translations and localization</td>
 	<td>None (just plain Qt)</td>
 </tr>
 
 <tr>
 	<td class="header">Compilation Script</td>
 	<td>./Setup-kde4.sh</td>
-	<td>./Setup-qt4.sh</td>
+	<td>./Setup-kf5.sh</td>
+	<td>./Setup-qt4.sh or ./Setup-qt5.sh</td>
 </tr>
 
 <tr>
 	<td class="header">Required Libraries</td>
 	<td>libqtgui4, libqt4-dbus, +minimal set of KDE libraries (NOTE: since version 3.1 Beta libkworkspace4 and kdebase-workspace-dev are no longer required)</td>
+	<td>TODO:</td>
 	<td>libqtgui4, libqt4-dbus</td>
 </tr>
 
 <tr>
 	<td class="header">Menu Shortcut Name</td>
 	<td>KShutdown</td>
+	<td>TODO:</td>
 	<td>KShutdown<b>/Qt</b></td>
 </tr>
 
 <tr>
 	<td class="header">Default User Configuration Directory</td>
 	<td>~/.kde/share/apps/kshutdown, ~/.kde/share/config</td>
+	<td>TODO:</td>
 	<td>~/.config/kshutdown.sf.net, ~/.local/share/data/kshutdown.sf.net</td>
 </tr>
 
 <tr>
 	<td class="header">Default Program Location (after "make install")</td>
 	<td>/usr/bin/kshutdown</td>
+	<td>TODO:</td>
 	<td>/usr/bin/kshutdown<b>-qt</b></td>
 </tr>
 
 <tr>
 	<td class="header"></td>
-	<td class="header" colspan="2">Developer Info</td>
+	<td class="header" colspan="3">Developer Info</td>
 </tr>
 
 <tr>
 	<td class="header">C++ #define</td>
 	<td><code>KS_NATIVE_KDE</code></td>
+	<td><code>KS_NATIVE_KDE</code> and <code>KS_KF5</code></td>
 	<td><code>KS_PURE_QT</code></td>
 </tr>
 
 <tr>
 	<td class="header">Build System</td>
-	<td><a href="http://www.cmake.org/">CMake</a> (CMakeLists.txt files)</td>
+	<td colspan="2"><a href="http://www.cmake.org/">CMake</a> (CMakeLists.txt files)</td>
 	<td><a href="http://qt-project.org/doc/qt-4.8/qmake-manual.html">QMake</a> (src/src.pro file)</td>
 </tr>
 
 <tr>
 	<td class="header">Language Translation System (input: po/*.po)</td>
-	<td>Gettext (output: build.tmp/po/*.mo)</td>
+	<td colspan="2">Gettext (output: build.tmp/po/*.mo)</td>
 	<td>Gettext (output: src/i18n/*.qm), kshutdown.qrc</td>
 </tr>
 
@@ -426,20 +434,20 @@ Try to run
 </tr>
 
 <tr>
-<td class="build">KDE 5/Plasma (KDE Build)</td>
-<td class="test" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
-<td class="test" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
+<td class="build new">Plasma 5 (KF5 Build)</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="test" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">Test</td>
-<td class="test" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">Test</td>
-<td class="test" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">Test</td>
-<td class="test" title="D-Bus (org.kde.ksmserver)">Test</td>
+<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
+<td class="ok" title="D-Bus (org.kde.ksmserver)">OK</td>
 <td class="test">Test</td>
 <td class="test" title="::kill(pid, 0)">Test, no CLI</td>
-<td class="test" title="KIdleTime, D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">Test</td>
+<td class="ok" title="KIdleTime, D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
 </tr>
 
 <tr>
-<td class="build">Windows XP/Vista/7/8</td>
+<td class="build new">Windows XP/Vista/7/8/10</td>
 <td class="ok" title="::InitiateSystemShutdown">OK</td>
 <td class="ok" title="::InitiateSystemShutdown">OK</td>
 <td class="ok" title="::SetSuspendState">OK</td>
@@ -483,7 +491,7 @@ Try to run
 </tr>
 
 <tr>
-<td class="build">KDE 5/Plasma (Qt Build)</td>
+<td class="build new">Plasma 5 (Qt Build)</td>
 <td class="test" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
 <td class="test" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
 <td class="test" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">Test</td>
@@ -522,16 +530,16 @@ Try to run
 </tr>
 
 <tr>
-<td class="build"><a href="http://www.gnome.org/">GNOME</a> Shell/3</td>
-<td class="test" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
-<td class="test" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
+<td class="build"><a href="http://www.gnome.org/">GNOME</a> Shell (3.x)</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
+<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
 <td class="test" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">Test</td>
-<td class="test" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">Test</td>
-<td class="wip">FIXME</td>
-<td class="test" title="gnome-session-quit">Test</td>
+<td class="ok" title="gnome-screensaver-command">OK</td>
+<td class="ok" title="gnome-session-quit">OK</td>
 <td class="test">Test</td>
 <td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
-<td class="wip">TODO</td>
+<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver)">OK</td>
 </tr>
 
 <tr>

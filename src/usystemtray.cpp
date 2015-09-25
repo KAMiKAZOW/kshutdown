@@ -89,6 +89,8 @@ void USystemTray::setVisible(const bool visible) {
 }
 
 void USystemTray::updateIcon(MainWindow *mainWindow) {
+// TODO: KF5: better tray icon
+
 	// HACK: We need to show an empty system tray icon first to get proper geometry() value later.
 	// Wrong/unknown geometry (or something) causes bad icon alignment and background repaint issues...
 	#ifdef KS_PURE_QT
@@ -109,7 +111,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	
 	QIcon icon;
 	#ifdef KS_UNIX
-	if (Utils::isKDE_4())
+	if (Utils::isKDE())
 		icon = U_STOCK_ICON("system-shutdown");
 	else
 		icon = mainWindow->windowIcon();
