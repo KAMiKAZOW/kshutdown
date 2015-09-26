@@ -27,7 +27,7 @@
 #include <QPainter>
 #include <QTimer>
 
-#ifdef KS_NATIVE_KDE
+#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
 	#include <KColorDialog>
 #else
 	#include <QColorDialog>
@@ -299,12 +299,12 @@ void ProgressBar::onSetColor() {
 		return;
 
 	QColor currentColor = palette().color(QPalette::WindowText);
-	#ifdef KS_NATIVE_KDE
+	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
 	QColor newColor;
 	if (KColorDialog::getColor(newColor, currentColor, this) != KColorDialog::Accepted)
 		return;
 	#else
-	QColor newColor = QColorDialog::getColor( // krazy:exclude=qclasses
+	QColor newColor = QColorDialog::getColor(
 		currentColor,
 		this,
 		QString::null // use default title

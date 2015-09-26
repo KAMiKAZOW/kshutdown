@@ -177,20 +177,11 @@ bool Action::showConfirmationMessage() {
 	else
 		parent = 0;
 
-	#ifdef KS_NATIVE_KDE
-	return KMessageBox::warningYesNo(
-		parent,
-		text,
-		title,
-		KGuiItem(originalText(), U_ICON(icon())),
-		KStandardGuiItem::cancel()
-	) == KMessageBox::Yes;
-	#else
-	QPointer<QMessageBox> message = new QMessageBox( // krazy:exclude=qclasses
+	QPointer<QMessageBox> message = new QMessageBox(
 		QMessageBox::Warning,
 		title,
 		text,
-		QMessageBox::Ok | QMessageBox::Cancel, // krazy:exclude=qclasses
+		QMessageBox::Ok | QMessageBox::Cancel,
 		parent
 	);
 	message->setDefaultButton(QMessageBox::Cancel);
@@ -208,7 +199,6 @@ bool Action::showConfirmationMessage() {
 	delete message;
 	
 	return accepted;
-	#endif // KS_NATIVE_KDE
 }
 
 void Action::updateMainWindow(MainWindow *mainWindow) {

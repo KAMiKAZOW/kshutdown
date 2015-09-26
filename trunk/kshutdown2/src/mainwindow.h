@@ -31,7 +31,6 @@
 	class KActionCollection;
 #else
 	class KActionCollection;
-	class KCmdLineArgs;
 	class KComboBox;
 #endif // KS_PURE_QT
 
@@ -131,6 +130,7 @@ private:
 	MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
+	void initFileMenu(U_MENU *fileMenu);
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();

@@ -35,9 +35,15 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 
 #ifdef KS_NATIVE_KDE
 	m_sessionRestored = false;
+	#ifdef KS_KF5
+	m_trayIcon = new KStatusNotifierItem(mainWindow);
+// FIXME: m_trayIcon->setToolTipIconByPixmap(QIcon(":/images/kshutdown.png"));
+	m_trayIcon->setToolTipIconByName("kshutdown");
+	#else
 	m_trayIcon = new KSystemTrayIcon(mainWindow);
 // TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
 // Currently it's lower case "kshutdown".
+	#endif // KS_KF5
 #endif // KS_NATIVE_KDE
 
 #ifdef KS_PURE_QT
@@ -60,15 +66,24 @@ USystemTray:: ~USystemTray() {
 }
 
 void USystemTray::info(const QString &message) const {
+	#ifdef KS_KF5
+	m_trayIcon->showMessage("KShutdown", message, "dialog-information");
+	#else
 	m_trayIcon->showMessage("KShutdown", message, QSystemTrayIcon::Information, 4000);
+	#endif // KS_KF5
 }
 
 bool USystemTray::isSupported() const {
+	#ifdef KS_KF5
+// TODO: test other DE
+	return Utils::isKDE();
+	#else
 	return
 		!Utils::isUnity() &&
 		QSystemTrayIcon::isSystemTrayAvailable() &&
 		// HACK: MATE launches KShutdown before system tray panel is created
 		!(Utils::isMATE() && m_sessionRestored);
+	#endif // KS_KF5
 }
 
 void USystemTray::setContextMenu(QMenu *menu) const {
@@ -76,21 +91,28 @@ void USystemTray::setContextMenu(QMenu *menu) const {
 }
 
 void USystemTray::setToolTip(const QString &toolTip) const {
+	#ifdef KS_KF5
+	m_trayIcon->setToolTipTitle("KShutdown");
+	//!!!remove leading "KShutdown"
+	m_trayIcon->setToolTipSubTitle((toolTip == m_trayIcon->toolTipTitle()) ? "" : toolTip);
+	#else
 	m_trayIcon->setToolTip(toolTip);
+	#endif // KS_KF5
 }
 
 void USystemTray::setVisible(const bool visible) {
 	m_sessionRestored = false; // clear flag
-
+	#ifdef KS_KF5
+	Q_UNUSED(visible)
+	#else
 	if (visible)
 		m_trayIcon->show();
 	else
 		m_trayIcon->hide();
+	#endif // KS_KF5
 }
 
 void USystemTray::updateIcon(MainWindow *mainWindow) {
-// TODO: KF5: better tray icon
-
 	// HACK: We need to show an empty system tray icon first to get proper geometry() value later.
 	// Wrong/unknown geometry (or something) causes bad icon alignment and background repaint issues...
 	#ifdef KS_PURE_QT
@@ -104,11 +126,14 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	}
 	#endif // KS_PURE_QT
 
+	#ifndef KS_KF5
 	bool active = mainWindow->active();
 	bool bw = Config::blackAndWhiteSystemTrayIcon();
+	#endif // KS_KF5
 	
 	// get base icon
 	
+	#ifndef KS_KF5
 	QIcon icon;
 	#ifdef KS_UNIX
 	if (Utils::isKDE())
@@ -118,7 +143,16 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	#else
 	icon = mainWindow->windowIcon();
 	#endif // KS_UNIX
+	#endif // KS_KF5
 
+	#ifdef KS_KF5
+	Q_UNUSED(mainWindow)
+	if (Utils::isKDE())
+		m_trayIcon->setIconByName("system-shutdown");
+	else
+		m_trayIcon->setIconByName("kshutdown");
+// FIXME: setIconByPixmap does not work...
+	#else
 	// convert base icon to pixmap
 
 	int w = 22;
@@ -193,10 +227,17 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	}
 
 	m_trayIcon->setIcon(QPixmap::fromImage(image));
+	#endif // KS_KF5
 }
 
 void USystemTray::warning(const QString &message) const {
+	#ifdef KS_KF5
+// TODO: "KShutdown" -> QApplication::applicationDisplayName()
+// FIXME: ?
+	m_trayIcon->showMessage("KShutdown", message, "dialog-warning");
+	#else
 	m_trayIcon->showMessage("KShutdown", message, QSystemTrayIcon::Warning, 4000);
+	#endif // KS_KF5
 }
 
 // private slots:

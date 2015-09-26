@@ -19,25 +19,23 @@
 #include "../password.h"
 #include "../pureqt.h"
 
+#include <QCheckBox>
 #include <QDesktopServices>
 #include <QDir>
+#include <QPointer>
+#include <QUrl>
 
 #ifdef KS_NATIVE_KDE
 	#include <KDesktopFile>
-	#include <KRun>
+	//#include <KRun>
 	#include <KService>
 	#include <KStandardAction>
-	#include <KStandardDirs>
+	//#include <KStandardDirs>
 #endif // KS_NATIVE_KDE
 
 #ifdef KS_PURE_QT
-	#if QT_VERSION >= 0x050200
-		#include <QCheckBox>
-	#endif // QT_VERSION
-	#include <QPointer>
 	#include <QProcess>
 	#include <QSettings>
-	#include <QUrl>
 #endif // KS_PURE_QT
 
 #include "../utils.h"
@@ -88,16 +86,16 @@ bool Extras::onAction() {
 		}
 		
 // FIXME: error detection, double error message box
-		if (KRun::run(service, KUrl::List(), U_APP->activeWindow()))
-			return true;
+		//if (KRun::run(service, KUrl::List(), U_APP->activeWindow()))
+		//!!!	return true;
 		
 		m_error = i18n("Cannot execute \"Extras\" command");
 		
 		return false;
 	}
 	else {
-		if (KRun::run("\"" + m_command + "\"", KUrl::List(), U_APP->activeWindow()))
-			return true;
+		//if (KRun::run("\"" + m_command + "\"", KUrl::List(), U_APP->activeWindow()))
+		//!!!!	return true;
 		
 		m_error = i18n("Cannot execute \"Extras\" command");
 		
@@ -274,7 +272,8 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 
 QString Extras::getFilesDirectory() const {
 #ifdef KS_NATIVE_KDE
-	return KGlobal::dirs()->saveLocation("data", "kshutdown/extras");
+	//return KGlobal::dirs()->saveLocation("data", "kshutdown/extras");
+	return "/tmp";//!!!
 #else
 	QDir dir;
 	if (Config::isPortable()) {
@@ -382,7 +381,7 @@ void Extras::slotModify() {
 		"</ul>" +
 		"</qt>";
 
-	#ifdef KS_NATIVE_KDE
+	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
 	KMessageBox::information(0, text, originalText(), "ModifyExtras");
 	#else
 	Config *config = Config::user();
@@ -424,11 +423,13 @@ void Extras::updateMenu() {
 	m_menu->clear();
 
 	#ifdef KS_NATIVE_KDE
+	/*
 	QStringList dirs(KGlobal::dirs()->findDirs("data", "kshutdown/extras"));
 	foreach (const QString &i, dirs) {
 		U_DEBUG << "Found Extras Directory: " << i U_END;
 		createMenu(m_menu, i);
 	}
+	!!!*/
 	#else
 	createMenu(m_menu, getFilesDirectory());
 	#endif // KS_NATIVE_KDE

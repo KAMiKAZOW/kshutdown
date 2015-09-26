@@ -17,6 +17,11 @@
 
 #include "pureqt.h"
 
+#ifdef KS_KF5
+	#include <KConfig>
+	#include <KSharedConfig>
+#endif // KS_KF5
+
 #ifdef KS_PURE_QT
 	#include <QDir>
 	#include <QSettings>
