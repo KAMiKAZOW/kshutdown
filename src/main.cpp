@@ -22,8 +22,12 @@
 	#include <QTranslator>
 #else
 	#include <KAboutData>
-	#include <KCmdLineArgs>
-	#include <KUniqueApplication>
+	#ifdef KS_KF5
+		#include <KDBusService>
+	#else
+		#include <KCmdLineArgs>
+		#include <KUniqueApplication>
+	#endif // KS_KF5
 
 	#include "version.h"
 #endif // KS_PURE_QT
@@ -180,6 +184,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	// Native KDE startup
 
 	#ifdef KS_KF5
+	//QApplication::setApplicationName("kshutdown");
 	QApplication::setApplicationDisplayName("KShutdown");
 	#endif // KS_KF5
 
@@ -189,13 +194,15 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 		"gmail" \
 		".com"
 	#ifdef KS_KF5
+	KLocalizedString::setApplicationDomain("kshutdown");
+	
 	KAboutData about(
 		"kshutdown", // app name - used in config file name etc.
 		"KShutdown", // program display name
 		KS_FULL_VERSION
 	);
 	about.setBugAddress(KS_EMAIL);
-	about.setCopyrightStatement(i18n(KS_COPYRIGHT));
+	about.setCopyrightStatement(KS_COPYRIGHT);
 	about.setHomepage(KS_HOME_PAGE);
 	about.setLicense(KAboutLicense::GPL_V2);
 	about.setShortDescription(i18n("A graphical shutdown utility"));
@@ -217,11 +224,11 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 
 	about.addAuthor(ki18n("Konrad Twardowski"), ki18n("Maintainer"), KS_EMAIL, KS_CONTACT);
 	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "http://sourceforge.net/p/kshutdown/wiki/Credits/");
-	#endif // KS_KF5
 
 	// NOTE: "kshutdown.sf.net" produces too long DBus names
 	// (net.sf.kshutdown.kshutdown)
 	about.setOrganizationDomain("sf.net");
+	#endif // KS_KF5
 
 	// DOC: http://api.kde.org/4.8-api/kdelibs-apidocs/kdecore/html/classKAboutData.html
 // TODO: about.setTranslator(ki18n("Your names"), ki18n("Your emails"));
@@ -316,10 +323,18 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	
 	#ifdef KS_KF5
 	KShutdownApplication program(argc, argv);
+
+	QApplication::setOrganizationDomain("sf.net"); // do not modify
+	KDBusService dbusService(KDBusService::Unique | KDBusService::NoExitOnFailure);
+	
 	//!!!Utils::parser()->process(program);
 
-	if (!program.commonStartup(true))
-		return 0;
+	static bool first = true;
+	program.commonStartup(first);
+	first = false;
+
+	if (Utils::isArg("cancel"))
+		MainWindow::self()->setActive(false);;
 	#else
 	KShutdownApplication program;
 	#endif // KS_KF5

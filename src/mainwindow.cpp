@@ -37,6 +37,7 @@
 	#include <KNotifyConfigWidget>
 	#include <KShortcutsDialog>
 	#include <KStandardAction>
+	#include <KStandardGuiItem>
 #endif // KS_PURE_QT
 
 #include "actions/bootentry.h"
@@ -623,6 +624,9 @@ MainWindow::MainWindow() :
 	U_APP->setQuitOnLastWindowClosed(false);
 
 	setObjectName("main-window");
+#ifdef KS_KF5
+// FIXME: ? setWindowIcon(U_ICON(":/images/kshutdown.png"));
+#endif // KF_KF5
 #ifdef KS_PURE_QT
 	// HACK: delete this on quit
 	setAttribute(Qt::WA_DeleteOnClose, true);
@@ -726,16 +730,7 @@ Trigger *MainWindow::getSelectedTrigger() const { // public
 	return m_triggerHash[m_triggers->itemData(m_triggers->currentIndex()).toString()];
 }
 
-void MainWindow::initMenuBar() {
-	//U_DEBUG << "MainWindow::initMenuBar()" U_END;
-
-	U_MENU_BAR *menuBar = new U_MENU_BAR();
-	if (Mod::getBool("ui-hide-menu-bar"))
-		menuBar->hide();
-
-	// file menu
-
-	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
+void MainWindow::initFileMenu(U_MENU *fileMenu) {
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
 	Utils::addTitle(fileMenu, U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
@@ -802,9 +797,24 @@ void MainWindow::initMenuBar() {
 	quitAction->setText(i18n("Quit KShutdown"));
 
 	fileMenu->addAction(quitAction);
+}
 
+void MainWindow::initMenuBar() {
+	//U_DEBUG << "MainWindow::initMenuBar()" U_END;
+
+	U_MENU_BAR *menuBar = new U_MENU_BAR();
+	if (Mod::getBool("ui-hide-menu-bar"))
+		menuBar->hide();
+
+	// file menu
+
+	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
+	initFileMenu(fileMenu);
 	menuBar->addMenu(fileMenu);
-	m_systemTray->setContextMenu(fileMenu);
+
+	U_MENU *systemTrayFileMenu = new U_MENU(); // need copy
+	initFileMenu(systemTrayFileMenu);
+	m_systemTray->setContextMenu(systemTrayFileMenu);
 
 	// bookmarks menu
 
@@ -979,7 +989,9 @@ void MainWindow::readConfig() {
 }
 
 void MainWindow::setTitle(const QString &plain, const QString &html) {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
+	setWindowTitle(plain);
+#elif defined(KS_NATIVE_KDE)
 	setCaption(plain);
 #else
 	if (plain.isEmpty())

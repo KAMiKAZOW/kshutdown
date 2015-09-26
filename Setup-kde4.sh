@@ -28,7 +28,7 @@ set -e
 
 BUILD_DIR="build.tmp"
 rm -fR "$BUILD_DIR"
-mkdir "$BUILD_DIR"
+mkdir -p "$BUILD_DIR"
 
 pushd "$BUILD_DIR"
 

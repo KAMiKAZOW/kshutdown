@@ -20,9 +20,10 @@ function doCompile()
 		fi
 	elif [ $1 == "kshutdown-qt" ]; then
 		if ./Setup-qt4.sh; then
+# TODO: common code
 			dialog --msgbox \
 "Compiled KShutdown program (\"kshutdown-qt\" file)\n
-can be found in the \"${PWD}\" directory.\n
+can be found in the \"${PWD}/src\" directory.\n
 \n
 Installation is not required.\n
 However, you can run\n
@@ -35,6 +36,10 @@ to setup menu shortcut (Utilities section),\n
 and copy \"kshutdown-qt\" to the \"/usr/bin\" directory." \
 0 0
 		else
+			doError "Build failed. See README.html for troubleshooting information."
+		fi
+	elif [ $1 == "kshutdown-kf5" ]; then
+		if ! ./Setup-kf5.sh; then
 			doError "Build failed. See README.html for troubleshooting information."
 		fi
 	else
@@ -53,6 +58,7 @@ else
 	default_item="kshutdown-qt"
 fi
 
+# TODO: update required libs info
 out=`dialog \
 	--backtitle "KShutdown $kshutdown_full_version Setup" \
 	--default-item "$default_item" \
@@ -62,10 +68,11 @@ out=`dialog \
 	--no-lines \
 	--no-shadow \
 	--stdout \
-	--title "Select a KShutdown version to build:" \
+	--title "Select a KShutdown Build (see README.html for more details)" \
 	--menu "" 0 0 0 \
-	"kshutdown" "Version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
-	"kshutdown-qt"  "Version for Xfce, LXDE, MATE, KDE, etc. - lightweight" "Required libraries: Qt 4.8+ or Qt 5.x, NO KDE 4 libs"`
+	"kshutdown" "A version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
+	"kshutdown-qt" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 4.8+ or Qt 5.x, no KDE 4 libs" \
+	"kshutdown-kf5" "Beta: An universal version compiled using KDE Frameworks" "Required libraries: KDE Frameworks 5.x"`
 
 case $? in
 	0) doCompile $out;;

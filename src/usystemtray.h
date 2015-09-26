@@ -20,11 +20,13 @@
 
 #include <QObject>
 
-#ifdef KS_PURE_QT
+#ifdef KS_KF5
+	#include <KStatusNotifierItem>
+#elif defined(KS_PURE_QT)
 	#include <QSystemTrayIcon>
 #else
 	#include <KSystemTrayIcon>
-#endif // KS_PURE_QT
+#endif // KS_KF5
 
 class MainWindow;
 
@@ -44,12 +46,14 @@ public:
 	void warning(const QString &message) const;
 private:
 	Q_DISABLE_COPY(USystemTray)
-	#ifdef KS_PURE_QT
+	#ifdef KS_KF5
+	KStatusNotifierItem *m_trayIcon;
+	#elif defined(KS_PURE_QT)
 	bool m_applyGeometryHack;
 	QSystemTrayIcon *m_trayIcon;
 	#else
 	KSystemTrayIcon *m_trayIcon;
-	#endif // KS_PURE_QT
+	#endif // KS_KF5
 	bool m_sessionRestored;
 #ifdef KS_PURE_QT
 private slots:

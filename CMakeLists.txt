@@ -16,23 +16,26 @@ if(KS_PURE_QT)
 	add_definitions(-DKS_PURE_QT)
 	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_PURE_QT)
 elseif(KS_KF5)
+	find_package(Qt5 REQUIRED Widgets DBus)
+	#add_definitions(${Qt5Widgets_DEFINITIONS} ${Qt5DBus_DEFINITIONS})
+	#include_directories(${Qt5Widgets_INCLUDES} ${Qt5DBus_INCLUDES})
+
 	find_package(ECM REQUIRED NO_MODULE)
 	set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-
-	find_package(Qt5 REQUIRED Widgets DBus)
-	
-	add_definitions(${Qt5Widgets_DEFINITIONS} ${Qt5DBus_DEFINITIONS})
-	#include_directories(${Qt5Widgets_INCLUDES} ${Qt5DBus_INCLUDES} ${KF5_Includes})
-
 
 	include(KDEInstallDirs)
 	include(KDECompilerSettings)
 	include(KDECMakeSettings)
+	include(ECMInstallIcons)
+	include(ECMSetupVersion)
 	include(FeatureSummary)
-	find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n WidgetsAddons KDELibs4Support IdleTime NotifyConfig)
+	find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets DBusAddons I18n IdleTime Notifications NotifyConfig Service XmlGui)
 
 	add_definitions(-DKS_KF5)
+# TODO: need this?
 	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_KF5)
+
+	add_subdirectory(po)
 else()
 	find_package(KDE4 REQUIRED)
 	add_definitions(${KDE4_DEFINITIONS})
