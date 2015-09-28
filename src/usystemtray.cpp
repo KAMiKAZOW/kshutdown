@@ -76,6 +76,7 @@ void USystemTray::info(const QString &message) const {
 bool USystemTray::isSupported() const {
 	#ifdef KS_KF5
 // TODO: test other DE
+	// Blacklist: GNOME Shell, Unity
 	return Utils::isKDE();
 	#else
 	return
@@ -93,7 +94,7 @@ void USystemTray::setContextMenu(QMenu *menu) const {
 void USystemTray::setToolTip(const QString &toolTip) const {
 	#ifdef KS_KF5
 	m_trayIcon->setToolTipTitle("KShutdown");
-	//!!!remove leading "KShutdown"
+// TODO: remove leading/duplicated "KShutdown"
 	m_trayIcon->setToolTipSubTitle((toolTip == m_trayIcon->toolTipTitle()) ? "" : toolTip);
 	#else
 	m_trayIcon->setToolTip(toolTip);
@@ -233,7 +234,6 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 void USystemTray::warning(const QString &message) const {
 	#ifdef KS_KF5
 // TODO: "KShutdown" -> QApplication::applicationDisplayName()
-// FIXME: ?
 	m_trayIcon->showMessage("KShutdown", message, "dialog-warning");
 	#else
 	m_trayIcon->showMessage("KShutdown", message, QSystemTrayIcon::Warning, 4000);

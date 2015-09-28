@@ -130,7 +130,7 @@ private:
 	MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
-	void initFileMenu(U_MENU *fileMenu);
+	void initFileMenu(U_MENU *fileMenu, const bool addQuitAction);
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();

@@ -40,6 +40,10 @@
 	#include <KStandardGuiItem>
 #endif // KS_PURE_QT
 
+#ifdef KS_KF5
+	#include <KGlobalAccel>
+#endif // KS_KF5
+
 #include "actions/bootentry.h"
 #include "actions/extras.h"
 #include "actions/lock.h"
@@ -83,8 +87,13 @@ MainWindow::~MainWindow() {
 }
 
 bool MainWindow::checkCommandLine() {
-#ifdef KS_PURE_QT
+#if defined(KS_PURE_QT) || defined(KS_KF5)
 	if (Utils::isHelpArg()) {
+// TODO: get the info directly from QCommandLineParser
+		#ifdef KS_KF5
+		//Utils::parser()->showHelp(0);
+		#endif // KS_KF5
+
 		QString table = "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" width=\"800\">\n";
 		
 		table += "<tr><td colspan=\"2\"><b>" + i18n("Actions") + "</b></td></tr>\n";
@@ -118,7 +127,7 @@ bool MainWindow::checkCommandLine() {
 		
 		table += "<tr><td colspan=\"2\"><b>" + i18n("Miscellaneous") + "</b></td></tr>\n";
 
-		if (m_actionHash.contains("idle-monitor")) {
+		if (m_triggerHash.contains("idle-monitor")) {
 			table += "<tr><td><code>-i, --inactivity</code></td><td>" +
 			i18n( // NOTE: copied from main.cpp
 			"Detect user inactivity. Example:\n"
@@ -730,7 +739,7 @@ Trigger *MainWindow::getSelectedTrigger() const { // public
 	return m_triggerHash[m_triggers->itemData(m_triggers->currentIndex()).toString()];
 }
 
-void MainWindow::initFileMenu(U_MENU *fileMenu) {
+void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
 	Utils::addTitle(fileMenu, U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
@@ -757,7 +766,11 @@ void MainWindow::initFileMenu(U_MENU *fileMenu) {
 
 #ifdef KS_NATIVE_KDE
 		m_actionCollection->addAction("kshutdown/" + id, confirmAction);
-		//!!!confirmAction->setGlobalShortcut(KShortcut());
+		#ifdef KS_KF5
+		KGlobalAccel::setGlobalShortcut(confirmAction, QList<QKeySequence>());
+		#else
+		confirmAction->setGlobalShortcut(KShortcut());
+		#endif // KS_KF5
 // TODO: show global shortcuts: confirmAction->setShortcut(confirmAction->globalShortcut());
 #endif // KS_NATIVE_KDE
 
@@ -781,22 +794,22 @@ void MainWindow::initFileMenu(U_MENU *fileMenu) {
 	fileMenu->addAction(m_cancelAction);
 	//fileMenu->addSeparator();
 
-	U_ACTION *quitAction;
-#ifdef KS_NATIVE_KDE
-	quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
-	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
-	
-#else
-	quitAction = new U_ACTION(this);
-	quitAction->setIcon(U_STOCK_ICON("application-exit"));
-	quitAction->setShortcut(QKeySequence("Ctrl+Shift+Q"));
-	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
-#endif // KS_NATIVE_KDE
-	// NOTE: Use "Quit KShutdown" instead of "Quit" because
-	// it may be too similar to "Turn Off" in some language translations.
-	quitAction->setText(i18n("Quit KShutdown"));
-
-	fileMenu->addAction(quitAction);
+	if (addQuitAction) {
+		U_ACTION *quitAction;
+		#ifdef KS_NATIVE_KDE
+		quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
+		quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
+		#else
+		quitAction = new U_ACTION(this);
+		quitAction->setIcon(U_STOCK_ICON("application-exit"));
+		quitAction->setShortcut(QKeySequence("Ctrl+Shift+Q"));
+		connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
+		#endif // KS_NATIVE_KDE
+		// NOTE: Use "Quit KShutdown" instead of "Quit" because
+		// it may be too similar to "Turn Off" in some language translations.
+		quitAction->setText(i18n("Quit KShutdown"));
+		fileMenu->addAction(quitAction);
+	}
 }
 
 void MainWindow::initMenuBar() {
@@ -809,11 +822,18 @@ void MainWindow::initMenuBar() {
 	// file menu
 
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
-	initFileMenu(fileMenu);
+	initFileMenu(fileMenu, true);
 	menuBar->addMenu(fileMenu);
 
 	U_MENU *systemTrayFileMenu = new U_MENU(); // need copy
-	initFileMenu(systemTrayFileMenu);
+	initFileMenu(
+		systemTrayFileMenu,
+		#ifdef KS_KF5
+		!Utils::isKDE()
+		#else
+		true
+		#endif // KS_KF5
+	);
 	m_systemTray->setContextMenu(systemTrayFileMenu);
 
 	// bookmarks menu
@@ -943,7 +963,11 @@ void MainWindow::initWidgets() {
 #ifdef KS_NATIVE_KDE
 	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
 	m_actionCollection->addAction("kshutdown/cancel", m_cancelAction);
-	//!!!m_cancelAction->setGlobalShortcut(KShortcut());
+	#ifdef KS_KF5
+	KGlobalAccel::setGlobalShortcut(m_cancelAction, QList<QKeySequence>());
+	#else
+	m_cancelAction->setGlobalShortcut(KShortcut());
+	#endif // KS_KF5
 // TODO: show global shortcut: m_cancelAction->setShortcut(m_cancelAction->globalShortcut());
 #else
 	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));

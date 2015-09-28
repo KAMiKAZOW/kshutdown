@@ -43,7 +43,7 @@ set(
 if(KS_PURE_QT)
 	QT5_WRAP_CPP(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 elseif(KS_KF5)
-	# TODO: ?
+	# automoc
 else()
 	qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 endif()
@@ -54,7 +54,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 if(KS_PURE_QT)
 	target_link_libraries(kshutdown ${Qt5Widgets_LIBRARIES} ${Qt5DBus_LIBRARIES})
 elseif(KS_KF5)
-	target_link_libraries(kshutdown Qt5::DBus Qt5::Widgets KF5::ConfigCore KF5::ConfigWidgets KF5::DBusAddons KF5::I18n KF5::IdleTime KF5::Notifications KF5::NotifyConfig KF5::Service KF5::XmlGui)
+	target_link_libraries(kshutdown Qt5::DBus Qt5::Widgets KF5::ConfigCore KF5::ConfigWidgets KF5::DBusAddons KF5::GlobalAccel KF5::I18n KF5::IdleTime KF5::Notifications KF5::NotifyConfig KF5::XmlGui)
 else()
 	target_link_libraries(kshutdown kdecore kdeui kio ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KUTILS_LIBS})
 endif()
@@ -64,8 +64,11 @@ install(
 	DESTINATION bin
 )
 if(KS_PURE_QT)
+# TODO: install in /usr/share/kshutdown?
 	set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share/apps CACHE FILEPATH "Replacement for KDE4 variable")
 	set(XDG_APPS_INSTALL_DIR ${DATA_INSTALL_DIR}/share/applications CACHE FILEPATH "Install path for .desktop files")
+elseif(KS_KF5)
+	install(FILES kshutdown.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
 else()
 	install(FILES kshutdown.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kshutdown)
 endif()

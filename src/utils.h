@@ -61,6 +61,7 @@ public:
 	static bool isXfce();
 	#ifdef KS_KF5
 	static inline QCommandLineParser *parser() { return m_args; }
+	static inline void setParser(QCommandLineParser *value) { m_args = value; }
 	#endif // KS_KF5
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
 	static void showMenuToolTip(QAction *action);

@@ -47,11 +47,15 @@ Preferences::Preferences(QWidget *parent) :
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
 
 	#ifdef KS_NATIVE_KDE
-/*!!!	int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
+/*
+	int iconSize = 24;
+// TODO: int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
 	m_tabs->setIconSize(QSize(iconSize, iconSize));
 	m_tabs->setTabIcon(0, U_STOCK_ICON("edit-bomb")); // General
 	m_tabs->setTabIcon(1, U_STOCK_ICON("user-desktop")); // System Tray
-	m_tabs->setTabIcon(2, U_STOCK_ICON("dialog-password")); // Password*/
+	m_tabs->setTabIcon(2, U_STOCK_ICON("dialog-password")); // Password
+*/
+// FIXME: vertically misaligned icons. WTF?
 	#endif // KS_NATIVE_KDE
 
 	mainLayout()->addWidget(m_tabs);
@@ -77,8 +81,10 @@ void Preferences::apply() {
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
 	Config::setMinimizeToSystemTrayIcon(!m_noMinimizeToSystemTrayIcon->isChecked());
 	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
+	#ifndef KS_KF5
 	Config::setSystemTrayIconEnabled(m_systemTrayIconEnabled->isChecked());
-	
+	#endif // KS_KF5
+
 	m_passwordPreferences->apply();
 
 	Config::user()->sync();
@@ -135,6 +141,9 @@ QWidget *Preferences::createSystemTrayWidget() {
 
 	m_systemTrayIconEnabled = new QCheckBox(i18n("Enable System Tray Icon"));
 	m_systemTrayIconEnabled->setChecked(Config::systemTrayIconEnabled());
+	#ifdef KS_KF5
+	m_systemTrayIconEnabled->setEnabled(false); // always on
+	#endif // KS_KF5
 	l->addWidget(m_systemTrayIconEnabled);
 
 	m_noMinimizeToSystemTrayIcon = new QCheckBox(
@@ -151,6 +160,10 @@ QWidget *Preferences::createSystemTrayWidget() {
 
 	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
 	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
+	#ifdef KS_KF5
+// TODO: redesign this option
+	m_bwTrayIcon->hide();
+	#endif // KS_KF5
 	l->addWidget(m_bwTrayIcon);
 
 	l->addStretch();
