@@ -52,7 +52,8 @@ function doQuit()
 	clear
 }
 
-if [[ $DESKTOP_SESSION == *kde* ]]; then
+# TODO: $DESKTOP_SESSION == *plasma* (KF5)
+if [[ $DESKTOP_SESSION == *kde* || $XDG_CURRENT_DESKTOP == *KDE* ]]; then
 	default_item="kshutdown"
 else
 	default_item="kshutdown-qt"

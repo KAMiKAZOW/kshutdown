@@ -66,7 +66,7 @@ QString Utils::getOption(const QString &name) {
 #ifdef KS_NATIVE_KDE
 	#ifdef KS_KF5
 	QString option = m_args->value(name);
-	
+
 	return option.isEmpty() ? QString::null : option;
 	#else
 	return m_args->getOption(name.toAscii());
@@ -104,7 +104,7 @@ QString Utils::getTimeOption() {
 	if (pa.count())
 		return pa.at(0);
 	
-	return QString::null;//!!!
+	return QString::null;
 	#else
 	if (m_args->count())
 		return m_args->arg(0);
@@ -156,13 +156,9 @@ void Utils::init() {
 	#endif // Q_OS_LINUX
 }
 
-void Utils::initArgs() {//!!!
+void Utils::initArgs() {
 #ifdef KS_NATIVE_KDE
-	#ifdef KS_KF5
-	m_args = new QCommandLineParser();
-	m_args->addHelpOption();
-	m_args->addVersionOption();
-	#else
+	#ifndef KS_KF5
 	m_args = KCmdLineArgs::parsedArgs();
 	#endif // KS_KF5
 #else
@@ -198,11 +194,13 @@ bool Utils::isEnlightenment() {
 bool Utils::isGUI() { return m_gui; }
 
 bool Utils::isHelpArg() {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
+	return isArg("help");
+#elif defined(KS_NATIVE_KDE)
 	return false; // "--help" argument handled by KDE
 #else
 	return (m_args.contains("/?") || isArg("help"));
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 // FIXME: test GNOME 2

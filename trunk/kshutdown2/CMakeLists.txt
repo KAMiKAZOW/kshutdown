@@ -17,8 +17,6 @@ if(KS_PURE_QT)
 	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_PURE_QT)
 elseif(KS_KF5)
 	find_package(Qt5 REQUIRED Widgets DBus)
-	#add_definitions(${Qt5Widgets_DEFINITIONS} ${Qt5DBus_DEFINITIONS})
-	#include_directories(${Qt5Widgets_INCLUDES} ${Qt5DBus_INCLUDES})
 
 	find_package(ECM REQUIRED NO_MODULE)
 	set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
@@ -29,7 +27,7 @@ elseif(KS_KF5)
 	include(ECMInstallIcons)
 	include(ECMSetupVersion)
 	include(FeatureSummary)
-	find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets DBusAddons I18n IdleTime Notifications NotifyConfig Service XmlGui)
+	find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets DBusAddons GlobalAccel I18n IdleTime Notifications NotifyConfig XmlGui)
 
 	add_definitions(-DKS_KF5)
 # TODO: need this?

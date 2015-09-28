@@ -98,7 +98,7 @@ public:
 
 int main(int argc, char **argv) {
 	#ifdef KS_KF5
-	#warning **** This build/port (KF5) is experimental and incomplete ****
+	#warning **** This build/port (KF5) is experimental and may be incomplete ****
 	qSetMessagePattern("%{appname}[%{time}] %{message}");
 	#endif // KS_KF5
 
@@ -184,7 +184,6 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	// Native KDE startup
 
 	#ifdef KS_KF5
-	//QApplication::setApplicationName("kshutdown");
 	QApplication::setApplicationDisplayName("KShutdown");
 	#endif // KS_KF5
 
@@ -235,8 +234,64 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 
 	#ifdef KS_KF5
 	KAboutData::setApplicationData(about);
-	QCommandLineParser *options = Utils::parser();
-//	options->addOption(QCommandLineOption(QStringList() << "h" << "halt", i18n("Turn Off Computer")));
+
+// FIXME: why it's not populated from KAboutData? (this is all crappy API)
+	// for parser:
+	//QApplication::setApplicationDescription(i18n("A graphical shutdown utility"));
+	QApplication::setApplicationVersion(KS_FULL_VERSION);
+
+	QCommandLineParser *parser = new QCommandLineParser();
+	parser->setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
+	Utils::setParser(parser);
+
+	// clash with -h: parser->addHelpOption();
+	parser->addVersionOption();
+
+	parser->addOption(QCommandLineOption(QStringList() << "h" << "halt", i18n("Turn Off Computer")));
+	parser->addOption(QCommandLineOption(QStringList() << "s" << "shutdown", i18n("Turn Off Computer")));
+	parser->addOption(QCommandLineOption(QStringList() << "r" << "reboot", i18n("Restart Computer")));
+
+	parser->addOption(QCommandLineOption(QStringList() << "H" << "hibernate", i18n("Hibernate Computer")));
+	parser->addOption(QCommandLineOption(QStringList() << "S" << "suspend", i18n("Suspend Computer")));
+
+	parser->addOption(QCommandLineOption(QStringList() << "k" << "lock", i18n("Lock screen")));
+	parser->addOption(QCommandLineOption(QStringList() << "l" << "logout", i18n("Logout")));
+
+	parser->addOption(QCommandLineOption(
+		QStringList() << "e" << "extra",
+		i18n("Run executable file (example: Desktop shortcut or Shell script)"),
+		"<file>"
+	));
+	
+	parser->addOption(QCommandLineOption(QStringList() << "test", i18n("Test Action (does nothing)")));
+	
+	// NOTE: sync. description with mainwindow.cpp/MainWindow::checkCommandLine()
+	
+	parser->addOption(QCommandLineOption(
+		QStringList() << "i" << "inactivity",
+		i18n(
+			"Detect user inactivity. Example:\n"
+			"--logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
+		)
+	));
+
+// TODO: plain text? options.add(":", ki18n("Other Options:"));
+
+	parser->addOption(QCommandLineOption(QStringList() << "help", i18n("Show this help")));
+	parser->addOption(QCommandLineOption(QStringList() << "cancel", i18n("Cancel an active action")));
+	parser->addOption(QCommandLineOption(QStringList() << "confirm", i18n("Confirm command line action")));
+	parser->addOption(QCommandLineOption(QStringList() << "hide-ui", i18n("Hide main window and system tray icon")));
+	parser->addOption(QCommandLineOption(QStringList() << "init", i18n("Do not show main window on startup")));
+	parser->addOption(QCommandLineOption(QStringList() << "mod", i18n("A list of modifications"), "<value>"));
+	parser->addPositionalArgument(
+		"time",
+		i18n(
+			"Activate countdown. Examples:\n"
+			"13:37 - absolute time (HH:MM)\n"
+			"10 or 10m - number of minutes from now\n"
+			"2h - two hours"
+		)
+	);
 	#else
 	KCmdLineArgs::init(argc, argv, &about);
 
@@ -325,16 +380,28 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	KShutdownApplication program(argc, argv);
 
 	QApplication::setOrganizationDomain("sf.net"); // do not modify
-	KDBusService dbusService(KDBusService::Unique | KDBusService::NoExitOnFailure);
-	
-	//!!!Utils::parser()->process(program);
+	KDBusService *dbusService = new KDBusService(KDBusService::Unique | KDBusService::NoExitOnFailure);
+	QObject::connect(dbusService, &KDBusService::activateRequested, [=](const QStringList &arguments, const QString &cwd) {
+		Q_UNUSED(cwd)
+		
+		parser->parse(arguments);
+		
+		KShutdownApplication *p = dynamic_cast<KShutdownApplication *>(U_APP);
+		p->commonStartup(false);
+
+		if (Utils::isArg("cancel"))
+			MainWindow::self()->setActive(false);
+	} );
+
+	parser->process(program);
+	//if (!parser->parse(program.arguments()))
+	//	U_DEBUG << parser->errorText();
 
 	static bool first = true;
-	program.commonStartup(first);
+	if (!program.commonStartup(first))
+		return 0;
 	first = false;
 
-	if (Utils::isArg("cancel"))
-		MainWindow::self()->setActive(false);;
 	#else
 	KShutdownApplication program;
 	#endif // KS_KF5

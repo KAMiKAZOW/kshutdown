@@ -228,6 +228,16 @@ void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) 
 		m_commandLineArgs.append(shortArg);
 	if (!longArg.isEmpty())
 		m_commandLineArgs.append(longArg);
+	#ifdef KS_KF5
+	/*
+	QStringList args;
+	if (!shortArg.isEmpty())
+		args << shortArg;
+	if (!longArg.isEmpty())
+		args << longArg;
+	*/
+// TODO: Utils::parser()->addOption(QCommandLineOption(args, originalText()));
+	#endif // KS_KF5
 }
 
 void Action::disable(const QString &reason) {
