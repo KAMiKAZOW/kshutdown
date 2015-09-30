@@ -48,6 +48,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	// form
 
 	QFormLayout *formLayout = new QFormLayout();
+	formLayout->setLabelAlignment(Qt::AlignRight);
 	mainLayout->addLayout(formLayout);
 
 // TODO: show warning if Caps Lock is turned on (no reliable solution in Qt)

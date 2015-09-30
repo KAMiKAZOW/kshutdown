@@ -59,20 +59,31 @@ else()
 	target_link_libraries(kshutdown kdecore kdeui kio ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KUTILS_LIBS})
 endif()
 
-install(
-	PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
-	DESTINATION bin
-)
 if(KS_PURE_QT)
-# TODO: install in /usr/share/kshutdown?
-	set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share/apps CACHE FILEPATH "Replacement for KDE4 variable")
-	set(XDG_APPS_INSTALL_DIR ${DATA_INSTALL_DIR}/share/applications CACHE FILEPATH "Install path for .desktop files")
+	set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share)
+	set(XDG_APPS_INSTALL_DIR ${DATA_INSTALL_DIR}/applications)
+
+	install(
+		PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
+		DESTINATION bin
+		RENAME kshutdown-qt
+	)
+	install(FILES kshutdown-qt.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 elseif(KS_KF5)
+	install(
+		PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
+		DESTINATION bin
+	)
+	install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 	install(FILES kshutdown.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
 else()
+	install(
+		PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
+		DESTINATION bin
+	)
+	install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 	install(FILES kshutdown.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kshutdown)
 endif()
-install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 add_subdirectory(actions)
 add_subdirectory(images)

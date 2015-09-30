@@ -49,6 +49,19 @@
 		content: " (deprecated)";
 	}
 
+	td.file_list {
+		vertical-align: top;
+	}
+
+	td.file_list ul {
+		margin: 0px;
+		padding-left: 1em;
+	}
+
+	td.file_list li {
+		font-family: monospace;
+	}
+
 	td.new:before {
 		color: orange;
 		content: "New! ";
@@ -153,6 +166,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<td>KDE Build</td>
 	<td>KF5 Build (experimental)</td>
 	<td>Qt Build</td>
+	<td>Qt Build (Windows)</td>
 </tr>
 </thead>
 
@@ -162,13 +176,13 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<td class="header">Summary</td>
 	<td>A KShutdown version compiled using KDE 4 libraries</td>
 	<td>A KShutdown version compiled using KDE Frameworks 5 libraries</td>
-	<td>A KShutdown version compiled without KDE 4 libraries (Qt only, for Xfce, GNOME, etc.)</td>
+	<td colspan="2">A KShutdown version compiled without KDE 4 libraries (Qt only, for Xfce, GNOME, Windows, etc.)</td>
 </tr>
 
 <tr>
 	<td class="header">Additional Features</td>
-	<td colspan="2">Better visual and functional integration with KDE, better User Interface elements and standard dialog windows, global and local keyboard shortcuts configuration, customizable notifications (e.g. sounds), improved language translations and localization</td>
-	<td>None (just plain Qt)</td>
+	<td colspan="2">Better visual and functional integration with KDE, better User Interface elements and standard dialog windows, global and local keyboard shortcuts configuration, customizable notifications (e.g. sounds), improved language translations and localization, a more reliable system tray/notification icon (KF5 only).</td>
+	<td colspan="2">None (just plain Qt)</td>
 </tr>
 
 <tr>
@@ -176,58 +190,123 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 	<td>./Setup-kde4.sh</td>
 	<td>./Setup-kf5.sh</td>
 	<td>./Setup-qt4.sh or ./Setup-qt5.sh</td>
+	<td>Setup-qt4.bat or ./Setup-wine.sh</td>
 </tr>
 
 <tr>
 	<td class="header">Required Libraries</td>
 	<td>libqtgui4, libqt4-dbus, +minimal set of KDE libraries (NOTE: since version 3.1 Beta libkworkspace4 and kdebase-workspace-dev are no longer required)</td>
-	<td>TODO:</td>
+	<td>FIXME: something with kf5 in name ;)</td>
 	<td>libqtgui4, libqt4-dbus</td>
+	<td>See: <a href="README.html#qt4windows">Qt Build @ Windows</a></td>
 </tr>
 
 <tr>
 	<td class="header">Menu Shortcut Name</td>
 	<td>KShutdown</td>
-	<td>TODO:</td>
+	<td>KShutdown</td>
 	<td>KShutdown<b>/Qt</b></td>
+	<td>KShutdown</td>
 </tr>
 
 <tr>
-	<td class="header">Default User Configuration Directory</td>
-	<td>~/.kde/share/apps/kshutdown, ~/.kde/share/config</td>
-	<td>TODO:</td>
-	<td>~/.config/kshutdown.sf.net, ~/.local/share/data/kshutdown.sf.net</td>
+	<td class="header" id="configurationfiles">Configuration Files</td>
+	<td class="file_list">
+		<ul>
+		<li>~/.kde/share/apps/kshutdown/extras/</li>
+		<li>~/.kde/share/config/kshutdown.notifyrc</li>
+		<li>~/.kde/share/config/kshutdownrc</li>
+		</ul>
+	</td>
+	<td class="file_list">
+		<ul>
+		<li>~/.local/share/kshutdown/extras/</li>
+		<li>~/.config/kshutdown.notifyrc</li>
+		<li>~/.config/kshutdownrc</li>
+		</ul>
+		<p>Tip: You can manually import existing configuration from ~/.kde directory.</p>
+	</td>
+	<td class="file_list">
+		<ul>
+		<li>~/.config/kshutdown.sf.net/KShutdown.conf</li>
+		<li>~/.local/share/data/kshutdown.sf.net/KShutdown/extras/ (Qt 4)</li>
+		<li>~/.local/share/kshutdown.sf.net/KShutdown/extras/ (Qt 5)</li>
+		</ul>
+		<p>Note: Does not apply to the portable version.</p>
+	</td>
+	<td class="file_list">
+		<ul>
+		<li>%localappdata%\kshutdown.sf.net\KShutdown\extras\ (Tip: You can open this %localappdata%... path directly in Explorer)</li>
+		<li>Windows Registry (HKEY_CURRENT_USER\SOFTWARE\kshutdown.sf.net\KShutdown)</li>
+		</ul>
+		<p>Note: Does not apply to the portable version.</p>
+	</td>
 </tr>
 
 <tr>
-	<td class="header">Default Program Location (after "make install")</td>
+	<td class="header">Installed Files</td>
+	<td class="file_list">
+		<ul>
+		<li>/usr/share/applications/kde4/kshutdown.desktop</li>
+		<li>/usr/share/icons/hicolor/*/actions/kshutdown.*</li>
+		<li>/usr/share/kde4/apps/kshutdown/extras/**</li>
+		<li>/usr/share/kde4/apps/kshutdown/kshutdown.notifyrc</li>
+		<li>/usr/share/locale/**/kshutdown.mo</li>
+		</ul>
+	</td>
+	<td class="file_list">
+		<ul>
+		<li>/usr/share/applications/kshutdown.desktop</li>
+		<li>/usr/share/icons/hicolor/*/actions/kshutdown.*</li>
+		<li>/usr/share/knotifications5/kshutdown.notifyrc</li>
+		<li>/usr/share/kshutdown/extras/**</li>
+		<li>/usr/share/locale/**/kshutdown.mo</li>
+		</ul>
+	</td>
+	<td class="file_list">
+		<ul>
+		<li>/usr/share/applications/kshutdown-qt.desktop</li>
+		<li>/usr/share/icons/hicolor/*/actions/kshutdown.*</li>
+		</ul>
+	</td>
+	<td class="file_list">
+		<ul>
+		<li>%ProgramFiles(x86)%\KShutdown or %ProgramFiles%\KShutdown (as installed by NSIS)</li>
+		</ul>
+	</td>
+</tr>
+
+<tr>
+	<td class="header">Default Program Location</td>
 	<td>/usr/bin/kshutdown</td>
-	<td>TODO:</td>
+	<td>/usr/bin/kshutdown</td>
 	<td>/usr/bin/kshutdown<b>-qt</b></td>
+	<td>kshutdown.exe</td>
 </tr>
 
 <tr>
 	<td class="header"></td>
-	<td class="header" colspan="3">Developer Info</td>
+	<td class="header" colspan="4">Developer Info</td>
 </tr>
 
 <tr>
 	<td class="header">C++ #define</td>
 	<td><code>KS_NATIVE_KDE</code></td>
 	<td><code>KS_NATIVE_KDE</code> and <code>KS_KF5</code></td>
-	<td><code>KS_PURE_QT</code></td>
+	<td colspan="2"><code>KS_PURE_QT</code></td>
 </tr>
 
 <tr>
 	<td class="header">Build System</td>
 	<td colspan="2"><a href="http://www.cmake.org/">CMake</a> (CMakeLists.txt files)</td>
-	<td><a href="http://qt-project.org/doc/qt-4.8/qmake-manual.html">QMake</a> (src/src.pro file)</td>
+	<td colspan="2"><a href="http://qt-project.org/doc/qt-4.8/qmake-manual.html">QMake</a> (src/src.pro file) or CMake (experimental)</td>
 </tr>
 
 <tr>
 	<td class="header">Language Translation System (input: po/*.po)</td>
 	<td colspan="2">Gettext (output: build.tmp/po/*.mo)</td>
 	<td>Gettext (output: src/i18n/*.qm), kshutdown.qrc</td>
+	<td>TODO:</td>
 </tr>
 
 </tbody>
@@ -292,6 +371,14 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 		<li><code>make</code></li>
 		</ol>
 	</li>
+</ol>
+
+<h3>Using CMake instead of QMake (experimental, <a href="http://sourceforge.net/p/kshutdown/patches/4/">Patch #4</a>)</h3>
+<ol>
+	<li><code>mkdir build-qt5.tmp</code> (use separated "build-qt5.tmp" directory to avoid mess in source tree)</li>
+	<li><code>cd build-qt5.tmp</code></li>
+	<li><code>cmake -DKS_PURE_QT=true -DCMAKE_INSTALL_PREFIX=/usr ..</code></li>
+	<li><code>make &amp;&amp; ./src/kshutdown</code></li>
 </ol>
 
 <h3>Using an alternate Qt version (Qt 5.x example)</h3>
