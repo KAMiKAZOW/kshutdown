@@ -29,6 +29,8 @@ elseif(KS_KF5)
 	include(FeatureSummary)
 	find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets DBusAddons GlobalAccel I18n IdleTime Notifications NotifyConfig XmlGui)
 
+	feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
 	add_definitions(-DKS_KF5)
 # TODO: need this?
 	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_KF5)
@@ -45,5 +47,3 @@ else()
 endif()
 
 add_subdirectory(src)
-
-feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
