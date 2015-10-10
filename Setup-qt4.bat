@@ -28,7 +28,7 @@ cd ..
 
 "C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
 if not %errorlevel% == 0 goto quit
-kshutdown-3.3.2beta-win32.exe
+kshutdown-3.99beta-win32.exe
 
 :skip_normal
 copy README.html kshutdown-portable

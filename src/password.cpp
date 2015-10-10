@@ -161,7 +161,8 @@ bool PasswordDialog::authorizeSettings(QWidget *parent) {
 QString PasswordDialog::toHash(const QString &password) {
 	if (password.isEmpty())
 		return "";
-	
+
+// TODO: consider other algorithms introduced in Qt 5.x <http://doc.qt.io/qt-5/qcryptographichash.html#Algorithm-enum>
 	QByteArray hash = QCryptographicHash::hash(("kshutdown-" + password).toUtf8(), QCryptographicHash::Sha1);
 	
 	return QString(hash.toHex());
