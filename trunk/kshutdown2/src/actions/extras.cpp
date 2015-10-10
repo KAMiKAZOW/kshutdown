@@ -325,7 +325,7 @@ U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString
 
 	if (!desktopComment.isEmpty()) {
 		if (!statusTip.isEmpty())
-			statusTip += "\n";
+			statusTip += '\n';
 		statusTip += Utils::trim(desktopComment, 100);
 	}
 
