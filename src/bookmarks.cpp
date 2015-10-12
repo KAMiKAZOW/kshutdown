@@ -20,6 +20,7 @@
 #include "password.h"
 #include "utils.h"
 
+#include <QCheckBox>
 #include <QFormLayout>
 #include <QPointer>
 
@@ -75,7 +76,8 @@ void BookmarkAction::onAction() {
 	action->setStringOption(m_actionOption);
 	trigger->setStringOption(m_triggerOption);
 	
-	//mainWindow->setActive(true);
+	if (!m_confirmAction)
+		mainWindow->setActive(true);
 }
 
 // public:
@@ -152,14 +154,16 @@ QList<BookmarkAction *> *BookmarksMenu::list() {
 	if (count > 0) {
 		for (int i = 0; i < count; i++) {
 			QString index = QString::number(i);
-			m_list->append(new BookmarkAction(
+			auto *bookmarkAction = new BookmarkAction(
 				config->read("Text " + index, "").toString(),
 				this,
 				config->read("Action " + index, "").toString(),
 				config->read("Trigger " + index, "").toString(),
 				config->read("Action Option " + index, "").toString(),
 				config->read("Trigger Option " + index, "").toString()
-			));
+			);
+			bookmarkAction->m_confirmAction = config->read("Confirm Action " + index, true).toBool();
+			m_list->append(bookmarkAction);
 		}
 	}
 	config->endGroup();
@@ -182,6 +186,7 @@ void BookmarksMenu::syncConfig() {
 		config->write("Action Option " + index, bookmarkAction->m_actionOption);
 		config->write("Trigger " + index, bookmarkAction->m_triggerID);
 		config->write("Trigger Option " + index, bookmarkAction->m_triggerOption);
+		config->write("Confirm Action " + index, bookmarkAction->m_confirmAction);
 		i++;
 	}
 	
@@ -213,38 +218,37 @@ void BookmarksMenu::onAddBookmark() {
 	nameField->setClearButtonEnabled(true);
 	#endif
 
-// TODO: U_CHECK_BOX *autoStartCheckBox = new U_CHECK_BOX(i18n("Start Automatically"));
+	auto *confirmActionField = new QCheckBox(i18n("Confirm Action"));
+	confirmActionField->setChecked(true);
 
 	QFormLayout *formLayout = new QFormLayout();
 	dialog->mainLayout()->addLayout(formLayout);
 	formLayout->addRow(i18n("Name:"), nameField);
+	formLayout->addRow(confirmActionField);
 
 	dialog->addButtonBox();
 
 	nameField->setFocus();
 	nameField->selectAll();
 
-	bool ok = dialog->exec();
-	QString name = nameField->text();
-	//bool autoStart = autoStartCheckBox->isChecked();
+	if (dialog->exec()) {
+		BookmarkAction *bookmark = new BookmarkAction(
+			nameField->text().trimmed(),
+			this,
+			action->id(),
+			trigger->id(),
+			action->getStringOption(),
+			trigger->getStringOption()
+		);
+		bookmark->m_confirmAction = confirmActionField->isChecked();
+		list()->append(bookmark);
+		
+		qSort(list()->begin(), list()->end(), compareBookmarkAction);
+		
+		syncConfig();
+	}
+	
 	delete dialog;
-
-	if (!ok)
-		return;
-
-	BookmarkAction *bookmark = new BookmarkAction(
-		name.trimmed(),
-		this,
-		action->id(),
-		trigger->id(),
-		action->getStringOption(),
-		trigger->getStringOption()
-	);
-	list()->append(bookmark);
-	
-	qSort(list()->begin(), list()->end(), compareBookmarkAction);
-	
-	syncConfig();
 }
 
 void BookmarksMenu::onRemoveBookmark() {
