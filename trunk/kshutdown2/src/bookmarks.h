@@ -37,6 +37,7 @@ public:
 private:
 	Q_DISABLE_COPY(BookmarkAction)
 	friend class BookmarksMenu;
+	bool m_confirmAction = true;
 	bool m_userText;
 	QString m_actionID;
 	QString m_actionOption;
