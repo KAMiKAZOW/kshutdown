@@ -484,7 +484,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		noHTML.remove("<qt>");
 		noHTML.remove("</qt>");
 	}
-// TODO: show error messages using notification
+
 	KNotification::event(
 		id,
 		noHTML,
@@ -816,8 +816,6 @@ void MainWindow::initMenuBar() {
 	//U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
 	U_MENU_BAR *menuBar = new U_MENU_BAR();
-	if (Mod::getBool("ui-hide-menu-bar"))
-		menuBar->hide();
 
 	// file menu
 
@@ -902,11 +900,14 @@ void MainWindow::initMenuBar() {
 
 	setMenuBar(menuBar);
 
+	if (Mod::getBool("ui-hide-menu-bar"))
+		menuBar->hide();
 	// HACK: Fixes Bookmarks menu and key shortcuts
 	//       (Global app menus in Unity are all f*** - it's a fact)
 	// BUG: https://bugs.launchpad.net/appmenu-qt5/+bug/1449373
 	//      https://bugs.launchpad.net/appmenu-qt5/+bug/1380702
-	menuBar->show();
+	else
+		menuBar->show();
 }
 
 void MainWindow::initWidgets() {
@@ -1286,7 +1287,10 @@ void MainWindow::onOKCancel() {
 			dateTimeTrigger &&
 			(dateTimeTrigger->dateTime() <= QDateTime::currentDateTime())
 		) {
-			U_ERROR_MESSAGE(this, i18n("Invalid time: %0").arg(dateTimeTrigger->dateTime().toString(KShutdown::DATE_TIME_DISPLAY_FORMAT)));
+			m_infoWidget->setText(
+				i18n("Invalid time: %0").arg(dateTimeTrigger->dateTime().toString(KShutdown::DATE_TIME_DISPLAY_FORMAT)),
+				InfoWidget::Type::Error
+			);
 		
 			return;
 		}

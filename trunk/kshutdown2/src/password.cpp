@@ -120,6 +120,8 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 
 	QString prompt = i18n("Enter password to perform action: %0").arg(caption);
 
+retry:
+
 	#ifdef KS_NATIVE_KDE
 	QPointer<KPasswordDialog> dialog = new KPasswordDialog(parent);
 	dialog->setPixmap(U_ICON("kshutdown").pixmap(48, 48));
@@ -148,7 +150,7 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 	if (hash != toHash(password)) {
 		U_ERROR_MESSAGE(parent, i18n("Invalid password"));
 		
-		return false;
+		goto retry; // goto considered useful
 	}
 	
 	return true;
