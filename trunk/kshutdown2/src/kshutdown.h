@@ -44,7 +44,6 @@ class QDBusInterface;
 
 namespace KShutdown {
 	
-const QString DATE_TIME_DISPLAY_FORMAT = "MMM d dddd hh:mm";
 const QString TIME_DISPLAY_FORMAT = "hh'h ':' 'mm'm'";
 const QString LONG_TIME_DISPLAY_FORMAT = "hh'h ':' 'mm'm ':' 'ss's'";
 const QString TIME_PARSE_FORMAT = "h:mm";
@@ -207,6 +206,7 @@ public:
 	virtual ~DateTimeTriggerBase();
 	virtual bool canActivateAction() override;
 	virtual QWidget *getWidget() override;
+	static QString longDateTimeFormat();
 	virtual void readConfig(const QString &group, Config *config) override;
 	virtual void writeConfig(const QString &group, Config *config) override;
 	void setDateTime(const QDateTime &dateTime);

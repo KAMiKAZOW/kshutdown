@@ -287,7 +287,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 		"time",
 		i18n(
 			"Activate countdown. Examples:\n"
-			"13:37 - absolute time (HH:MM)\n"
+			"13:37 (HH:MM) or \"1:37 PM\" - absolute time\n"
 			"10 or 10m - number of minutes from now\n"
 			"2h - two hours"
 		)
@@ -347,12 +347,11 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	options.add("hide-ui", ki18n("Hide main window and system tray icon"));
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("mod <value>", ki18n("A list of modifications"));
-// TODO: better AM/PM format support
 	options.add(
 		"+[time]",
 		ki18n(
 			"Activate countdown. Examples:\n"
-			"13:37 - absolute time (HH:MM)\n"
+			"13:37 (HH:MM) or \"1:37 PM\" - absolute time\n"
 			"10 or 10m - number of minutes from now\n"
 			"2h - two hours"
 		)

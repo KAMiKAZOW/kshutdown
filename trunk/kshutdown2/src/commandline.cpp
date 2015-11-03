@@ -46,7 +46,7 @@ void TimeOption::init() {
 		m_relative = true;
 	}
 	else if (m_option.count(":") == 1) {
-		m_time = QTime::fromString(m_option, KShutdown::TIME_PARSE_FORMAT);
+		m_time = parseTime(m_option);
 		if (m_time.isValid())
 			m_absolute = true;
 	}
@@ -90,6 +90,16 @@ bool TimeOption::isError() {
 
 bool TimeOption::isValid() {
 	return m_time.isValid() && (m_absolute || m_relative);
+}
+
+QTime TimeOption::parseTime(const QString &time) {
+	QTime result = QTime::fromString(time, KShutdown::TIME_PARSE_FORMAT);
+
+	// try alternate AM/PM format
+	if (!result.isValid())
+		result = QTime::fromString(time, "h:mm AP");
+
+	return result;
 }
 
 void TimeOption::setupMainWindow() {
