@@ -151,7 +151,7 @@ bool MainWindow::checkCommandLine() {
 		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" +
 		i18n( // NOTE: copied from main.cpp
 		"Activate countdown. Examples:\n"
-		"13:37 - absolute time (HH:MM)\n"
+		"13:37 (HH:MM) or \"1:37 PM\" - absolute time\n"
 		"10 or 10m - number of minutes from now\n"
 		"2h - two hours"
 		).replace('\n', "<br />") +
@@ -536,7 +536,7 @@ void MainWindow::setTime(const QString &trigger, const QString &time) {
 	if (!trigger.isEmpty())
 		setSelectedTrigger(trigger);
 	
-	QTime t = QTime::fromString(time, KShutdown::TIME_PARSE_FORMAT);
+	QTime t = TimeOption::parseTime(time);
 	bool absolute = (trigger == "date-time") ? true : false;
 	setTime(trigger, t, absolute);
 }
@@ -1288,7 +1288,7 @@ void MainWindow::onOKCancel() {
 			(dateTimeTrigger->dateTime() <= QDateTime::currentDateTime())
 		) {
 			m_infoWidget->setText(
-				i18n("Invalid time: %0").arg(dateTimeTrigger->dateTime().toString(KShutdown::DATE_TIME_DISPLAY_FORMAT)),
+				i18n("Invalid time: %0").arg(dateTimeTrigger->dateTime().toString(DateTimeTriggerBase::longDateTimeFormat())),
 				InfoWidget::Type::Error
 			);
 		

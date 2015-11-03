@@ -423,6 +423,19 @@ QWidget *DateTimeTriggerBase::getWidget() {
 	return m_edit;
 }
 
+QString DateTimeTriggerBase::longDateTimeFormat() {
+	QString dateFormat = "MMM d dddd";
+	QString timeFormat = QLocale::system()
+		.timeFormat(QLocale::ShortFormat);
+
+	if (timeFormat == "h:mm:ss AP")
+		timeFormat = "h:mm AP";
+	else
+		timeFormat = "hh:mm";
+	
+	return dateFormat + ' ' + timeFormat;
+}
+
 void DateTimeTriggerBase::readConfig(const QString &group, Config *config) {
 	config->beginGroup(group);
 	m_dateTime = config->read("Date Time", m_dateTime).toDateTime();
@@ -499,7 +512,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 			result += i18n("not recommended") + ", ";
 
 // TODO: do not bold effective time
-		result += i18n("selected time: %0").arg(m_endDateTime.toString(DATE_TIME_DISPLAY_FORMAT));
+		result += i18n("selected time: %0").arg(m_endDateTime.toString(longDateTimeFormat()));
 		result += ')';
 		
 		return result;
@@ -573,7 +586,7 @@ QWidget *DateTimeTrigger::getWidget() {
 		m_edit->setDateTime(QDateTime(date, time));
 	}
 	
-	m_edit->setDisplayFormat(DATE_TIME_DISPLAY_FORMAT);
+	m_edit->setDisplayFormat(DateTimeTriggerBase::longDateTimeFormat());
 	m_edit->setMinimumDate(QDate::currentDate());
 	//m_edit->setMinimumDateTime(QDateTime::currentDateTime());
 	m_edit->setToolTip(i18n("Enter date and time"));

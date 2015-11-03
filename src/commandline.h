@@ -31,6 +31,7 @@ public:
 	static void init();
 	static bool isError();
 	static bool isValid();
+	static QTime parseTime(const QString &time);
 	inline static QString value() { return m_option; }
 	static void setupMainWindow();
 private:
