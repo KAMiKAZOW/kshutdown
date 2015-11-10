@@ -302,6 +302,7 @@ protected:
 	#ifdef KS_DBUS
 	static QDBusInterface *m_consoleKitInterface;
 	static QDBusInterface *m_kdeSessionInterface;
+	static QDBusInterface *m_lxqtSessionInterface;
 	static QDBusInterface *m_razorSessionInterface;
 	void checkAvailable(const QString &consoleKitName);
 	#endif // KS_DBUS

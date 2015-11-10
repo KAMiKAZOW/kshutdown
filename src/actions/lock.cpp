@@ -143,7 +143,8 @@ bool LockAction::onAction() {
 			return true;
 	}
 
-	// try "lxlock"
+	// LXDE
+
 	if (Utils::isLXDE()) {
 		args.clear();
 		if (launch("lxlock", args))
@@ -157,6 +158,15 @@ bool LockAction::onAction() {
 		args.clear();
 		args << "-desktop-lock";
 		if (launch("enlightenment_remote", args))
+			return true;
+	}
+
+	// LXQt
+
+	if (Utils::isLXQt()) {
+		args.clear();
+		args << "--lockscreen";
+		if (launch("lxqt-leave", args))
 			return true;
 	}
 
