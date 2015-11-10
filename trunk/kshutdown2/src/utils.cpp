@@ -36,8 +36,6 @@ bool Utils::m_gui = true;
 	KCmdLineArgs *Utils::m_args = 0;
 	#endif // KS_KF5
 #else
-// TODO: use QCommandLineParser instead
-// <http://qt-project.org/doc/qt-5/qcommandlineparser.html> #Qt5.2
 	QStringList Utils::m_args;
 #endif // KS_NATIVE_KDE
 QProcessEnvironment Utils::m_env = QProcessEnvironment::systemEnvironment();
@@ -242,18 +240,16 @@ bool Utils::isKDE() {
 		);
 }
 
-/* TODO: LXQt
-bool Utils::isLXQt() {
-	return
-		m_desktopSession.contains("LXQT", Qt::CaseInsensitive) ||
-		m_xdgCurrentDesktop.contains("LXQT", Qt::CaseInsensitive);
-}
-*/
-
 bool Utils::isLXDE() {
 	return
 		m_desktopSession.contains("LXDE", Qt::CaseInsensitive) ||
 		m_xdgCurrentDesktop.contains("LXDE", Qt::CaseInsensitive);
+}
+
+bool Utils::isLXQt() {
+	return
+		m_desktopSession.contains("LXQT", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("LXQT", Qt::CaseInsensitive);
 }
 
 bool Utils::isMATE() {

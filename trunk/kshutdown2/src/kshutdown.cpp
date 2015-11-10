@@ -61,6 +61,7 @@ QDBusInterface *PowerAction::m_upowerInterface = 0;
 bool StandardAction::m_kdeShutDownAvailable = false;
 QDBusInterface *StandardAction::m_consoleKitInterface = 0;
 QDBusInterface *StandardAction::m_kdeSessionInterface = 0;
+QDBusInterface *StandardAction::m_lxqtSessionInterface = 0;
 QDBusInterface *StandardAction::m_razorSessionInterface = 0;
 #endif // KS_DBUS
 
@@ -963,6 +964,20 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 			disable("No Razor-qt session found");
 		}
 	}
+
+	if (Utils::isLXQt() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
+		m_lxqtSessionInterface = new QDBusInterface(
+			"org.lxqt.session",
+			"/LXQtSession",
+			"org.lxqt.session"
+		);
+		QDBusReply<bool> reply = m_lxqtSessionInterface->call("canLogout");
+		if (!reply.isValid() || !reply.value()) {
+			delete m_lxqtSessionInterface;
+			m_lxqtSessionInterface = 0;
+			disable("No LXQt session found");
+		}
+	}
 	#endif // KS_DBUS
 
 	#ifdef KS_UNIX
@@ -1180,7 +1195,27 @@ bool StandardAction::onAction() {
 			#endif // KS_UNIX
 		}
 	}
-	
+
+	// LXQt
+
+	#ifdef KS_DBUS
+	else if (Utils::isLXQt()) {
+		if ((m_type == U_SHUTDOWN_TYPE_LOGOUT) && m_lxqtSessionInterface && m_lxqtSessionInterface->isValid()) {
+			QDBusReply<void> reply = m_lxqtSessionInterface->call("logout");
+
+			if (reply.isValid())
+				return true;
+		}
+	}
+/* DEAD: interactive
+			QStringList args;
+			args << "--logout";
+
+			if (launch("lxqt-leave", args))
+				return true;
+*/
+	#endif // KS_DBUS
+
 	// MATE
 
 	else if (Utils::isMATE()) {

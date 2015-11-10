@@ -53,6 +53,7 @@ public:
 	static bool isKDEFullSession();
 	static bool isKDE();
 	static bool isLXDE();
+	static bool isLXQt();
 	static bool isMATE();
 	static bool isRazor();
 	static bool isRestricted(const QString &action);
