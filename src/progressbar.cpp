@@ -16,6 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "config.h"
+#include "mainwindow.h"
 #include "mod.h"
 #include "password.h"
 #include "progressbar.h"
@@ -96,59 +97,74 @@ void ProgressBar::setValue(const int value) {
 
 // protected
 
-void ProgressBar::mousePressEvent(QMouseEvent *e) {
+void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	if (Utils::isRestricted("kshutdown/progress_bar/menu"))
 		return;
 
-	if (e->button() == Qt::RightButton) {
-		// show popup menu
-		U_MENU *menu = new U_MENU(this);
+	// show popup menu
+	U_MENU *menu = new U_MENU(this);
 
-		Utils::addTitle(menu, U_APP->windowIcon(),
-			#ifdef KS_KF5
-			QApplication::applicationDisplayName()
-			#elif defined(KS_NATIVE_KDE)
-			KGlobal::caption()
-			#else
-			i18n("KShutdown")
-			#endif // KS_KF5
-		);
+	Utils::addTitle(menu, U_APP->windowIcon(),
+		#ifdef KS_KF5
+		QApplication::applicationDisplayName()
+		#elif defined(KS_NATIVE_KDE)
+		KGlobal::caption()
+		#else
+		i18n("KShutdown")
+		#endif // KS_KF5
+	);
 
-		bool canConfigure = !Utils::isRestricted("action/options_configure");
+	bool canConfigure = !Utils::isRestricted("action/options_configure");
 
-		menu->addAction(i18n("Hide"), this, SLOT(onHide()));
-		menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()))
-			->setEnabled(canConfigure);
+	menu->addAction(i18n("Hide"), this, SLOT(onHide()));
+	menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()))
+		->setEnabled(canConfigure);
 
-		Utils::addTitle(menu, QIcon(), i18n("Position"));
+	Utils::addTitle(menu, QIcon(), i18n("Position"));
 
-		QActionGroup *positionGroup = new QActionGroup(this);
+	QActionGroup *positionGroup = new QActionGroup(this);
 
-		QAction *a = menu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
-		makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignTop));
+	QAction *a = menu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
+	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignTop));
 		
-		a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
-		makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
+	a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
+	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
 
-		Utils::addTitle(menu, QIcon(), i18n("Size"));
+	Utils::addTitle(menu, QIcon(), i18n("Size"));
 
-		QActionGroup *sizeGroup = new QActionGroup(this);
+	QActionGroup *sizeGroup = new QActionGroup(this);
 		
-		a = menu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
-		makeRadioButton(a, sizeGroup, height() == SmallSize);
+	a = menu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
+	makeRadioButton(a, sizeGroup, height() == SmallSize);
 
-		a = menu->addAction(i18n("Normal"), this, SLOT(onSetSizeNormal()));
-		makeRadioButton(a, sizeGroup, height() == NormalSize);
+	a = menu->addAction(i18n("Normal"), this, SLOT(onSetSizeNormal()));
+	makeRadioButton(a, sizeGroup, height() == NormalSize);
 
-		a = menu->addAction(i18n("Medium"), this, SLOT(onSetSizeMedium()));
-		makeRadioButton(a, sizeGroup, height() == MediumSize);
+	a = menu->addAction(i18n("Medium"), this, SLOT(onSetSizeMedium()));
+	makeRadioButton(a, sizeGroup, height() == MediumSize);
 
-		a = menu->addAction(i18n("Large"), this, SLOT(onSetSizeLarge()));
-		makeRadioButton(a, sizeGroup, height() == LargeSize);
+	a = menu->addAction(i18n("Large"), this, SLOT(onSetSizeLarge()));
+	makeRadioButton(a, sizeGroup, height() == LargeSize);
 
-		menu->popup(e->globalPos());
+	menu->addSeparator();
+
+	menu->addAction(MainWindow::self()->cancelAction());
+
+	menu->popup(e->globalPos());
+	e->accept();
+}
+
+void ProgressBar::mousePressEvent(QMouseEvent *e) {
+	if (e->button() == Qt::LeftButton) {
+		MainWindow *mainWindow = MainWindow::self();
+		mainWindow->show();
+		mainWindow->activateWindow();
+
 		e->accept();
+
+		return;
 	}
+
 	QWidget::mousePressEvent(e);
 }
 

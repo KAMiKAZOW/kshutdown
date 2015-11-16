@@ -35,6 +35,7 @@ public:
 	void setTotal(const int total);
 	void setValue(const int value);
 protected:
+	virtual void contextMenuEvent(QContextMenuEvent *e) override;
 	virtual void mousePressEvent(QMouseEvent *e) override;
 	virtual void paintEvent(QPaintEvent *e) override;
 private:

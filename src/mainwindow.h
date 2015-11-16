@@ -65,6 +65,7 @@ public:
 	virtual ~MainWindow();
 	QHash<QString, Action*> actionHash() const { return m_actionHash; }
 	QList<Action*> actionList() const { return m_actionList; }
+	U_ACTION *cancelAction() const { return m_cancelAction; }
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
 	Action *getSelectedAction() const;
