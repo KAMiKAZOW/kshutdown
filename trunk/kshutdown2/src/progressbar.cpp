@@ -49,13 +49,16 @@ void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfi
 
 	m_alignment = value;
 	QDesktopWidget *desktop = QApplication::desktop();
-	resize(desktop->width() - 4, height());
+
+	int margin = 2_px;
+
+	resize(desktop->width() - margin * 2, height());
 	if (m_alignment.testFlag(Qt::AlignBottom)) {
-		move(2, desktop->height() - height());
+		move(margin, desktop->height() - height());
 	}
 	// Qt::AlignTop
 	else {
-		move(2, 0);
+		move(margin, 0_px);
 	}
 }
 
@@ -64,7 +67,7 @@ void ProgressBar::setDemo(const bool active) {
 	U_DEBUG << "ProgressBar::setDemo: " << active U_END;
 
 	if (active) {
-		m_demoWidth = 0;
+		m_demoWidth = 0_px;
 		m_demoTimer->start(50);
 	}
 	else {
@@ -73,13 +76,12 @@ void ProgressBar::setDemo(const bool active) {
 }
 
 void ProgressBar::setHeight(const int value) {
-	int newHeight = (value < 2) ? 2 : value;
-	resize(width(), newHeight);
+	resize(width(), qMax(2_px, value));
 }
 
 void ProgressBar::setTotal(const int total) {
 	m_total = total;
-	m_completeWidth = 0; // reset
+	m_completeWidth = 0_px; // reset
 }
 
 void ProgressBar::setValue(const int value) {
@@ -98,7 +100,10 @@ void ProgressBar::setValue(const int value) {
 // protected
 
 void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
-	if (Utils::isRestricted("kshutdown/progress_bar/menu"))
+	if (
+		Utils::isArg("hide-ui") ||
+		Utils::isRestricted("kshutdown/progress_bar/menu")
+	)
 		return;
 
 	// show popup menu
@@ -155,7 +160,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 }
 
 void ProgressBar::mousePressEvent(QMouseEvent *e) {
-	if (e->button() == Qt::LeftButton) {
+	if (!Utils::isArg("hide-ui") && (e->button() == Qt::LeftButton)) {
 		MainWindow *mainWindow = MainWindow::self();
 		mainWindow->show();
 		mainWindow->activateWindow();
@@ -172,20 +177,23 @@ void ProgressBar::paintEvent(QPaintEvent *e) {
 	Q_UNUSED(e)
 
 	QPainter g(this);
+
+	int x = 0_px;
+	int y = 0_px;
 	int w = width();
 	int h = height();
 
 	if (m_demoTimer->isActive()) {
-		g.fillRect(0, 0, w, h, Qt::black);
-		g.fillRect(0, 0, qMin(m_demoWidth, w), h, m_demoColor);
+		g.fillRect(x, y, w, h, Qt::black);
+		g.fillRect(x, y, qMin(m_demoWidth, w), h, m_demoColor);
 	}
 	else {
-		g.fillRect(0, 0, w, h, palette().window());
+		g.fillRect(x, y, w, h, palette().window());
 
-		if ((m_completeWidth <= 0) || (m_total <= 0) || (m_value <= 0))
+		if ((m_completeWidth <= 0_px) || (m_total <= 0) || (m_value <= 0))
 			return;
 
-		g.fillRect(0, 0, m_completeWidth, h, palette().windowText());
+		g.fillRect(x, y, m_completeWidth, h, palette().windowText());
 	}
 }
 
@@ -272,9 +280,9 @@ void ProgressBar::setSize(const Size size) {
 // private slots
 
 void ProgressBar::onDemoTimeout() {
-	m_demoWidth += 5;
+	m_demoWidth += 5_px;
 	if (m_demoWidth > width() / 3) {
-		m_demoWidth = 0;
+		m_demoWidth = 0_px;
 		m_demoTimer->stop();
 		repaint();
 

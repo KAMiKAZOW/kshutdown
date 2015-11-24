@@ -31,6 +31,9 @@
 	#endif // KS_KF5
 #endif // KS_NATIVE_KDE
 
+// TODO: use std::chrono and "hrs" literals #C++14 #experimental
+inline int operator "" _px(unsigned long long int value) { return value; }
+
 class QAction;
 class QWidget;
 

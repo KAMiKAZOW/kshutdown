@@ -303,7 +303,7 @@ void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
 	}
 	else {
 		size = newFont.pixelSize();
-		newFont.setPixelSize(qMax(8, size + relativeSize));
+		newFont.setPixelSize(qMax(8_px, size + relativeSize));
 	}
 	widget->setFont(newFont);
 }
@@ -312,7 +312,7 @@ void Utils::showMenuToolTip(QAction *action) {
 	QList<QWidget *> list = action->associatedWidgets();
 	if (list.count() == 1) {
 		QWidget *widget = list.first();
-		int magicNumber = 5;
+		int magicNumber = 5_px;
 		QToolTip::showText(
 			QPoint(widget->x() + magicNumber, widget->y() + widget->height() - (magicNumber * 2)),
 			action->statusTip()
