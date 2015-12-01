@@ -43,6 +43,7 @@
 #include "actions/bootentry.h"
 #include "actions/lock.h"
 #include "kshutdown.h"
+#include "log.h"
 #include "mainwindow.h"
 #include "password.h"
 #include "progressbar.h"
@@ -298,6 +299,8 @@ bool Action::unsupportedAction() {
 // private slots
 
 void Action::slotFire() {
+	Log::info("Execute action: " + m_id + " (" + m_originalText + ")");
+
 	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]" U_END;
 
 	if (!isEnabled()) {

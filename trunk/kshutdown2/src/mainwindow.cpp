@@ -53,6 +53,7 @@
 #include "bookmarks.h"
 #include "commandline.h"
 #include "infowidget.h"
+#include "log.h"
 #include "mainwindow.h"
 #include "mod.h"
 #include "password.h"
@@ -80,6 +81,8 @@ MainWindow::~MainWindow() {
 
 	Config::shutDown();
 	Utils::shutDown();
+	Log::shutDown();
+
 	if (m_progressBar) {
 		delete m_progressBar;
 		m_progressBar = 0;
@@ -918,8 +921,8 @@ void MainWindow::initWidgets() {
 	QWidget *mainWidget = new QWidget();
 	mainWidget->setObjectName("main-widget");
 	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
-	mainLayout->setMargin(5);
-	mainLayout->setSpacing(10);
+	mainLayout->setMargin(5_px);
+	mainLayout->setSpacing(10_px);
 
 	m_actionBox = new QGroupBox(i18n("Select an &action"));
 	m_actionBox->setObjectName("action-box");
