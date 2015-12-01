@@ -19,7 +19,9 @@
 
 #include "config.h"
 #include "infowidget.h"
+#include "log.h"
 #include "mainwindow.h"
+#include "utils.h"
 
 #ifdef KS_NATIVE_KDE
 	#include <KPasswordDialog>
@@ -84,7 +86,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 		"</qt>",
 		InfoWidget::Type::Warning
 	);
-	mainLayout->addSpacing(10);
+	mainLayout->addSpacing(10_px);
 	mainLayout->addWidget(m_status);
 	
 	addButtonBox();
@@ -99,6 +101,8 @@ PasswordDialog::~PasswordDialog() {
 }
 
 void PasswordDialog::apply() {
+	Log::warning("Password changed/set by user");
+
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
 	config->write("Hash", toHash(m_password->text()));
@@ -124,7 +128,7 @@ retry:
 
 	#ifdef KS_NATIVE_KDE
 	QPointer<KPasswordDialog> dialog = new KPasswordDialog(parent);
-	dialog->setPixmap(U_ICON("kshutdown").pixmap(48, 48));
+	dialog->setPixmap(U_ICON("kshutdown").pixmap(48_px, 48_px));
 	dialog->setPrompt(prompt);
 	bool ok = dialog->exec();
 	QString password = ok ? dialog->password() : QString::null;
@@ -148,11 +152,15 @@ retry:
 	#endif // KS_NATIVE_KDE
 
 	if (hash != toHash(password)) {
+		Log::warning("Invalid password for action: " + userAction);
+
 		U_ERROR_MESSAGE(parent, i18n("Invalid password"));
-		
+
 		goto retry; // goto considered useful
 	}
-	
+
+	Log::warning("Action successfully authenticated (using password): " + userAction);
+
 	return true;
 }
 
@@ -215,8 +223,8 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	//U_DEBUG << "PasswordPreferences::PasswordPreferences()" U_END;
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-	mainLayout->setMargin(10);
-	mainLayout->setSpacing(10);
+	mainLayout->setMargin(10_px);
+	mainLayout->setSpacing(10_px);
 
 	m_enablePassword = new QCheckBox(i18n("Enable Password Protection"));
 	Config *config = Config::user();
@@ -272,8 +280,11 @@ void PasswordPreferences::apply() {
 	
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
-	if (!m_enablePassword->isChecked())
+	if (!m_enablePassword->isChecked()) {
+		Log::warning("Password protection disabled by user");
+
 		config->write("Hash", "");
+	}
 
 	int count = m_userActionList->count();
 	for (int i = 0; i < count; i++) {

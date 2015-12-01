@@ -33,6 +33,7 @@
 #endif // KS_PURE_QT
 
 #include "commandline.h"
+#include "log.h"
 #include "mainwindow.h"
 #include "utils.h"
 
@@ -103,6 +104,8 @@ int main(int argc, char **argv) {
 	#endif // KS_KF5
 
 	Utils::init();
+	Log::init();
+
 	#define KS_DEBUG_SYSTEM(f, d) \
 		if (d) qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
 	

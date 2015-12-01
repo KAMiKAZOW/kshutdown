@@ -11,6 +11,7 @@ set(
 	config.cpp
 	infowidget.cpp
 	kshutdown.cpp
+	log.cpp
 	main.cpp
 	mainwindow.cpp
 	mod.cpp
