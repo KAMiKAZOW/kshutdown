@@ -110,6 +110,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	U_MENU *menu = new U_MENU(this);
 
 	Utils::addTitle(menu, U_APP->windowIcon(),
+		i18n("Progress Bar") + " - " +
 		#ifdef KS_KF5
 		QApplication::applicationDisplayName()
 		#elif defined(KS_NATIVE_KDE)
@@ -125,34 +126,40 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	menu->addAction(i18n("Set Color..."), this, SLOT(onSetColor()))
 		->setEnabled(canConfigure);
 
-	Utils::addTitle(menu, QIcon(), i18n("Position"));
+	// position
+
+	U_MENU *positionMenu = new U_MENU(i18n("Position"), menu);
 
 	QActionGroup *positionGroup = new QActionGroup(this);
 
-	QAction *a = menu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
+	QAction *a = positionMenu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
 	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignTop));
 		
-	a = menu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
+	a = positionMenu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
 	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
 
-	Utils::addTitle(menu, QIcon(), i18n("Size"));
+	U_MENU *sizeMenu = new U_MENU(i18n("Size"), menu);
+
+	// size
 
 	QActionGroup *sizeGroup = new QActionGroup(this);
 		
-	a = menu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
+	a = sizeMenu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
 	makeRadioButton(a, sizeGroup, height() == SmallSize);
 
-	a = menu->addAction(i18n("Normal"), this, SLOT(onSetSizeNormal()));
+	a = sizeMenu->addAction(i18n("Normal"), this, SLOT(onSetSizeNormal()));
 	makeRadioButton(a, sizeGroup, height() == NormalSize);
 
-	a = menu->addAction(i18n("Medium"), this, SLOT(onSetSizeMedium()));
+	a = sizeMenu->addAction(i18n("Medium"), this, SLOT(onSetSizeMedium()));
 	makeRadioButton(a, sizeGroup, height() == MediumSize);
 
-	a = menu->addAction(i18n("Large"), this, SLOT(onSetSizeLarge()));
+	a = sizeMenu->addAction(i18n("Large"), this, SLOT(onSetSizeLarge()));
 	makeRadioButton(a, sizeGroup, height() == LargeSize);
 
 	menu->addSeparator();
-
+	menu->addMenu(positionMenu);
+	menu->addMenu(sizeMenu);
+	menu->addSeparator();
 	menu->addAction(MainWindow::self()->cancelAction());
 
 	menu->popup(e->globalPos());
@@ -220,7 +227,7 @@ ProgressBar::ProgressBar() // public
 	setAttribute(Qt::WA_AlwaysShowToolTips, true);
 	setObjectName("progress-bar");
 
-	setWindowTitle("KShutdown - " + i18n("Progress Bar"));
+	setWindowTitle(i18n("Progress Bar") + " - " + "KShutdown");
 	setToolTip(windowTitle());
 
 	QVariant opacityVariant = Mod::get("ui-progress-bar-opacity", 1.0f);
