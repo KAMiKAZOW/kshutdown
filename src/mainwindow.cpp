@@ -1035,6 +1035,10 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 	m_systemTray->setToolTip(s);
 	#endif // Q_OS_WIN32
 
+	// HACK: add "PB" prefix
+	if (s.startsWith("<qt>"))
+		s.insert(4, i18n("Progress Bar") + " - ");
+
 	m_progressBar->setToolTip(s);
 }
 
