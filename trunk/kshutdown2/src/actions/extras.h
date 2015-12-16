@@ -48,7 +48,7 @@ private:
 	QString m_command;
 	U_MENU *m_menu;
 	U_PUSH_BUTTON *m_menuButton;
-	Extras();
+	explicit Extras();
 	CommandAction *createCommandAction(const QFileInfo &fileInfo, const bool returnNull);
 	U_MENU *createMenu();
 	void createMenu(U_MENU *parentMenu, const QString &parentDir);

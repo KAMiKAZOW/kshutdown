@@ -22,7 +22,7 @@
 
 class TestAction: public KShutdown::Action {
 public:
-	TestAction();
+	explicit TestAction();
 	virtual QWidget *getWidget() override;
 	virtual bool onAction() override;
 	virtual void readConfig(const QString &group, Config *config) override;

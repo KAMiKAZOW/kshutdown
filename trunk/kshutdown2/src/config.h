@@ -31,7 +31,7 @@
  *
  * @b WARNING: This class is not thread-safe.
  */
-class Config: public QObject {
+class Config final: public QObject {
 public:
 	virtual ~Config();
 
@@ -92,7 +92,7 @@ private:
 	QSettings *m_engine;
 #endif
 	static Config *m_user;
-	Config();
+	explicit Config();
 };
 
 #endif // KSHUTDOWN_CONFIG_H

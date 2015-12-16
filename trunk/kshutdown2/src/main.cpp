@@ -41,7 +41,7 @@
 	#include <QStyleFactory>
 #endif // defined(KS_PURE_QT) && defined(KS_UNIX)
 
-class KShutdownApplication: public
+class KShutdownApplication final: public
 #ifdef KS_KF5
 QApplication
 #elif defined(KS_NATIVE_KDE)

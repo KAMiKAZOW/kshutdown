@@ -21,7 +21,7 @@
 #include <QFile>
 #include <QTextStream>
 
-class Log {
+class Log final {
 public:
 	static void error(const QString &text);
 	static void info(const QString &text);
@@ -29,7 +29,7 @@ public:
 	static void shutDown();
 	static void warning(const QString &text);
 private:
-	Log() { }
+	explicit Log() { }
 	static QFile *logFile;
 	static QTextStream *output;
 	static void log(const QString &category, const QString &text);
