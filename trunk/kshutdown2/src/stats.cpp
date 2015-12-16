@@ -16,7 +16,9 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "stats.h"
+#include "utils.h"
 
+#include <QProcess>
 #include <QVBoxLayout>
 
 // public:
@@ -24,7 +26,7 @@
 Stats::Stats(QWidget *parent) :
 	UDialog(parent, i18n("Statistics"), true) {
 
-	resize(800, 600);
+	resize(800_px, 600_px);
 
 	m_textView = new QPlainTextEdit(this);
 	m_textView->setLineWrapMode(QPlainTextEdit::NoWrap);
@@ -32,46 +34,14 @@ Stats::Stats(QWidget *parent) :
 	m_textView->setReadOnly(true);
 	m_textView->setStyleSheet("QPlainTextEdit { font-family: monospace; }");
 
-	mainLayout()->setSpacing(0);
+	mainLayout()->setSpacing(0_px);
 	mainLayout()->addWidget(m_textView);
 	addButtonBox();
 
-// TODO: common code
-	m_process = new QProcess(this);
-	connect(
-		m_process, SIGNAL(error(QProcess::ProcessError)),
-		SLOT(onError(QProcess::ProcessError))
-	);
-	connect(
-		m_process, SIGNAL(finished(int, QProcess::ExitStatus)),
-		SLOT(onFinished(int, QProcess::ExitStatus))
-	);
-	connect(
-		m_process, SIGNAL(readyReadStandardOutput()),
-		SLOT(onReadyReadStandardOutput())
-	);
-
-	m_process->start("w");
+	QProcess process;
+	process.start("w");
+	bool ok;
+	m_textView->setPlainText(Utils::read(process, ok));
 }
 
-Stats::~Stats() {
-	if (m_process->state() == QProcess::Running)
-		m_process->terminate();
-}
-
-// private slots:
-
-void Stats::onError(QProcess::ProcessError error) {
-	m_textView->setPlainText(i18n("Error: %0").arg(error));
-}
-
-void Stats::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
-	if (exitStatus == QProcess::NormalExit)
-		m_textView->setPlainText(m_outputBuf);
-	else
-		m_textView->setPlainText(i18n("Error, exit code: %0").arg(exitCode));
-}
-
-void Stats::onReadyReadStandardOutput() {
-	m_outputBuf.append(m_process->readAllStandardOutput());
-}
+Stats::~Stats() { }
