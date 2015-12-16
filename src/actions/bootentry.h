@@ -20,7 +20,7 @@
 
 #include "../pureqt.h"
 
-class BootEntry: public QObject {
+class BootEntry final: public QObject {
 public:
 	static QStringList getList();
 private:
@@ -39,7 +39,7 @@ private:
 
 class BootEntryComboBox: public U_COMBO_BOX {
 public:
-	BootEntryComboBox();
+	explicit BootEntryComboBox();
 private:
 	Q_DISABLE_COPY(BootEntryComboBox)
 };

@@ -23,7 +23,7 @@
 
 class MainWindow;
 
-class Mod: public QObject {
+class Mod final: public QObject {
 public:
 	static void applyMainWindowColors(MainWindow *mainWindow);
 	static QVariant get(const QString &name, const QVariant &defaultValue);

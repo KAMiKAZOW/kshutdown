@@ -24,7 +24,7 @@
 
 #include "kshutdown.h"
 
-class TimeOption {
+class TimeOption final {
 public:
 	inline static KShutdown::Action *action() { return m_action; }
 	inline static void setAction(KShutdown::Action *action) { m_action = action; }
@@ -41,7 +41,7 @@ private:
 	static bool m_relative;
 	static QString m_option;
 	static QTime m_time;
-	TimeOption() { }
+	explicit TimeOption() { }
 };
 
 #endif // KSHUTDOWN_COMMANDLINE_H

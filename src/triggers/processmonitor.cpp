@@ -55,11 +55,14 @@ U_ICON Process::icon() const {
 	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
-/* FIXME: crash
-	DWORD iconHandle = ::GetClassLongPtr(i->windowHandle(), GCLP_HICONSM);
+/* FIXME: still crashy?
+	if (!visible())
+		return U_ICON();
+
+	ULONG_PTR iconHandle = ::GetClassLongPtr(windowHandle(), GCLP_HICONSM);
+
 	if (iconHandle != 0)
 		return QPixmap::fromWinHICON((HICON)iconHandle);
-	else
 */
 	return U_ICON();
 	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
@@ -108,6 +111,12 @@ ProcessMonitor::ProcessMonitor()
 }
 
 // TODO: show warning if selected process does not exist anymore
+
+#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+void ProcessMonitor::addProcess(Process *process) {
+	m_processList.append(process);
+}
+#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 
 bool ProcessMonitor::canActivateAction() {
 	if (m_processList.isEmpty())
@@ -230,11 +239,12 @@ BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 	if (result > 0) {
 		QString title = QString::fromWCharArray(textBuf);
 
+// TODO: show process name (*.exe)
 		Process *p = new Process(processMonitor, Utils::trim(title, 30));
 		p->setPID(pid);
 		p->setVisible(::IsWindowVisible(windowHandle));
 		p->setWindowHandle(windowHandle);
-		processMonitor->m_processList.append(p);
+		processMonitor->addProcess(p);
 	}
 	
 	return TRUE; // krazy:exclude=captruefalse
@@ -314,7 +324,11 @@ void ProcessMonitor::refreshProcessList() {
 
 void ProcessMonitor::updateStatus(const Process *process) {
 	if (process) {
+		#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 		m_recentCommand = process->m_command;
+		#else
+		m_recentCommand = "";
+		#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 		m_status = i18n("Waiting for \"%0\"")
 			.arg(process->toString());
 	}
@@ -341,18 +355,22 @@ void ProcessMonitor::onRefresh() {
 	else {
 		qSort(m_processList.begin(), m_processList.end(), compareProcess);
 
-		#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 		bool separatorAdded = false;
-		#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 		foreach (Process *i, m_processList) {
-			#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-			// separate own and other processes
-			if (!i->own() && !separatorAdded) {
+			// separate non-important processes
+			if (
+				#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+				!i->own() &&
+				#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+				#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+				!i->visible() &&
+				#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+				!separatorAdded
+			) {
 				separatorAdded = true;
 				m_processesComboBox->insertSeparator(m_processesComboBox->count());
 			}
-			#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 			m_processesComboBox->addItem(i->icon(), i->toString(), i->m_command);
 		}
@@ -364,7 +382,8 @@ void ProcessMonitor::onRefresh() {
 
 	U_APP->restoreOverrideCursor();
 
-	updateStatus(m_processList.isEmpty() ? 0 : m_processList.value(0));
+	int index = m_processesComboBox->currentIndex();
+	updateStatus((index == -1) ? nullptr : m_processList.value(index));
 	emit statusChanged(false);
 }
 

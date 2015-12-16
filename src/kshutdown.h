@@ -226,7 +226,7 @@ private:
 
 class DateTimeTrigger: public DateTimeTriggerBase {
 public:
-	DateTimeTrigger();
+	explicit DateTimeTrigger();
 	QDateTime dateTime();
 	virtual QString getStringOption() override;
 	virtual void setStringOption(const QString &option) override;
@@ -240,7 +240,7 @@ private:
 
 class NoDelayTrigger: public Trigger {
 public:
-	NoDelayTrigger();
+	explicit NoDelayTrigger();
 	virtual bool canActivateAction() override { return true; }
 private:
 	Q_DISABLE_COPY(NoDelayTrigger)
@@ -248,7 +248,7 @@ private:
 
 class TimeFromNowTrigger: public DateTimeTriggerBase {
 public:
-	TimeFromNowTrigger();
+	explicit TimeFromNowTrigger();
 	virtual QString getStringOption() override;
 	virtual void setStringOption(const QString &option) override;
 	virtual QWidget *getWidget() override;
@@ -282,14 +282,14 @@ private:
 
 class HibernateAction: public PowerAction {
 public:
-	HibernateAction();
+	explicit HibernateAction();
 private:
 	Q_DISABLE_COPY(HibernateAction)
 };
 
 class SuspendAction: public PowerAction {
 public:
-	SuspendAction();
+	explicit SuspendAction();
 private:
 	Q_DISABLE_COPY(SuspendAction)
 };
@@ -319,14 +319,14 @@ private:
 
 class LogoutAction: public StandardAction {
 public:
-	LogoutAction();
+	explicit LogoutAction();
 private:
 	Q_DISABLE_COPY(LogoutAction)
 };
 
 class RebootAction: public StandardAction {
 public:
-	RebootAction();
+	explicit RebootAction();
 	virtual QWidget *getWidget() override;
 private:
 	Q_DISABLE_COPY(RebootAction)
@@ -335,7 +335,7 @@ private:
 
 class ShutDownAction: public StandardAction {
 public:
-	ShutDownAction();
+	explicit ShutDownAction();
 private:
 	Q_DISABLE_COPY(ShutDownAction)
 };

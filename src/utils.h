@@ -38,7 +38,7 @@ inline int operator "" _px(unsigned long long int value) { return value; }
 class QAction;
 class QWidget;
 
-class Utils {
+class Utils final {
 public:
 	static void addTitle(U_MENU *menu, const QIcon &icon, const QString &text);
 	static QString getOption(const QString &name);
@@ -87,7 +87,7 @@ private:
 	static QProcessEnvironment m_env;
 	static QString m_desktopSession;
 	static QString m_xdgCurrentDesktop;
-	Utils() { }
+	explicit Utils() { }
 };
 
 #endif // KSHUTDOWN_UTILS_H

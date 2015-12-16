@@ -23,7 +23,7 @@
 class IdleMonitor: public KShutdown::DateTimeTriggerBase {
 	Q_OBJECT
 public:
-	IdleMonitor();
+	explicit IdleMonitor();
 	virtual ~IdleMonitor();
 	virtual bool canActivateAction() override;
 	virtual QString getStringOption() override;

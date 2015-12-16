@@ -42,7 +42,7 @@ private:
 	#ifdef KS_DBUS
 	static QDBusInterface *m_qdbusInterface;
 	#endif // KS_DBUS
-	LockAction();
+	explicit LockAction();
 };
 
 #endif // KSHUTDOWN_LOCK_H

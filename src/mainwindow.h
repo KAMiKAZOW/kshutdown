@@ -128,7 +128,7 @@ private:
 	U_COMBO_BOX *m_triggers;
 	U_PUSH_BUTTON *m_okCancelButton;
 	USystemTray *m_systemTray;
-	MainWindow();
+	explicit MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
 	void initFileMenu(U_MENU *fileMenu, const bool addQuitAction);

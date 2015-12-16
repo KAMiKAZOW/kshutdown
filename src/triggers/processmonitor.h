@@ -39,7 +39,7 @@
 	#include <sys/types.h>
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
-class Process: public QObject {
+class Process final: public QObject {
 public:
 	explicit Process(QObject *parent, const QString &command);
 	U_ICON icon() const;
@@ -76,7 +76,10 @@ private:
 class ProcessMonitor: public KShutdown::Trigger {
 	Q_OBJECT
 public:
-	ProcessMonitor();
+	explicit ProcessMonitor();
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	void addProcess(Process *process);
+	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 	virtual bool canActivateAction() override;
 	virtual QWidget *getWidget() override;
 	virtual void readConfig(const QString &group, Config *config) override;
