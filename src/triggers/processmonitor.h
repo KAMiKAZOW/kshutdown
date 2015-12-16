@@ -39,11 +39,10 @@
 	#include <sys/types.h>
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
-#include <QProcess>
-
 class Process: public QObject {
 public:
 	explicit Process(QObject *parent, const QString &command);
+	U_ICON icon() const;
 	bool isRunning() const;
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	inline bool own() const { return m_own; }
@@ -78,27 +77,25 @@ class ProcessMonitor: public KShutdown::Trigger {
 	Q_OBJECT
 public:
 	ProcessMonitor();
-	void addProcess(Process *process);
 	virtual bool canActivateAction() override;
 	virtual QWidget *getWidget() override;
+	virtual void readConfig(const QString &group, Config *config) override;
+	virtual void writeConfig(const QString &group, Config *config) override;
 	void setPID(const qint64 pid);
 private:
 	Q_DISABLE_COPY(ProcessMonitor)
 	QList<Process*> m_processList;
-	QProcess *m_refreshProcess;
-	QString m_refreshBuf;
-	QWidget *m_widget;
-	U_COMBO_BOX *m_processesComboBox;
+	QString m_recentCommand = "";
+	QWidget *m_widget = nullptr;
+	U_COMBO_BOX *m_processesComboBox = nullptr;
 	void clearAll();
 	void errorMessage(const QString &message);
+	void refreshProcessList();
 	void updateStatus(const Process *process);
 public slots:
 	void onRefresh();
 private slots:
-	void onError(QProcess::ProcessError error);
-	void onFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void onProcessSelect(const int index);
-	void onReadyReadStandardOutput();
 };
 
 #endif // KSHUTDOWN_PROCESSMONITOR_H

@@ -48,6 +48,23 @@ Process::Process(QObject *parent, const QString &command)
 {
 }
 
+U_ICON Process::icon() const {
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	// show icons for own processes only (faster)
+	return own() ? U_STOCK_ICON(m_command) : U_ICON();
+	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+/* FIXME: crash
+	DWORD iconHandle = ::GetClassLongPtr(i->windowHandle(), GCLP_HICONSM);
+	if (iconHandle != 0)
+		return QPixmap::fromWinHICON((HICON)iconHandle);
+	else
+*/
+	return U_ICON();
+	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+}
+
 bool Process::isRunning() const {
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	if (::kill(m_pid, 0)) { // check if process exists
@@ -85,17 +102,9 @@ QString Process::toString() const {
 
 ProcessMonitor::ProcessMonitor()
 	: KShutdown::Trigger(i18n("When selected application exit"), "application-exit", "process-monitor"),
-	m_processList(QList<Process*>()),
-	m_refreshProcess(0),
-	m_refreshBuf(QString::null),
-	m_widget(0),
-	m_processesComboBox(0)
+	m_processList(QList<Process*>())
 {
 	m_checkTimeout = 2000;
-}
-
-void ProcessMonitor::addProcess(Process *process) {
-	m_processList.append(process);
 }
 
 // TODO: show warning if selected process does not exist anymore
@@ -115,8 +124,8 @@ QWidget *ProcessMonitor::getWidget() {
 	if (!m_widget) {
 		m_widget = new QWidget();
 		QHBoxLayout *layout = new QHBoxLayout(m_widget);
-		layout->setMargin(0);
-		layout->setSpacing(5);
+		layout->setMargin(0_px);
+		layout->setSpacing(5_px);
 
 		m_processesComboBox = new U_COMBO_BOX(m_widget);
 		m_processesComboBox->view()->setAlternatingRowColors(true);
@@ -144,13 +153,26 @@ void ProcessMonitor::setPID(const qint64 pid) {
 	clearAll();
 	
 	Process *p = new Process(this, "?");
+	p->m_own = false;
 	p->m_pid = pid;
 	p->m_user = '?';
-	addProcess(p);
-	m_processesComboBox->addItem(U_ICON(), p->toString());
+	m_processList.append(p);
+	m_processesComboBox->addItem(p->icon(), p->toString());
 #else
 	Q_UNUSED(pid)
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+}
+
+void ProcessMonitor::readConfig(const QString &group, Config *config) {
+	config->beginGroup(group);
+	m_recentCommand = config->read("Recent Command", "").toString();
+	config->endGroup();
+}
+
+void ProcessMonitor::writeConfig(const QString &group, Config *config) {
+	config->beginGroup(group);
+	config->write("Recent Command", m_recentCommand);
+	config->endGroup();
 }
 
 // private
@@ -162,8 +184,6 @@ void ProcessMonitor::clearAll() {
 }
 
 void ProcessMonitor::errorMessage(const QString &message) {
-	U_APP->restoreOverrideCursor();
-
 	clearAll();
 	m_processesComboBox->setEnabled(false);
 
@@ -171,143 +191,6 @@ void ProcessMonitor::errorMessage(const QString &message) {
 		U_STOCK_ICON("dialog-error"),
 		message
 	);
-}
-
-void ProcessMonitor::updateStatus(const Process *process) {
-	if (process) {
-		m_status = i18n("Waiting for \"%0\"")
-			.arg(process->toString());
-	}
-	else {
-		m_status = QString::null;
-	}
-}
-
-// public slots
-
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-void ProcessMonitor::onRefresh() {
-	U_APP->setOverrideCursor(Qt::WaitCursor);
-	
-	clearAll();
-	m_processesComboBox->setEnabled(true);
-
-	m_refreshBuf = QString::null;
-
-	if (!m_refreshProcess) {
-		m_refreshProcess = new QProcess(this);
-		connect(
-			m_refreshProcess, SIGNAL(error(QProcess::ProcessError)),
-			SLOT(onError(QProcess::ProcessError))
-		);
-		connect(
-			m_refreshProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
-			SLOT(onFinished(int, QProcess::ExitStatus))
-		);
-		connect(
-			m_refreshProcess, SIGNAL(readyReadStandardOutput()),
-			SLOT(onReadyReadStandardOutput())
-		);
-	}
-	else {
-		if (m_refreshProcess->state() == QProcess::Running)
-			m_refreshProcess->terminate();
-	}
-	
-	QStringList args;
-	// show all processes
-	args << "-A";
-	// order: user pid command
-// TODO: args << "-o" << "user=,pid=,command=";
-// http://sourceforge.net/p/kshutdown/bugs/11/
-	args << "-o" << "user=,pid=,comm=";
-	// sort by command
-	//args << "--sort" << "command";
-	args << "--sort" << "comm";
-
-	// start process
-	m_refreshProcess->start("ps", args);
-}
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-
-#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
-
-// CREDITS: http://stackoverflow.com/questions/7001222/enumwindows-pointer-error
-BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
-	// exclude KShutdown...
-	DWORD pid = 0;
-	::GetWindowThreadProcessId(windowHandle, &pid);
-
-	if (pid == U_APP->applicationPid())
-		return TRUE; // krazy:exclude=captruefalse
-
-	ProcessMonitor *processMonitor = (ProcessMonitor *)param;
-
-	int textLength = ::GetWindowTextLengthW(windowHandle) + 1;
-	wchar_t textBuf[textLength];
-	int result = ::GetWindowTextW(windowHandle, textBuf, textLength);
-	if (result > 0) {
-		QString title = QString::fromWCharArray(textBuf);
-
-		Process *p = new Process(processMonitor, Utils::trim(title, 30));
-		p->setPID(pid);
-		p->setVisible(::IsWindowVisible(windowHandle));
-		p->setWindowHandle(windowHandle);
-		processMonitor->addProcess(p);
-	}
-	
-	return TRUE; // krazy:exclude=captruefalse
-}
-
-// sort alphabetically, visible first
-bool compareProcess(const Process *p1, const Process *p2) {
-	bool v1 = p1->visible();
-	bool v2 = p2->visible();
-	
-	if (v1 && !v2)
-		return true;
-	
-	if (!v1 && v2)
-		return false;
-
-	QString s1 = p1->toString();
-	QString s2 = p2->toString();
-		
-	return QString::compare(s1, s2, Qt::CaseInsensitive) < 0;
-}
-
-void ProcessMonitor::onRefresh() {
-	clearAll();
-	
-	::EnumWindows(EnumWindowsCallback, (LPARAM)this);
-
-// TODO: error message
-	if (m_processList.isEmpty()) {
-		errorMessage(i18n("Error"));
-	}
-	else {
-		qSort(m_processList.begin(), m_processList.end(), compareProcess);
-
-		foreach (Process *i, m_processList) {
-/* FIXME: crash
-			DWORD iconHandle = ::GetClassLongPtr(i->windowHandle(), GCLP_HICONSM);
-			if (iconHandle != 0)
-				m_processesComboBox->addItem(QPixmap::fromWinHICON((HICON)iconHandle), i->toString());
-			else
-*/
-				m_processesComboBox->addItem(U_ICON(), i->toString());
-		}
-	}
-
-	updateStatus(m_processList.isEmpty() ? 0 : m_processList.value(0));
-	emit statusChanged(false);
-}
-#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
-
-// private slots
-
-void ProcessMonitor::onError(QProcess::ProcessError error) {
-	errorMessage(i18n("Error: %0").arg(error));
 }
 
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
@@ -329,68 +212,167 @@ bool compareProcess(const Process *p1, const Process *p2) {
 }
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
-void ProcessMonitor::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	U_DEBUG << "ProcessMonitor::onFinished( exitCode=" << exitCode << ", exitStatus=" << exitStatus << " )" U_END;
+#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+// CREDITS: http://stackoverflow.com/questions/7001222/enumwindows-pointer-error
+BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
+	// exclude KShutdown...
+	DWORD pid = 0;
+	::GetWindowThreadProcessId(windowHandle, &pid);
+
+	if (pid == U_APP->applicationPid())
+		return TRUE; // krazy:exclude=captruefalse
+
+	ProcessMonitor *processMonitor = (ProcessMonitor *)param;
+
+	int textLength = ::GetWindowTextLengthW(windowHandle) + 1;
+	wchar_t textBuf[textLength];
+	int result = ::GetWindowTextW(windowHandle, textBuf, textLength);
+	if (result > 0) {
+		QString title = QString::fromWCharArray(textBuf);
+
+		Process *p = new Process(processMonitor, Utils::trim(title, 30));
+		p->setPID(pid);
+		p->setVisible(::IsWindowVisible(windowHandle));
+		p->setWindowHandle(windowHandle);
+		processMonitor->m_processList.append(p);
+	}
 	
-	if (!m_processList.isEmpty()) {
-		U_APP->restoreOverrideCursor();
+	return TRUE; // krazy:exclude=captruefalse
+}
+
+// sort alphabetically, visible first
+bool compareProcess(const Process *p1, const Process *p2) {
+	bool v1 = p1->visible();
+	bool v2 = p2->visible();
+	
+	if (v1 && !v2)
+		return true;
+	
+	if (!v1 && v2)
+		return false;
+
+	QString s1 = p1->toString();
+	QString s2 = p2->toString();
 		
+	return QString::compare(s1, s2, Qt::CaseInsensitive) < 0;
+}
+#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+
+void ProcessMonitor::refreshProcessList() {
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	QStringList args;
+	// show all processes
+	args << "-A";
+	// order: user pid command
+// TODO: args << "-o" << "user=,pid=,command=";
+// http://sourceforge.net/p/kshutdown/bugs/11/
+	args << "-o" << "user=,pid=,comm=";
+	// sort by command
+	//args << "--sort" << "command";
+	args << "--sort" << "comm";
+
+	QProcess process;
+	process.start("ps", args);
+	process.waitForStarted(-1);
+	Q_PID psPID = process.pid();
+
+	bool ok;
+	QString text = Utils::read(process, ok);
+
+	if (!ok)
 		return;
-	}
-	
-	if (exitStatus == QProcess::NormalExit) {
-		QStringList processLines = m_refreshBuf.split('\n');
-		foreach (const QString &i, processLines) {
-			QStringList processInfo = i.simplified().split(' ');
-			if (processInfo.count() >= 3) {
-				Process *p = new Process(this, processInfo[2]/* command */);
-				p->m_user = processInfo[0];
-				p->m_pid = processInfo[1].toLong();
-				addProcess(p);
-			}
-		}
-		
-		if (m_processList.isEmpty()) {
-			errorMessage(i18n("Error, exit code: %0").arg(exitCode));
-		}
-		else {
-			QString user = Utils::getUser();
-			foreach (Process *i, m_processList)
-				i->m_own = (i->m_user == user);
 
-			qSort(m_processList.begin(), m_processList.end(), compareProcess);
+	qint64 appPID = QApplication::applicationPid();
+	QString user = Utils::getUser();
+	QStringList processLines = text.split('\n');
 
-			foreach (Process *i, m_processList) {
-				m_processesComboBox->addItem(
-					// show icons for own processes only (faster)
-					i->own() ? U_STOCK_ICON(i->m_command) : U_ICON(),
-					i->toString()
-				);
-			}
+	foreach (const QString &i, processLines) {
+		QStringList processInfo = i.simplified().split(' ');
+		if (processInfo.count() >= 3) {
+			pid_t processID = processInfo[1].toLong();
+
+			// exclude "ps" and self
+			if (
+				(processID == appPID) ||
+				((processID == psPID) && (psPID != 0))
+			)
+				continue; // for
+
+			Process *p = new Process(this, processInfo[2]/* command */);
+			p->m_user = processInfo[0];
+			p->m_pid = processID;
+			p->m_own = (p->m_user == user);
+			m_processList.append(p);
 		}
 	}
-	else { // QProcess::CrashExit
-		errorMessage(i18n("Error, exit code: %0").arg(exitCode));
+	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	::EnumWindows(EnumWindowsCallback, (LPARAM)this);
+	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+}
+
+void ProcessMonitor::updateStatus(const Process *process) {
+	if (process) {
+		m_recentCommand = process->m_command;
+		m_status = i18n("Waiting for \"%0\"")
+			.arg(process->toString());
 	}
-	
+	else {
+		m_recentCommand = "";
+		m_status = QString::null;
+	}
+}
+
+// public slots
+
+void ProcessMonitor::onRefresh() {
+	clearAll();
+	m_processesComboBox->setEnabled(true);
+
+	U_APP->setOverrideCursor(Qt::WaitCursor);
+
+	refreshProcessList();
+
+	if (m_processList.isEmpty()) {
+// TODO: error message
+		errorMessage(i18n("Error"));
+	}
+	else {
+		qSort(m_processList.begin(), m_processList.end(), compareProcess);
+
+		#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+		bool separatorAdded = false;
+		#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+		foreach (Process *i, m_processList) {
+			#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+			// separate own and other processes
+			if (!i->own() && !separatorAdded) {
+				separatorAdded = true;
+				m_processesComboBox->insertSeparator(m_processesComboBox->count());
+			}
+			#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+			m_processesComboBox->addItem(i->icon(), i->toString(), i->m_command);
+		}
+
+		int i = m_processesComboBox->findData(m_recentCommand);
+		if (i != -1)
+			m_processesComboBox->setCurrentIndex(i);
+	}
+
 	U_APP->restoreOverrideCursor();
-	
+
 	updateStatus(m_processList.isEmpty() ? 0 : m_processList.value(0));
 	emit statusChanged(false);
-#else
-	Q_UNUSED(exitCode)
-	Q_UNUSED(exitStatus)
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 }
+
+// private slots
 
 void ProcessMonitor::onProcessSelect(const int index) {
 	#ifdef KS_TRIGGER_PROCESS_MONITOR
 	updateStatus(m_processList.value(index));
 	emit statusChanged(false);
 	#endif // KS_TRIGGER_PROCESS_MONITOR
-}
-
-void ProcessMonitor::onReadyReadStandardOutput() {
-	m_refreshBuf.append(m_refreshProcess->readAllStandardOutput());
 }

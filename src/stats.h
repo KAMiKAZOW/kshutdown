@@ -21,7 +21,6 @@
 #include "udialog.h"
 
 #include <QPlainTextEdit>
-#include <QProcess>
 
 class Stats: public UDialog {
 	Q_OBJECT
@@ -31,12 +30,6 @@ public:
 private:
 	Q_DISABLE_COPY(Stats)
 	QPlainTextEdit *m_textView;
-	QProcess *m_process;
-	QString m_outputBuf = "";
-private slots:
-	void onError(QProcess::ProcessError error);
-	void onFinished(int exitCode, QProcess::ExitStatus exitStatus);
-	void onReadyReadStandardOutput();
 };
 
 #endif // KSHUTDOWN_STATS_H

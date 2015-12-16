@@ -20,6 +20,7 @@
 
 #include "pureqt.h"
 
+#include <QProcess>
 #include <QProcessEnvironment>
 #include <QString>
 
@@ -67,6 +68,7 @@ public:
 	static inline QCommandLineParser *parser() { return m_args; }
 	static inline void setParser(QCommandLineParser *value) { m_args = value; }
 	#endif // KS_KF5
+	static QString read(QProcess &process, bool &ok);
 	static void setFont(QWidget *widget, const int relativeSize, const bool bold);
 	static void showMenuToolTip(QAction *action);
 	static void shutDown();

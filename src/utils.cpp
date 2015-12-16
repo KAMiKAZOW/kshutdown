@@ -293,6 +293,29 @@ bool Utils::isXfce() {
 		m_xdgCurrentDesktop.contains("xfce", Qt::CaseInsensitive);
 }
 
+QString Utils::read(QProcess &process, bool &ok) {
+	ok = false;
+
+	if (!process.waitForStarted(-1))
+// TODO: show process.program()/arguments() #5.x
+		return process.errorString();
+
+	QString err = "";
+	QString out = "";
+
+	while (process.waitForReadyRead(-1)) {
+		out += QString::fromUtf8(process.readAllStandardOutput());
+		err += QString::fromUtf8(process.readAllStandardError());
+	}
+
+	if (!err.isEmpty())
+		return err;
+
+	ok = true;
+
+	return out;
+}
+
 void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
 	QFont newFont(widget->font());
 	if (bold)
