@@ -78,7 +78,7 @@ public:
 	inline QString originalText() const {
 		return m_originalText;
 	}
-	virtual void readConfig(const QString &group, Config *config);
+	virtual void readConfig(Config *config);
 	virtual void setState(const State state);
 	inline QString status() const {
 		return m_status;
@@ -86,7 +86,7 @@ public:
 	inline InfoWidget::Type statusType() const {
 		return m_statusType;
 	}
-	virtual void writeConfig(const QString &group, Config *config);
+	virtual void writeConfig(Config *config);
 protected:
 	InfoWidget::Type m_statusType;
 	QString m_disableReason;
@@ -207,8 +207,8 @@ public:
 	virtual bool canActivateAction() override;
 	virtual QWidget *getWidget() override;
 	static QString longDateTimeFormat();
-	virtual void readConfig(const QString &group, Config *config) override;
-	virtual void writeConfig(const QString &group, Config *config) override;
+	virtual void readConfig(Config *config) override;
+	virtual void writeConfig(Config *config) override;
 	void setDateTime(const QDateTime &dateTime);
 	virtual void setState(const State state) override;
 protected:

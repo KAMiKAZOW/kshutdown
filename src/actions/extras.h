@@ -33,7 +33,7 @@ public:
 	virtual void setStringOption(const QString &option) override;
 	virtual QWidget *getWidget() override;
 	virtual bool onAction() override;
-	virtual void readConfig(const QString &group, Config *config) override;
+	virtual void readConfig(Config *config) override;
 	static Extras *self() {
 		if (!m_instance)
 			m_instance = new Extras();
@@ -41,7 +41,7 @@ public:
 		return m_instance;
 	}
 	virtual void updateMainWindow(MainWindow *mainWindow) override;
-	virtual void writeConfig(const QString &group, Config *config) override;
+	virtual void writeConfig(Config *config) override;
 private:
 	Q_DISABLE_COPY(Extras)
 	static Extras *m_instance;

@@ -142,12 +142,10 @@ bool Extras::onAction() {
 #endif // KS_NATIVE_KDE
 }
 
-void Extras::readConfig(const QString &group, Config *config) {
-	config->beginGroup(group);
+void Extras::readConfig(Config *config) {
 	// do not override command set via "e" command line option
 	if (m_command.isNull())
 		setStringOption(config->read("Command", "").toString());
-	config->endGroup();
 }
 
 void Extras::updateMainWindow(MainWindow *mainWindow) {
@@ -165,10 +163,8 @@ void Extras::updateMainWindow(MainWindow *mainWindow) {
 	}
 }
 
-void Extras::writeConfig(const QString &group, Config *config) {
-	config->beginGroup(group);
+void Extras::writeConfig(Config *config) {
 	config->write("Command", m_command);
-	config->endGroup();
 }
 
 // private

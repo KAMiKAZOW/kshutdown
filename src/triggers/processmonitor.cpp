@@ -110,8 +110,6 @@ ProcessMonitor::ProcessMonitor()
 	m_checkTimeout = 2000;
 }
 
-// TODO: show warning if selected process does not exist anymore
-
 #ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
 void ProcessMonitor::addProcess(Process *process) {
 	m_processList.append(process);
@@ -157,6 +155,14 @@ QWidget *ProcessMonitor::getWidget() {
 	return m_widget;
 }
 
+void ProcessMonitor::readConfig(Config *config) {
+	m_recentCommand = config->read("Recent Command", "").toString();
+}
+
+void ProcessMonitor::writeConfig(Config *config) {
+	config->write("Recent Command", m_recentCommand);
+}
+
 void ProcessMonitor::setPID(const qint64 pid) {
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	clearAll();
@@ -170,18 +176,6 @@ void ProcessMonitor::setPID(const qint64 pid) {
 #else
 	Q_UNUSED(pid)
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-}
-
-void ProcessMonitor::readConfig(const QString &group, Config *config) {
-	config->beginGroup(group);
-	m_recentCommand = config->read("Recent Command", "").toString();
-	config->endGroup();
-}
-
-void ProcessMonitor::writeConfig(const QString &group, Config *config) {
-	config->beginGroup(group);
-	config->write("Recent Command", m_recentCommand);
-	config->endGroup();
 }
 
 // private
@@ -329,8 +323,18 @@ void ProcessMonitor::updateStatus(const Process *process) {
 		#else
 		m_recentCommand = "";
 		#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-		m_status = i18n("Waiting for \"%0\"")
-			.arg(process->toString());
+
+// TODO: clean up status API
+		if (process->isRunning()) {
+			m_status = i18n("Waiting for \"%0\"")
+				.arg(process->toString());
+			m_statusType = InfoWidget::Type::Info;
+		}
+		else {
+			m_status = i18n("Process or Window does not exist: %0")
+				.arg(process->toString());
+			m_statusType = InfoWidget::Type::Warning;
+		}
 	}
 	else {
 		m_recentCommand = "";

@@ -220,16 +220,11 @@ bool MainWindow::checkCommandLine() {
 				
 				return false;
 			}
-			
+
 			// execute action and quit now
-			if (actionToActivate->authorize(0)) {
-				// HACK:
-				if ("test" == actionToActivate->id())
-					actionToActivate->readConfig("KShutdown Action " + actionToActivate->id(), Config::user());
-			
+			if (actionToActivate->authorize(0))
 				actionToActivate->activate(false);
-			}
-			
+
 			return true;
 		}
 	}
@@ -325,6 +320,8 @@ void MainWindow::init() {
 		addTrigger(idleMonitor);
 	else
 		delete idleMonitor;
+
+	pluginConfig(true); // read
 }
 
 void MainWindow::maybeShow() {
@@ -981,29 +978,28 @@ void MainWindow::initWidgets() {
 
 void MainWindow::pluginConfig(const bool read) {
 	Config *config = Config::user();
-	QString group;
 
 	foreach (Action *i, m_actionList) {
-		group = "KShutdown Action " + i->id();
+		config->beginGroup("KShutdown Action " + i->id());
 		if (read)
-			i->readConfig(group, config);
+			i->readConfig(config);
 		else
-			i->writeConfig(group, config);
+			i->writeConfig(config);
+		config->endGroup();
 	}
 
 	foreach (Trigger *i, m_triggerList) {
-		group = "KShutdown Trigger " + i->id();
+		config->beginGroup("KShutdown Trigger " + i->id());
 		if (read)
-			i->readConfig(group, config);
+			i->readConfig(config);
 		else
-			i->writeConfig(group, config);
+			i->writeConfig(config);
+		config->endGroup();
 	}
 }
 
 void MainWindow::readConfig() {
 	//U_DEBUG << "MainWindow::readConfig()" U_END;
-
-	pluginConfig(true); // read
 
 	Config *config = Config::user();
 	config->beginGroup("General");

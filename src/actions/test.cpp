@@ -72,14 +72,10 @@ bool TestAction::onAction() {
 	return true;
 }
 
-void TestAction::readConfig(const QString &group, Config *config) {
-	config->beginGroup(group);
+void TestAction::readConfig(Config *config) {
 	m_textField->setText(config->read("Text", "").toString());
-	config->endGroup();
 }
 
-void TestAction::writeConfig(const QString &group, Config *config) {
-	config->beginGroup(group);
+void TestAction::writeConfig(Config *config) {
 	config->write("Text", m_textField->text());
-	config->endGroup();
 }

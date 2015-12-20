@@ -135,7 +135,7 @@ private:
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();
-	void pluginConfig(const bool read);
+	static void pluginConfig(const bool read);
 	void readConfig();
 	void setTitle(const QString &plain, const QString &html);
 	void updateWidgets();
