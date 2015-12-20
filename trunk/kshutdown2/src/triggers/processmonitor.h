@@ -82,8 +82,8 @@ public:
 	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 	virtual bool canActivateAction() override;
 	virtual QWidget *getWidget() override;
-	virtual void readConfig(const QString &group, Config *config) override;
-	virtual void writeConfig(const QString &group, Config *config) override;
+	virtual void readConfig(Config *config) override;
+	virtual void writeConfig(Config *config) override;
 	void setPID(const qint64 pid);
 private:
 	Q_DISABLE_COPY(ProcessMonitor)

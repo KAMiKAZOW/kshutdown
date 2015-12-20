@@ -87,8 +87,7 @@ QWidget *Base::getWidget() {
 	return 0;
 }
 
-void Base::readConfig(const QString &group, Config *config) {
-	Q_UNUSED(group)
+void Base::readConfig(Config *config) {
 	Q_UNUSED(config)
 }
 
@@ -96,8 +95,7 @@ void Base::setState(const State state) {
 	Q_UNUSED(state)
 }
 
-void Base::writeConfig(const QString &group, Config *config) {
-	Q_UNUSED(group)
+void Base::writeConfig(Config *config) {
 	Q_UNUSED(config)
 }
 
@@ -440,19 +438,13 @@ QString DateTimeTriggerBase::longDateTimeFormat() {
 	return dateFormat + ' ' + timeFormat;
 }
 
-void DateTimeTriggerBase::readConfig(const QString &group, Config *config) {
-	config->beginGroup(group);
+void DateTimeTriggerBase::readConfig(Config *config) {
 	m_dateTime = config->read("Date Time", m_dateTime).toDateTime();
-	config->endGroup();
 }
 
-void DateTimeTriggerBase::writeConfig(const QString &group, Config *config) {
-	if (!m_edit)
-		return;
-
-	config->beginGroup(group);
-	config->write("Date Time", m_edit->dateTime());
-	config->endGroup();
+void DateTimeTriggerBase::writeConfig(Config *config) {
+	if (m_edit)
+		config->write("Date Time", m_edit->dateTime());
 }
 
 void DateTimeTriggerBase::setDateTime(const QDateTime &dateTime) {

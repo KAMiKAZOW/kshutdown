@@ -25,8 +25,8 @@ public:
 	explicit TestAction();
 	virtual QWidget *getWidget() override;
 	virtual bool onAction() override;
-	virtual void readConfig(const QString &group, Config *config) override;
-	virtual void writeConfig(const QString &group, Config *config) override;
+	virtual void readConfig(Config *config) override;
+	virtual void writeConfig(Config *config) override;
 private:
 	Q_DISABLE_COPY(TestAction)
 	QString m_defaultText;
