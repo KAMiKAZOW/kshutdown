@@ -16,9 +16,9 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "test.h"
+#include "utils.h"
 
-#include <QHBoxLayout>
-#include <QLabel>
+#include <QFormLayout>
 
 // TestAction
 
@@ -47,15 +47,9 @@ QWidget *TestAction::getWidget() {
 	if (!m_widget) {
 		m_widget = new QWidget();
 
-		QHBoxLayout *layout = new QHBoxLayout(m_widget);
-		layout->setMargin(0);
-		layout->setSpacing(5);
-		
-		QLabel *label = new QLabel(i18n("Text:"), m_widget);
-		label->setBuddy(m_textField);
-		
-		layout->addWidget(label);
-		layout->addWidget(m_textField);
+		auto *layout = new QFormLayout(m_widget);
+		layout->setMargin(0_px);
+		layout->addRow(i18n("Text:"), m_textField);
 	}
 	
 	return m_widget;
@@ -67,7 +61,7 @@ bool TestAction::onAction() {
 	if (text.isEmpty())
 		text = m_defaultText;
 
-	U_INFO_MESSAGE(0, text);
+	U_INFO_MESSAGE(nullptr, text);
 	
 	return true;
 }

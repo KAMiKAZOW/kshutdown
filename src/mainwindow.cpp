@@ -923,40 +923,52 @@ void MainWindow::initWidgets() {
 
 	m_actionBox = new QGroupBox(i18n("Select an &action"));
 	m_actionBox->setObjectName("action-box");
-	m_actionBox->setLayout(new QVBoxLayout());
+
+	auto *actionLayout = new QVBoxLayout(m_actionBox);
+	actionLayout->setSpacing(10_px);
 
 	m_actions = new U_COMBO_BOX();
 	m_actions->setObjectName("actions");
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
-	m_actionBox->layout()->addWidget(m_actions);
+	actionLayout->addWidget(m_actions);
 
 	m_force = new QCheckBox(i18n("Do not save session / Force shutdown"));
 	m_force->setObjectName("force");
 	connect(m_force, SIGNAL(clicked()), SLOT(onForceClick()));
-	m_actionBox->layout()->addWidget(m_force);
+	actionLayout->addWidget(m_force);
 
 	m_triggerBox = new QGroupBox(i18n("Se&lect a time/event"));
 	m_triggerBox->setObjectName("trigger-box");
-	m_triggerBox->setLayout(new QVBoxLayout());
+
+	auto *triggerLayout = new QVBoxLayout(m_triggerBox);
+	triggerLayout->setSpacing(10_px);
 
 	m_triggers = new U_COMBO_BOX();
 	m_triggers->setObjectName("triggers");
 	connect(m_triggers, SIGNAL(activated(int)), SLOT(onTriggerActivated(int)));
-	m_triggerBox->layout()->addWidget(m_triggers);
+	triggerLayout->addWidget(m_triggers);
 	
 	m_infoWidget = new InfoWidget(this);
 
 	m_okCancelButton = new U_PUSH_BUTTON();
 	m_okCancelButton->setObjectName("ok-cancel-button");
+	
 	m_okCancelButton->setDefault(true);
 	connect(m_okCancelButton, SIGNAL(clicked()), SLOT(onOKCancel()));
+
+	// add extra margin around OK/Cancel button
+	//m_okCancelButton->setContentsMargins(10_px, 10_px, 10_px, 10_px); NOP
+	auto *okCancelWrapper = new QWidget(mainWidget);
+	auto *okCancelLayout = new QVBoxLayout(okCancelWrapper);
+	okCancelLayout->setMargin(5_px);
+	okCancelLayout->addWidget(m_okCancelButton);
 
 	mainLayout->addWidget(m_actionBox);
 	mainLayout->addWidget(m_triggerBox);
 	mainLayout->addStretch();
 	mainLayout->addWidget(m_infoWidget);
 	mainLayout->addStretch();
-	mainLayout->addWidget(m_okCancelButton);
+	mainLayout->addWidget(okCancelWrapper);
 
 	setCentralWidget(mainWidget);
 	
