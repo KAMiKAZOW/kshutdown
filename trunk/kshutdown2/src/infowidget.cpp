@@ -49,15 +49,16 @@ InfoWidget::InfoWidget(QWidget *parent) :
 	mainLayout->addWidget(m_messageWidget);
 #else
 	setAutoFillBackground(true);
-	setFrameStyle(Panel | Sunken);
+// FIXME: too buggy and unpredictable: setFrameStyle(StyledPanel | Plain);
+	setFrameStyle(Box | Plain);
 	setLineWidth(1);
 
 	m_icon = new QLabel();
 	m_text = new QLabel();
 	m_text->setOpenExternalLinks(true);
 
-	mainLayout->setMargin(5);
-	mainLayout->setSpacing(10);
+	mainLayout->setMargin(10_px);
+	mainLayout->setSpacing(10_px);
 	mainLayout->addWidget(m_icon);
 	mainLayout->addWidget(m_text);
 	mainLayout->addStretch();
@@ -109,10 +110,15 @@ void InfoWidget::setText(const QString &text, const Type type) {
 			#endif // Q_OS_WIN32
 			break;
 	}
-	
+
+	// HACK: icon themes are not supported in some DE (e.g. MATE)
+	m_icon->setVisible(m_icon->pixmap() && !m_icon->pixmap()->isNull());
+
 	QPalette p;
-	p.setColor(QPalette::Window, QColor(background));
-	p.setColor(QPalette::WindowText, Qt::black);
+	QColor bg = QColor(background);
+	QColor fg = bg.darker(300);
+	p.setColor(QPalette::Window, bg);
+	p.setColor(QPalette::WindowText, fg);
 	setPalette(p);
 	
 	m_text->setText(text);

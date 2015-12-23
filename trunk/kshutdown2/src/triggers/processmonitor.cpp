@@ -132,7 +132,7 @@ QWidget *ProcessMonitor::getWidget() {
 		m_widget = new QWidget();
 		QHBoxLayout *layout = new QHBoxLayout(m_widget);
 		layout->setMargin(0_px);
-		layout->setSpacing(5_px);
+		layout->setSpacing(10_px);
 
 		m_processesComboBox = new U_COMBO_BOX(m_widget);
 		m_processesComboBox->view()->setAlternatingRowColors(true);
