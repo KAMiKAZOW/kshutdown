@@ -18,6 +18,7 @@
 #include "pureqt.h"
 
 #include "udialog.h"
+#include "utils.h"
 
 // TODO: clean up all headers
 
@@ -61,16 +62,24 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 	connect(m_dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 	connect(m_dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
 
-	m_mainLayout = new QVBoxLayout(this);
-	m_mainLayout->setMargin(10);
-	m_mainLayout->setSpacing(10);
+	auto *mainWidget = new QWidget(this);
+	m_mainLayout = new QVBoxLayout(mainWidget);
+	m_mainLayout->setMargin(0_px);
+	m_mainLayout->setSpacing(10_px);
+
+	auto *rootLayout = new QVBoxLayout(this);
+	#ifdef Q_OS_WIN32
+	rootLayout->setMargin(5_px);
+	rootLayout->setSpacing(5_px);
+	#else
+	rootLayout->setMargin(10_px);
+	rootLayout->setSpacing(10_px);
+	#endif // Q_OS_WIN32
+
+	rootLayout->addWidget(mainWidget);
+	rootLayout->addWidget(m_dialogButtonBox);
 }
 
 UDialog::~UDialog() {
 	//U_DEBUG << "UDialog::~UDialog()" U_END;
-}
-
-void UDialog::addButtonBox() {
-	m_mainLayout->addSpacing(10);
-	m_mainLayout->addWidget(m_dialogButtonBox);
 }

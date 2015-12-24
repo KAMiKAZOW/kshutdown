@@ -59,7 +59,6 @@ Preferences::Preferences(QWidget *parent) :
 	#endif // KS_NATIVE_KDE
 
 	mainLayout()->addWidget(m_tabs);
-	addButtonBox();
 
 	// show recently used tab
 	Config *config = Config::user();
@@ -124,7 +123,7 @@ QWidget *Preferences::createGeneralWidget() {
 	l->addStretch();
 
 #ifdef KS_NATIVE_KDE
-	l->addSpacing(10);
+	l->addSpacing(20_px);
 
 	U_PUSH_BUTTON *kdeRelatedSettingsPushButton = new U_PUSH_BUTTON(U_STOCK_ICON("start-here-kde"), i18n("Related KDE Settings..."));
 	l->addWidget(kdeRelatedSettingsPushButton);

@@ -36,7 +36,6 @@ public:
 	explicit UDialog(QWidget *parent, const QString &windowTitle, const bool simple);
 	virtual ~UDialog();
 	inline QPushButton *acceptButton() { return m_acceptButton; }
-	void addButtonBox();
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
 private:
 	Q_DISABLE_COPY(UDialog)

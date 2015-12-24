@@ -45,14 +45,6 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	UDialog(parent, i18n("Enter New Password"), false) {
 	//U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
 
-	QVBoxLayout *mainLayout = this->mainLayout();
-
-	// form
-
-	QFormLayout *formLayout = new QFormLayout();
-	formLayout->setLabelAlignment(Qt::AlignRight);
-	mainLayout->addLayout(formLayout);
-
 // TODO: show warning if Caps Lock is turned on (no reliable solution in Qt)
 	m_password = new U_LINE_EDIT();
 	#if QT_VERSION >= 0x050200
@@ -63,8 +55,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 		m_password, SIGNAL(textChanged(const QString &)),
 		SLOT(onPasswordChange(const QString &))
 	);
-	formLayout->addRow(i18n("Password:"), m_password);
-	
+
 	m_confirmPassword = new U_LINE_EDIT();
 	#if QT_VERSION >= 0x050200
 	m_confirmPassword->setClearButtonEnabled(true);
@@ -74,25 +65,20 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 		m_confirmPassword, SIGNAL(textChanged(const QString &)),
 		SLOT(onConfirmPasswordChange(const QString &))
 	);
-	formLayout->addRow(i18n("Confirm Password:"), m_confirmPassword);
-		
-	// status/hint
-		
+
 	m_status = new InfoWidget(this);
-	m_status->setText(
-		"<qt>" +
-		i18n("The password will be saved as SHA-1 hash.") + "<br>" +
-		i18n("Short password can be easily cracked.") +
-		"</qt>",
-		InfoWidget::Type::Warning
-	);
-	mainLayout->addSpacing(10_px);
-	mainLayout->addWidget(m_status);
-	
-	addButtonBox();
+
+	auto *layout = new QFormLayout();
+	// HACK: force "correct" alignment
+	layout->setLabelAlignment(Qt::AlignRight);
+	layout->addRow(i18n("Password:"), m_password);
+	layout->addRow(i18n("Confirm Password:"), m_confirmPassword);
+
+	mainLayout()->addLayout(layout);
+	mainLayout()->addWidget(m_status);
 
 	m_password->setFocus();
-	
+
 	updateStatus();
 }
 

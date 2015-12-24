@@ -925,6 +925,7 @@ void MainWindow::initWidgets() {
 	m_actionBox->setObjectName("action-box");
 
 	auto *actionLayout = new QVBoxLayout(m_actionBox);
+	actionLayout->setMargin(5_px);
 	actionLayout->setSpacing(10_px);
 
 	m_actions = new U_COMBO_BOX();
@@ -941,6 +942,7 @@ void MainWindow::initWidgets() {
 	m_triggerBox->setObjectName("trigger-box");
 
 	auto *triggerLayout = new QVBoxLayout(m_triggerBox);
+	triggerLayout->setMargin(5_px);
 	triggerLayout->setSpacing(10_px);
 
 	m_triggers = new U_COMBO_BOX();
