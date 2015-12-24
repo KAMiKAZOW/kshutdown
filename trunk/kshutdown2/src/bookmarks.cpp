@@ -221,12 +221,12 @@ void BookmarksMenu::onAddBookmark() {
 	auto *confirmActionField = new QCheckBox(i18n("Confirm Action"));
 	confirmActionField->setChecked(true);
 
-	QFormLayout *formLayout = new QFormLayout();
-	dialog->mainLayout()->addLayout(formLayout);
-	formLayout->addRow(i18n("Name:"), nameField);
-	formLayout->addRow(confirmActionField);
-
-	dialog->addButtonBox();
+	auto *layout = new QFormLayout();
+	layout->setLabelAlignment(Qt::AlignRight);
+	layout->setVerticalSpacing(20_px);
+	layout->addRow(i18n("Name:"), nameField);
+	layout->addRow(confirmActionField);
+	dialog->mainLayout()->addLayout(layout);
 
 	nameField->setFocus();
 	nameField->selectAll();

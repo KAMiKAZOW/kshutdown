@@ -16,7 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "test.h"
-#include "utils.h"
+#include "../utils.h"
 
 #include <QFormLayout>
 
@@ -48,6 +48,7 @@ QWidget *TestAction::getWidget() {
 		m_widget = new QWidget();
 
 		auto *layout = new QFormLayout(m_widget);
+		layout->setLabelAlignment(Qt::AlignRight);
 		layout->setMargin(0_px);
 		layout->addRow(i18n("Text:"), m_textField);
 	}

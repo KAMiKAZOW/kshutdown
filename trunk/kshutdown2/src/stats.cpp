@@ -34,9 +34,7 @@ Stats::Stats(QWidget *parent) :
 	m_textView->setReadOnly(true);
 	m_textView->setStyleSheet("QPlainTextEdit { font-family: monospace; }");
 
-	mainLayout()->setSpacing(0_px);
 	mainLayout()->addWidget(m_textView);
-	addButtonBox();
 
 	QProcess process;
 	process.start("w");

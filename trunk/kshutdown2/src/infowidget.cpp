@@ -46,12 +46,14 @@ InfoWidget::InfoWidget(QWidget *parent) :
 		m_messageWidget, SIGNAL(linkActivated(const QString &)),
 		SLOT(onLinkActivated(const QString &))
 	);
+
+	mainLayout->setMargin(0_px);
 	mainLayout->addWidget(m_messageWidget);
 #else
 	setAutoFillBackground(true);
 // FIXME: too buggy and unpredictable: setFrameStyle(StyledPanel | Plain);
 	setFrameStyle(Box | Plain);
-	setLineWidth(1);
+	setLineWidth(1_px);
 
 	m_icon = new QLabel();
 	m_text = new QLabel();
@@ -126,7 +128,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 
 	setVisible(!text.isEmpty() && (text != "<qt></qt>"));
 	if (isVisible())
-		repaint(0, 0, width(), height());
+		repaint(0_px, 0_px, width(), height());
 }
 
 // private slots
