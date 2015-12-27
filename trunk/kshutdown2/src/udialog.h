@@ -37,6 +37,7 @@ public:
 	virtual ~UDialog();
 	inline QPushButton *acceptButton() { return m_acceptButton; }
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
+	inline QVBoxLayout *rootLayout() { return m_rootLayout; }
 private:
 	Q_DISABLE_COPY(UDialog)
 	#if defined(KS_PURE_QT) || defined(KS_KF5)
@@ -46,6 +47,7 @@ private:
 	#endif // KS_PURE_QT
 	QPushButton *m_acceptButton;
 	QVBoxLayout *m_mainLayout;
+	QVBoxLayout *m_rootLayout;
 };
 
 #endif // KSHUTDOWN_UDIALOG_H
