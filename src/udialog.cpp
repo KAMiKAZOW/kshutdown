@@ -67,17 +67,12 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 	m_mainLayout->setMargin(0_px);
 	m_mainLayout->setSpacing(10_px);
 
-	auto *rootLayout = new QVBoxLayout(this);
-	#ifdef Q_OS_WIN32
-	rootLayout->setMargin(5_px);
-	rootLayout->setSpacing(5_px);
-	#else
-	rootLayout->setMargin(10_px);
-	rootLayout->setSpacing(10_px);
-	#endif // Q_OS_WIN32
+	m_rootLayout = new QVBoxLayout(this);
+	m_rootLayout->setMargin(10_px);
+	m_rootLayout->setSpacing(10_px);
 
-	rootLayout->addWidget(mainWidget);
-	rootLayout->addWidget(m_dialogButtonBox);
+	m_rootLayout->addWidget(mainWidget);
+	m_rootLayout->addWidget(m_dialogButtonBox);
 }
 
 UDialog::~UDialog() {

@@ -51,15 +51,17 @@ InfoWidget::InfoWidget(QWidget *parent) :
 	mainLayout->addWidget(m_messageWidget);
 #else
 	setAutoFillBackground(true);
-// FIXME: too buggy and unpredictable: setFrameStyle(StyledPanel | Plain);
-	setFrameStyle(Box | Plain);
+	setFrameStyle(Panel | Sunken);
 	setLineWidth(1_px);
-
 	m_icon = new QLabel();
 	m_text = new QLabel();
 	m_text->setOpenExternalLinks(true);
 
+	#ifdef Q_OS_WIN32
+	mainLayout->setMargin(5_px);
+	#else
 	mainLayout->setMargin(10_px);
+	#endif // Q_OS_WIN32
 	mainLayout->setSpacing(10_px);
 	mainLayout->addWidget(m_icon);
 	mainLayout->addWidget(m_text);
@@ -122,7 +124,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 	p.setColor(QPalette::Window, bg);
 	p.setColor(QPalette::WindowText, fg);
 	setPalette(p);
-	
+
 	m_text->setText(text);
 #endif // KS_NATIVE_KDE
 

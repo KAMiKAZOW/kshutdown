@@ -30,6 +30,8 @@
 
 #ifdef KS_PURE_QT
 	#include "version.h" // for about()
+
+	#include <QLabel>
 #else
 	#include <KActionCollection>
 	#include <KHelpMenu>
@@ -894,7 +896,6 @@ void MainWindow::initMenuBar() {
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"), menuBar);
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
-	helpMenu->addAction(i18n("About Qt"), U_APP, SLOT(aboutQt()));
 	menuBar->addMenu(helpMenu);
 #endif // KS_NATIVE_KDE
 
@@ -1174,22 +1175,61 @@ This program is distributed in the hope that it will be useful,
 but <b>WITHOUT ANY WARRANTY</b>; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-&lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;)";
 
-	QMessageBox::about( // krazy:exclude=qclasses
-		this,
-		i18n("About"),
+<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a> (<a href="http://tldrlegal.com/l/gpl2">tl;dr</a>))";
+
+	auto *aboutLabel = new QLabel(
 		"<qt>" \
 		"<h1 style=\"margin: 0px; white-space: nowrap\">" + version1 + "</h1>" +
 		"<b style=\"white-space: nowrap\">" + version2 + "</b><br />" +
 		"<br />" +
 		i18n("A graphical shutdown utility") + "<br />" \
 		KS_COPYRIGHT "<br />" \
-		"&lt;<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a>&gt;<br />" \
-		"<h2>" + i18n("License") + "</h2>" \
-		"<pre>" + license + "</pre>" +
+		"<br />" \
+		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a>" \
 		"</qt>"
 	);
+	aboutLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	aboutLabel->setOpenExternalLinks(true);
+
+// TODO:	auto *iconLabel = new QLabel();
+//	iconLabel->setPixmap(U_ICON(":/images/hi64-app-kshutdown.png").pixmap(64, 64));
+
+	auto *aboutQtButton = new U_PUSH_BUTTON(i18n("About Qt"));
+	aboutQtButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
+	connect(aboutQtButton, SIGNAL(clicked()), U_APP, SLOT(aboutQt()));
+
+	auto *aboutTab = new QWidget();
+	auto *aboutLayout = new QVBoxLayout(aboutTab);
+	aboutLayout->setMargin(20_px);
+	aboutLayout->setSpacing(20_px);
+	aboutLayout->addWidget(aboutLabel);
+//	aboutLayout->addWidget(iconLabel);
+	aboutLayout->addStretch();
+	aboutLayout->addWidget(aboutQtButton);
+
+	auto *licenseTab = new QLabel(
+		"<qt>" \
+		"<pre>" + license + "</pre>" \
+		"</qt>"
+	);
+	licenseTab->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	licenseTab->setMargin(10_px);
+	licenseTab->setOpenExternalLinks(true);
+
+	QPointer<UDialog> dialog = new UDialog(this, i18n("About"), true);
+	#ifdef Q_OS_WIN32
+	dialog->rootLayout()->setMargin(5_px);
+	dialog->rootLayout()->setSpacing(5_px);
+	#endif // Q_OS_WIN32
+
+	auto *tabs = new U_TAB_WIDGET();
+	tabs->addTab(aboutTab, i18n("About"));
+	tabs->addTab(licenseTab, i18n("License"));
+	dialog->mainLayout()->addWidget(tabs);
+
+	dialog->exec();
+	delete dialog;
 }
 #endif // KS_PURE_QT
 

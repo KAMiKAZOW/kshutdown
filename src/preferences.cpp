@@ -32,6 +32,11 @@ Preferences::Preferences(QWidget *parent) :
 	UDialog(parent, i18n("Preferences"), Utils::isGTKStyle()) {
 	//U_DEBUG << "Preferences::Preferences()" U_END;
 
+	#ifdef Q_OS_WIN32
+	rootLayout()->setMargin(5_px);
+	rootLayout()->setSpacing(5_px);
+	#endif // Q_OS_WIN32
+
 	ProgressBar *progressBar = MainWindow::self()->progressBar();
 	m_oldProgressBarVisible = progressBar->isVisible();
 
