@@ -16,6 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <QCheckBox>
+#include <QLabel>
 #include <QProcess>
 #include <QVBoxLayout>
 
@@ -80,6 +81,8 @@ Preferences::~Preferences() {
 }
 
 void Preferences::apply() {
+	Config *config = Config::user();
+
 	Config::setBlackAndWhiteSystemTrayIcon(m_bwTrayIcon->isChecked());
 	Config::setConfirmAction(m_confirmAction->isChecked());
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
@@ -91,7 +94,13 @@ void Preferences::apply() {
 
 	m_passwordPreferences->apply();
 
-	Config::user()->sync();
+	#ifdef Q_OS_LINUX
+	config->beginGroup("KShutdown Action lock");
+	config->write("Custom Command", m_lockCommand->text());
+	config->endGroup();
+	#endif // Q_OS_LINUX
+
+	config->sync();
 }
 
 // private
@@ -126,6 +135,21 @@ QWidget *Preferences::createGeneralWidget() {
 #endif // Q_OS_WIN32
 
 	l->addStretch();
+
+	#ifdef Q_OS_LINUX
+	m_lockCommand = new U_LINE_EDIT();
+
+	Config *config = Config::user();
+	config->beginGroup("KShutdown Action lock");
+	m_lockCommand->setText(config->read("Custom Command", "").toString());
+	config->endGroup();
+
+	QLabel *lockCommandLabel = new QLabel(i18n("Custom Lock Screen Command:"));
+	lockCommandLabel->setBuddy(m_lockCommand);
+	l->addSpacing(20_px);
+	l->addWidget(lockCommandLabel);
+	l->addWidget(m_lockCommand);
+	#endif // Q_OS_LINUX
 
 #ifdef KS_NATIVE_KDE
 	l->addSpacing(20_px);
