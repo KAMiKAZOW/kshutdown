@@ -44,6 +44,9 @@ private:
 	QWidget *createGeneralWidget();
 	QWidget *createSystemTrayWidget();
 	//QWidget *createTriggersWidget();
+	#ifdef Q_OS_LINUX
+	U_LINE_EDIT *m_lockCommand;
+	#endif // Q_OS_LINUX
 	U_TAB_WIDGET *m_tabs;
 private slots:
 	void onFinish(int result);

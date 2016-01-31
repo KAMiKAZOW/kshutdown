@@ -53,6 +53,22 @@ bool LockAction::onAction() {
 
 	return true;
 #else
+// TODO: support custom command in other actions
+	Config *config = Config::user();
+	config->beginGroup("KShutdown Action lock");
+	QString customCommand = config->read("Custom Command", "").toString();
+	config->endGroup();
+
+	customCommand = customCommand.trimmed();
+	if (!customCommand.isEmpty()) {
+		U_DEBUG << "Using custom lock command: " << customCommand U_END;
+		int exitCode = QProcess::execute(customCommand);
+		if (exitCode != 0)
+			U_DEBUG << "Lock command failed to start" U_END;
+		else
+			return true;
+	}
+
 	// HACK: This is a workaround for "lazy" initial kscreensaver repaint.
 	// Now the screen content is hidden immediately.
 	QWidget *blackScreen = 0;
