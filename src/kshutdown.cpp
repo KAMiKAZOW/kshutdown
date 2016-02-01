@@ -297,7 +297,7 @@ bool Action::unsupportedAction() {
 // private slots
 
 void Action::slotFire() {
-	Log::info("Execute action: " + m_id + " (" + m_originalText + ")");
+	Log::info("Execute action: " + m_id + " (" + m_originalText + ')');
 
 	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]" U_END;
 
