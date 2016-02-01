@@ -40,12 +40,11 @@ QStringList BootEntry::getList() {
 		QTextStream text(&grubConfigFile);
 		QString menuEntryID = "menuentry ";
 		QString line;
-		do {
-			line = text.readLine();
+		while (!(line = text.readLine()).isNull()) {
 			line = line.simplified();
 
 			if (!line.startsWith(menuEntryID))
-				continue; // do
+				continue; // while
 			
 			line = line.mid(menuEntryID.length());
 			
@@ -73,7 +72,7 @@ QStringList BootEntry::getList() {
 			
 			U_DEBUG << line U_END;
 			m_list << line;
-		} while (!line.isNull());
+		}
 	}
 	else {
 		U_ERROR << "Could not read GRUB menu entries: " << grubConfigPath U_END;

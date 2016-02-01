@@ -70,7 +70,7 @@ void Log::warning(const QString &text) {
 void Log::log(const QString &category, const QString &text) {
 	if (output) {
 		QDateTime now = QDateTime::currentDateTime();
-		*output << (now.toString(Qt::ISODate) + "  " + category + ": " + text + "\n");
+		*output << (now.toString(Qt::ISODate) + "  " + category + ": " + text + '\n');
 		output->flush();
 	}
 }
