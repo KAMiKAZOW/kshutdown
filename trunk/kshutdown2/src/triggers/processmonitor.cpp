@@ -86,19 +86,18 @@ bool Process::isRunning() const {
 #endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 }
 
-QString Process::toString() const {
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	return QString("%0 (pid %1, %2)")
-		.arg(m_command)
-		.arg(m_pid)
-		.arg(m_user);
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+// private:
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
-	return QString("%0 (pid %1)")
-		.arg(m_command)
-		.arg(m_pid);
-#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+void Process::makeStringCache() {
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	m_stringCache = QString("%0 (pid %1, %2)")
+		.arg(m_command, QString::number(m_pid), m_user);
+	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	m_stringCache = QString("%0 (pid %1)")
+		.arg(m_command, QString::number(m_pid));
+	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 }
 
 // public
@@ -110,11 +109,11 @@ ProcessMonitor::ProcessMonitor()
 	m_checkTimeout = 2000;
 }
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
 void ProcessMonitor::addProcess(Process *process) {
+	process->makeStringCache();
+
 	m_processList.append(process);
 }
-#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 
 bool ProcessMonitor::canActivateAction() {
 	if (m_processList.isEmpty())
@@ -171,7 +170,8 @@ void ProcessMonitor::setPID(const qint64 pid) {
 	p->m_own = false;
 	p->m_pid = pid;
 	p->m_user = '?';
-	m_processList.append(p);
+	addProcess(p);
+
 	m_processesComboBox->addItem(p->icon(), p->toString());
 #else
 	Q_UNUSED(pid)
@@ -306,7 +306,7 @@ void ProcessMonitor::refreshProcessList() {
 			p->m_user = processInfo[0];
 			p->m_pid = processID;
 			p->m_own = (p->m_user == user);
-			m_processList.append(p);
+			addProcess(p);
 		}
 	}
 	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX

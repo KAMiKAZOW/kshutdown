@@ -54,11 +54,12 @@ public:
 	inline HWND windowHandle() const { return m_windowHandle; }
 	inline void setWindowHandle(const HWND windowHandle) { m_windowHandle = windowHandle; }
 	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
-	QString toString() const;
+	inline QString toString() const { return m_stringCache; }
 private:
 	Q_DISABLE_COPY(Process)
 	friend class ProcessMonitor;
 	QString m_command; // a process command or window title (e.g. "firefox")
+	QString m_stringCache = "<THEDAILYWTF>";
 	
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	bool m_own;
@@ -71,15 +72,15 @@ private:
 	bool m_visible;
 	HWND m_windowHandle;
 	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+
+	void makeStringCache();
 };
 
 class ProcessMonitor: public KShutdown::Trigger {
 	Q_OBJECT
 public:
 	explicit ProcessMonitor();
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
 	void addProcess(Process *process);
-	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 	virtual bool canActivateAction() override;
 	virtual QWidget *getWidget() override;
 	virtual void readConfig(Config *config) override;
