@@ -105,17 +105,17 @@ void Base::writeConfig(Config *config) {
 // CREDITS: http://lists.trolltech.com/qt-solutions/2005-05/msg00005.html
 void Base::setLastError() {
 	DWORD lastError = ::GetLastError();
-	char *buffer = 0;
-	::FormatMessageA(
+	wchar_t *buffer = 0;
+	::FormatMessageW(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
 		0,
 		lastError,
 		0,
-		(char *)&buffer,
+		(wchar_t *)&buffer,
 		0,
 		0
 	);
-	m_error = QString::fromLocal8Bit(buffer) + " (error code: " + QString::number(lastError) + ", 0x" + QString::number(lastError, 16) + ')';
+	m_error = QString::fromWCharArray(buffer) + " (error code: " + QString::number(lastError) + ", 0x" + QString::number(lastError, 16) + ')';
 	if (buffer)
 		::LocalFree(buffer);
 }
