@@ -14,7 +14,7 @@ contains(QT_MAJOR_VERSION, 5) {
 	QT += widgets
 }
 
-QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=c++0x -Wextra -Wpedantic -Wswitch-enum
 
 unix {
 	haiku-g++ {

@@ -105,7 +105,8 @@ void InfoWidget::setText(const QString &text, const Type type) {
 			setIcon("dialog-information");
 			#endif // Q_OS_WIN32
 			break;
-		default: // Type::Warning
+		case Type::Warning:
+		default:
 			background = 0xF8FFBF; // lime 1
 			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxWarning);
