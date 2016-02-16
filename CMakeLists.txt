@@ -6,7 +6,7 @@ else()
 	cmake_minimum_required(VERSION 2.4.0)
 endif()
 
-add_definitions(-std=c++0x)
+add_definitions(-std=c++0x -Wextra -Wpedantic -Wswitch-enum)
 
 if(KS_PURE_QT)
 	find_package(Qt5 REQUIRED Widgets DBus)
