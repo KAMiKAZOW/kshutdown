@@ -326,18 +326,44 @@ void MainWindow::init() {
 	pluginConfig(true); // read
 }
 
-void MainWindow::maybeShow() {
+bool MainWindow::maybeShow() {
 	if (Utils::isArg("hide-ui")) {
 		hide();
 		m_systemTray->setVisible(false);
 		
-		return;
+		return true;
+	}
+
+	QString menuLayout = Mod::getString("ui-menu", "");
+	if (!menuLayout.isEmpty()) {
+		QStringList menuActions = menuLayout.split(':');
+
+		U_MENU *menu = new U_MENU();
+		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+		Utils::addTitle(menu, U_APP->windowIcon(), "KShutdown");
+
+		foreach (const QString &id, menuActions) {
+			if (id == "-") {
+				menu->addSeparator();
+			}
+			else {
+				auto *action = m_actionHash[id];
+// TODO: show confirmation dialog at cursor position (?)
+				if (action)
+					menu->addAction(new ConfirmAction(menu, action));
+			}
+		}
+
+// FIXME: this does not work everywhere :/
+		menu->exec(QCursor::pos());
+
+		return false;
 	}
 
 	if (!m_systemTray->isSupported()) {
 		show();
 
-		return;
+		return true;
 	}
 
 	bool trayIconEnabled = Config::systemTrayIconEnabled();
@@ -351,6 +377,8 @@ void MainWindow::maybeShow() {
 	else {
 		show();
 	}
+
+	return true;
 }
 
 void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const bool absolute) {
