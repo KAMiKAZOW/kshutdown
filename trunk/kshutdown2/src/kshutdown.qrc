@@ -6,11 +6,13 @@
 	<file alias="images/kshutdown.png">images/hi32-app-kshutdown.png</file>
 	<file>images/hi48-app-kshutdown.png</file>
 	<file>images/hi64-app-kshutdown.png</file>
+	<file>images/hi128-app-kshutdown.png</file>
 
-	<!-- NOTE: Sync. with "i18n" directory -->
+<!-- TODO: wildcards; https://bugreports.qt.io/browse/QTBUG-1400 -->
 	<file>i18n/kshutdown_ar.qm</file>
 	<file>i18n/kshutdown_bg.qm</file>
 	<file>i18n/kshutdown_cs.qm</file>
+	<file>i18n/kshutdown_da.qm</file>
 	<file>i18n/kshutdown_de.qm</file>
 	<file>i18n/kshutdown_el.qm</file>
 	<file>i18n/kshutdown_es.qm</file>
@@ -20,10 +22,13 @@
 	<file>i18n/kshutdown_nb.qm</file>
 	<file>i18n/kshutdown_nl.qm</file>
 	<file>i18n/kshutdown_pl.qm</file>
+	<file>i18n/kshutdown_pt.qm</file>
 	<file>i18n/kshutdown_pt_BR.qm</file>
 	<file>i18n/kshutdown_ru.qm</file>
 	<file>i18n/kshutdown_sk.qm</file>
 	<file>i18n/kshutdown_sr.qm</file>
+	<file>i18n/kshutdown_sr@ijekavianlatin.qm</file>
+	<file>i18n/kshutdown_sr@ijekavian.qm</file>
 	<file>i18n/kshutdown_sr@latin.qm</file>
 	<file>i18n/kshutdown_sv.qm</file>
 	<file>i18n/kshutdown_tr.qm</file>

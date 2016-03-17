@@ -1188,13 +1188,55 @@ void MainWindow::onQuit() {
 
 #ifdef KS_PURE_QT
 void MainWindow::onAbout() {
-	QString version1 = "KShutdown " KS_FULL_VERSION;
-	QString version2 = "Build: " KS_BUILD;
-	if (Config::isPortable())
-		version2 += ", Portable";
+	auto *iconLabel = new QLabel();
+	iconLabel->setAlignment(Qt::AlignCenter);
+	iconLabel->setPixmap(U_ICON(":/images/hi64-app-kshutdown.png").pixmap(64, 64));
+	// TEST: iconLabel->setPixmap(U_ICON(":/images/hi128-app-kshutdown.png").pixmap(128, 128));
 
-QString license =
-R"(This program is <b>free software</b>; you can redistribute it and/or modify
+	QString titleText = "KShutdown " KS_FULL_VERSION;
+	QString buildText = "Build: " KS_BUILD;
+	if (Config::isPortable())
+		buildText += " | Portable";
+	auto *titleLabel = new QLabel(
+		"<qt>" \
+		"<h1 style=\"margin: 0px; white-space: nowrap\">" + titleText + "</h1>" +
+		"<b style=\"white-space: nowrap\">" + buildText + "</b>" \
+		"</qt>"
+	);
+	titleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
+	QString releaseNotes =
+		"http://kshutdown.sourceforge.net/releases/" KS_FILE_VERSION ".html";
+	auto *aboutLabel = new QLabel(
+		"<qt>" +
+		i18n("A graphical shutdown utility") + "<br />" \
+		"<a href=\"" KS_HOME_PAGE "\">kshutdown.sf.net</a><br />" \
+		"<br />" \
+		"<a href=\"" + releaseNotes + "\">" + i18n("What's New?") + "</a><br />" \
+		"</qt>"
+	);
+	aboutLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+	aboutLabel->setOpenExternalLinks(true);
+
+	auto *titleWidget = new QWidget();
+	auto *titleLayout = new QHBoxLayout(titleWidget);
+	titleLayout->setMargin(0_px);
+	titleLayout->setSpacing(20_px);
+	titleLayout->addWidget(iconLabel);
+	titleLayout->addWidget(titleLabel);
+	titleLayout->addStretch();
+
+	auto *aboutTab = new QWidget();
+	auto *aboutLayout = new QVBoxLayout(aboutTab);
+	aboutLayout->setMargin(20_px);
+	aboutLayout->setSpacing(20_px);
+	aboutLayout->addWidget(titleWidget);
+	aboutLayout->addWidget(aboutLabel);
+	aboutLayout->addStretch();
+
+QString licenseText =
+R"(<qt><pre>
+This program is <b>free software</b>; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
@@ -1202,48 +1244,25 @@ the Free Software Foundation; either version 2 of the License, or
 This program is distributed in the hope that it will be useful,
 but <b>WITHOUT ANY WARRANTY</b>; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a> for more details. (<a href="http://tldrlegal.com/l/gpl2">tl;dr</a>)</pre></qt>)";
 
-<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a> (<a href="http://tldrlegal.com/l/gpl2">tl;dr</a>))";
-
-	auto *aboutLabel = new QLabel(
-		"<qt>" \
-		"<h1 style=\"margin: 0px; white-space: nowrap\">" + version1 + "</h1>" +
-		"<b style=\"white-space: nowrap\">" + version2 + "</b><br />" +
-		"<br />" +
-		i18n("A graphical shutdown utility") + "<br />" \
-		KS_COPYRIGHT "<br />" \
-		"<br />" \
-		"<a href=\"" KS_HOME_PAGE "\">" KS_HOME_PAGE "</a>" \
-		"</qt>"
-	);
-	aboutLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	aboutLabel->setOpenExternalLinks(true);
-
-// TODO:	auto *iconLabel = new QLabel();
-//	iconLabel->setPixmap(U_ICON(":/images/hi64-app-kshutdown.png").pixmap(64, 64));
+	auto *licenseLabel = new QLabel(licenseText);
+	licenseLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	licenseLabel->setOpenExternalLinks(true);
 
 	auto *aboutQtButton = new U_PUSH_BUTTON(i18n("About Qt"));
 	aboutQtButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
 	connect(aboutQtButton, SIGNAL(clicked()), U_APP, SLOT(aboutQt()));
 
-	auto *aboutTab = new QWidget();
-	auto *aboutLayout = new QVBoxLayout(aboutTab);
-	aboutLayout->setMargin(20_px);
-	aboutLayout->setSpacing(20_px);
-	aboutLayout->addWidget(aboutLabel);
-//	aboutLayout->addWidget(iconLabel);
-	aboutLayout->addStretch();
-	aboutLayout->addWidget(aboutQtButton);
-
-	auto *licenseTab = new QLabel(
-		"<qt>" \
-		"<pre>" + license + "</pre>" \
-		"</qt>"
-	);
-	licenseTab->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	licenseTab->setMargin(10_px);
-	licenseTab->setOpenExternalLinks(true);
+	auto *licenseTab = new QWidget();
+	auto *licenseLayout = new QVBoxLayout(licenseTab);
+	licenseLayout->setMargin(20_px);
+	licenseLayout->setSpacing(20_px);
+	licenseLayout->addWidget(new QLabel(KS_COPYRIGHT));
+// TODO: https://sourceforge.net/p/kshutdown/wiki/Credits/
+	licenseLayout->addWidget(licenseLabel);
+	licenseLayout->addStretch();
+	licenseLayout->addWidget(aboutQtButton);
 
 	QPointer<UDialog> dialog = new UDialog(this, i18n("About"), true);
 	#ifdef Q_OS_WIN32

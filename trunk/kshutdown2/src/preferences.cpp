@@ -124,6 +124,7 @@ QWidget *Preferences::createGeneralWidget() {
 
 	m_progressBarEnabled = new QCheckBox(i18n("Progress Bar"));
 	m_progressBarEnabled->setChecked(Config::progressBarEnabled());
+	m_progressBarEnabled->setToolTip(i18n("Show a small progress bar on top/bottom of the screen."));
 // TODO: connect(m_progressBarEnabled, SIGNAL(toggled(bool)), SLOT(onProgressBarEnabled(bool)));
 	l->addWidget(m_progressBarEnabled);
 

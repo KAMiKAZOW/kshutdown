@@ -84,6 +84,8 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 
 PasswordDialog::~PasswordDialog() {
 	//U_DEBUG << "PasswordDialog::~PasswordDialog()" U_END;
+	m_password->setText("");
+	m_confirmPassword->setText("");
 }
 
 void PasswordDialog::apply() {
@@ -91,7 +93,11 @@ void PasswordDialog::apply() {
 
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
-	config->write("Hash", toHash(m_password->text()));
+
+	QString password = m_password->text();
+	config->write("Hash", toHash(password));
+	clearPassword(password);
+
 	config->endGroup();
 	config->sync();
 }
@@ -137,7 +143,10 @@ retry:
 		return false;
 	#endif // KS_NATIVE_KDE
 
-	if (hash != toHash(password)) {
+	QString enteredHash = toHash(password);
+	clearPassword(password);
+
+	if (hash != enteredHash) {
 		Log::warning("Invalid password for action: " + userAction);
 
 		U_ERROR_MESSAGE(parent, i18n("Invalid password"));
@@ -154,26 +163,41 @@ bool PasswordDialog::authorizeSettings(QWidget *parent) {
 	return PasswordDialog::authorize(parent, i18n("Preferences"), "action/settings");
 }
 
+void PasswordDialog::clearPassword(QString &password) {
+	password.fill('\0');
+	password.clear();
+}
+
 QString PasswordDialog::toHash(const QString &password) {
 	if (password.isEmpty())
 		return "";
 
 // TODO: consider other algorithms introduced in Qt 5.x <http://doc.qt.io/qt-5/qcryptographichash.html#Algorithm-enum>
-	QByteArray hash = QCryptographicHash::hash(("kshutdown-" + password).toUtf8(), QCryptographicHash::Sha1);
-	
+	QString saltedString = "kshutdown-" + password;
+	QByteArray saltedArray = saltedString.toUtf8();
+
+	QByteArray hash = QCryptographicHash::hash(saltedArray, QCryptographicHash::Sha1);
+
+	clearPassword(saltedString);
+	saltedArray.fill('\0');
+	saltedArray.clear();
+
 	return QString(hash.toHex());
 }
 
 // private:
 
 void PasswordDialog::updateStatus() {
+	QString password = m_password->text();
+	QString confirmPassword = m_confirmPassword->text();
+
 	int minLength = 12;
-	bool ok = m_password->text().length() >= minLength;
+	bool ok = password.length() >= minLength;
 	if (!ok) {
 		m_status->setText(i18n("Password is too short (need %0 characters or more)").arg(minLength), InfoWidget::Type::Error);
 	}
 	else {
-		ok = (m_password->text() == m_confirmPassword->text());
+		ok = (password == confirmPassword);
 		if (!ok)
 			m_status->setText(i18n("Confirmation password is different"), InfoWidget::Type::Error);
 		else
@@ -182,6 +206,9 @@ void PasswordDialog::updateStatus() {
 
 	acceptButton()->setEnabled(ok);
 	resize(sizeHint());
+
+	clearPassword(password);
+	clearPassword(confirmPassword);
 }
 
 // private slots:

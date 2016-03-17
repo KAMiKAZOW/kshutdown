@@ -32,6 +32,7 @@ public:
 	void apply();
 	static bool authorize(QWidget *parent, const QString &caption, const QString &userAction);
 	static bool authorizeSettings(QWidget *parent);
+	static void clearPassword(QString &password);
 	static QString toHash(const QString &password);
 private:
 	Q_DISABLE_COPY(PasswordDialog)
