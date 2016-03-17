@@ -15,9 +15,10 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "mod.h"
+
 #include "config.h"
 #include "mainwindow.h"
-#include "mod.h"
 #include "pureqt.h"
 #include "utils.h"
 
@@ -91,6 +92,10 @@ bool Mod::getBool(const QString &name, const bool defaultValue) {
 
 QColor Mod::getColor(const QString &name, const QColor &defaultValue) {
 	return get(name, defaultValue).value<QColor>();
+}
+
+QString Mod::getString(const QString &name, const QString &defaultValue) {
+	return get(name, defaultValue).toString();
 }
 
 void Mod::init() {

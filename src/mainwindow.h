@@ -80,7 +80,7 @@ public:
 
 		return m_instance;
 	}
-	void maybeShow();
+	bool maybeShow();
 	void setTime(const QString &trigger, const QTime &time, const bool absolute);
 	QHash<QString, Trigger*> triggerHash() const { return m_triggerHash; }
 public slots:

@@ -18,6 +18,7 @@
 #ifndef KSHUTDOWN_MOD_H
 #define KSHUTDOWN_MOD_H
 
+#include <QColor>
 #include <QHash>
 #include <QObject>
 
@@ -29,6 +30,7 @@ public:
 	static QVariant get(const QString &name, const QVariant &defaultValue);
 	static bool getBool(const QString &name, const bool defaultValue = false);
 	static QColor getColor(const QString &name, const QColor &defaultValue);
+	static QString getString(const QString &name, const QString &defaultValue);
 	static void init();
 private:
 	Q_DISABLE_COPY(Mod)
