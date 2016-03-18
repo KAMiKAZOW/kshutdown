@@ -258,6 +258,12 @@ bool Utils::isMATE() {
 		m_xdgCurrentDesktop.contains("mate", Qt::CaseInsensitive);
 }
 
+bool Utils::isOpenbox() {
+	return
+		(m_desktopSession.compare("openbox", Qt::CaseInsensitive) == 0) ||
+		(m_xdgCurrentDesktop.compare("openbox", Qt::CaseInsensitive) == 0);
+}
+
 bool Utils::isRazor() {
 // TODO: test
 	return

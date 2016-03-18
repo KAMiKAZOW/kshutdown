@@ -124,6 +124,7 @@ int main(int argc, char **argv) {
 	KS_DEBUG_SYSTEM("LXDE", Utils::isLXDE());
 	KS_DEBUG_SYSTEM("LXQt", Utils::isLXQt());
 	KS_DEBUG_SYSTEM("MATE", Utils::isMATE());
+	KS_DEBUG_SYSTEM("Openbox", Utils::isOpenbox());
 	KS_DEBUG_SYSTEM("Razor-qt", Utils::isRazor());
 	KS_DEBUG_SYSTEM("Trinity", Utils::isTrinity());
 	KS_DEBUG_SYSTEM("Unity", Utils::isUnity());

@@ -1222,6 +1222,17 @@ bool StandardAction::onAction() {
 		}
 	}
 
+	// Openbox
+
+	else if (Utils::isOpenbox()) {
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			QStringList args;
+			args << "--exit";
+			if (launch("openbox", args))
+				return true;
+		}
+	}
+
 	// Razor-qt
 	
 	#ifdef KS_DBUS
