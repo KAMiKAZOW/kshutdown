@@ -59,6 +59,7 @@ public:
 	static bool isLXDE();
 	static bool isLXQt();
 	static bool isMATE();
+	static bool isOpenbox();
 	static bool isRazor();
 	static bool isRestricted(const QString &action);
 	static bool isTrinity();
