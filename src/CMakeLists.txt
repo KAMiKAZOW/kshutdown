@@ -42,11 +42,12 @@ set(
 	usystemtray.h
 )
 if(KS_PURE_QT)
+# TODO: add and test automoc
 	QT5_WRAP_CPP(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 elseif(KS_KF5)
 	# automoc
 else()
-	qt4_wrap_cpp(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
+	# automoc
 endif()
 
 add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})

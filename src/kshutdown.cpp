@@ -133,8 +133,10 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	m_showInMenu(true),
 	m_commandLineArgs(QStringList()) {
 	m_originalText = text;
+
 	if (!iconName.isNull())
 		setIcon(U_STOCK_ICON(iconName));
+	setIconVisibleInMenu(true);
 	
 	if (Utils::isRestricted("kshutdown/action/" + id))
 		disable(i18n("Disabled by Administrator"));
@@ -329,6 +331,7 @@ ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
 	// clone basic properties
 	setEnabled(action->isEnabled());
 	setIcon(action->icon());
+	setIconVisibleInMenu(true);
 	setMenu(action->menu());
 	setShortcut(action->shortcut());
 	setStatusTip(action->statusTip());

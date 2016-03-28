@@ -37,12 +37,15 @@ elseif(KS_KF5)
 
 	add_subdirectory(po)
 else()
+	set(CMAKE_AUTOMOC TRUE)
+	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_NATIVE_KDE)
+
 	find_package(KDE4 REQUIRED)
 	add_definitions(${KDE4_DEFINITIONS})
 
 	include_directories(${KDE4_INCLUDES})
 	link_directories(${KDE4_LIB_DIR})
-	
+
 	add_subdirectory(po)
 endif()
 

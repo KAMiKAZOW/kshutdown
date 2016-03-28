@@ -349,12 +349,13 @@ bool MainWindow::maybeShow() {
 			else {
 				auto *action = m_actionHash[id];
 // TODO: show confirmation dialog at cursor position (?)
+// TODO: add Quit action because menu sometimes is unclosable
 				if (action)
 					menu->addAction(new ConfirmAction(menu, action));
 			}
 		}
 
-// FIXME: this does not work everywhere :/
+// FIXME: this does not work in all configurations (Qt4 Build only?)
 		menu->exec(QCursor::pos());
 
 		return false;

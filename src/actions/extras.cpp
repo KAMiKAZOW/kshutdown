@@ -473,6 +473,7 @@ CommandAction::CommandAction(
 	U_ACTION(icon, text, parent),
 	m_command(fileInfo.filePath()) {
 
+	setIconVisibleInMenu(true);
 	setStatusTip(statusTip);
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
