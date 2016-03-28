@@ -84,8 +84,11 @@ public:
 		
 		bool useTimeOption = TimeOption::isValid() && TimeOption::action();
 		
-		if (!MainWindow::self()->maybeShow())
+		if (!MainWindow::self()->maybeShow()) {
+			quit();
+
 			return false;
+		}
 		
 		if (useTimeOption)
 			TimeOption::setupMainWindow();

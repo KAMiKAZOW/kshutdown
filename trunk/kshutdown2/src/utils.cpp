@@ -55,6 +55,7 @@ void Utils::addTitle(U_MENU *menu, const QIcon &icon, const QString &text) {
 	action->setEnabled(false);
 	action->setFont(font);
 	action->setIcon(icon);
+	action->setIconVisibleInMenu(true);
 	action->setText("// " + text);
 	menu->addAction(action);
 	#endif // KS_NATIVE_KDE

@@ -47,6 +47,7 @@ BookmarkAction::BookmarkAction(
 	
 	if (action)
 		setIcon(action->icon());
+	setIconVisibleInMenu(true);
 	
 	QString actionText = menu->makeText(action, trigger, actionOption, triggerOption);
 	m_userText = !text.isEmpty() && (text != actionText);
