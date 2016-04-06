@@ -292,6 +292,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	parser->addOption(QCommandLineOption(QStringList() << "hide-ui", i18n("Hide main window and system tray icon")));
 	parser->addOption(QCommandLineOption(QStringList() << "init", i18n("Do not show main window on startup")));
 	parser->addOption(QCommandLineOption(QStringList() << "mod", i18n("A list of modifications"), "<value>"));
+	parser->addOption(QCommandLineOption(QStringList() << "ui-menu", i18n("Show custom popup menu instead of main window"), "<value>"));
 	parser->addPositionalArgument(
 		"time",
 		i18n(
@@ -356,6 +357,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	options.add("hide-ui", ki18n("Hide main window and system tray icon"));
 	options.add("init", ki18n("Do not show main window on startup"));
 	options.add("mod <value>", ki18n("A list of modifications"));
+	options.add("ui-menu <value>", ki18n("Show custom popup menu instead of main window"));
 	options.add(
 		"+[time]",
 		ki18n(

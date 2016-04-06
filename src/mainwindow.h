@@ -131,6 +131,7 @@ private:
 	explicit MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
+	U_ACTION *createQuitAction();
 	void initFileMenu(U_MENU *fileMenu, const bool addQuitAction);
 	void initMenuBar();
 	void initTriggers();

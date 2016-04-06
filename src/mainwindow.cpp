@@ -148,6 +148,8 @@ bool MainWindow::checkCommandLine() {
 		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
 		
 		table += "<tr><td><code>--mod</code></td><td>" + i18n("A list of modifications") + "</td></tr>\n";
+
+		table += "<tr><td><code>--ui-menu</code></td><td>" + i18n("Show custom popup menu instead of main window") + "</td></tr>\n";
 		
 		#ifndef KS_PORTABLE
 		table += "<tr><td><code>--portable</code></td><td>" + i18n("Run in \"portable\" mode") + "</td></tr>\n";
@@ -334,7 +336,7 @@ bool MainWindow::maybeShow() {
 		return true;
 	}
 
-	QString menuLayout = Mod::getString("ui-menu", "");
+	QString menuLayout = Utils::getOption("ui-menu");
 	if (!menuLayout.isEmpty()) {
 		QStringList menuActions = menuLayout.split(':');
 
@@ -346,16 +348,23 @@ bool MainWindow::maybeShow() {
 			if (id == "-") {
 				menu->addSeparator();
 			}
+			else if (id == "cancel") {
+				menu->addAction(m_cancelAction);
+			}
+			else if (id == "quit") {
+				menu->addAction(createQuitAction());
+			}
 			else {
 				auto *action = m_actionHash[id];
 // TODO: show confirmation dialog at cursor position (?)
-// TODO: add Quit action because menu sometimes is unclosable
 				if (action)
 					menu->addAction(new ConfirmAction(menu, action));
+				else
+					U_DEBUG << "Unknown ui-menu element: " << id U_END;
 			}
 		}
 
-// FIXME: this does not work in all configurations (Qt4 Build only?)
+// FIXME: this does not work in all configurations (e.g. in Qt4 Build only?)
 		menu->exec(QCursor::pos());
 
 		return false;
@@ -770,6 +779,23 @@ Trigger *MainWindow::getSelectedTrigger() const { // public
 	return m_triggerHash[m_triggers->itemData(m_triggers->currentIndex()).toString()];
 }
 
+U_ACTION *MainWindow::createQuitAction() {
+	#ifdef KS_NATIVE_KDE
+	auto *quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
+	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
+	#else
+	auto *quitAction = new U_ACTION(this);
+	quitAction->setIcon(U_STOCK_ICON("application-exit"));
+	quitAction->setShortcut(QKeySequence("Ctrl+Shift+Q"));
+	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
+	#endif // KS_NATIVE_KDE
+	// NOTE: Use "Quit KShutdown" instead of "Quit" because
+	// it may be too similar to "Turn Off" in some language translations.
+	quitAction->setText(i18n("Quit KShutdown"));
+
+	return quitAction;
+}
+
 void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
@@ -825,22 +851,8 @@ void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
 	fileMenu->addAction(m_cancelAction);
 	//fileMenu->addSeparator();
 
-	if (addQuitAction) {
-		U_ACTION *quitAction;
-		#ifdef KS_NATIVE_KDE
-		quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
-		quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
-		#else
-		quitAction = new U_ACTION(this);
-		quitAction->setIcon(U_STOCK_ICON("application-exit"));
-		quitAction->setShortcut(QKeySequence("Ctrl+Shift+Q"));
-		connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
-		#endif // KS_NATIVE_KDE
-		// NOTE: Use "Quit KShutdown" instead of "Quit" because
-		// it may be too similar to "Turn Off" in some language translations.
-		quitAction->setText(i18n("Quit KShutdown"));
-		fileMenu->addAction(quitAction);
-	}
+	if (addQuitAction)
+		fileMenu->addAction(createQuitAction());
 }
 
 void MainWindow::initMenuBar() {
