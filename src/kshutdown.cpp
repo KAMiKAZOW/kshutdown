@@ -22,7 +22,6 @@
 	#include <signal.h>
 #endif // KS_UNIX
 
-#include <QDateTimeEdit>
 #include <QPointer>
 #include <QProcess>
 #ifdef Q_OS_WIN32
@@ -368,6 +367,36 @@ Trigger::Trigger(const QString &text, const QString &iconName, const QString &id
 	m_text(text) {
 }
 
+// DateTimeEdit
+
+// public:
+
+DateTimeEdit::DateTimeEdit()
+	: QDateTimeEdit()
+{
+	connect(
+		lineEdit(), SIGNAL(selectionChanged()),
+		SLOT(onLineEditSelectionChange())
+	);
+}
+
+DateTimeEdit::~DateTimeEdit() { }
+
+// private slots:
+
+void DateTimeEdit::onLineEditSelectionChange() {
+	if (displayedSections() != (HourSection | MinuteSection))
+		return;
+
+	QString selectedText = lineEdit()->selectedText();
+	// HACK: Change selection from "15h" to "15" after double click.
+	//       This fixes Up/Down keys and mouse wheel editing.
+	if (selectedText == time().toString("hh'h'"))
+		lineEdit()->setSelection(0, 2);
+	else if (selectedText == time().toString("mm'm'"))
+		lineEdit()->setSelection(6, 2);
+}
+
 // DateTimeTriggerBase
 
 // public
@@ -375,8 +404,8 @@ Trigger::Trigger(const QString &text, const QString &iconName, const QString &id
 DateTimeTriggerBase::DateTimeTriggerBase(const QString &text, const QString &iconName, const QString &id) :
 	Trigger(text, iconName, id),
 	m_dateTime(QDateTime()),
-	m_endDateTime(QDateTime()),
-	m_edit(0) {
+	m_endDateTime(QDateTime())
+{
 }
 
 DateTimeTriggerBase::~DateTimeTriggerBase() {
@@ -416,7 +445,7 @@ bool DateTimeTriggerBase::canActivateAction() {
 
 QWidget *DateTimeTriggerBase::getWidget() {
 	if (!m_edit) {
-		m_edit = new QDateTimeEdit();
+		m_edit = new DateTimeEdit();
 		connect(m_edit, SIGNAL(dateChanged(const QDate &)), SLOT(syncDateTime()));
 		connect(m_edit, SIGNAL(timeChanged(const QTime &)), SLOT(syncDateTime()));
 		m_edit->setObjectName("date-time-edit");
