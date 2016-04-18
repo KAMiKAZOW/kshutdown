@@ -142,8 +142,8 @@ int main(int argc, char **argv) {
 	bool userStyle = false;
 	if (argc > 1) {
 		for (int i = 1; i < argc; i++) {
-			QByteArray arg(argv[i]);
-			if (arg.startsWith("-style")) {
+			QString arg(argv[i]);
+			if ((arg == "-style") || (arg == "--style")) {
 				userStyle = true;
 			
 				break; // for

@@ -139,6 +139,9 @@ QWidget *Preferences::createGeneralWidget() {
 
 	#ifdef Q_OS_LINUX
 	m_lockCommand = new U_LINE_EDIT();
+	#if QT_VERSION >= 0x050200
+	m_lockCommand->setClearButtonEnabled(true);
+	#endif
 
 	Config *config = Config::user();
 	config->beginGroup("KShutdown Action lock");
