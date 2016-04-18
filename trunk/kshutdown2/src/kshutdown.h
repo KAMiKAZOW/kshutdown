@@ -25,6 +25,7 @@
 #endif // KS_UNIX
 
 #include <QDateTime>
+#include <QDateTimeEdit>
 
 #include "config.h"
 #include "infowidget.h"
@@ -37,7 +38,6 @@ const UShutdownType U_SHUTDOWN_TYPE_HALT = 2; // KDE: ShutdownTypeHalt
 
 class BootEntryComboBox;
 class MainWindow;
-class QDateTimeEdit;
 #ifdef KS_DBUS
 class QDBusInterface;
 #endif // KS_DBUS
@@ -199,6 +199,15 @@ signals:
 	void statusChanged(const bool updateWidgets);
 };
 
+class DateTimeEdit: public QDateTimeEdit {
+	Q_OBJECT
+public:
+	explicit DateTimeEdit();
+	virtual ~DateTimeEdit();
+private slots:
+	void onLineEditSelectionChange();
+};
+
 class DateTimeTriggerBase: public Trigger {
 	Q_OBJECT
 public:
@@ -212,9 +221,9 @@ public:
 	void setDateTime(const QDateTime &dateTime);
 	virtual void setState(const State state) override;
 protected:
+	DateTimeEdit *m_edit = nullptr;
 	QDateTime m_dateTime;
 	QDateTime m_endDateTime;
-	QDateTimeEdit *m_edit;
 	virtual QDateTime calcEndTime() = 0;
 	virtual void updateStatus();
 private slots:
