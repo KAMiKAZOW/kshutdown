@@ -1,6 +1,64 @@
 
   See also: http://kshutdown.sourceforge.net/releases/
 
+2016-04-29  3.99.1 Beta  "4.x"
+
+Command-Line:
+
+* NEW: Support AM/PM time format (e.g. "8:15 pm")
+* Fix regression in "--hide-ui" option
+* Fixed: Allow "--style" (with double dash) option to change default style
+* EXPERIMENTAL: Added "ui-menu" option.
+  It allows you to show custom popup menu instead of main window.
+  Example: kshutdown --ui-menu lock:-:logout:shutdown:-:quit
+  Bugs: Works in KDE/Qt5 builds, but not in Qt4-only builds...
+
+Linux:
+
+* NEW: Basic LXQt support
+* NEW: Added "Custom Lock Screen Command" option
+  (set if your default screen locker sucks ;)
+* NEW: Add logging out for openbox WM (feature-requests #20)
+
+Progress Bar:
+
+* Show main window on left button click
+* Show "Cancel" action in context menu
+* Cleanup context menu
+* Add "Progress Bar" text to the window tool tip and title to avoid confussion
+
+Process List:
+
+* Remember recently selected command/window name
+* Exclude internal "w" and "kshutdown" processes from the list
+* Show warning if a selected process does not exist anymore
+* Faster refresh and sorting
+
+Password Box:
+
+* Fixed: Show input window again if entered password was incorrect
+* Fixed: Clear password text from RAM memory after use
+
+Misc.:
+
+* Fixed: Better text selection in time input field after double click
+  (fixes Up/Down key and mouse wheel editing)
+* NEW: Bookmarks: Added "Confirm Action" option
+* Fixed: Include missing language translations in non-KDE builds
+* NEW: Help|About (Qt Build):
+  - New layout
+  - Added "What's New?" link with release notes
+* Always show action and program icons in menus
+* Minor UI tweaks
+* Minor bug-fixes and improvements
+
+Source:
+
+* Minor code cleanup
+* Enable more compiler warnings (-Wextra -Wpedantic -Wswitch-enum)
+* Setup-kde: Enable "automoc" option for faster compilation
+
+
 2015-10-10  3.99 Beta
 
 Linux:
@@ -777,4 +835,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 785:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 811:HEAD|xsel -i -b && kwrite ChangeLog
