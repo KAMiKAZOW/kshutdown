@@ -228,10 +228,11 @@ BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 	ProcessMonitor *processMonitor = (ProcessMonitor *)param;
 
 	int textLength = ::GetWindowTextLengthW(windowHandle) + 1;
-	wchar_t textBuf[textLength];
+	wchar_t *textBuf = new wchar_t[textLength];
 	int result = ::GetWindowTextW(windowHandle, textBuf, textLength);
 	if (result > 0) {
 		QString title = QString::fromWCharArray(textBuf);
+	delete[] textBuf;
 
 // TODO: show process name (*.exe)
 		Process *p = new Process(processMonitor, Utils::trim(title, 30));
