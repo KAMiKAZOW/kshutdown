@@ -52,7 +52,7 @@ cp -r "tools" "$KS_DIR"
 mkdir "$KS_DIST_DIR"
 zip -r9 "$KS_DIST_DIR/$KS_ZIP" "$KS_DIR" -x "*~" -x "*/.svn/*" -x "*/src/extras/*" -x "*/src/kshutdown.ini"
 pushd "$KS_DIST_DIR"
-sha1sum "$KS_ZIP">SHA1SUM
+sha256sum "$KS_ZIP">SHA256SUM
 popd
 rm -fR "$KS_DIR"
 
