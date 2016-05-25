@@ -46,5 +46,5 @@ Type=Application
 # DOC: http://api.kde.org/4.x-api/kdelibs-apidocs/kdecore/html/classKAboutData.html
 X-DBUS-ServiceName=net.sf.kshutdown
 # DOC: http://standards.freedesktop.org/menu-spec/latest/apa.html
-Categories=Utility;KDE;Qt;
-# OnlyShowIn=KDE;
+Categories=Utility;KDE;Qt;X-SuSE-DesktopUtility;
+StartupNotify=true
