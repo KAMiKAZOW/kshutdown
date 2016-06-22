@@ -4,81 +4,94 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # spider <spider@malta.altlinux.ru>, 2004.
-# Victor Ryzhykh <victorr2007@yandex.ru>, 2014.
+# Victor Ryzhykh <victorr2007@yandex.ru>, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-23 03:16+0100\n"
-"PO-Revision-Date: 2014-04-10 20:12+0400\n"
+"POT-Creation-Date: 2016-05-21 03:48+0300\n"
+"PO-Revision-Date: 2016-05-21 04:37+0400\n"
 "Last-Translator: Victor Ryzhykh <victorr2007@yandex.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 2.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/actions/bootentry.cpp:34
+#: src/actions/bootentry.cpp:35
 msgid "Default System"
 msgstr "Системный по умолчанию"
 
-#: src/actions/bootentry.cpp:109 src/kshutdown.cpp:1366 src/main.cpp:189
+#: src/actions/bootentry.cpp:109 src/kshutdown.cpp:1528 src/main.cpp:261
+#: src/main.cpp:321
 msgid "Restart Computer"
 msgstr "Перезагрузить компьютер"
 
-#: src/actions/extras.cpp:75
+#: src/actions/extras.cpp:79
 msgid "Invalid \"Extras\" command"
-msgstr "Недопустимая команда \"Extras\""
+msgstr "Недопустимая «дополнительная» команда"
 
-#: src/actions/extras.cpp:90 src/actions/extras.cpp:98
-#: src/actions/extras.cpp:135
+#: src/actions/extras.cpp:94 src/actions/extras.cpp:102
+#: src/actions/extras.cpp:139
 msgid "Cannot execute \"Extras\" command"
-msgstr "невозможно выполнить команду \"Extras\""
+msgstr "Не удалось выполнить «дополнительную» команду"
 
-#: src/actions/extras.cpp:158
+#: src/actions/extras.cpp:156
+msgid "Please select an Extras command<br>from the menu above."
+msgstr "Выберите дополнительную команду<br>из меню выше."
+
+#: src/actions/extras.cpp:173
 msgid "Extras"
 msgstr "Дополнительно"
 
-#: src/actions/extras.cpp:178
+#: src/actions/extras.cpp:193
 msgid "File not found: %0"
 msgstr "Файл не найден: %0"
 
-#: src/actions/extras.cpp:308
+#: src/actions/extras.cpp:257
+msgid "Empty"
+msgstr "Пусто"
+
+#: src/actions/extras.cpp:350
 msgid "Select a command..."
 msgstr "Выбрать команду..."
 
-#: src/actions/extras.cpp:326
+#: src/actions/extras.cpp:372
 msgid "Use context menu to add/edit/remove actions."
 msgstr ""
 "Используйте контекстное меню для добавления/редактирования или удаления "
 "действий."
 
-#: src/actions/extras.cpp:328
+#: src/actions/extras.cpp:374
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
 msgstr ""
-"Используйте <b>Контекстное меню</b> для создания новой ссылки на приложения "
+"Используйте <b>Контекстное меню</b> для создания новой ссылки на приложение "
 "(действие)"
 
-#: src/actions/extras.cpp:329
+#: src/actions/extras.cpp:376
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
-msgstr "Используйте <b>Создать Новый|Каталог</b> для создания субменю"
+msgstr "Используйте <b>Создать|Папку...</b> для создания подменю"
 
-#: src/actions/extras.cpp:330
+#: src/actions/extras.cpp:377
 msgid "Use <b>Properties</b> to change icon, name, or command"
-msgstr "Используйте<b>Настройки</b> для смены иконки, имени или команды"
+msgstr "Используйте <b>Настройки</b> для смены значка, имени или команды"
 
-#: src/actions/extras.cpp:359
+#: src/actions/extras.cpp:398
+msgid "Do not show this message again"
+msgstr "Не показывать больше это сообщение"
+
+#: src/actions/extras.cpp:447
 msgid "Add or Remove Commands"
 msgstr "Добавить или удалить команды"
 
-#: src/actions/extras.cpp:367
+#: src/actions/extras.cpp:455
 msgid "Help"
 msgstr "Помощь"
 
-#: src/actions/lock.cpp:214
+#: src/actions/lock.cpp:249
 msgid "Lock Screen"
 msgstr "Заблокировать экран"
 
@@ -94,193 +107,231 @@ msgstr "Проверка"
 msgid "Enter a message"
 msgstr "Введите сообщение"
 
-#: src/actions/test.cpp:54
+#: src/actions/test.cpp:53
 msgid "Text:"
 msgstr "Текст:"
 
-#: src/bookmarks.cpp:73
+#: src/bookmarks.cpp:87
 msgid "&Bookmarks"
 msgstr "&Закладки"
 
-#: src/bookmarks.cpp:235
-msgid "Add: %0"
-msgstr "Добавить: %0"
+#: src/bookmarks.cpp:214
+msgid "Add Bookmark"
+msgstr "Добавить закладку"
 
-#: src/bookmarks.cpp:240
-msgid "Remove: %0"
-msgstr "Удалить: %0"
+#: src/bookmarks.cpp:215
+msgid "Add"
+msgstr "Добавить"
 
-#: src/kshutdown.cpp:140
-msgid "Disabled by Administrator"
-msgstr "Отключено администратором"
-
-#: src/kshutdown.cpp:169
-msgid "Are you sure?"
-msgstr "Вы уверены ?"
-
-#: src/kshutdown.cpp:170 src/preferences.cpp:83
+#: src/bookmarks.cpp:222 src/kshutdown.cpp:171 src/preferences.cpp:121
 msgid "Confirm Action"
 msgstr "Подтвердить действие"
 
-#: src/kshutdown.cpp:265 src/mainwindow.cpp:324
+#: src/bookmarks.cpp:228
+msgid "Name:"
+msgstr "Имя:"
+
+#: src/bookmarks.cpp:286
+msgid "Add: %0"
+msgstr "Добавить: %0"
+
+#: src/bookmarks.cpp:291
+msgid "Remove: %0"
+msgstr "Удалить: %0"
+
+#: src/kshutdown.cpp:141
+msgid "Disabled by Administrator"
+msgstr "Отключено администратором"
+
+#: src/kshutdown.cpp:170
+msgid "Are you sure?"
+msgstr "Вы уверены ?"
+
+#: src/kshutdown.cpp:216
+msgid "Action not available: %0"
+msgstr "Действие недоступно: %0"
+
+#: src/kshutdown.cpp:292 src/mainwindow.cpp:403
 msgid "Unsupported action: %0"
 msgstr "Неправильное действие: %0"
 
-#: src/kshutdown.cpp:277 src/kshutdown.cpp:287
+#: src/kshutdown.cpp:306 src/kshutdown.cpp:316
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: src/kshutdown.cpp:471
+#: src/kshutdown.cpp:540
+msgid "not recommended"
+msgstr "Не рекомендуется"
+
+#: src/kshutdown.cpp:543
 msgid "selected time: %0"
 msgstr "выбранное время: %0"
 
-#: src/kshutdown.cpp:482 src/kshutdown.cpp:552
+#: src/kshutdown.cpp:554 src/kshutdown.cpp:631
 msgid "Invalid date/time"
 msgstr "Недопустимые дата или время "
 
-#: src/kshutdown.cpp:491
+#: src/kshutdown.cpp:563
 msgid "At Date/Time"
 msgstr "В Дату/Время"
 
-#: src/kshutdown.cpp:541
+#: src/kshutdown.cpp:620
 msgid "Enter date and time"
 msgstr "Введите время и дату"
 
-#: src/kshutdown.cpp:572 src/mainwindow.cpp:694
+#: src/kshutdown.cpp:651 src/mainwindow.cpp:802
 msgid "No Delay"
 msgstr "Без задержки"
 
-#: src/kshutdown.cpp:592
+#: src/kshutdown.cpp:661
 msgid "Time From Now (HH:MM)"
 msgstr "Текущее время (ЧЧ:ММ)"
 
-#: src/kshutdown.cpp:620
+#: src/kshutdown.cpp:689
 msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
-msgstr "Введите задержку  \"ЧЧ:ММ\" в формате (часы:минуты)"
+msgstr "Введите задержку  «ЧЧ:ММ» в формате (часы:минуты)"
 
-#: src/kshutdown.cpp:826 src/main.cpp:195
+#: src/kshutdown.cpp:925 src/main.cpp:263 src/main.cpp:324
 msgid "Hibernate Computer"
 msgstr "Перевести в спящий режим"
 
-#: src/kshutdown.cpp:829
+#: src/kshutdown.cpp:928
 msgid "Cannot hibernate computer"
 msgstr "Не удалось перевести в спящий режим"
 
-#: src/kshutdown.cpp:836
+#: src/kshutdown.cpp:932
 msgid ""
-"<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
-"systems where the contents of RAM are written to non-volatile storage such "
-"as a hard disk, as a file or on a separate partition, before powering off "
-"the computer.</p><p>When the computer is restarted it reloads the content of "
-"memory and is restored to the state it was in when hibernation was invoked.</"
-"p><p>Hibernating and later restarting is usually faster than closing down, "
-"later starting up, and starting all the programs that were running.</"
-"p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
+"Save the contents of RAM to disk\n"
+"then turn off the computer."
 msgstr ""
-"<p>Спящий режим (или сброс на диск) это возможность операционных систем "
-"записывать содержимое оперативной памяти (RAM) в стабильное хранилище, такое "
-"как жёсткий диск, в виде файла или целого раздела перед выключением питания "
-"компьютера.</p><p>При последующем включении компьютера, он считывает с диска "
-"записанную информацию и возвращается в прежнее состояние.</p><p>Спящий режим "
-"ускоряет загрузку операционной системы, и, к тому же запускаются программы, "
-"работавшие перед выключением компьютера.</p><p>Источник: http://en.wikipedia."
-"org/wiki/Hibernate_(OS_feature)</p>"
+"Сохранить содержимое оперативной памяти на диск,\n"
+"а затем выключить компьютер."
 
-#: src/kshutdown.cpp:850
+#: src/kshutdown.cpp:942
 msgid "Sleep"
 msgstr "Ждущий режим"
 
-#: src/kshutdown.cpp:852 src/main.cpp:200
+#: src/kshutdown.cpp:944 src/main.cpp:264 src/main.cpp:327
 msgid "Suspend Computer"
 msgstr "Перевести в ждущий режим"
 
-#: src/kshutdown.cpp:857
+#: src/kshutdown.cpp:949
 msgid "Cannot suspend computer"
 msgstr "Не удалось перевести в ждущий режим"
 
-#: src/kshutdown.cpp:861
+#: src/kshutdown.cpp:953
 msgid "Enter in a low-power state mode."
 msgstr "Войти в энергосберегающий режим."
 
-#: src/kshutdown.cpp:1342
+#: src/kshutdown.cpp:1504
 msgid "Log Off"
 msgstr "Выход"
 
-#: src/kshutdown.cpp:1344 src/main.cpp:192
+#: src/kshutdown.cpp:1506 src/main.cpp:267 src/main.cpp:333
 msgid "Logout"
 msgstr "Завершить сеанс"
 
-#: src/kshutdown.cpp:1419 src/main.cpp:180 src/main.cpp:183
+#: src/kshutdown.cpp:1581 src/main.cpp:259 src/main.cpp:260 src/main.cpp:315
+#: src/main.cpp:318
 msgid "Turn Off Computer"
 msgstr "Выключить компьютер"
 
-#: src/main.cpp:149
-msgid "KShutdown"
-msgstr "KShutDown"
-
-#: src/main.cpp:166 src/mainwindow.cpp:1099
+#: src/main.cpp:216 src/main.cpp:231 src/mainwindow.cpp:1225
 msgid "A graphical shutdown utility"
 msgstr "Графическая утилита для выключения компьютера"
 
-#: src/main.cpp:168
-msgid "Konrad Twardowski"
-msgstr ""
-
-#: src/main.cpp:168
+#: src/main.cpp:218 src/main.cpp:233
 msgid "Maintainer"
 msgstr "Сопровождающий"
 
-#: src/main.cpp:169
+#: src/main.cpp:219 src/main.cpp:234
 msgid "Thanks To All!"
 msgstr "Благодарности всем!"
 
-#: src/main.cpp:186
+#: src/main.cpp:224 src/progressbar.cpp:119
+msgid "KShutdown"
+msgstr "KShutDown"
+
+#: src/main.cpp:233
+msgid "Konrad Twardowski"
+msgstr "Konrad Twardowski"
+
+#: src/main.cpp:266 src/main.cpp:330
 msgid "Lock screen"
 msgstr "Заблокировать экран"
 
-#: src/main.cpp:197
+#: src/main.cpp:271 src/main.cpp:336
+msgid "Run executable file (example: Desktop shortcut or Shell script)"
+msgstr ""
+"Запустить исполняемый файл (например, ярлык на рабочем столе или скрипт)"
+
+#: src/main.cpp:275 src/main.cpp:338
 msgid "Test Action (does nothing)"
 msgstr "Проверка действия (эмуляция)"
 
-#: src/main.cpp:203
-msgid "Run executable file (example: Desktop shortcut or Shell script)"
-msgstr ""
-"Запустить исполняемый файл ( например, Ярлык на рабочем столе или Шелл "
-"скрипт)"
-
-#: src/main.cpp:208 src/mainwindow.cpp:122
+#: src/main.cpp:282 src/main.cpp:348 src/mainwindow.cpp:138
 msgid ""
-"Detect user inactivity. Example: --logout --inactivity 90 - automatically "
-"logout after 90 minutes of user inactivity"
+"Detect user inactivity. Example:\n"
+"--logout --inactivity 90 - automatically logout after 90 minutes of user "
+"inactivity"
 msgstr ""
-"Определение активности пользователя. Пример: --logout --inactivity 90 - это "
-"означает: автоматический выход после 90 минут бездействия пользователя"
+"Определение активности пользователя. Например:\n"
+"--logout --inactivity 90 - автоматический выход после 90 минут отсутствия "
+"активности пользователя"
 
-#: src/main.cpp:210
+#: src/main.cpp:289
+msgid "Show this help"
+msgstr "Показать эту справку"
+
+#: src/main.cpp:290 src/main.cpp:355
 msgid "Cancel an active action"
 msgstr "Отменить активное задание"
 
-#: src/main.cpp:211 src/mainwindow.cpp:124
+#: src/main.cpp:291 src/main.cpp:356 src/mainwindow.cpp:144
 msgid "Confirm command line action"
 msgstr "Подтвердить действие командной строки"
 
-#: src/main.cpp:212 src/mainwindow.cpp:126
+#: src/main.cpp:292 src/main.cpp:357 src/mainwindow.cpp:146
 msgid "Hide main window and system tray icon"
-msgstr "Спрятать окно программы и иконку в трее"
+msgstr "Спрятать окно программы и значок в системный лоток"
 
-#: src/main.cpp:213 src/mainwindow.cpp:128
+#: src/main.cpp:293 src/main.cpp:358 src/mainwindow.cpp:148
 msgid "Do not show main window on startup"
 msgstr "Не показывать окно при запуске системы"
 
-#: src/main.cpp:214 src/mainwindow.cpp:130
-msgid ""
-"Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
-"minutes from now"
-msgstr ""
-"Запустить отсчёт. Примеры: 01:30 - абсолютное время  (ЧЧ:ММ); 10 - минуты от "
-"текущего времени"
+#: src/main.cpp:294 src/main.cpp:359 src/mainwindow.cpp:150
+msgid "A list of modifications"
+msgstr "Список изменений"
 
-#: src/main.cpp:216
+#: src/main.cpp:295 src/main.cpp:360 src/mainwindow.cpp:152
+msgid "Show custom popup menu instead of main window"
+msgstr "Показывать собственное всплывающее меню вместо главного окна"
+
+#: src/main.cpp:299 src/main.cpp:364 src/mainwindow.cpp:160
+msgid ""
+"Activate countdown. Examples:\n"
+"13:37 (HH:MM) or \"1:37 PM\" - absolute time\n"
+"10 or 10m - number of minutes from now\n"
+"2h - two hours"
+msgstr ""
+"Отсчёт активности. Например:\n"
+"13:37 (ЧЧ:ММ) или «1:37 PM» - абсолютное время\n"
+"10 или 10m - через количество минут\n"
+"2h - два часа"
+
+#: src/main.cpp:312
+msgid "Actions:"
+msgstr "Действия:"
+
+#: src/main.cpp:342
+msgid "Triggers:"
+msgstr "Триггеры:"
+
+#: src/main.cpp:353
+msgid "Other Options:"
+msgstr "Другие параметры:"
+
+#: src/main.cpp:371
 #, c-format
 msgid ""
 "More Info...\n"
@@ -289,116 +340,130 @@ msgstr ""
 "Дополнительная информация...\n"
 "http://sourceforge.net/p/kshutdown/wiki/Command%20Line/"
 
-#: src/mainwindow.cpp:90
+#: src/mainwindow.cpp:104
 msgid "Actions"
 msgstr "Действия"
 
-#: src/mainwindow.cpp:119
+#: src/mainwindow.cpp:133
 msgid "Miscellaneous"
 msgstr "Разное"
 
-#: src/mainwindow.cpp:130
+#: src/mainwindow.cpp:155
+msgid "Run in \"portable\" mode"
+msgstr "Запустить в «портативном» режиме"
+
+#: src/mainwindow.cpp:158
 msgid "Optional parameter"
 msgstr "Необязательный параметр"
 
-#: src/mainwindow.cpp:141
+#: src/mainwindow.cpp:176
 msgid "Command Line Options"
 msgstr "Параметры командной строки"
 
-#: src/mainwindow.cpp:188 src/mainwindow.cpp:1215
+#: src/mainwindow.cpp:223 src/mainwindow.cpp:1408
 msgid "Invalid time: %0"
 msgstr "Неверное время: %0"
 
-#: src/mainwindow.cpp:230
+#: src/mainwindow.cpp:258
 msgid "Action: %0"
 msgstr "Действие: %0"
 
-#: src/mainwindow.cpp:233 src/mainwindow.cpp:245
+#: src/mainwindow.cpp:261 src/mainwindow.cpp:285
 msgid "Remaining time: %0"
 msgstr "Оставшееся время: %0"
 
-#: src/mainwindow.cpp:369 src/mainwindow.cpp:991 src/mainwindow.cpp:1037
-#: src/password.cpp:256
-msgid "Cancel"
-msgstr "Отмена"
-
-#: src/mainwindow.cpp:548
-msgid "KShutdown is still active!"
-msgstr "KShutdown активен!"
-
-#: src/mainwindow.cpp:554
-msgid "KShutdown has been minimized"
-msgstr "KShutDown будет переведен в трей"
-
-#: src/mainwindow.cpp:691
-msgid "A&ction"
-msgstr "&Действие"
-
-#: src/mainwindow.cpp:758 src/mainwindow.cpp:1064 src/password.cpp:257
-msgid "Quit"
-msgstr "Выход"
-
-#: src/mainwindow.cpp:771
-msgid "&Edit"
-msgstr "&Изменить"
-
-#: src/mainwindow.cpp:771
-msgid "&Settings"
-msgstr "Па&раметры"
-
-#: src/mainwindow.cpp:789 src/password.cpp:157 src/preferences.cpp:33
-msgid "Preferences"
-msgstr "Настройки"
-
-#: src/mainwindow.cpp:808
-msgid "&Help"
-msgstr "&Помощь"
-
-#: src/mainwindow.cpp:811 src/mainwindow.cpp:1096
-msgid "About"
-msgstr "О программе"
-
-#: src/mainwindow.cpp:812
-msgid "About Qt"
-msgstr "О библиотеке QT"
-
-#: src/mainwindow.cpp:830
-msgid "Selec&t an action"
-msgstr "Выб&рать действие"
-
-#: src/mainwindow.cpp:839
-msgid "Do not save session / Force shutdown"
-msgstr "Не сохранять сессию / выключить принудительно"
-
-#: src/mainwindow.cpp:844
-msgid "Se&lect a time/event"
-msgstr "В&ыбрать время/событие"
-
-#: src/mainwindow.cpp:996
+#: src/mainwindow.cpp:273 src/mainwindow.cpp:1130 src/mainwindow.cpp:1149
 msgid "OK"
 msgstr "ОК"
 
-#: src/mainwindow.cpp:999
+#: src/mainwindow.cpp:277
+#, c-format
+msgid "Press %0 to activate KShutdown"
+msgstr "Нажмите %0 чтобы активировать KShutdown"
+
+#: src/mainwindow.cpp:450 src/mainwindow.cpp:1125 src/mainwindow.cpp:1144
+#: src/mainwindow.cpp:1164 src/password.cpp:274
+msgid "Cancel"
+msgstr "Отмена"
+
+#: src/mainwindow.cpp:633
+msgid "KShutdown is still active!"
+msgstr "KShutdown активен!"
+
+#: src/mainwindow.cpp:639
+msgid "KShutdown has been minimized"
+msgstr "KShutDown будет переведен в системный лоток"
+
+#: src/mainwindow.cpp:794 src/mainwindow.cpp:1191 src/password.cpp:275
+msgid "Quit KShutdown"
+msgstr "Выход"
+
+#: src/mainwindow.cpp:865
+msgid "A&ction"
+msgstr "&Действие"
+
+#: src/mainwindow.cpp:887
+msgid "&Tools"
+msgstr "&Инструменты"
+
+#: src/mainwindow.cpp:890 src/stats.cpp:27
+msgid "Statistics"
+msgstr "Статистика"
+
+#: src/mainwindow.cpp:895 src/password.cpp:163 src/preferences.cpp:33
+msgid "Preferences"
+msgstr "Настройки"
+
+#: src/mainwindow.cpp:938
+msgid "&Help"
+msgstr "&Помощь"
+
+#: src/mainwindow.cpp:939 src/mainwindow.cpp:1280 src/mainwindow.cpp:1287
+msgid "About"
+msgstr "О программе"
+
+#: src/mainwindow.cpp:966
+msgid "Select an &action"
+msgstr "Выбрать &действие"
+
+#: src/mainwindow.cpp:978
+msgid "Do not save session / Force shutdown"
+msgstr "Не сохранять сессию / выключить принудительно"
+
+#: src/mainwindow.cpp:983
+msgid "Se&lect a time/event"
+msgstr "В&ыбрать время/событие"
+
+#: src/mainwindow.cpp:1092 src/preferences.cpp:125 src/progressbar.cpp:113
+#: src/progressbar.cpp:230
+msgid "Progress Bar"
+msgstr "Шкала времени"
+
+#: src/mainwindow.cpp:1152
 msgid "Click to activate/cancel the selected action"
 msgstr "Нажмите для активизации или отмены действия"
 
-#: src/mainwindow.cpp:1008
-msgid "Please select an Extras command<br>from the menu above."
-msgstr "Выберите команду<br>из меню выше."
-
-#: src/mainwindow.cpp:1024
-msgid "Action not available: %0"
-msgstr "Действие недоступно: %0"
-
-#: src/mainwindow.cpp:1033
+#: src/mainwindow.cpp:1160
 msgid "Cancel: %0"
 msgstr "Отмена: %0"
 
-#: src/mainwindow.cpp:1200
+#: src/mainwindow.cpp:1228
+msgid "What's New?"
+msgstr "Что нового?"
+
+#: src/mainwindow.cpp:1266
+msgid "About Qt"
+msgstr "О библиотеке QT"
+
+#: src/mainwindow.cpp:1288
+msgid "License"
+msgstr "Лицензия"
+
+#: src/mainwindow.cpp:1388
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: src/mainwindow.cpp:1200
+#: src/mainwindow.cpp:1388
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -406,187 +471,238 @@ msgid ""
 msgstr ""
 "Подтвердите выбор этой настройки\n"
 "\n"
-"Не сохранённые документы будут утеряны!"
+"Несохранённые документы будут утеряны!"
 
-#: src/password.cpp:42
+#: src/password.cpp:45
 msgid "Enter New Password"
 msgstr "Введите новый пароль"
 
-#: src/password.cpp:61
+#: src/password.cpp:74
 msgid "Password:"
 msgstr "Пароль:"
 
-#: src/password.cpp:72
+#: src/password.cpp:75
 msgid "Confirm Password:"
 msgstr "Подтверждение пароля:"
 
-#: src/password.cpp:79
-msgid "The password will be saved as SHA-1 hash."
-msgstr "Пароль будет сохранен как хэш SHA-1."
-
-#: src/password.cpp:80
-msgid "Short password can be easily cracked."
-msgstr "Короткий пароль может быть легко взломан."
-
-#: src/password.cpp:119
+#: src/password.cpp:117
 msgid "Enter password to perform action: %0"
 msgstr "Введите пароль для выполнения действия: %0"
 
-#: src/password.cpp:148
+#: src/password.cpp:152
 msgid "Invalid password"
 msgstr "Неверный пароль"
 
-#: src/password.cpp:175
+#: src/password.cpp:197
 #, c-format
 msgid "Password is too short (need %0 characters or more)"
 msgstr "Пароль слишком короткий (нужно %0 или более символов)"
 
-#: src/password.cpp:180
+#: src/password.cpp:202
 msgid "Confirmation password is different"
 msgstr "Подтверждение пароля отличается"
 
-#: src/password.cpp:224
+#: src/password.cpp:242
 msgid "Enable Password Protection"
 msgstr "Включить защиту паролем"
 
-#: src/password.cpp:240
+#: src/password.cpp:258
 msgid "Password Protected Actions:"
 msgstr "Защищенные паролем действия:"
 
-#: src/password.cpp:246
+#: src/password.cpp:264
 msgid "Settings (recommended)"
 msgstr "Настройки (рекомендуется)"
 
-#: src/password.cpp:263
+#: src/password.cpp:281
 msgid "See Also: %0"
 msgstr "См. также: %0"
 
-#: src/preferences.cpp:37
+#: src/preferences.cpp:45
 msgid "General"
 msgstr "Общее"
 
-#: src/preferences.cpp:38
+#: src/preferences.cpp:46
 msgid "System Tray"
 msgstr "Системный лоток"
 
-#: src/preferences.cpp:41
+#: src/preferences.cpp:49
 msgid "Password"
 msgstr "Пароль"
 
-#: src/preferences.cpp:87 src/progressbar.cpp:186
-msgid "Progress Bar"
-msgstr "Шкала времени"
+#: src/preferences.cpp:127
+msgid "Show a small progress bar on top/bottom of the screen."
+msgstr "Показывать индикатор выполнения в верхней / нижней части экрана."
 
-#: src/preferences.cpp:91
+#: src/preferences.cpp:131
 msgid "Lock Screen Before Hibernate"
 msgstr "Заблокировать экран при переходе в спящий режим"
 
-#: src/preferences.cpp:103
+#: src/preferences.cpp:151
+msgid "Custom Lock Screen Command:"
+msgstr "Собственная команда блокирования экрана:"
+
+#: src/preferences.cpp:161
 msgid "Related KDE Settings..."
 msgstr "Соответствующие настройки KDE..."
 
-#: src/preferences.cpp:116
+#: src/preferences.cpp:174
 msgid "Enable System Tray Icon"
 msgstr "Значок в системном лотке"
 
-#: src/preferences.cpp:120
+#: src/preferences.cpp:182
 msgid "Quit instead of minimizing to System Tray Icon"
 msgstr "Выход вместо минимизации в системный лоток"
 
-#: src/preferences.cpp:127
+#: src/preferences.cpp:193
 msgid "Black and White System Tray Icon"
 msgstr "Черно-белый значок в системном лотке"
 
-#: src/progressbar.cpp:98
+#: src/progressbar.cpp:125
 msgid "Hide"
 msgstr "Спрятать"
 
-#: src/progressbar.cpp:99
+#: src/progressbar.cpp:126
 msgid "Set Color..."
 msgstr "Выбрать цвет..."
 
-#: src/progressbar.cpp:103 src/progressbar.cpp:106
+#: src/progressbar.cpp:131
 msgid "Position"
 msgstr "Позиция"
 
-#: src/progressbar.cpp:114
+#: src/progressbar.cpp:135
 msgid "Top"
 msgstr "Вверху"
 
-#: src/progressbar.cpp:117
+#: src/progressbar.cpp:138
 msgid "Bottom"
 msgstr "Внизу"
 
-#: src/progressbar.cpp:121 src/progressbar.cpp:124
+#: src/progressbar.cpp:141
 msgid "Size"
 msgstr "Размер"
 
-#: src/progressbar.cpp:132
+#: src/progressbar.cpp:147
 msgid "Small"
 msgstr "Маленький"
 
-#: src/progressbar.cpp:135
+#: src/progressbar.cpp:150
 msgid "Normal"
 msgstr "Обычный"
 
-#: src/progressbar.cpp:138
+#: src/progressbar.cpp:153
 msgid "Medium"
 msgstr "Средний"
 
-#: src/progressbar.cpp:141
+#: src/progressbar.cpp:156
 msgid "Large"
 msgstr "Большой"
 
-#: src/pureqt.h:87 src/triggers/processmonitor.cpp:284
+#: src/pureqt.h:96 src/pureqt.h:132 src/triggers/processmonitor.cpp:357
 msgid "Error"
 msgstr "Ошибка"
 
-#: src/pureqt.h:91
+#: src/pureqt.h:98 src/pureqt.h:134
 msgid "Information"
 msgstr "Сведения"
 
-#: src/triggers/idlemonitor.cpp:48
-msgid "On User Inactivity (HH:MM)"
-msgstr "Неактивность пользователя  (ЧЧ:ММ)"
+#: src/stats.cpp:33
+msgid "Please Wait..."
+msgstr "Подождите..."
 
-#: src/triggers/idlemonitor.cpp:69
-msgid "Use this trigger to detect user inactivity (example: no mouse clicks)."
-msgstr ""
-"Используйте этот флажок для определения активности пользователя (например, "
-"нет кликов мыши)."
+#: src/triggers/idlemonitor.cpp:47
+msgid "On User Inactivity (HH:MM)"
+msgstr "Отсутствие активности пользователя  (ЧЧ:ММ)"
 
 #: src/triggers/idlemonitor.cpp:78
+msgid ""
+"Use this trigger to detect user inactivity\n"
+"(example: no mouse clicks)."
+msgstr ""
+"Использовать этот переключатель для определения активности пользователя\n"
+"(например: нет щелчков мыши)."
+
+#: src/triggers/idlemonitor.cpp:87
 msgid "Unknown"
 msgstr "Неизвестный"
 
-#: src/triggers/idlemonitor.cpp:123
+#: src/triggers/idlemonitor.cpp:132
 msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hours:Minutes)"
 msgstr ""
-"Ввести время неактивности пользователя  в формате \"ЧЧ:ММ\" (часы:минуты)"
+"Ввести время отсутствия активности пользователя  в формате «ЧЧ:ММ»"
+" (часы:минуты)"
 
-#: src/triggers/processmonitor.cpp:87
+#: src/triggers/processmonitor.cpp:106
 msgid "When selected application exit"
 msgstr "Когда выбранное приложение закончит работу"
 
-#: src/triggers/processmonitor.cpp:122
+#: src/triggers/processmonitor.cpp:139
 msgid "List of the running processes"
 msgstr "Список запущенных процессов"
 
-#: src/triggers/processmonitor.cpp:128
+#: src/triggers/processmonitor.cpp:145
 msgid "Refresh"
 msgstr "Обновить"
 
-#: src/triggers/processmonitor.cpp:176
+#: src/triggers/processmonitor.cpp:329
 msgid "Waiting for \"%0\""
-msgstr "Ждать \"%0\""
+msgstr "Ждать «%0»"
 
-#: src/triggers/processmonitor.cpp:308
-msgid "Error: %0"
-msgstr "Ошибка: %0"
+#: src/triggers/processmonitor.cpp:334
+msgid "Process or Window does not exist: %0"
+msgstr "Процесс или окно не существует: %0"
 
-#: src/triggers/processmonitor.cpp:353 src/triggers/processmonitor.cpp:372
-msgid "Error, exit code: %0"
-msgstr "Ошибка, с кодом: %0"
+#~ msgid ""
+#~ "Activate countdown. Examples:\n"
+#~ "13:37 - absolute time (HH:MM)\n"
+#~ "10 or 10m - number of minutes from now\n"
+#~ "2h - two hours"
+#~ msgstr ""
+#~ "Отсчёт активности. Например:\n"
+#~ "13:37 - абсолютное время (ЧЧ:ММ)\n"
+#~ "10 или 10m - через количество минут\n"
+#~ "2h - два часа"
+
+#~ msgid "The password will be saved as SHA-1 hash."
+#~ msgstr "Пароль будет сохранен как хэш SHA-1."
+
+#~ msgid "Short password can be easily cracked."
+#~ msgstr "Короткий пароль может быть легко взломан."
+
+#~ msgid "Error: %0"
+#~ msgstr "Ошибка: %0"
+
+#~ msgid "Error, exit code: %0"
+#~ msgstr "Ошибка, с кодом: %0"
+
+#~ msgid ""
+#~ "<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
+#~ "systems where the contents of RAM are written to non-volatile storage "
+#~ "such as a hard disk, as a file or on a separate partition, before "
+#~ "powering off the computer.</p><p>When the computer is restarted it "
+#~ "reloads the content of memory and is restored to the state it was in when "
+#~ "hibernation was invoked.</p><p>Hibernating and later restarting is "
+#~ "usually faster than closing down, later starting up, and starting all the "
+#~ "programs that were running.</p><p>Source: http://en.wikipedia.org/wiki/"
+#~ "Hibernate_(OS_feature)</p>"
+#~ msgstr ""
+#~ "<p>Спящий режим (или сброс на диск) это возможность операционных систем "
+#~ "записывать содержимое оперативной памяти (RAM) в стабильное хранилище, "
+#~ "такое как жёсткий диск, в виде файла или целого раздела перед выключением "
+#~ "питания компьютера.</p><p>При последующем включении компьютера, он "
+#~ "считывает с диска записанную информацию и возвращается в прежнее "
+#~ "состояние.</p><p>Спящий режим ускоряет загрузку операционной системы, и, "
+#~ "к тому же запускаются программы, работавшие перед выключением компьютера."
+#~ "</p><p>Источник: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
+
+#~ msgid "Quit"
+#~ msgstr "Выход"
+
+#~ msgid "&Edit"
+#~ msgstr "&Изменить"
+
+#~ msgid "&Settings"
+#~ msgstr "Па&раметры"
 
 #~ msgid "Suspend Computer (Sleep)"
 #~ msgstr "Перевести компьютер в спящий режим (Sleep)"
@@ -609,3 +725,26 @@ msgstr "Ошибка, с кодом: %0"
 
 #~ msgid "Refresh the list of processes"
 #~ msgstr "Обновить список запущенных процессов"
+
+#~ msgid ""
+#~ "Detect user inactivity. Example: --logout --inactivity 90 - automatically "
+#~ "logout after 90 minutes of user inactivity"
+#~ msgstr ""
+#~ "Определение активности пользователя. Пример: --logout --inactivity 90 - "
+#~ "это означает: автоматический выход после 90 минут бездействия пользователя"
+
+#~ msgid ""
+#~ "Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number "
+#~ "of minutes from now"
+#~ msgstr ""
+#~ "Запустить отсчёт. Примеры: 01:30 - абсолютное время  (ЧЧ:ММ); 10 - минуты "
+#~ "от текущего времени"
+
+#~ msgid "Selec&t an action"
+#~ msgstr "Выб&рать действие"
+
+#~ msgid ""
+#~ "Use this trigger to detect user inactivity (example: no mouse clicks)."
+#~ msgstr ""
+#~ "Используйте этот флажок для определения активности пользователя "
+#~ "(например, нет кликов мыши)."
