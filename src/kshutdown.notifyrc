@@ -6,33 +6,43 @@ Comment=KShutdown
 
 [Event/1m]
 Name=1 Minute Warning
+Name[ru]=Предупреждение за 1 минуту
 Comment=1 Minute Warning
 Comment[el]=Προειδοποίηση του 1 λεπτού
 Comment[it]=Avvertimento a un minuto
 Comment[pl]=Ostrzeżenie: 1 minuta
+Comment[ru]=Предупреждение за 1 минуту
 Action=Popup|Taskbar
 
 [Event/5m]
 Name=5 Minutes Warning
+Name[ru]=Предупреждение за 5 минут
 Comment=5 Minutes Warning
 Comment[el]=Προειδοποίηση των 5 λεπτών
 Comment[it]=Avvertimento a 5 minuti
 Comment[pl]=Ostrzeżenie: 5 minut
+Comment[ru]=Предупреждение за 5 минут
 Action=Popup|Taskbar
 
 [Event/30m]
 Name=30 Minutes Warning
+Name[ru]=Предупреждение за 30 минут
 Comment=30 Minutes Warning
+Comment[ru]=Предупреждение за 30 минут
 Action=
 
 [Event/1h]
 Name=1 Hour Warning
+Name[ru]=Предупреждение за 1 час
 Comment=1 Hour Warning
+Comment[ru]=Предупреждение за 1 час
 Action=Popup|Taskbar
 
 [Event/2h]
 Name=2 Hours Warning
+Name[ru]=Предупреждение за 2 часа
 Comment=2 Hours Warning
+Comment[ru]=Предупреждение за 2 часа
 Action=Popup|Taskbar
 
 #[Event/RunError]
