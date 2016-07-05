@@ -103,7 +103,6 @@ public:
 
 int main(int argc, char **argv) {
 	#ifdef KS_KF5
-	#warning **** This build/port (KF5) is experimental and may be incomplete ****
 	qSetMessagePattern("%{appname}[%{time}] %{message}");
 	#endif // KS_KF5
 
