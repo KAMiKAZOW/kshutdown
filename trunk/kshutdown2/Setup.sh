@@ -73,7 +73,7 @@ out=`dialog \
 	--menu "" 0 0 0 \
 	"kshutdown" "A version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
 	"kshutdown-qt" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 4.8+ or Qt 5.x, no KDE 4 libs" \
-	"kshutdown-kf5" "Beta: An universal version compiled using KDE Frameworks" "Required libraries: KDE Frameworks 5.x"`
+	"kshutdown-kf5" "An universal version compiled using KDE Frameworks" "Required libraries: KDE Frameworks 5.x"`
 
 case $? in
 	0) doCompile $out;;
