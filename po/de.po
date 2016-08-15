@@ -3,28 +3,29 @@
 # Copyright (C) Konrad Twardowski, Elias Probst
 # Elias Probst <elias.probst@gmx.de>, 2004, 2005, 2006.
 # Markus Slopianka <kamikazow@web.de>, 2009.
+# Vinzenz Vietzke <vinz@vinzv.de>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-21 22:35+0200\n"
-"PO-Revision-Date: 2009-07-22 17:45+0200\n"
-"Last-Translator: Markus Slopianka <kamikazow@web.de>\n"
+"PO-Revision-Date: 2016-08-08 19:44+0100\n"
+"Last-Translator: Vinzenz Vietzke <vinz@vinzv.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 2.0\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Language: de\n"
 
 #: src/actions/extras.cpp:52
 msgid "Invalid \"Extras\" command"
 msgstr "Ungültiger „Extras“-Befehl"
 
 #: src/actions/extras.cpp:61 src/actions/extras.cpp:69
-#, fuzzy
 msgid "Cannot execute \"Extras\" command"
-msgstr ""
+msgstr "Kann \"Extras\"-Befehl nicht ausführen"
 
 #: src/actions/extras.cpp:105
 msgid "Extras..."
@@ -35,16 +36,14 @@ msgid "Select a command..."
 msgstr "Befehl auswählen..."
 
 #: src/actions/extras.cpp:252
-#, fuzzy
 msgid "Use context menu to add/edit/remove actions."
 msgstr "Benutze das Kontextmenü um Verweise hinzuzufügen/editieren/entfernen"
 
 #: src/actions/extras.cpp:254
-#, fuzzy
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
 msgstr ""
 "Benutze das <b>Kontextmenü</b> um einen neuen Verweis zu einem Programm "
-"anzulegen."
+"anzulegen"
 
 #: src/actions/extras.cpp:255
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
@@ -97,9 +96,8 @@ msgid "Suspend Computer"
 msgstr "Rechner in Ruhezustand versetzen"
 
 #: src/kshutdown.cpp:509
-#, fuzzy
 msgid "Cannot suspend computer"
-msgstr "Rechner ausschalten"
+msgstr "Kann Rechner nicht in den Ruhezustand versetzen"
 
 #: src/kshutdown.cpp:519
 msgid "Lock Screen"
@@ -142,14 +140,12 @@ msgid "Extras"
 msgstr "Extras"
 
 #: src/main.cpp:109
-#, fuzzy
 msgid "Do not show main window on startup"
 msgstr "Fenster beim Start nicht anzeigen"
 
 #: src/main.cpp:110
-#, fuzzy
 msgid "Theme"
-msgstr ""
+msgstr "Thema"
 
 #: src/mainwindow.cpp:97
 msgid "Remaining time: %0"
@@ -212,9 +208,8 @@ msgid "OK"
 msgstr "OK"
 
 #: src/mainwindow.cpp:648
-#, fuzzy
 msgid "Click to active/cancel the selected action"
-msgstr ""
+msgstr "Klicke um die gewählte Aktion zu aktivieren/abzubrechen"
 
 #: src/mainwindow.cpp:655
 msgid "Action not available: %0"
@@ -302,9 +297,8 @@ msgid "Error: %0"
 msgstr "Fehler: %0"
 
 #: src/triggers/processmonitor.cpp:228 src/triggers/processmonitor.cpp:231
-#, fuzzy
 msgid "Error, exit code: %0"
-msgstr ""
+msgstr "Fehler, Exitcode: %0"
 
 #~ msgid "Please wait..."
 #~ msgstr "Bitte warten..."
