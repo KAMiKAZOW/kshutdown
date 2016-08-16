@@ -28,14 +28,13 @@
 		#include <KCmdLineArgs>
 		#include <KUniqueApplication>
 	#endif // KS_KF5
-
-	#include "version.h"
 #endif // KS_PURE_QT
 
 #include "commandline.h"
 #include "log.h"
 #include "mainwindow.h"
 #include "utils.h"
+#include "version.h"
 
 #if defined(KS_PURE_QT) && defined(KS_UNIX)
 	#include <QStyleFactory>
@@ -102,6 +101,30 @@ public:
 };
 
 int main(int argc, char **argv) {
+	#ifdef KS_PURE_QT
+	// NOTE: run this before QApplication constructor
+	bool userStyle = false;
+	if (argc > 1) {
+		for (int i = 1; i < argc; i++) {
+			QString arg(argv[i]);
+			if ((arg == "-style") || (arg == "--style")) {
+				userStyle = true;
+			
+				break; // for
+			}
+			else if ((arg == "-version") || (arg == "--version")) {
+				QString text = "KShutdown " KS_FULL_VERSION " (Build: " KS_BUILD ")\n";
+				text += "Qt " QT_VERSION_STR;
+				QTextStream out(stdout);
+				out << text << endl;
+
+				return 0;
+			}
+
+		}
+	}
+	#endif // KS_PURE_QT
+
 	#ifdef KS_KF5
 	qSetMessagePattern("%{appname}[%{time}] %{message}");
 	#endif // KS_KF5
@@ -135,21 +158,6 @@ int main(int argc, char **argv) {
 #ifdef KS_PURE_QT
 
 	// Pure Qt startup
-
-	#ifdef KS_UNIX
-	// NOTE: run this before QApplication constructor
-	bool userStyle = false;
-	if (argc > 1) {
-		for (int i = 1; i < argc; i++) {
-			QString arg(argv[i]);
-			if ((arg == "-style") || (arg == "--style")) {
-				userStyle = true;
-			
-				break; // for
-			}
-		}
-	}
-	#endif // KS_UNIX
 
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
