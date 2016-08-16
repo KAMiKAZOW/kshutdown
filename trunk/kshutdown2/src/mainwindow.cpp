@@ -786,7 +786,7 @@ U_ACTION *MainWindow::createQuitAction() {
 	#else
 	auto *quitAction = new U_ACTION(this);
 	quitAction->setIcon(U_STOCK_ICON("application-exit"));
-	quitAction->setShortcut(QKeySequence("Ctrl+Shift+Q"));
+	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
 	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
 	#endif // KS_NATIVE_KDE
 	// NOTE: Use "Quit KShutdown" instead of "Quit" because
