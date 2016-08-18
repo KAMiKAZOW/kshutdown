@@ -19,8 +19,11 @@
 
 #include "pureqt.h"
 
+#include <QBoxLayout>
+#include <QLabel>
 #include <QToolTip>
 #include <QWidget>
+#include <QWidgetAction>
 
 #ifdef KS_NATIVE_KDE
 	#include <KAuthorized>
@@ -52,12 +55,32 @@ void Utils::addTitle(U_MENU *menu, const QIcon &icon, const QString &text) {
 	U_ACTION *action = new U_ACTION(menu);
 	QFont font = action->font();
 	font.setBold(true);
+
 	action->setEnabled(false);
 	action->setFont(font);
 	action->setIcon(icon);
 	action->setIconVisibleInMenu(true);
-	action->setText("// " + text);
+	action->setText(text);
 	menu->addAction(action);
+/* TODO: new title UI
+	int size = font.pointSize();
+	if (size != -1) {
+		font.setPointSize(qMax(8_px, size - 1));
+	}
+	else {
+		size = font.pixelSize();
+		font.setPixelSize(qMax(8_px, size - 1));
+	}
+
+	QLabel *titleLabel = new QLabel(text);
+	titleLabel->setFont(font);
+	titleLabel->setIndent(5_px);
+	titleLabel->setMargin(1_px);
+
+	QWidgetAction *widgetAction = new QWidgetAction(menu);
+	widgetAction->setDefaultWidget(titleLabel);
+	menu->addAction(widgetAction);
+*/
 	#endif // KS_NATIVE_KDE
 }
 
@@ -198,7 +221,11 @@ bool Utils::isHelpArg() {
 #elif defined(KS_NATIVE_KDE)
 	return false; // "--help" argument handled by KDE
 #else
-	return (m_args.contains("/?") || isArg("help"));
+	return
+		#ifdef Q_OS_WIN32
+		m_args.contains("/?") ||
+		#endif // Q_OS_WIN32
+		isArg("help");
 #endif // KS_KF5
 }
 
@@ -248,6 +275,7 @@ bool Utils::isLXDE() {
 }
 
 bool Utils::isLXQt() {
+// TODO: inline Utils::isDesktop(QString)
 	return
 		m_desktopSession.contains("LXQT", Qt::CaseInsensitive) ||
 		m_xdgCurrentDesktop.contains("LXQT", Qt::CaseInsensitive);
@@ -339,12 +367,14 @@ void Utils::setFont(QWidget *widget, const int relativeSize, const bool bold) {
 }
 
 void Utils::showMenuToolTip(QAction *action) {
+// TODO: use QMenu.toolTipsVisible instead #Qt5
 	QList<QWidget *> list = action->associatedWidgets();
 	if (list.count() == 1) {
 		QWidget *widget = list.first();
 		int magicNumber = 5_px;
 		QToolTip::showText(
 			QPoint(widget->x() + magicNumber, widget->y() + widget->height() - (magicNumber * 2)),
+			//QCursor::pos(),
 			action->statusTip()
 		);
 	}
