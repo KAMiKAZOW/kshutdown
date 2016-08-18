@@ -342,7 +342,6 @@ bool MainWindow::maybeShow() {
 
 		U_MENU *menu = new U_MENU();
 		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-		Utils::addTitle(menu, U_APP->windowIcon(), "KShutdown");
 
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
@@ -353,6 +352,9 @@ bool MainWindow::maybeShow() {
 			}
 			else if (id == "quit") {
 				menu->addAction(createQuitAction());
+			}
+			else if (id == "title") {
+				Utils::addTitle(menu, U_APP->windowIcon(), "KShutdown");
 			}
 			else {
 				auto *action = m_actionHash[id];
@@ -799,8 +801,6 @@ U_ACTION *MainWindow::createQuitAction() {
 void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
-	Utils::addTitle(fileMenu, U_STOCK_ICON("dialog-warning"), i18n("No Delay"));
-
 	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
@@ -863,6 +863,7 @@ void MainWindow::initMenuBar() {
 	// file menu
 
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
+	Utils::addTitle(fileMenu, /*U_STOCK_ICON("dialog-warning")*/U_ICON(), i18n("No Delay"));
 	initFileMenu(fileMenu, true);
 	menuBar->addMenu(fileMenu);
 
