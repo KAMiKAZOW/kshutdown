@@ -194,10 +194,15 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 </tr>
 
 <tr>
+<!-- TODO: add exact instructions: package names, commands, etc. -->
 	<td class="header">Required Libraries</td>
 	<td>libqtgui4, libqt4-dbus, +minimal set of KDE libraries (NOTE: since version 3.1 Beta libkworkspace4 and kdebase-workspace-dev are NO longer required)</td>
-	<td>FIXME: something with kf5 in name ;)</td>
-	<td>libqtgui4, libqt4-dbus</td>
+	<td>Qt5Widgets, Qt5DBus, base KF5 libraries (see "src/CMakeLists.txt" for details)</td>
+	<td>
+	Qt 4: QtGui, QtDBus, QtCore (Ubuntu packages: libqtgui4, libqt4-dbus)<br />
+	<br />
+	Qt 5: Qt5Widgets, Qt5DBus, Qt5Gui, Qt5Core
+	</td>
 	<td>See: <a href="README.html#qt4windows">Qt Build @ Windows</a></td>
 </tr>
 
