@@ -341,7 +341,7 @@ bool MainWindow::maybeShow() {
 		QStringList menuActions = menuLayout.split(':');
 
 		U_MENU *menu = new U_MENU();
-		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+		//connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
@@ -799,8 +799,6 @@ U_ACTION *MainWindow::createQuitAction() {
 }
 
 void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
-	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-
 	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
@@ -863,11 +861,14 @@ void MainWindow::initMenuBar() {
 	// file menu
 
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
+	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	Utils::addTitle(fileMenu, /*U_STOCK_ICON("dialog-warning")*/U_ICON(), i18n("No Delay"));
 	initFileMenu(fileMenu, true);
 	menuBar->addMenu(fileMenu);
 
 	U_MENU *systemTrayFileMenu = new U_MENU(); // need copy
+// FIXME: wrong tool tip location
+// connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	initFileMenu(
 		systemTrayFileMenu,
 		#ifdef KS_KF5
