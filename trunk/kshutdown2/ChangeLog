@@ -1,5 +1,44 @@
 
-  See also: http://kshutdown.sourceforge.net/releases/
+
+  See also changes for 3.3 and 3.99 for the complete list
+  of new features since the previous stable version (3.2)...
+  http://kshutdown.sourceforge.net/releases/
+
+
+2016-08-30  4.0
+
+Qt Build:
+
+* NEW: Use the standard Ctrl+Q shortcut instead of Ctrl+Shift+Q (bug #26)
+* Fixed: Support "--version" command line option (bug #26)
+* Command Line: Ignore "/?" option in non-Windows versions
+* Fixed: Honor $INSTALL_ROOT environment variable when installing icons (bug #25)
+* Fixed: Remove icons during "make uninstall"
+
+Misc:
+
+* Czech translation update (Pavel Fric)
+* Updated German translation (Vinzenz Vietzke)
+* Updated Russian translations (Victor Ryzhykh)
+* Updated Polish translation
+
+* Fixed: Make menu titles less distractive and less annoying
+  (feature request #21)
+* Fixed: Disable incorrectly positioned tool tips in System Tray menu
+* Windows: Updated installer
+
+Linux:
+
+* Use uncompressed SVG icon (bug #21)
+* Adjust kshutdown.desktop (patch #5):
+  - Added StartupNotify=true/false
+  - Added X-SuSE-DesktopUtility category
+
+Source:
+
+* Fix compiler warnings
+* README.html: Document "Required Libraries" (bug #23)
+
 
 2016-04-29  3.99.1 Beta  "4.x"
 
@@ -835,4 +874,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 811:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 825:HEAD|xsel -i -b && kwrite ChangeLog
