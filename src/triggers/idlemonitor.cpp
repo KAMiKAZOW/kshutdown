@@ -78,7 +78,7 @@ IdleMonitor::IdleMonitor()
 	setToolTip(i18n("Use this trigger to detect user inactivity\n(example: no mouse clicks)."));
 }
 
-IdleMonitor::~IdleMonitor() { }
+IdleMonitor::~IdleMonitor() = default;
 
 bool IdleMonitor::canActivateAction() {
 	getSessionIdleTime();

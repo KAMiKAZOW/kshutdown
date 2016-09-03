@@ -69,7 +69,7 @@ InfoWidget::InfoWidget(QWidget *parent) :
 #endif // KS_NATIVE_KDE
 }
 
-InfoWidget::~InfoWidget() { }
+InfoWidget::~InfoWidget() = default;
 
 void InfoWidget::setText(const QString &text, const Type type) {
 #ifdef KS_NATIVE_KDE

@@ -32,7 +32,7 @@ BookmarkAction::BookmarkAction(
 	const QString &actionID, const QString &triggerID,
 	const QString &actionOption, const QString &triggerOption
 )
-	: U_ACTION(0), // no owner, because clear() will delete action
+	: U_ACTION(nullptr), // no owner, because clear() will delete action
 
 	m_actionID(actionID),
 	m_actionOption(actionOption),
@@ -59,7 +59,7 @@ BookmarkAction::BookmarkAction(
 	setText(m_originalText);
 }
 
-BookmarkAction::~BookmarkAction() { }
+BookmarkAction::~BookmarkAction() = default;
 
 // private slots:
 
@@ -85,7 +85,7 @@ void BookmarkAction::onAction() {
 
 BookmarksMenu::BookmarksMenu(QWidget *parent)
 	: U_MENU(i18n("&Bookmarks"), parent),
-	m_list(0)
+	m_list(nullptr)
 {
 	connect(this, SIGNAL(aboutToShow()), SLOT(onUpdateMenu()));
 
@@ -93,7 +93,7 @@ BookmarksMenu::BookmarksMenu(QWidget *parent)
 	connect(this, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 }
 
-BookmarksMenu::~BookmarksMenu() { }
+BookmarksMenu::~BookmarksMenu() = default;
 
 QString BookmarksMenu::makeText(KShutdown::Action *action, KShutdown::Trigger *trigger, const QString &actionOption, const QString &triggerOption) const {
 	QString text = "";
@@ -140,7 +140,7 @@ BookmarkAction *BookmarksMenu::findBookmark(KShutdown::Action *action, KShutdown
 		}
 	}
 	
-	return 0;
+	return nullptr;
 }
 
 QList<BookmarkAction *> *BookmarksMenu::list() {

@@ -103,16 +103,20 @@ public:
 int main(int argc, char **argv) {
 	#ifdef KS_PURE_QT
 	// NOTE: run this before QApplication constructor
+	#ifdef KS_UNIX
 	bool userStyle = false;
+	#endif // KS_UNIX
 	if (argc > 1) {
 		for (int i = 1; i < argc; i++) {
 			QString arg(argv[i]);
+			#ifdef KS_UNIX
 			if ((arg == "-style") || (arg == "--style")) {
 				userStyle = true;
 			
 				break; // for
-			}
-			else if ((arg == "-version") || (arg == "--version")) {
+			} else
+			#endif // KS_UNIX
+			if ((arg == "-version") || (arg == "--version")) {
 				QString text = "KShutdown " KS_FULL_VERSION " (Build: " KS_BUILD ")\n";
 				text += "Qt " QT_VERSION_STR;
 				QTextStream out(stdout);
@@ -133,7 +137,7 @@ int main(int argc, char **argv) {
 	Log::init();
 
 	#define KS_DEBUG_SYSTEM(f, d) \
-		if (d) qDebug("kshutdown: " f ": %s", d ? "<FOUND>" : "not detected");
+		if (d) qDebug("kshutdown: " f ": %s", (d) ? "<FOUND>" : "not detected");
 	
 	bool e17 = Utils::isEnlightenment();
 	KS_DEBUG_SYSTEM("Enlightenment", e17);

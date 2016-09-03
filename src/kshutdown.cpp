@@ -52,17 +52,17 @@ using namespace KShutdown;
 
 bool Action::m_totalExit = false;
 #ifdef KS_DBUS
-QDBusInterface *Action::m_loginInterface = 0;
+QDBusInterface *Action::m_loginInterface = nullptr;
 
-QDBusInterface *PowerAction::m_halDeviceInterface = 0;
-QDBusInterface *PowerAction::m_halDeviceSystemPMInterface = 0;
-QDBusInterface *PowerAction::m_upowerInterface = 0;
+QDBusInterface *PowerAction::m_halDeviceInterface = nullptr;
+QDBusInterface *PowerAction::m_halDeviceSystemPMInterface = nullptr;
+QDBusInterface *PowerAction::m_upowerInterface = nullptr;
 
 bool StandardAction::m_kdeShutDownAvailable = false;
-QDBusInterface *StandardAction::m_consoleKitInterface = 0;
-QDBusInterface *StandardAction::m_kdeSessionInterface = 0;
-QDBusInterface *StandardAction::m_lxqtSessionInterface = 0;
-QDBusInterface *StandardAction::m_razorSessionInterface = 0;
+QDBusInterface *StandardAction::m_consoleKitInterface = nullptr;
+QDBusInterface *StandardAction::m_kdeSessionInterface = nullptr;
+QDBusInterface *StandardAction::m_lxqtSessionInterface = nullptr;
+QDBusInterface *StandardAction::m_razorSessionInterface = nullptr;
 #endif // KS_DBUS
 
 // Base
@@ -79,11 +79,10 @@ Base::Base(const QString &id) :
 	m_canBookmark(false) {
 }
 
-Base::~Base() {
-}
+Base::~Base() = default;
 
 QWidget *Base::getWidget() {
-	return 0;
+	return nullptr;
 }
 
 void Base::readConfig(Config *config) {
@@ -125,7 +124,7 @@ void Base::setLastError() {
 // public
 
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
-	U_ACTION(0),
+	U_ACTION(nullptr),
 	Base(id),
 	m_force(false),
 	m_shouldStopTimer(true),
@@ -176,7 +175,7 @@ bool Action::showConfirmationMessage() {
 	if (mainWindow->isVisible())
 		parent = mainWindow;
 	else
-		parent = 0;
+		parent = nullptr;
 
 	QPointer<QMessageBox> message = new QMessageBox(
 		QMessageBox::Warning,
@@ -380,7 +379,7 @@ DateTimeEdit::DateTimeEdit()
 	);
 }
 
-DateTimeEdit::~DateTimeEdit() { }
+DateTimeEdit::~DateTimeEdit() = default;
 
 // private slots:
 
@@ -987,7 +986,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 		QDBusReply<bool> reply = m_razorSessionInterface->call("canLogout");
 		if (!reply.isValid() || !reply.value()) {
 			delete m_razorSessionInterface;
-			m_razorSessionInterface = 0;
+			m_razorSessionInterface = nullptr;
 			disable("No Razor-qt session found");
 		}
 	}
@@ -1001,7 +1000,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 		QDBusReply<bool> reply = m_lxqtSessionInterface->call("canLogout");
 		if (!reply.isValid() || !reply.value()) {
 			delete m_lxqtSessionInterface;
-			m_lxqtSessionInterface = 0;
+			m_lxqtSessionInterface = nullptr;
 			disable("No LXQt session found");
 		}
 	}
@@ -1526,7 +1525,7 @@ LogoutAction::LogoutAction() :
 
 RebootAction::RebootAction() :
 	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
-	m_bootEntryComboBox(0) {
+	m_bootEntryComboBox(nullptr) {
 
 #ifdef KS_NATIVE_KDE
 /* HACK: crash on KDE 4.5.0

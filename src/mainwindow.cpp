@@ -65,7 +65,7 @@
 #include "usystemtray.h"
 #include "utils.h"
 
-MainWindow *MainWindow::m_instance = 0;
+MainWindow *MainWindow::m_instance = nullptr;
 QHash<QString, Action*> MainWindow::m_actionHash;
 QHash<QString, Trigger*> MainWindow::m_triggerHash;
 QList<Action*> MainWindow::m_actionList;
@@ -87,7 +87,7 @@ MainWindow::~MainWindow() {
 
 	if (m_progressBar) {
 		delete m_progressBar;
-		m_progressBar = 0;
+		m_progressBar = nullptr;
 	}
 }
 
@@ -185,7 +185,7 @@ bool MainWindow::checkCommandLine() {
 	
 	TimeOption::init();
 	
-	Action *actionToActivate = 0;
+	Action *actionToActivate = nullptr;
 	bool confirm = Utils::isArg("confirm");
 	foreach (Action *action, m_actionList) {
 		if (action->isCommandLineArgSupported()) {
@@ -226,7 +226,7 @@ bool MainWindow::checkCommandLine() {
 			}
 
 			// execute action and quit now
-			if (actionToActivate->authorize(0))
+			if (actionToActivate->authorize(nullptr))
 				actionToActivate->activate(false);
 
 			return true;
@@ -319,7 +319,7 @@ void MainWindow::init() {
 	addTrigger(new ProcessMonitor());
 #endif // KS_TRIGGER_PROCESS_MONITOR
 
-	IdleMonitor *idleMonitor = new IdleMonitor();
+	auto *idleMonitor = new IdleMonitor();
 	if (idleMonitor->isSupported())
 		addTrigger(idleMonitor);
 	else
@@ -340,7 +340,7 @@ bool MainWindow::maybeShow() {
 	if (!menuLayout.isEmpty()) {
 		QStringList menuActions = menuLayout.split(':');
 
-		U_MENU *menu = new U_MENU();
+		auto *menu = new U_MENU();
 		//connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 
 		foreach (const QString &id, menuActions) {
@@ -579,7 +579,7 @@ void MainWindow::setTime(const QString &trigger, const QString &time) {
 		setSelectedTrigger(trigger);
 	
 	QTime t = TimeOption::parseTime(time);
-	bool absolute = (trigger == "date-time") ? true : false;
+	bool absolute = (trigger == "date-time");
 	setTime(trigger, t, absolute);
 }
 
@@ -657,11 +657,11 @@ MainWindow::MainWindow() :
 	m_ignoreUpdateWidgets(true),
 	m_showActiveWarning(true),
 	m_showMinimizeInfo(true),
-	m_progressBar(0),
+	m_progressBar(nullptr),
 	m_lastNotificationID(QString::null),
 	m_triggerTimer(new QTimer(this)),
-	m_currentActionWidget(0),
-	m_currentTriggerWidget(0) {
+	m_currentActionWidget(nullptr),
+	m_currentTriggerWidget(nullptr) {
 
 	//U_DEBUG << "MainWindow::MainWindow()" U_END;
 
@@ -856,7 +856,7 @@ void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
 void MainWindow::initMenuBar() {
 	//U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
-	U_MENU_BAR *menuBar = new U_MENU_BAR();
+	auto *menuBar = new U_MENU_BAR();
 
 	// file menu
 
@@ -866,7 +866,7 @@ void MainWindow::initMenuBar() {
 	initFileMenu(fileMenu, true);
 	menuBar->addMenu(fileMenu);
 
-	U_MENU *systemTrayFileMenu = new U_MENU(); // need copy
+	auto *systemTrayFileMenu = new U_MENU(); // need copy
 // FIXME: wrong tool tip location
 // connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	initFileMenu(
@@ -961,7 +961,7 @@ void MainWindow::initWidgets() {
 
 	QWidget *mainWidget = new QWidget();
 	mainWidget->setObjectName("main-widget");
-	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
+	auto *mainLayout = new QVBoxLayout(mainWidget);
 	mainLayout->setMargin(5_px);
 	mainLayout->setSpacing(10_px);
 
@@ -1442,8 +1442,8 @@ void MainWindow::onStats() {
 	delete dialog;
 }
 
-void MainWindow::onStatusChange(const bool aUpdateWidgets) {
-	//U_DEBUG << "onStatusChange(" << aUpdateWidgets << ")" U_END;
+void MainWindow::onStatusChange(const bool forceUpdateWidgets) {
+	//U_DEBUG << "onStatusChange(" << forceUpdateWidgets << ")" U_END;
 
 	Action *action = getSelectedAction();
 	Trigger *trigger = getSelectedTrigger();
@@ -1464,7 +1464,7 @@ void MainWindow::onStatusChange(const bool aUpdateWidgets) {
 	else
 		type = InfoWidget::Type::Info;
 	
-	if (aUpdateWidgets) {
+	if (forceUpdateWidgets) {
 		updateWidgets();
 		
 		// do not override status set in "updateWidgets()"

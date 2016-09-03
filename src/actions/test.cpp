@@ -26,7 +26,7 @@
 
 TestAction::TestAction() :
 	Action(i18n("Show Message (no shutdown)"), "dialog-ok", "test"),
-	m_widget(0) {
+	m_widget(nullptr) {
 
 // TODO: sound beep
 

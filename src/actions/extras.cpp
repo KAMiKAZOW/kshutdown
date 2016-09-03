@@ -47,7 +47,7 @@
 
 // private
 
-Extras *Extras::m_instance = 0;
+Extras *Extras::m_instance = nullptr;
 
 // public
 
@@ -56,7 +56,7 @@ QString Extras::getStringOption() { return m_command; }
 void Extras::setStringOption(const QString &option) {
 	m_command = option;
 	if (m_command.isEmpty()) {
-		setCommandAction(0);
+		setCommandAction(nullptr);
 	}
 	else {
 		QFileInfo fileInfo(m_command);
@@ -172,7 +172,7 @@ void Extras::writeConfig(Config *config) {
 Extras::Extras() :
 	Action(i18n("Extras"), "rating", "extras"),
 	m_command(QString::null),
-	m_menu(0) {
+	m_menu(nullptr) {
 	
 	setCanBookmark(true);
 	setMenu(createMenu());

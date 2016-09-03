@@ -81,7 +81,7 @@ public:
 		return m_instance;
 	}
 	bool maybeShow();
-	void setTime(const QString &trigger, const QTime &time, const bool absolute);
+	void setTime(const QString &selectTrigger, const QTime &time, const bool absolute);
 	QHash<QString, Trigger*> triggerHash() const { return m_triggerHash; }
 public slots:
 	Q_SCRIPTABLE QStringList actionList(const bool showDescription);
@@ -158,7 +158,7 @@ private slots:
 	void onPreferences();
 	void onQuit();
 	void onStats();
-	void onStatusChange(const bool updateWidgets);
+	void onStatusChange(const bool forceUpdateWidgets);
 	void onTriggerActivated(int index);
 };
 
