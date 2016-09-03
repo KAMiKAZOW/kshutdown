@@ -42,4 +42,4 @@ Stats::Stats(QWidget *parent) :
 	m_textView->setPlainText(Utils::read(process, ok));
 }
 
-Stats::~Stats() { }
+Stats::~Stats() = default;

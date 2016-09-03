@@ -115,7 +115,7 @@ QWidget *Preferences::createActionsWidget() {
 
 QWidget *Preferences::createGeneralWidget() {
 	QWidget *w = new QWidget();
-	QVBoxLayout *l = new QVBoxLayout(w);
+	auto *l = new QVBoxLayout(w);
 	l->setMargin(10);
 
 	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
@@ -168,7 +168,7 @@ QWidget *Preferences::createGeneralWidget() {
 
 QWidget *Preferences::createSystemTrayWidget() {
 	QWidget *w = new QWidget();
-	QVBoxLayout *l = new QVBoxLayout(w);
+	auto *l = new QVBoxLayout(w);
 	l->setMargin(10);
 
 	m_systemTrayIconEnabled = new QCheckBox(i18n("Enable System Tray Icon"));

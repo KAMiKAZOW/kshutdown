@@ -36,7 +36,7 @@ bool Utils::m_gui = true;
 	#ifdef KS_KF5
 	QCommandLineParser *Utils::m_args = 0;
 	#else
-	KCmdLineArgs *Utils::m_args = 0;
+	KCmdLineArgs *Utils::m_args = nullptr;
 	#endif // KS_KF5
 #else
 	QStringList Utils::m_args;

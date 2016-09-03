@@ -35,9 +35,9 @@
 
 // private
 
-LockAction *LockAction::m_instance = 0;
+LockAction *LockAction::m_instance = nullptr;
 #ifdef KS_DBUS
-QDBusInterface *LockAction::m_qdbusInterface = 0;
+QDBusInterface *LockAction::m_qdbusInterface = nullptr;
 #endif // KS_DBUS
 
 // public
@@ -71,7 +71,7 @@ bool LockAction::onAction() {
 
 	// HACK: This is a workaround for "lazy" initial kscreensaver repaint.
 	// Now the screen content is hidden immediately.
-	QWidget *blackScreen = 0;
+	QWidget *blackScreen = nullptr;
 	if (Utils::isKDE()) {
 		blackScreen = new QWidget(
 			0,

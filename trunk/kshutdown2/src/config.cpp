@@ -32,7 +32,7 @@
 
 // private
 
-Config *Config::m_user = 0;
+Config *Config::m_user = nullptr;
 
 // public
 
@@ -41,7 +41,7 @@ Config::~Config() {
 #ifdef KS_PURE_QT
 	if (m_engine) {
 		delete m_engine;
-		m_engine = 0;
+		m_engine = nullptr;
 	}
 #endif // KS_PURE_QT
 }
@@ -185,7 +185,7 @@ void Config::sync() {
 // private
 
 Config::Config() :
-	QObject(0) {
+	QObject(nullptr) {
 
 	//U_DEBUG << "Config::Config()" U_END;
 	

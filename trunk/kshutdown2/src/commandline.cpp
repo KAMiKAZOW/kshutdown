@@ -25,7 +25,7 @@
 
 bool TimeOption::m_absolute = false;
 bool TimeOption::m_relative = false;
-KShutdown::Action *TimeOption::m_action = 0;
+KShutdown::Action *TimeOption::m_action = nullptr;
 QString TimeOption::m_option = QString::null;
 QTime TimeOption::m_time = QTime();
 

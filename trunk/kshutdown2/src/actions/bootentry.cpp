@@ -86,7 +86,7 @@ QStringList BootEntry::getList() {
 // public:
 
 BootEntryAction::BootEntryAction(const QString &name) :
-	U_ACTION(0),
+	U_ACTION(nullptr),
 	m_name(name) {
 	setText(name);
 }

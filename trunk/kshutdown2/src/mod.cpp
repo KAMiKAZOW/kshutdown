@@ -24,7 +24,7 @@
 
 // private
 
-QHash<QString, QVariant> *Mod::m_map = 0;
+QHash<QString, QVariant> *Mod::m_map = nullptr;
 
 // public
 
