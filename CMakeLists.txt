@@ -6,6 +6,8 @@ else()
 	cmake_minimum_required(VERSION 2.4.0)
 endif()
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 add_definitions(-std=c++0x -Wextra -Wpedantic -Wswitch-enum)
 
 if(KS_PURE_QT)
