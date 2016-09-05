@@ -137,17 +137,24 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	#ifndef KS_KF5
 	QIcon icon;
 	#ifdef KS_UNIX
-	if (Utils::isKDE())
+	if (Config::readBool("General", "Use Theme Icon In System Tray", true)) {
 		icon = U_STOCK_ICON("system-shutdown");
-	else
+		if (icon.isNull()) {
+			U_DEBUG << "System theme icon not found in: " << icon.themeName() U_END;
+			icon = mainWindow->windowIcon(); // fallback
+		}
+	}
+	else {
 		icon = mainWindow->windowIcon();
+	}
 	#else
 	icon = mainWindow->windowIcon();
 	#endif // KS_UNIX
-	#endif // KS_KF5
+	#endif // !KS_KF5
 
 	#ifdef KS_KF5
 	Q_UNUSED(mainWindow)
+// TODO: option
 	if (Utils::isKDE())
 		m_trayIcon->setIconByName("system-shutdown");
 	else
