@@ -40,6 +40,9 @@ private:
 	QCheckBox *m_noMinimizeToSystemTrayIcon;
 	QCheckBox *m_progressBarEnabled;
 	QCheckBox *m_systemTrayIconEnabled;
+	#ifndef KS_KF5
+	QCheckBox *m_useThemeIconInSystemTray;
+	#endif // !KS_KF5
 	//QWidget *createActionsWidget();
 	QWidget *createGeneralWidget();
 	QWidget *createSystemTrayWidget();

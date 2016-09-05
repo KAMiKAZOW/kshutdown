@@ -90,7 +90,8 @@ void Preferences::apply() {
 	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
 	#ifndef KS_KF5
 	Config::setSystemTrayIconEnabled(m_systemTrayIconEnabled->isChecked());
-	#endif // KS_KF5
+	Config::write("General", "Use Theme Icon In System Tray", m_useThemeIconInSystemTray->isChecked());
+	#endif // !KS_KF5
 
 	m_passwordPreferences->apply();
 
@@ -190,6 +191,8 @@ QWidget *Preferences::createSystemTrayWidget() {
 	m_noMinimizeToSystemTrayIcon->setEnabled(m_systemTrayIconEnabled->isChecked());
 	connect(m_systemTrayIconEnabled, SIGNAL(toggled(bool)), m_noMinimizeToSystemTrayIcon, SLOT(setEnabled(bool)));
 
+	l->addSpacing(20_px);
+
 	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
 	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
 	#ifdef KS_KF5
@@ -197,6 +200,17 @@ QWidget *Preferences::createSystemTrayWidget() {
 	m_bwTrayIcon->hide();
 	#endif // KS_KF5
 	l->addWidget(m_bwTrayIcon);
+
+	#ifndef KS_KF5
+	m_useThemeIconInSystemTray = new QCheckBox(i18n("Use System Icon Theme"));
+	m_useThemeIconInSystemTray->setChecked(Config::readBool("General", "Use Theme Icon In System Tray", true));
+	l->addWidget(m_useThemeIconInSystemTray);
+	#endif // !KS_KF5
+	#ifndef KS_UNIX
+	m_useThemeIconInSystemTray->hide();
+	#endif // !KS_UNIX
+
+// TODO: system tray icon preview
 
 	l->addStretch();
 
