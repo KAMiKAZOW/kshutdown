@@ -1,270 +1,469 @@
-# Translation of kshutdown messages to Portuguese
+# Translation of kshutdown messages to european Portuguese
 # Copyright (C) 2010 the kshutdown's copyright holder
 # This file is distributed under the same license as the kshutdown package.
 #
-# Américo Monteiro <a_monteiro@netcabo.pt>, 2010.
+# Américo Monteiro <a_monteiro@gmx.com>, 2010, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: kshutdown 2.0~beta8-1\n"
+"Project-Id-Version: kshutdown 3.0-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-29 11:10+0200\n"
-"PO-Revision-Date: 2010-02-03 21:09+0000\n"
-"Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
+"POT-Creation-Date: 2016-08-30 22:01+0200\n"
+"PO-Revision-Date: 2013-11-28 23:54+0000\n"
+"Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/actions/extras.cpp:51
+#: src/actions/bootentry.cpp:35
+msgid "Default System"
+msgstr ""
+
+#: src/actions/bootentry.cpp:109 src/kshutdown.cpp:1528 src/main.cpp:268
+#: src/main.cpp:328
+msgid "Restart Computer"
+msgstr "Reiniciar o Computador"
+
+#: src/actions/extras.cpp:79
 msgid "Invalid \"Extras\" command"
 msgstr "Comando \"Extras\" inválido"
 
-#: src/actions/extras.cpp:60 src/actions/extras.cpp:68
+#: src/actions/extras.cpp:94 src/actions/extras.cpp:102
+#: src/actions/extras.cpp:139
 msgid "Cannot execute \"Extras\" command"
 msgstr "Incapaz de executar comando \"Extras\""
 
-#: src/actions/extras.cpp:110
+#: src/actions/extras.cpp:156
+msgid "Please select an Extras command<br>from the menu above."
+msgstr "Por favor seleccione um comando Extras<br>do menu em cima."
+
+#: src/actions/extras.cpp:173
 msgid "Extras"
 msgstr "Extras"
 
-#: src/actions/extras.cpp:246
+#: src/actions/extras.cpp:193
+msgid "File not found: %0"
+msgstr "Ficheiro não encontrado: %0"
+
+#: src/actions/extras.cpp:257
+msgid "Empty"
+msgstr ""
+
+#: src/actions/extras.cpp:350
 msgid "Select a command..."
 msgstr "Seleccionar um comando..."
 
-#: src/actions/extras.cpp:266
+#: src/actions/extras.cpp:372
 msgid "Use context menu to add/edit/remove actions."
 msgstr "Use o menu de contexto para adicionar/remover acções."
 
-#: src/actions/extras.cpp:268
+#: src/actions/extras.cpp:374
 msgid "Use <b>Context Menu</b> to create a new link to application (action)"
 msgstr ""
 "Use <b>Menu de Contexto</b> para criar uma nova ligação a aplicação (acção)"
 
-#: src/actions/extras.cpp:269
+#: src/actions/extras.cpp:376
 msgid "Use <b>Create New|Folder...</b> to create a new submenu"
 msgstr "Use <b>Criar Nova|Pasta...</b> para criar um novo sub-menu"
 
-#: src/actions/extras.cpp:270
+#: src/actions/extras.cpp:377
 msgid "Use <b>Properties</b> to change icon, name, or command"
 msgstr "Use <b>Propriedades</b> para alterar o ícone, nome, ou comando"
 
-#: src/actions/extras.cpp:294
+#: src/actions/extras.cpp:398
+#, fuzzy
+msgid "Do not show this message again"
+msgstr "Não salvar a sessão"
+
+#: src/actions/extras.cpp:447
 msgid "Add or Remove Commands"
 msgstr "Adicionar ou Remover Comandos"
 
-#: src/actions/lock.cpp:85
+#: src/actions/extras.cpp:455
+#, fuzzy
+msgid "Help"
+msgstr "Ajuda"
+
+#: src/actions/lock.cpp:249
 msgid "Lock Screen"
 msgstr "Trancar Ecrã"
 
-#: src/kshutdown.cpp:154
-msgid "Unsupported action: %0"
-msgstr "Acção não suportada: %0"
+#: src/actions/test.cpp:28
+msgid "Show Message (no shutdown)"
+msgstr ""
 
-#: src/kshutdown.cpp:169
-msgid "Unknown error"
-msgstr "Erro desconhecido"
+#: src/actions/test.cpp:33
+msgid "Test"
+msgstr ""
 
-#: src/kshutdown.cpp:203
+#: src/actions/test.cpp:35
+msgid "Enter a message"
+msgstr ""
+
+#: src/actions/test.cpp:53
+msgid "Text:"
+msgstr ""
+
+#: src/bookmarks.cpp:87
+msgid "&Bookmarks"
+msgstr "&Favoritos"
+
+#: src/bookmarks.cpp:214
+msgid "Add Bookmark"
+msgstr ""
+
+#: src/bookmarks.cpp:215
+msgid "Add"
+msgstr ""
+
+#: src/bookmarks.cpp:222 src/kshutdown.cpp:171 src/preferences.cpp:121
+msgid "Confirm Action"
+msgstr "Confirmar Acção"
+
+#: src/bookmarks.cpp:228
+msgid "Name:"
+msgstr ""
+
+#: src/bookmarks.cpp:286
+msgid "Add: %0"
+msgstr "Adicionar: %0"
+
+#: src/bookmarks.cpp:291
+msgid "Remove: %0"
+msgstr "Remover: %0"
+
+#: src/kshutdown.cpp:141
+msgid "Disabled by Administrator"
+msgstr "Desactivado pelo Administrador"
+
+#: src/kshutdown.cpp:170
 msgid "Are you sure?"
 msgstr "Tem certeza?"
 
-#: src/kshutdown.cpp:343
+#: src/kshutdown.cpp:216
+msgid "Action not available: %0"
+msgstr "Acção não disponível: %0"
+
+#: src/kshutdown.cpp:292 src/mainwindow.cpp:405
+msgid "Unsupported action: %0"
+msgstr "Acção não suportada: %0"
+
+#: src/kshutdown.cpp:306 src/kshutdown.cpp:316
+msgid "Unknown error"
+msgstr "Erro desconhecido"
+
+#: src/kshutdown.cpp:540
+msgid "not recommended"
+msgstr ""
+
+#: src/kshutdown.cpp:543
+#, fuzzy
+msgid "selected time: %0"
+msgstr "tempo seleccionado: %0"
+
+#: src/kshutdown.cpp:554 src/kshutdown.cpp:631
 msgid "Invalid date/time"
 msgstr "Data/hora inválida"
 
-#: src/kshutdown.cpp:352
+#: src/kshutdown.cpp:563
 msgid "At Date/Time"
 msgstr "Em Data/Hora"
 
-#: src/kshutdown.cpp:381 src/mainwindow.cpp:423
+#: src/kshutdown.cpp:620
+msgid "Enter date and time"
+msgstr "Inserir data e hora"
+
+#: src/kshutdown.cpp:651 src/mainwindow.cpp:865
 msgid "No Delay"
 msgstr "Nenhum Atraso"
 
-#: src/kshutdown.cpp:399
+#: src/kshutdown.cpp:661
 msgid "Time From Now (HH:MM)"
 msgstr "Tempo A Partir de Agora (HH:MM)"
 
-#: src/kshutdown.cpp:529 src/main.cpp:161
+#: src/kshutdown.cpp:689
+msgid "Enter delay in \"HH:MM\" format (Hour:Minute)"
+msgstr "Inserir atraso em formato \"HH:MM\" (Hora:Minuto)"
+
+#: src/kshutdown.cpp:925 src/main.cpp:270 src/main.cpp:331
 msgid "Hibernate Computer"
 msgstr "Hibernar o Computador"
 
-#: src/kshutdown.cpp:532
+#: src/kshutdown.cpp:928
 msgid "Cannot hibernate computer"
 msgstr "Incapaz de hibernar o computador"
 
-#: src/kshutdown.cpp:539
+#: src/kshutdown.cpp:932
 msgid ""
-"<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
-"systems where the contents of RAM are written to non-volatile storage such "
-"as a hard disk, as a file or on a separate partition, before powering off "
-"the computer.</p><p>When the computer is restarted it reloads the content of "
-"memory and is restored to the state it was in when hibernation was invoked.</"
-"p><p>Hibernating and later restarting is usually faster than closing down, "
-"later starting up, and starting all the programs that were running.</"
-"p><p>Source: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
+"Save the contents of RAM to disk\n"
+"then turn off the computer."
 msgstr ""
-"<p>Hibernar (ou Suspender para o Disco) é uma funcionalidade de muitos "
-"sistemas operativos de computador onde o conteúdo da RAM é escrito para um "
-"armazenamento não-volátil como um disco rijo, como um ficheiro ou numa "
-"partição separada, antes de desligar o computador.</p><p>Quando o computador "
-"é reiniciado, recarrega o conteúdo da memória e é restaurado ao estado que "
-"estava quando a hibernação foi invocada.</p><p>Hibernar e depois restaurar é "
-"geralmente mais rápido do que desligar, depois arrancar o sistema, e depois "
-"arrancar todos os programas que estavam a correr.</p><p>Fonte: http://en."
-"wikipedia.org/wiki/Hibernate_(OS_feature)</p>"
 
-#: src/kshutdown.cpp:551
-msgid "Suspend Computer (Sleep)"
-msgstr "Suspender o Computador (Sleep)"
+#: src/kshutdown.cpp:942
+msgid "Sleep"
+msgstr "Adormecer"
 
-#: src/kshutdown.cpp:555
-msgid "Cannot suspend computer"
-msgstr "Incapaz de suspender o computador"
-
-#: src/kshutdown.cpp:559
-msgid "Enter in a low-power state."
-msgstr "Entrar num estado de pouca energia."
-
-#: src/kshutdown.cpp:654
-msgid ""
-"Could not logout properly.\n"
-"The session manager cannot be contacted."
-msgstr ""
-"Incapaz de terminar a sessão apropriadamente.\n"
-"O gestor de sessão não pode ser contactado."
-
-#: src/kshutdown.cpp:678 src/main.cpp:158
-msgid "Logout"
-msgstr "Terminar Sessão"
-
-#: src/kshutdown.cpp:688 src/main.cpp:155
-msgid "Restart Computer"
-msgstr "Reiniciar o Computador"
-
-#: src/kshutdown.cpp:717 src/main.cpp:146 src/main.cpp:149
-msgid "Turn Off Computer"
-msgstr "Desligar o Computador"
-
-#: src/main.cpp:130
-msgid "KShutdown"
-msgstr "KShutdown"
-
-#: src/main.cpp:137
-msgid "An advanced shutdown utility"
-msgstr "Um utilitário avançado de encerramento"
-
-#: src/main.cpp:152
-msgid "Lock screen"
-msgstr "Trancar o Ecrã"
-
-#: src/main.cpp:164
+#: src/kshutdown.cpp:944 src/main.cpp:271 src/main.cpp:334
 msgid "Suspend Computer"
 msgstr "Suspender o Computador"
 
-#: src/main.cpp:167
+#: src/kshutdown.cpp:949
+msgid "Cannot suspend computer"
+msgstr "Incapaz de suspender o computador"
+
+#: src/kshutdown.cpp:953
+#, fuzzy
+msgid "Enter in a low-power state mode."
+msgstr "Entrar num estado de baixa energia."
+
+#: src/kshutdown.cpp:1504
+msgid "Log Off"
+msgstr "Log Off"
+
+#: src/kshutdown.cpp:1506 src/main.cpp:274 src/main.cpp:340
+msgid "Logout"
+msgstr "Terminar Sessão"
+
+#: src/kshutdown.cpp:1581 src/main.cpp:266 src/main.cpp:267 src/main.cpp:322
+#: src/main.cpp:325
+msgid "Turn Off Computer"
+msgstr "Desligar o Computador"
+
+#: src/main.cpp:223 src/main.cpp:238 src/mainwindow.cpp:1227
+#, fuzzy
+msgid "A graphical shutdown utility"
+msgstr "Um utilitário de encerramento gráfico"
+
+#: src/main.cpp:225 src/main.cpp:240
+msgid "Maintainer"
+msgstr "Responsável"
+
+#: src/main.cpp:226 src/main.cpp:241
+msgid "Thanks To All!"
+msgstr "Obrigado a Todos!"
+
+#: src/main.cpp:231 src/progressbar.cpp:119
+msgid "KShutdown"
+msgstr "KShutdown"
+
+#: src/main.cpp:240
+msgid "Konrad Twardowski"
+msgstr ""
+
+#: src/main.cpp:273 src/main.cpp:337
+msgid "Lock screen"
+msgstr "Trancar o Ecrã"
+
+#: src/main.cpp:278 src/main.cpp:343
 msgid "Run executable file (example: Desktop shortcut or Shell script)"
 msgstr ""
 "Correr ficheiro executável (exemplo: atalho do Desktop ou script Shell)"
 
-#: src/main.cpp:169
+#: src/main.cpp:282 src/main.cpp:345
+msgid "Test Action (does nothing)"
+msgstr "Testa Acção (não faz nada)"
+
+#: src/main.cpp:289 src/main.cpp:355 src/mainwindow.cpp:138
+msgid ""
+"Detect user inactivity. Example:\n"
+"--logout --inactivity 90 - automatically logout after 90 minutes of user "
+"inactivity"
+msgstr ""
+"Detectar inactividade do utilizador. Exemplo --logout --inactivity 90 - "
+"termina sessão automaticamente após 90 minutos de inactividade do utilizador"
+
+#: src/main.cpp:296
+msgid "Show this help"
+msgstr ""
+
+#: src/main.cpp:297 src/main.cpp:362
+#, fuzzy
+msgid "Cancel an active action"
+msgstr "Cancela uma acção activa"
+
+#: src/main.cpp:298 src/main.cpp:363 src/mainwindow.cpp:144
+#, fuzzy
+msgid "Confirm command line action"
+msgstr "Confirmar acção de linha de comandos"
+
+#: src/main.cpp:299 src/main.cpp:364 src/mainwindow.cpp:146
+msgid "Hide main window and system tray icon"
+msgstr "Esconder a janela principal e o ícone da bandeja do sistema"
+
+#: src/main.cpp:300 src/main.cpp:365 src/mainwindow.cpp:148
 msgid "Do not show main window on startup"
 msgstr "Não mostrar a janela principal no arranque"
 
-#: src/main.cpp:171
+#: src/main.cpp:301 src/main.cpp:366 src/mainwindow.cpp:150
+msgid "A list of modifications"
+msgstr ""
+
+#: src/main.cpp:302 src/main.cpp:367 src/mainwindow.cpp:152
+msgid "Show custom popup menu instead of main window"
+msgstr ""
+
+#: src/main.cpp:306 src/main.cpp:371 src/mainwindow.cpp:160
+#, fuzzy
 msgid ""
-"Activate countdown. Examples: 13:37 - absolute time (HH:MM), 10 - number of "
-"minutes from now"
+"Activate countdown. Examples:\n"
+"13:37 (HH:MM) or \"1:37 PM\" - absolute time\n"
+"10 or 10m - number of minutes from now\n"
+"2h - two hours"
 msgstr ""
 "Activar contagem decrescente. Exemplos: 13:37 - hora absoluta (HH:MM), 10 - "
 "número de minutos a partir de agora"
 
-#: src/mainwindow.cpp:96
+#: src/main.cpp:319
+msgid "Actions:"
+msgstr ""
+
+#: src/main.cpp:349
+msgid "Triggers:"
+msgstr ""
+
+#: src/main.cpp:360
+msgid "Other Options:"
+msgstr ""
+
+#: src/main.cpp:378
+#, c-format
+msgid ""
+"More Info...\n"
+"http://sourceforge.net/p/kshutdown/wiki/Command%20Line/"
+msgstr ""
+"Mais informação...\n"
+"http://sourceforge.net/p/kshutdown/wiki/Command%20Line/"
+
+#: src/mainwindow.cpp:104
+msgid "Actions"
+msgstr "Acções"
+
+#: src/mainwindow.cpp:133
+msgid "Miscellaneous"
+msgstr "Vários"
+
+#: src/mainwindow.cpp:155
+msgid "Run in \"portable\" mode"
+msgstr ""
+
+#: src/mainwindow.cpp:158
+msgid "Optional parameter"
+msgstr "Parâmetro opcional"
+
+#: src/mainwindow.cpp:176
+msgid "Command Line Options"
+msgstr "Opções de Linha de Comandos"
+
+#: src/mainwindow.cpp:223 src/mainwindow.cpp:1410
 msgid "Invalid time: %0"
 msgstr "Tempo inválido: %0"
 
-#: src/mainwindow.cpp:131 src/mainwindow.cpp:138
+#: src/mainwindow.cpp:258
+msgid "Action: %0"
+msgstr "Acção: %0"
+
+#: src/mainwindow.cpp:261 src/mainwindow.cpp:285
 msgid "Remaining time: %0"
 msgstr "Tempo remanescente: %0"
 
-#: src/mainwindow.cpp:281
-msgid "KShutdown is still active!"
-msgstr "KShutdown ainda está activo!"
-
-#: src/mainwindow.cpp:287
-msgid "KShutdown has been minimized"
-msgstr "KShutdown foi minimizado"
-
-#: src/mainwindow.cpp:420
-msgid "&File"
-msgstr "&Ficheiro"
-
-#: src/mainwindow.cpp:466
-msgid "Quit"
-msgstr "Sair"
-
-#: src/mainwindow.cpp:473
-msgid "&Settings"
-msgstr "Definiçõe&s"
-
-#: src/mainwindow.cpp:479 src/preferences.cpp:35
-msgid "Preferences"
-msgstr "Preferências"
-
-#: src/mainwindow.cpp:497
-msgid "&Help"
-msgstr "&Ajuda"
-
-#: src/mainwindow.cpp:500 src/mainwindow.cpp:746
-msgid "About"
-msgstr "Acerca de"
-
-#: src/mainwindow.cpp:501
-msgid "About Qt"
-msgstr "Acerca do Qt"
-
-#: src/mainwindow.cpp:532
-msgid "Select an &action"
-msgstr "Seleccionar uma &acção"
-
-#: src/mainwindow.cpp:541
-msgid "Do not save session"
-msgstr "Não salvar a sessão"
-
-#: src/mainwindow.cpp:549
-msgid "S&elect a time"
-msgstr "S&eleccionar uma hora"
-
-#: src/mainwindow.cpp:563
-msgid "Click to activate/cancel the selected action"
-msgstr "Clique para activar/cancelar a acção seleccionada"
-
-#: src/mainwindow.cpp:665 src/mainwindow.cpp:708
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: src/mainwindow.cpp:666
+#: src/mainwindow.cpp:273 src/mainwindow.cpp:1132 src/mainwindow.cpp:1151
 msgid "OK"
 msgstr "OK"
 
-#: src/mainwindow.cpp:677
-msgid "Please select an Extras command<br>from the menu above."
-msgstr "Por favor seleccione um comando Extras<br>do menu em cima."
+#: src/mainwindow.cpp:277
+#, c-format
+msgid "Press %0 to activate KShutdown"
+msgstr ""
 
-#: src/mainwindow.cpp:694
-msgid "Action not available: %0"
-msgstr "Acção não disponível: %0"
+#: src/mainwindow.cpp:452 src/mainwindow.cpp:1127 src/mainwindow.cpp:1146
+#: src/mainwindow.cpp:1166 src/password.cpp:274
+msgid "Cancel"
+msgstr "Cancelar"
 
-#: src/mainwindow.cpp:704
+#: src/mainwindow.cpp:635
+msgid "KShutdown is still active!"
+msgstr "KShutdown ainda está activo!"
+
+#: src/mainwindow.cpp:641
+msgid "KShutdown has been minimized"
+msgstr "KShutdown foi minimizado"
+
+#: src/mainwindow.cpp:796 src/mainwindow.cpp:1193 src/password.cpp:275
+#, fuzzy
+msgid "Quit KShutdown"
+msgstr "KShutdown"
+
+#: src/mainwindow.cpp:863
+msgid "A&ction"
+msgstr "A&cção"
+
+#: src/mainwindow.cpp:889
+msgid "&Tools"
+msgstr ""
+
+#: src/mainwindow.cpp:892 src/stats.cpp:27
+msgid "Statistics"
+msgstr ""
+
+#: src/mainwindow.cpp:897 src/password.cpp:163 src/preferences.cpp:33
+msgid "Preferences"
+msgstr "Preferências"
+
+#: src/mainwindow.cpp:940
+msgid "&Help"
+msgstr "&Ajuda"
+
+#: src/mainwindow.cpp:941 src/mainwindow.cpp:1282 src/mainwindow.cpp:1289
+msgid "About"
+msgstr "Acerca de"
+
+#: src/mainwindow.cpp:968
+msgid "Select an &action"
+msgstr "Seleccionar uma &acção"
+
+#: src/mainwindow.cpp:980
+#, fuzzy
+msgid "Do not save session / Force shutdown"
+msgstr "Não salvar a sessão / Forçar o encerramento"
+
+#: src/mainwindow.cpp:985
+#, fuzzy
+msgid "Se&lect a time/event"
+msgstr "Se&leccionar uma hora/evento"
+
+#: src/mainwindow.cpp:1094 src/preferences.cpp:125 src/progressbar.cpp:113
+#: src/progressbar.cpp:230
+msgid "Progress Bar"
+msgstr "Barra de Progresso"
+
+#: src/mainwindow.cpp:1154
+msgid "Click to activate/cancel the selected action"
+msgstr "Clique para activar/cancelar a acção seleccionada"
+
+#: src/mainwindow.cpp:1162
 msgid "Cancel: %0"
 msgstr "Cancelar: %0"
 
-#: src/mainwindow.cpp:834
+#: src/mainwindow.cpp:1230
+msgid "What's New?"
+msgstr ""
+
+#: src/mainwindow.cpp:1268
+msgid "About Qt"
+msgstr "Acerca do Qt"
+
+#: src/mainwindow.cpp:1290
+msgid "License"
+msgstr ""
+
+#: src/mainwindow.cpp:1390
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: src/mainwindow.cpp:834
+#: src/mainwindow.cpp:1390
 msgid ""
 "Are you sure you want to enable this option?\n"
 "\n"
@@ -274,71 +473,234 @@ msgstr ""
 "\n"
 "Os dados de todos os documentos não salvados serão perdidos!"
 
-#: src/preferences.cpp:42
+#: src/password.cpp:45
+msgid "Enter New Password"
+msgstr "Inserir Nova Palavra Passe"
+
+#: src/password.cpp:74
+msgid "Password:"
+msgstr "Palavra Passe:"
+
+#: src/password.cpp:75
+msgid "Confirm Password:"
+msgstr "Confirmar Palavra Passe:"
+
+#: src/password.cpp:117
+msgid "Enter password to perform action: %0"
+msgstr "Inserir palavra passe para executar acção: %0"
+
+#: src/password.cpp:152
+#, fuzzy
+msgid "Invalid password"
+msgstr "Palavra passe inválida"
+
+#: src/password.cpp:197
+#, c-format
+msgid "Password is too short (need %0 characters or more)"
+msgstr ""
+
+#: src/password.cpp:202
+msgid "Confirmation password is different"
+msgstr "A palavra passe de confirmação é diferente"
+
+#: src/password.cpp:242
+msgid "Enable Password Protection"
+msgstr "Activar Protecção de Palavra Passe"
+
+#: src/password.cpp:258
+msgid "Password Protected Actions:"
+msgstr "Acções Protegidas por Palavra Passe:"
+
+#: src/password.cpp:264
+msgid "Settings (recommended)"
+msgstr ""
+
+#: src/password.cpp:281
+msgid "See Also: %0"
+msgstr "Veja Também: %0"
+
+#: src/preferences.cpp:45
 msgid "General"
 msgstr "Geral"
 
-#: src/preferences.cpp:97
-msgid "Confirm Action"
-msgstr "Confirmar Acção"
+#: src/preferences.cpp:46
+msgid "System Tray"
+msgstr "Bandeja do Sistema"
 
-#: src/preferences.cpp:101
-msgid "Progress Bar"
-msgstr "Barra de Progresso"
+#: src/preferences.cpp:49
+msgid "Password"
+msgstr ""
 
-#: src/preferences.cpp:105
+#: src/preferences.cpp:127
+msgid "Show a small progress bar on top/bottom of the screen."
+msgstr ""
+
+#: src/preferences.cpp:131
 msgid "Lock Screen Before Hibernate"
 msgstr "Trancar o Ecrã Antes de Hibernar"
 
-#: src/preferences.cpp:115
+#: src/preferences.cpp:151
+msgid "Custom Lock Screen Command:"
+msgstr ""
+
+#: src/preferences.cpp:161
 msgid "Related KDE Settings..."
 msgstr "Definições Relacionadas com o KDE..."
 
-#: src/progressbar.cpp:84
+#: src/preferences.cpp:174
+msgid "Enable System Tray Icon"
+msgstr "Activar o Ícone da Bandeja do Sistema"
+
+#: src/preferences.cpp:182
+msgid "Quit instead of minimizing to System Tray Icon"
+msgstr "Terminar em vez de minimizar para o ícone da Bandeja do Sistema"
+
+#: src/preferences.cpp:193
+msgid "Black and White System Tray Icon"
+msgstr "Ícone da Bandeja do Sistema a Preto e Branco"
+
+#: src/progressbar.cpp:125
 msgid "Hide"
 msgstr "Esconder"
 
-#: src/progressbar.cpp:86
+#: src/progressbar.cpp:126
+msgid "Set Color..."
+msgstr "Definir Cor..."
+
+#: src/progressbar.cpp:131
 msgid "Position"
 msgstr "Posição"
 
-#: src/progressbar.cpp:93
+#: src/progressbar.cpp:135
 msgid "Top"
 msgstr "Topo"
 
-#: src/progressbar.cpp:98
+#: src/progressbar.cpp:138
 msgid "Bottom"
 msgstr "Fundo"
 
-#: src/pureqt.h:63
+#: src/progressbar.cpp:141
+msgid "Size"
+msgstr "Tamanho"
+
+#: src/progressbar.cpp:147
+msgid "Small"
+msgstr "Pequeno"
+
+#: src/progressbar.cpp:150
+msgid "Normal"
+msgstr "Normal"
+
+#: src/progressbar.cpp:153
+msgid "Medium"
+msgstr "Médio"
+
+#: src/progressbar.cpp:156
+msgid "Large"
+msgstr "Grande"
+
+#: src/pureqt.h:96 src/pureqt.h:132 src/triggers/processmonitor.cpp:358
 msgid "Error"
 msgstr "Erro"
 
-#: src/triggers/processmonitor.cpp:74
+#: src/pureqt.h:98 src/pureqt.h:134
+#, fuzzy
+msgid "Information"
+msgstr "Informação"
+
+#: src/stats.cpp:33
+msgid "Please Wait..."
+msgstr ""
+
+#: src/triggers/idlemonitor.cpp:47
+msgid "On User Inactivity (HH:MM)"
+msgstr "Em Inactividade do Utilizador (HH:MM)"
+
+#: src/triggers/idlemonitor.cpp:78
+msgid ""
+"Use this trigger to detect user inactivity\n"
+"(example: no mouse clicks)."
+msgstr ""
+"Usar este 'gatilho' para detectar inactividade do utilizador (exemplo: "
+"nenhuns cliques do rato)."
+
+#: src/triggers/idlemonitor.cpp:87
+#, fuzzy
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: src/triggers/idlemonitor.cpp:132
+msgid "Enter a maximum user inactivity in \"HH:MM\" format (Hours:Minutes)"
+msgstr ""
+"Insira o máximo de inactividade do utilizador no formato (HH:MM) "
+"(Horas:Minutos)"
+
+#: src/triggers/processmonitor.cpp:106
 msgid "When selected application exit"
 msgstr "Quando a aplicação seleccionada terminar"
 
-#: src/triggers/processmonitor.cpp:90
-msgid "Waiting for \"%0\""
-msgstr "À espera por \"%0\""
-
-#: src/triggers/processmonitor.cpp:105
+#: src/triggers/processmonitor.cpp:139
 msgid "List of the running processes"
 msgstr "Lista de processos em funcionamento"
 
-#: src/triggers/processmonitor.cpp:112
+#: src/triggers/processmonitor.cpp:145
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: src/triggers/processmonitor.cpp:115
-msgid "Refresh the list of processes"
-msgstr "Refrescar a lista de processos"
+#: src/triggers/processmonitor.cpp:330
+msgid "Waiting for \"%0\""
+msgstr "À espera por \"%0\""
 
-#: src/triggers/processmonitor.cpp:187
-msgid "Error: %0"
-msgstr "Erro: %0"
+#: src/triggers/processmonitor.cpp:335
+msgid "Process or Window does not exist: %0"
+msgstr ""
 
-#: src/triggers/processmonitor.cpp:229 src/triggers/processmonitor.cpp:232
-msgid "Error, exit code: %0"
-msgstr "Erro, código de saída: %0"
+#~ msgid "Error: %0"
+#~ msgstr "Erro: %0"
 
+#~ msgid "Error, exit code: %0"
+#~ msgstr "Erro, código de saída: %0"
+
+#~ msgid ""
+#~ "<p>Hibernate (or Suspend-to-Disk) is a feature of many computer operating "
+#~ "systems where the contents of RAM are written to non-volatile storage "
+#~ "such as a hard disk, as a file or on a separate partition, before "
+#~ "powering off the computer.</p><p>When the computer is restarted it "
+#~ "reloads the content of memory and is restored to the state it was in when "
+#~ "hibernation was invoked.</p><p>Hibernating and later restarting is "
+#~ "usually faster than closing down, later starting up, and starting all the "
+#~ "programs that were running.</p><p>Source: http://en.wikipedia.org/wiki/"
+#~ "Hibernate_(OS_feature)</p>"
+#~ msgstr ""
+#~ "<p>Hibernar (ou Suspender para o Disco) é uma funcionalidade de muitos "
+#~ "sistemas operativos de computador onde o conteúdo da RAM é escrito para "
+#~ "um armazenamento não-volátil como um disco rijo, como um ficheiro ou numa "
+#~ "partição separada, antes de desligar o computador.</p><p>Quando o "
+#~ "computador é reiniciado, recarrega o conteúdo da memória e é restaurado "
+#~ "ao estado que estava quando a hibernação foi invocada.</p><p>Hibernar e "
+#~ "depois restaurar é geralmente mais rápido do que desligar, depois "
+#~ "arrancar o sistema, e depois arrancar todos os programas que estavam a "
+#~ "correr.</p><p>Fonte: http://en.wikipedia.org/wiki/Hibernate_(OS_feature)</"
+#~ "p>"
+
+#~ msgid "Suspend Computer (Sleep)"
+#~ msgstr "Suspender o Computador (Sleep)"
+
+#~ msgid ""
+#~ "Could not logout properly.\n"
+#~ "The session manager cannot be contacted."
+#~ msgstr ""
+#~ "Incapaz de terminar a sessão apropriadamente.\n"
+#~ "O gestor de sessão não pode ser contactado."
+
+#~ msgid "&File"
+#~ msgstr "&Ficheiro"
+
+#~ msgid "Quit"
+#~ msgstr "Sair"
+
+#~ msgid "&Settings"
+#~ msgstr "Definiçõe&s"
+
+#~ msgid "Refresh the list of processes"
+#~ msgstr "Refrescar a lista de processos"
