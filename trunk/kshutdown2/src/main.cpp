@@ -117,14 +117,15 @@ int main(int argc, char **argv) {
 			} else
 			#endif // KS_UNIX
 			if ((arg == "-version") || (arg == "--version")) {
-				QString text = "KShutdown " KS_FULL_VERSION " (Build: " KS_BUILD ")\n";
-				text += "Qt " QT_VERSION_STR;
+				QString text = "KShutdown " KS_FULL_VERSION " (" KS_BUILD ")\n";
+				text += "Qt ";
+				text += qVersion();
+				text += " (compiled using " QT_VERSION_STR ")";
 				QTextStream out(stdout);
 				out << text << endl;
 
 				return 0;
 			}
-
 		}
 	}
 	#endif // KS_PURE_QT
