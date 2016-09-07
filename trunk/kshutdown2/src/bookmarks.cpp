@@ -53,8 +53,12 @@ BookmarkAction::BookmarkAction(
 	m_userText = !text.isEmpty() && (text != actionText);
 	m_originalText = m_userText ? text : actionText;
 
-	if (m_userText)
+	if (m_userText) {
 		setStatusTip(actionText);
+		#if QT_VERSION >= 0x050100
+		setToolTip(actionText);
+		#endif // QT_VERSION
+	}
 
 	setText(m_originalText);
 }
@@ -89,8 +93,10 @@ BookmarksMenu::BookmarksMenu(QWidget *parent)
 {
 	connect(this, SIGNAL(aboutToShow()), SLOT(onUpdateMenu()));
 
-	// HACK: workaround for <https://bugreports.qt-project.org/browse/QTBUG-13663>
 	connect(this, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+	#if QT_VERSION >= 0x050100
+	setToolTipsVisible(true);
+	#endif // QT_VERSION
 }
 
 BookmarksMenu::~BookmarksMenu() = default;

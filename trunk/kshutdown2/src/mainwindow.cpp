@@ -341,7 +341,12 @@ bool MainWindow::maybeShow() {
 		QStringList menuActions = menuLayout.split(':');
 
 		auto *menu = new U_MENU();
+		#if QT_VERSION < 0x050100
 		//connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+		#else
+		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+		menu->setToolTipsVisible(true);
+		#endif // QT_VERSION
 
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
@@ -861,14 +866,26 @@ void MainWindow::initMenuBar() {
 	// file menu
 
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
+
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+	#if QT_VERSION >= 0x050100
+	fileMenu->setToolTipsVisible(true);
+	#endif // QT_VERSION
+
 	Utils::addTitle(fileMenu, /*U_STOCK_ICON("dialog-warning")*/U_ICON(), i18n("No Delay"));
 	initFileMenu(fileMenu, true);
 	menuBar->addMenu(fileMenu);
 
 	auto *systemTrayFileMenu = new U_MENU(); // need copy
-// FIXME: wrong tool tip location
-// connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+
+	#if QT_VERSION < 0x050100
+	// HACK: wrong tool tip location <https://sourceforge.net/p/kshutdown/feature-requests/21/>
+	// connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+	#else
+	connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+	systemTrayFileMenu->setToolTipsVisible(true);
+	#endif // QT_VERSION
+
 	initFileMenu(
 		systemTrayFileMenu,
 		#ifdef KS_KF5
@@ -1491,7 +1508,7 @@ void MainWindow::onTriggerActivated(int index) {
 		static_cast<QVBoxLayout *>(m_triggerBox->layout())->insertWidget(1, m_currentTriggerWidget);
 		m_currentTriggerWidget->show();
 	}
-	
+
 	m_triggers->setToolTip(trigger->toolTip());
 
 	onStatusChange(true);
