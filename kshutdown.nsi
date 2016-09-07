@@ -48,8 +48,8 @@ Section "-"
 	File C:\mingw32\bin\libgcc_s_dw2-1.dll
 	File C:\mingw32\bin\libstdc++-6.dll
 	File C:\mingw32\bin\libwinpthread-1.dll
-	File C:\Qt\4.8.6\bin\QtCore4.dll
-	File C:\Qt\4.8.6\bin\QtGui4.dll
+	File C:\Qt\4.8.7\bin\QtCore4.dll
+	File C:\Qt\4.8.7\bin\QtGui4.dll
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"

@@ -1,4 +1,4 @@
-set KS_QT_BIN="C:\Qt\4.8.6\bin"
+set KS_QT_BIN="C:\Qt\4.8.7\bin"
 call %KS_QT_BIN%\qtvars.bat
 cd src
 
@@ -28,7 +28,7 @@ cd ..
 
 "C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
 if not %errorlevel% == 0 goto quit
-kshutdown-4.0-win32.exe
+kshutdown-4.1beta-win32.exe
 
 :skip_normal
 copy README.html kshutdown-portable

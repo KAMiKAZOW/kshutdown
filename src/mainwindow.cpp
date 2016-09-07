@@ -1226,7 +1226,7 @@ void MainWindow::onAbout() {
 	// TEST: iconLabel->setPixmap(U_ICON(":/images/hi128-app-kshutdown.png").pixmap(128, 128));
 
 	QString titleText = "KShutdown " KS_FULL_VERSION;
-	QString buildText = "Build: " KS_BUILD;
+	QString buildText = KS_BUILD;
 	if (Config::isPortable())
 		buildText += " | Portable";
 	auto *titleLabel = new QLabel(
@@ -1267,8 +1267,7 @@ void MainWindow::onAbout() {
 	aboutLayout->addStretch();
 
 QString licenseText =
-R"(<qt><pre>
-This program is <b>free software</b>; you can redistribute it and/or modify
+R"(<qt>This program is <b>free software</b>; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
@@ -1276,9 +1275,9 @@ the Free Software Foundation; either version 2 of the License, or
 This program is distributed in the hope that it will be useful,
 but <b>WITHOUT ANY WARRANTY</b>; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a> for more details. (<a href="http://tldrlegal.com/l/gpl2">tl;dr</a>)</pre></qt>)";
+<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a> for more details. (<a href="http://tldrlegal.com/l/gpl2">tl;dr</a>)</qt>)";
 
-	auto *licenseLabel = new QLabel(licenseText);
+	auto *licenseLabel = new QLabel(licenseText.replace("\n", "<br />"));
 	licenseLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	licenseLabel->setOpenExternalLinks(true);
 
