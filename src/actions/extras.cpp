@@ -217,7 +217,12 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool
 
 U_MENU *Extras::createMenu() {
 	m_menu = new U_MENU();
+
 	connect(m_menu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
+	#if QT_VERSION >= 0x050100
+	m_menu->setToolTipsVisible(true);
+	#endif // QT_VERSION
+
 	connect(m_menu, SIGNAL(aboutToShow()), this, SLOT(updateMenu()));
 
 	return m_menu;
@@ -247,7 +252,11 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			else {
 				dirMenu = new U_MENU(i.baseName());
 			}
+
 			connect(dirMenu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
+			#if QT_VERSION >= 0x050100
+			dirMenu->setToolTipsVisible(true);
+			#endif // QT_VERSION
 
 			createMenu(dirMenu, i.filePath()); // recursive scan
 
@@ -475,6 +484,9 @@ CommandAction::CommandAction(
 
 	setIconVisibleInMenu(true);
 	setStatusTip(statusTip);
+	#if QT_VERSION >= 0x050100
+	setToolTip(statusTip);
+	#endif // QT_VERSION
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 

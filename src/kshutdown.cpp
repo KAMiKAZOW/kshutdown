@@ -334,7 +334,11 @@ ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
 	setShortcut(action->shortcut());
 	setStatusTip(action->statusTip());
 	setText(action->text());
-	setToolTip(action->toolTip());
+	#if QT_VERSION >= 0x050100
+	// HACK: action->toolTip() is unusable in Qt
+	setToolTip(action->statusTip()); // for QMenu
+	#endif // QT_VERSION
+
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 
