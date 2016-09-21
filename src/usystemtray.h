@@ -49,7 +49,6 @@ private:
 	#ifdef KS_KF5
 	KStatusNotifierItem *m_trayIcon;
 	#elif defined(KS_PURE_QT)
-	bool m_applyGeometryHack;
 	QSystemTrayIcon *m_trayIcon;
 	#else
 	KSystemTrayIcon *m_trayIcon;

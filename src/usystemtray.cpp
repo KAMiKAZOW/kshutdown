@@ -27,9 +27,6 @@
 
 USystemTray::USystemTray(MainWindow *mainWindow)
 	: QObject(mainWindow)
-	#ifdef KS_PURE_QT
-	, m_applyGeometryHack(true)
-	#endif // KS_PURE_QT
 {
 	//U_DEBUG << "USystemTray::USystemTray()" U_END;
 
@@ -114,27 +111,24 @@ void USystemTray::setVisible(const bool visible) {
 }
 
 void USystemTray::updateIcon(MainWindow *mainWindow) {
-	// HACK: We need to show an empty system tray icon first to get proper geometry() value later.
-	// Wrong/unknown geometry (or something) causes bad icon alignment and background repaint issues...
-	#ifdef KS_PURE_QT
-	if (m_applyGeometryHack) {
-		m_applyGeometryHack = false;
-
-		if (Utils::isMATE() && Config::systemTrayIconEnabled()) {
-			m_trayIcon->setIcon(mainWindow->windowIcon()); // suppress Qt warning
-			m_trayIcon->show();
-		}
-	}
-	#endif // KS_PURE_QT
-
 	#ifndef KS_KF5
 	bool active = mainWindow->active();
 	bool bw = Config::blackAndWhiteSystemTrayIcon();
 	#endif // KS_KF5
 	
 	// get base icon
-	
-	#ifndef KS_KF5
+
+	#ifdef KS_KF5
+	Q_UNUSED(mainWindow)
+// TODO: option
+	if (Utils::isKDE())
+		m_trayIcon->setIconByName("system-shutdown");
+	else
+		m_trayIcon->setIconByName("kshutdown");
+// FIXME: setIconByPixmap does not work...
+	#else
+	// convert base icon to pixmap
+
 	QIcon icon;
 	#ifdef KS_UNIX
 	if (Config::readBool("General", "Use Theme Icon In System Tray", true)) {
@@ -150,36 +144,11 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	#else
 	icon = mainWindow->windowIcon();
 	#endif // KS_UNIX
-	#endif // !KS_KF5
 
-	#ifdef KS_KF5
-	Q_UNUSED(mainWindow)
-// TODO: option
-	if (Utils::isKDE())
-		m_trayIcon->setIconByName("system-shutdown");
-	else
-		m_trayIcon->setIconByName("kshutdown");
-// FIXME: setIconByPixmap does not work...
-	#else
-	// convert base icon to pixmap
-
-	int w = 22;
-	int h = 22;
-	QRect iconSize = m_trayIcon->geometry();
-	// HACK: https://bugreports.qt-project.org/browse/QTBUG-24683
-	if (!iconSize.size().isEmpty() && (iconSize.width() <= 64) && (iconSize.height() <= 64)) {
-		//U_DEBUG << "USystemTray::updateIcon: system tray icon size: " << iconSize U_END;
-		w = qBound(22, iconSize.width(), 64);
-		h = qBound(22, iconSize.height(), 64);
-	}
-/*
-	else {
-		U_DEBUG << "USystemTray::updateIcon: using safe tray icon size; reported geometry = " << iconSize U_END;
-	}
-*/
-
+	int w = 64;
+	int h = 64;
 	QPixmap pixmap = icon.pixmap(w, h);
-	QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32_Premultiplied);
+	QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
 
 	// add some effects
 
@@ -222,9 +191,9 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	// add overlay icons (active trigger/action)
 	
 	w = pixmap.width() / 2;
-	if (active && (w >= 11)) {
-		h = pixmap.height() / 2;
+	h = pixmap.height() / 2;
 
+	if (active && (w >= 11)) {
 		QPainter p(&image);
 		p.setOpacity(0.7);
 		
