@@ -145,11 +145,13 @@ void InfoWidget::onLinkActivated(const QString &contents) {
 #ifdef KS_PURE_QT
 #ifdef Q_OS_WIN32
 void InfoWidget::setIcon(const QStyle::StandardPixmap standardIcon) {
-	m_icon->setPixmap(U_APP->style()->standardIcon(standardIcon).pixmap(24, 24));
+	int size = U_APP->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+	m_icon->setPixmap(U_APP->style()->standardIcon(standardIcon).pixmap(size, size));
 }
 #else
 void InfoWidget::setIcon(const QString &iconName) {
-	m_icon->setPixmap(U_STOCK_ICON(iconName).pixmap(24, 24));
+	int size = U_APP->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+	m_icon->setPixmap(U_STOCK_ICON(iconName).pixmap(size, size));
 }
 #endif // Q_OS_WIN32
 #endif // KS_PURE_QT

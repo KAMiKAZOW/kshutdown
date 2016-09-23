@@ -54,7 +54,7 @@ Preferences::Preferences(QWidget *parent) :
 
 	#ifdef KS_NATIVE_KDE
 /*
-	int iconSize = 24;
+	int iconSize = U_APP->style()->pixelMetric(QStyle::PM_);
 // TODO: int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
 	m_tabs->setIconSize(QSize(iconSize, iconSize));
 	m_tabs->setTabIcon(0, U_STOCK_ICON("edit-bomb")); // General
@@ -129,6 +129,8 @@ QWidget *Preferences::createGeneralWidget() {
 // TODO: connect(m_progressBarEnabled, SIGNAL(toggled(bool)), SLOT(onProgressBarEnabled(bool)));
 	l->addWidget(m_progressBarEnabled);
 
+	l->addStretch();
+
 	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate"));
 	m_lockScreenBeforeHibernate->setChecked(Config::lockScreenBeforeHibernate());
 	l->addWidget(m_lockScreenBeforeHibernate);
@@ -136,9 +138,10 @@ QWidget *Preferences::createGeneralWidget() {
 	m_lockScreenBeforeHibernate->hide();
 #endif // Q_OS_WIN32
 
-	l->addStretch();
-
 	#ifdef Q_OS_LINUX
+	if (m_lockScreenBeforeHibernate->isVisible())
+		l->addSpacing(10_px);
+
 	m_lockCommand = new U_LINE_EDIT();
 	#if QT_VERSION >= 0x050200
 	m_lockCommand->setClearButtonEnabled(true);
@@ -151,7 +154,7 @@ QWidget *Preferences::createGeneralWidget() {
 
 	QLabel *lockCommandLabel = new QLabel(i18n("Custom Lock Screen Command:"));
 	lockCommandLabel->setBuddy(m_lockCommand);
-	l->addSpacing(20_px);
+	l->addSpacing(10_px);
 	l->addWidget(lockCommandLabel);
 	l->addWidget(m_lockCommand);
 	#endif // Q_OS_LINUX
@@ -191,7 +194,7 @@ QWidget *Preferences::createSystemTrayWidget() {
 	m_noMinimizeToSystemTrayIcon->setEnabled(m_systemTrayIconEnabled->isChecked());
 	connect(m_systemTrayIconEnabled, SIGNAL(toggled(bool)), m_noMinimizeToSystemTrayIcon, SLOT(setEnabled(bool)));
 
-	l->addSpacing(20_px);
+	l->addSpacing(10_px);
 
 	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
 	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
