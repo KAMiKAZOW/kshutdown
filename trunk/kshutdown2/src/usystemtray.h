@@ -53,6 +53,7 @@ private:
 	#else
 	KSystemTrayIcon *m_trayIcon;
 	#endif // KS_KF5
+	bool m_applyIconHack = true;
 	bool m_sessionRestored;
 #ifdef KS_PURE_QT
 private slots:

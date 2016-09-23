@@ -114,7 +114,17 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	#ifndef KS_KF5
 	bool active = mainWindow->active();
 	bool bw = Config::blackAndWhiteSystemTrayIcon();
-	#endif // KS_KF5
+
+	// HACK: We need to show an empty system tray icon first
+	// to fix wrong icon alignment and background repaint issues...
+	if (m_applyIconHack) {
+		m_applyIconHack = false;
+		if (Utils::isMATE() && Config::systemTrayIconEnabled()) {
+			m_trayIcon->setIcon(mainWindow->windowIcon()); // suppress Qt warning
+			m_trayIcon->show();
+		}
+	}
+	#endif // !KS_KF5
 	
 	// get base icon
 
@@ -145,8 +155,8 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	icon = mainWindow->windowIcon();
 	#endif // KS_UNIX
 
-	int w = 64;
-	int h = 64;
+	int w = 64_px;
+	int h = 64_px;
 	QPixmap pixmap = icon.pixmap(w, h);
 	QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
 
@@ -193,12 +203,12 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	w = pixmap.width() / 2;
 	h = pixmap.height() / 2;
 
-	if (active && (w >= 11)) {
+	if (active && (w >= 11_px)) {
 		QPainter p(&image);
 		p.setOpacity(0.7);
 		
 		// left/bottom
-		mainWindow->getSelectedAction()->icon().paint(&p, 0, h, w, h);
+		mainWindow->getSelectedAction()->icon().paint(&p, 0_px, h, w, h);
 		// right/bottom
 		mainWindow->getSelectedTrigger()->icon().paint(&p, w, h, w, h);
 	}
