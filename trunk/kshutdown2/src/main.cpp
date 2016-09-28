@@ -52,7 +52,7 @@ QApplication
 public:
 #if defined(KS_PURE_QT) || defined(KS_KF5)
 	KShutdownApplication(int &argc, char **argv)
-		: QApplication(argc, argv, Utils::isGUI()) {
+		: QApplication(argc, argv) {
 	}
 #endif // KS_PURE_QT
 
