@@ -31,7 +31,6 @@
 
 // private
 
-bool Utils::m_gui = true;
 #ifdef KS_NATIVE_KDE
 	#ifdef KS_KF5
 	QCommandLineParser *Utils::m_args = 0;
@@ -163,17 +162,11 @@ QString Utils::getUser() {
 }
 
 void Utils::init() {
-	#ifdef KS_CONSOLE
-	m_gui = false;
-	#else
-	m_gui = true;
-	#endif // KS_CONSOLE
-
 	m_desktopSession = m_env.value("DESKTOP_SESSION");
 	m_xdgCurrentDesktop = m_env.value("XDG_CURRENT_DESKTOP");
 
 	#ifdef Q_OS_LINUX
-	if (m_gui && m_desktopSession.isEmpty() && m_xdgCurrentDesktop.isEmpty())
+	if (m_desktopSession.isEmpty() && m_xdgCurrentDesktop.isEmpty())
 		qWarning("kshutdown: WARNING: \"DESKTOP_SESSION\" and \"XDG_CURRENT_DESKTOP\" environment variables not set (unknown or unsupported Desktop Environment). Good luck.");
 	#endif // Q_OS_LINUX
 }
@@ -212,8 +205,6 @@ bool Utils::isEnlightenment() {
 		m_desktopSession.contains("enlightenment", Qt::CaseInsensitive) ||
 		m_xdgCurrentDesktop.contains("enlightenment", Qt::CaseInsensitive);
 }
-
-bool Utils::isGUI() { return m_gui; }
 
 bool Utils::isHelpArg() {
 #ifdef KS_KF5
