@@ -54,6 +54,7 @@ add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 if(KS_PURE_QT)
+	set_target_properties(kshutdown PROPERTIES OUTPUT_NAME kshutdown-qt)
 	target_link_libraries(kshutdown ${Qt5Widgets_LIBRARIES} ${Qt5DBus_LIBRARIES})
 elseif(KS_KF5)
 	target_link_libraries(kshutdown Qt5::DBus Qt5::Widgets KF5::ConfigCore KF5::ConfigWidgets KF5::DBusAddons KF5::GlobalAccel KF5::I18n KF5::IdleTime KF5::Notifications KF5::NotifyConfig KF5::XmlGui)
@@ -66,21 +67,20 @@ if(KS_PURE_QT)
 	set(XDG_APPS_INSTALL_DIR ${DATA_INSTALL_DIR}/applications)
 
 	install(
-		PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
+		TARGETS kshutdown
 		DESTINATION bin
-		RENAME kshutdown-qt
 	)
 	install(FILES kshutdown-qt.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 elseif(KS_KF5)
 	install(
-		PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
+		TARGETS kshutdown
 		DESTINATION bin
 	)
 	install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 	install(FILES kshutdown.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
 else()
 	install(
-		PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/kshutdown"
+		TARGETS kshutdown
 		DESTINATION bin
 	)
 	install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
