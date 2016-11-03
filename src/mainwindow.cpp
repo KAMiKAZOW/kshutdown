@@ -348,6 +348,8 @@ bool MainWindow::maybeShow() {
 		menu->setToolTipsVisible(true);
 		#endif // QT_VERSION
 
+		bool confirm = Utils::isArg("confirm");
+
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
 				menu->addSeparator();
@@ -364,10 +366,15 @@ bool MainWindow::maybeShow() {
 			else {
 				auto *action = m_actionHash[id];
 // TODO: show confirmation dialog at cursor position (?)
-				if (action)
-					menu->addAction(new ConfirmAction(menu, action));
-				else
+				if (action) {
+					if (confirm)
+						menu->addAction(new ConfirmAction(menu, action));
+					else
+						menu->addAction(action);
+				}
+				else {
 					U_DEBUG << "Unknown ui-menu element: " << id U_END;
+				}
 			}
 		}
 
