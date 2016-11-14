@@ -330,7 +330,7 @@ Visit <a href="http://kshutdown.sourceforge.net/">KShutdown Home Page</a> and
 
 <h3>Compilation &amp; Installation</h3>
 <ol>
-	<li>Additional requirements: installed <code>"kdelibs-dev"</code> package, CMake 2.4, and Gettext Utilities</li>
+	<li>Additional requirements: installed <code>"kdelibs-dev"</code> package, CMake, and Gettext Utilities</li>
 	<li>To compile and install KShutdown run: <code>./Setup-kde4.sh</code></li>
 	<li>To change the installation directory (prefix) run: <code>./Setup-kde4.sh "/your/prefix/dir"</code></li>
 	<li>Clang support (an alternative C++ compiler):
@@ -383,7 +383,7 @@ See <a href="#supported">Qt Build</a> table for more info.</p>
 	<li><code>mkdir build-qt5.tmp</code> (use separated "build-qt5.tmp" directory to avoid mess in source tree)</li>
 	<li><code>cd build-qt5.tmp</code></li>
 	<li><code>cmake -DKS_PURE_QT=true -DCMAKE_INSTALL_PREFIX=/usr ..</code></li>
-	<li><code>make &amp;&amp; ./src/kshutdown</code></li>
+	<li><code>make &amp;&amp; ./src/kshutdown-qt</code></li>
 </ol>
 
 <h3>Using an alternate Qt version (Qt 5.x example)</h3>

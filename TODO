@@ -26,12 +26,8 @@ Misc.:
 * Optionally (--delay <seconds>) show warning message before action,
   and automatically continue action if no user reaction
 * Optionally mute sound (master mixer) before lock screen
-* Shutdown everyday to save energy:
-  http://sourceforge.net/p/kshutdown/discussion/324058/thread/538d9af2
-* Execute a command:
-  http://sourceforge.net/p/kshutdown/discussion/324058/thread/e28a7ef9
-* Command before action:
-  http://sourceforge.net/p/kshutdown/discussion/324058/thread/1725b7c5
+* Shutdown everyday to save energy
+* Execute a command before action
 * Automatically chmod /sbin/shutdown, so every user can shutdown or reboot
 * Switch to console mode (tty) [by DigitalCyanide]
 * KDE: Optionally force application exit (no session save)
@@ -40,7 +36,6 @@ Misc.:
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
   http://sourceforge.net/p/kshutdown/feature-requests/1/
-  <http://sourceforge.net/p/kshutdown/discussion/324059/thread/ab1a37d2>
   - Related: https://bugs.kde.org/show_bug.cgi?id=198255
   - API: http://api.kde.org/4.x-api/kdebase-workspace-apidocs/libs/kworkspace/html/classKDisplayManager.html
   - http://ksmanis.wordpress.com/2011/04/21/hello-planet-and-grub2-support-for-kdm/
