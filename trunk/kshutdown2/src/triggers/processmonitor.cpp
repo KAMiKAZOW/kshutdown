@@ -303,7 +303,13 @@ void ProcessMonitor::refreshProcessList() {
 			)
 				continue; // for
 
-			Process *p = new Process(this, processInfo[2]/* command */);
+			QString command;
+			if (processInfo.count() > 3) // HACK: fix a command name that contains spaces
+				command = QStringList(processInfo.mid(2)).join(' ');
+			else
+				command = processInfo[2];
+
+			Process *p = new Process(this, command);
 			p->m_user = processInfo[0];
 			p->m_pid = processID;
 			p->m_own = (p->m_user == user);
