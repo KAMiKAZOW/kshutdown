@@ -34,23 +34,13 @@
 
 Process::Process(QObject *parent, const QString &command)
 	: QObject(parent),
-	m_command(command),
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	m_own(false),
-	m_pid(0),
-	m_user(QString::null)
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
-	m_pid(0),
-	m_visible(false),
-	m_windowHandle(NULL)
-#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
-{
+	m_command(command) {
 }
 
 U_ICON Process::icon() const {
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	// show icons for own processes only (faster)
+// FIXME: laggy/slow combo box
 	return own() ? U_STOCK_ICON(m_command) : U_ICON();
 	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
@@ -305,7 +295,7 @@ void ProcessMonitor::refreshProcessList() {
 
 			QString command;
 			if (processInfo.count() > 3) // HACK: fix a command name that contains spaces
-				command = QStringList(processInfo.mid(2)).join(' ');
+				command = QStringList(processInfo.mid(2)).join(" ");
 			else
 				command = processInfo[2];
 
@@ -320,6 +310,46 @@ void ProcessMonitor::refreshProcessList() {
 
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
 	::EnumWindows(EnumWindowsCallback, (LPARAM)this);
+/* TODO: also use tasklist.exe
+	QStringList args;
+	args << "/NH"; // no header
+	args << "/FO" << "CSV"; // CSV output format
+
+	QProcess process;
+	process.start("tasklist.exe", args);
+	process.waitForStarted(-1);
+// TODO: Q_PID psPID = process.pid(); - use QProcess::processId()
+
+	bool ok;
+	QString text = Utils::read(process, ok);
+
+	if (!ok)
+		return;
+
+	qint64 appPID = QApplication::applicationPid();
+	QStringList processLines = text.split('\n');
+
+	foreach (const QString &i, processLines) {
+		QStringList processInfo = i.simplified().split("\",\"");
+		
+		if (processInfo.count() >= 2) {
+			qint64 processID = processInfo[1].toLongLong();
+
+			// exclude "tasklist.exe" and self
+			if (
+				(processID == appPID)
+				//((processID == psPID) && (psPID != 0))
+			)
+				continue; // for
+
+			QString command = processInfo[0].remove(0, 1); // remove first "
+			Process *p = new Process(this, command);
+			p->m_pid = processID;
+			p->setVisible(true);
+			addProcess(p);
+		}
+	}
+*/
 	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 }
 
