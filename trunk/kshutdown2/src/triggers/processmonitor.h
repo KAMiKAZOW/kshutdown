@@ -62,15 +62,15 @@ private:
 	QString m_stringCache = "<THEDAILYWTF>";
 	
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	bool m_own;
-	pid_t m_pid;
-	QString m_user; // an owner of the process (e.g. "root")
+	bool m_own = false;
+	pid_t m_pid = 0;
+	QString m_user = QString::null; // an owner of the process (e.g. "root")
 	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 	
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
-	DWORD m_pid;
-	bool m_visible;
-	HWND m_windowHandle;
+	DWORD m_pid = 0;
+	bool m_visible = false;
+	HWND m_windowHandle = NULL;
 	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 
 	void makeStringCache();
