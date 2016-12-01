@@ -39,8 +39,8 @@ Section "-"
 	WriteRegDWORD HKLM "${APP_UNINSTALL_REG}" "NoRepair" 1
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "Publisher" "Konrad Twardowski"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "UninstallString" '"$INSTDIR\uninstall.exe"'
-	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLInfoAbout" "http://kshutdown.sourceforge.net/"
-	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "http://kshutdown.sourceforge.net/download.html"
+	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLInfoAbout" "https://kshutdown.sourceforge.io/"
+	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "https://kshutdown.sourceforge.io/download.html"
 	
 	File src\images\kshutdown.ico
 	File /oname=kshutdown.exe src\release\kshutdown-qt.exe

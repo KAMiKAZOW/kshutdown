@@ -369,7 +369,7 @@ void Extras::onMenuHovered(QAction *action) {
 }
 
 void Extras::showHelp() {
-	QDesktopServices::openUrl(QUrl("http://sourceforge.net/p/kshutdown/wiki/Extras/"));
+	QDesktopServices::openUrl(QUrl("https://sourceforge.net/p/kshutdown/wiki/Extras/"));
 }
 
 void Extras::slotModify() {
