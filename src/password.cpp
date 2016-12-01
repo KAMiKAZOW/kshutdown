@@ -278,7 +278,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	mainLayout->addWidget(m_userActionList);
 
 	InfoWidget *kioskInfo = new InfoWidget(this);
-	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"http://sourceforge.net/p/kshutdown/wiki/Kiosk/\">Kiosk</a>") + "</qt>", InfoWidget::Type::Info);
+	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"https://sourceforge.net/p/kshutdown/wiki/Kiosk/\">Kiosk</a>") + "</qt>", InfoWidget::Type::Info);
 	mainLayout->addWidget(kioskInfo);
 	
 	updateWidgets(m_enablePassword->isChecked());

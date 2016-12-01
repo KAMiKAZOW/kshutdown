@@ -1,9 +1,9 @@
 
 Tracker @ SourceForge.net:
 
-* Bugs: http://sourceforge.net/p/kshutdown/bugs/
-* RFE: http://sourceforge.net/p/kshutdown/feature-requests/
-* Patches: http://sourceforge.net/p/kshutdown/patches/
+* Bugs: https://sourceforge.net/p/kshutdown/bugs/
+* RFE: https://sourceforge.net/p/kshutdown/feature-requests/
+* Patches: https://sourceforge.net/p/kshutdown/patches/
 
 Qt 5.x Based:
 
@@ -35,7 +35,7 @@ Misc.:
 * Detect unsaved documents and show warning (is there any KDE API to do this?)
 * "Switch User" menu functionality
 * Command to Reboot Directly into Windows
-  http://sourceforge.net/p/kshutdown/feature-requests/1/
+  https://sourceforge.net/p/kshutdown/feature-requests/1/
   - Related: https://bugs.kde.org/show_bug.cgi?id=198255
   - API: http://api.kde.org/4.x-api/kdebase-workspace-apidocs/libs/kworkspace/html/classKDisplayManager.html
   - http://ksmanis.wordpress.com/2011/04/21/hello-planet-and-grub2-support-for-kdm/

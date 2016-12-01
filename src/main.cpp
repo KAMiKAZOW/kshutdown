@@ -228,7 +228,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	about.setShortDescription(i18n("A graphical shutdown utility"));
 
 	about.addAuthor("Konrad Twardowski", i18n("Maintainer"), KS_EMAIL, KS_CONTACT);
-	about.addCredit(i18n("Thanks To All!"), QString(), QString(), "http://sourceforge.net/p/kshutdown/wiki/Credits/");
+	about.addCredit(i18n("Thanks To All!"), QString(), QString(), "https://sourceforge.net/p/kshutdown/wiki/Credits/");
 	#else
 	KAboutData about(
 		"kshutdown", // app name - used in config file name etc.
@@ -243,7 +243,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	about.setShortDescription(ki18n("A graphical shutdown utility"));
 
 	about.addAuthor(ki18n("Konrad Twardowski"), ki18n("Maintainer"), KS_EMAIL, KS_CONTACT);
-	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "http://sourceforge.net/p/kshutdown/wiki/Credits/");
+	about.addCredit(ki18n("Thanks To All!"), KLocalizedString(), QByteArray(), "https://sourceforge.net/p/kshutdown/wiki/Credits/");
 
 	// NOTE: "kshutdown.sf.net" produces too long DBus names
 	// (net.sf.kshutdown.kshutdown)
@@ -380,7 +380,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 		)
 	);
 	
-	options.add("", ki18n("More Info...\nhttp://sourceforge.net/p/kshutdown/wiki/Command%20Line/")); // krazy:exclude=i18ncheckarg
+	options.add("", ki18n("More Info...\nhttps://sourceforge.net/p/kshutdown/wiki/Command%20Line/")); // krazy:exclude=i18ncheckarg
 	
 	KCmdLineArgs::addCmdLineOptions(options);
 	// BUG: --nofork option does not work like in KShutdown 1.0.x (?)

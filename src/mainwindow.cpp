@@ -165,7 +165,7 @@ bool MainWindow::checkCommandLine() {
 		"</td></tr>\n";
 
 		// HACK: non-clickable links in Oxygen Style
-		table += "<tr><td colspan=\"2\"><a href=\"http://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">http://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a></td></tr>\n";
+		table += "<tr><td colspan=\"2\"><a href=\"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">https://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a></td></tr>\n";
 
 		table += "</table>";
 		
@@ -1245,11 +1245,11 @@ void MainWindow::onAbout() {
 	titleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	QString releaseNotes =
-		"http://kshutdown.sourceforge.net/releases/" KS_FILE_VERSION ".html";
+		"https://kshutdown.sourceforge.io/releases/" KS_FILE_VERSION ".html";
 	auto *aboutLabel = new QLabel(
 		"<qt>" +
 		i18n("A graphical shutdown utility") + "<br />" \
-		"<a href=\"" KS_HOME_PAGE "\">kshutdown.sf.net</a><br />" \
+		"<a href=\"" KS_HOME_PAGE "\">kshutdown.sourceforge.io</a><br />" \
 		"<br />" \
 		"<a href=\"" + releaseNotes + "\">" + i18n("What's New?") + "</a><br />" \
 		"</qt>"
