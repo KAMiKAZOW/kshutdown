@@ -43,6 +43,7 @@ set(
 )
 if(KS_PURE_QT)
 # TODO: add and test automoc
+	QT5_ADD_RESOURCES(qrc_kshutdown.cpp kshutdown.qrc)
 	QT5_WRAP_CPP(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
 elseif(KS_KF5)
 	# automoc
@@ -50,7 +51,12 @@ else()
 	# automoc
 endif()
 
-add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
+if(KS_PURE_QT)
+	add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES} qrc_kshutdown.cpp)
+else()
+	add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
+endif()
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 if(KS_PURE_QT)
