@@ -36,7 +36,7 @@ for i in po/*.po; do
 		cp "$i" "$i.`date "+%Y%m%d_%H%M_%S"`~"
 		
 		echo
-		echo ">>> Creating $i translation..."
+		echo "==== Creating $i translation ===="
 		msgmerge "$i" po/TEMPLATE.pot --output-file="$i"
 		
 #		echo "Creating KDE messages..."
@@ -51,6 +51,10 @@ for i in po/*.po; do
 			--output-file="src/i18n/kshutdown_$(basename "$i" .po).qm" \
 			--qt \
 			--statistics
+
+		if ! POFileChecker --ignore-fuzzy "$i"; then
+			echo "NOTE: POFileChecker (optional gettext-lint package) not installed"
+		fi
 	fi
 done
 
