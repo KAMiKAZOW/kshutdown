@@ -870,6 +870,12 @@ void MainWindow::initMenuBar() {
 
 	auto *menuBar = new U_MENU_BAR();
 
+	// HACK: Fixes Bookmarks menu and key shortcuts
+	//       (Global app menus in Unity are all f*** - it's a fact)
+	// BUG: https://bugs.launchpad.net/appmenu-qt5/+bug/1449373
+	//      https://bugs.launchpad.net/appmenu-qt5/+bug/1380702
+	menuBar->setNativeMenuBar(false);
+
 	// file menu
 
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
@@ -970,12 +976,6 @@ void MainWindow::initMenuBar() {
 
 	if (Mod::getBool("ui-hide-menu-bar"))
 		menuBar->hide();
-	// HACK: Fixes Bookmarks menu and key shortcuts
-	//       (Global app menus in Unity are all f*** - it's a fact)
-	// BUG: https://bugs.launchpad.net/appmenu-qt5/+bug/1449373
-	//      https://bugs.launchpad.net/appmenu-qt5/+bug/1380702
-	else
-		menuBar->show();
 }
 
 void MainWindow::initWidgets() {
