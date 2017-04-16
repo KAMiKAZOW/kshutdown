@@ -1100,10 +1100,16 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 #elif defined(KS_NATIVE_KDE)
 	setCaption(plain);
 #else
+	#if QT_VERSION >= 0x050200
+	setWindowTitle(plain);
+	// NOTE: the " - KShutdown" suffix is appended automatically
+	// if QApplication::applicationDispayName is set
+	#else
 	if (plain.isEmpty())
 		setWindowTitle("KShutdown");
 	else
 		setWindowTitle(plain + " - KShutdown");
+	#endif // QT_VERSION
 #endif // KS_NATIVE_KDE
 	QString s = html.isEmpty() ? "KShutdown" : html;
 
