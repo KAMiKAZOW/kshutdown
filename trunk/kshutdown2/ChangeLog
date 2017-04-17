@@ -1,11 +1,53 @@
 
 
   See also changes for 3.3 and 3.99 for the complete list
-  of new features since the previous stable version (3.2)...
+  of new features since version 3.2...
   http://kshutdown.sourceforge.net/releases/
 
 
-2016-09-!!!  4.1 Beta
+2017-04-17  4.1 Beta
+
+* Better tool tips in menus (requires Qt 5.1+) (feature-request #21)
+* Removed ambiguous "Build" text from version info.
+  yyyy-MM-DD string now refers to the official release date rather than
+  build/compilation date.
+* Nicer font in About|License tab
+* Update Portuguese translation (thanks to Américo Monteiro)
+* Better icon in confirmation message box
+* UI: Use pixel metrics instead of hardcoded values
+* Fixed: Process List: Do not truncate command names with spaces
+* Update links to use encrypted https://kshutdown.sourceforge.io/
+  instead of http://kshutdown.sourceforge.net/
+
+Command Line
+
+* --ui-menu: show confirmation box only if --confirm option is set
+* --version: Print correct Qt version
+
+Linux:
+
+* NEW: Added "Use System Icon Theme" option (bug #27)
+* Fixed: Disable broken global/appmenu
+* Various system tray related fixes (bug #27)
+* Qt 5 Build: Fixed double "KShutdown" text in window title
+
+Source:
+
+* Qt Build/cmake: Install "kshutdown.png" icons (bug #29)
+* Use install(TARGETS) to install the kshutdown binary
+  (patch #6 by Raphael Kubo da Costa)
+* Added ./tools/clang-tidy.sh script
+* cmake: Auto generate compile commands (used by clang-tidy)
+* Fix compilation error with Qt4 (bug #30)
+* Qt Build/cmake: Include missing translations and application icons
+* Auto show warnings reported by POFileChecker while building language
+  translations using ./tools/i18n.sh (need optional gettext-lint package)
+* Modernize code:
+  - 0 -> nullptr
+  - Use " = default" destructors
+  - Use "auto"
+* Minor code cleanup
+* Minor docs update
 
 Windows:
 
@@ -881,4 +923,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 825:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 846:HEAD|xsel -i -b && kwrite ChangeLog
