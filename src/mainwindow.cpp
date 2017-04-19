@@ -1239,7 +1239,7 @@ void MainWindow::onAbout() {
 	// TEST: iconLabel->setPixmap(U_ICON(":/images/hi128-app-kshutdown.png").pixmap(128, 128));
 
 	QString titleText = "KShutdown " KS_FULL_VERSION;
-	QString buildText = KS_BUILD;
+	QString buildText = KS_RELEASE_DATE;
 	if (Config::isPortable())
 		buildText += " | Portable";
 	auto *titleLabel = new QLabel(

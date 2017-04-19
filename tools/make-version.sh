@@ -1,10 +1,15 @@
 #!/bin/bash
 
-echo "Reading \"tools/VERSION\"..."
+if [ ! -d "src" ]; then
+	echo "Usage: ./tools/`basename $0`"
+	exit 1
+fi
 
-KS_BUILD=`date +%Y-%m-%d`
-KS_FILE_VERSION=`sed 1!d tools/VERSION`
-KS_FULL_VERSION=`sed 2!d tools/VERSION`
+echo "Reading \"VERSION\"..."
+
+KS_FILE_VERSION=$(sed 1!d VERSION)
+KS_FULL_VERSION=$(sed 2!d VERSION)
+KS_RELEASE_DATE=$(sed 3!d VERSION)
 
 echo "Generating \"kshutdown.nsh\"..."
 
@@ -21,13 +26,13 @@ cat > "src/version.h" <<EOF
 #ifndef KSHUTDOWN_VERSION_H
 #define KSHUTDOWN_VERSION_H
 
-#define KS_BUILD "$KS_BUILD"
 #define KS_FILE_VERSION "$KS_FILE_VERSION"
 #define KS_FULL_VERSION "$KS_FULL_VERSION"
+#define KS_RELEASE_DATE "$KS_RELEASE_DATE"
 
 #endif // KSHUTDOWN_VERSION_H
 EOF
 
-echo "File version (used in file names)    : \"$KS_FILE_VERSION\""
-echo "Full version (used in User Interface): \"$KS_FULL_VERSION\""
-echo "Build date:                          : \"$KS_BUILD\""
+echo "File version (used in file names): \"$KS_FILE_VERSION\""
+echo "Full version (used in UI)        : \"$KS_FULL_VERSION\""
+echo "Release date (updated manually)  : \"$KS_RELEASE_DATE\""
