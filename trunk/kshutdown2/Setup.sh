@@ -3,7 +3,7 @@
 # TODO: autorun shellcheck on all scripts
 
 default_item=""
-kshutdown_full_version=`sed 2!d tools/VERSION`
+kshutdown_full_version=$(sed 2!d VERSION)
 
 function doError()
 {

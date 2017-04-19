@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [ ! -f "./tools/make-version.sh" ]; then
-	echo "Usage: ./tools/`basename $0`"
+if [ ! -d "src" ]; then
+	echo "Usage: ./tools/$(basename $0)"
 	exit 1
 fi
 
 # make version number
 
 ./tools/make-version.sh
-KS_FILE_VERSION=`sed 1!d tools/VERSION`
+KS_FILE_VERSION=$(sed 1!d VERSION)
 
 # init variables
 

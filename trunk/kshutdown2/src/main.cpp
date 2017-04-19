@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
 			} else
 			#endif // KS_UNIX
 			if ((arg == "-version") || (arg == "--version")) {
-				QString text = "KShutdown " KS_FULL_VERSION " (" KS_BUILD ")\n";
+				QString text = "KShutdown " KS_FULL_VERSION " (" KS_RELEASE_DATE ")\n";
 				text += "Qt ";
 				text += qVersion();
 				text += " (compiled using " QT_VERSION_STR ")";
