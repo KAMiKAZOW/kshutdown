@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -x "$(which dialog)" ]; then
+	echo "ERROR: This script requires 'dialog' package"
+	exit 1
+fi
+
 # TODO: autorun shellcheck on all scripts
 
 default_item=""
@@ -13,40 +18,56 @@ function doError()
 	exit 1
 }
 
+function doBuildError()
+{
+	doError "Build failed. See README.html for troubleshooting information."
+}
+
 function doCompile()
 {
 	clear
-	if [ $1 == "kshutdown" ]; then
-		if ! ./Setup-kde4.sh; then
-			doError "Build failed. See README.html for troubleshooting information."
-		fi
-	elif [ $1 == "kshutdown-qt" ]; then
-		if ./Setup-qt4.sh; then
-# TODO: common code
-			dialog --msgbox \
-"Compiled KShutdown program (\"kshutdown-qt\" file)\n
-can be found in the \"${PWD}/src\" directory.\n
-\n
-Installation is not required.\n
-However, you can run\n
-\n
-cd src; sudo make install  (Ubuntu, etc.)\n
-or\n
-cd src; su -c \"make install\"  (Fedora, etc.)\n
-\n
-to setup menu shortcut (Utilities section),\n
-and copy \"kshutdown-qt\" to the \"/usr/bin\" directory." \
-0 0
+
+	if [ "$1" == "kshutdown-kde4" ]; then
+		if ./Setup-kde4.sh; then
+			doSuccess "build.tmp" "./build.tmp/src/kshutdown"
 		else
-			doError "Build failed. See README.html for troubleshooting information."
+			doBuildError
 		fi
-	elif [ $1 == "kshutdown-kf5" ]; then
-		if ! ./Setup-kf5.sh; then
-			doError "Build failed. See README.html for troubleshooting information."
+	elif [ "$1" == "kshutdown-kf5" ]; then
+		if ./Setup-kf5.sh; then
+			doSuccess "build.tmp" "./build.tmp/src/kshutdown"
+		else
+			doBuildError
+		fi
+	elif [ "$1" == "kshutdown-qt4" ]; then
+		if ./Setup-qt4.sh; then
+			doSuccess "src" "./src/kshutdown-qt"
+		else
+			doBuildError
+		fi
+	elif [ "$1" == "kshutdown-qt5" ]; then
+		if ./Setup-qt5.sh; then
+			doSuccess "src" "./src/kshutdown-qt"
+		else
+			doBuildError
 		fi
 	else
 		doError "Unknown build type: $1"
 	fi
+}
+
+function doSuccess()
+{
+	local text="1. Run \"$2\" to launch KShutdown without installation.\n\n"
+
+	text+="2. Run \"make install\" to install KShutdown.\n"
+	text+="   This will install program, menu shortcut (Utilities section), and icons.\n\n"
+	text+="Examples:\n"
+	text+="cd $1; sudo make install  (Ubuntu)\n"
+	text+="cd $1; su -c \"make install\"  (Fedora)\n\n"
+	text+="3. Run \"make uninstall\" to uninstall KShutdown.\n"
+
+	dialog --msgbox "$text" 0 0
 }
 
 function doQuit()
@@ -54,15 +75,20 @@ function doQuit()
 	clear
 }
 
+# TEST:
+#doSuccess "src" "./src/kshutdown-qt"
+#doSuccess "build.tmp" "./build.tmp/src/kshutdown"
+#exit
+
 # TODO: $DESKTOP_SESSION == *plasma* (KF5)
 if [[ $DESKTOP_SESSION == *kde* || $XDG_CURRENT_DESKTOP == *KDE* ]]; then
-	default_item="kshutdown"
+	default_item="kshutdown-kf5"
 else
-	default_item="kshutdown-qt"
+	default_item="kshutdown-qt5"
 fi
 
 # TODO: update required libs info
-out=`dialog \
+out=$(dialog \
 	--backtitle "KShutdown $kshutdown_full_version Setup" \
 	--default-item "$default_item" \
 	--ok-label "OK, compile!" \
@@ -73,11 +99,11 @@ out=`dialog \
 	--stdout \
 	--title "Select a KShutdown Build (see README.html for more details)" \
 	--menu "" 0 0 0 \
-	"kshutdown" "A version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
-	"kshutdown-qt" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 4.8+ or Qt 5.x, no KDE 4 libs" \
-	"kshutdown-kf5" "An universal version compiled using KDE Frameworks" "Required libraries: KDE Frameworks 5.x"`
-
+	"kshutdown-kf5" "An universal version compiled using KDE Frameworks" "Required libraries: KDE Frameworks 5.x (KF5)" \
+	"kshutdown-qt5" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 5.x only" \
+	"kshutdown-kde4" "A classic version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
+	"kshutdown-qt4" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 4.8+ only")
 case $? in
-	0) doCompile $out;;
+	0) doCompile "$out";;
 	*) doQuit;;
 esac
