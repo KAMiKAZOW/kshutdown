@@ -633,7 +633,10 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	e->ignore();
 
 	// no system tray, minimize instead
-	if (!m_systemTray->isSupported()) {
+	if (
+		!m_systemTray->isSupported() ||
+		Utils::isUnity() // HACK: QSystemTrayIcon::activated not called in Unity
+	) {
 		showMinimized(); // krazy:exclude=qmethods
 	}
 	// hide in system tray instead of close
@@ -773,6 +776,8 @@ MainWindow::MainWindow() :
 		QDBusConnection::ExportScriptableSlots
 	);
 #endif // KS_DBUS
+
+// FIXME: block OK button on startup to avoid accidental Enter press
 }
 
 void MainWindow::addAction(Action *action) {
@@ -859,7 +864,6 @@ void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
 	}
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_cancelAction);
-	//fileMenu->addSeparator();
 
 	if (addQuitAction)
 		fileMenu->addAction(createQuitAction());
@@ -871,10 +875,8 @@ void MainWindow::initMenuBar() {
 	auto *menuBar = new U_MENU_BAR();
 
 	// HACK: Fixes Bookmarks menu and key shortcuts
-	//       (Global app menus in Unity are all f*** - it's a fact)
-	// BUG: https://bugs.launchpad.net/appmenu-qt5/+bug/1449373
-	//      https://bugs.launchpad.net/appmenu-qt5/+bug/1380702
-	menuBar->setNativeMenuBar(false);
+	if (Utils::isXfce())
+		menuBar->setNativeMenuBar(false);
 
 	// file menu
 
@@ -907,6 +909,7 @@ void MainWindow::initMenuBar() {
 		true
 		#endif // KS_KF5
 	);
+
 	m_systemTray->setContextMenu(systemTrayFileMenu);
 
 	// bookmarks menu

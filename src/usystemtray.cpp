@@ -77,7 +77,6 @@ bool USystemTray::isSupported() const {
 	return Utils::isKDE();
 	#else
 	return
-		!Utils::isUnity() &&
 		QSystemTrayIcon::isSystemTrayAvailable() &&
 		// HACK: MATE launches KShutdown before system tray panel is created
 		!(Utils::isMATE() && m_sessionRestored);
