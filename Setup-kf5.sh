@@ -13,7 +13,7 @@ if [ -z "$PREFIX" ]; then
 		PREFIX=/usr/local
 		echo "WARNING: \"kf5-config\" not found; using default installation prefix: $PREFIX"
 	else
-		PREFIX=`$KF5_CONFIG --prefix`
+		PREFIX=$($KF5_CONFIG --prefix)
 		if [ -z "$PREFIX" ]; then
 			PREFIX=/usr/local
 		fi
@@ -30,13 +30,14 @@ BUILD_DIR="build.tmp"
 rm -fR "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-pushd "$BUILD_DIR"
+# HACK: use realpath, because automoc cannot find bootentry.h if KShutdown is compiled from a symlinked directory (?)
+pushd "$(realpath $BUILD_DIR)"
 
 echo "INFO: Installation prefix: $PREFIX"
 echo "INFO: Build type         : $BUILD_TYPE"
 
 cmake -DKS_KF5=true -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
-make
+make -j 2
 
 echo
 echo "TIP: Run \"make install\" to install KShutdown"

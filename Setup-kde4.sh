@@ -35,24 +35,8 @@ pushd "$BUILD_DIR"
 echo "INFO: Installation prefix: $PREFIX"
 echo "INFO: Build type         : $BUILD_TYPE"
 
+# TODO: test
 cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
-make
-if [ -n "$KDE4_CONFIG" ]; then
-	KDESU="`$KDE4_CONFIG --path libexec`kdesu"
-	if [ -x "$KDESU" ]; then
-		echo "INFO: Installing KShutdown..."
-		if ! "$KDESU" -n -t -c "make install"; then
-			echo "INFO: Skipping installation"
-		fi
-	else
-		echo "INFO: Skipping installation"
-	fi
-else
-	echo
-	echo "TIP: Run \"make install\" to install KShutdown"
-	echo "     (may require administrator privileges). Examples:"
-	echo "     cd build.tmp; sudo make install  (Ubuntu, etc.)"
-	echo "     cd build.tmp; su -c \"make install\"  (Fedora, etc.)"
-fi
+make -j 2
 
 popd
