@@ -166,8 +166,16 @@ void Utils::init() {
 	m_xdgCurrentDesktop = m_env.value("XDG_CURRENT_DESKTOP");
 
 	#ifdef Q_OS_LINUX
-	if (m_desktopSession.isEmpty() && m_xdgCurrentDesktop.isEmpty())
+	if (m_desktopSession.isEmpty() && m_xdgCurrentDesktop.isEmpty()) {
 		qWarning("kshutdown: WARNING: \"DESKTOP_SESSION\" and \"XDG_CURRENT_DESKTOP\" environment variables not set (unknown or unsupported Desktop Environment). Good luck.");
+	}
+	else {
+		qDebug(
+			"kshutdown: DESKTOP_SESSION=%s | XDG_CURRENT_DESKTOP=%s",
+			m_desktopSession.toLocal8Bit().constData(),
+			m_xdgCurrentDesktop.toLocal8Bit().constData()
+		);
+	}
 	#endif // Q_OS_LINUX
 }
 
@@ -279,9 +287,12 @@ bool Utils::isMATE() {
 }
 
 bool Utils::isOpenbox() {
+	// NOTE: Use "contains" instead of "compare"
+	// to correctly detect "DESKTOP_SESSION=/usr/share/xsessions/openbox".
+	// BUG: https://sourceforge.net/p/kshutdown/bugs/31/
 	return
-		(m_desktopSession.compare("openbox", Qt::CaseInsensitive) == 0) ||
-		(m_xdgCurrentDesktop.compare("openbox", Qt::CaseInsensitive) == 0);
+		m_desktopSession.contains("openbox", Qt::CaseInsensitive) ||
+		m_xdgCurrentDesktop.contains("openbox", Qt::CaseInsensitive);
 }
 
 bool Utils::isRazor() {
