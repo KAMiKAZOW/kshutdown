@@ -1262,17 +1262,6 @@ bool StandardAction::onAction() {
 		}
 	}
 
-	// Openbox
-
-	else if (Utils::isOpenbox()) {
-		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
-			QStringList args;
-			args << "--exit";
-			if (launch("openbox", args))
-				return true;
-		}
-	}
-
 	// Razor-qt
 	
 	#ifdef KS_DBUS
@@ -1370,7 +1359,23 @@ bool StandardAction::onAction() {
 		return true;
 	}
 	#endif // KS_DBUS
-	
+
+	// Openbox
+
+	// NOTE: Put this after m_kdeSessionInterface call
+	// because in case of Openbox/KDE session KShutdown
+	// will detect both Openbox and KDE at the same time.
+	// ISSUE: https://sourceforge.net/p/kshutdown/feature-requests/20/
+	if (Utils::isOpenbox()) {
+		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
+			QStringList args;
+			args << "--exit";
+
+			if (launch("openbox", args))
+				return true;
+		}
+	}
+
 	// fallback to systemd/logind/ConsoleKit/HAL/whatever
 	
 	#ifdef KS_DBUS
