@@ -37,6 +37,6 @@ echo "INFO: Build type         : $BUILD_TYPE"
 
 # TODO: test
 cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
-make -j 2
+make -j2
 
 popd

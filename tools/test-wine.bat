@@ -4,7 +4,12 @@ rem Usage: wineconsole tools/test-wine.bat
 call C:\Qt\4.8.7\bin\qtvars.bat
 cd src
 qmake -config release
-mingw32-make.exe
+mingw32-make.exe -j2
+pause
 cd ..
-rem "C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
+
+rem Installer test:
+rem "%ProgramFiles%\NSIS\makensis.exe" kshutdown.nsi
+rem kshutdown-4.1beta-win32.exe
+
 src\release\kshutdown-qt.exe

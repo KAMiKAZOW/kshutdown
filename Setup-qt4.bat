@@ -7,7 +7,7 @@ rem portable version
 echo DEFINES += KS_PORTABLE>portable.pri
 qmake -config release
 mingw32-make.exe clean
-mingw32-make.exe
+mingw32-make.exe -j2
 if not %errorlevel% == 0 goto quit
 mkdir ..\kshutdown-portable
 copy release\kshutdown-qt.exe ..\kshutdown-portable\kshutdown.exe
@@ -21,12 +21,12 @@ rem goto skip_normal
 rem normal version
 qmake -config release
 mingw32-make.exe clean
-mingw32-make.exe
+mingw32-make.exe -j2
 if not %errorlevel% == 0 goto quit
 
 cd ..
 
-"C:\Program Files\NSIS\makensis.exe" kshutdown.nsi
+"%ProgramFiles%\NSIS\makensis.exe" kshutdown.nsi
 if not %errorlevel% == 0 goto quit
 kshutdown-4.1beta-win32.exe
 
