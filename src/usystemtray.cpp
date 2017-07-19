@@ -34,12 +34,11 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 	m_sessionRestored = false;
 	#ifdef KS_KF5
 	m_trayIcon = new KStatusNotifierItem(mainWindow);
+	m_trayIcon->setStandardActionsEnabled(false);
 // FIXME: m_trayIcon->setToolTipIconByPixmap(QIcon(":/images/kshutdown.png"));
 	m_trayIcon->setToolTipIconByName("kshutdown");
 	#else
 	m_trayIcon = new KSystemTrayIcon(mainWindow);
-// TODO: "KShutdown" caption in System Tray Settings dialog (Entries tab).
-// Currently it's lower case "kshutdown".
 	#endif // KS_KF5
 #endif // KS_NATIVE_KDE
 
@@ -72,6 +71,7 @@ void USystemTray::info(const QString &message) const {
 
 bool USystemTray::isSupported() const {
 	#ifdef KS_KF5
+// TODO: use classic QSystemTrayIcon as fallback if KStatusNotifierItem is unsupported
 // TODO: test other DE
 	// Blacklist: GNOME Shell, Unity
 	return Utils::isKDE();

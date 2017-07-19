@@ -28,6 +28,13 @@
 #include <QPainter>
 #include <QTimer>
 
+#ifdef KS_V5
+#ifdef KS_DBUS
+	#include <QDBusConnection>
+	#include <QDBusMessage>
+#endif // KS_DBUS
+#endif // KS_V5
+
 #if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
 	#include <KColorDialog>
 #else
@@ -87,7 +94,21 @@ void ProgressBar::setTotal(const int total) {
 void ProgressBar::setValue(const int value) {
 	m_value = value;
 	
-	if (m_total == 0)
+	//U_DEBUG << "m_total = " << m_total U_END;
+	//U_DEBUG << "m_value = " << m_value U_END;
+
+	#ifdef KS_V5
+	if (m_value == -1) {
+		updateTaskbar(-1, -1, false);
+	}
+	else {
+		double progress = 1 - (double)m_value / (double)m_total;//!!!div zero
+		progress = qBound(0.0, progress, 1.0);
+		updateTaskbar(progress, m_value, (m_value <= 55));//!!!60
+	}
+	#endif // KS_V5
+
+	if ((m_total == 0) || (m_value == -1))
 		return;
 
 	int newCompleteWidth = (int)((float)width() * ((float)(m_total - m_value) / (float)m_total));
@@ -95,6 +116,62 @@ void ProgressBar::setValue(const int value) {
 		m_completeWidth = newCompleteWidth;
 		repaint();
 	}
+}
+
+void ProgressBar::updateTaskbar(const double progress, const int seconds, const bool urgent) {
+#ifdef KS_V5
+	#if defined(Q_OS_LINUX) && defined(KS_DBUS)
+	// CREDITS: https://askubuntu.com/questions/65054/unity-launcher-api-for-c/310940
+	// DOC: https://wiki.ubuntu.com/Unity/LauncherAPI
+
+	if (!Utils::isUnity() && !Utils::isKDE())
+		return;
+
+	QDBusMessage taskbarMessage = QDBusMessage::createSignal(
+		"/",
+		"com.canonical.Unity.LauncherEntry",
+		"Update"
+	);
+
+	#ifdef KS_PURE_QT
+	taskbarMessage << "application://kshutdown-qt.desktop";
+	#else
+	taskbarMessage << "application://kshutdown.desktop";
+	#endif // KS_PURE_QT
+
+	QVariantMap properties;
+
+	U_DEBUG << "" U_END;
+	U_DEBUG << progress U_END;
+	U_DEBUG << m_value U_END;
+	U_DEBUG << m_total U_END;
+
+	bool countVisible = (seconds >= 0) && (seconds <= 55);//!!!60
+	properties["count"] = qint64(countVisible ? seconds : 0);
+	properties["count-visible"] = countVisible;
+
+	bool progressVisible = (progress >= 0);
+	properties["progress"] = progressVisible ? progress : 0;
+	properties["progress-visible"] = progressVisible;
+
+	properties["urgent"] = urgent;
+
+	taskbarMessage << properties;
+	QDBusConnection::sessionBus()
+		.send(taskbarMessage);
+	#endif // defined(Q_OS_LINUX) && defined(KS_DBUS)
+
+	#ifdef Q_OS_WIN32
+// TODO: taskbar progress
+	Q_UNUSED(progress)
+	Q_UNUSED(seconds)
+	Q_UNUSED(urgent)
+	#endif // Q_OS_WIN32
+#else
+	Q_UNUSED(progress)
+	Q_UNUSED(seconds)
+	Q_UNUSED(urgent)
+#endif // KS_V5
 }
 
 // protected
@@ -218,7 +295,7 @@ ProgressBar::ProgressBar() // public
 		Qt::X11BypassWindowManagerHint |
 		Qt::Tool
 	) {
-	
+
 	//U_DEBUG << "ProgressBar::ProgressBar()" U_END;
 
 	m_demoTimer = new QTimer(this);
