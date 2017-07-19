@@ -37,12 +37,6 @@ echo "INFO: Installation prefix: $PREFIX"
 echo "INFO: Build type         : $BUILD_TYPE"
 
 cmake -DKS_KF5=true -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
-make -j 2
-
-echo
-echo "TIP: Run \"make install\" to install KShutdown"
-echo "     (may require administrator privileges). Examples:"
-echo "     cd build.tmp; sudo make install  (Ubuntu, etc.)"
-echo "     cd build.tmp; su -c \"make install\"  (Fedora, etc.)"
+make -j2
 
 popd

@@ -99,7 +99,7 @@ out=$(dialog \
 	--stdout \
 	--title "Select a KShutdown Build (see README.html for more details)" \
 	--menu "" 0 0 0 \
-	"kshutdown-kf5" "An universal version compiled using KDE Frameworks" "Required libraries: KDE Frameworks 5.x (KF5)" \
+	"kshutdown-kf5" "An universal version for KDE Plasma and other desktop environments" "Required libraries: KDE Frameworks 5.x (KF5)" \
 	"kshutdown-qt5" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 5.x only" \
 	"kshutdown-kde4" "A classic version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
 	"kshutdown-qt4" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 4.8+ only")
