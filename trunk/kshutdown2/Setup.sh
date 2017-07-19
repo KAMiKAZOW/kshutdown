@@ -80,8 +80,7 @@ function doQuit()
 #doSuccess "build.tmp" "./build.tmp/src/kshutdown"
 #exit
 
-# TODO: $DESKTOP_SESSION == *plasma* (KF5)
-if [[ $DESKTOP_SESSION == *kde* || $XDG_CURRENT_DESKTOP == *KDE* ]]; then
+if [[ $DESKTOP_SESSION == "plasma" || $DESKTOP_SESSION == *kde* || $XDG_CURRENT_DESKTOP == *KDE* ]]; then
 	default_item="kshutdown-kf5"
 else
 	default_item="kshutdown-qt5"

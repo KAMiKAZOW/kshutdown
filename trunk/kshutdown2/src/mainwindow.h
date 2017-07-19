@@ -132,7 +132,7 @@ private:
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
 	U_ACTION *createQuitAction();
-	void initFileMenu(U_MENU *fileMenu, const bool addQuitAction);
+	void initFileMenu(U_MENU *fileMenu);
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();

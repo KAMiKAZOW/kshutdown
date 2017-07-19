@@ -141,7 +141,7 @@ void IdleMonitor::setState(const State state) {
 
 		ProgressBar *progressBar = MainWindow::self()->progressBar();
 		progressBar->setTotal(getMaximumIdleTime());
-		progressBar->setValue(0);
+		progressBar->setValue(-1);
 
 #ifdef KS_NATIVE_KDE
 		KIdleTime::instance()->simulateUserActivity();

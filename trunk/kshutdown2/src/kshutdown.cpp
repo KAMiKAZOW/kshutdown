@@ -502,7 +502,7 @@ void DateTimeTriggerBase::setState(const State state) {
 			int secsTo = now.secsTo(m_endDateTime);
 			ProgressBar *progressBar = MainWindow::self()->progressBar();
 			progressBar->setTotal(secsTo);
-			progressBar->setValue(0);
+			progressBar->setValue(-1);
 		}
 	}
 }

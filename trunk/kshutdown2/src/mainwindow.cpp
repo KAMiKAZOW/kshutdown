@@ -487,6 +487,7 @@ void MainWindow::setActive(const bool yes) {
 	
 	m_active = yes;
 	m_systemTray->updateIcon(this);
+	m_progressBar->updateTaskbar(-1, -1, false);
 
 	//U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
 	//U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
@@ -815,7 +816,7 @@ U_ACTION *MainWindow::createQuitAction() {
 	return quitAction;
 }
 
-void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
+void MainWindow::initFileMenu(U_MENU *fileMenu) {
 	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
@@ -864,9 +865,7 @@ void MainWindow::initFileMenu(U_MENU *fileMenu, const bool addQuitAction) {
 	}
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_cancelAction);
-
-	if (addQuitAction)
-		fileMenu->addAction(createQuitAction());
+	fileMenu->addAction(createQuitAction());
 }
 
 void MainWindow::initMenuBar() {
@@ -888,7 +887,7 @@ void MainWindow::initMenuBar() {
 	#endif // QT_VERSION
 
 	Utils::addTitle(fileMenu, /*U_STOCK_ICON("dialog-warning")*/U_ICON(), i18n("No Delay"));
-	initFileMenu(fileMenu, true);
+	initFileMenu(fileMenu);
 	menuBar->addMenu(fileMenu);
 
 	auto *systemTrayFileMenu = new U_MENU(); // need copy
@@ -901,14 +900,7 @@ void MainWindow::initMenuBar() {
 	systemTrayFileMenu->setToolTipsVisible(true);
 	#endif // QT_VERSION
 
-	initFileMenu(
-		systemTrayFileMenu,
-		#ifdef KS_KF5
-		!Utils::isKDE()
-		#else
-		true
-		#endif // KS_KF5
-	);
+	initFileMenu(systemTrayFileMenu);
 
 	m_systemTray->setContextMenu(systemTrayFileMenu);
 
