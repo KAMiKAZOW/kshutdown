@@ -54,9 +54,9 @@ private:
 private slots:
 	void onFinish(int result);
 	void onProgressBarEnabled(bool enabled);
-#ifdef KS_NATIVE_KDE
-	void onKDERelatedSettings();
-#endif // KS_NATIVE_KDE
+	#ifdef KS_KF5
+	void onSystemSettings();
+	#endif // KS_KF5
 };
 
 #endif // KSHUTDOWN_PREFERENCES_H
