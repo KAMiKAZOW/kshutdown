@@ -1450,7 +1450,7 @@ void MainWindow::onPreferences() {
 
 	// DOC: http://www.kdedevelopers.org/node/3919
 	QPointer<Preferences> dialog = new Preferences(this);
-	if ((dialog->exec() == Preferences::Accepted) || Utils::isGTKStyle()) {
+	if (dialog->exec() == Preferences::Accepted) {
 		dialog->apply();
 		
 		m_progressBar->setVisible(m_active && getSelectedTrigger()->supportsProgressBar() && Config::progressBarEnabled());

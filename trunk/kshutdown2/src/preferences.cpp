@@ -30,7 +30,7 @@
 // public
 
 Preferences::Preferences(QWidget *parent) :
-	UDialog(parent, i18n("Preferences"), Utils::isGTKStyle()) {
+	UDialog(parent, i18n("Preferences"), false) {
 	//U_DEBUG << "Preferences::Preferences()" U_END;
 
 	#ifdef Q_OS_WIN32
@@ -159,13 +159,15 @@ QWidget *Preferences::createGeneralWidget() {
 	l->addWidget(m_lockCommand);
 	#endif // Q_OS_LINUX
 
-#ifdef KS_NATIVE_KDE
-	l->addSpacing(20_px);
+	#ifdef KS_KF5
+	if (Utils::isKDE()) {
+		l->addSpacing(20_px);
 
-	U_PUSH_BUTTON *kdeRelatedSettingsPushButton = new U_PUSH_BUTTON(U_STOCK_ICON("start-here-kde"), i18n("Related KDE Settings..."));
-	l->addWidget(kdeRelatedSettingsPushButton);
-	connect(kdeRelatedSettingsPushButton, SIGNAL(clicked()), SLOT(onKDERelatedSettings()));
-#endif // KS_NATIVE_KDE
+		auto *systemSettingsButton = new U_PUSH_BUTTON(U_STOCK_ICON("preferences-system"), i18n("System Settings..."));
+		l->addWidget(systemSettingsButton);
+		connect(systemSettingsButton, SIGNAL(clicked()), SLOT(onSystemSettings()));
+	}
+	#endif // KS_KF5
 
 	return w;
 }
@@ -253,15 +255,8 @@ void Preferences::onProgressBarEnabled(bool enabled) {
 	progressBar->setVisible(enabled || m_oldProgressBarVisible);
 }
 
-#ifdef KS_NATIVE_KDE
-void Preferences::onKDERelatedSettings() {
-	QProcess *process = new QProcess(0);
-	#ifdef KS_KF5
-	process->start("kcmshell5 autostart kcmsmserver kcm_sddm keys powerdevilglobalconfig powerdevilprofilesconfig screenlocker");
-	#else
-// HACK: Ubuntu Natty, Qt 4.7.2, KDE 4.6.2: "kdm" module resets all fonts to "Ubuntu"
-// <https://bugs.launchpad.net/ubuntu/+source/kdebase/+bug/766145>
-	process->start("kcmshell4 screensaver kcmsmserver powerdevilglobalconfig powerdevilprofilesconfig autostart kcmkded kgrubeditor keys");
-	#endif // KS_KF5
+#ifdef KS_KF5
+void Preferences::onSystemSettings() {
+	QProcess::execute("kcmshell5 autostart kcmkded kcmnotify kcmsmserver kcm_energyinfo kcm_sddm kcm_splashscreen keys powerdevilprofilesconfig screenlocker");
 }
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
