@@ -23,6 +23,8 @@
 
 #include <QPainter>
 
+// TODO: better support for dock(ish) taskbars (Windows 7/Unity)
+
 // public:
 
 USystemTray::USystemTray(MainWindow *mainWindow)
@@ -90,8 +92,11 @@ void USystemTray::setContextMenu(QMenu *menu) const {
 void USystemTray::setToolTip(const QString &toolTip) const {
 	#ifdef KS_KF5
 	m_trayIcon->setToolTipTitle("KShutdown");
-// TODO: remove leading/duplicated "KShutdown"
-	m_trayIcon->setToolTipSubTitle((toolTip == m_trayIcon->toolTipTitle()) ? "" : toolTip);
+	m_trayIcon->setToolTipSubTitle(
+		(toolTip == m_trayIcon->toolTipTitle())
+		? ""
+		: QString(toolTip).replace("<qt>KShutdown<br><br>", "<qt>") // remove leading/duplicated "KShutdown" text
+	);
 	#else
 	m_trayIcon->setToolTip(toolTip);
 	#endif // KS_KF5
@@ -154,6 +159,9 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	icon = mainWindow->windowIcon();
 	#endif // KS_UNIX
 
+// FIXME: https://sourceforge.net/p/kshutdown/bugs/27/
+// Breeze icon looks blurry
+
 	int w = 64_px;
 	int h = 64_px;
 	QPixmap pixmap = icon.pixmap(w, h);
@@ -197,6 +205,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 		}
 	}
 
+// TODO: remove?
 	// add overlay icons (active trigger/action)
 	
 	w = pixmap.width() / 2;
@@ -205,7 +214,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	if (active && (w >= 11_px)) {
 		QPainter p(&image);
 		p.setOpacity(0.7);
-		
+
 		// left/bottom
 		mainWindow->getSelectedAction()->icon().paint(&p, 0_px, h, w, h);
 		// right/bottom
@@ -233,7 +242,7 @@ void USystemTray::onRestore(QSystemTrayIcon::ActivationReason reason) {
 
 	if (reason == QSystemTrayIcon::Trigger) {
 		MainWindow *mainWindow = MainWindow::self();
-		if (mainWindow->isVisible()) {
+		if (mainWindow->isVisible() && !mainWindow->isMinimized()) {
 			mainWindow->hide();
 		}
 		else {
