@@ -778,7 +778,9 @@ MainWindow::MainWindow() :
 	);
 #endif // KS_DBUS
 
-// FIXME: block OK button on startup to avoid accidental Enter press
+	// Do not focus OK button on startup
+	// to avoid accidental action activation via Enter key.
+	m_actions->setFocus();
 }
 
 void MainWindow::addAction(Action *action) {
