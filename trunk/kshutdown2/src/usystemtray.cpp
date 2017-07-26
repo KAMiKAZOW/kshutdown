@@ -156,7 +156,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 		icon = mainWindow->windowIcon();
 	}
 	#else
-	icon = mainWindow->windowIcon();
+	icon = U_ICON(":/images/hi16-app-kshutdown.png");
 	#endif // KS_UNIX
 
 // FIXME: https://sourceforge.net/p/kshutdown/bugs/27/
@@ -246,8 +246,19 @@ void USystemTray::onRestore(QSystemTrayIcon::ActivationReason reason) {
 			mainWindow->hide();
 		}
 		else {
+			#ifdef Q_OS_WIN32
+			if (mainWindow->isMinimized()) {
+				// HACK: activateWindow() does not work and causes funny bugs
+				mainWindow->showNormal();
+			}
+			else {
+				mainWindow->show();
+				mainWindow->activateWindow();
+			}
+			#else
 			mainWindow->show();
 			mainWindow->activateWindow();
+			#endif // Q_OS_WIN32
 		}
 	}
 }
