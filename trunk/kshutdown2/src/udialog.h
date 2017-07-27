@@ -18,17 +18,14 @@
 #ifndef KSHUTDOWN_UDIALOG_H
 #define KSHUTDOWN_UDIALOG_H
 
-#include "pureqt.h"
-
 #include <QDialog>
+#include <QVBoxLayout>
 
 #if defined(KS_PURE_QT) || defined(KS_KF5)
 	#include <QDialogButtonBox>
 #else
-	#include <KDialogButtonBox>
+	#include <KDialogButtonBox> // #kde4
 #endif // KS_PURE_QT
-
-class QVBoxLayout;
 
 class UDialog: public QDialog {
 	Q_OBJECT

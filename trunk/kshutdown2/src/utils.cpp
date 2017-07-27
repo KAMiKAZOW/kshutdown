@@ -17,13 +17,7 @@
 
 #include "utils.h"
 
-#include "pureqt.h"
-
-#include <QBoxLayout>
-#include <QLabel>
 #include <QToolTip>
-#include <QWidget>
-#include <QWidgetAction>
 
 #ifdef KS_NATIVE_KDE
 	#include <KAuthorized>

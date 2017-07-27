@@ -18,19 +18,15 @@
 #ifndef KSHUTDOWN_USYSTEMTRAY_H
 #define KSHUTDOWN_USYSTEMTRAY_H
 
-#include <QObject>
-
 #ifdef KS_KF5
 	#include <KStatusNotifierItem>
 #elif defined(KS_PURE_QT)
 	#include <QSystemTrayIcon>
 #else
-	#include <KSystemTrayIcon>
+	#include <KSystemTrayIcon> // #kde4
 #endif // KS_KF5
 
 class MainWindow;
-
-class QMenu;
 
 class USystemTray: public QObject {
 	Q_OBJECT
