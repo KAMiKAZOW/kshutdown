@@ -15,10 +15,10 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "usystemtray.h"
+
 #include "config.h"
 #include "mainwindow.h"
-#include "pureqt.h"
-#include "usystemtray.h"
 #include "utils.h"
 
 #include <QPainter>

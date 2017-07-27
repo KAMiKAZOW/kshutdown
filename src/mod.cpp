@@ -19,8 +19,9 @@
 
 #include "config.h"
 #include "mainwindow.h"
-#include "pureqt.h"
 #include "utils.h"
+
+#include <QPushButton>
 
 // private
 

@@ -16,13 +16,15 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "bookmarks.h"
+
+#include "config.h"
 #include "mainwindow.h"
 #include "password.h"
 #include "utils.h"
 
-#include <QCheckBox>
 #include <QFormLayout>
 #include <QPointer>
+#include <QPushButton>
 
 // public:
 

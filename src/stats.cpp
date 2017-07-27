@@ -16,10 +16,8 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "stats.h"
-#include "utils.h"
 
-#include <QProcess>
-#include <QVBoxLayout>
+#include "utils.h"
 
 // public:
 

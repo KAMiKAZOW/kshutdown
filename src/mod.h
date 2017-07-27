@@ -19,7 +19,6 @@
 #define KSHUTDOWN_MOD_H
 
 #include <QColor>
-#include <QHash>
 #include <QObject>
 
 class MainWindow;

@@ -21,22 +21,17 @@
 #include "pureqt.h"
 
 #include <QProcess>
-#include <QProcessEnvironment>
-#include <QString>
 
 #ifdef KS_NATIVE_KDE
 	#ifdef KS_KF5
 		#include <QCommandLineParser>
 	#else
-		#include <KCmdLineArgs>
+		#include <KCmdLineArgs> // #kde4
 	#endif // KS_KF5
 #endif // KS_NATIVE_KDE
 
 // TODO: use std::chrono and "hrs" literals #C++14 #experimental
 inline int operator "" _px(unsigned long long int value) { return value; }
-
-class QAction;
-class QWidget;
 
 class Utils final {
 public:
