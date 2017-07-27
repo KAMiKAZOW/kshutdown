@@ -15,26 +15,24 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "commandline.h"
+#include "log.h"
+#include "mainwindow.h"
+#include "utils.h"
+#include "version.h"
+
 #ifdef KS_PURE_QT
-	#include <QApplication>
 	#include <QLibraryInfo>
-	#include <QLocale>
 	#include <QTranslator>
 #else
 	#include <KAboutData>
 	#ifdef KS_KF5
 		#include <KDBusService>
 	#else
-		#include <KCmdLineArgs>
-		#include <KUniqueApplication>
+		#include <KCmdLineArgs> // #kde4
+		#include <KUniqueApplication> // #kde4
 	#endif // KS_KF5
 #endif // KS_PURE_QT
-
-#include "commandline.h"
-#include "log.h"
-#include "mainwindow.h"
-#include "utils.h"
-#include "version.h"
 
 #if defined(KS_PURE_QT) && defined(KS_UNIX)
 	#include <QStyleFactory>

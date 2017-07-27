@@ -20,11 +20,6 @@
 
 #include "../kshutdown.h"
 
-#ifdef KS_UNIX
-	#define KS_TRIGGER_PROCESS_MONITOR
-	#define KS_TRIGGER_PROCESS_MONITOR_UNIX
-#endif // KS_UNIX
-
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
@@ -35,7 +30,13 @@
 	#define KS_TRIGGER_PROCESS_MONITOR_WIN
 #endif // Q_OS_WIN32
 
+#ifdef KS_UNIX
+	#define KS_TRIGGER_PROCESS_MONITOR
+	#define KS_TRIGGER_PROCESS_MONITOR_UNIX
+#endif // KS_UNIX
+
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	// HACK: fixes some compilation error (?)
 	#include <sys/types.h>
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 

@@ -18,9 +18,7 @@
 #ifndef KSHUTDOWN_PROGRESSBAR_H
 #define KSHUTDOWN_PROGRESSBAR_H
 
-#include <QWidget>
-
-class QActionGroup;
+#include <QActionGroup>
 
 class ProgressBar: public QWidget {
 	Q_OBJECT

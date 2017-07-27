@@ -20,11 +20,13 @@
 
 #include "pureqt.h"
 
+#ifdef KS_PURE_QT
+	#include <QSettings>
+#endif // KS_PURE_QT
+
 #ifdef KS_NATIVE_KDE
 	#include <KConfigGroup>
-#else
-	class QSettings;
-#endif
+#endif // KS_NATIVE_KDE
 
 /**
  * A configuration reader/writer.

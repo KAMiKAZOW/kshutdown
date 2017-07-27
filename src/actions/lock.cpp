@@ -16,6 +16,8 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "lock.h"
+
+#include "../config.h"
 #include "../utils.h"
 
 #ifdef Q_OS_WIN32
@@ -26,10 +28,6 @@
 #else
 	#include <QDesktopWidget>
 #endif // Q_OS_WIN32
-
-#ifdef KS_DBUS
-	#include <QDBusInterface>
-#endif // KS_DBUS
 
 // LockAction
 

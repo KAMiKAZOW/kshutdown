@@ -15,12 +15,12 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "progressbar.h"
+
 #include "config.h"
 #include "mainwindow.h"
 #include "mod.h"
 #include "password.h"
-#include "progressbar.h"
-#include "pureqt.h"
 #include "utils.h"
 
 #include <QDesktopWidget>
@@ -28,15 +28,8 @@
 #include <QPainter>
 #include <QTimer>
 
-#ifdef KS_V5
-#ifdef KS_DBUS
-	#include <QDBusConnection>
-	#include <QDBusMessage>
-#endif // KS_DBUS
-#endif // KS_V5
-
 #if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
-	#include <KColorDialog>
+	#include <KColorDialog> // #kde4
 #else
 	#include <QColorDialog>
 #endif // KS_NATIVE_KDE

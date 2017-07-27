@@ -15,48 +15,12 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "pureqt.h"
+#include "mainwindow.h"
 
-#include <QCheckBox>
-#include <QCloseEvent>
-#include <QGroupBox>
-#include <QLayout>
-#include <QPointer>
-#include <QTimer>
-
-#ifdef KS_DBUS
-	#include <QDBusConnection>
-#endif // KS_DBUS
-
-#ifdef KS_PURE_QT
-	#include "version.h" // for about()
-
-	#include <QLabel>
-#else
-	#include <KActionCollection>
-	#include <KHelpMenu>
-	#include <KNotification>
-	#include <KNotifyConfigWidget>
-	#include <KShortcutsDialog>
-	#include <KStandardAction>
-	#include <KStandardGuiItem>
-#endif // KS_PURE_QT
-
-#ifdef KS_KF5
-	#include <KGlobalAccel>
-#endif // KS_KF5
-
-#include "actions/bootentry.h"
-#include "actions/extras.h"
-#include "actions/lock.h"
-#include "actions/test.h"
-#include "triggers/idlemonitor.h"
-#include "triggers/processmonitor.h"
 #include "bookmarks.h"
 #include "commandline.h"
-#include "infowidget.h"
+#include "config.h"
 #include "log.h"
-#include "mainwindow.h"
 #include "mod.h"
 #include "password.h"
 #include "preferences.h"
@@ -64,6 +28,34 @@
 #include "stats.h"
 #include "usystemtray.h"
 #include "utils.h"
+#include "actions/extras.h"
+#include "actions/lock.h"
+#include "actions/test.h"
+#include "triggers/idlemonitor.h"
+#include "triggers/processmonitor.h"
+
+#ifdef KS_PURE_QT
+	#include "version.h"
+#endif // KS_PURE_QT
+
+#include <QCloseEvent>
+#include <QPointer>
+#include <QPushButton>
+#include <QTimer>
+
+#ifdef KS_NATIVE_KDE
+	#include <KActionCollection> // #kde4
+	#include <KHelpMenu>
+	#include <KNotification>
+	#include <KNotifyConfigWidget>
+	#include <KShortcutsDialog>
+	#include <KStandardAction> // #kde4
+	#include <KStandardGuiItem>
+#endif // KS_NATIVE_KDE
+
+#ifdef KS_KF5
+	#include <KGlobalAccel>
+#endif // KS_KF5
 
 MainWindow *MainWindow::m_instance = nullptr;
 QHash<QString, Action*> MainWindow::m_actionHash;

@@ -23,19 +23,18 @@
 #include "mainwindow.h"
 #include "utils.h"
 
-#ifdef KS_NATIVE_KDE
-	#include <KPasswordDialog>
-#endif // KS_NATIVE_KDE
+#include <QCryptographicHash>
+#include <QFormLayout>
+#include <QPointer>
+#include <QPushButton>
 
 #ifdef KS_PURE_QT
 	#include <QInputDialog>
 #endif // KS_PURE_QT
 
-#include <QCheckBox>
-#include <QCryptographicHash>
-#include <QFormLayout>
-#include <QLabel>
-#include <QPointer>
+#ifdef KS_NATIVE_KDE
+	#include <KPasswordDialog>
+#endif // KS_NATIVE_KDE
 
 // PasswordDialog
 

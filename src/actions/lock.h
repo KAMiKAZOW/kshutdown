@@ -20,10 +20,6 @@
 
 #include "../kshutdown.h"
 
-#ifdef KS_DBUS
-class QDBusInterface;
-#endif // KS_DBUS
-
 class LockAction: public KShutdown::Action {
 public:
 	virtual bool onAction() override;

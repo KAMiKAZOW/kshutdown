@@ -20,6 +20,8 @@
 #ifndef KSHUTDOWN_PUREQT_H
 #define KSHUTDOWN_PUREQT_H
 
+//#define KS_V5
+
 #ifdef KS_PURE_QT
 
 // Q-Files
@@ -27,15 +29,12 @@
 #include <QApplication>
 #include <QComboBox>
 #include <QDebug>
-#include <QIcon>
 #include <QLineEdit>
 #include <QListWidget>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
-#include <QPushButton>
-#include <QTabWidget>
 
 #else
 
@@ -44,16 +43,14 @@
 		#include <QApplication>
 		#include <QComboBox>
 		#include <QDebug>
-		#include <QIcon>
 		#include <QLineEdit>
 		#include <QListWidget>
 		#include <QMainWindow>
 		#include <QMenu>
 		#include <QMenuBar>
 		#include <QMessageBox>
-		#include <QPushButton>
-		#include <QTabWidget>
 	#else
+		// #kde4
 		#include <KAction>
 		#include <KApplication>
 		#include <KComboBox>

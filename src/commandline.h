@@ -20,8 +20,6 @@
 #ifndef KSHUTDOWN_COMMANDLINE_H
 #define KSHUTDOWN_COMMANDLINE_H
 
-#include <QTime>
-
 #include "kshutdown.h"
 
 class TimeOption final {
