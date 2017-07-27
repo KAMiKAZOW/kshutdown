@@ -23,24 +23,16 @@
 #define KS_COPYRIGHT "(C) 2003-3000 Konrad Twardowski"
 #define KS_HOME_PAGE "https://kshutdown.sourceforge.io/"
 
-#ifdef KS_PURE_QT
-	class QComboBox;
-#elif defined(KS_KF5)
-	class QComboBox;
-	
-	class KActionCollection;
-#else
-	class KActionCollection;
-	class KComboBox;
-#endif // KS_PURE_QT
-
 #include "kshutdown.h"
 
-class QCheckBox;
-class QGroupBox;
+#include <QCheckBox>
+#include <QGroupBox>
+
+#ifdef KS_NATIVE_KDE
+	#include <KActionCollection>
+#endif // KS_NATIVE_KDE
 
 class BookmarksMenu;
-class InfoWidget;
 class ProgressBar;
 class USystemTray;
 

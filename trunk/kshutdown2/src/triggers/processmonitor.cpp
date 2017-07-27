@@ -15,20 +15,17 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	#include <sys/types.h>
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-
-#include "../utils.h"
 #include "processmonitor.h"
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	#include <errno.h>
-	#include <signal.h>
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+#include "../config.h"
+#include "../utils.h"
 
-#include <QAbstractItemView>
 #include <QHBoxLayout>
+#include <QPushButton>
+
+#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	#include <signal.h> // for ::kill
+#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 // public
 

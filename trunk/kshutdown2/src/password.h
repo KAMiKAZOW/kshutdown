@@ -18,11 +18,12 @@
 #ifndef KSHUTDOWN_PASSWORD_H
 #define KSHUTDOWN_PASSWORD_H
 
+#include "pureqt.h"
 #include "udialog.h"
 
-class InfoWidget;
+#include <QCheckBox>
 
-class QCheckBox;
+class InfoWidget;
 
 class PasswordDialog: public UDialog {
 	Q_OBJECT

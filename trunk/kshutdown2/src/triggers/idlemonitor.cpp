@@ -15,11 +15,10 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include <QDateTimeEdit>
+#include "idlemonitor.h"
 
 #include "../mainwindow.h"
 #include "../progressbar.h"
-#include "idlemonitor.h"
 
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
@@ -30,11 +29,6 @@
 	#include "../utils.h"
 	#include "../actions/lock.h"
 #endif // Q_OS_WIN32
-
-#ifdef KS_DBUS
-	#include <QDBusInterface>
-	#include <QDBusReply>
-#endif // KS_DBUS
 
 #ifdef KS_NATIVE_KDE
 	#include <KIdleTime>

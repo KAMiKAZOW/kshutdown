@@ -15,38 +15,38 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "pureqt.h"
+#include "kshutdown.h"
 
-#ifdef KS_UNIX
-	#include <errno.h>
-	#include <signal.h>
-#endif // KS_UNIX
+#include "config.h"
+#include "log.h"
+#include "mainwindow.h"
+#include "password.h"
+#include "progressbar.h"
+#include "pureqt.h"
+#include "utils.h"
+#include "actions/bootentry.h"
+#include "actions/lock.h"
 
 #include <QPointer>
-#include <QProcess>
+#include <QPushButton>
+
+#ifdef KS_UNIX
+	#include <signal.h> // for ::kill
+
+	#if QT_VERSION >= 0x050000
+		#include <QThread>
+	#else
+		#include <unistd.h> // for ::sleep
+	#endif // QT_VERSION
+#endif // KS_UNIX
+
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
 	#endif // WIN32_LEAN_AND_MEAN
 	#include <windows.h>
 	#include <powrprof.h>
-#else
-	#include <unistd.h> // for sleep
 #endif // Q_OS_WIN32
-
-#ifdef KS_DBUS
-	#include <QDBusInterface>
-	#include <QDBusReply>
-#endif // KS_DBUS
-
-#include "actions/bootentry.h"
-#include "actions/lock.h"
-#include "kshutdown.h"
-#include "log.h"
-#include "mainwindow.h"
-#include "password.h"
-#include "progressbar.h"
-#include "utils.h"
 
 using namespace KShutdown;
 
@@ -792,7 +792,11 @@ bool PowerAction::onAction() {
 		LockAction::self()->activate(false);
 
 		// HACK: wait for screensaver
+		#if QT_VERSION >= 0x050000
+		QThread::sleep(1);
+		#else
 		::sleep(1);
+		#endif // QT_VERSION
 	}
 	
 	QDBusInterface *login = getLoginInterface();

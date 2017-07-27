@@ -15,19 +15,13 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#include "pureqt.h"
+#include "infowidget.h"
 
-#ifdef KS_NATIVE_KDE
-	#include <KMessageWidget>
-#endif // KS_NATIVE_KDE
+#include "utils.h"
 
 #include <QDesktopServices>
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QUrl>
-
-#include "infowidget.h"
-#include "utils.h"
 
 // public
 

@@ -19,9 +19,9 @@
 #ifndef KSHUTDOWN_EXTRAS_H
 #define KSHUTDOWN_EXTRAS_H
 
-#include <QFileInfo>
-
 #include "../kshutdown.h"
+
+#include <QFileInfo>
 
 class CommandAction;
 

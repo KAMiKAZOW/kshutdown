@@ -18,29 +18,29 @@
 #ifndef KSHUTDOWN_KSHUTDOWN_H
 #define KSHUTDOWN_KSHUTDOWN_H
 
-#include "pureqt.h"
+#include "infowidget.h"
+
+#include <QDateTimeEdit>
+
+#ifdef KS_DBUS
+	#include <QDBusInterface>
+	#include <QDBusReply>
+#endif // KS_DBUS
 
 #ifdef KS_UNIX
+	// HACK: fixes some compilation error (?)
 	#include <sys/types.h>
 #endif // KS_UNIX
 
-#include <QDateTime>
-#include <QDateTimeEdit>
-
-#include "config.h"
-#include "infowidget.h"
+class BootEntryComboBox;
+class Config;
+class MainWindow;
 
 typedef int UShutdownType;
 // This is mapped to the values in kworkspace.h
 const UShutdownType U_SHUTDOWN_TYPE_LOGOUT = 0; // KDE: ShutdownTypeNone
 const UShutdownType U_SHUTDOWN_TYPE_REBOOT = 1; // KDE: ShutdownTypeReboot
 const UShutdownType U_SHUTDOWN_TYPE_HALT = 2; // KDE: ShutdownTypeHalt
-
-class BootEntryComboBox;
-class MainWindow;
-#ifdef KS_DBUS
-class QDBusInterface;
-#endif // KS_DBUS
 
 namespace KShutdown {
 	

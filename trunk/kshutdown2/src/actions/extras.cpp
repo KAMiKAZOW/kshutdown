@@ -15,33 +15,37 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#include "extras.h"
+
+#include "../config.h"
 #include "../mainwindow.h"
 #include "../password.h"
-#include "../pureqt.h"
+#include "../utils.h"
 
-#include <QCheckBox>
 #include <QDesktopServices>
 #include <QDir>
 #include <QPointer>
-#include <QSettings>
+#include <QPushButton>
 #include <QUrl>
+
+#ifdef KS_KF5
+	#include <QSettings>
+#endif // KS_KF5
+
+#ifdef KS_PURE_QT
+	#include <QProcess>
+	#include <QSettings>
+#endif // KS_PURE_QT
 
 #ifdef KS_NATIVE_KDE
 	#include <KStandardAction>
 	#ifndef KS_KF5
-		#include <KDesktopFile>
-		#include <KRun>
-		#include <KService>
-		#include <KStandardDirs>
-	#endif // KS_KF5
+		#include <KDesktopFile> // #kde4
+		#include <KRun> // #kde4
+		#include <KService> // #kde4
+		#include <KStandardDirs> // #kde4
+	#endif // !KS_KF5
 #endif // KS_NATIVE_KDE
-
-#ifdef KS_PURE_QT
-	#include <QProcess>
-#endif // KS_PURE_QT
-
-#include "../utils.h"
-#include "extras.h"
 
 // Extras
 

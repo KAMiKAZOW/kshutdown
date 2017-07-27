@@ -18,14 +18,14 @@
 #ifndef KSHUTDOWN_INFOWIDGET_H
 #define KSHUTDOWN_INFOWIDGET_H
 
+#include "pureqt.h"
+
 #include <QFrame>
-#ifdef Q_OS_WIN32
-	#include <QStyle>
-#endif // Q_OS_WIN32
+#include <QLabel>
 
-class KMessageWidget;
-
-class QLabel;
+#ifdef KS_NATIVE_KDE
+	#include <KMessageWidget>
+#endif // KS_NATIVE_KDE
 
 class InfoWidget: public QFrame {
 	Q_OBJECT

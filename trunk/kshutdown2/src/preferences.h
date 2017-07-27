@@ -18,11 +18,12 @@
 #ifndef KSHUTDOWN_PREFERENCES_H
 #define KSHUTDOWN_PREFERENCES_H
 
+#include "pureqt.h"
 #include "udialog.h"
 
-class PasswordPreferences;
+#include <QCheckBox>
 
-class QCheckBox;
+class PasswordPreferences;
 
 class Preferences: public UDialog {
 	Q_OBJECT
