@@ -58,6 +58,9 @@ private slots:
 	#ifdef KS_KF5
 	void onSystemSettings();
 	#endif // KS_KF5
+	#ifndef KS_KF5
+	void onUseThemeIconInSystemTraySelected(bool selected);
+	#endif // !KS_KF5
 };
 
 #endif // KSHUTDOWN_PREFERENCES_H

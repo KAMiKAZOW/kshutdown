@@ -196,19 +196,23 @@ QWidget *Preferences::createSystemTrayWidget() {
 
 	l->addSpacing(10_px);
 
+	#ifndef KS_KF5
+	m_useThemeIconInSystemTray = new QCheckBox(i18n("Use System Icon Theme"));
+	m_useThemeIconInSystemTray->setChecked(Config::readBool("General", "Use Theme Icon In System Tray", true));
+	connect(m_useThemeIconInSystemTray, SIGNAL(toggled(bool)), SLOT(onUseThemeIconInSystemTraySelected(bool)));
+	l->addWidget(m_useThemeIconInSystemTray);
+	#endif // !KS_KF5
+
 	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
 	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
 	#ifdef KS_KF5
 // TODO: redesign this option
 	m_bwTrayIcon->hide();
+	#else
+	m_bwTrayIcon->setEnabled(!m_useThemeIconInSystemTray->isChecked());
 	#endif // KS_KF5
 	l->addWidget(m_bwTrayIcon);
 
-	#ifndef KS_KF5
-	m_useThemeIconInSystemTray = new QCheckBox(i18n("Use System Icon Theme"));
-	m_useThemeIconInSystemTray->setChecked(Config::readBool("General", "Use Theme Icon In System Tray", true));
-	l->addWidget(m_useThemeIconInSystemTray);
-	#endif // !KS_KF5
 	#ifndef KS_UNIX
 	m_useThemeIconInSystemTray->hide();
 	#endif // !KS_UNIX
@@ -258,3 +262,9 @@ void Preferences::onSystemSettings() {
 	QProcess::execute("kcmshell5 autostart kcmkded kcmnotify kcmsmserver kcm_energyinfo kcm_sddm kcm_splashscreen keys powerdevilprofilesconfig screenlocker");
 }
 #endif // KS_KF5
+
+#ifndef KS_KF5
+void Preferences::onUseThemeIconInSystemTraySelected(bool selected) {
+	m_bwTrayIcon->setEnabled(!selected);
+}
+#endif // !KS_KF5
