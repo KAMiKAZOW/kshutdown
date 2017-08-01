@@ -145,11 +145,17 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 
 	QIcon icon;
 	#ifdef KS_UNIX
-	if (Config::readBool("General", "Use Theme Icon In System Tray", true)) {
+	if (!active && Config::readBool("General", "Use Theme Icon In System Tray", true)) {
 		icon = U_STOCK_ICON("system-shutdown");
 		if (icon.isNull()) {
 			U_DEBUG << "System theme icon not found in: " << icon.themeName() U_END;
 			icon = mainWindow->windowIcon(); // fallback
+		}
+		// HACK: fixes https://sourceforge.net/p/kshutdown/bugs/27/
+		else {
+			m_trayIcon->setIcon(icon);
+
+			return; // no image effects
 		}
 	}
 	else {
@@ -158,9 +164,6 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	#else
 	icon = U_ICON(":/images/hi16-app-kshutdown.png");
 	#endif // KS_UNIX
-
-// FIXME: https://sourceforge.net/p/kshutdown/bugs/27/
-// Breeze icon looks blurry
 
 	int w = 64_px;
 	int h = 64_px;
@@ -203,22 +206,6 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 			*line = temp.rgba();
 			line++;
 		}
-	}
-
-// TODO: remove?
-	// add overlay icons (active trigger/action)
-	
-	w = pixmap.width() / 2;
-	h = pixmap.height() / 2;
-
-	if (active && (w >= 11_px)) {
-		QPainter p(&image);
-		p.setOpacity(0.7);
-
-		// left/bottom
-		mainWindow->getSelectedAction()->icon().paint(&p, 0_px, h, w, h);
-		// right/bottom
-		mainWindow->getSelectedTrigger()->icon().paint(&p, w, h, w, h);
 	}
 
 	m_trayIcon->setIcon(QPixmap::fromImage(image));
