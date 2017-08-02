@@ -18,8 +18,12 @@ KS_ZIP="kshutdown-source-$KS_FILE_VERSION.zip"
 
 # clean before copy
 
-rm -f ./kshutdown
-rm -f ./kshutdown-qt
+rm -f ./kshutdown-*-win32.exe ./kshutdown-portable-*-win32.7z
+rm -fR ./kshutdown-portable
+rm -fR ./src/debug ./src/release
+rm -f ./src/.qmake.stash \
+	./src/Makefile.Debug ./src/Makefile.Release \
+	./src/object_script.kshutdown-qt.Debug ./src/object_script.kshutdown-qt.Release
 rm -fR "$KS_DIR"
 rm -fR "$KS_DIST_DIR"
 
