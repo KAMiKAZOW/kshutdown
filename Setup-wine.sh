@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 wineconsole Setup-qt4.bat
 
 KS_FILE_VERSION=$(sed 1!d VERSION)

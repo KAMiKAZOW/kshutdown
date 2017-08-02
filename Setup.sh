@@ -51,6 +51,12 @@ function doCompile()
 		else
 			doBuildError
 		fi
+	elif [ "$1" == "kshutdown-qt4-win32" ]; then
+		if ./Setup-wine.sh; then
+			doSuccess "src" "./src/release/kshutdown-qt.exe"
+		else
+			doBuildError
+		fi
 	else
 		doError "Unknown build type: $1"
 	fi
@@ -100,8 +106,9 @@ out=$(dialog \
 	--menu "" 0 0 0 \
 	"kshutdown-kf5" "An universal version for KDE Plasma and other desktop environments" "Required libraries: KDE Frameworks 5.x (KF5)" \
 	"kshutdown-qt5" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 5.x only" \
-	"kshutdown-kde4" "A classic version for KDE 4 with additional features" "Required libraries: Qt 4.8+, KDE 4 libs" \
-	"kshutdown-qt4" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 4.8+ only")
+	"kshutdown-kde4" "A classic version for KDE 4 with additional features (obsolete)" "Required libraries: Qt 4.8+, KDE 4 libs" \
+	"kshutdown-qt4" "A lightweight version for non-KDE desktop environments (obsolete)" "Required libraries: Qt 4.8+ only" \
+	"kshutdown-qt4-win32" "A lightweight version for Windows" "Required libraries: Qt 4.8+ only; compiled in Wine")
 case $? in
 	0) doCompile "$out";;
 	*) doQuit;;

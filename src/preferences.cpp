@@ -209,7 +209,9 @@ QWidget *Preferences::createSystemTrayWidget() {
 // TODO: redesign this option
 	m_bwTrayIcon->hide();
 	#else
-	m_bwTrayIcon->setEnabled(!m_useThemeIconInSystemTray->isChecked());
+		#ifdef KS_UNIX
+		m_bwTrayIcon->setEnabled(!m_useThemeIconInSystemTray->isChecked());
+		#endif // KS_UNIX
 	#endif // KS_KF5
 	l->addWidget(m_bwTrayIcon);
 
