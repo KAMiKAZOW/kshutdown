@@ -2,22 +2,15 @@
 Version=1.0
 # Encoding=UTF-8
 
+# TODO: this file is obsolete and it will be removed in version 5.0
+
 Name=KShutdown/Qt
-# TODO: add "/Qt" suffix
 Name[sr]=К-Гашење/Кјут
 Name[sr@latin]=K-Gašenje/Qt
 Name[sr@ijekavian]=К-Гашење/Кјут
 Name[sr@ijekavianlatin]=K-Gašenje/Qt
 
 Comment=A graphical shutdown utility
-
-# TODO: Imported from KShutdown 1.0.x; please update and uncomment
-#Comment[cs]=Vypínací utilita pro KDE
-#Comment[de]=Erweitertes Herunterfahren für KDE
-#Comment[el]=Ένα εργαλείο τερματισμού για το KDE
-#Comment[fr]=Utilitaire de gestion d'arrêt pour KDE
-#Comment[it]=Una utilit�KDE per lo spegnimento del sistema
-
 Comment[pl]=Graficzne narzędzie do zamykania systemu
 Comment[sr]=Напредна алатка за гашење рачунара
 Comment[sr@latin]=Napredna alatka za gašenje računara
@@ -26,11 +19,6 @@ Comment[sr@ijekavianlatin]=Napredna alatka za gašenje računara
 
 # visible in the menu instead of "KShutdown"
 GenericName=System Shut Down Utility
-
-# TODO: Imported from KShutdown 1.0.x; please update and uncomment
-#GenericName[cs]=Časované vypnutí
-#GenericName[fr]=Gestionnaire d'arrêt du système
-
 GenericName[pl]=Narzędzie do zamykania systemu
 GenericName[sr]=Алатка за гашење рачунара
 GenericName[sr@latin]=Alatka za gašenje računara
