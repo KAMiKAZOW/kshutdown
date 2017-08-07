@@ -92,7 +92,6 @@ else
 	default_item="kshutdown-qt5"
 fi
 
-# TODO: update required libs info
 out=$(dialog \
 	--backtitle "KShutdown $kshutdown_full_version Setup" \
 	--default-item "$default_item" \

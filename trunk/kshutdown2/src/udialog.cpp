@@ -69,7 +69,3 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 	m_rootLayout->addWidget(mainWidget);
 	m_rootLayout->addWidget(m_dialogButtonBox);
 }
-
-UDialog::~UDialog() {
-	//U_DEBUG << "UDialog::~UDialog()" U_END;
-}

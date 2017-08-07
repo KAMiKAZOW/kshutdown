@@ -31,7 +31,7 @@ class UDialog: public QDialog {
 	Q_OBJECT
 public:
 	explicit UDialog(QWidget *parent, const QString &windowTitle, const bool simple);
-	virtual ~UDialog();
+	virtual ~UDialog() = default;
 	inline QPushButton *acceptButton() { return m_acceptButton; }
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
 	inline QVBoxLayout *rootLayout() { return m_rootLayout; }

@@ -31,7 +31,7 @@ InfoWidget::InfoWidget(QWidget *parent) :
 	setObjectName("info-widget");
 	setVisible(false);
 
-	QHBoxLayout *mainLayout = new QHBoxLayout(this);
+	auto *mainLayout = new QHBoxLayout(this);
 
 #ifdef KS_NATIVE_KDE
 	m_messageWidget = new KMessageWidget(this);
