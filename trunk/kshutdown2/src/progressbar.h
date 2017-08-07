@@ -25,7 +25,7 @@ class ProgressBar: public QWidget {
 public:
 	enum/* non-class */Size { SmallSize = 2, NormalSize = 3, MediumSize = 6, LargeSize = 9 };
 	explicit ProgressBar();
-	virtual ~ProgressBar();
+	virtual ~ProgressBar() = default;
 	inline Qt::Alignment alignment() const { return m_alignment; }
 	void setAlignment(const Qt::Alignment value, const bool updateConfig);
 	void setDemo(const bool active);

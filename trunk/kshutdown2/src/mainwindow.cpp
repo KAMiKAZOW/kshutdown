@@ -164,7 +164,7 @@ bool MainWindow::checkCommandLine() {
 		//U_DEBUG << table U_END;
 
 		QMessageBox::information( // krazy:exclude=qclasses
-			0,
+			nullptr,
 			i18n("Command Line Options"),
 			"<qt>" +
 			table +
@@ -655,7 +655,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 
 MainWindow::MainWindow() :
 	U_MAIN_WINDOW(
-		0,
+		nullptr,
 		Qt::Window |
 		// disable "Maximize" button; no Qt::WindowMaximizeButtonHint
 		Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint
@@ -827,7 +827,7 @@ void MainWindow::initFileMenu(U_MENU *fileMenu) {
 		if (!a->showInMenu())
 			continue; // for
 
-		ConfirmAction *confirmAction = new ConfirmAction(this, a);
+		auto *confirmAction = new ConfirmAction(this, a);
 		if (a == LockAction::self())
 			m_confirmLockAction = confirmAction;
 
@@ -1506,7 +1506,7 @@ void MainWindow::onTriggerActivated(int index) {
 	Trigger *trigger = getSelectedTrigger();
 	m_currentTriggerWidget = trigger->getWidget();
 	if (m_currentTriggerWidget) {
-		static_cast<QVBoxLayout *>(m_triggerBox->layout())->insertWidget(1, m_currentTriggerWidget);
+		dynamic_cast<QVBoxLayout *>(m_triggerBox->layout())->insertWidget(1, m_currentTriggerWidget);
 		m_currentTriggerWidget->show();
 	}
 

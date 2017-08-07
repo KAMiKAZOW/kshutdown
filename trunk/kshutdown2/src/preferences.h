@@ -29,7 +29,7 @@ class Preferences: public UDialog {
 	Q_OBJECT
 public:
 	explicit Preferences(QWidget *parent);
-	virtual ~Preferences();
+	virtual ~Preferences() = default;
 	void apply();
 private:
 	Q_DISABLE_COPY(Preferences)

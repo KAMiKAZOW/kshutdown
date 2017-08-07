@@ -121,7 +121,7 @@ retry:
 	QPointer<KPasswordDialog> dialog = new KPasswordDialog(parent);
 	dialog->setPixmap(U_ICON("kshutdown").pixmap(48_px, 48_px));
 	dialog->setPrompt(prompt);
-	bool ok = dialog->exec();
+	bool ok = dialog->exec() == KPasswordDialog::Accepted;
 	QString password = ok ? dialog->password() : QString::null;
 	delete dialog;
 	
@@ -234,7 +234,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 {
 	//U_DEBUG << "PasswordPreferences::PasswordPreferences()" U_END;
 
-	QVBoxLayout *mainLayout = new QVBoxLayout(this);
+	auto *mainLayout = new QVBoxLayout(this);
 	mainLayout->setMargin(10_px);
 	mainLayout->setSpacing(10_px);
 
@@ -276,15 +276,11 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	userActionListLabel->setBuddy(m_userActionList);
 	mainLayout->addWidget(m_userActionList);
 
-	InfoWidget *kioskInfo = new InfoWidget(this);
+	auto *kioskInfo = new InfoWidget(this);
 	kioskInfo->setText("<qt>" + i18n("See Also: %0").arg("<a href=\"https://sourceforge.net/p/kshutdown/wiki/Kiosk/\">Kiosk</a>") + "</qt>", InfoWidget::Type::Info);
 	mainLayout->addWidget(kioskInfo);
 	
 	updateWidgets(m_enablePassword->isChecked());
-}
-
-PasswordPreferences::~PasswordPreferences() {
-	//U_DEBUG << "PasswordPreferences::~PasswordPreferences()" U_END;
 }
 
 void PasswordPreferences::apply() {
@@ -311,7 +307,7 @@ void PasswordPreferences::apply() {
 // private:
 
 QListWidgetItem *PasswordPreferences::addItem(const QString &key, const QString &text, const QIcon &icon) {
-	QListWidgetItem *item = new QListWidgetItem(text, m_userActionList);
+	auto *item = new QListWidgetItem(text, m_userActionList);
 	item->setCheckState(
 		Config::readBool("Password Protection", key, false)
 		? Qt::Checked
