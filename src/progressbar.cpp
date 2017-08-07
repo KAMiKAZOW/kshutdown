@@ -36,10 +36,6 @@
 
 // public
 
-ProgressBar::~ProgressBar() {
-	//U_DEBUG << "ProgressBar::~ProgressBar()" U_END;
-}
-
 void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfig) {
 	if (updateConfig) {
 		Config *config = Config::user();
@@ -177,7 +173,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 		return;
 
 	// show popup menu
-	U_MENU *menu = new U_MENU(this);
+	auto *menu = new U_MENU(this);
 
 	Utils::addTitle(menu, U_APP->windowIcon(),
 		i18n("Progress Bar") + " - " +
@@ -198,21 +194,21 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 
 	// position
 
-	U_MENU *positionMenu = new U_MENU(i18n("Position"), menu);
+	auto *positionMenu = new U_MENU(i18n("Position"), menu);
 
-	QActionGroup *positionGroup = new QActionGroup(this);
+	auto *positionGroup = new QActionGroup(this);
 
-	QAction *a = positionMenu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
+	auto *a = positionMenu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
 	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignTop));
 		
 	a = positionMenu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
 	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
 
-	U_MENU *sizeMenu = new U_MENU(i18n("Size"), menu);
+	auto *sizeMenu = new U_MENU(i18n("Size"), menu);
 
 	// size
 
-	QActionGroup *sizeGroup = new QActionGroup(this);
+	auto *sizeGroup = new QActionGroup(this);
 		
 	a = sizeMenu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
 	makeRadioButton(a, sizeGroup, height() == SmallSize);
@@ -238,7 +234,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 
 void ProgressBar::mousePressEvent(QMouseEvent *e) {
 	if (!Utils::isArg("hide-ui") && (e->button() == Qt::LeftButton)) {
-		MainWindow *mainWindow = MainWindow::self();
+		auto *mainWindow = MainWindow::self();
 		mainWindow->show();
 		mainWindow->activateWindow();
 
@@ -278,7 +274,7 @@ void ProgressBar::paintEvent(QPaintEvent *e) {
 
 ProgressBar::ProgressBar() // public
 	: QWidget(
-		0,
+		nullptr,
 		Qt::FramelessWindowHint |
 		#if QT_VERSION >= 0x050000
 		Qt::NoDropShadowWindowHint |
@@ -319,7 +315,7 @@ ProgressBar::ProgressBar() // public
 
 	QColor foreground = config->read("Foreground Color", defaultForeground).value<QColor>();
 	
-	setHeight(qBound(SmallSize, (Size)config->read("Size", NormalSize).toInt(), LargeSize));
+	setHeight(qBound(SmallSize, static_cast<Size>(config->read("Size", NormalSize).toInt()), LargeSize));
 	
 	config->endGroup();
 	p.setColor(QPalette::WindowText, (foreground.rgb() == background.rgb()) ? defaultForeground : foreground);
@@ -347,7 +343,7 @@ void ProgressBar::setSize(const Size size) {
 	setHeight(size);
 	setAlignment(m_alignment, false);
 
-	Config *config = Config::user();
+	auto *config = Config::user();
 	config->beginGroup("Progress Bar");
 	config->write("Size", size);
 	config->endGroup();

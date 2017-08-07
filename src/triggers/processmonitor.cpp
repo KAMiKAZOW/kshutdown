@@ -24,7 +24,7 @@
 #include <QPushButton>
 
 #ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	#include <signal.h> // for ::kill
+	#include <csignal> // for ::kill
 #endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 // public
@@ -116,7 +116,7 @@ bool ProcessMonitor::canActivateAction() {
 QWidget *ProcessMonitor::getWidget() {
 	if (!m_widget) {
 		m_widget = new QWidget();
-		QHBoxLayout *layout = new QHBoxLayout(m_widget);
+		auto *layout = new QHBoxLayout(m_widget);
 		layout->setMargin(0_px);
 		layout->setSpacing(10_px);
 
@@ -127,7 +127,7 @@ QWidget *ProcessMonitor::getWidget() {
 		connect(m_processesComboBox, SIGNAL(activated(int)), SLOT(onProcessSelect(const int)));
 		layout->addWidget(m_processesComboBox);
 		
-		U_PUSH_BUTTON *refreshButton = new U_PUSH_BUTTON(m_widget);
+		auto *refreshButton = new U_PUSH_BUTTON(m_widget);
 		refreshButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
 		refreshButton->setText(i18n("Refresh"));
 		connect(
@@ -296,7 +296,7 @@ void ProcessMonitor::refreshProcessList() {
 			else
 				command = processInfo[2];
 
-			Process *p = new Process(this, command);
+			auto *p = new Process(this, command);
 			p->m_user = processInfo[0];
 			p->m_pid = processID;
 			p->m_own = (p->m_user == user);

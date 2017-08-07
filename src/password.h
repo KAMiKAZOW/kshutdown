@@ -50,7 +50,7 @@ class PasswordPreferences: public QWidget {
 	Q_OBJECT
 public:
 	explicit PasswordPreferences(QWidget *parent);
-	virtual ~PasswordPreferences();
+	virtual ~PasswordPreferences() = default;
 	void apply();
 private:
 	Q_DISABLE_COPY(PasswordPreferences)

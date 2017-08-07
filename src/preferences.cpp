@@ -74,10 +74,6 @@ Preferences::Preferences(QWidget *parent) :
 	connect(this, SIGNAL(finished(int)), SLOT(onFinish(int)));
 }
 
-Preferences::~Preferences() {
-	//U_DEBUG << "Preferences::~Preferences()" U_END;
-}
-
 void Preferences::apply() {
 	Config *config = Config::user();
 

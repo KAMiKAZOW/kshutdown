@@ -113,13 +113,13 @@ Qt::Alignment Config::progressBarAlignment() {
 	int result = config->read("Alignment", Qt::AlignTop).toInt();
 	config->endGroup();
 
-	return (Qt::Alignment)result;
+	return static_cast<Qt::Alignment>(result);
 }
 
 void Config::setProgressBarAlignment(const Qt::Alignment value) {
 	Config *config = user();
 	config->beginGroup("Progress Bar");
-	config->write("Alignment", (int)value);
+	config->write("Alignment", static_cast<int>(value));
 	config->endGroup();
 }
 

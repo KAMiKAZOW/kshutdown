@@ -117,7 +117,7 @@ bool Extras::onAction() {
 		QString exec = settings.value("Exec", "").toString();
 		//U_DEBUG << exec U_END;
 		if (!exec.isEmpty()) {
-			QProcess *process = new QProcess(this);
+			auto *process = new QProcess(this);
 			QString dir = settings.value("Path", "").toString();
 			//U_DEBUG << dir U_END;
 			if (!dir.isEmpty())
@@ -194,7 +194,7 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool
 	QString text = fileInfo.fileName();
 
 	if (!fileInfo.exists() || !fileInfo.isFile())
-		return returnNull ? 0 : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo, "");
+		return returnNull ? nullptr : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo, "");
 
 	QString statusTip = "";
 
@@ -265,7 +265,7 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			createMenu(dirMenu, i.filePath()); // recursive scan
 
 			if (dirMenu->isEmpty()) {
-				U_ACTION *emptyAction = new U_ACTION(dirMenu);
+				auto *emptyAction = new U_ACTION(dirMenu);
 				emptyAction->setEnabled(false);
 				emptyAction->setText('(' + i18n("Empty") + ')');
 				dirMenu->addAction(emptyAction);

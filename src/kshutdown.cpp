@@ -31,7 +31,7 @@
 #include <QPushButton>
 
 #ifdef KS_UNIX
-	#include <signal.h> // for ::kill
+	#include <csignal> // for ::kill
 
 	#if QT_VERSION >= 0x050000
 		#include <QThread>
@@ -417,10 +417,8 @@ DateTimeTriggerBase::DateTimeTriggerBase(const QString &text, const QString &ico
 }
 
 DateTimeTriggerBase::~DateTimeTriggerBase() {
-	if (m_edit) {
-		delete m_edit;
-		m_edit = 0;
-	}
+	delete m_edit;
+	m_edit = nullptr;
 }
 
 bool DateTimeTriggerBase::canActivateAction() {
