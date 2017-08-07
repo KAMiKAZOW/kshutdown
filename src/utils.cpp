@@ -27,7 +27,7 @@
 
 #ifdef KS_NATIVE_KDE
 	#ifdef KS_KF5
-	QCommandLineParser *Utils::m_args = 0;
+	QCommandLineParser *Utils::m_args = nullptr;
 	#else
 	KCmdLineArgs *Utils::m_args = nullptr;
 	#endif // KS_KF5
@@ -45,7 +45,7 @@ void Utils::addTitle(U_MENU *menu, const QIcon &icon, const QString &text) {
 	menu->addTitle(icon, text);
 	#else
 // FIXME: useless & unimplemented decoy API to annoy developers: menu->addSection(icon, text);
-	U_ACTION *action = new U_ACTION(menu);
+	auto *action = new U_ACTION(menu);
 	QFont font = action->font();
 	font.setBold(true);
 

@@ -240,7 +240,7 @@ void BookmarksMenu::onAddBookmark() {
 	nameField->setFocus();
 	nameField->selectAll();
 
-	if (dialog->exec()) {
+	if (dialog->exec() == UDialog::Accepted) {
 		BookmarkAction *bookmark = new BookmarkAction(
 			nameField->text().trimmed(),
 			this,
@@ -284,7 +284,7 @@ void BookmarksMenu::onUpdateMenu() {
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
 
-	U_ACTION *toggleBookmarkAction = new U_ACTION(this);
+	auto *toggleBookmarkAction = new U_ACTION(this);
 	auto *bookmark = findBookmark(action, trigger);
 	if (!bookmark) {
 		toggleBookmarkAction->setEnabled(action->canBookmark() && trigger->canBookmark());
@@ -309,7 +309,7 @@ void BookmarksMenu::onUpdateMenu() {
 		QString actionOption = action->getStringOption();
 		QString triggerOption = trigger->getStringOption();
 
-		QActionGroup *group = new QActionGroup(this);
+		auto *group = new QActionGroup(this);
 		foreach (BookmarkAction *i, *list()) {
 			bool current =
 				(action->id() == i->m_actionID) && (actionOption == i->m_actionOption) &&

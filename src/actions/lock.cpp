@@ -72,7 +72,7 @@ bool LockAction::onAction() {
 	QWidget *blackScreen = nullptr;
 	if (Utils::isKDE()) {
 		blackScreen = new QWidget(
-			0,
+			nullptr,
 			Qt::FramelessWindowHint |
 			#if QT_VERSION >= 0x050000
 			Qt::NoDropShadowWindowHint |
@@ -103,10 +103,9 @@ bool LockAction::onAction() {
 	dbus->call("Lock");
 	QDBusError error = dbus->lastError();
 	#endif // KS_DBUS
-	
-	if (blackScreen)
-		delete blackScreen;
-	
+
+	delete blackScreen;
+
 	#ifdef KS_DBUS
 	if (error.type() == QDBusError::NoError)
 		return true;
