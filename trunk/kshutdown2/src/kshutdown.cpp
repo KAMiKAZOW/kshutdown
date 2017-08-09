@@ -1210,16 +1210,6 @@ bool StandardAction::onAction() {
 		}
 	}
 
-/* TODO: GNOME 2 shutdown
-	if (Utils::isGNOME()) {
-		QStringList args;
-		args << "--kill";
-		args << "--silent";
-		if (launch("gnome-session-save", args))
-			return true;
-	}
-*/
-
 	// LXDE
 
 	else if (Utils::isLXDE()) {

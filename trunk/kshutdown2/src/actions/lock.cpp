@@ -132,7 +132,7 @@ bool LockAction::onAction() {
 	}
 
 	// try "gnome-screensaver-command" command
-// TODO: test GNOME 2
+
 	if (Utils::isGNOME()) {
 		args.clear();
 		args << "--lock";
