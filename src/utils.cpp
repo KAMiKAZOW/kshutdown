@@ -222,7 +222,6 @@ bool Utils::isHelpArg() {
 #endif // KS_KF5
 }
 
-// FIXME: test GNOME 2
 bool Utils::isGNOME() {
 	return
 		m_desktopSession.contains("gnome", Qt::CaseInsensitive) ||
