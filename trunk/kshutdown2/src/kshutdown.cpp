@@ -1293,15 +1293,16 @@ bool StandardAction::onAction() {
 
 	// Xfce
 
-/* FIXME: causes IO error in session manager (?)
 	else if (Utils::isXfce()) {
 		switch (m_type) {
 			case U_SHUTDOWN_TYPE_LOGOUT: {
 				QStringList args;
 				args << "--logout";
-				if (launch("xfce4-session-logout", args))
+
+				if (launch("xfce4-session-logout", args, true))
 					return true;
 			} break;
+/*
 			case U_SHUTDOWN_TYPE_REBOOT: {
 				QStringList args;
 				args << "--reboot";
@@ -1318,9 +1319,9 @@ bool StandardAction::onAction() {
 				U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
 
 				return false; // do nothing
+*/
 		}
 	}
-*/
 
 	// Enlightenment
 
@@ -1522,12 +1523,6 @@ LogoutAction::LogoutAction() :
 	#ifdef Q_OS_HAIKU
 	disable("");
 	#endif // Q_OS_HAIKU
-	
-	#ifdef KS_UNIX
-// HACK:
-	if (Utils::isXfce())
-		disable("");
-	#endif // KS_UNIX
 }
 
 // RebootAction
