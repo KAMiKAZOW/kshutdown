@@ -270,7 +270,17 @@ QDBusInterface *Action::getLoginInterface() {
 }
 #endif // KS_DBUS
 
-bool Action::launch(const QString &program, const QStringList &args) {
+bool Action::launch(const QString &program, const QStringList &args, const bool detached) {
+	if (detached) {
+		U_DEBUG << "Launching detached \"" << program << "\" with \"" << args << "\" arguments" U_END;
+
+		// HACK: start detached to fix session manager hang in GNOME-based DEs
+		bool ok = QProcess::startDetached(program, args);
+		U_DEBUG << "Started OK: " << ok U_END;
+
+		return ok;
+	}
+
 	U_DEBUG << "Launching \"" << program << "\" with \"" << args << "\" arguments" U_END;
 
 	int exitCode = QProcess::execute(program, args);
@@ -1184,29 +1194,23 @@ bool StandardAction::onAction() {
 			QStringList args;
 			args << "--logout";
 			args << "--no-prompt";
-			if (launch("cinnamon-session-quit", args)) {
-				// HACK: session save issue?
-				U_APP->quit();
-			
+
+			if (launch("cinnamon-session-quit", args, true))
 				return true;
-			}
 		}
 	}
 	
 	// GNOME Shell, Unity
 
-// FIXME: KDE build causes huge delay in session manager or something (?)
 	else if (Utils::isGNOME() || Utils::isUnity()) {
 		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
 			QStringList args;
+// TODO: --force
 			args << "--logout";
 			args << "--no-prompt";
-			if (launch("gnome-session-quit", args)) {
-				// HACK: session save issue?
-				U_APP->quit();
-			
+
+			if (launch("gnome-session-quit", args, true))
 				return true;
-			}
 		}
 	}
 
@@ -1249,7 +1253,8 @@ bool StandardAction::onAction() {
 		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
 			QStringList args;
 			args << "--logout";
-			if (launch("mate-session-save", args))
+
+			if (launch("mate-session-save", args, true))
 				return true;
 		}
 	}
