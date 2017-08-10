@@ -142,7 +142,7 @@ protected:
 	#ifdef KS_DBUS
 	static QDBusInterface *getLoginInterface();
 	#endif // KS_DBUS
-	bool launch(const QString &program, const QStringList &args);
+	bool launch(const QString &program, const QStringList &args, const bool detached = false);
 	bool unsupportedAction();
 private:
 	Q_DISABLE_COPY(Action)
