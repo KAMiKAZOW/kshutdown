@@ -56,9 +56,6 @@ public:
 	static bool progressBarEnabled();
 	static void setProgressBarEnabled(const bool value);
 
-	static Qt::Alignment progressBarAlignment();
-	static void setProgressBarAlignment(const Qt::Alignment value);
-
 	static bool systemTrayIconEnabled();
 	#ifndef KS_KF5
 	static void setSystemTrayIconEnabled(const bool value);
@@ -95,6 +92,40 @@ private:
 #endif
 	static Config *m_user;
 	explicit Config();
+};
+
+class Var final {
+public:
+	explicit Var(const QString &group, const QString &key, const int defaultValue)
+		: m_group(group), m_key(key), m_defaultVariant(defaultValue), m_lazyVariant(QVariant()) { }
+	explicit Var(const QString &group, const QString &key, const QColor &defaultValue)
+		: m_group(group), m_key(key), m_defaultVariant(defaultValue), m_lazyVariant(QVariant()) { }
+
+	QColor getColor() {
+		return variant().value<QColor>();
+	}
+
+	void set(const QColor &value) {
+		m_lazyVariant.setValue(value);
+	}
+
+	QVariant getDefault() const { return m_defaultVariant; }
+
+	int getInt() {
+		return variant().value<int>();
+	}
+
+	void set(const int value) {
+		m_lazyVariant.setValue(value);
+	}
+
+	void sync();
+private:
+	QString m_group;
+	QString m_key;
+	QVariant m_defaultVariant;
+	QVariant m_lazyVariant;
+	QVariant variant();
 };
 
 #endif // KSHUTDOWN_CONFIG_H

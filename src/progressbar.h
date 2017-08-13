@@ -20,6 +20,8 @@
 
 #include <QActionGroup>
 
+class Var;
+
 class ProgressBar: public QWidget {
 	Q_OBJECT
 public:
@@ -46,6 +48,9 @@ private:
 	Qt::Alignment m_alignment;
 	QColor m_demoColor;
 	QTimer *m_demoTimer;
+	Var *m_alignmentVar;
+	Var *m_foregroundColorVar;
+	Var *m_sizeVar;
 	bool authorize();
 	void makeRadioButton(QAction *action, QActionGroup *group, const bool checked);
 	void setSize(const Size size);
