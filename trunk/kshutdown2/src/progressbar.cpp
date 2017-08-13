@@ -38,9 +38,8 @@
 
 void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfig) {
 	if (updateConfig) {
-		Config *config = Config::user();
-		config->setProgressBarAlignment(value);
-		config->sync();
+		m_alignmentVar->set(value);
+		m_alignmentVar->sync();
 	}
 
 	m_alignment = value;
@@ -285,6 +284,10 @@ ProgressBar::ProgressBar() // public
 		Qt::Tool
 	) {
 
+	m_alignmentVar = new Var("Progress Bar", "Alignment", Qt::AlignTop);
+	m_foregroundColorVar = new Var("Progress Bar", "Foreground Color", QColor(0xF8FFBF/* lime 1 */));
+	m_sizeVar = new Var("Progress Bar", "Size", NormalSize);
+
 	//U_DEBUG << "ProgressBar::ProgressBar()" U_END;
 
 	m_demoTimer = new QTimer(this);
@@ -307,22 +310,16 @@ ProgressBar::ProgressBar() // public
 	QColor background = Mod::getColor("ui-progress-bar-window-color", Qt::black);
 	p.setColor(QPalette::Window, background);
 
-	Config *config = Config::user();
-	config->beginGroup("Progress Bar");
-
-	QColor defaultForeground = 0xF8FFBF /* lime 1 */;
+	QColor defaultForeground = m_foregroundColorVar->getDefault().value<QColor>();
 	m_demoColor = defaultForeground;
 
-	QColor foreground = config->read("Foreground Color", defaultForeground).value<QColor>();
-	
-	setHeight(qBound(SmallSize, static_cast<Size>(config->read("Size", NormalSize).toInt()), LargeSize));
-	
-	config->endGroup();
+	QColor foreground = m_foregroundColorVar->getColor();
 	p.setColor(QPalette::WindowText, (foreground.rgb() == background.rgb()) ? defaultForeground : foreground);
-	
 	setPalette(p);
 
-	setAlignment(Config::user()->progressBarAlignment(), false);
+	setHeight(qBound(SmallSize, static_cast<Size>(m_sizeVar->getInt()), LargeSize));
+
+	setAlignment(static_cast<Qt::Alignment>(m_alignmentVar->getInt()), false);
 	
 	QDesktopWidget *desktop = QApplication::desktop();
 	connect(desktop, SIGNAL(resized(int)), SLOT(onResize(int)));
@@ -343,11 +340,8 @@ void ProgressBar::setSize(const Size size) {
 	setHeight(size);
 	setAlignment(m_alignment, false);
 
-	auto *config = Config::user();
-	config->beginGroup("Progress Bar");
-	config->write("Size", size);
-	config->endGroup();
-	config->sync();
+	m_sizeVar->set(size);
+	m_sizeVar->sync();
 }
 
 // private slots
@@ -407,17 +401,15 @@ void ProgressBar::onSetColor() {
 		QString::null // use default title
 	);
 	#endif // KS_NATIVE_KDE
+
 	if (newColor.isValid()) {
 		QPalette p(palette());
 		p.setColor(QPalette::WindowText, newColor);
 		setPalette(p);
 		repaint();
 
-		Config *config = Config::user();
-		config->beginGroup("Progress Bar");
-		config->write("Foreground Color", newColor);
-		config->endGroup();
-		config->sync();
+		m_foregroundColorVar->set(newColor);
+		m_foregroundColorVar->sync();
 	}
 }
 

@@ -29,6 +29,8 @@
 	#include <KSharedConfig>
 #endif // KS_KF5
 
+// Config
+
 // private
 
 Config *Config::m_user = nullptr;
@@ -105,22 +107,6 @@ bool Config::progressBarEnabled() {
 
 void Config::setProgressBarEnabled(const bool value) {
 	write("Progress Bar", "Enabled", value);
-}
-
-Qt::Alignment Config::progressBarAlignment() {
-	Config *config = user();
-	config->beginGroup("Progress Bar");
-	int result = config->read("Alignment", Qt::AlignTop).toInt();
-	config->endGroup();
-
-	return static_cast<Qt::Alignment>(result);
-}
-
-void Config::setProgressBarAlignment(const Qt::Alignment value) {
-	Config *config = user();
-	config->beginGroup("Progress Bar");
-	config->write("Alignment", static_cast<int>(value));
-	config->endGroup();
 }
 
 bool Config::systemTrayIconEnabled() {
@@ -202,4 +188,37 @@ Config::Config() :
 	else
 		m_engine = new QSettings();
 #endif // KS_NATIVE_KDE
+}
+
+// Var
+
+// public
+
+void Var::sync() {
+	QVariant value = variant();
+
+	Config *config = Config::user();
+	U_DEBUG << "Sync var: " << m_group << " / " << m_key << " = " << value U_END;
+
+	config->beginGroup(m_group);
+	config->write(m_key, value);
+	config->endGroup();
+
+	config->sync();
+}
+
+// private
+
+QVariant Var::variant() {
+	if (!m_lazyVariant.isValid()) {
+		Config *config = Config::user();
+
+		config->beginGroup(m_group);
+		m_lazyVariant = config->read(m_key, m_defaultVariant);
+		config->endGroup();
+
+		U_DEBUG << "Read var: " << m_group << " / " << m_key << " = " << m_lazyVariant U_END;
+	}
+	
+	return m_lazyVariant;
 }
