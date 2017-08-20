@@ -800,9 +800,11 @@ U_ACTION *MainWindow::createQuitAction() {
 	#else
 	auto *quitAction = new U_ACTION(this);
 	quitAction->setIcon(U_STOCK_ICON("application-exit"));
-	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
+// TODO: add more keyboard shortcuts
+	quitAction->setShortcuts(QKeySequence::Quit);
 	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
 	#endif // KS_NATIVE_KDE
+
 	// NOTE: Use "Quit KShutdown" instead of "Quit" because
 	// it may be too similar to "Turn Off" in some language translations.
 	quitAction->setText(i18n("Quit KShutdown"));
@@ -905,7 +907,8 @@ void MainWindow::initMenuBar() {
 
 	// tools menu
 
-	U_MENU *toolsMenu = new U_MENU(i18n("&Tools"), menuBar);
+	auto *toolsMenu = new U_MENU(i18n("&Tools"), menuBar);
+// TODO: add more related tools
 
 	#ifndef Q_OS_WIN32
 	toolsMenu->addAction(i18n("Statistics"), this, SLOT(onStats()));
@@ -913,8 +916,11 @@ void MainWindow::initMenuBar() {
 	#endif // Q_OS_WIN32
 
 #ifdef KS_PURE_QT
-	toolsMenu->addAction(i18n("Preferences"), this, SLOT(onPreferences()))
-		->setIcon(U_STOCK_ICON("configure"));
+	toolsMenu->addAction(
+		U_STOCK_ICON("configure"), i18n("Preferences"),
+		this, SLOT(onPreferences()),
+		QKeySequence::Preferences
+	);
 #endif // KS_PURE_QT
 
 #ifdef KS_NATIVE_KDE
@@ -957,7 +963,7 @@ void MainWindow::initMenuBar() {
 	#endif // KS_KF5
 #else
 	U_MENU *helpMenu = new U_MENU(i18n("&Help"), menuBar);
-	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()));
+	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()), QKeySequence("Ctrl+H,E,L,P"));
 	menuBar->addMenu(helpMenu);
 #endif // KS_NATIVE_KDE
 

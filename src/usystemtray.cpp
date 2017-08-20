@@ -36,6 +36,7 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 	m_sessionRestored = false;
 	#ifdef KS_KF5
 	m_trayIcon = new KStatusNotifierItem(mainWindow);
+	m_trayIcon->setCategory(KStatusNotifierItem::ApplicationStatus);
 	m_trayIcon->setStandardActionsEnabled(false);
 // FIXME: m_trayIcon->setToolTipIconByPixmap(QIcon(":/images/kshutdown.png"));
 	m_trayIcon->setToolTipIconByName("kshutdown");
@@ -59,10 +60,6 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 	U_DEBUG << "USystemTray::isSupported:" << isSupported() U_END;
 }
 
-USystemTray:: ~USystemTray() {
-	//U_DEBUG << "USystemTray::~USystemTray()" U_END;
-}
-
 void USystemTray::info(const QString &message) const {
 	#ifdef KS_KF5
 	m_trayIcon->showMessage("KShutdown", message, "dialog-information");
@@ -76,7 +73,7 @@ bool USystemTray::isSupported() const {
 // TODO: use classic QSystemTrayIcon as fallback if KStatusNotifierItem is unsupported
 // TODO: test other DE
 	// Blacklist: GNOME Shell, Unity
-	return Utils::isKDE();
+	return Utils::isKDE() || Utils::isXfce();
 	#else
 	return
 		QSystemTrayIcon::isSystemTrayAvailable() &&
@@ -135,11 +132,16 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	#ifdef KS_KF5
 	Q_UNUSED(mainWindow)
 // TODO: option
+// FIXME: setIconByPixmap does not work...
 	if (Utils::isKDE())
 		m_trayIcon->setIconByName("system-shutdown");
 	else
 		m_trayIcon->setIconByName("kshutdown");
-// FIXME: setIconByPixmap does not work...
+
+/* TODO: hide if inactive #5.x
+	bool active = mainWindow->active();
+	m_trayIcon->setStatus(active ? KStatusNotifierItem::Active : KStatusNotifierItem::Passive);
+*/
 	#else
 	// convert base icon to pixmap
 
