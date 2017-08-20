@@ -32,7 +32,7 @@ class USystemTray: public QObject {
 	Q_OBJECT
 public:
 	explicit USystemTray(MainWindow *mainWindow);
-	virtual ~USystemTray();
+	virtual ~USystemTray() = default;
 	void info(const QString &message) const;
 	bool isSupported() const;
 	void setContextMenu(QMenu *menu) const;

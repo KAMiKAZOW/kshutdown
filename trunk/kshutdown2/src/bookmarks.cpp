@@ -285,6 +285,8 @@ void BookmarksMenu::onUpdateMenu() {
 	auto *trigger = mainWindow->getSelectedTrigger();
 
 	auto *toggleBookmarkAction = new U_ACTION(this);
+// TODO: toggleBookmarkAction->setShortcut(QKeySequence("Ctrl+D")); need confirmation before remove or some sort of feedback
+
 	auto *bookmark = findBookmark(action, trigger);
 	if (!bookmark) {
 		toggleBookmarkAction->setEnabled(action->canBookmark() && trigger->canBookmark());

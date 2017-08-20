@@ -45,7 +45,9 @@ Preferences::Preferences(QWidget *parent) :
 	
 	m_passwordPreferences = new PasswordPreferences(this);
 	m_tabs->addTab(m_passwordPreferences, i18n("Password"));
-	
+
+// TODO: "Tweaks/Advanced" tab
+
 // TODO: actions/triggers config.
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));

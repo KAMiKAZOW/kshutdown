@@ -259,7 +259,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	//QApplication::setApplicationDescription(i18n("A graphical shutdown utility"));
 	QApplication::setApplicationVersion(KS_FULL_VERSION);
 
-	QCommandLineParser *parser = new QCommandLineParser();
+	auto *parser = new QCommandLineParser();
 	parser->setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
 	Utils::setParser(parser);
 
@@ -273,7 +273,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	parser->addOption(QCommandLineOption(QStringList() << "H" << "hibernate", i18n("Hibernate Computer")));
 	parser->addOption(QCommandLineOption(QStringList() << "S" << "suspend", i18n("Suspend Computer")));
 
-	parser->addOption(QCommandLineOption(QStringList() << "k" << "lock", i18n("Lock screen")));
+	parser->addOption(QCommandLineOption(QStringList() << "k" << "lock", i18n("Lock Screen")));
 	parser->addOption(QCommandLineOption(QStringList() << "l" << "logout", i18n("Logout")));
 
 	parser->addOption(QCommandLineOption(
@@ -337,7 +337,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	options.add("suspend", ki18n("Suspend Computer"));
 
 	options.add("k");
-	options.add("lock", ki18n("Lock screen"));
+	options.add("lock", ki18n("Lock Screen"));
 
 	options.add("l");
 	options.add("logout", ki18n("Logout"));
@@ -406,7 +406,7 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 		
 		parser->parse(arguments);
 		
-		KShutdownApplication *p = dynamic_cast<KShutdownApplication *>(U_APP);
+		auto *p = dynamic_cast<KShutdownApplication *>(U_APP);
 		p->commonStartup(false);
 
 		if (Utils::isArg("cancel"))
