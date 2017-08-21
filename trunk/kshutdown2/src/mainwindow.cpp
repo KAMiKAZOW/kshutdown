@@ -801,7 +801,11 @@ U_ACTION *MainWindow::createQuitAction() {
 	auto *quitAction = new U_ACTION(this);
 	quitAction->setIcon(U_STOCK_ICON("application-exit"));
 // TODO: add more keyboard shortcuts
+	#ifdef Q_OS_WIN32
+	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
+	#else
 	quitAction->setShortcuts(QKeySequence::Quit);
+	#endif // Q_OS_WIN32
 	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
 	#endif // KS_NATIVE_KDE
 

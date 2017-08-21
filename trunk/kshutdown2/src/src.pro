@@ -33,6 +33,7 @@ unix {
 win32 {
 	LIBS += -lpowrprof
 #	QMAKE_LFLAGS = -static-libgcc
+	RC_FILE = kshutdown.rc
 }
 
 # Input
