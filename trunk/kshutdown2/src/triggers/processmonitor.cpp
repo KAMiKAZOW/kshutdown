@@ -413,6 +413,7 @@ void ProcessMonitor::onRefresh() {
 			m_processesComboBox->addItem(i->icon(), i->toString(), i->m_command);
 		}
 
+// FIXME: also compare recent PID
 		int i = m_processesComboBox->findData(m_recentCommand);
 		if (i != -1)
 			m_processesComboBox->setCurrentIndex(i);
