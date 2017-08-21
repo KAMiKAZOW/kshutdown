@@ -23,8 +23,10 @@
 class BootEntry final: public QObject {
 public:
 	static QStringList getList();
+	static QString getProblem() { return m_problem; }
 private:
 	Q_DISABLE_COPY(BootEntry)
+	static QString m_problem;
 	static QStringList m_list;
 };
 
@@ -35,9 +37,11 @@ public:
 private:
 	Q_DISABLE_COPY(BootEntryAction)
 	QString m_name;
+private slots:
+	void onAction();
 };
 
-class BootEntryComboBox: public U_COMBO_BOX {
+class BootEntryComboBox final: public U_COMBO_BOX {
 public:
 	explicit BootEntryComboBox();
 private:
@@ -50,6 +54,8 @@ public:
 	explicit BootEntryMenu(QWidget *parent);
 private:
 	Q_DISABLE_COPY(BootEntryMenu)
+private slots:
+	void onProblem();
 };
 
 #endif // KSHUTDOWN_BOOTENTRY_H
