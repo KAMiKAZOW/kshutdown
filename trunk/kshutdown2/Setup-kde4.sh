@@ -13,7 +13,7 @@ if [ -z "$PREFIX" ]; then
 		PREFIX=/usr/local
 		echo "WARNING: \"kde4-config\" not found; using default installation prefix: $PREFIX"
 	else
-		PREFIX=`$KDE4_CONFIG --prefix`
+		PREFIX=$($KDE4_CONFIG --prefix)
 		if [ -z "$PREFIX" ]; then
 			PREFIX=/usr/local
 		fi
@@ -35,7 +35,6 @@ pushd "$BUILD_DIR"
 echo "INFO: Installation prefix: $PREFIX"
 echo "INFO: Build type         : $BUILD_TYPE"
 
-# TODO: test
 cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$PREFIX" ..
 make -j2
 

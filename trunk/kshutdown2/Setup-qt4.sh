@@ -22,9 +22,9 @@ set -e
 
 ks_info "Configuring..."
 if [ "$1" == "-qt5" ]; then
-# HACK: workaround for error:
-# qmake: could not exec '/usr/lib/x86_64-linux-gnu/qt4/bin/qmake': No such file or directory
-	$QMAKE -qt5 -config release
+	echo "HINT: Install 'qt5-default' package if you see the following error:"
+	echo "      qmake: could not exec '/usr/lib/x86_64-linux-gnu/qt4/bin/qmake': No such file or directory"
+	$QMAKE -config release
 else
 	$QMAKE -config release
 fi
