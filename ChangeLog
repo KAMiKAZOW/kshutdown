@@ -5,6 +5,110 @@
   http://kshutdown.sourceforge.net/releases/
 
 
+2017-08-24  4.1.1 Beta
+
+Linux:
+
+* NEW: Show standard KShutdown actions in the launcher/taskbar context menu (KF5 build only).
+  This works with Plasma, Unity, GNOME, and other DEs that support "Desktop Actions".
+
+Plasma:
+
+* Fixed blurry system tray icon (Breeze theme) <https://sourceforge.net/p/kshutdown/bugs/27/>
+* Removed the standard "Restore" and "Quit" actions from the status icon menu.
+  Add "Quit KShutdown" instead which is less annoying (no confirmation message)
+  and more consistent with the rest of the application.
+* Experimental: Show progress bar in taskbar (disabled in this release)
+
+Xfce:
+
+* Show status notifier (aka system tray) icon (KF5 build only)
+* NEW: Enable "Logout" action. In previous versions the action could break the already fragile Xfce session system.
+  If the problem still exists and Xfce is starting w/o window manager:
+  1. Exit Xfce
+  2. Remove ~/.cache/sessions
+
+GNOME:
+
+* Logout Action: Fixed session manager "freeze" in GNOME-based Desktop Environments
+* Drop GNOME 2 support (existing features should continue to work in KShutdown 4.x as before)
+
+Windows:
+
+* Installer: Remove "License Agreement" because GNU GPL is not an EULA
+* Nicer system tray icon
+* Add KShutdown logo icon to the kshutdown.exe file
+
+Unity:
+
+* Show system tray/notification icon
+  NOTE: may not work 100% correctly due to Qt or Unity issues;
+  also may not work correctly in older Unity versions
+* Fixed: Never hide the main window completely because there is no way to unhide it in Unity
+* Show menu bar again
+  NOTE: global menu bar may not work correctly in older Unity versions
+* Experimental: Show progress bar in taskbar (disabled in this release)
+
+Openbox:
+
+* Fixed Logout action <https://sourceforge.net/p/kshutdown/bugs/31/>
+* Fixed Openbox detection
+
+System Tray:
+
+* Fixed: Always show main window on system tray icon click (even if it was minimized)
+* Remove leading/duplicated "KShutdown" text from the tool tip text
+* CHANGED: Linux: Now the "Black and White System Tray Icon" option is available only if "Use System Icon Theme" is unselected
+* Removed small overlay icons (were barely visible anyway)
+
+Preferences:
+
+* Always show both OK and Cancel buttons in GTK-based Desktop Environments
+* CHANGED: System Settings button (formerly "Related KDE Settings..."):
+  - New icon
+  - Visible only if running under Plasma and compiled using KDE Frameworks
+  - Updated list of visible control panel modules
+
+Misc.:
+
+* CHANGED: Main Window: Do not focus OK button on startup to avoid accidental action activation via Enter key
+* Print values of DESKTOP_SESSION and XDG_CURRENT_DESKTOP environment variables on startup
+* Updated README.html file
+* Added some menu bar key shortcuts
+* Various minor cleanups and updates
+
+Setup.sh:
+
+* Run make with "-j2" options for faster compilation
+* Show proper error if "dialog" program is missing
+* Improve run/installation instructions
+* Select "kshutdown-kf5" or "kshutdown-qt5" by default (instead of Qt 4-based builds)
+* Mark "kshutdown-kde4" and "kshutdown-qt4" as obsolete
+* Include "kshutdown-qt5" and "kshutdown-qt4-win32" in menu
+
+Setup-kf5.sh:
+
+* Fixed: "(...) bootentry.h: No such file or directory" fatal error if compiling from symbolic link directory
+
+Setup-qt5.sh:
+
+* Fixed: Explain how to fix:
+  qmake: could not exec '/usr/lib/x86_64-linux-gnu/qt4/bin/qmake': No such file or directory
+
+Setup-kde4.sh:
+
+* Removed auto installation using kdesu
+
+Source:
+
+* CHANGED: Move ./tools/VERSION to the top-level directory (./VERSION)
+* CHANGED: Add "release date" to the ./VERSION file
+* Cleanup *.h header includes
+* Removed ./tools/flint++.sh
+* Updated ./tools/clang-tidy.sh and ./tools/scan-build.sh
+* Minor code cleanups
+
+
 2017-04-17  4.1 Beta
 
 * Better tool tips in menus (requires Qt 5.1+) (feature-request #21)
@@ -923,4 +1027,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 846:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 870:HEAD|xsel -i -b && kwrite ChangeLog
