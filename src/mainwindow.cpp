@@ -448,12 +448,16 @@ QStringList MainWindow::triggerList(const bool showDescription) {
 }
 
 void MainWindow::setActive(const bool yes) {
+	setActive(yes, true);
+}
+
+void MainWindow::setActive(const bool yes, const bool needAuthorization) { // private
 	if (m_active == yes)
 		return;
 
 	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
 
-	if (!yes && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))
+	if (needAuthorization && !yes && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))
 		return;
 
 	Action *action = getSelectedAction();
@@ -1366,7 +1370,9 @@ void MainWindow::onCheckTrigger() {
 	// activate action
 	Trigger *trigger = getSelectedTrigger();
 	if (trigger->canActivateAction()) {
-		setActive(false);
+		// NOTE: 2nd "false" fixes https://sourceforge.net/p/kshutdown/bugs/33/
+		setActive(false, false);
+
 		Action *action = getSelectedAction();
 		if (action->isEnabled()) {
 			U_DEBUG << "Activate action: force=" << m_force->isChecked() U_END;
