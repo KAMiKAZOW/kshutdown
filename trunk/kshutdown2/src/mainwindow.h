@@ -130,6 +130,7 @@ private:
 	void initWidgets();
 	static void pluginConfig(const bool read);
 	void readConfig();
+	void setActive(const bool yes, const bool needAuthorization);
 	void setTitle(const QString &plain, const QString &html);
 	void updateWidgets();
 private slots:
