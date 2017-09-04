@@ -771,6 +771,20 @@ QDBusInterface *PowerAction::getUPowerInterface() {
 			"org.freedesktop.UPower",
 			QDBusConnection::systemBus()
 		);
+
+		if (!m_upowerInterface->isValid()) {
+			// HACK: wait for service start
+			// BUG: https://sourceforge.net/p/kshutdown/bugs/34/
+			U_DEBUG << "UPower: Trying again..." U_END;
+			delete m_upowerInterface;
+			m_upowerInterface = new QDBusInterface(
+				"org.freedesktop.UPower",
+				"/org/freedesktop/UPower",
+				"org.freedesktop.UPower",
+				QDBusConnection::systemBus()
+			);
+		}
+
 		if (m_upowerInterface->isValid())
 			U_DEBUG << "UPower backend found..." U_END;
 		else
