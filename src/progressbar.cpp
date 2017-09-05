@@ -330,6 +330,7 @@ bool ProgressBar::authorize() {
 }
 
 void ProgressBar::makeRadioButton(QAction *action, QActionGroup *group, const bool checked) {
+// TODO: icons with size/position preview
 	action->setActionGroup(group);
 	action->setCheckable(true);
 	action->setChecked(checked);

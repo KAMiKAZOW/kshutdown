@@ -67,6 +67,8 @@ bool LockAction::onAction() {
 			return true;
 	}
 
+// TODO: support org.freedesktop.DisplayManager Lock
+
 	// HACK: This is a workaround for "lazy" initial kscreensaver repaint.
 	// Now the screen content is hidden immediately.
 	QWidget *blackScreen = nullptr;
