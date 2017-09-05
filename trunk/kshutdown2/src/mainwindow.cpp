@@ -804,12 +804,8 @@ U_ACTION *MainWindow::createQuitAction() {
 	#else
 	auto *quitAction = new U_ACTION(this);
 	quitAction->setIcon(U_STOCK_ICON("application-exit"));
-// TODO: add more keyboard shortcuts
-	#ifdef Q_OS_WIN32
 	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
-	#else
-	quitAction->setShortcuts(QKeySequence::Quit);
-	#endif // Q_OS_WIN32
+	//quitAction->setShortcuts(QKeySequence::Quit <- useless);
 	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
 	#endif // KS_NATIVE_KDE
 
@@ -919,7 +915,8 @@ void MainWindow::initMenuBar() {
 // TODO: add more related tools
 
 	#ifndef Q_OS_WIN32
-	toolsMenu->addAction(i18n("Statistics"), this, SLOT(onStats()));
+	auto *statsAction = toolsMenu->addAction(i18n("Statistics"), this, SLOT(onStats()));
+	statsAction->setShortcut(QKeySequence("Ctrl+Shift+S"));
 	toolsMenu->addSeparator();
 	#endif // Q_OS_WIN32
 
