@@ -26,6 +26,8 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 	//U_DEBUG << "UDialog::UDialog()" U_END;
 	setWindowTitle(windowTitle);
 
+// TODO: AA_DisableWindowContextHelpButton #Qt5.10
+
 #ifdef KS_KF5
 	if (simple) {
 		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Close);

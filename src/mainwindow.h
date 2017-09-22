@@ -72,7 +72,7 @@ public:
 
 		return m_instance;
 	}
-	bool maybeShow();
+	bool maybeShow(const bool forceShow = false);
 	void setTime(const QString &selectTrigger, const QTime &time, const bool absolute);
 	QHash<QString, Trigger*> triggerHash() const { return m_triggerHash; }
 public slots:

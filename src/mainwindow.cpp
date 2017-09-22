@@ -320,9 +320,11 @@ void MainWindow::init() {
 	pluginConfig(true); // read
 }
 
-bool MainWindow::maybeShow() {
+bool MainWindow::maybeShow(const bool forceShow) {
 	if (Utils::isArg("hide-ui")) {
 		hide();
+
+// FIXME: KStatusNotifierItem is always visible
 		m_systemTray->setVisible(false);
 		
 		return true;
@@ -386,7 +388,10 @@ bool MainWindow::maybeShow() {
 	if (trayIconEnabled)
 		m_systemTray->setVisible(true);
 
-	if (Utils::isArg("init") || U_APP->isSessionRestored()) {
+	if (forceShow) {
+		show();
+	}
+	else if (Utils::isArg("init") || U_APP->isSessionRestored()) {
 		if (!trayIconEnabled)
 			showMinimized(); // krazy:exclude=qmethods
 	}
