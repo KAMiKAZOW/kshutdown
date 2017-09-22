@@ -68,7 +68,7 @@ public:
 	}
 #endif // KS_NATIVE_KDE
 
-	bool commonStartup(const bool first) {
+	bool commonStartup(const bool first, const bool forceShow = false) {
 		if (first)
 			MainWindow::init();
 		
@@ -81,7 +81,7 @@ public:
 		
 		bool useTimeOption = TimeOption::isValid() && TimeOption::action();
 		
-		if (!MainWindow::self()->maybeShow()) {
+		if (!MainWindow::self()->maybeShow(forceShow)) {
 			quit();
 
 			return false;
@@ -400,14 +400,18 @@ http://blog.davidedmundson.co.uk/blog/kde_apps_high_dpi
 	KShutdownApplication program(argc, argv);
 
 	QApplication::setOrganizationDomain("sf.net"); // do not modify
+
 	KDBusService *dbusService = new KDBusService(KDBusService::Unique | KDBusService::NoExitOnFailure);
+// TODO: print message if KShutdown is already running
+// qDebug("KShutdown is already running");
+
 	QObject::connect(dbusService, &KDBusService::activateRequested, [=](const QStringList &arguments, const QString &cwd) {
 		Q_UNUSED(cwd)
-		
+
 		parser->parse(arguments);
 		
 		auto *p = dynamic_cast<KShutdownApplication *>(U_APP);
-		p->commonStartup(false);
+		p->commonStartup(false, true);
 
 		if (Utils::isArg("cancel"))
 			MainWindow::self()->setActive(false);
