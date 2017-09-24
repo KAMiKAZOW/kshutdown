@@ -394,6 +394,7 @@ void ProcessMonitor::onRefresh() {
 		qSort(m_processList.begin(), m_processList.end(), compareProcess);
 
 		bool separatorAdded = false;
+		int dummyProcessIndex = -1;
 
 		foreach (Process *i, m_processList) {
 			// separate non-important processes
@@ -407,7 +408,14 @@ void ProcessMonitor::onRefresh() {
 				!separatorAdded
 			) {
 				separatorAdded = true;
+				dummyProcessIndex = m_processesComboBox->count();
 				m_processesComboBox->insertSeparator(m_processesComboBox->count());
+			}
+
+			// NOTE: insert dummy list entry to match combo box indexes
+			if (dummyProcessIndex != -1) {
+				m_processList.insert(dummyProcessIndex, new Process(this, ""));
+				dummyProcessIndex = -1;
 			}
 
 			m_processesComboBox->addItem(i->icon(), i->toString(), i->m_command);
