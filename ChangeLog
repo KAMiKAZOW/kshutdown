@@ -1,8 +1,25 @@
 
+  Previous Versions and Screenshots: https://kshutdown.sourceforge.io/releases/
 
-  See also changes for 3.3 and 3.99 for the complete list
-  of new features since version 3.2...
-  http://kshutdown.sourceforge.net/releases/
+2017-10-16  4.2
+
+* Fixed: Password on Cancel bypasses the Action setting (bug #33)
+* Statistics: Added Ctrl+Shift+S shortcut
+* Updated the Polish translation
+
+Linux:
+
+* Fixed: Suspend only works the second time (bug #34)
+* Fixed missing Ctrl+Q shortcut in some Desktop Environments
+* Fixed: Show application main window if KShutdown is already running
+* When Selected Application Exit trigger:
+  - Fixed combo box selection of root and non-own processes
+  - Fixed root and non-own processes exit detection
+
+Source:
+
+* Removed semi-private KDevelop project files
+* Updated links and args in tools/*.sh scripts
 
 
 2017-08-24  4.1.1 Beta
@@ -1027,4 +1044,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 870:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 878:HEAD|xsel -i -b && kwrite ChangeLog

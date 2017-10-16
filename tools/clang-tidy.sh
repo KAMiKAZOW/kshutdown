@@ -11,7 +11,9 @@ echo "Hint: 1. Set Clang as C++ compiler: export CXX=/usr/bin/clang++"
 echo "      2. Reconfigure project: ./Setup-kf5.sh"
 
 CHECKS="*"\
+",-cert-err58-cpp"\
 ",-google-readability-braces-around-statements,-google-readability-todo"\
+",-modernize-raw-string-literal"\
 ",-readability-braces-around-statements,-readability-implicit-bool-cast,-readability-redundant-declaration"
 # NOTE: readability-redundant-declaration is false positive (?)
 
