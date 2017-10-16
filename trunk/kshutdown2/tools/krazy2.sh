@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # SEE: https://github.com/Krazy-collection/krazy
-# DOC: http://techbase.kde.org/Development/Tutorials/Code_Checking
+# DOC: https://community.kde.org/Guidelines_and_HOWTOs/Code_Checking
 
 if [ ! -f "ChangeLog" ]; then
 	echo "Usage: ./tools/krazy2.sh [directory to test]"

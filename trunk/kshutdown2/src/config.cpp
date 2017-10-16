@@ -198,7 +198,7 @@ void Var::sync() {
 	QVariant value = variant();
 
 	Config *config = Config::user();
-	U_DEBUG << "Sync var: " << m_group << " / " << m_key << " = " << value U_END;
+	//U_DEBUG << "Sync var: " << m_group << " / " << m_key << " = " << value U_END;
 
 	config->beginGroup(m_group);
 	config->write(m_key, value);
@@ -217,7 +217,7 @@ QVariant Var::variant() {
 		m_lazyVariant = config->read(m_key, m_defaultVariant);
 		config->endGroup();
 
-		U_DEBUG << "Read var: " << m_group << " / " << m_key << " = " << m_lazyVariant U_END;
+		//U_DEBUG << "Read var: " << m_group << " / " << m_key << " = " << m_lazyVariant U_END;
 	}
 	
 	return m_lazyVariant;
