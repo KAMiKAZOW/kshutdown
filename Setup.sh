@@ -27,13 +27,7 @@ function doCompile()
 {
 	clear
 
-	if [ "$1" == "kshutdown-kde4" ]; then
-		if ./Setup-kde4.sh; then
-			doSuccess "build.tmp" "./build.tmp/src/kshutdown"
-		else
-			doBuildError
-		fi
-	elif [ "$1" == "kshutdown-kf5" ]; then
+	if [ "$1" == "kshutdown-kf5" ]; then
 		if ./Setup-kf5.sh; then
 			doSuccess "build.tmp" "./build.tmp/src/kshutdown"
 		else
@@ -105,7 +99,6 @@ out=$(dialog \
 	--menu "" 0 0 0 \
 	"kshutdown-kf5" "An universal version for KDE Plasma and other desktop environments" "Required libraries: KDE Frameworks 5.x (KF5)" \
 	"kshutdown-qt5" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 5.x only" \
-	"kshutdown-kde4" "A classic version for KDE 4 with additional features (obsolete)" "Required libraries: Qt 4.8+, KDE 4 libs" \
 	"kshutdown-qt4" "A lightweight version for non-KDE desktop environments (obsolete)" "Required libraries: Qt 4.8+ only" \
 	"kshutdown-qt4-win32" "A lightweight version for Windows" "Required libraries: Qt 4.8+ only; compiled in Wine")
 case $? in
