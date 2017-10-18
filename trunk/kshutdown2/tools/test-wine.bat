@@ -10,6 +10,6 @@ cd ..
 
 rem Installer test:
 rem "%ProgramFiles%\NSIS\makensis.exe" kshutdown.nsi
-rem kshutdown-4.2-win32.exe
+rem kshutdown-5.0beta1-win32.exe
 
 src\release\kshutdown-qt.exe
