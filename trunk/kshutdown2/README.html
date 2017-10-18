@@ -141,8 +141,8 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 
 <h2>Table of Contents</h2>
 <ul>
-	<li><a href="#kdevsqt">What's KDE/KF5/Qt Build?</a></li>
-	<li><a href="#kde4linux">KDE Build @ Linux</a></li>
+	<li><a href="#kdevsqt">What's KF5/Qt Build?</a></li>
+	<li><a href="#kde4linux">KF5 Build @ Linux</a></li>
 	<li><a href="#qt4linux">Qt Build @ Linux</a></li>
 	<li><a href="#qt4windows">Qt Build @ Windows</a></li>
 	<li><a href="#qthaiku">Qt Build @ Haiku</a></li>
@@ -156,14 +156,13 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 	</li>
 </ul>
 
-<h2 id="kdevsqt">What's KDE/KF5/Qt Build?</h2>
+<h2 id="kdevsqt">What's KF5/Qt Build?</h2>
 
 <table id="build_table">
 
 <thead>
 <tr>
 	<td></td>
-	<td>KDE Build</td>
 	<td>KF5 Build</td>
 	<td>Qt Build</td>
 	<td>Qt Build (Windows)</td>
@@ -174,20 +173,18 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 
 <tr>
 	<td class="header">Summary</td>
-	<td>A KShutdown version compiled using KDE 4 libraries</td>
 	<td>A KShutdown version compiled using KDE Frameworks 5 libraries</td>
-	<td colspan="2">A KShutdown version compiled without KDE 4 libraries (Qt only, for Xfce, GNOME, Windows, etc.)</td>
+	<td colspan="2">A KShutdown version compiled without any KDE libraries (Qt only)</td>
 </tr>
 
 <tr>
 	<td class="header">Additional Features</td>
-	<td colspan="2">Better visual and functional integration with KDE, better User Interface elements and standard dialog windows, global and local keyboard shortcuts configuration, customizable notifications (e.g. sounds), improved localization, a more reliable system tray/notification icon (KF5 only).</td>
+	<td>Better visual and functional integration with KDE, better User Interface elements and standard dialog windows, global and local keyboard shortcuts configuration, customizable notifications (e.g. sounds), improved localization, a more reliable system tray/notification icon (KF5 only).</td>
 	<td colspan="2">None (just plain Qt)</td>
 </tr>
 
 <tr>
 	<td class="header">Compilation Script</td>
-	<td>./Setup-kde4.sh</td>
 	<td>./Setup-kf5.sh</td>
 	<td>./Setup-qt4.sh or ./Setup-qt5.sh</td>
 	<td>Setup-qt4.bat or ./Setup-wine.sh</td>
@@ -196,7 +193,6 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 <tr>
 <!-- TODO: add exact instructions: package names, commands, etc. -->
 	<td class="header">Required Libraries</td>
-	<td>libqtgui4, libqt4-dbus, +minimal set of KDE libraries (NOTE: since version 3.1 Beta libkworkspace4 and kdebase-workspace-dev are NO longer required)</td>
 	<td>Qt5Widgets, Qt5DBus, base KF5 libraries (see "src/CMakeLists.txt" for details)</td>
 	<td>
 	Qt 4: QtGui, QtDBus, QtCore (Ubuntu packages: libqtgui4, libqt4-dbus)<br />
@@ -209,7 +205,6 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 <tr>
 	<td class="header">Menu Shortcut Name</td>
 	<td>KShutdown</td>
-	<td>KShutdown</td>
 	<td>KShutdown<b>/Qt</b></td>
 	<td>KShutdown</td>
 </tr>
@@ -218,18 +213,16 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 	<td class="header" id="configurationfiles">Configuration Files</td>
 	<td class="file_list">
 		<ul>
-		<li>~/.kde/share/apps/kshutdown/extras/</li>
-		<li>~/.kde/share/config/kshutdown.notifyrc</li>
-		<li>~/.kde/share/config/kshutdownrc</li>
-		</ul>
-	</td>
-	<td class="file_list">
-		<ul>
 		<li>~/.local/share/kshutdown/extras/</li>
 		<li>~/.config/kshutdown.notifyrc</li>
 		<li>~/.config/kshutdownrc</li>
 		</ul>
-		<p>Tip: You can manually import existing configuration from ~/.kde directory.</p>
+		<p>Note: You can manually import existing configuration from ~/.kde directory:</p>
+		<ul>
+		<li>~/.kde/share/apps/kshutdown/extras/</li>
+		<li>~/.kde/share/config/kshutdown.notifyrc</li>
+		<li>~/.kde/share/config/kshutdownrc</li>
+		</ul>
 	</td>
 	<td class="file_list">
 		<ul>
@@ -252,20 +245,17 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 	<td class="header">Installed Files</td>
 	<td class="file_list">
 		<ul>
-		<li>/usr/share/applications/kde4/kshutdown.desktop</li>
-		<li>/usr/share/icons/hicolor/*/actions/kshutdown.*</li>
-		<li>/usr/share/kde4/apps/kshutdown/extras/**</li>
-		<li>/usr/share/kde4/apps/kshutdown/kshutdown.notifyrc</li>
-		<li>/usr/share/locale/**/kshutdown.mo</li>
-		</ul>
-	</td>
-	<td class="file_list">
-		<ul>
 		<li>/usr/share/applications/kshutdown.desktop</li>
 		<li>/usr/share/icons/hicolor/*/actions/kshutdown.*</li>
 		<li>/usr/share/knotifications5/kshutdown.notifyrc</li>
 		<li>/usr/share/kshutdown/extras/**</li>
 		<li>/usr/share/locale/**/kshutdown.mo</li>
+		</ul>
+		<p>Note: After migration from KDE 4 version to KF 5 version, you can optionally remove the old files (if any):</p>
+		<ul>
+		<li>/usr/share/applications/kde4/kshutdown.desktop</li>
+		<li>/usr/share/kde4/apps/kshutdown/extras/**</li>
+		<li>/usr/share/kde4/apps/kshutdown/kshutdown.notifyrc</li>
 		</ul>
 	</td>
 	<td class="file_list">
@@ -284,7 +274,6 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 <tr>
 	<td class="header">Default Program Location</td>
 	<td>/usr/bin/kshutdown</td>
-	<td>/usr/bin/kshutdown</td>
 	<td>/usr/bin/kshutdown<b>-qt</b></td>
 	<td>kshutdown.exe</td>
 </tr>
@@ -296,20 +285,20 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 
 <tr>
 	<td class="header">C++ #define</td>
-	<td><code>KS_NATIVE_KDE</code></td>
+<!-- TODO: remove KS_NATIVE_KDE from the code -->
 	<td><code>KS_NATIVE_KDE</code> and <code>KS_KF5</code></td>
 	<td colspan="2"><code>KS_PURE_QT</code></td>
 </tr>
 
 <tr>
 	<td class="header">Build System</td>
-	<td colspan="2"><a href="http://www.cmake.org/">CMake</a> (CMakeLists.txt files)</td>
+	<td><a href="http://www.cmake.org/">CMake</a> (CMakeLists.txt files)</td>
 	<td colspan="2"><a href="http://qt-project.org/doc/qt-4.8/qmake-manual.html">QMake</a> (src/src.pro file) or CMake (experimental)</td>
 </tr>
 
 <tr>
 	<td class="header">Language Translation System (input: po/*.po)</td>
-	<td colspan="2">Gettext (output: build.tmp/po/*.mo)</td>
+	<td>Gettext (output: build.tmp/po/*.mo)</td>
 	<td>Gettext (output: src/i18n/*.qm), kshutdown.qrc</td>
 	<td>TODO:</td>
 </tr>
@@ -320,7 +309,7 @@ Visit <a href="https://kshutdown.sourceforge.io/">KShutdown Home Page</a> and
 
 <p>See <a href="#supported">Supported Functions/Platforms</a> table for more info.</p>
 
-<h2 id="kde4linux">KDE Build @ Linux</h2>
+<h2 id="kde4linux">TODO: KDE Build @ Linux</h2>
 
 <h3>Minimal Requirements</h3>
 <ol>
@@ -514,20 +503,7 @@ Try to run
 
 <!-- TODO: document systemd support -->
 <tr>
-<td class="build obsolete"><a href="http://kde.org/">KDE</a> 4 (KDE Build)</td>
-<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
-<td class="ok" title="D-Bus (org.kde.ksmserver)">OK</td>
-<td class="ok">OK</td>
-<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
-<td class="ok" title="KIdleTime, D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">OK</td>
-</tr>
-
-<tr>
-<td class="build">Plasma 5 (KF5 Build)</td>
+<td class="build"><a href="https://www.kde.org/">Plasma</a> 5 (KF5 Build)</td>
 <td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
 <td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
@@ -566,20 +542,7 @@ Try to run
 </tr>
 
 <tr>
-<td class="build obsolete">KDE 4 (Qt Build)</td>
-<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">OK</td>
-<td class="ok" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner), xdg-screensaver, xscreensaver-command">OK</td>
-<td class="ok" title="D-Bus (org.kde.ksmserver)">OK</td>
-<td class="test">Test</td>
-<td class="ok" title="::kill(pid, 0)">OK, no CLI</td>
-<td class="wip" title="D-Bus (org.freedesktop.ScreenSaver, org.kde.krunner)">FIXME</td>
-</tr>
-
-<tr>
-<td class="build">Plasma 5 (Qt Build)</td>
+<td class="build"><a href="https://www.kde.org/">Plasma</a> 5 (Qt Build)</td>
 <td class="test" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
 <td class="test" title="D-Bus (org.kde.ksmserver, org.freedesktop.ConsoleKit, org.freedesktop.Hal)">Test</td>
 <td class="test" title="D-Bus (org.freedesktop.UPower, org.freedesktop.Hal)">Test</td>
