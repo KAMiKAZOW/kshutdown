@@ -33,11 +33,7 @@
 #ifdef KS_UNIX
 	#include <csignal> // for ::kill
 
-	#if QT_VERSION >= 0x050000
-		#include <QThread>
-	#else
-		#include <unistd.h> // for ::sleep
-	#endif // QT_VERSION
+	#include <QThread>
 #endif // KS_UNIX
 
 #ifdef Q_OS_WIN32
@@ -349,10 +345,9 @@ ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
 	setShortcut(action->shortcut());
 	setStatusTip(action->statusTip());
 	setText(action->text());
-	#if QT_VERSION >= 0x050100
+
 	// HACK: action->toolTip() is unusable in Qt
 	setToolTip(action->statusTip()); // for QMenu
-	#endif // QT_VERSION
 
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
@@ -814,11 +809,7 @@ bool PowerAction::onAction() {
 		LockAction::self()->activate(false);
 
 		// HACK: wait for screensaver
-		#if QT_VERSION >= 0x050000
 		QThread::sleep(1);
-		#else
-		::sleep(1);
-		#endif // QT_VERSION
 	}
 	
 	QDBusInterface *login = getLoginInterface();

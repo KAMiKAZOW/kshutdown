@@ -164,9 +164,7 @@ int main(int argc, char **argv) {
 
 	QApplication::setOrganizationName("kshutdown.sf.net"); // do not modify
 	QApplication::setApplicationName("KShutdown");
-	#if QT_VERSION >= 0x050200
 	QApplication::setApplicationDisplayName("KShutdown");
-	#endif // QT_VERSION
 	KShutdownApplication program(argc, argv);
 
 /* TODO: program.setAttribute(Qt::AA_UseHighDpiPixmaps, true); #Qt5.4

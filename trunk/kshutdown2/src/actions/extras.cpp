@@ -223,9 +223,7 @@ U_MENU *Extras::createMenu() {
 	m_menu = new U_MENU();
 
 	connect(m_menu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
-	#if QT_VERSION >= 0x050100
 	m_menu->setToolTipsVisible(true);
-	#endif // QT_VERSION
 
 	connect(m_menu, SIGNAL(aboutToShow()), this, SLOT(updateMenu()));
 
@@ -258,9 +256,7 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 			}
 
 			connect(dirMenu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
-			#if QT_VERSION >= 0x050100
 			dirMenu->setToolTipsVisible(true);
-			#endif // QT_VERSION
 
 			createMenu(dirMenu, i.filePath()); // recursive scan
 
@@ -290,11 +286,7 @@ QString Extras::getFilesDirectory() const {
 		dir = QDir(QApplication::applicationDirPath() + QDir::separator() + "extras");
 	}
 	else {
-		#if QT_VERSION >= 0x050000
 		dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QDir::separator() + "extras");
-		#else
-		dir = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QDir::separator() + "extras";
-		#endif // QT_VERSION
 	}
 
 	//U_DEBUG << "Extras dir: " << dir U_END;
@@ -407,20 +399,16 @@ void Extras::slotModify() {
 			QMessageBox::Ok // krazy:exclude=qclasses
 		);
 
-		#if QT_VERSION >= 0x050200
 		QCheckBox *doNotShowAgainCheckBox = new QCheckBox(i18n("Do not show this message again"));
 		message->setCheckBox(doNotShowAgainCheckBox);
-		#endif // QT_VERSION
 
 		message->exec();
 
-		#if QT_VERSION >= 0x050200
 		if (doNotShowAgainCheckBox->isChecked()) {
 			config->beginGroup("KShutdown Action extras");
 			config->write("Show Info", false);
 			config->endGroup();
 		}
-		#endif // QT_VERSION
 
 		delete message;
 	}
@@ -488,9 +476,7 @@ CommandAction::CommandAction(
 
 	setIconVisibleInMenu(true);
 	setStatusTip(statusTip);
-	#if QT_VERSION >= 0x050100
 	setToolTip(statusTip);
-	#endif // QT_VERSION
 	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 
