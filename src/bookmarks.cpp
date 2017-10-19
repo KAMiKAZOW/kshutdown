@@ -57,9 +57,7 @@ BookmarkAction::BookmarkAction(
 
 	if (m_userText) {
 		setStatusTip(actionText);
-		#if QT_VERSION >= 0x050100
 		setToolTip(actionText);
-		#endif // QT_VERSION
 	}
 
 	setText(m_originalText);
@@ -96,9 +94,7 @@ BookmarksMenu::BookmarksMenu(QWidget *parent)
 	connect(this, SIGNAL(aboutToShow()), SLOT(onUpdateMenu()));
 
 	connect(this, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-	#if QT_VERSION >= 0x050100
 	setToolTipsVisible(true);
-	#endif // QT_VERSION
 }
 
 BookmarksMenu::~BookmarksMenu() = default;
@@ -223,9 +219,7 @@ void BookmarksMenu::onAddBookmark() {
 	dialog->acceptButton()->setText(i18n("Add"));
 
 	U_LINE_EDIT *nameField = new U_LINE_EDIT(makeText(action, trigger, QString::null, QString::null));
-	#if QT_VERSION >= 0x050200
 	nameField->setClearButtonEnabled(true);
-	#endif
 
 	auto *confirmActionField = new QCheckBox(i18n("Confirm Action"));
 	confirmActionField->setChecked(true);

@@ -179,4 +179,10 @@
 	// use i18n from KLocale
 #endif // KS_PURE_QT
 
+// Qt 5.6 - 3 year LTS since 2016
+// Qt 5.9 - 3 year LTS since 2017
+#if QT_VERSION < 0x050600
+	#error "KShutdown 5.x requires Qt 5.6 or newer"
+#endif // QT_VERSION
+
 #endif // KSHUTDOWN_PUREQT_H

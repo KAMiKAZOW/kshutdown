@@ -335,12 +335,8 @@ bool MainWindow::maybeShow(const bool forceShow) {
 		QStringList menuActions = menuLayout.split(':');
 
 		auto *menu = new U_MENU();
-		#if QT_VERSION < 0x050100
-		//connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-		#else
 		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 		menu->setToolTipsVisible(true);
-		#endif // QT_VERSION
 
 		bool confirm = Utils::isArg("confirm");
 
@@ -359,6 +355,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 			}
 			else {
 				auto *action = m_actionHash[id];
+// FIXME: missing tool tip (?)
 // TODO: show confirmation dialog at cursor position (?)
 				if (action) {
 					if (confirm)
@@ -887,9 +884,7 @@ void MainWindow::initMenuBar() {
 	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
 
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-	#if QT_VERSION >= 0x050100
 	fileMenu->setToolTipsVisible(true);
-	#endif // QT_VERSION
 
 	Utils::addTitle(fileMenu, /*U_STOCK_ICON("dialog-warning")*/U_ICON(), i18n("No Delay"));
 	initFileMenu(fileMenu);
@@ -897,13 +892,8 @@ void MainWindow::initMenuBar() {
 
 	auto *systemTrayFileMenu = new U_MENU(); // need copy
 
-	#if QT_VERSION < 0x050100
-	// HACK: wrong tool tip location <https://sourceforge.net/p/kshutdown/feature-requests/21/>
-	// connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-	#else
 	connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	systemTrayFileMenu->setToolTipsVisible(true);
-	#endif // QT_VERSION
 
 	initFileMenu(systemTrayFileMenu);
 
@@ -1105,16 +1095,9 @@ void MainWindow::setTitle(const QString &plain, const QString &html) {
 #elif defined(KS_NATIVE_KDE)
 	setCaption(plain);
 #else
-	#if QT_VERSION >= 0x050200
 	setWindowTitle(plain);
 	// NOTE: the " - KShutdown" suffix is appended automatically
 	// if QApplication::applicationDispayName is set
-	#else
-	if (plain.isEmpty())
-		setWindowTitle("KShutdown");
-	else
-		setWindowTitle(plain + " - KShutdown");
-	#endif // QT_VERSION
 #endif // KS_NATIVE_KDE
 	QString s = html.isEmpty() ? "KShutdown" : html;
 

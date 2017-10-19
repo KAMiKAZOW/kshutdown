@@ -368,19 +368,9 @@ void Utils::showMenuToolTip(QAction *action) {
 	if (list.count() != 1)
 		return;
 
-	#if QT_VERSION >= 0x050100
 	// HACK: hide previous tool tip window if no tool tip...
 	if (action->statusTip().isEmpty())
 		QToolTip::hideText();
-	#else
-	QWidget *widget = list.first();
-	int magicNumber = 5_px;
-	QToolTip::showText(
-		QPoint(widget->x() + magicNumber, widget->y() + widget->height() - (magicNumber * 2)),
-		//QCursor::pos(),
-		action->statusTip()
-	);
-	#endif // QT_VERSION
 }
 
 void Utils::shutDown() {

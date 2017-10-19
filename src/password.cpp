@@ -46,9 +46,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 
 // TODO: show warning if Caps Lock is turned on (no reliable solution in Qt)
 	m_password = new U_LINE_EDIT();
-	#if QT_VERSION >= 0x050200
 	m_password->setClearButtonEnabled(true);
-	#endif
 	m_password->setEchoMode(U_LINE_EDIT::Password);
 	connect(
 		m_password, SIGNAL(textChanged(const QString &)),
@@ -56,9 +54,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	);
 
 	m_confirmPassword = new U_LINE_EDIT();
-	#if QT_VERSION >= 0x050200
 	m_confirmPassword->setClearButtonEnabled(true);
-	#endif
 	m_confirmPassword->setEchoMode(U_LINE_EDIT::Password);
 	connect(
 		m_confirmPassword, SIGNAL(textChanged(const QString &)),
