@@ -19,13 +19,8 @@
 #define KSHUTDOWN_UDIALOG_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QVBoxLayout>
-
-#if defined(KS_PURE_QT) || defined(KS_KF5)
-	#include <QDialogButtonBox>
-#else
-	#include <KDialogButtonBox> // #kde4
-#endif // KS_PURE_QT
 
 class UDialog: public QDialog {
 	Q_OBJECT
@@ -37,11 +32,7 @@ public:
 	inline QVBoxLayout *rootLayout() { return m_rootLayout; }
 private:
 	Q_DISABLE_COPY(UDialog)
-	#if defined(KS_PURE_QT) || defined(KS_KF5)
 	QDialogButtonBox *m_dialogButtonBox;
-	#else
-	KDialogButtonBox *m_dialogButtonBox;
-	#endif // KS_PURE_QT
 	QPushButton *m_acceptButton;
 	QVBoxLayout *m_mainLayout;
 	QVBoxLayout *m_rootLayout;

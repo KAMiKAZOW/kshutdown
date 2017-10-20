@@ -27,6 +27,7 @@
 #include "actions/bootentry.h"
 #include "actions/lock.h"
 
+#include <QLineEdit>
 #include <QPointer>
 #include <QPushButton>
 

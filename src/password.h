@@ -22,6 +22,7 @@
 #include "udialog.h"
 
 #include <QCheckBox>
+#include <QListWidget>
 
 class InfoWidget;
 
@@ -38,8 +39,8 @@ public:
 private:
 	Q_DISABLE_COPY(PasswordDialog)
 	InfoWidget *m_status;
-	U_LINE_EDIT *m_confirmPassword;
-	U_LINE_EDIT *m_password;
+	QLineEdit *m_confirmPassword;
+	QLineEdit *m_password;
 	void updateStatus();
 private slots:
 	void onConfirmPasswordChange(const QString &text);
@@ -56,7 +57,7 @@ private:
 	Q_DISABLE_COPY(PasswordPreferences)
 	int m_configKeyRole;
 	QCheckBox *m_enablePassword;
-	U_LIST_WIDGET *m_userActionList;
+	QListWidget *m_userActionList;
 	QListWidgetItem *addItem(const QString &key, const QString &text, const QIcon &icon);
 	void updateWidgets(const bool passwordEnabled);
 private slots:

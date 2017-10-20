@@ -23,16 +23,12 @@
 #include "password.h"
 #include "utils.h"
 
+#include <QColorDialog>
 #include <QDesktopWidget>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QTimer>
-
-#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
-	#include <KColorDialog> // #kde4
-#else
-	#include <QColorDialog>
-#endif // KS_NATIVE_KDE
 
 // public
 
@@ -172,7 +168,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 		return;
 
 	// show popup menu
-	auto *menu = new U_MENU(this);
+	auto *menu = new QMenu(this);
 
 	Utils::addTitle(menu, U_APP->windowIcon(),
 		i18n("Progress Bar") + " - " +
@@ -193,7 +189,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 
 	// position
 
-	auto *positionMenu = new U_MENU(i18n("Position"), menu);
+	auto *positionMenu = new QMenu(i18n("Position"), menu);
 
 	auto *positionGroup = new QActionGroup(this);
 
@@ -203,7 +199,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	a = positionMenu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
 	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
 
-	auto *sizeMenu = new U_MENU(i18n("Size"), menu);
+	auto *sizeMenu = new QMenu(i18n("Size"), menu);
 
 	// size
 
@@ -389,17 +385,11 @@ void ProgressBar::onSetColor() {
 		return;
 
 	QColor currentColor = palette().color(QPalette::WindowText);
-	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
-	QColor newColor;
-	if (KColorDialog::getColor(newColor, currentColor, this) != KColorDialog::Accepted)
-		return;
-	#else
 	QColor newColor = QColorDialog::getColor(
 		currentColor,
 		this,
 		QString::null // use default title
 	);
-	#endif // KS_NATIVE_KDE
 
 	if (newColor.isValid()) {
 		QPalette p(palette());

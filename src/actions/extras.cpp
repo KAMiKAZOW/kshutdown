@@ -175,13 +175,12 @@ void Extras::writeConfig(Config *config) {
 
 Extras::Extras() :
 	Action(i18n("Extras"), "rating", "extras"),
-	m_command(QString::null),
-	m_menu(nullptr) {
-	
+	m_command(QString::null) {
+
 	setCanBookmark(true);
 	setMenu(createMenu());
 	setShowInMenu(false);
-	m_menuButton = new U_PUSH_BUTTON();
+	m_menuButton = new QPushButton();
 	m_menuButton->setMenu(menu());
 	
 	//setCommandAction(0);
@@ -219,8 +218,8 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool
 	return new CommandAction(U_ICON(), text, this, fileInfo, statusTip);
 }
 
-U_MENU *Extras::createMenu() {
-	m_menu = new U_MENU();
+QMenu *Extras::createMenu() {
+	m_menu = new QMenu();
 
 	connect(m_menu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
 	m_menu->setToolTipsVisible(true);
@@ -230,7 +229,7 @@ U_MENU *Extras::createMenu() {
 	return m_menu;
 }
 
-void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
+void Extras::createMenu(QMenu *parentMenu, const QString &parentDir) {
 	QDir dir(parentDir);
 	QFileInfoList entries = dir.entryInfoList(
 		QDir::Dirs | QDir::Files,
@@ -242,17 +241,17 @@ void Extras::createMenu(U_MENU *parentMenu, const QString &parentDir) {
 		if (i.isDir() && (fileName != ".") && (fileName != "..")) {
 			QString dirProperties = i.filePath() + "/.directory";
 
-			U_MENU *dirMenu;
+			QMenu *dirMenu;
 			if (QFile::exists(dirProperties)) {
 				QString text = i.baseName();
 				QString statusTip = "";
 				U_ICON icon = readDesktopInfo(dirProperties, text, statusTip);
 
-				dirMenu = new U_MENU(text); // use "text" from ".directory" file
+				dirMenu = new QMenu(text); // use "text" from ".directory" file
 				dirMenu->setIcon(icon);
 			}
 			else {
-				dirMenu = new U_MENU(i.baseName());
+				dirMenu = new QMenu(i.baseName());
 			}
 
 			connect(dirMenu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));

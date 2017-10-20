@@ -26,7 +26,9 @@
 #include "kshutdown.h"
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QGroupBox>
+#include <QMainWindow>
 
 #ifdef KS_NATIVE_KDE
 	#include <KActionCollection>
@@ -38,7 +40,7 @@ class USystemTray;
 
 using namespace KShutdown;
 
-class MainWindow: public U_MAIN_WINDOW {
+class MainWindow: public QMainWindow {
 	friend class Mod;
 	friend class TimeOption;
 	Q_OBJECT
@@ -64,7 +66,7 @@ public:
 	Trigger *getSelectedTrigger() const;
 	inline InfoWidget *infoWidget() { return m_infoWidget; }
 	static void init();
-	inline U_PUSH_BUTTON *okCancelButton() { return m_okCancelButton; }
+	inline QPushButton *okCancelButton() { return m_okCancelButton; }
 	inline ProgressBar *progressBar() { return m_progressBar; }
 	static MainWindow *self() {
 		if (!m_instance)
@@ -105,26 +107,26 @@ private:
 	static MainWindow *m_instance;
 	ProgressBar *m_progressBar;
 	QCheckBox *m_force;
+	QComboBox *m_actions;
+	QComboBox *m_triggers;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;
 	static QHash<QString, Action*> m_actionHash;
 	static QHash<QString, Trigger*> m_triggerHash;
 	static QList<Action*> m_actionList;
 	static QList<Trigger*> m_triggerList;
+	QPushButton *m_okCancelButton;
 	QString m_lastNotificationID;
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
 	U_ACTION *m_cancelAction;
-	U_COMBO_BOX *m_actions;
-	U_COMBO_BOX *m_triggers;
-	U_PUSH_BUTTON *m_okCancelButton;
 	USystemTray *m_systemTray;
 	explicit MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
 	U_ACTION *createQuitAction();
-	void initFileMenu(U_MENU *fileMenu);
+	void initFileMenu(QMenu *fileMenu);
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();

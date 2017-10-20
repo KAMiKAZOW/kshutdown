@@ -20,6 +20,9 @@
 
 #include "../pureqt.h"
 
+#include <QComboBox>
+#include <QMenu>
+
 class BootEntry final: public QObject {
 public:
 	static QStringList getList();
@@ -41,14 +44,14 @@ private slots:
 	void onAction();
 };
 
-class BootEntryComboBox final: public U_COMBO_BOX {
+class BootEntryComboBox final: public QComboBox {
 public:
 	explicit BootEntryComboBox();
 private:
 	Q_DISABLE_COPY(BootEntryComboBox)
 };
 
-class BootEntryMenu: public U_MENU {
+class BootEntryMenu: public QMenu {
 	Q_OBJECT
 public:
 	explicit BootEntryMenu(QWidget *parent);

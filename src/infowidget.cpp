@@ -23,6 +23,10 @@
 #include <QHBoxLayout>
 #include <QUrl>
 
+#ifdef KS_PURE_QT
+	#include <QStyle>
+#endif // KS_PURE_QT
+
 // public
 
 InfoWidget::InfoWidget(QWidget *parent) :

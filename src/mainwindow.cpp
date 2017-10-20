@@ -39,6 +39,7 @@
 #endif // KS_PURE_QT
 
 #include <QCloseEvent>
+#include <QMenuBar>
 #include <QPointer>
 #include <QPushButton>
 #include <QTimer>
@@ -334,7 +335,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 	if (!menuLayout.isEmpty()) {
 		QStringList menuActions = menuLayout.split(':');
 
-		auto *menu = new U_MENU();
+		auto *menu = new QMenu();
 		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 		menu->setToolTipsVisible(true);
 
@@ -660,7 +661,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 // private
 
 MainWindow::MainWindow() :
-	U_MAIN_WINDOW(
+	QMainWindow(
 		nullptr,
 		Qt::Window |
 		// disable "Maximize" button; no Qt::WindowMaximizeButtonHint
@@ -818,7 +819,7 @@ U_ACTION *MainWindow::createQuitAction() {
 	return quitAction;
 }
 
-void MainWindow::initFileMenu(U_MENU *fileMenu) {
+void MainWindow::initFileMenu(QMenu *fileMenu) {
 	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
@@ -873,7 +874,7 @@ void MainWindow::initFileMenu(U_MENU *fileMenu) {
 void MainWindow::initMenuBar() {
 	//U_DEBUG << "MainWindow::initMenuBar()" U_END;
 
-	auto *menuBar = new U_MENU_BAR();
+	auto *menuBar = new QMenuBar();
 
 	// HACK: Fixes Bookmarks menu and key shortcuts
 	if (Utils::isXfce())
@@ -881,7 +882,7 @@ void MainWindow::initMenuBar() {
 
 	// file menu
 
-	U_MENU *fileMenu = new U_MENU(i18n("A&ction"), menuBar);
+	auto *fileMenu = new QMenu(i18n("A&ction"), menuBar);
 
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	fileMenu->setToolTipsVisible(true);
@@ -890,7 +891,7 @@ void MainWindow::initMenuBar() {
 	initFileMenu(fileMenu);
 	menuBar->addMenu(fileMenu);
 
-	auto *systemTrayFileMenu = new U_MENU(); // need copy
+	auto *systemTrayFileMenu = new QMenu(); // need copy
 
 	connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	systemTrayFileMenu->setToolTipsVisible(true);
@@ -906,7 +907,7 @@ void MainWindow::initMenuBar() {
 
 	// tools menu
 
-	auto *toolsMenu = new U_MENU(i18n("&Tools"), menuBar);
+	auto *toolsMenu = new QMenu(i18n("&Tools"), menuBar);
 // TODO: add more related tools
 
 	#ifndef Q_OS_WIN32
@@ -962,7 +963,7 @@ void MainWindow::initMenuBar() {
 	menuBar->addMenu(helpMenu());
 	#endif // KS_KF5
 #else
-	U_MENU *helpMenu = new U_MENU(i18n("&Help"), menuBar);
+	auto *helpMenu = new QMenu(i18n("&Help"), menuBar);
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()), QKeySequence("Ctrl+H,E,L,P"));
 	menuBar->addMenu(helpMenu);
 #endif // KS_NATIVE_KDE
@@ -991,7 +992,7 @@ void MainWindow::initWidgets() {
 	actionLayout->setMargin(5_px);
 	actionLayout->setSpacing(10_px);
 
-	m_actions = new U_COMBO_BOX();
+	m_actions = new QComboBox();
 	m_actions->setObjectName("actions");
 	connect(m_actions, SIGNAL(activated(int)), SLOT(onActionActivated(int)));
 	actionLayout->addWidget(m_actions);
@@ -1008,14 +1009,14 @@ void MainWindow::initWidgets() {
 	triggerLayout->setMargin(5_px);
 	triggerLayout->setSpacing(10_px);
 
-	m_triggers = new U_COMBO_BOX();
+	m_triggers = new QComboBox();
 	m_triggers->setObjectName("triggers");
 	connect(m_triggers, SIGNAL(activated(int)), SLOT(onTriggerActivated(int)));
 	triggerLayout->addWidget(m_triggers);
 	
 	m_infoWidget = new InfoWidget(this);
 
-	m_okCancelButton = new U_PUSH_BUTTON();
+	m_okCancelButton = new QPushButton();
 	m_okCancelButton->setObjectName("ok-cancel-button");
 	
 	m_okCancelButton->setDefault(true);
@@ -1282,7 +1283,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	licenseLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	licenseLabel->setOpenExternalLinks(true);
 
-	auto *aboutQtButton = new U_PUSH_BUTTON(i18n("About Qt"));
+	auto *aboutQtButton = new QPushButton(i18n("About Qt"));
 	aboutQtButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
 	connect(aboutQtButton, SIGNAL(clicked()), U_APP, SLOT(aboutQt()));
 
@@ -1302,7 +1303,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	dialog->rootLayout()->setSpacing(5_px);
 	#endif // Q_OS_WIN32
 
-	auto *tabs = new U_TAB_WIDGET();
+	auto *tabs = new QTabWidget();
 	tabs->addTab(aboutTab, i18n("About"));
 	tabs->addTab(licenseTab, i18n("License"));
 	dialog->mainLayout()->addWidget(tabs);

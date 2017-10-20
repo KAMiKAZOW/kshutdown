@@ -27,13 +27,7 @@
 // Q-Files
 #include <QAction>
 #include <QApplication>
-#include <QComboBox>
 #include <QDebug>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QMainWindow>
-#include <QMenu>
-#include <QMenuBar>
 #include <QMessageBox>
 
 #else
@@ -41,29 +35,15 @@
 	#ifdef KS_KF5
 		#include <QAction>
 		#include <QApplication>
-		#include <QComboBox>
 		#include <QDebug>
-		#include <QLineEdit>
-		#include <QListWidget>
-		#include <QMainWindow>
-		#include <QMenu>
-		#include <QMenuBar>
 		#include <QMessageBox>
 	#else
 		// #kde4
 		#include <KAction>
 		#include <KApplication>
-		#include <KComboBox>
 		#include <KDebug>
 		#include <KIcon>
-		#include <KLineEdit>
-		#include <KListWidget>
-		#include <KMainWindow>
-		#include <KMenu>
-		#include <KMenuBar>
 		#include <KMessageBox>
-		#include <KPushButton>
-		#include <KTabWidget>
 	#endif // KS_KF5
 
 #endif // KS_PURE_QT
@@ -96,19 +76,11 @@
 
 	#define U_ACTION QAction
 	#define U_APP qApp
-	#define U_COMBO_BOX QComboBox
 	#define U_DEBUG qDebug()
 	#define U_END
 	#define U_ERROR qCritical()
 	#define U_ICON QIcon
-	#define U_LINE_EDIT QLineEdit
-	#define U_LIST_WIDGET QListWidget
-	#define U_MAIN_WINDOW QMainWindow
-	#define U_MENU QMenu
-	#define U_MENU_BAR QMenuBar
-	#define U_PUSH_BUTTON QPushButton
 	#define U_STOCK_ICON(name) QIcon::fromTheme((name))
-	#define U_TAB_WIDGET QTabWidget
 
 	#define i18n(text) QApplication::translate(0, (text))
 #else
@@ -132,19 +104,11 @@
 
 		#define U_APP qApp
 		#define U_ACTION QAction
-		#define U_COMBO_BOX QComboBox
 		#define U_DEBUG qDebug()
 		#define U_END
 		#define U_ERROR qCritical()
 		#define U_ICON QIcon
-		#define U_LINE_EDIT QLineEdit
-		#define U_LIST_WIDGET QListWidget
-		#define U_MAIN_WINDOW QMainWindow
-		#define U_MENU QMenu
-		#define U_MENU_BAR QMenuBar
-		#define U_PUSH_BUTTON QPushButton
 		#define U_STOCK_ICON(name) QIcon::fromTheme((name))
-		#define U_TAB_WIDGET QTabWidget
 	#else
 		#include <KLocale> // for i18n
 
@@ -161,19 +125,11 @@
 
 		#define U_APP kapp
 		#define U_ACTION KAction
-		#define U_COMBO_BOX KComboBox
 		#define U_DEBUG kDebug()
 		#define U_END << endl
 		#define U_ERROR kError()
 		#define U_ICON KIcon
-		#define U_LINE_EDIT KLineEdit
-		#define U_LIST_WIDGET KListWidget
-		#define U_MAIN_WINDOW KMainWindow
-		#define U_MENU KMenu
-		#define U_MENU_BAR KMenuBar
-		#define U_PUSH_BUTTON KPushButton
 		#define U_STOCK_ICON(name) KIcon((name))
-		#define U_TAB_WIDGET KTabWidget
 	#endif // KS_KF5
 
 	// use i18n from KLocale

@@ -21,6 +21,8 @@
 #include "kshutdown.h"
 #include "pureqt.h"
 
+#include <QMenu>
+
 class BookmarksMenu;
 
 class BookmarkAction: public U_ACTION {
@@ -48,7 +50,7 @@ private slots:
 	void onAction();
 };
 
-class BookmarksMenu: public U_MENU {
+class BookmarksMenu: public QMenu {
 	Q_OBJECT
 public:
 	explicit BookmarksMenu(QWidget *parent);

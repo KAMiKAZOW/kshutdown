@@ -17,6 +17,7 @@
 
 #include "bootentry.h"
 
+#include <QAbstractItemView>
 #include <QFileInfo>
 
 // BootEntry
@@ -142,7 +143,7 @@ void BootEntryAction::onAction() {
 // public:
 
 BootEntryComboBox::BootEntryComboBox() :
-	U_COMBO_BOX() {
+	QComboBox() {
 	//setToolTip(i18n("Select an Operating System you want to use after restart"));
 	view()->setAlternatingRowColors(true);
 
@@ -155,7 +156,7 @@ BootEntryComboBox::BootEntryComboBox() :
 // public:
 
 BootEntryMenu::BootEntryMenu(QWidget *parent) :
-	U_MENU(i18n("Restart Computer"), parent) {
+	QMenu(i18n("Restart Computer"), parent) {
 
 	QStringList entryList = BootEntry::getList(); // 1.
 

@@ -25,6 +25,7 @@
 
 #include <QCryptographicHash>
 #include <QFormLayout>
+#include <QLineEdit>
 #include <QPointer>
 #include <QPushButton>
 
@@ -45,17 +46,17 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	//U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
 
 // TODO: show warning if Caps Lock is turned on (no reliable solution in Qt)
-	m_password = new U_LINE_EDIT();
+	m_password = new QLineEdit();
 	m_password->setClearButtonEnabled(true);
-	m_password->setEchoMode(U_LINE_EDIT::Password);
+	m_password->setEchoMode(QLineEdit::Password);
 	connect(
 		m_password, SIGNAL(textChanged(const QString &)),
 		SLOT(onPasswordChange(const QString &))
 	);
 
-	m_confirmPassword = new U_LINE_EDIT();
+	m_confirmPassword = new QLineEdit();
 	m_confirmPassword->setClearButtonEnabled(true);
-	m_confirmPassword->setEchoMode(U_LINE_EDIT::Password);
+	m_confirmPassword->setEchoMode(QLineEdit::Password);
 	connect(
 		m_confirmPassword, SIGNAL(textChanged(const QString &)),
 		SLOT(onConfirmPasswordChange(const QString &))
@@ -129,7 +130,7 @@ retry:
 		parent,
 		"KShutdown", // title
 		prompt,
-		U_LINE_EDIT::Password,
+		QLineEdit::Password,
 		"",
 		&ok
 	);
@@ -253,7 +254,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	QLabel *userActionListLabel = new QLabel(i18n("Password Protected Actions:"));
 	mainLayout->addWidget(userActionListLabel);
 	
-	m_userActionList = new U_LIST_WIDGET();
+	m_userActionList = new QListWidget();
 	m_userActionList->setAlternatingRowColors(true);
 	
 	addItem("action/settings", i18n("Settings (recommended)"), U_ICON("configure"));
