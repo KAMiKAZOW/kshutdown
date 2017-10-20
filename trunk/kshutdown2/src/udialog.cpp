@@ -28,7 +28,6 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 
 // TODO: AA_DisableWindowContextHelpButton #Qt5.10
 
-#ifdef KS_KF5
 	if (simple) {
 		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Close);
 		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Close);
@@ -37,25 +36,7 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Ok);
 	}
-#elif defined(KS_NATIVE_KDE)
-	m_dialogButtonBox = new KDialogButtonBox(this);
-	if (simple) {
-		m_acceptButton = m_dialogButtonBox->addButton(KStandardGuiItem::close(), KDialogButtonBox::AcceptRole);
-	}
-	else {
-		m_acceptButton = m_dialogButtonBox->addButton(KStandardGuiItem::ok(), KDialogButtonBox::AcceptRole);
-		m_dialogButtonBox->addButton(KStandardGuiItem::cancel(), KDialogButtonBox::RejectRole);
-	}
-#else
-	if (simple) {
-		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Close);
-		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Close);
-	}
-	else {
-		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-		m_acceptButton = m_dialogButtonBox->button(QDialogButtonBox::Ok);
-	}
-#endif // KS_NATIVE_KDE
+
 	connect(m_dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
 	connect(m_dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
 

@@ -22,6 +22,7 @@
 #include "../kshutdown.h"
 
 #include <QFileInfo>
+#include <QMenu>
 
 class CommandAction;
 
@@ -45,13 +46,13 @@ public:
 private:
 	Q_DISABLE_COPY(Extras)
 	static Extras *m_instance;
+	QMenu *m_menu = nullptr;
+	QPushButton *m_menuButton;
 	QString m_command;
-	U_MENU *m_menu;
-	U_PUSH_BUTTON *m_menuButton;
 	explicit Extras();
 	CommandAction *createCommandAction(const QFileInfo &fileInfo, const bool returnNull);
-	U_MENU *createMenu();
-	void createMenu(U_MENU *parentMenu, const QString &parentDir);
+	QMenu *createMenu();
+	void createMenu(QMenu *parentMenu, const QString &parentDir);
 	QString getFilesDirectory() const;
 	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip);
 	void setCommandAction(const CommandAction *command);

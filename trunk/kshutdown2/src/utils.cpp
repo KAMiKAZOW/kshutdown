@@ -17,6 +17,7 @@
 
 #include "utils.h"
 
+#include <QMenu>
 #include <QToolTip>
 
 #ifdef KS_NATIVE_KDE
@@ -40,7 +41,7 @@ QString Utils::m_xdgCurrentDesktop;
 
 // public
 
-void Utils::addTitle(U_MENU *menu, const QIcon &icon, const QString &text) {
+void Utils::addTitle(QMenu *menu, const QIcon &icon, const QString &text) {
 	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
 	menu->addTitle(icon, text);
 	#else

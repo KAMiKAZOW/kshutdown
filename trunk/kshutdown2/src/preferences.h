@@ -22,6 +22,8 @@
 #include "udialog.h"
 
 #include <QCheckBox>
+#include <QLineEdit>
+#include <QTabWidget>
 
 class PasswordPreferences;
 
@@ -44,14 +46,14 @@ private:
 	#ifndef KS_KF5
 	QCheckBox *m_useThemeIconInSystemTray;
 	#endif // !KS_KF5
+	#ifdef Q_OS_LINUX
+	QLineEdit *m_lockCommand;
+	#endif // Q_OS_LINUX
+	QTabWidget *m_tabs;
 	//QWidget *createActionsWidget();
 	QWidget *createGeneralWidget();
 	QWidget *createSystemTrayWidget();
 	//QWidget *createTriggersWidget();
-	#ifdef Q_OS_LINUX
-	U_LINE_EDIT *m_lockCommand;
-	#endif // Q_OS_LINUX
-	U_TAB_WIDGET *m_tabs;
 private slots:
 	void onFinish(int result);
 	void onProgressBarEnabled(bool enabled);

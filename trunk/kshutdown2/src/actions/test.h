@@ -20,6 +20,8 @@
 
 #include "../kshutdown.h"
 
+#include <QLineEdit>
+
 class TestAction: public KShutdown::Action {
 public:
 	explicit TestAction();
@@ -29,9 +31,9 @@ public:
 	virtual void writeConfig(Config *config) override;
 private:
 	Q_DISABLE_COPY(TestAction)
+	QLineEdit *m_textField;
 	QString m_defaultText;
 	QWidget *m_widget;
-	U_LINE_EDIT *m_textField;
 };
 
 #endif // KSHUTDOWN_TEST_H

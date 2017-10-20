@@ -21,6 +21,7 @@
 #include "mainwindow.h"
 #include "utils.h"
 
+#include <QMenuBar>
 #include <QPushButton>
 
 // private

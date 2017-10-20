@@ -20,6 +20,7 @@
 #include "../config.h"
 #include "../utils.h"
 
+#include <QAbstractItemView>
 #include <QHBoxLayout>
 #include <QPushButton>
 
@@ -120,14 +121,14 @@ QWidget *ProcessMonitor::getWidget() {
 		layout->setMargin(0_px);
 		layout->setSpacing(10_px);
 
-		m_processesComboBox = new U_COMBO_BOX(m_widget);
+		m_processesComboBox = new QComboBox(m_widget);
 		m_processesComboBox->view()->setAlternatingRowColors(true);
 		m_processesComboBox->setFocusPolicy(Qt::StrongFocus);
 		m_processesComboBox->setToolTip(i18n("List of the running processes"));
 		connect(m_processesComboBox, SIGNAL(activated(int)), SLOT(onProcessSelect(const int)));
 		layout->addWidget(m_processesComboBox);
 		
-		auto *refreshButton = new U_PUSH_BUTTON(m_widget);
+		auto *refreshButton = new QPushButton(m_widget);
 		refreshButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
 		refreshButton->setText(i18n("Refresh"));
 		connect(

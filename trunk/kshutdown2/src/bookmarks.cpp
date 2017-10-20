@@ -23,6 +23,7 @@
 #include "utils.h"
 
 #include <QFormLayout>
+#include <QLineEdit>
 #include <QPointer>
 #include <QPushButton>
 
@@ -88,7 +89,7 @@ void BookmarkAction::onAction() {
 // public:
 
 BookmarksMenu::BookmarksMenu(QWidget *parent)
-	: U_MENU(i18n("&Bookmarks"), parent),
+	: QMenu(i18n("&Bookmarks"), parent),
 	m_list(nullptr)
 {
 	connect(this, SIGNAL(aboutToShow()), SLOT(onUpdateMenu()));
@@ -218,7 +219,7 @@ void BookmarksMenu::onAddBookmark() {
 	QPointer<UDialog> dialog = new UDialog(mainWindow, i18n("Add Bookmark"), false);
 	dialog->acceptButton()->setText(i18n("Add"));
 
-	U_LINE_EDIT *nameField = new U_LINE_EDIT(makeText(action, trigger, QString::null, QString::null));
+	auto *nameField = new QLineEdit(makeText(action, trigger, QString::null, QString::null));
 	nameField->setClearButtonEnabled(true);
 
 	auto *confirmActionField = new QCheckBox(i18n("Confirm Action"));

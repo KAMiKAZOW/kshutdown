@@ -35,7 +35,7 @@ inline int operator "" _px(unsigned long long int value) { return value; }
 
 class Utils final {
 public:
-	static void addTitle(U_MENU *menu, const QIcon &icon, const QString &text);
+	static void addTitle(QMenu *menu, const QIcon &icon, const QString &text);
 	static QString getOption(const QString &name);
 	static QString getTimeOption();
 	static QString getUser();

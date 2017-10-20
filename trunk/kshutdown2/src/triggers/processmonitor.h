@@ -20,6 +20,8 @@
 
 #include "../kshutdown.h"
 
+#include <QComboBox>
+
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
@@ -89,10 +91,10 @@ public:
 	void setPID(const qint64 pid);
 private:
 	Q_DISABLE_COPY(ProcessMonitor)
+	QComboBox *m_processesComboBox = nullptr;
 	QList<Process*> m_processList;
 	QString m_recentCommand = "";
 	QWidget *m_widget = nullptr;
-	U_COMBO_BOX *m_processesComboBox = nullptr;
 	void clearAll();
 	void errorMessage(const QString &message);
 	void refreshProcessList();

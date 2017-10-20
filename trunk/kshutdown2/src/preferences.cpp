@@ -39,7 +39,7 @@ Preferences::Preferences(QWidget *parent) :
 	ProgressBar *progressBar = MainWindow::self()->progressBar();
 	m_oldProgressBarVisible = progressBar->isVisible();
 
-	m_tabs = new U_TAB_WIDGET();
+	m_tabs = new QTabWidget();
 	m_tabs->addTab(createGeneralWidget(), i18n("General"));
 	m_tabs->addTab(createSystemTrayWidget(), i18n("System Tray"));
 	
@@ -138,7 +138,7 @@ QWidget *Preferences::createGeneralWidget() {
 	if (m_lockScreenBeforeHibernate->isVisible())
 		l->addSpacing(10_px);
 
-	m_lockCommand = new U_LINE_EDIT();
+	m_lockCommand = new QLineEdit();
 	m_lockCommand->setClearButtonEnabled(true);
 
 	Config *config = Config::user();
@@ -157,7 +157,7 @@ QWidget *Preferences::createGeneralWidget() {
 	if (Utils::isKDE()) {
 		l->addSpacing(20_px);
 
-		auto *systemSettingsButton = new U_PUSH_BUTTON(U_STOCK_ICON("preferences-system"), i18n("System Settings..."));
+		auto *systemSettingsButton = new QPushButton(U_STOCK_ICON("preferences-system"), i18n("System Settings..."));
 		l->addWidget(systemSettingsButton);
 		connect(systemSettingsButton, SIGNAL(clicked()), SLOT(onSystemSettings()));
 	}
