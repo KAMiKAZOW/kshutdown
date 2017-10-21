@@ -23,6 +23,10 @@
 #include <QFrame>
 #include <QLabel>
 
+#ifdef Q_OS_WIN32
+	#include <QStyle>
+#endif // Q_OS_WIN32
+
 #ifdef KS_NATIVE_KDE
 	#include <KMessageWidget>
 #endif // KS_NATIVE_KDE

@@ -370,7 +370,6 @@ bool MainWindow::maybeShow(const bool forceShow) {
 			}
 		}
 
-// FIXME: this does not work in all configurations (e.g. in Qt4 Build only?)
 		menu->exec(QCursor::pos());
 
 		return false;
