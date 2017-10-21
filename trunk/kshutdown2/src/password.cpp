@@ -327,6 +327,8 @@ void PasswordPreferences::onEnablePassword(bool checked) {
 	//U_DEBUG << "PasswordPreferences::onEnablePassword: " << checked U_END;
 	
 	if (checked) {
+// TODO: consider https://api.kde.org/frameworks/kwidgetsaddons/html/classKNewPasswordDialog.html
+// or https://api.kde.org/frameworks/kwidgetsaddons/html/classKPasswordLineEdit.html
 		QPointer<PasswordDialog> dialog = new PasswordDialog(this);
 		if (dialog->exec() == PasswordDialog::Accepted)
 			dialog->apply();
