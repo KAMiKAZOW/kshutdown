@@ -25,7 +25,7 @@
 
 class BookmarksMenu;
 
-class BookmarkAction: public U_ACTION {
+class BookmarkAction: public QAction {
 	Q_OBJECT
 public:
 	explicit BookmarkAction(

@@ -690,13 +690,13 @@ MainWindow::MainWindow() :
 
 	setObjectName("main-window");
 #ifdef KS_KF5
-// FIXME: ? setWindowIcon(U_ICON(":/images/kshutdown.png"));
+// FIXME: ? setWindowIcon(QIcon(":/images/kshutdown.png"));
 #endif // KF_KF5
 #ifdef KS_PURE_QT
 	// HACK: delete this on quit
 	setAttribute(Qt::WA_DeleteOnClose, true);
 // TODO: wayland <http://blog.martin-graesslin.com/blog/2015/07/porting-qt-applications-to-wayland/>
-	setWindowIcon(U_ICON(":/images/kshutdown.png"));
+	setWindowIcon(QIcon(":/images/kshutdown.png"));
 #endif // KS_PURE_QT
 
 	// NOTE: do not change the "init" order,
@@ -799,13 +799,13 @@ Trigger *MainWindow::getSelectedTrigger() const { // public
 	return m_triggerHash[m_triggers->itemData(m_triggers->currentIndex()).toString()];
 }
 
-U_ACTION *MainWindow::createQuitAction() {
+QAction *MainWindow::createQuitAction() {
 	#ifdef KS_NATIVE_KDE
 	auto *quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
 	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
 	#else
-	auto *quitAction = new U_ACTION(this);
-	quitAction->setIcon(U_STOCK_ICON("application-exit"));
+	auto *quitAction = new QAction(this);
+	quitAction->setIcon(QIcon::fromTheme("application-exit"));
 	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
 	//quitAction->setShortcuts(QKeySequence::Quit <- useless);
 	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
@@ -886,7 +886,7 @@ void MainWindow::initMenuBar() {
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	fileMenu->setToolTipsVisible(true);
 
-	Utils::addTitle(fileMenu, /*U_STOCK_ICON("dialog-warning")*/U_ICON(), i18n("No Delay"));
+	Utils::addTitle(fileMenu, /*QIcon::fromTheme("dialog-warning")*/QIcon(), i18n("No Delay"));
 	initFileMenu(fileMenu);
 	menuBar->addMenu(fileMenu);
 
@@ -917,24 +917,24 @@ void MainWindow::initMenuBar() {
 
 #ifdef KS_PURE_QT
 	toolsMenu->addAction(
-		U_STOCK_ICON("configure"), i18n("Preferences"),
+		QIcon::fromTheme("configure"), i18n("Preferences"),
 		this, SLOT(onPreferences()),
 		QKeySequence::Preferences
 	);
 #endif // KS_PURE_QT
 
 #ifdef KS_NATIVE_KDE
-	U_ACTION *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
+	auto *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
 	configureShortcutsAction->setEnabled(!Utils::isRestricted("action/options_configure_keybinding"));
 	toolsMenu->addAction(configureShortcutsAction);
 
-	U_ACTION *configureNotificationsAction = KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this);
+	auto *configureNotificationsAction = KStandardAction::configureNotifications(this, SLOT(onConfigureNotifications()), this);
 	configureNotificationsAction->setEnabled(!Utils::isRestricted("action/options_configure_notifications"));
 	toolsMenu->addAction(configureNotificationsAction);
 	
 	toolsMenu->addSeparator();
 	
-	U_ACTION *preferencesAction = KStandardAction::preferences(this, SLOT(onPreferences()), this);
+	auto *preferencesAction = KStandardAction::preferences(this, SLOT(onPreferences()), this);
 	preferencesAction->setEnabled(!Utils::isRestricted("action/options_configure"));
 	toolsMenu->addAction(preferencesAction);
 #endif // KS_NATIVE_KDE
@@ -1037,7 +1037,7 @@ void MainWindow::initWidgets() {
 
 	setCentralWidget(mainWidget);
 	
-	m_cancelAction = new U_ACTION(this);
+	m_cancelAction = new QAction(this);
 #ifdef KS_NATIVE_KDE
 	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
 	m_actionCollection->addAction("kshutdown/cancel", m_cancelAction);
@@ -1048,7 +1048,7 @@ void MainWindow::initWidgets() {
 	#endif // KS_KF5
 // TODO: show global shortcut: m_cancelAction->setShortcut(m_cancelAction->globalShortcut());
 #else
-	m_cancelAction->setIcon(U_STOCK_ICON("dialog-cancel"));
+	m_cancelAction->setIcon(QIcon::fromTheme("dialog-cancel"));
 #endif // KS_NATIVE_KDE
 	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
 }
@@ -1141,12 +1141,12 @@ void MainWindow::updateWidgets() {
 	bool hasIcon = m_okCancelButton->style()->styleHint(QStyle::SH_DialogButtonBox_ButtonsHaveIcons);
 	if (m_active) {
 		if (hasIcon)
-			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-cancel"));
+			m_okCancelButton->setIcon(QIcon::fromTheme("dialog-cancel"));
 		m_okCancelButton->setText(i18n("Cancel"));
 	}
 	else {
 		if (hasIcon)
-			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-ok"));
+			m_okCancelButton->setIcon(QIcon::fromTheme("dialog-ok"));
 		m_okCancelButton->setText(i18n("OK"));
 	}
 	#else
@@ -1160,12 +1160,12 @@ void MainWindow::updateWidgets() {
 	bool hasIcon = m_okCancelButton->style()->styleHint(QStyle::SH_DialogButtonBox_ButtonsHaveIcons);
 	if (m_active) {
 		if (hasIcon)
-			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-cancel"));
+			m_okCancelButton->setIcon(QIcon::fromTheme("dialog-cancel"));
 		m_okCancelButton->setText(i18n("Cancel"));
 	}
 	else {
 		if (hasIcon)
-			m_okCancelButton->setIcon(U_STOCK_ICON("dialog-ok"));
+			m_okCancelButton->setIcon(QIcon::fromTheme("dialog-ok"));
 		m_okCancelButton->setText(i18n("OK"));
 	}
 #endif // KS_NATIVE_KDE
@@ -1223,8 +1223,8 @@ void MainWindow::onQuit() {
 void MainWindow::onAbout() {
 	auto *iconLabel = new QLabel();
 	iconLabel->setAlignment(Qt::AlignCenter);
-	iconLabel->setPixmap(U_ICON(":/images/hi64-app-kshutdown.png").pixmap(64, 64));
-	// TEST: iconLabel->setPixmap(U_ICON(":/images/hi128-app-kshutdown.png").pixmap(128, 128));
+	iconLabel->setPixmap(QIcon(":/images/hi64-app-kshutdown.png").pixmap(64, 64));
+	// TEST: iconLabel->setPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128, 128));
 
 	QString titleText = "KShutdown " KS_FULL_VERSION;
 	QString buildText = KS_RELEASE_DATE;

@@ -57,9 +57,9 @@ Preferences::Preferences(QWidget *parent) :
 	int iconSize = U_APP->style()->pixelMetric(QStyle::PM_);
 // TODO: int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
 	m_tabs->setIconSize(QSize(iconSize, iconSize));
-	m_tabs->setTabIcon(0, U_STOCK_ICON("edit-bomb")); // General
-	m_tabs->setTabIcon(1, U_STOCK_ICON("user-desktop")); // System Tray
-	m_tabs->setTabIcon(2, U_STOCK_ICON("dialog-password")); // Password
+	m_tabs->setTabIcon(0, QIcon::fromTheme("edit-bomb")); // General
+	m_tabs->setTabIcon(1, QIcon::fromTheme("user-desktop")); // System Tray
+	m_tabs->setTabIcon(2, QIcon::fromTheme("dialog-password")); // Password
 */
 // FIXME: vertically misaligned icons. WTF?
 	#endif // KS_NATIVE_KDE
@@ -157,7 +157,7 @@ QWidget *Preferences::createGeneralWidget() {
 	if (Utils::isKDE()) {
 		l->addSpacing(20_px);
 
-		auto *systemSettingsButton = new QPushButton(U_STOCK_ICON("preferences-system"), i18n("System Settings..."));
+		auto *systemSettingsButton = new QPushButton(QIcon::fromTheme("preferences-system"), i18n("System Settings..."));
 		l->addWidget(systemSettingsButton);
 		connect(systemSettingsButton, SIGNAL(clicked()), SLOT(onSystemSettings()));
 	}

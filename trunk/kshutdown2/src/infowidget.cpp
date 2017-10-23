@@ -149,7 +149,7 @@ void InfoWidget::setIcon(const QStyle::StandardPixmap standardIcon) {
 #else
 void InfoWidget::setIcon(const QString &iconName) {
 	int size = U_APP->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
-	m_icon->setPixmap(U_STOCK_ICON(iconName).pixmap(size, size));
+	m_icon->setPixmap(QIcon::fromTheme(iconName).pixmap(size, size));
 }
 #endif // Q_OS_WIN32
 #endif // KS_PURE_QT

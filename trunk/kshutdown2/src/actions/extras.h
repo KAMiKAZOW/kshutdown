@@ -54,7 +54,7 @@ private:
 	QMenu *createMenu();
 	void createMenu(QMenu *parentMenu, const QString &parentDir);
 	QString getFilesDirectory() const;
-	U_ICON readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip);
+	QIcon readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip);
 	void setCommandAction(const CommandAction *command);
 private slots:
 	void onMenuHovered(QAction *action);
@@ -63,13 +63,13 @@ private slots:
 	void updateMenu();
 };
 
-class CommandAction: private U_ACTION {
+class CommandAction: private QAction {
 	Q_OBJECT
 	friend class Extras;
 private:
 	Q_DISABLE_COPY(CommandAction)
 	QString m_command;
-	explicit CommandAction(const U_ICON &icon, const QString &text, QObject *parent, const QFileInfo &fileInfo, const QString &statusTip);
+	explicit CommandAction(const QIcon &icon, const QString &text, QObject *parent, const QFileInfo &fileInfo, const QString &statusTip);
 private slots:
 	void slotFire();
 };

@@ -121,7 +121,7 @@ void Base::setLastError() {
 // public
 
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
-	U_ACTION(nullptr),
+	QAction(nullptr),
 	Base(id),
 	m_force(false),
 	m_shouldStopTimer(true),
@@ -130,7 +130,7 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	m_originalText = text;
 
 	if (!iconName.isNull())
-		setIcon(U_STOCK_ICON(iconName));
+		setIcon(QIcon::fromTheme(iconName));
 	setIconVisibleInMenu(true);
 	
 	if (Utils::isRestricted("kshutdown/action/" + id))
@@ -142,7 +142,7 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 
 void Action::activate(const bool force) {
 	m_force = force;
-	U_ACTION::trigger();
+	QAction::trigger();
 }
 
 bool Action::authorize(QWidget *parent) {
@@ -335,7 +335,7 @@ void Action::slotFire() {
 // public
 
 ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
-	U_ACTION(parent),
+	QAction(parent),
 	m_impl(action) {
 
 	// clone basic properties
@@ -377,7 +377,7 @@ Trigger::Trigger(const QString &text, const QString &iconName, const QString &id
 	Base(id),
 	m_supportsProgressBar(false),
 	m_checkTimeout(500),
-	m_icon(U_STOCK_ICON(iconName)),
+	m_icon(QIcon::fromTheme(iconName)),
 	m_text(text) {
 }
 
@@ -1552,19 +1552,19 @@ RebootAction::RebootAction() :
 		true // return "null" if no icon
 	);
 	if (p.isNull())
-		setIcon(U_STOCK_ICON("system-restart"));
+		setIcon(QIcon::fromTheme("system-restart"));
 	else
 		setIcon(p);
 */
 	// NOTE: follow the Icon Naming Specification and use "system-reboot" instead of "system-restart"
 	// <http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html>
-	setIcon(U_STOCK_ICON("system-reboot"));
+	setIcon(QIcon::fromTheme("system-reboot"));
 #else
 	if (Utils::isKDE())
-		setIcon(U_STOCK_ICON("system-reboot"));
+		setIcon(QIcon::fromTheme("system-reboot"));
 	// HACK: missing "system-reboot" in some icon themes
 	else
-		setIcon(U_STOCK_ICON("view-refresh"));
+		setIcon(QIcon::fromTheme("view-refresh"));
 #endif // KS_NATIVE_KDE
 
 	addCommandLineArg("r", "reboot");

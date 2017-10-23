@@ -59,7 +59,7 @@ public:
 	virtual ~MainWindow();
 	QHash<QString, Action*> actionHash() const { return m_actionHash; }
 	QList<Action*> actionList() const { return m_actionList; }
-	U_ACTION *cancelAction() const { return m_cancelAction; }
+	QAction *cancelAction() const { return m_cancelAction; }
 	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
 	Action *getSelectedAction() const;
@@ -106,6 +106,7 @@ private:
 	InfoWidget *m_infoWidget;
 	static MainWindow *m_instance;
 	ProgressBar *m_progressBar;
+	QAction *m_cancelAction;
 	QCheckBox *m_force;
 	QComboBox *m_actions;
 	QComboBox *m_triggers;
@@ -120,12 +121,11 @@ private:
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
-	U_ACTION *m_cancelAction;
 	USystemTray *m_systemTray;
 	explicit MainWindow();
 	static void addAction(Action *action);
 	static void addTrigger(Trigger *trigger);
-	U_ACTION *createQuitAction();
+	QAction *createQuitAction();
 	void initFileMenu(QMenu *fileMenu);
 	void initMenuBar();
 	void initTriggers();

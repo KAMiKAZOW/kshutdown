@@ -20,6 +20,7 @@
 
 #include "infowidget.h"
 
+#include <QAction>
 #include <QDateTimeEdit>
 
 #ifdef KS_DBUS
@@ -106,7 +107,7 @@ private:
 	bool m_canBookmark;
 };
 
-class Action: public U_ACTION, public Base {
+class Action: public QAction, public Base {
 	Q_OBJECT
 public:
 	explicit Action(const QString &text, const QString &iconName, const QString &id);
@@ -158,7 +159,7 @@ signals:
 	void statusChanged(const bool updateWidgets);
 };
 
-class ConfirmAction: public U_ACTION {
+class ConfirmAction: public QAction {
 	Q_OBJECT
 public:
 	explicit ConfirmAction(QObject *parent, Action *action);
@@ -173,7 +174,7 @@ class Trigger: public QObject, public Base {
 	Q_OBJECT
 public:
 	explicit Trigger(const QString &text, const QString &iconName, const QString &id);
-	inline U_ICON icon() const {
+	inline QIcon icon() const {
 		return m_icon;
 	}
 	virtual bool canActivateAction() = 0;
@@ -191,7 +192,7 @@ protected:
 	int m_checkTimeout;
 private:
 	Q_DISABLE_COPY(Trigger)
-	U_ICON m_icon;
+	QIcon m_icon;
 	QString m_text;
 	QString m_toolTip = QString::null;
 signals:

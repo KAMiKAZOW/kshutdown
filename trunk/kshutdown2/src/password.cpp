@@ -116,7 +116,7 @@ retry:
 
 	#ifdef KS_NATIVE_KDE
 	QPointer<KPasswordDialog> dialog = new KPasswordDialog(parent);
-	dialog->setPixmap(U_ICON("kshutdown").pixmap(48_px, 48_px));
+	dialog->setPixmap(QIcon("kshutdown").pixmap(48_px, 48_px));//!!!?
 	dialog->setPrompt(prompt);
 	bool ok = dialog->exec() == KPasswordDialog::Accepted;
 	QString password = ok ? dialog->password() : QString::null;
@@ -238,11 +238,8 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	m_enablePassword = new QCheckBox(i18n("Enable Password Protection"));
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
-	m_enablePassword->setChecked(
-		config->read("Hash", "").toString().isEmpty()
-		? Qt::Unchecked
-		: Qt::Checked
-	);
+
+	m_enablePassword->setChecked(!config->read("Hash", "").toString().isEmpty());
 	config->endGroup();
 	
 	connect(
@@ -257,7 +254,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	m_userActionList = new QListWidget();
 	m_userActionList->setAlternatingRowColors(true);
 	
-	addItem("action/settings", i18n("Settings (recommended)"), U_ICON("configure"));
+	addItem("action/settings", i18n("Settings (recommended)"), QIcon("configure"));
 	
 	foreach (const Action *action, MainWindow::self()->actionList()) {
 		addItem(
@@ -267,8 +264,8 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 		);
 	}
 
-	addItem("kshutdown/action/cancel", i18n("Cancel"), U_ICON("dialog-cancel"));
-	addItem("action/file_quit", i18n("Quit KShutdown"), U_ICON("application-exit"));
+	addItem("kshutdown/action/cancel", i18n("Cancel"), QIcon("dialog-cancel"));
+	addItem("action/file_quit", i18n("Quit KShutdown"), QIcon("application-exit"));
 
 	userActionListLabel->setBuddy(m_userActionList);
 	mainLayout->addWidget(m_userActionList);
