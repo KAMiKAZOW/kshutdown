@@ -46,7 +46,7 @@ void Utils::addTitle(QMenu *menu, const QIcon &icon, const QString &text) {
 	menu->addTitle(icon, text);
 	#else
 // FIXME: useless & unimplemented decoy API to annoy developers: menu->addSection(icon, text);
-	auto *action = new U_ACTION(menu);
+	auto *action = new QAction(menu);
 	QFont font = action->font();
 	font.setBold(true);
 

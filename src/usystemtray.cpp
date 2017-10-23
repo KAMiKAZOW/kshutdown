@@ -148,7 +148,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	QIcon icon;
 	#ifdef KS_UNIX
 	if (!active && Config::readBool("General", "Use Theme Icon In System Tray", true)) {
-		icon = U_STOCK_ICON("system-shutdown");
+		icon = QIcon::fromTheme("system-shutdown");
 		if (icon.isNull()) {
 			U_DEBUG << "System theme icon not found in: " << icon.themeName() U_END;
 			icon = mainWindow->windowIcon(); // fallback
@@ -164,7 +164,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 		icon = mainWindow->windowIcon();
 	}
 	#else
-	icon = U_ICON(":/images/hi16-app-kshutdown.png");
+	icon = QIcon(":/images/hi16-app-kshutdown.png");
 	#endif // KS_UNIX
 
 	int w = 64_px;

@@ -193,12 +193,12 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool
 	QString text = fileInfo.fileName();
 
 	if (!fileInfo.exists() || !fileInfo.isFile())
-		return returnNull ? nullptr : new CommandAction(U_STOCK_ICON("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo, "");
+		return returnNull ? nullptr : new CommandAction(QIcon::fromTheme("dialog-error"), i18n("File not found: %0").arg(text), this, fileInfo, "");
 
 	QString statusTip = "";
 
 	if (fileInfo.suffix() == "desktop") {
-		U_ICON icon = readDesktopInfo(fileInfo, text, statusTip);
+		QIcon icon = readDesktopInfo(fileInfo, text, statusTip);
 
 		return new CommandAction(icon, text, this, fileInfo, statusTip);
 	}
@@ -212,10 +212,10 @@ CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool
 			? "application-x-executable-script"
 			: "application-x-executable";
 
-		return new CommandAction(U_STOCK_ICON(iconName), text, this, fileInfo, statusTip);
+		return new CommandAction(QIcon::fromTheme(iconName), text, this, fileInfo, statusTip);
 	}
 
-	return new CommandAction(U_ICON(), text, this, fileInfo, statusTip);
+	return new CommandAction(QIcon(), text, this, fileInfo, statusTip);
 }
 
 QMenu *Extras::createMenu() {
@@ -245,7 +245,7 @@ void Extras::createMenu(QMenu *parentMenu, const QString &parentDir) {
 			if (QFile::exists(dirProperties)) {
 				QString text = i.baseName();
 				QString statusTip = "";
-				U_ICON icon = readDesktopInfo(dirProperties, text, statusTip);
+				QIcon icon = readDesktopInfo(dirProperties, text, statusTip);
 
 				dirMenu = new QMenu(text); // use "text" from ".directory" file
 				dirMenu->setIcon(icon);
@@ -260,7 +260,7 @@ void Extras::createMenu(QMenu *parentMenu, const QString &parentDir) {
 			createMenu(dirMenu, i.filePath()); // recursive scan
 
 			if (dirMenu->isEmpty()) {
-				auto *emptyAction = new U_ACTION(dirMenu);
+				auto *emptyAction = new QAction(dirMenu);
 				emptyAction->setEnabled(false);
 				emptyAction->setText('(' + i18n("Empty") + ')');
 				dirMenu->addAction(emptyAction);
@@ -298,7 +298,7 @@ QString Extras::getFilesDirectory() const {
 #endif // KS_NATIVE_KDE
 }
 
-U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip) {
+QIcon Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip) {
 	QString desktopName = "";
 	QString desktopComment = "";
 	QString exec = "";
@@ -334,7 +334,7 @@ U_ICON Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString
 
 	text = Utils::trim(text, 100);
 
-	return U_STOCK_ICON(icon);
+	return QIcon::fromTheme(icon);
 }
 
 void Extras::setCommandAction(const CommandAction *command) {
@@ -342,7 +342,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 		m_command = command->m_command;
 		
 		//U_DEBUG << "Extras::setCommandAction: " << m_command U_END;
-		m_menuButton->setIcon(U_ICON(command->icon()));
+		m_menuButton->setIcon(QIcon(command->icon()));
 		m_menuButton->setText(command->text());
 		//m_status = (originalText() + " - " + command->text());
 	}
@@ -350,7 +350,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 		m_command = QString::null;
 	
 		//U_DEBUG << "Extras::setCommandAction: NULL" U_END;
-		m_menuButton->setIcon(U_STOCK_ICON("arrow-down"));
+		m_menuButton->setIcon(QIcon::fromTheme("arrow-down"));
 		m_menuButton->setText(i18n("Select a command..."));
 		//m_status = QString::null;
 	}
@@ -444,15 +444,15 @@ void Extras::updateMenu() {
 	if (!m_menu->isEmpty())
 		m_menu->addSeparator();
 
-	U_ACTION *modifyAction = new U_ACTION(i18n("Add or Remove Commands"), this);
-	modifyAction->setIcon(U_STOCK_ICON("configure"));
+	auto *modifyAction = new QAction(i18n("Add or Remove Commands"), this);
+	modifyAction->setIcon(QIcon::fromTheme("configure"));
 	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
 	m_menu->addAction(modifyAction);
 	
 	#ifdef KS_NATIVE_KDE
-	U_ACTION *helpAction = KStandardAction::help(this, SLOT(showHelp()), this);
+	auto *helpAction = KStandardAction::helpContents(this, SLOT(showHelp()), this);
 	#else
-	U_ACTION *helpAction = new U_ACTION(i18n("Help"), this);
+	auto *helpAction = new QAction(i18n("Help"), this);
 	connect(helpAction, SIGNAL(triggered()), SLOT(showHelp()));
 	#endif // KS_NATIVE_KDE
 	helpAction->setShortcut(QKeySequence());
@@ -464,13 +464,13 @@ void Extras::updateMenu() {
 // private
 
 CommandAction::CommandAction(
-	const U_ICON &icon,
+	const QIcon &icon,
 	const QString &text,
 	QObject *parent,
 	const QFileInfo &fileInfo,
 	const QString &statusTip
 ) :
-	U_ACTION(icon, text, parent),
+	QAction(icon, text, parent),
 	m_command(fileInfo.filePath()) {
 
 	setIconVisibleInMenu(true);

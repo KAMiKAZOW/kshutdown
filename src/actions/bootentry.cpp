@@ -126,7 +126,7 @@ QStringList BootEntry::getList() {
 // public:
 
 BootEntryAction::BootEntryAction(const QString &name) :
-	U_ACTION(nullptr),
+	QAction(nullptr),
 	m_name(name) {
 	setText(name);
 	connect(this, SIGNAL(triggered()), SLOT(onAction()));
@@ -162,7 +162,7 @@ BootEntryMenu::BootEntryMenu(QWidget *parent) :
 
 	if (!BootEntry::getProblem().isEmpty()) { // 2.
 		addAction(
-			U_STOCK_ICON("dialog-error"), i18n("Error"),
+			QIcon::fromTheme("dialog-error"), i18n("Error"),
 			this, SLOT(onProblem())
 		);
 	}

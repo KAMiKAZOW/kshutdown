@@ -33,7 +33,7 @@ private:
 	static QStringList m_list;
 };
 
-class BootEntryAction: public U_ACTION {
+class BootEntryAction: public QAction {
 	Q_OBJECT
 public:
 	explicit BootEntryAction(const QString &name);

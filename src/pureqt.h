@@ -25,7 +25,6 @@
 #ifdef KS_PURE_QT
 
 // Q-Files
-#include <QAction>
 #include <QApplication>
 #include <QDebug>
 #include <QMessageBox>
@@ -33,16 +32,13 @@
 #else
 
 	#ifdef KS_KF5
-		#include <QAction>
 		#include <QApplication>
 		#include <QDebug>
 		#include <QMessageBox>
 	#else
 		// #kde4
-		#include <KAction>
 		#include <KApplication>
 		#include <KDebug>
-		#include <KIcon>
 		#include <KMessageBox>
 	#endif // KS_KF5
 
@@ -74,13 +70,10 @@
 	#define U_INFO_MESSAGE(parent, text) \
 		QMessageBox::information((parent), i18n("Information"), (text));
 
-	#define U_ACTION QAction
 	#define U_APP qApp
 	#define U_DEBUG qDebug()
 	#define U_END
 	#define U_ERROR qCritical()
-	#define U_ICON QIcon
-	#define U_STOCK_ICON(name) QIcon::fromTheme((name))
 
 	#define i18n(text) QApplication::translate(0, (text))
 #else
@@ -103,12 +96,9 @@
 			QMessageBox::information((parent), i18n("Information"), (text));
 
 		#define U_APP qApp
-		#define U_ACTION QAction
 		#define U_DEBUG qDebug()
 		#define U_END
 		#define U_ERROR qCritical()
-		#define U_ICON QIcon
-		#define U_STOCK_ICON(name) QIcon::fromTheme((name))
 	#else
 		#include <KLocale> // for i18n
 
@@ -124,12 +114,9 @@
 			KMessageBox::information((parent), (text));
 
 		#define U_APP kapp
-		#define U_ACTION KAction
 		#define U_DEBUG kDebug()
 		#define U_END << endl
 		#define U_ERROR kError()
-		#define U_ICON KIcon
-		#define U_STOCK_ICON(name) KIcon((name))
 	#endif // KS_KF5
 
 	// use i18n from KLocale

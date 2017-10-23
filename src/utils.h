@@ -20,6 +20,7 @@
 
 #include "pureqt.h"
 
+#include <QMenu>
 #include <QProcess>
 
 #ifdef KS_NATIVE_KDE

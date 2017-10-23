@@ -35,24 +35,24 @@ Process::Process(QObject *parent, const QString &command)
 	m_command(command) {
 }
 
-U_ICON Process::icon() const {
+QIcon Process::icon() const {
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	// show icons for own processes only (faster)
 // FIXME: laggy/slow combo box
-	return own() ? U_STOCK_ICON(m_command) : U_ICON();
+	return own() ? QIcon::fromTheme(m_command) : QIcon();
 	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
 
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
 /* FIXME: still crashy?
 	if (!visible())
-		return U_ICON();
+		return QIcon();
 
 	ULONG_PTR iconHandle = ::GetClassLongPtr(windowHandle(), GCLP_HICONSM);
 
 	if (iconHandle != 0)
 		return QPixmap::fromWinHICON((HICON)iconHandle);
 */
-	return U_ICON();
+	return QIcon();
 	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
 }
 
@@ -179,7 +179,7 @@ void ProcessMonitor::errorMessage(const QString &message) {
 	m_processesComboBox->setEnabled(false);
 
 	m_processesComboBox->addItem(
-		U_STOCK_ICON("dialog-error"),
+		QIcon::fromTheme("dialog-error"),
 		message
 	);
 }

@@ -45,7 +45,7 @@
 class Process final: public QObject {
 public:
 	explicit Process(QObject *parent, const QString &command);
-	U_ICON icon() const;
+	QIcon icon() const;
 	bool isRunning() const;
 	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
 	inline bool own() const { return m_own; }

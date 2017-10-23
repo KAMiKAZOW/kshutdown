@@ -35,7 +35,7 @@ BookmarkAction::BookmarkAction(
 	const QString &actionID, const QString &triggerID,
 	const QString &actionOption, const QString &triggerOption
 )
-	: U_ACTION(nullptr), // no owner, because clear() will delete action
+	: QAction(nullptr), // no owner, because clear() will delete action
 
 	m_actionID(actionID),
 	m_actionOption(actionOption),
@@ -279,20 +279,20 @@ void BookmarksMenu::onUpdateMenu() {
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
 
-	auto *toggleBookmarkAction = new U_ACTION(this);
+	auto *toggleBookmarkAction = new QAction(this);
 // TODO: toggleBookmarkAction->setShortcut(QKeySequence("Ctrl+D")); need confirmation before remove or some sort of feedback
 
 	auto *bookmark = findBookmark(action, trigger);
 	if (!bookmark) {
 		toggleBookmarkAction->setEnabled(action->canBookmark() && trigger->canBookmark());
 		
-		toggleBookmarkAction->setIcon(U_ICON("bookmark-new"));
+		toggleBookmarkAction->setIcon(QIcon("bookmark-new"));
 		QString text = makeText(action, trigger, QString::null, QString::null);
 		toggleBookmarkAction->setText(i18n("Add: %0").arg(text));
 		connect(toggleBookmarkAction, SIGNAL(triggered()), SLOT(onAddBookmark()));
 	}
 	else {
-		toggleBookmarkAction->setIcon(U_ICON("edit-delete"));
+		toggleBookmarkAction->setIcon(QIcon("edit-delete"));
 		toggleBookmarkAction->setText(i18n("Remove: %0").arg(bookmark->originalText()));
 		connect(toggleBookmarkAction, SIGNAL(triggered()), SLOT(onRemoveBookmark()));
 	}
