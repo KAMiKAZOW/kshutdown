@@ -35,6 +35,7 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 #ifdef KS_NATIVE_KDE
 	m_sessionRestored = false;
 	#ifdef KS_KF5
+// FIXME: Ubuntu 17.10/Unity: mouse click behavior is a total mess
 	m_trayIcon = new KStatusNotifierItem(mainWindow);
 	m_trayIcon->setCategory(KStatusNotifierItem::ApplicationStatus);
 	m_trayIcon->setStandardActionsEnabled(false);
@@ -71,9 +72,7 @@ void USystemTray::info(const QString &message) const {
 bool USystemTray::isSupported() const {
 	#ifdef KS_KF5
 // TODO: use classic QSystemTrayIcon as fallback if KStatusNotifierItem is unsupported
-// TODO: test other DE
-	// Blacklist: GNOME Shell, Unity
-	return Utils::isKDE() || Utils::isXfce();
+	return true; // assume the Desktop Environment is sane
 	#else
 	return
 		QSystemTrayIcon::isSystemTrayAvailable() &&
