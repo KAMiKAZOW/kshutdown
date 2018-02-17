@@ -171,6 +171,19 @@ QWidget *Preferences::createSystemTrayWidget() {
 	auto *l = new QVBoxLayout(w);
 	l->setMargin(10);
 
+// TODO: show info if not supported
+
+	#ifdef Q_OS_LINUX
+// FIXME: InfoWidget icon too large
+	auto *systemTrayWarning = new InfoWidget(this);
+	systemTrayWarning->setText(
+		i18n("May not work correctly with some Desktop Environments"),
+		InfoWidget::Type::Warning
+	);
+	l->addWidget(systemTrayWarning);
+	l->addSpacing(10_px);
+	#endif // Q_OS_LINUX
+
 	m_systemTrayIconEnabled = new QCheckBox(i18n("Enable System Tray Icon"));
 	m_systemTrayIconEnabled->setChecked(Config::systemTrayIconEnabled());
 	#ifdef KS_KF5
