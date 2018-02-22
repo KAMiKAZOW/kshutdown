@@ -174,7 +174,6 @@ QWidget *Preferences::createSystemTrayWidget() {
 // TODO: show info if not supported
 
 	#ifdef Q_OS_LINUX
-// FIXME: InfoWidget icon too large
 	auto *systemTrayWarning = new InfoWidget(this);
 	systemTrayWarning->setText(
 		i18n("May not work correctly with some Desktop Environments"),

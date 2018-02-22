@@ -73,15 +73,19 @@ void InfoWidget::setText(const QString &text, const Type type) {
 #ifdef KS_NATIVE_KDE
 	switch (type) {
 		case Type::Error:
+			m_messageWidget->setIcon(QIcon::fromTheme("dialog-error"));
 			m_messageWidget->setMessageType(KMessageWidget::Error);
 			break;
 		case Type::Info:
+			m_messageWidget->setIcon(QIcon::fromTheme("dialog-information"));
 			m_messageWidget->setMessageType(KMessageWidget::Information);
 			break;
 		case Type::Warning:
+			m_messageWidget->setIcon(QIcon::fromTheme("dialog-warning"));
 			m_messageWidget->setMessageType(KMessageWidget::Warning);
 			break;
 	}
+
 	m_messageWidget->setText(text);
 #else
 	QRgb background; // picked from the Oxygen palette
@@ -95,7 +99,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 			#endif // Q_OS_WIN32
 			break;
 		case Type::Info:
-			background = 0xEEEEEE; // gray 1
+			background = 0xbfd9ff; // blue 1
 			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxInformation);
 			#else
@@ -105,7 +109,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 			break;
 		case Type::Warning:
 		default:
-			background = 0xF8FFBF; // lime 1
+			background = 0xffd9b0; // hot orange 1
 			#ifdef Q_OS_WIN32
 			setIcon(QStyle::SP_MessageBoxWarning);
 			#else
@@ -122,6 +126,11 @@ void InfoWidget::setText(const QString &text, const Type type) {
 	QColor fg = bg.darker(300);
 	p.setColor(QPalette::Window, bg);
 	p.setColor(QPalette::WindowText, fg);
+
+	QColor border = bg.darker(120);;
+	p.setColor(QPalette::Light, border);
+	p.setColor(QPalette::Dark, border);
+
 	setPalette(p);
 
 	m_text->setText(text);
@@ -143,12 +152,12 @@ void InfoWidget::onLinkActivated(const QString &contents) {
 #ifdef KS_PURE_QT
 #ifdef Q_OS_WIN32
 void InfoWidget::setIcon(const QStyle::StandardPixmap standardIcon) {
-	int size = U_APP->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+	int size = U_APP->style()->pixelMetric(QStyle::PM_ToolBarIconSize);
 	m_icon->setPixmap(U_APP->style()->standardIcon(standardIcon).pixmap(size, size));
 }
 #else
 void InfoWidget::setIcon(const QString &iconName) {
-	int size = U_APP->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+	int size = U_APP->style()->pixelMetric(QStyle::PM_ToolBarIconSize);
 	m_icon->setPixmap(QIcon::fromTheme(iconName).pixmap(size, size));
 }
 #endif // Q_OS_WIN32
