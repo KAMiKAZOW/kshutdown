@@ -31,9 +31,9 @@ public:
 	virtual void writeConfig(Config *config) override;
 private:
 	Q_DISABLE_COPY(TestAction)
-	QLineEdit *m_textField;
-	QString m_defaultText;
-	QWidget *m_widget;
+	QLineEdit *m_textField = nullptr;
+	QString m_defaultText = "";
+	QWidget *m_widget = nullptr;
 };
 
 #endif // KSHUTDOWN_TEST_H

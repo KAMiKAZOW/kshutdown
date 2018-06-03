@@ -71,7 +71,6 @@ void USystemTray::info(const QString &message) const {
 
 bool USystemTray::isSupported() const {
 	#ifdef KS_KF5
-// TODO: use classic QSystemTrayIcon as fallback if KStatusNotifierItem is unsupported
 	return true; // assume the Desktop Environment is sane
 	#else
 	return

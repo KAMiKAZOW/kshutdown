@@ -27,16 +27,9 @@
 // public
 
 TestAction::TestAction() :
-	Action(i18n("Show Message (no shutdown)"), "dialog-ok", "test"),
-	m_widget(nullptr) {
-
+	Action(i18n("Show Message (no shutdown)"), "dialog-ok", "test")
+{
 // TODO: sound beep
-
-	m_defaultText = "<qt><h1 style=\"background-color: red; color: white\">" + i18n("Test") + "</h1></qt>";
-	m_textField = new QLineEdit();
-	m_textField->setClearButtonEnabled(true);
-	m_textField->setPlaceholderText(i18n("Enter a message"));
-
 	setCanBookmark(true);
 	setShowInMenu(false);
 
@@ -46,6 +39,10 @@ TestAction::TestAction() :
 QWidget *TestAction::getWidget() {
 	if (!m_widget) {
 		m_widget = new QWidget();
+
+		m_textField = new QLineEdit(m_defaultText);
+		m_textField->setClearButtonEnabled(true);
+		m_textField->setPlaceholderText(i18n("Enter a message"));
 
 		auto *layout = new QFormLayout(m_widget);
 		layout->setLabelAlignment(Qt::AlignRight);
@@ -57,10 +54,10 @@ QWidget *TestAction::getWidget() {
 }
 
 bool TestAction::onAction() {
-	QString text = m_textField->text();
+	QString text = m_textField ? m_textField->text() : "";
 	text = text.trimmed();
 	if (text.isEmpty())
-		text = m_defaultText;
+		text = "<qt><h1 style=\"background-color: red; color: white\">" + i18n("Test") + "</h1></qt>";
 
 	U_INFO_MESSAGE(nullptr, text);
 	
@@ -68,9 +65,10 @@ bool TestAction::onAction() {
 }
 
 void TestAction::readConfig(Config *config) {
-	m_textField->setText(config->read("Text", "").toString());
+	m_defaultText = config->read("Text", "").toString();
 }
 
 void TestAction::writeConfig(Config *config) {
-	config->write("Text", m_textField->text());
+	if (m_textField)
+		config->write("Text", m_textField->text());
 }
