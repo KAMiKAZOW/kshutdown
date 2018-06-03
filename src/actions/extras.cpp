@@ -185,7 +185,6 @@ Extras::Extras() :
 	
 	//setCommandAction(0);
 
-	// NOTE: Sync. with mainwindow.cpp (MainWindow::checkCommandLine())
 	addCommandLineArg("e", "extra");
 }
 
