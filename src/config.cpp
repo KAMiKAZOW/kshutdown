@@ -17,8 +17,8 @@
 
 #include "config.h"
 
+#include "commandline.h"
 #include "pureqt.h"
-#include "utils.h"
 
 #ifdef KS_PURE_QT
 	#include <QDir>
@@ -65,7 +65,11 @@ bool Config::isPortable() {
 	#ifdef KS_PORTABLE
 	return true;
 	#else
-	return Utils::isArg("portable");
+		#ifdef KS_PURE_QT
+		return CLI::isArg("portable");
+		#else
+		return false;
+		#endif // KS_PURE_QT
 	#endif // KS_PORTABLE
 }
 

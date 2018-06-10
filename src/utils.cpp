@@ -17,7 +17,6 @@
 
 #include "utils.h"
 
-#include <QMenu>
 #include <QToolTip>
 
 #ifdef KS_NATIVE_KDE
@@ -26,15 +25,6 @@
 
 // private
 
-#ifdef KS_NATIVE_KDE
-	#ifdef KS_KF5
-	QCommandLineParser *Utils::m_args = nullptr;
-	#else
-	KCmdLineArgs *Utils::m_args = nullptr;
-	#endif // KS_KF5
-#else
-	QStringList Utils::m_args;
-#endif // KS_NATIVE_KDE
 QProcessEnvironment Utils::m_env = QProcessEnvironment::systemEnvironment();
 QString Utils::m_desktopSession;
 QString Utils::m_xdgCurrentDesktop;
@@ -78,70 +68,6 @@ void Utils::addTitle(QMenu *menu, const QIcon &icon, const QString &text) {
 	#endif // KS_NATIVE_KDE
 }
 
-QString Utils::getOption(const QString &name) {
-#ifdef KS_NATIVE_KDE
-	#ifdef KS_KF5
-	QString option = m_args->value(name);
-
-	return option.isEmpty() ? QString::null : option;
-	#else
-	return m_args->getOption(name.toAscii());
-	#endif // KS_KF5
-#else
-	int i = m_args.indexOf('-' + name, 1);
-	if (i == -1) {
-		i = m_args.indexOf("--" + name, 1);
-		if (i == -1) {
-			//U_DEBUG << "Argument not found: " << name U_END;
-
-			return QString::null;
-		}
-	}
-
-	int argIndex = (i + 1);
-
-	if (argIndex < m_args.size()) {
-		//U_DEBUG << "Value of " << name << " is " << m_args[argIndex] U_END;
-
-		return m_args[argIndex];
-	}
-
-	//U_DEBUG << "Argument value is not set: " << name U_END;
-
-	return QString::null;
-#endif // KS_NATIVE_KDE
-}
-
-QString Utils::getTimeOption() {
-#ifdef KS_NATIVE_KDE
-	#ifdef KS_KF5
-	QStringList pa = m_args->positionalArguments();
-
-	if (pa.count())
-		return pa.at(0);
-	
-	return QString::null;
-	#else
-	if (m_args->count())
-		return m_args->arg(0);
-	
-	return QString::null;
-	#endif // KS_KF5
-#else
-	if (m_args.size() > 2) {
-		QString timeOption = m_args.last();
-// FIXME: clash with --mod and --extra
-		if (!timeOption.isEmpty() && (timeOption.at(0) != '-')) {
-			//U_DEBUG << timeOption U_END;
-			
-			return timeOption;
-		}
-	}
-	
-	return QString::null;
-#endif // KS_NATIVE_KDE
-}
-
 QString Utils::getUser() {
 	QString LOGNAME = m_env.value("LOGNAME");
 	
@@ -174,28 +100,6 @@ void Utils::init() {
 	#endif // Q_OS_LINUX
 }
 
-void Utils::initArgs() {
-#ifdef KS_NATIVE_KDE
-	#ifndef KS_KF5
-	m_args = KCmdLineArgs::parsedArgs();
-	#endif // KS_KF5
-#else
-	m_args = U_APP->arguments();
-#endif // KS_NATIVE_KDE
-}
-
-bool Utils::isArg(const QString &name) {
-#ifdef KS_NATIVE_KDE
-	#ifdef KS_KF5
-	return m_args->isSet(name);
-	#else
-	return m_args->isSet(name.toAscii());
-	#endif // KS_KF5
-#else
-	return (m_args.contains('-' + name) || m_args.contains("--" + name));
-#endif // KS_NATIVE_KDE
-}
-
 bool Utils::isCinnamon() {
 // TODO: test
 	return
@@ -207,20 +111,6 @@ bool Utils::isEnlightenment() {
 	return
 		m_desktopSession.contains("enlightenment", Qt::CaseInsensitive) ||
 		m_xdgCurrentDesktop.contains("enlightenment", Qt::CaseInsensitive);
-}
-
-bool Utils::isHelpArg() {
-#ifdef KS_KF5
-	return isArg("help");
-#elif defined(KS_NATIVE_KDE)
-	return false; // "--help" argument handled by KDE
-#else
-	return
-		#ifdef Q_OS_WIN32
-		m_args.contains("/?") ||
-		#endif // Q_OS_WIN32
-		isArg("help");
-#endif // KS_KF5
 }
 
 bool Utils::isGNOME() {
@@ -372,15 +262,6 @@ void Utils::showMenuToolTip(QAction *action) {
 	// HACK: hide previous tool tip window if no tool tip...
 	if (action->statusTip().isEmpty())
 		QToolTip::hideText();
-}
-
-void Utils::shutDown() {
-#ifdef KS_NATIVE_KDE
-	#ifndef KS_KF5
-	if (m_args)
-		m_args->clear();
-	#endif // KS_KF5
-#endif // KS_NATIVE_KDE
 }
 
 QString Utils::trim(QString &text, const int maxLength) {

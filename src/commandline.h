@@ -22,6 +22,20 @@
 
 #include "kshutdown.h"
 
+#include <QCommandLineParser>
+
+class CLI final {
+public:
+	static bool check();
+	static QCommandLineParser *getArgs() { return m_args; }
+	static QString getOption(const QString &name);
+	static QString getTimeOption();
+	static void init(const QString &appDescription);
+	static bool isArg(const QString &name);
+private:
+	static QCommandLineParser *m_args;
+};
+
 class TimeOption final {
 public:
 	inline static KShutdown::Action *action() { return m_action; }

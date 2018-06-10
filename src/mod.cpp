@@ -17,9 +17,9 @@
 
 #include "mod.h"
 
+#include "commandline.h"
 #include "config.h"
 #include "mainwindow.h"
-#include "utils.h"
 
 #include <QMenuBar>
 #include <QPushButton>
@@ -106,7 +106,7 @@ void Mod::init() {
 	m_map = new QHash<QString, QVariant>();
 
 	// read command line
-	QString cliMod = Utils::getOption("mod");
+	QString cliMod = CLI::getOption("mod");
 	
 	// read config
 	Config *config = Config::user();
