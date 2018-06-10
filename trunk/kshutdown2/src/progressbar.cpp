@@ -17,6 +17,7 @@
 
 #include "progressbar.h"
 
+#include "commandline.h"
 #include "config.h"
 #include "mainwindow.h"
 #include "mod.h"
@@ -162,7 +163,7 @@ void ProgressBar::updateTaskbar(const double progress, const int seconds, const 
 
 void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	if (
-		Utils::isArg("hide-ui") ||
+		CLI::isArg("hide-ui") ||
 		Utils::isRestricted("kshutdown/progress_bar/menu")
 	)
 		return;
@@ -228,7 +229,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 }
 
 void ProgressBar::mousePressEvent(QMouseEvent *e) {
-	if (!Utils::isArg("hide-ui") && (e->button() == Qt::LeftButton)) {
+	if (!CLI::isArg("hide-ui") && (e->button() == Qt::LeftButton)) {
 		auto *mainWindow = MainWindow::self();
 		mainWindow->show();
 		mainWindow->activateWindow();

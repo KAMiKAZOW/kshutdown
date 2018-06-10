@@ -17,6 +17,7 @@
 
 #include "kshutdown.h"
 
+#include "commandline.h"
 #include "config.h"
 #include "log.h"
 #include "mainwindow.h"
@@ -155,7 +156,7 @@ bool Action::authorize(QWidget *parent) {
 
 bool Action::isCommandLineArgSupported() {
 	foreach (const QString &i, m_commandLineArgs) {
-		if (Utils::isArg(i))
+		if (CLI::isArg(i))
 			return true;
 	}
 	
@@ -224,22 +225,16 @@ void Action::updateMainWindow(MainWindow *mainWindow) {
 
 // protected
 
-// NOTE: Sync. with "KCmdLineOptions" in main.cpp
+// NOTE: Sync. with commandline.cpp/CLI::init
 void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) {
 	if (!shortArg.isEmpty())
 		m_commandLineArgs.append(shortArg);
 	if (!longArg.isEmpty())
 		m_commandLineArgs.append(longArg);
-	#ifdef KS_KF5
-	/*
-	QStringList args;
-	if (!shortArg.isEmpty())
-		args << shortArg;
-	if (!longArg.isEmpty())
-		args << longArg;
-	*/
-// TODO: Utils::parser()->addOption(QCommandLineOption(args, originalText()));
-	#endif // KS_KF5
+/* TODO:
+	CLI::getArgs()
+		->addOption(QCommandLineOption(m_commandLineArgs, originalText()));
+*/
 }
 
 void Action::disable(const QString &reason) {
@@ -815,7 +810,6 @@ bool PowerAction::onAction() {
 	
 	QDBusInterface *login = getLoginInterface();
 	QDBusInterface *upower = getUPowerInterface();
-	
 	
 	QDBusError error;
 	
