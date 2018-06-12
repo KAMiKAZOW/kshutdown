@@ -116,7 +116,7 @@ retry:
 
 	#ifdef KS_NATIVE_KDE
 	QPointer<KPasswordDialog> dialog = new KPasswordDialog(parent);
-	dialog->setPixmap(QIcon("kshutdown").pixmap(48_px, 48_px));//!!!?
+// FIXME: dialog->setPixmap(MainWindow::self()->windowIcon().pixmap(48_px, 48_px));
 	dialog->setPrompt(prompt);
 	bool ok = dialog->exec() == KPasswordDialog::Accepted;
 	QString password = ok ? dialog->password() : QString::null;
@@ -256,7 +256,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	
 	addItem("action/settings", i18n("Settings (recommended)"), QIcon("configure"));
 	
-	foreach (const Action *action, MainWindow::self()->actionList()) {
+	foreach (const Action *action, MainWindow::actionList()) {
 		addItem(
 			"kshutdown/action/" + action->id(),
 			action->originalText(),

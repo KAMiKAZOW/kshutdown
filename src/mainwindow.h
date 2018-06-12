@@ -57,15 +57,14 @@ public:
 		DISPLAY_STATUS_OK_HINT = 1 << 4
 	};
 	virtual ~MainWindow();
-	QHash<QString, Action*> actionHash() const { return m_actionHash; }
-	QList<Action*> actionList() const { return m_actionList; }
+	static QHash<QString, Action*> actionHash() { return m_actionHash; }
+	static QList<Action*> actionList() { return m_actionList; }
 	QAction *cancelAction() const { return m_cancelAction; }
-	static bool checkCommandLine();
 	QString getDisplayStatus(const int options);
 	Action *getSelectedAction() const;
 	Trigger *getSelectedTrigger() const;
 	inline InfoWidget *infoWidget() { return m_infoWidget; }
-	static void init();
+	static void initActionsAndTriggers();
 	inline QPushButton *okCancelButton() { return m_okCancelButton; }
 	inline ProgressBar *progressBar() { return m_progressBar; }
 	static MainWindow *self() {
@@ -76,7 +75,7 @@ public:
 	}
 	bool maybeShow(const bool forceShow = false);
 	void setTime(const QString &selectTrigger, const QTime &time, const bool absolute);
-	QHash<QString, Trigger*> triggerHash() const { return m_triggerHash; }
+	static QHash<QString, Trigger*> triggerHash() { return m_triggerHash; }
 public slots:
 	Q_SCRIPTABLE QStringList actionList(const bool showDescription);
 	Q_SCRIPTABLE QStringList triggerList(const bool showDescription);

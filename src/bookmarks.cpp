@@ -44,9 +44,8 @@ BookmarkAction::BookmarkAction(
 {
 	connect(this, SIGNAL(triggered()), SLOT(onAction()));
 	
-	MainWindow *mainWindow = MainWindow::self();
-	auto *action = mainWindow->actionHash()[actionID];
-	auto *trigger = mainWindow->triggerHash()[triggerID];
+	auto *action = MainWindow::actionHash()[actionID];
+	auto *trigger = MainWindow::triggerHash()[triggerID];
 	
 	if (action)
 		setIcon(action->icon());
