@@ -44,6 +44,8 @@
 #include <QPushButton>
 #include <QTimer>
 
+// TODO: review includes
+
 #ifdef KS_NATIVE_KDE
 	#include <KActionCollection> // #kde4
 	#include <KHelpMenu>
@@ -75,158 +77,12 @@ MainWindow::~MainWindow() {
 		delete trigger;
 
 	Config::shutDown();
-	Utils::shutDown();
 	Log::shutDown();
 
 	if (m_progressBar) {
 		delete m_progressBar;
 		m_progressBar = nullptr;
 	}
-}
-
-bool MainWindow::checkCommandLine() {
-#if defined(KS_PURE_QT) || defined(KS_KF5)
-	if (Utils::isHelpArg()) {
-// TODO: get the info directly from QCommandLineParser
-		#ifdef KS_KF5
-		//Utils::parser()->showHelp(0);
-		#endif // KS_KF5
-
-		QString table = "<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" width=\"800\">\n";
-		
-		table += "<tr><td colspan=\"2\"><b>" + i18n("Actions") + "</b></td></tr>\n";
-		
-		foreach (Action *action, m_actionList) {
-			table += "<tr>";
-
-			// args
-			
-			table += "<td width=\"30%\"><code>";
-			QString argsCell = "";
-			foreach (const QString &arg, action->getCommandLineArgs()) {
-				if (!argsCell.isEmpty())
-					argsCell += ", ";
-				argsCell += ((arg.length() == 1) ? "-" : "--");
-				argsCell += arg;
-			}
-			table += argsCell;
-			table += "</code></td>";
-			
-			// name
-
-			table += "<td>";
-			table += action->originalText();
-			table += "</td>";
-
-			table += "</tr>\n";
-		}
-		
-		// NOTE: sync. description with main.cpp/main
-		
-		table += "<tr><td colspan=\"2\"><b>" + i18n("Miscellaneous") + "</b></td></tr>\n";
-
-		if (m_triggerHash.contains("idle-monitor")) {
-			table += "<tr><td><code>-i, --inactivity</code></td><td>" +
-			i18n( // NOTE: copied from main.cpp
-			"Detect user inactivity. Example:\n"
-			"--logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
-			).replace('\n', "<br />") +
-			"</td></tr>\n";
-		}
-
-		table += "<tr><td><code>--confirm</code></td><td>" + i18n("Confirm command line action") + "</td></tr>\n";
-
-		table += "<tr><td><code>--hide-ui</code></td><td>" + i18n("Hide main window and system tray icon") + "</td></tr>\n";
-		
-		table += "<tr><td><code>--init</code></td><td>" + i18n("Do not show main window on startup") + "</td></tr>\n";
-		
-		table += "<tr><td><code>--mod</code></td><td>" + i18n("A list of modifications") + "</td></tr>\n";
-
-		table += "<tr><td><code>--ui-menu</code></td><td>" + i18n("Show custom popup menu instead of main window") + "</td></tr>\n";
-		
-		#ifndef KS_PORTABLE
-		table += "<tr><td><code>--portable</code></td><td>" + i18n("Run in \"portable\" mode") + "</td></tr>\n";
-		#endif // KS_PORTABLE
-		
-		table += "<tr><td>" + i18n("Optional parameter") + "</td><td>" +
-		i18n( // NOTE: copied from main.cpp
-		"Activate countdown. Examples:\n"
-		"13:37 (HH:MM) or \"1:37 PM\" - absolute time\n"
-		"10 or 10m - number of minutes from now\n"
-		"2h - two hours"
-		).replace('\n', "<br />") +
-		"</td></tr>\n";
-
-		// HACK: non-clickable links in Oxygen Style
-		table += "<tr><td colspan=\"2\"><a href=\"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">https://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a></td></tr>\n";
-
-		table += "</table>";
-		
-		//U_DEBUG << table U_END;
-
-		QMessageBox::information( // krazy:exclude=qclasses
-			nullptr,
-			i18n("Command Line Options"),
-			"<qt>" +
-			table +
-			"</qt>"
-		);
-
-		return false;
-	}
-#endif // KS_PURE_QT
-	
-	TimeOption::init();
-	
-	Action *actionToActivate = nullptr;
-	bool confirm = Utils::isArg("confirm");
-	foreach (Action *action, m_actionList) {
-		if (action->isCommandLineArgSupported()) {
-			if (confirm && !action->showConfirmationMessage())
-				return false;
-			
-			actionToActivate = action;
-
-			break; // foreach
-		}
-	}
-	if (actionToActivate) {
-		QString extrasCommand = QString::null;
-	
-		if (actionToActivate == Extras::self()) {
-			// NOTE: Sync. with extras.cpp (constructor)
-			extrasCommand = Utils::getOption("extra");
-			if (extrasCommand.isEmpty())
-				extrasCommand = Utils::getOption("e");
-			Extras::self()->setStringOption(extrasCommand);
-		}
-
-		// setup main window and execute action later
-		if (TimeOption::isValid()) {
-			TimeOption::setAction(actionToActivate);
-			
-			return false;
-		}
-		else {
-			if (
-				TimeOption::isError() &&
-				// HACK: fix command line: -e <extrasCommand> <TimeOption::value()>
-				(TimeOption::value() != extrasCommand)
-			) {
-				U_ERROR_MESSAGE(0, i18n("Invalid time: %0").arg(TimeOption::value()));
-				
-				return false;
-			}
-
-			// execute action and quit now
-			if (actionToActivate->authorize(nullptr))
-				actionToActivate->activate(false);
-
-			return true;
-		}
-	}
-	
-	return false;
 }
 
 QString MainWindow::getDisplayStatus(const int options) {
@@ -286,10 +142,7 @@ QString MainWindow::getDisplayStatus(const int options) {
 	return s;
 }
 
-void MainWindow::init() {
-	Utils::initArgs(); // 1.
-	Mod::init(); // 2.
-
+void MainWindow::initActionsAndTriggers() {
 	U_DEBUG << "MainWindow::init(): Actions" U_END;
 	m_actionHash = QHash<QString, Action*>();
 	m_actionList = QList<Action*>();
@@ -322,7 +175,7 @@ void MainWindow::init() {
 }
 
 bool MainWindow::maybeShow(const bool forceShow) {
-	if (Utils::isArg("hide-ui")) {
+	if (CLI::isArg("hide-ui")) {
 		hide();
 
 // FIXME: KStatusNotifierItem is always visible
@@ -331,7 +184,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 		return true;
 	}
 
-	QString menuLayout = Utils::getOption("ui-menu");
+	QString menuLayout = CLI::getOption("ui-menu");
 	if (!menuLayout.isEmpty()) {
 		QStringList menuActions = menuLayout.split(':');
 
@@ -339,7 +192,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 		menu->setToolTipsVisible(true);
 
-		bool confirm = Utils::isArg("confirm");
+		bool confirm = CLI::isArg("confirm");
 
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
@@ -388,7 +241,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 	if (forceShow) {
 		show();
 	}
-	else if (Utils::isArg("init") || U_APP->isSessionRestored()) {
+	else if (CLI::isArg("init") || U_APP->isSessionRestored()) {
 		if (!trayIconEnabled)
 			showMinimized(); // krazy:exclude=qmethods
 	}
@@ -782,11 +635,13 @@ MainWindow::MainWindow() :
 }
 
 void MainWindow::addAction(Action *action) {
+	//qDebug() << "MainWindow::addAction:" << action->id();
 	m_actionHash[action->id()] = action;
 	m_actionList.append(action);
 }
 
 void MainWindow::addTrigger(Trigger *trigger) {
+	//qDebug() << "MainWindow::addTrigger:" << trigger->id();
 	m_triggerHash[trigger->id()] = trigger;
 	m_triggerList.append(trigger);
 }
@@ -1226,7 +1081,7 @@ void MainWindow::onAbout() {
 	iconLabel->setPixmap(QIcon(":/images/hi64-app-kshutdown.png").pixmap(64, 64));
 	// TEST: iconLabel->setPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128, 128));
 
-	QString titleText = "KShutdown " KS_FULL_VERSION;
+	QString titleText = "KShutdown™ " KS_FULL_VERSION;
 	QString buildText = KS_RELEASE_DATE;
 	if (Config::isPortable())
 		buildText += " | Portable";
@@ -1242,7 +1097,7 @@ void MainWindow::onAbout() {
 		"https://kshutdown.sourceforge.io/releases/" KS_FILE_VERSION ".html";
 	auto *aboutLabel = new QLabel(
 		"<qt>" +
-		i18n("A graphical shutdown utility") + "<br />" \
+		CLI::getArgs()->applicationDescription() + "<br />" \
 		"<a href=\"" KS_HOME_PAGE "\">kshutdown.sourceforge.io</a><br />" \
 		"<br />" \
 		"<a href=\"" + releaseNotes + "\">" + i18n("What's New?") + "</a><br />" \
