@@ -10,6 +10,8 @@ echo "Reading \"VERSION\"..."
 KS_FILE_VERSION=$(sed 1!d VERSION)
 KS_FULL_VERSION=$(sed 2!d VERSION)
 KS_RELEASE_DATE=$(sed 3!d VERSION)
+KS_QT_INT_VERSION=$(sed 4!d VERSION)
+KS_QT_FULL_VERSION=$(sed 5!d VERSION)
 
 echo "Generating \"kshutdown.nsh\"..."
 
@@ -30,9 +32,14 @@ cat > "src/version.h" <<EOF
 #define KS_FULL_VERSION "$KS_FULL_VERSION"
 #define KS_RELEASE_DATE "$KS_RELEASE_DATE"
 
+#if QT_VERSION < $KS_QT_INT_VERSION
+	#error "KShutdown $KS_FULL_VERSION requires Qt $KS_QT_FULL_VERSION or newer"
+#endif // QT_VERSION
+
 #endif // KSHUTDOWN_VERSION_H
 EOF
 
 echo "File version (used in file names): \"$KS_FILE_VERSION\""
 echo "Full version (used in UI)        : \"$KS_FULL_VERSION\""
 echo "Release date (updated manually)  : \"$KS_RELEASE_DATE\""
+echo "Required Qt version              : $KS_QT_FULL_VERSION ($KS_QT_INT_VERSION)"

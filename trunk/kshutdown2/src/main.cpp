@@ -26,6 +26,7 @@
 
 #ifdef KS_PURE_QT
 	#include <QLibraryInfo>
+	#include <QPointer>
 	#include <QTranslator>
 #else
 	#include <KAboutData>
@@ -156,18 +157,21 @@ void initDE() {
 	#endif // KS_UNIX
 }
 
-void initTranslation() {//!!!!
+void initTranslation() {
 	#ifdef KS_PURE_QT
-// TODO: http://doc.qt.io/qt-5/qtranslator.html#load-1 (use other load function)
 	QString lang = QLocale::system().name();
 
-	QTranslator qt_trans;
-	qt_trans.load("qt_" + lang, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-	qApp->installTranslator(&qt_trans);
+	#ifdef Q_OS_WIN32
+	QPointer<QTranslator> qtTranslator = new QTranslator();
+	if (qtTranslator->load("qt_" + lang, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+		qApp->installTranslator(qtTranslator);
+	#endif // Q_OS_WIN32
 
-	QTranslator kshutdown_trans;
-	kshutdown_trans.load("kshutdown_" + lang, ":/i18n");
-	qApp->installTranslator(&kshutdown_trans);
+	QPointer<QTranslator> kshutdownTranslator = new QTranslator();
+	// NOTE: It uses QLocale::uiLanguages() which on Windows is not what we really want:
+	//if (kshutdownTranslator->load(locale, "kshutdown", "_", ":/i18n"))
+	if (kshutdownTranslator->load("kshutdown_" + lang, ":/i18n"))
+		qApp->installTranslator(kshutdownTranslator);
 	#else
 	KLocalizedString::setApplicationDomain("kshutdown");
 	#endif // KS_PURE_QT
