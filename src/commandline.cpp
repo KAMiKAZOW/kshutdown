@@ -17,6 +17,7 @@
 
 #include "commandline.h"
 
+#include "config.h"
 #include "mainwindow.h"
 #include "actions/extras.h"
 
@@ -78,7 +79,7 @@ bool CLI::check() {
 	TimeOption::init();
 	
 	Action *actionToActivate = nullptr;
-	bool confirm = isArg("confirm");
+	bool confirm = isConfirm();
 	foreach (Action *action, MainWindow::actionList()) {
 		if (action->isCommandLineArgSupported()) {
 			if (confirm && !action->showConfirmationMessage())
@@ -174,7 +175,8 @@ void CLI::init(const QString &appDescription) {
 
 	m_args->addOption({ "help", i18n("Show this help") });
 	m_args->addOption({ "cancel", i18n("Cancel an active action") });
-	m_args->addOption({ "confirm", i18n("Confirm command line action") });
+	m_args->addOption({ "confirm", i18n("Show confirmation message") });
+	m_args->addOption({ "confirm-auto", i18n("Show confirmation message only if the \"Confirm Action\" option is enabled") });
 	m_args->addOption({ "hide-ui", i18n("Hide main window and system tray icon") });
 	m_args->addOption({ "init", i18n("Do not show main window on startup") });
 	m_args->addOption({ "mod", i18n("A list of modifications"), "value" });
@@ -202,6 +204,13 @@ bool CLI::isArg(const QString &name) {
 	//qDebug() << "CLI::isArg:" << name;
 
 	return m_args->isSet(name);
+}
+
+bool CLI::isConfirm() {
+	if (isArg("confirm"))
+		return true;
+
+	return isArg("confirm-auto") && Config::confirmAction();
 }
 
 // TimeOption

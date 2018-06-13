@@ -43,22 +43,22 @@ Actions=Halt;Reboot;Hibernate;Suspend;Lock;Logout;
 [Desktop Action Halt]
 Name=Turn Off Computer
 Icon=system-shutdown
-Exec=kshutdown --halt --confirm
+Exec=kshutdown --halt --confirm-auto
 
 [Desktop Action Reboot]
 Name=Restart Computer
 Icon=system-reboot
-Exec=kshutdown --reboot --confirm
+Exec=kshutdown --reboot --confirm-auto
 
 [Desktop Action Hibernate]
 Name=Hibernate Computer
 Icon=system-suspend-hibernate
-Exec=kshutdown --hibernate --confirm
+Exec=kshutdown --hibernate --confirm-auto
 
 [Desktop Action Suspend]
 Name=Suspend Computer
 Icon=system-suspend
-Exec=kshutdown --suspend --confirm
+Exec=kshutdown --suspend --confirm-auto
 
 [Desktop Action Lock]
 Name=Lock Screen
@@ -68,4 +68,4 @@ Exec=kshutdown --lock
 [Desktop Action Logout]
 Name=Logout
 Icon=system-log-out
-Exec=kshutdown --logout --confirm
+Exec=kshutdown --logout --confirm-auto

@@ -192,7 +192,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 		connect(menu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 		menu->setToolTipsVisible(true);
 
-		bool confirm = CLI::isArg("confirm");
+		bool confirm = CLI::isConfirm();
 
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
