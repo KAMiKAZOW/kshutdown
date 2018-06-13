@@ -32,6 +32,7 @@ public:
 	static QString getTimeOption();
 	static void init(const QString &appDescription);
 	static bool isArg(const QString &name);
+	static bool isConfirm();
 private:
 	static QCommandLineParser *m_args;
 };
