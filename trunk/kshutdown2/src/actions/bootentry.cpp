@@ -17,6 +17,8 @@
 
 #include "bootentry.h"
 
+#include "../udialog.h"
+
 #include <QAbstractItemView>
 #include <QFileInfo>
 
@@ -176,5 +178,5 @@ BootEntryMenu::BootEntryMenu(QWidget *parent) :
 // private slots:
 
 void BootEntryMenu::onProblem() {
-	U_ERROR_MESSAGE(this, BootEntry::getProblem());
+	UDialog::error(this, BootEntry::getProblem());
 }

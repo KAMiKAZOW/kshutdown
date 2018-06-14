@@ -29,6 +29,7 @@
 #include "actions/lock.h"
 
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QPointer>
 #include <QPushButton>
 
@@ -175,6 +176,7 @@ bool Action::showConfirmationMessage() {
 	else
 		parent = nullptr;
 
+// TODO: KMessageBox
 	QPointer<QMessageBox> message = new QMessageBox(
 		QMessageBox::Warning,
 		title,
@@ -310,7 +312,7 @@ void Action::slotFire() {
 
 	if (!isEnabled()) {
 		QString s = m_disableReason.isEmpty() ? i18n("Unknown error") : m_disableReason;
-		U_ERROR_MESSAGE(0, text() + ": " + s);
+		UDialog::error(0, text() + ": " + s);
 		
 		return;
 	}
@@ -320,7 +322,7 @@ void Action::slotFire() {
 		m_totalExit = false;
 		if (!m_error.isNull()) {
 			QString s = m_error.isEmpty() ? i18n("Unknown error") : m_error;
-			U_ERROR_MESSAGE(0, text() + ": " + s);
+			UDialog::error(0, text() + ": " + s);
 		}
 	}
 }

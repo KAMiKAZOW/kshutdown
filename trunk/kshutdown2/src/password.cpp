@@ -145,7 +145,7 @@ retry:
 	if (hash != enteredHash) {
 		Log::warning("Invalid password for action: " + userAction);
 
-		U_ERROR_MESSAGE(parent, i18n("Invalid password"));
+		UDialog::error(parent, i18n("Invalid password"));
 
 		goto retry; // goto considered useful
 	}

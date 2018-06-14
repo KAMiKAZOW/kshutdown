@@ -23,6 +23,7 @@
 
 #include <QFileInfo>
 #include <QMenu>
+#include <QPushButton>
 
 class CommandAction;
 

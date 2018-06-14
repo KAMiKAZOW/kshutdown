@@ -18,6 +18,7 @@
 #include "test.h"
 
 #include "../config.h"
+#include "../udialog.h"
 #include "../utils.h"
 
 #include <QFormLayout>
@@ -59,7 +60,7 @@ bool TestAction::onAction() {
 	if (text.isEmpty())
 		text = "<qt><h1 style=\"background-color: red; color: white\">" + i18n("Test") + "</h1></qt>";
 
-	U_INFO_MESSAGE(nullptr, text);
+	UDialog::info(nullptr, text);
 	
 	return true;
 }

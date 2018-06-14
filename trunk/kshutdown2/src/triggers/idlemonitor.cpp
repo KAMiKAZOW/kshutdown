@@ -197,7 +197,7 @@ void IdleMonitor::getSessionIdleTime() {
 		qint32 lastTick = lii.dwTime;
 
 		m_idleTime = (tickCount - lastTick) / 1000;
-		//U_ERROR_MESSAGE(0, QString::number(m_idleTime));
+		//UDialog::error(0, QString::number(m_idleTime));
 	}
 	else {
 		m_idleTime = 0;

@@ -29,6 +29,7 @@
 #include <QComboBox>
 #include <QGroupBox>
 #include <QMainWindow>
+#include <QPushButton>
 
 #ifdef KS_NATIVE_KDE
 	#include <KActionCollection>

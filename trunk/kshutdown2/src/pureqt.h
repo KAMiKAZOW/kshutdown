@@ -27,19 +27,16 @@
 // Q-Files
 #include <QApplication>
 #include <QDebug>
-#include <QMessageBox>
 
 #else
 
 	#ifdef KS_KF5
 		#include <QApplication>
 		#include <QDebug>
-		#include <QMessageBox>
 	#else
 		// #kde4
 		#include <KApplication>
 		#include <KDebug>
-		#include <KMessageBox>
 	#endif // KS_KF5
 
 #endif // KS_PURE_QT
@@ -57,19 +54,6 @@
 	#undef KS_KF5
 	#undef KS_NATIVE_KDE
 
-	#define U_CONFIRM(parent, title, text) \
-		(QMessageBox::question( \
-			(parent), \
-			(title), \
-			(text), \
-			QMessageBox::Ok | QMessageBox::Cancel, \
-			QMessageBox::Ok \
-		) == QMessageBox::Ok)
-	#define U_ERROR_MESSAGE(parent, text) \
-		QMessageBox::critical((parent), i18n("Error"), (text));
-	#define U_INFO_MESSAGE(parent, text) \
-		QMessageBox::information((parent), i18n("Information"), (text));
-
 	#define U_DEBUG qDebug()
 	#define U_END
 
@@ -80,34 +64,10 @@
 	#ifdef KS_KF5
 		#include <KLocalizedString> // for i18n
 
-		#define U_CONFIRM(parent, title, text) \
-			(QMessageBox::question( \
-				(parent), \
-				(title), \
-				(text), \
-				QMessageBox::Ok | QMessageBox::Cancel, \
-				QMessageBox::Ok \
-			) == QMessageBox::Ok)
-		#define U_ERROR_MESSAGE(parent, text) \
-			QMessageBox::critical((parent), i18n("Error"), (text));
-		#define U_INFO_MESSAGE(parent, text) \
-			QMessageBox::information((parent), i18n("Information"), (text));
-
 		#define U_DEBUG qDebug()
 		#define U_END
 	#else
 		#include <KLocale> // for i18n
-
-		#define U_CONFIRM(parent, title, text) \
-			(KMessageBox::questionYesNo( \
-				(parent), \
-				(text), \
-				(title) \
-			) == KMessageBox::Yes)
-		#define U_ERROR_MESSAGE(parent, text) \
-			KMessageBox::error((parent), (text));
-		#define U_INFO_MESSAGE(parent, text) \
-			KMessageBox::information((parent), (text));
 
 		#define U_DEBUG kDebug()
 		#define U_END << endl
