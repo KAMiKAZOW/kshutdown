@@ -95,7 +95,7 @@ QStringList BootEntry::getList() {
 			if ((quoteStart != -1) && (quoteEnd != -1) && (quoteEnd > quoteStart))
 				line = line.mid(quoteStart, quoteEnd);
 			else
-				U_ERROR << "Error parsing menuentry: " << line U_END;
+				qCritical() << "Error parsing menuentry: " << line;
 
 			if (line.contains("(memtest86+")) {
 				U_DEBUG << "Skipping Boot Entry: " << line U_END;
@@ -107,7 +107,7 @@ QStringList BootEntry::getList() {
 		}
 	}
 	else {
-		U_ERROR << "Could not read GRUB menu entries: " << grubConfigFile.fileName() U_END;
+		qCritical() << "Could not read GRUB menu entries: " << grubConfigFile.fileName();
 	}
 
 	if (m_list.isEmpty()) {

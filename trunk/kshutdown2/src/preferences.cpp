@@ -54,7 +54,7 @@ Preferences::Preferences(QWidget *parent) :
 
 	#ifdef KS_NATIVE_KDE
 /*
-	int iconSize = U_APP->style()->pixelMetric(QStyle::PM_);
+	int iconSize = qApp->style()->pixelMetric(QStyle::PM_);
 // TODO: int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
 	m_tabs->setIconSize(QSize(iconSize, iconSize));
 	m_tabs->setTabIcon(0, QIcon::fromTheme("edit-bomb")); // General

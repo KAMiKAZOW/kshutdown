@@ -92,7 +92,7 @@ bool Extras::onAction() {
 		}
 		
 // FIXME: error detection, double error message box
-		if (KRun::run(service, KUrl::List(), U_APP->activeWindow()))
+		if (KRun::run(service, KUrl::List(), qApp->activeWindow()))
 			return true;
 		
 		m_error = i18n("Cannot execute \"Extras\" command");
@@ -100,7 +100,7 @@ bool Extras::onAction() {
 		return false;
 	}
 	else {
-		if (KRun::run("\"" + m_command + "\"", KUrl::List(), U_APP->activeWindow()))
+		if (KRun::run("\"" + m_command + "\"", KUrl::List(), qApp->activeWindow()))
 			return true;
 		
 		m_error = i18n("Cannot execute \"Extras\" command");

@@ -47,7 +47,7 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 #endif // KS_NATIVE_KDE
 
 #ifdef KS_PURE_QT
-	m_sessionRestored = U_APP->isSessionRestored();
+	m_sessionRestored = qApp->isSessionRestored();
 	m_trayIcon = new QSystemTrayIcon(mainWindow);
 
 	connect(

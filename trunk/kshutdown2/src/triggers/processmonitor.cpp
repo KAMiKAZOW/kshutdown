@@ -210,7 +210,7 @@ BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 	DWORD pid = 0;
 	::GetWindowThreadProcessId(windowHandle, &pid);
 
-	if (pid == U_APP->applicationPid())
+	if (pid == qApp->applicationPid())
 		return TRUE; // krazy:exclude=captruefalse
 
 	ProcessMonitor *processMonitor = (ProcessMonitor *)param;
@@ -383,7 +383,7 @@ void ProcessMonitor::onRefresh() {
 	clearAll();
 	m_processesComboBox->setEnabled(true);
 
-	U_APP->setOverrideCursor(Qt::WaitCursor);
+	qApp->setOverrideCursor(Qt::WaitCursor);
 
 	refreshProcessList();
 
@@ -428,7 +428,7 @@ void ProcessMonitor::onRefresh() {
 			m_processesComboBox->setCurrentIndex(i);
 	}
 
-	U_APP->restoreOverrideCursor();
+	qApp->restoreOverrideCursor();
 
 	int index = m_processesComboBox->currentIndex();
 	updateStatus((index == -1) ? nullptr : m_processList.value(index));

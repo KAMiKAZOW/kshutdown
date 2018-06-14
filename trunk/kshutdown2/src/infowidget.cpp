@@ -152,12 +152,12 @@ void InfoWidget::onLinkActivated(const QString &contents) {
 #ifdef KS_PURE_QT
 #ifdef Q_OS_WIN32
 void InfoWidget::setIcon(const QStyle::StandardPixmap standardIcon) {
-	int size = U_APP->style()->pixelMetric(QStyle::PM_ToolBarIconSize);
-	m_icon->setPixmap(U_APP->style()->standardIcon(standardIcon).pixmap(size, size));
+	int size = qApp->style()->pixelMetric(QStyle::PM_ToolBarIconSize);
+	m_icon->setPixmap(qApp->style()->standardIcon(standardIcon).pixmap(size, size));
 }
 #else
 void InfoWidget::setIcon(const QString &iconName) {
-	int size = U_APP->style()->pixelMetric(QStyle::PM_ToolBarIconSize);
+	int size = qApp->style()->pixelMetric(QStyle::PM_ToolBarIconSize);
 	m_icon->setPixmap(QIcon::fromTheme(iconName).pixmap(size, size));
 }
 #endif // Q_OS_WIN32

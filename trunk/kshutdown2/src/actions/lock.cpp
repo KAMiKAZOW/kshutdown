@@ -207,7 +207,7 @@ bool LockAction::onAction() {
 		return true;
 
 	// do not set "m_error" because it may block auto shutdown
-	U_ERROR << "Could not lock the screen" U_END;
+	qCritical() << "Could not lock the screen";
 	
 	return false;
 #endif // Q_OS_WIN32

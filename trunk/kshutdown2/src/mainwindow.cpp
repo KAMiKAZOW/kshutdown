@@ -205,7 +205,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 				menu->addAction(createQuitAction());
 			}
 			else if (id == "title") {
-				Utils::addTitle(menu, U_APP->windowIcon(), "KShutdown");
+				Utils::addTitle(menu, qApp->windowIcon(), "KShutdown");
 			}
 			else {
 				auto *action = m_actionHash[id];
@@ -241,7 +241,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 	if (forceShow) {
 		show();
 	}
-	else if (CLI::isArg("init") || U_APP->isSessionRestored()) {
+	else if (CLI::isArg("init") || qApp->isSessionRestored()) {
 		if (!trayIconEnabled)
 			showMinimized(); // krazy:exclude=qmethods
 	}
@@ -408,7 +408,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 
 	// flash taskbar button
 	if ((id == "1m") || (id == "5m"))
-		U_APP->alert(this, 10000);
+		qApp->alert(this, 10000);
 }
 
 void MainWindow::setExtrasCommand(const QString &command) {
@@ -477,7 +477,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 
 		// HACK: ?
 		if (!hideInTray)
-			U_APP->quit();
+			qApp->quit();
 
 		return;
 	}
@@ -539,7 +539,7 @@ MainWindow::MainWindow() :
 	// HACK: It seems that the "quit on last window closed"
 	// does not work correctly if main window is hidden
 	// "in" the system tray..
-	U_APP->setQuitOnLastWindowClosed(false);
+	qApp->setQuitOnLastWindowClosed(false);
 
 	setObjectName("main-window");
 #ifdef KS_KF5
@@ -612,7 +612,7 @@ MainWindow::MainWindow() :
 	setMaximumSize(hint.width() * 2, hint.height() * 2);
 	
 	connect(
-		U_APP, SIGNAL(focusChanged(QWidget *, QWidget *)),
+		qApp, SIGNAL(focusChanged(QWidget *, QWidget *)),
 		this, SLOT(onFocusChange(QWidget *, QWidget *))
 	);
 
@@ -1069,7 +1069,7 @@ void MainWindow::onQuit() {
 	m_forceQuit = true;
 	m_systemTray->setVisible(false);
 	close();
-	U_APP->quit();
+	qApp->quit();
 }
 
 // private slots
@@ -1139,7 +1139,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 
 	auto *aboutQtButton = new QPushButton(i18n("About Qt"));
 	aboutQtButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
-	connect(aboutQtButton, SIGNAL(clicked()), U_APP, SLOT(aboutQt()));
+	connect(aboutQtButton, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
 
 	auto *licenseTab = new QWidget();
 	auto *licenseLayout = new QVBoxLayout(licenseTab);
