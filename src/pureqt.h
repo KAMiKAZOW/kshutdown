@@ -70,10 +70,8 @@
 	#define U_INFO_MESSAGE(parent, text) \
 		QMessageBox::information((parent), i18n("Information"), (text));
 
-	#define U_APP qApp
 	#define U_DEBUG qDebug()
 	#define U_END
-	#define U_ERROR qCritical()
 
 	#define i18n(text) QApplication::translate(0, (text))
 #else
@@ -95,10 +93,8 @@
 		#define U_INFO_MESSAGE(parent, text) \
 			QMessageBox::information((parent), i18n("Information"), (text));
 
-		#define U_APP qApp
 		#define U_DEBUG qDebug()
 		#define U_END
-		#define U_ERROR qCritical()
 	#else
 		#include <KLocale> // for i18n
 
@@ -113,10 +109,8 @@
 		#define U_INFO_MESSAGE(parent, text) \
 			KMessageBox::information((parent), (text));
 
-		#define U_APP kapp
 		#define U_DEBUG kDebug()
 		#define U_END << endl
-		#define U_ERROR kError()
 	#endif // KS_KF5
 
 	// use i18n from KLocale

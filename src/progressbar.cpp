@@ -171,7 +171,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	// show popup menu
 	auto *menu = new QMenu(this);
 
-	Utils::addTitle(menu, U_APP->windowIcon(),
+	Utils::addTitle(menu, qApp->windowIcon(),
 		i18n("Progress Bar") + " - " +
 		#ifdef KS_KF5
 		QApplication::applicationDisplayName()

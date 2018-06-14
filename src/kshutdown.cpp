@@ -184,7 +184,7 @@ bool Action::showConfirmationMessage() {
 	);
 	message->setDefaultButton(QMessageBox::Cancel);
 	if (!icon().isNull()) {
-		int size = U_APP->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+		int size = qApp->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
 		message->setIconPixmap(icon().pixmap(size, size));
 	}
 
@@ -732,7 +732,7 @@ QDBusInterface *PowerAction::getHalDeviceInterface() {
 	if (m_halDeviceInterface->isValid())
 		U_DEBUG << "HAL backend found..." U_END;
 	else
-		U_ERROR << "HAL backend NOT found: " << m_halDeviceInterface->lastError().message() U_END;
+		qCritical() << "HAL backend NOT found: " << m_halDeviceInterface->lastError().message();
 
 	return m_halDeviceInterface;
 }
@@ -748,7 +748,7 @@ QDBusInterface *PowerAction::getHalDeviceSystemPMInterface() {
 		);
 	}
 	if (!m_halDeviceSystemPMInterface->isValid())
-		U_ERROR << "No valid org.freedesktop.Hal interface found: " << m_halDeviceSystemPMInterface->lastError().message() U_END;
+		qCritical() << "No valid org.freedesktop.Hal interface found: " << m_halDeviceSystemPMInterface->lastError().message();
 
 	return m_halDeviceSystemPMInterface;
 }
@@ -930,7 +930,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 				return reply.value();
 		}
 
-		U_ERROR << reply.error() U_END;
+		qCritical() << reply.error();
 	}
 	
 	return false;
@@ -1058,7 +1058,7 @@ bool StandardAction::onAction() {
 			flags = EWX_POWEROFF;
 			break;
 		default:
-			U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
+			qCritical() << "WTF? Unknown m_type: " << m_type;
 
 			return false; // do nothing
 	}
@@ -1316,7 +1316,7 @@ bool StandardAction::onAction() {
 					return true;
 			} break;
 			default:
-				U_ERROR << "WTF? Unknown m_type: " << m_type U_END;
+				qCritical() << "WTF? Unknown m_type: " << m_type;
 
 				return false; // do nothing
 */
@@ -1477,7 +1477,7 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 		if (m_consoleKitInterface->isValid()) {
 			QDBusReply<bool> reply = m_consoleKitInterface->call(consoleKitName);
 			if (!reply.isValid()) {
-				U_ERROR << reply.error().message() U_END;
+				qCritical() << reply.error().message();
 				if (error.isEmpty())
 					error = reply.error().name();
 			}
@@ -1486,7 +1486,7 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 			}
 		}
 		else {
-			U_ERROR << "ConsoleKit Error: " << m_consoleKitInterface->lastError().message() U_END;
+			qCritical() << "ConsoleKit Error: " << m_consoleKitInterface->lastError().message();
 			if (error.isEmpty())
 				error = "No valid org.freedesktop.ConsoleKit interface found";
 		}
