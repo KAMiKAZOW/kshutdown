@@ -30,6 +30,10 @@ public:
 	inline QPushButton *acceptButton() { return m_acceptButton; }
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
 	inline QVBoxLayout *rootLayout() { return m_rootLayout; }
+	// messages
+	static bool confirm(QWidget *parent, const QString &text);
+	static void error(QWidget *parent, const QString &text);
+	static void info(QWidget *parent, const QString &text);
 private:
 	Q_DISABLE_COPY(UDialog)
 	QDialogButtonBox *m_dialogButtonBox;

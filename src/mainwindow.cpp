@@ -41,7 +41,6 @@
 #include <QCloseEvent>
 #include <QMenuBar>
 #include <QPointer>
-#include <QPushButton>
 #include <QTimer>
 
 // TODO: review includes
@@ -261,7 +260,7 @@ void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const 
 	
 	// ensure the trigger exists and is valid
 	if (!dateTimeTrigger || (trigger->id() != selectTrigger)) {
-		U_ERROR_MESSAGE(this, i18n("Unsupported action: %0").arg(selectTrigger));
+		UDialog::error(this, i18n("Unsupported action: %0").arg(selectTrigger));
 	
 		return;
 	}
@@ -632,6 +631,12 @@ MainWindow::MainWindow() :
 	// Do not focus OK button on startup
 	// to avoid accidental action activation via Enter key.
 	m_actions->setFocus();
+
+/* TEST:
+	qDebug() << UDialog::confirm(this, "UDialog::confirm");
+	UDialog::error(this, "UDialog::error");
+	UDialog::info(this, "UDialog::info");
+*/
 }
 
 void MainWindow::addAction(Action *action) {
@@ -1261,7 +1266,7 @@ void MainWindow::onFocusChange(QWidget *old, QWidget *now) {
 void MainWindow::onForceClick() {
 	if (
 		m_force->isChecked() &&
-		!U_CONFIRM(this, i18n("Confirm"), i18n("Are you sure you want to enable this option?\n\nData in all unsaved documents will be lost!"))
+		!UDialog::confirm(this, i18n("Are you sure you want to enable this option?\n\nData in all unsaved documents will be lost!"))
 	)
 		m_force->setChecked(false);
 }

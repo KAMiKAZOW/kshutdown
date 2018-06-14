@@ -20,6 +20,8 @@
 
 #include "pureqt.h"
 
+#include <QColor>
+
 #ifdef KS_PURE_QT
 	#include <QSettings>
 #endif // KS_PURE_QT

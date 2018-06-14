@@ -19,6 +19,7 @@
 
 #include "config.h"
 #include "mainwindow.h"
+#include "udialog.h"
 #include "actions/extras.h"
 
 // private
@@ -64,6 +65,7 @@ bool CLI::check() {
 		qDebug() << "HTML:" << html;
 
 // FIXME: need scroll pane (?)
+// TODO: KMessageBox
 		QMessageBox::information( // krazy:exclude=qclasses
 			nullptr,
 			i18n("Command Line Options"),
@@ -105,7 +107,7 @@ bool CLI::check() {
 		}
 		else {
 			if (TimeOption::isError()) {
-				U_ERROR_MESSAGE(0, i18n("Invalid time: %0").arg(TimeOption::value()));
+				UDialog::error(0, i18n("Invalid time: %0").arg(TimeOption::value()));
 				
 				return false;
 			}

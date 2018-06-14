@@ -19,6 +19,12 @@
 
 #include "utils.h"
 
+#ifdef KS_KF5
+	#include <KMessageBox>
+#else
+	#include <QMessageBox>
+#endif // KS_KF5
+
 // public:
 
 UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple) :
@@ -51,4 +57,36 @@ UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple)
 
 	m_rootLayout->addWidget(mainWidget);
 	m_rootLayout->addWidget(m_dialogButtonBox);
+}
+
+// messages
+
+bool UDialog::confirm(QWidget *parent, const QString &text) {
+	#ifdef KS_KF5
+	return KMessageBox::questionYesNo(
+		parent, text, i18n("Confirm"),
+		KStandardGuiItem::ok(), KStandardGuiItem::cancel()
+	) == KMessageBox::Yes;
+	#else
+	return QMessageBox::question(
+		parent, i18n("Confirm"), text,
+		QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok
+	) == QMessageBox::Ok;
+	#endif // KS_KF5
+}
+
+void UDialog::error(QWidget *parent, const QString &text) {
+	#ifdef KS_KF5
+	KMessageBox::error(parent, text);
+	#else
+	QMessageBox::critical(parent, i18n("Error"), text);
+	#endif // KS_KF5
+}
+
+void UDialog::info(QWidget *parent, const QString &text) {
+	#ifdef KS_KF5
+	KMessageBox::information(parent, text);
+	#else
+	QMessageBox::information(parent, i18n("Information"), text);
+	#endif // KS_KF5
 }

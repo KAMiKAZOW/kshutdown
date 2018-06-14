@@ -24,8 +24,8 @@
 
 #include <QDesktopServices>
 #include <QDir>
+#include <QMessageBox>
 #include <QPointer>
-#include <QPushButton>
 #include <QUrl>
 
 #ifdef KS_KF5
@@ -390,6 +390,7 @@ void Extras::slotModify() {
 	config->endGroup();
 	
 	if (showInfo) {
+// TODO: KMessageBox
 		QPointer<QMessageBox> message = new QMessageBox( // krazy:exclude=qclasses
 			QMessageBox::Information, // krazy:exclude=qclasses
 			originalText(),
