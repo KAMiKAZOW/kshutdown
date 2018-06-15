@@ -337,7 +337,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 	
 	m_active = yes;
 	m_systemTray->updateIcon(this);
-	m_progressBar->updateTaskbar(-1, -1, false);
+	m_progressBar->updateTaskbar(-1, -1);
 
 	//U_DEBUG << "\tMainWindow::getSelectedAction() == " << action->id() U_END;
 	//U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
