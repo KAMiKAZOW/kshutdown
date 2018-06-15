@@ -165,9 +165,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	icon = QIcon(":/images/hi16-app-kshutdown.png");
 	#endif // KS_UNIX
 
-	int w = 64_px;
-	int h = 64_px;
-	QPixmap pixmap = icon.pixmap(w, h);
+	QPixmap pixmap = icon.pixmap(64_px);
 	QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
 
 	// add some effects

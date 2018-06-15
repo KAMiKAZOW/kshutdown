@@ -1083,8 +1083,8 @@ void MainWindow::onQuit() {
 void MainWindow::onAbout() {
 	auto *iconLabel = new QLabel();
 	iconLabel->setAlignment(Qt::AlignCenter);
-	iconLabel->setPixmap(QIcon(":/images/hi64-app-kshutdown.png").pixmap(64, 64));
-	// TEST: iconLabel->setPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128, 128));
+	iconLabel->setPixmap(QIcon(":/images/hi64-app-kshutdown.png").pixmap(64_px));
+	// TEST: iconLabel->setPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128_px));
 
 	QString titleText = "KShutdown™ " KS_FULL_VERSION;
 	QString buildText = KS_RELEASE_DATE;
