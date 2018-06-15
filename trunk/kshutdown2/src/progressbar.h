@@ -34,7 +34,7 @@ public:
 	void setHeight(const int value);
 	void setTotal(const int total);
 	void setValue(const int value);
-	void updateTaskbar(const double progress, const int seconds, const bool urgent);
+	void updateTaskbar(const double progress, const int seconds);
 protected:
 	virtual void contextMenuEvent(QContextMenuEvent *e) override;
 	virtual void mousePressEvent(QMouseEvent *e) override;

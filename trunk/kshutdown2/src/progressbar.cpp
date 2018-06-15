@@ -82,19 +82,15 @@ void ProgressBar::setValue(const int value) {
 	//U_DEBUG << "m_total = " << m_total U_END;
 	//U_DEBUG << "m_value = " << m_value U_END;
 
-	#ifdef KS_V5
-	if (m_value == -1) {
-		updateTaskbar(-1, -1, false);
-	}
-	else {
-		double progress = 1 - (double)m_value / (double)m_total;//!!!div zero
-		progress = qBound(0.0, progress, 1.0);
-		updateTaskbar(progress, m_value, (m_value <= 55));//!!!60
-	}
-	#endif // KS_V5
+	if ((m_total == 0) || (m_value == -1)) {
+		updateTaskbar(-1, -1);
 
-	if ((m_total == 0) || (m_value == -1))
 		return;
+	}
+
+	double progress = 1 - (double)m_value / (double)m_total;
+	progress = qBound(0.0, progress, 1.0);
+	updateTaskbar(progress, m_value);
 
 	int newCompleteWidth = (int)((float)width() * ((float)(m_total - m_value) / (float)m_total));
 	if (newCompleteWidth != m_completeWidth) {
@@ -103,8 +99,7 @@ void ProgressBar::setValue(const int value) {
 	}
 }
 
-void ProgressBar::updateTaskbar(const double progress, const int seconds, const bool urgent) {
-#ifdef KS_V5
+void ProgressBar::updateTaskbar(const double progress, const int seconds) {
 	#if defined(Q_OS_LINUX) && defined(KS_DBUS)
 	// CREDITS: https://askubuntu.com/questions/65054/unity-launcher-api-for-c/310940
 	// DOC: https://wiki.ubuntu.com/Unity/LauncherAPI
@@ -126,12 +121,8 @@ void ProgressBar::updateTaskbar(const double progress, const int seconds, const 
 
 	QVariantMap properties;
 
-	U_DEBUG << "" U_END;
-	U_DEBUG << progress U_END;
-	U_DEBUG << m_value U_END;
-	U_DEBUG << m_total U_END;
-
-	bool countVisible = (seconds >= 0) && (seconds <= 55);//!!!60
+	bool countVisible = (seconds >= 0) && (seconds <= 60);
+	bool urgent = seconds <= 60;
 	properties["count"] = qint64(countVisible ? seconds : 0);
 	properties["count-visible"] = countVisible;
 
@@ -140,6 +131,13 @@ void ProgressBar::updateTaskbar(const double progress, const int seconds, const 
 	properties["progress-visible"] = progressVisible;
 
 	properties["urgent"] = urgent;
+
+/* TEST:
+	qDebug() << "";
+	qDebug() << progress;
+	qDebug() << m_value << ".." << m_total;
+	qDebug() << urgent;
+*/
 
 	taskbarMessage << properties;
 	QDBusConnection::sessionBus()
@@ -152,11 +150,6 @@ void ProgressBar::updateTaskbar(const double progress, const int seconds, const 
 	Q_UNUSED(seconds)
 	Q_UNUSED(urgent)
 	#endif // Q_OS_WIN32
-#else
-	Q_UNUSED(progress)
-	Q_UNUSED(seconds)
-	Q_UNUSED(urgent)
-#endif // KS_V5
 }
 
 // protected

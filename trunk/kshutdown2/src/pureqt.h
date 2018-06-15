@@ -20,8 +20,6 @@
 #ifndef KSHUTDOWN_PUREQT_H
 #define KSHUTDOWN_PUREQT_H
 
-//#define KS_V5
-
 #ifdef KS_PURE_QT
 
 // Q-Files
