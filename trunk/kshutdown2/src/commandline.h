@@ -33,6 +33,7 @@ public:
 	static void init(const QString &appDescription);
 	static bool isArg(const QString &name);
 	static bool isConfirm();
+	static void showHelp(QWidget *parent);
 private:
 	static QCommandLineParser *m_args;
 };
