@@ -63,9 +63,9 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 
 void USystemTray::info(const QString &message) const {
 	#ifdef KS_KF5
-	m_trayIcon->showMessage("KShutdown", message, "dialog-information");
+	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, "dialog-information");
 	#else
-	m_trayIcon->showMessage("KShutdown", message, QSystemTrayIcon::Information, 4000);
+	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, QSystemTrayIcon::Information, 4000);
 	#endif // KS_KF5
 }
 
@@ -86,7 +86,7 @@ void USystemTray::setContextMenu(QMenu *menu) const {
 
 void USystemTray::setToolTip(const QString &toolTip) const {
 	#ifdef KS_KF5
-	m_trayIcon->setToolTipTitle("KShutdown");
+	m_trayIcon->setToolTipTitle(QApplication::applicationDisplayName());
 	m_trayIcon->setToolTipSubTitle(
 		(toolTip == m_trayIcon->toolTipTitle())
 		? ""
@@ -212,10 +212,9 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 
 void USystemTray::warning(const QString &message) const {
 	#ifdef KS_KF5
-// TODO: "KShutdown" -> QApplication::applicationDisplayName()
-	m_trayIcon->showMessage("KShutdown", message, "dialog-warning");
+	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, "dialog-warning");
 	#else
-	m_trayIcon->showMessage("KShutdown", message, QSystemTrayIcon::Warning, 4000);
+	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, QSystemTrayIcon::Warning, 4000);
 	#endif // KS_KF5
 }
 

@@ -204,7 +204,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 				menu->addAction(createQuitAction());
 			}
 			else if (id == "title") {
-				Utils::addTitle(menu, qApp->windowIcon(), "KShutdown");
+				Utils::addTitle(menu, qApp->windowIcon(), QApplication::applicationDisplayName());
 			}
 			else {
 				auto *action = m_actionHash[id];
@@ -950,19 +950,12 @@ void MainWindow::readConfig() {
 }
 
 void MainWindow::setTitle(const QString &plain, const QString &html) {
-#ifdef KS_KF5
 	setWindowTitle(plain);
-#elif defined(KS_NATIVE_KDE)
-	setCaption(plain);
-#else
-	setWindowTitle(plain);
-	// NOTE: the " - KShutdown" suffix is appended automatically
-	// if QApplication::applicationDispayName is set
-#endif // KS_NATIVE_KDE
-	QString s = html.isEmpty() ? "KShutdown" : html;
+
+	QString s = html.isEmpty() ? QApplication::applicationDisplayName() : html;
 
 	#if defined(Q_OS_WIN32) || defined(Q_OS_HAIKU)
-	m_systemTray->setToolTip(plain.isEmpty() ? "KShutdown" : (plain + " - KShutdown"));
+	m_systemTray->setToolTip(plain.isEmpty() ? QApplication::applicationDisplayName() : (plain + " - " + QApplication::applicationDisplayName()));
 	#else
 	m_systemTray->setToolTip(s);
 	#endif // Q_OS_WIN32
@@ -1086,7 +1079,7 @@ void MainWindow::onAbout() {
 	iconLabel->setPixmap(QIcon(":/images/hi64-app-kshutdown.png").pixmap(64_px));
 	// TEST: iconLabel->setPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128_px));
 
-	QString titleText = "KShutdown™ " KS_FULL_VERSION;
+	QString titleText = "KShutdown™ " + QApplication::applicationVersion();
 	QString buildText = KS_RELEASE_DATE;
 	if (Config::isPortable())
 		buildText += " | Portable";
