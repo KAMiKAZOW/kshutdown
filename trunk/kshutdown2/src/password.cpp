@@ -128,7 +128,7 @@ retry:
 	bool ok;
 	QString password = QInputDialog::getText( // krazy:exclude=qclasses
 		parent,
-		"KShutdown", // title
+		QApplication::applicationDisplayName(), // title
 		prompt,
 		QLineEdit::Password,
 		"",

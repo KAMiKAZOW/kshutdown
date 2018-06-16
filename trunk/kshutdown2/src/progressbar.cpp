@@ -164,16 +164,7 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	// show popup menu
 	auto *menu = new QMenu(this);
 
-	Utils::addTitle(menu, qApp->windowIcon(),
-		i18n("Progress Bar") + " - " +
-		#ifdef KS_KF5
-		QApplication::applicationDisplayName()
-		#elif defined(KS_NATIVE_KDE)
-		KGlobal::caption()
-		#else
-		i18n("KShutdown")
-		#endif // KS_KF5
-	);
+	Utils::addTitle(menu, qApp->windowIcon(), i18n("Progress Bar") + " - " + QApplication::applicationDisplayName());
 
 	bool canConfigure = !Utils::isRestricted("action/options_configure");
 
@@ -284,7 +275,7 @@ ProgressBar::ProgressBar() // public
 	setAttribute(Qt::WA_AlwaysShowToolTips, true);
 	setObjectName("progress-bar");
 
-	setWindowTitle(i18n("Progress Bar") + " - " + "KShutdown");
+	setWindowTitle(i18n("Progress Bar") + " - " + QApplication::applicationDisplayName());
 	setToolTip(windowTitle());
 
 	QVariant opacityVariant = Mod::get("ui-progress-bar-opacity", 1.0f);

@@ -39,7 +39,7 @@ bool commonStartup(const QStringList &arguments, const QCommandLineOption &versi
 		qWarning() << CLI::getArgs()->errorText();
 
 	if (CLI::getArgs()->isSet(versionOption)) {
-		QString text = QApplication::applicationDisplayName() + " " KS_FULL_VERSION " (" KS_RELEASE_DATE ")\n";
+		QString text = QApplication::applicationDisplayName() + " " + QApplication::applicationVersion() + " (" KS_RELEASE_DATE ")\n";
 		text += "Qt ";
 		text += qVersion();
 		text += " (compiled using " QT_VERSION_STR ")";
@@ -116,16 +116,11 @@ void initAboutData(const QString &appDescription) {
 void initAppProperties() {
 	QApplication::setApplicationName("KShutdown"); // used as file name in ~/.config/kshutdown.sf.net/KShutdown.conf
 	QApplication::setApplicationDisplayName("KShutdown"); // no i18n
-
-// TODO: unused?
 	QApplication::setApplicationVersion(KS_FULL_VERSION);
 
 	// NOTE: do not modify!
 	#ifdef KS_PURE_QT
 	QApplication::setOrganizationName("kshutdown.sf.net"); // used as file name in ~/.config/kshutdown.sf.net/KShutdown.conf
-	#else
-//	QApplication::setOrganizationName("kshutdown.sf.net"); // used as file name in ~/.config/kshutdown.sf.net/KShutdown.conf
-//	QApplication::setOrganizationDomain("sf.net"); // default is "kde.org"
 	#endif // KS_PURE_QT
 }
 
