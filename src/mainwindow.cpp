@@ -803,7 +803,8 @@ void MainWindow::initMenuBar() {
 
 	// help menu
 
-#ifdef KS_NATIVE_KDE
+	QMenu *helpMenu;
+#ifdef KS_KF5
 	Config *config = Config::user();
 	config->beginGroup("KDE Action Restrictions");
 	// unused
@@ -815,17 +816,28 @@ void MainWindow::initMenuBar() {
 	// mail bug report does not work (known bug)
 	config->write("action/help_report_bug", false);
 	config->endGroup();
-	#ifdef KS_KF5
-	KHelpMenu *helpMenu = new KHelpMenu(this);
-	menuBar->addMenu(helpMenu->menu());
-	#else
-	menuBar->addMenu(helpMenu());
-	#endif // KS_KF5
+
+	KHelpMenu *khm = new KHelpMenu(this);
+	helpMenu = khm->menu();
 #else
-	auto *helpMenu = new QMenu(i18n("&Help"), menuBar);
+	helpMenu = new QMenu(i18n("&Help"), menuBar);
+// TODO: replace signal/slots with lambda
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()), QKeySequence("Ctrl+H,E,L,P"));
+#endif // KS_KF5
+
+// TODO: review lambdas
+	auto *cliAction = new QAction(i18n("Command Line Options"), helpMenu);
+	connect(cliAction, &QAction::triggered, [this]() { CLI::showHelp(this); });
+
+// TODO: D-Bus help
+// TODO: misc. help from Wiki
+
+	// insert before other menu items
+	auto *firstAction = helpMenu->actions().first();
+	helpMenu->insertAction(firstAction, cliAction);
+	helpMenu->insertSeparator(firstAction);
+
 	menuBar->addMenu(helpMenu);
-#endif // KS_NATIVE_KDE
 
 	setMenuBar(menuBar);
 

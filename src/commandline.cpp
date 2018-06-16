@@ -22,6 +22,8 @@
 #include "udialog.h"
 #include "actions/extras.h"
 
+#include <QMessageBox>
+
 // private
 
 QCommandLineParser *CLI::m_args = nullptr;
@@ -40,42 +42,20 @@ bool CLI::check() {
 		isArg("help")
 // TODO: win32: "/?"
 	) {
+		#ifdef Q_OS_WIN32
+		showHelp(nullptr);
+		#else
 		QString moreInfo =
 			"\n" +
 			i18n("More Info...") + "\n" +
 			"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/";
 
-		#ifdef KS_UNIX
 		QTextStream out(stdout);
 		out << m_args->helpText();
 		out << moreInfo << endl;
+		#endif // Q_OS_WIN32
 
 		return true;
-		#else
-		QString html = m_args->helpText()
-			.toHtmlEscaped();
-
-// FIXME: clickable link opens two invalid browser tabs
-// (https://sourceforge.net/auth/?return_to=%2Fp%2Fkshutdown%2Fwiki%2FCommand and http://www.line.com/)
-// because for some reason "%20" is interpreted as " " :/
-// TODO: rename wiki page to fix the above problem ;)
-		//html += moreInfo;
-		//html += "\n<a href=\"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">https://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a>";
-
-		qDebug() << "HTML:" << html;
-
-// FIXME: need scroll pane (?)
-// TODO: KMessageBox
-		QMessageBox::information( // krazy:exclude=qclasses
-			nullptr,
-			i18n("Command Line Options"),
-			"<qt><pre>" +
-			html +
-			"</pre></qt>"
-		);
-
-		return false;
-		#endif // KS_UNIX
 	}
 
 	TimeOption::init();
@@ -213,6 +193,30 @@ bool CLI::isConfirm() {
 		return true;
 
 	return isArg("confirm-auto") && Config::confirmAction();
+}
+
+void CLI::showHelp(QWidget *parent) {
+	QString html = m_args->helpText()
+		.toHtmlEscaped();
+
+// FIXME: clickable link opens two invalid browser tabs
+// (https://sourceforge.net/auth/?return_to=%2Fp%2Fkshutdown%2Fwiki%2FCommand and http://www.line.com/)
+// because for some reason "%20" is interpreted as " " :/
+// TODO: rename wiki page to fix the above problem ;)
+	//html += moreInfo;
+	//html += "\n<a href=\"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">https://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a>";
+
+	qDebug() << "HTML:" << html;
+
+// FIXME: need scroll pane (?)
+// TODO: KMessageBox
+	QMessageBox::information( // krazy:exclude=qclasses
+		parent,
+		i18n("Command Line Options"),
+		"<qt><pre>" +
+		html +
+		"</pre></qt>"
+	);
 }
 
 // TimeOption
