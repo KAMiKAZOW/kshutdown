@@ -30,6 +30,7 @@
 	#include <QTranslator>
 #else
 	#include <KAboutData>
+	#include <KCrash>
 	#include <KDBusService>
 #endif // KS_PURE_QT
 
@@ -87,12 +88,7 @@ void initAboutData(const QString &appDescription) {
 		KS_FULL_VERSION
 	);
 
-	#define KS_EMAIL \
-		"twardowski" \
-		"@" \
-		"gmail" \
-		".com"
-	about.setBugAddress(KS_EMAIL);
+	about.setBugAddress(KS_CONTACT);
 
 	about.setCopyrightStatement(KS_COPYRIGHT);
 	about.setHomepage(KS_HOME_PAGE);
@@ -104,7 +100,7 @@ void initAboutData(const QString &appDescription) {
 
 	about.setShortDescription(appDescription);
 
-	about.addAuthor("Konrad Twardowski", i18n("Maintainer"), KS_EMAIL, KS_CONTACT);
+	about.addAuthor("Konrad Twardowski", i18n("Maintainer"), ""/* email */, KS_CONTACT);
 	about.addCredit(i18n("Thanks To All!"), QString(), QString(), "https://sourceforge.net/p/kshutdown/wiki/Credits/");
 
 	KAboutData::setApplicationData(about);
@@ -222,6 +218,11 @@ int main(int argc, char **argv) {
 
 	QApplication program(argc, argv);
 
+	#ifdef KS_KF5
+	// CREDITS: based on https://cgit.kde.org/okular.git/commit/?id=1904f7e95e68ded874cdbe7d9685fe2cd05795b0
+	KCrash::initialize();
+	#endif // KS_KF5
+
 	initTranslation(); // 1.
 	QString appDescription = i18n("A graphical shutdown utility"); // 2.
 
@@ -231,6 +232,11 @@ http://doc.qt.io/qt-5/highdpi.html
 */
 
 	initAboutData(appDescription);
+
+/* TEST: KCrash handler
+	QObject *crash = nullptr;
+	crash->objectName();
+*/
 
 // TODO: about.setTranslator(ki18n("Your names"), ki18n("Your emails"));
 
