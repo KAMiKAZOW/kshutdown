@@ -30,7 +30,7 @@ elseif(KS_KF5)
 	include(ECMInstallIcons)
 	include(ECMSetupVersion)
 	include(FeatureSummary)
-	find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets DBusAddons GlobalAccel I18n IdleTime Notifications NotifyConfig XmlGui)
+	find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets Crash DBusAddons GlobalAccel I18n IdleTime Notifications NotifyConfig XmlGui)
 
 	feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
