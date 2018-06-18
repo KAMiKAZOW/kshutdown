@@ -33,21 +33,19 @@ function doCompile()
 		else
 			doBuildError
 		fi
-	elif [ "$1" == "kshutdown-qt4" ]; then
-		if ./Setup-qt4.sh; then
-			doSuccess "src" "./src/kshutdown-qt"
-		else
-			doBuildError
-		fi
 	elif [ "$1" == "kshutdown-qt5" ]; then
 		if ./Setup-qt5.sh; then
 			doSuccess "src" "./src/kshutdown-qt"
 		else
 			doBuildError
 		fi
-	elif [ "$1" == "kshutdown-qt4-win32" ]; then
+	elif [ "$1" == "kshutdown-qt5-win32" ]; then
 		if ./Setup-wine.sh; then
-			doSuccess "src" "./src/release/kshutdown-qt.exe"
+			local text="Done.\n\n"
+			text+="* Program: ./src/release/kshutdown-qt.exe\n"
+			text+="* Installer: kshutdown-*-win32.exe\n"
+			text+="* Portable: kshutdown-portable-*-win32.7z"
+			dialog --msgbox "$text" 0 0
 		else
 			doBuildError
 		fi
@@ -99,8 +97,7 @@ out=$(dialog \
 	--menu "" 0 0 0 \
 	"kshutdown-kf5" "An universal version for KDE Plasma and other desktop environments" "Required libraries: KDE Frameworks 5.x (KF5)" \
 	"kshutdown-qt5" "A lightweight version for non-KDE desktop environments" "Required libraries: Qt 5.x only" \
-	"kshutdown-qt4" "A lightweight version for non-KDE desktop environments (obsolete)" "Required libraries: Qt 4.8+ only" \
-	"kshutdown-qt4-win32" "A lightweight version for Windows" "Required libraries: Qt 4.8+ only; compiled in Wine")
+	"kshutdown-qt5-win32" "A lightweight version for Windows" "Required libraries: Qt 5.x only; compiled in Wine")
 case $? in
 	0) doCompile "$out";;
 	*) doQuit;;

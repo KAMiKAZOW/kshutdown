@@ -1,3 +1,6 @@
+﻿# NOTE: UTF-8 BOM is required to Unicode work correctly
+Unicode true
+
 !include "MUI.nsh"
 !include "kshutdown.nsh"
 
@@ -46,11 +49,18 @@ Section "-"
 	File src\images\kshutdown.ico
 	File /oname=kshutdown.exe src\release\kshutdown-qt.exe
 	File LICENSE
-	File C:\mingw32\bin\libgcc_s_dw2-1.dll
-	File C:\mingw32\bin\libstdc++-6.dll
-	File C:\mingw32\bin\libwinpthread-1.dll
-	File C:\Qt\4.8.7\bin\QtCore4.dll
-	File C:\Qt\4.8.7\bin\QtGui4.dll
+
+	!define KS_QT_VERSION "5.11.0"
+	!define KS_QT_BIN "C:\Qt\Qt${KS_QT_VERSION}\${KS_QT_VERSION}\mingw53_32\bin"
+
+	File "${KS_QT_BIN}\libgcc_s_dw2-1.dll"
+	File "${KS_QT_BIN}\libwinpthread-1.dll"
+	File "${KS_QT_BIN}\libstdc++-6.dll"
+
+	File "${KS_QT_BIN}\Qt5Core.dll"
+	File "${KS_QT_BIN}\Qt5Gui.dll"
+	File "${KS_QT_BIN}\Qt5Widgets.dll"
+	File "${KS_QT_BIN}\..\plugins\platforms\qwindows.dll"
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
@@ -60,6 +70,7 @@ Section /o "Autostart with Windows" SectionAutostart
 	SetShellVarContext all
 	IfSilent NoAutostart
 	CreateDirectory "$SMSTARTUP"
+# TODO: rename Autostart link
 	CreateShortCut "$SMSTARTUP\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "--init" "$INSTDIR\kshutdown.ico"
 NoAutostart:
 SectionEnd
@@ -72,11 +83,16 @@ Section "Uninstall"
 	Delete "$INSTDIR\libstdc++-6.dll"
 	Delete "$INSTDIR\libwinpthread-1.dll"
 
-	# Remove old/unused DLL, too
-	Delete "$INSTDIR\mingwm10.dll"
+	Delete "$INSTDIR\Qt5Core.dll"
+	Delete "$INSTDIR\Qt5Gui.dll"
+	Delete "$INSTDIR\Qt5Widgets.dll"
+	Delete "$INSTDIR\qwindows.dll"
 
+	# Remove DLLs from olders versions, too
+	Delete "$INSTDIR\mingwm10.dll"
 	Delete "$INSTDIR\QtCore4.dll"
 	Delete "$INSTDIR\QtGui4.dll"
+
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 
