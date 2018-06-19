@@ -31,6 +31,10 @@
 #include <QPainter>
 #include <QTimer>
 
+#ifdef Q_OS_WIN32
+	#include <QWinTaskbarProgress>
+#endif // Q_OS_WIN32
+
 // public
 
 void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfig) {
@@ -142,14 +146,20 @@ void ProgressBar::updateTaskbar(const double progress, const int seconds) {
 	taskbarMessage << properties;
 	QDBusConnection::sessionBus()
 		.send(taskbarMessage);
-	#endif // defined(Q_OS_LINUX) && defined(KS_DBUS)
+	#elif defined(Q_OS_WIN32)
+	Q_UNUSED(seconds)
 
-	#ifdef Q_OS_WIN32
-// TODO: taskbar progress
+	QWinTaskbarButton *winTaskbarButton = MainWindow::self()->winTaskbarButton();
+	if (winTaskbarButton) {
+		QWinTaskbarProgress *taskbarProgress = winTaskbarButton->progress();
+		taskbarProgress->setRange(0, 100);
+		taskbarProgress->setValue((int)(progress * 100));
+		taskbarProgress->setVisible(progress >= 0);
+	}
+	#else
 	Q_UNUSED(progress)
 	Q_UNUSED(seconds)
-	Q_UNUSED(urgent)
-	#endif // Q_OS_WIN32
+	#endif // defined(Q_OS_LINUX) && defined(KS_DBUS)
 }
 
 // protected

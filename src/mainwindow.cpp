@@ -509,6 +509,18 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	}
 }
 
+#ifdef Q_OS_WIN32
+// CREDITS: https://stackoverflow.com/questions/25916966/what-am-i-doing-wrong-with-qwintaskbarprogress
+void MainWindow::showEvent(QShowEvent *e) {
+	if (!m_winTaskbarButton) {
+		m_winTaskbarButton = new QWinTaskbarButton(this);
+		m_winTaskbarButton->setWindow(windowHandle());
+	}
+
+	e->accept();
+}
+#endif // Q_OS_WIN32
+
 // private
 
 MainWindow::MainWindow() :
