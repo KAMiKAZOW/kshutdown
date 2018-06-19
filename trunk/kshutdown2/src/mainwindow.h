@@ -31,6 +31,10 @@
 #include <QMainWindow>
 #include <QPushButton>
 
+#ifdef Q_OS_WIN32
+	#include <QWinTaskbarButton>
+#endif // Q_OS_WIN32
+
 #ifdef KS_NATIVE_KDE
 	#include <KActionCollection>
 #endif // KS_NATIVE_KDE
@@ -77,6 +81,9 @@ public:
 	bool maybeShow(const bool forceShow = false);
 	void setTime(const QString &selectTrigger, const QTime &time, const bool absolute);
 	static QHash<QString, Trigger*> triggerHash() { return m_triggerHash; }
+	#ifdef Q_OS_WIN32
+	QWinTaskbarButton *winTaskbarButton() { return m_winTaskbarButton; }
+	#endif // Q_OS_WIN32
 public slots:
 	Q_SCRIPTABLE QStringList actionList(const bool showDescription);
 	Q_SCRIPTABLE QStringList triggerList(const bool showDescription);
@@ -91,6 +98,9 @@ public slots:
 	void writeConfig();
 protected:
 	virtual void closeEvent(QCloseEvent *e) override;
+	#ifdef Q_OS_WIN32
+	virtual void showEvent(QShowEvent *e) override;
+	#endif // Q_OS_WIN32
 private:
 	Q_DISABLE_COPY(MainWindow)
 #ifdef KS_NATIVE_KDE
@@ -121,6 +131,9 @@ private:
 	QTimer *m_triggerTimer;
 	QWidget *m_currentActionWidget;
 	QWidget *m_currentTriggerWidget;
+	#ifdef Q_OS_WIN32
+	QWinTaskbarButton *m_winTaskbarButton = nullptr;
+	#endif // Q_OS_WIN32
 	USystemTray *m_systemTray;
 	explicit MainWindow();
 	static void addAction(Action *action);

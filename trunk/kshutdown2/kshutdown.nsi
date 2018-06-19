@@ -60,6 +60,7 @@ Section "-"
 	File "${KS_QT_BIN}\Qt5Core.dll"
 	File "${KS_QT_BIN}\Qt5Gui.dll"
 	File "${KS_QT_BIN}\Qt5Widgets.dll"
+	File "${KS_QT_BIN}\Qt5WinExtras.dll"
 	File "${KS_QT_BIN}\..\plugins\platforms\qwindows.dll"
 	
 	SetShellVarContext all
@@ -86,6 +87,7 @@ Section "Uninstall"
 	Delete "$INSTDIR\Qt5Core.dll"
 	Delete "$INSTDIR\Qt5Gui.dll"
 	Delete "$INSTDIR\Qt5Widgets.dll"
+	Delete "$INSTDIR\Qt5WinExtras.dll"
 	Delete "$INSTDIR\qwindows.dll"
 
 	# Remove DLLs from olders versions, too

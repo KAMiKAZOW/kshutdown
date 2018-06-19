@@ -60,6 +60,7 @@ copy "%KS_QT_BIN%\libstdc++-6.dll" kshutdown-portable
 copy "%KS_QT_BIN%\Qt5Core.dll" kshutdown-portable
 copy "%KS_QT_BIN%\Qt5Gui.dll" kshutdown-portable
 copy "%KS_QT_BIN%\Qt5Widgets.dll" kshutdown-portable
+copy "%KS_QT_BIN%\Qt5WinExtras.dll" kshutdown-portable
 copy "%KS_QT_BIN%\..\plugins\platforms\qwindows.dll" kshutdown-portable
 
 :quit
