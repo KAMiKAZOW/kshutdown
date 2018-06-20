@@ -67,6 +67,7 @@ Section "-"
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
 SectionEnd
 
+# TODO: remember if option was checked in case of reinstallation
 Section /o "Autostart with Windows" SectionAutostart
 	SetShellVarContext all
 	IfSilent NoAutostart
@@ -98,7 +99,9 @@ Section "Uninstall"
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 
+# FIXME: should ask user
 	DeleteRegKey HKCU "Software\kshutdown.sf.net"
+
 	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\kshutdown.exe"
 	DeleteRegKey HKLM "${APP_UNINSTALL_REG}"
 
