@@ -1283,6 +1283,7 @@ void MainWindow::onFocusChange(QWidget *old, QWidget *now) {
 void MainWindow::onForceClick() {
 	if (
 		m_force->isChecked() &&
+// TODO: add "Do not ask again" check boxes to all such confirmations
 		!UDialog::confirm(this, i18n("Are you sure you want to enable this option?\n\nData in all unsaved documents will be lost!"))
 	)
 		m_force->setChecked(false);

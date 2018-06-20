@@ -234,15 +234,16 @@ void Extras::createMenu(QMenu *parentMenu, const QString &parentDir) {
 		QDir::Dirs | QDir::Files,
 		QDir::DirsFirst | QDir::Name
 	);
-	QString fileName;
+
 	foreach (QFileInfo i, entries) {
-		fileName = i.fileName();
+		QString fileName = i.fileName();
 		if (i.isDir() && (fileName != ".") && (fileName != "..")) {
 			QString dirProperties = i.filePath() + "/.directory";
 
 			QMenu *dirMenu;
+
+			QString text = fileName; // do not use "baseName" here
 			if (QFile::exists(dirProperties)) {
-				QString text = i.baseName();
 				QString statusTip = "";
 				QIcon icon = readDesktopInfo(dirProperties, text, statusTip);
 
@@ -250,7 +251,7 @@ void Extras::createMenu(QMenu *parentMenu, const QString &parentDir) {
 				dirMenu->setIcon(icon);
 			}
 			else {
-				dirMenu = new QMenu(i.baseName());
+				dirMenu = new QMenu(text);
 			}
 
 			connect(dirMenu, SIGNAL(hovered(QAction *)), this, SLOT(onMenuHovered(QAction *)));
