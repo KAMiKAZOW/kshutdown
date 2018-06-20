@@ -20,9 +20,10 @@
 #include "config.h"
 #include "mainwindow.h"
 #include "udialog.h"
+#include "utils.h"
 #include "actions/extras.h"
 
-#include <QMessageBox>
+#include <QTextEdit>
 
 // private
 
@@ -42,8 +43,9 @@ bool CLI::check() {
 		isArg("help")
 // TODO: win32: "/?"
 	) {
-		#ifdef Q_OS_WIN32
+		//#ifdef Q_OS_WIN32
 		showHelp(nullptr);
+/*
 		#else
 		QString moreInfo =
 			"\n" +
@@ -54,6 +56,7 @@ bool CLI::check() {
 		out << m_args->helpText();
 		out << moreInfo << endl;
 		#endif // Q_OS_WIN32
+*/
 
 		return true;
 	}
@@ -196,8 +199,60 @@ bool CLI::isConfirm() {
 }
 
 void CLI::showHelp(QWidget *parent) {
-	QString html = m_args->helpText()
-		.toHtmlEscaped();
+	auto *htmlWidget = new QTextEdit();
+	htmlWidget->setReadOnly(true);
+	htmlWidget->setWordWrapMode(QTextOption::NoWrap);
+
+	auto palette = htmlWidget->palette();
+// TODO: test dark themes
+	QColor bg = palette.color(QPalette::Base);
+	QColor fg = palette.color(QPalette::Text);
+	QColor bg2 = bg.darker(105);
+
+	QString plainTextTrimmed = m_args->helpText()
+		.trimmed();
+
+	QString html = "<qt>\n";
+	html += "<table cellspacing=\"0\" cellpadding=\"1\" style=\"background-color: " + bg.name() + "; color: " + fg.name() + "; font-family: monospace\">\n";
+
+	int rowNum = 0;
+
+	for (QString &rawLine : plainTextTrimmed.split('\n')) {
+		QString trimmedLine = rawLine.trimmed();
+
+		html += "<tr>\n";
+
+		int sep = trimmedLine.indexOf("  "/* 2 spaces */);
+		if (sep != -1) {
+			QString name = trimmedLine.left(sep)
+				.trimmed();
+			QString desc = trimmedLine.mid(sep)
+				.trimmed();
+
+			QString rowStyle = ((rowNum % 2) == 0)
+				? "background-color: " + bg2.name()
+				: "";
+			rowNum++;
+
+// FIXME: bold style does not work
+			html += "\t<td style=\"padding-right: 20px; " + rowStyle + "\">" + name.toHtmlEscaped() + "</td>\n";
+			html += "\t<td style=\"" + rowStyle + "\">" + desc.toHtmlEscaped() + "</td>\n";
+		}
+		else {
+			if (rawLine.startsWith("    "/* 4 spaces; assume wrapped text continuation */)) {
+				html += "\t<td></td>\n";
+				html += "\t<td>" + trimmedLine.toHtmlEscaped() + "</td>\n";
+			}
+			else if (trimmedLine.isEmpty()) {
+				html += "\t<td colspan=\"2\"><hr /></td>\n";
+			}
+			else {
+				html += "\t<td colspan=\"2\">" + trimmedLine.toHtmlEscaped() + "</td>\n";
+			}
+		}
+
+		html += "</tr>\n";
+	}
 
 // FIXME: clickable link opens two invalid browser tabs
 // (https://sourceforge.net/auth/?return_to=%2Fp%2Fkshutdown%2Fwiki%2FCommand and http://www.line.com/)
@@ -206,17 +261,21 @@ void CLI::showHelp(QWidget *parent) {
 	//html += moreInfo;
 	//html += "\n<a href=\"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">https://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a>";
 
-	qDebug() << "HTML:" << html;
+	html += "</table>\n";
+	html += "</qt>\n";
 
-// FIXME: need scroll pane (?)
-// TODO: KMessageBox
-	QMessageBox::information( // krazy:exclude=qclasses
-		parent,
-		i18n("Command Line Options"),
-		"<qt><pre>" +
-		html +
-		"</pre></qt>"
-	);
+	htmlWidget->setText(html);
+
+/* DEBUG:
+	QTextStream out(stdout);
+	out << html;
+*/
+
+	QScopedPointer<UDialog> dialog(new UDialog(parent, i18n("Command Line Options"), true));
+	dialog->mainLayout()->addWidget(htmlWidget);
+// FIXME: is there any easy way to avoid hardcoded dialog sizes in Qt?
+	dialog->resize(800_px, 600_px);
+	dialog->exec();
 }
 
 // TimeOption
