@@ -118,6 +118,9 @@ void initAppProperties() {
 	#ifdef KS_PURE_QT
 	QApplication::setOrganizationName("kshutdown.sf.net"); // used as file name in ~/.config/kshutdown.sf.net/KShutdown.conf
 	#endif // KS_PURE_QT
+
+	// TEST: $ export QT_SCALE_FACTOR=2
+	QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 }
 
 void initDE() {
@@ -166,6 +169,10 @@ void initTranslation() {
 	#else
 	KLocalizedString::setApplicationDomain("kshutdown");
 	#endif // KS_PURE_QT
+	
+	#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+	QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton, true); // hide unused titlebar "?" button
+	#endif // QT_VERSION
 }
 
 int main(int argc, char **argv) {
@@ -225,11 +232,6 @@ int main(int argc, char **argv) {
 
 	initTranslation(); // 1.
 	QString appDescription = i18n("A graphical shutdown utility"); // 2.
-
-/* TODO: qApp->setAttribute(Qt::AA_UseHighDpiPixmaps, true); #Qt5.4
-export QT_SCALE_FACTOR=2
-http://doc.qt.io/qt-5/highdpi.html
-*/
 
 	initAboutData(appDescription);
 

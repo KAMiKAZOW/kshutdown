@@ -39,13 +39,10 @@ QTime TimeOption::m_time = QTime();
 // CLI
 
 bool CLI::check() {
-	if (
-		isArg("help")
-// TODO: win32: "/?"
-	) {
+	if (isArg("help")) {
 		//#ifdef Q_OS_WIN32
 		showHelp(nullptr);
-/*
+/* DEAD:
 		#else
 		QString moreInfo =
 			"\n" +
@@ -213,7 +210,14 @@ void CLI::showHelp(QWidget *parent) {
 		.trimmed();
 
 	QString html = "<qt>\n";
-	html += "<table cellspacing=\"0\" cellpadding=\"1\" style=\"background-color: " + bg.name() + "; color: " + fg.name() + "; font-family: monospace\">\n";
+
+	// HACK: on Windows/Qt 5.11 "monospace" font is mapped to some sans-serif... WTF?
+	#ifdef Q_OS_WIN32
+	QString fontFamily = "Consolas";
+	#else
+	QString fontFamily = "monospace";
+	#endif // Q_OS_WIN32
+	html += "<table cellspacing=\"0\" cellpadding=\"1\" style=\"background-color: " + bg.name() + "; color: " + fg.name() + "; font-family: " + fontFamily + "; font-size: large\">\n";
 
 	int rowNum = 0;
 
@@ -234,8 +238,8 @@ void CLI::showHelp(QWidget *parent) {
 				: "";
 			rowNum++;
 
-// FIXME: bold style does not work
-			html += "\t<td style=\"padding-right: 20px; " + rowStyle + "\">" + name.toHtmlEscaped() + "</td>\n";
+// FIXME: bold font weight is ignored in some monospaced fonts #linux
+			html += "\t<td style=\"padding-right: 20px; " + rowStyle + "\"><b>" + name.toHtmlEscaped() + "</b></td>\n";
 			html += "\t<td style=\"" + rowStyle + "\">" + desc.toHtmlEscaped() + "</td>\n";
 		}
 		else {
@@ -274,7 +278,7 @@ void CLI::showHelp(QWidget *parent) {
 	QScopedPointer<UDialog> dialog(new UDialog(parent, i18n("Command Line Options"), true));
 	dialog->mainLayout()->addWidget(htmlWidget);
 // FIXME: is there any easy way to avoid hardcoded dialog sizes in Qt?
-	dialog->resize(800_px, 600_px);
+	dialog->resize(1000_px, 600_px);
 	dialog->exec();
 }
 
