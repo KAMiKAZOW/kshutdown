@@ -46,7 +46,7 @@ if exist "%ProgramFiles(x86)%\NSIS\makensis.exe" (
 	"%ProgramFiles%\NSIS\makensis.exe" kshutdown.nsi
 )
 if not %errorlevel% == 0 goto quit
-kshutdown-5.0beta1-win32.exe
+kshutdown-4.99-beta-win32.exe
 
 rem ==== portable version package ====
 
