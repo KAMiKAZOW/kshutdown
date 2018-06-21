@@ -1100,6 +1100,7 @@ void MainWindow::onQuit() {
 void MainWindow::onAbout() {
 	auto *iconLabel = new QLabel();
 	iconLabel->setAlignment(Qt::AlignCenter);
+// FIXME: hidpi
 	iconLabel->setPixmap(QIcon(":/images/hi64-app-kshutdown.png").pixmap(64_px));
 	// TEST: iconLabel->setPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128_px));
 

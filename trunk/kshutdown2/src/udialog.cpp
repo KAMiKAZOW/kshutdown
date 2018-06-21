@@ -30,9 +30,8 @@
 UDialog::UDialog(QWidget *parent, const QString &windowTitle, const bool simple) :
 	QDialog(parent) {
 	//U_DEBUG << "UDialog::UDialog()" U_END;
+	setWindowFlag(Qt::WindowContextHelpButtonHint, false); // hide unused titlebar "?" button
 	setWindowTitle(windowTitle);
-
-// TODO: AA_DisableWindowContextHelpButton #Qt5.10
 
 	if (simple) {
 		m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Close);
