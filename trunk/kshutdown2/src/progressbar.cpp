@@ -117,11 +117,7 @@ void ProgressBar::updateTaskbar(const double progress, const int seconds) {
 		"Update"
 	);
 
-	#ifdef KS_PURE_QT
-	taskbarMessage << "application://kshutdown-qt.desktop";
-	#else
 	taskbarMessage << "application://kshutdown.desktop";
-	#endif // KS_PURE_QT
 
 	QVariantMap properties;
 

@@ -19,7 +19,7 @@ mingw32-make.exe clean
 mingw32-make.exe -j2
 if not %errorlevel% == 0 goto quit
 mkdir ..\kshutdown-portable
-copy release\kshutdown-qt.exe ..\kshutdown-portable\kshutdown.exe
+copy release\kshutdown.exe ..\kshutdown-portable
 del portable.pri
 
 rem TEST:

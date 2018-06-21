@@ -47,7 +47,7 @@ Section "-"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "https://kshutdown.sourceforge.io/download.html"
 	
 	File src\images\kshutdown.ico
-	File /oname=kshutdown.exe src\release\kshutdown-qt.exe
+	File src\release\kshutdown.exe
 	File LICENSE
 
 	!define KS_QT_VERSION "5.11.0"

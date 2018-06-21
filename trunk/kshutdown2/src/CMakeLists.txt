@@ -60,7 +60,7 @@ endif()
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 if(KS_PURE_QT)
-	set_target_properties(kshutdown PROPERTIES OUTPUT_NAME kshutdown-qt)
+	set_target_properties(kshutdown PROPERTIES)
 	target_link_libraries(kshutdown ${Qt5Widgets_LIBRARIES} ${Qt5DBus_LIBRARIES})
 elseif(KS_KF5)
 	target_link_libraries(kshutdown Qt5::DBus Qt5::Widgets KF5::ConfigCore KF5::ConfigWidgets KF5::Crash KF5::DBusAddons KF5::GlobalAccel KF5::I18n KF5::IdleTime KF5::Notifications KF5::NotifyConfig KF5::XmlGui)
@@ -76,7 +76,7 @@ if(KS_PURE_QT)
 		TARGETS kshutdown
 		DESTINATION bin
 	)
-	install(FILES kshutdown-qt.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+	install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 elseif(KS_KF5)
 	install(
 		TARGETS kshutdown
