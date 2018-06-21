@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=./src/kshutdown-qt
+BIN=./src/kshutdown
 LOG=REPORT-VALGRIND.txt
 
 echo "Testing ${BIN} -> ${LOG}"

@@ -23,14 +23,13 @@ rm -fR ./kshutdown-portable
 rm -fR ./src/debug ./src/release
 rm -f ./src/.qmake.stash \
 	./src/Makefile.Debug ./src/Makefile.Release \
-	./src/object_script.kshutdown-qt.Debug ./src/object_script.kshutdown-qt.Release
+	./src/object_script.kshutdown.Debug ./src/object_script.kshutdown.Release
 rm -fR "$KS_DIR"
 rm -fR "$KS_DIST_DIR"
 
 pushd "src"
 make clean
 rm ./kshutdown
-rm ./kshutdown-qt
 rm ./Makefile
 popd
 

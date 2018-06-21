@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = kshutdown-qt
+TARGET = kshutdown
 DEPENDPATH += .
 INCLUDEPATH += .
 
@@ -84,7 +84,7 @@ unix {
 	icon128.uninstall = rm -f "$(INSTALL_ROOT)/usr/share/icons/hicolor/128x128/apps/kshutdown.png"
 
 	shortcut.path = /usr/share/applications
-	shortcut.files += kshutdown-qt.desktop
+	shortcut.files += kshutdown.desktop
 	
 	INSTALLS += target icon16 icon22 icon32 icon48 icon64 icon128 shortcut
 }

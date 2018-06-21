@@ -35,14 +35,14 @@ function doCompile()
 		fi
 	elif [ "$1" == "kshutdown-qt5" ]; then
 		if ./Setup-qt5.sh; then
-			doSuccess "src" "./src/kshutdown-qt"
+			doSuccess "src" "./src/kshutdown"
 		else
 			doBuildError
 		fi
 	elif [ "$1" == "kshutdown-qt5-win32" ]; then
 		if ./Setup-wine.sh; then
 			local text="Done.\n\n"
-			text+="* Program: ./src/release/kshutdown-qt.exe\n"
+			text+="* Program: ./src/release/kshutdown.exe\n"
 			text+="* Installer: kshutdown-*-win32.exe\n"
 			text+="* Portable: kshutdown-portable-*-win32.7z"
 			dialog --msgbox "$text" 0 0
@@ -74,7 +74,7 @@ function doQuit()
 }
 
 # TEST:
-#doSuccess "src" "./src/kshutdown-qt"
+#doSuccess "src" "./src/kshutdown"
 #doSuccess "build.tmp" "./build.tmp/src/kshutdown"
 #exit
 
