@@ -3,19 +3,18 @@
 # SEE: https://github.com/Krazy-collection/krazy
 # DOC: https://community.kde.org/Guidelines_and_HOWTOs/Code_Checking
 
-if [ ! -f "ChangeLog" ]; then
-	echo "Usage: ./tools/krazy2.sh [directory to test]"
+topdir="$1"
+
+if [ ! -d "$topdir" ]; then
+	echo "Usage: $0 <directory to test>"
 	echo "Example: ./tools/krazy2.sh src"
 	exit 1
 fi
 
 export PATH=$PATH:/usr/local/Krazy2/bin
 
-dir="$1"
-if [ -z "$dir" ]; then
-	dir="."
-fi
-
-pushd "$dir"
-krazy2all --check-sets c++,foss,kde5,qt5
-popd
+krazy2all \
+	--check-sets c++,foss,kde5,qt5 \
+	--brief \
+	--topdir "$topdir" \
+	--verbose

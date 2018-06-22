@@ -1100,9 +1100,10 @@ void MainWindow::onQuit() {
 void MainWindow::onAbout() {
 	auto *iconLabel = new QLabel();
 	iconLabel->setAlignment(Qt::AlignCenter);
-// FIXME: hidpi
-	iconLabel->setPixmap(QIcon(":/images/hi64-app-kshutdown.png").pixmap(64_px));
-	// TEST: iconLabel->setPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128_px));
+
+	QIcon logo = QIcon(":/images/hi64-app-kshutdown.png");
+	logo.addPixmap(QIcon(":/images/hi128-app-kshutdown.png").pixmap(128_px)); // @2x High DPI version
+	iconLabel->setPixmap(logo.pixmap(64_px));
 
 	QString titleText = "KShutdown™ " + QApplication::applicationVersion();
 	QString buildText = KS_RELEASE_DATE;

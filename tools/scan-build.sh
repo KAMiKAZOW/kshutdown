@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# DOC: http://clang-analyzer.llvm.org/
+# DOC: https://clang-analyzer.llvm.org/scan-build.html
 
 if [ ! -d "src" ]; then
 	echo "Usage: ./tools/scan-build.sh"
@@ -9,5 +9,5 @@ fi
 
 pushd src
 make clean
-scan-build --view make -j2
+scan-build-6.0 make -j2
 popd
