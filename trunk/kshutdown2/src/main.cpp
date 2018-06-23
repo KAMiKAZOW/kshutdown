@@ -128,7 +128,7 @@ void initAppProperties() {
 }
 
 void initDE() {
-	#ifdef KS_UNIX
+	#ifndef Q_OS_WIN32
 // TODO: cleanup log texts
 	#define KS_DEBUG_SYSTEM(f, d) \
 		if (d) qDebug(f ": %s", (d) ? "<FOUND>" : "not detected");
@@ -152,7 +152,7 @@ void initDE() {
 	KS_DEBUG_SYSTEM("Trinity", Utils::isTrinity());
 	KS_DEBUG_SYSTEM("Unity", Utils::isUnity());
 	KS_DEBUG_SYSTEM("Xfce", Utils::isXfce());
-	#endif // KS_UNIX
+	#endif // !Q_OS_WIN32
 }
 
 void initTranslation() {
@@ -179,26 +179,26 @@ int main(int argc, char **argv) {
 /* TODO: GTK style (?)
 	#ifdef KS_PURE_QT
 	// NOTE: run this before QApplication constructor
-	#ifdef KS_UNIX
+	#ifndef Q_OS_WIN32
 	bool userStyle = false;
-	#endif // KS_UNIX
+	#endif // !Q_OS_WIN32
 	if (argc > 1) {
 		for (int i = 1; i < argc; i++) {
 			QString arg(argv[i]);
-			#ifdef KS_UNIX
+			#ifndef Q_OS_WIN32
 			if ((arg == "-style") || (arg == "--style")) {
 				userStyle = true;
 			
 				break; // for
 			}
-			#endif // KS_UNIX
+			#endif // !Q_OS_WIN32
 		}
 	}
 	#endif // KS_PURE_QT
 
 	qDebug() << QStyleFactory::keys();
 
-	#ifdef KS_UNIX
+	#ifndef Q_OS_WIN32
 	if (
 		!userStyle && // do not override user style option
 		Utils::isGTKStyle() &&
@@ -208,7 +208,7 @@ int main(int argc, char **argv) {
 		if (gtkStyle)
 			QApplication::setStyle(gtkStyle);
 	}
-	#endif // KS_UNIX
+	#endif // !Q_OS_WIN32
 */
 
 	// init misc

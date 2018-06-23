@@ -24,9 +24,9 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+#ifndef Q_OS_WIN32
 	#include <csignal> // for ::kill
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+#endif // !Q_OS_WIN32
 
 // public
 
@@ -36,13 +36,11 @@ Process::Process(QObject *parent, const QString &command)
 }
 
 QIcon Process::icon() const {
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	#ifndef Q_OS_WIN32
 	// show icons for own processes only (faster)
 // FIXME: laggy/slow combo box
 	return own() ? QIcon::fromTheme(m_command) : QIcon();
-	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	#else
 /* FIXME: still crashy?
 	if (!visible())
 		return QIcon();
@@ -53,11 +51,11 @@ QIcon Process::icon() const {
 		return QPixmap::fromWinHICON((HICON)iconHandle);
 */
 	return QIcon();
-	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+	#endif // !Q_OS_WIN32
 }
 
 bool Process::isRunning() const {
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	#ifndef Q_OS_WIN32
 	if (::kill(m_pid, 0)) { // check if process exists
 		switch (errno) {
 			case EINVAL: return false;
@@ -67,25 +65,21 @@ bool Process::isRunning() const {
 	}
 
 	return true;
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-
-#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	#else
 	return ::IsWindow(m_windowHandle) != 0;
-#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+	#endif // !Q_OS_WIN32
 }
 
 // private:
 
 void Process::makeStringCache() {
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	#ifndef Q_OS_WIN32
 	m_stringCache = QString("%0 (pid %1, %2)")
 		.arg(m_command, QString::number(m_pid), m_user);
-	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	#else
 	m_stringCache = QString("%0 (pid %1)")
 		.arg(m_command, QString::number(m_pid));
-	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+	#endif // !Q_OS_WIN32
 }
 
 // public
@@ -151,7 +145,7 @@ void ProcessMonitor::writeConfig(Config *config) {
 }
 
 void ProcessMonitor::setPID(const qint64 pid) {
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	#ifndef Q_OS_WIN32
 	clearAll();
 	
 	Process *p = new Process(this, "?");
@@ -161,9 +155,9 @@ void ProcessMonitor::setPID(const qint64 pid) {
 	addProcess(p);
 
 	m_processesComboBox->addItem(p->icon(), p->toString());
-#else
+	#else
 	Q_UNUSED(pid)
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+	#endif // !Q_OS_WIN32
 }
 
 // private
@@ -184,7 +178,7 @@ void ProcessMonitor::errorMessage(const QString &message) {
 	);
 }
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+#ifndef Q_OS_WIN32
 // sort alphabetically, own first
 bool compareProcess(const Process *p1, const Process *p2) {
 	bool o1 = p1->own();
@@ -201,9 +195,9 @@ bool compareProcess(const Process *p1, const Process *p2) {
 		
 	return QString::compare(s1, s2, Qt::CaseInsensitive) < 0;
 }
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+#endif // !Q_OS_WIN32
 
-#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+#ifdef Q_OS_WIN32
 // CREDITS: http://stackoverflow.com/questions/7001222/enumwindows-pointer-error
 BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 	// exclude KShutdown...
@@ -249,10 +243,10 @@ bool compareProcess(const Process *p1, const Process *p2) {
 		
 	return QString::compare(s1, s2, Qt::CaseInsensitive) < 0;
 }
-#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+#endif // Q_OS_WIN32
 
 void ProcessMonitor::refreshProcessList() {
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+	#ifndef Q_OS_WIN32
 	QStringList args;
 	// show all processes
 	args << "-A";
@@ -304,9 +298,7 @@ void ProcessMonitor::refreshProcessList() {
 			addProcess(p);
 		}
 	}
-	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	#else
 	::EnumWindows(EnumWindowsCallback, (LPARAM)this);
 /* TODO: also use tasklist.exe
 	QStringList args;
@@ -348,16 +340,16 @@ void ProcessMonitor::refreshProcessList() {
 		}
 	}
 */
-	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+	#endif // !Q_OS_WIN32
 }
 
 void ProcessMonitor::updateStatus(const Process *process) {
 	if (process) {
-		#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+		#ifndef Q_OS_WIN32
 		m_recentCommand = process->m_command;
 		#else
 		m_recentCommand = "";
-		#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+		#endif // !Q_OS_WIN32
 
 // TODO: clean up status API
 		if (process->isRunning()) {
@@ -400,12 +392,11 @@ void ProcessMonitor::onRefresh() {
 		foreach (Process *i, m_processList) {
 			// separate non-important processes
 			if (
-				#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+				#ifndef Q_OS_WIN32
 				!i->own() &&
-				#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-				#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+				#else
 				!i->visible() &&
-				#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+				#endif // !Q_OS_WIN32
 				!separatorAdded
 			) {
 				separatorAdded = true;
@@ -438,8 +429,6 @@ void ProcessMonitor::onRefresh() {
 // private slots
 
 void ProcessMonitor::onProcessSelect(const int index) {
-	#ifdef KS_TRIGGER_PROCESS_MONITOR
 	updateStatus(m_processList.value(index));
 	emit statusChanged(false);
-	#endif // KS_TRIGGER_PROCESS_MONITOR
 }

@@ -33,18 +33,16 @@
 #include <QPointer>
 #include <QPushButton>
 
-#ifdef KS_UNIX
-	#include <csignal> // for ::kill
-
-	#include <QThread>
-#endif // KS_UNIX
-
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
 	#endif // WIN32_LEAN_AND_MEAN
 	#include <windows.h>
 	#include <powrprof.h>
+#else
+	#include <csignal> // for ::kill
+
+	#include <QThread>
 #endif // Q_OS_WIN32
 
 using namespace KShutdown;
@@ -1029,7 +1027,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 	}
 	#endif // KS_DBUS
 
-	#ifdef KS_UNIX
+	#ifndef Q_OS_WIN32
 	m_lxsession = 0;
 	if (Utils::isLXDE() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
 		bool ok = false;
@@ -1042,7 +1040,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 			disable("No lxsession found");
 		}
 	}
-	#endif // KS_UNIX
+	#endif // !Q_OS_WIN32
 }
 
 bool StandardAction::onAction() {
@@ -1220,12 +1218,12 @@ bool StandardAction::onAction() {
 
 	else if (Utils::isLXDE()) {
 		if (m_type == U_SHUTDOWN_TYPE_LOGOUT) {
-			#ifdef KS_UNIX
+			#ifndef Q_OS_WIN32
 			if (m_lxsession && (::kill(m_lxsession, SIGTERM) == 0))
 				return true;
 			#else
 				return false;
-			#endif // KS_UNIX
+			#endif // !Q_OS_WIN32
 		}
 	}
 
