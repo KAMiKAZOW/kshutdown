@@ -32,21 +32,16 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 {
 	//U_DEBUG << "USystemTray::USystemTray()" U_END;
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_sessionRestored = false;
-	#ifdef KS_KF5
+
 // FIXME: Ubuntu 17.10/Unity: mouse click behavior is a total mess
 	m_trayIcon = new KStatusNotifierItem(mainWindow);
 	m_trayIcon->setCategory(KStatusNotifierItem::ApplicationStatus);
 	m_trayIcon->setStandardActionsEnabled(false);
 // FIXME: m_trayIcon->setToolTipIconByPixmap(QIcon(":/images/kshutdown.png"));
 	m_trayIcon->setToolTipIconByName("kshutdown");
-	#else
-	m_trayIcon = new KSystemTrayIcon(mainWindow);
-	#endif // KS_KF5
-#endif // KS_NATIVE_KDE
-
-#ifdef KS_PURE_QT
+#else
 	m_sessionRestored = qApp->isSessionRestored();
 	m_trayIcon = new QSystemTrayIcon(mainWindow);
 
@@ -54,7 +49,7 @@ USystemTray::USystemTray(MainWindow *mainWindow)
 		m_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
 	);
-#endif // KS_PURE_QT
+#endif // KS_KF5
 	
 	updateIcon(mainWindow);
 

@@ -32,9 +32,6 @@ QString Utils::m_xdgCurrentDesktop;
 // public
 
 void Utils::addTitle(QMenu *menu, const QIcon &icon, const QString &text) {
-	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
-	menu->addTitle(icon, text);
-	#else
 // FIXME: useless & unimplemented decoy API to annoy developers: menu->addSection(icon, text);
 	auto *action = new QAction(menu);
 	QFont font = action->font();
@@ -65,7 +62,6 @@ void Utils::addTitle(QMenu *menu, const QIcon &icon, const QString &text) {
 	widgetAction->setDefaultWidget(titleLabel);
 	menu->addAction(widgetAction);
 */
-	#endif // KS_NATIVE_KDE
 }
 
 QString Utils::getUser() {

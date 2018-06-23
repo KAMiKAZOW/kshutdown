@@ -20,10 +20,8 @@
 
 #ifdef KS_KF5
 	#include <KStatusNotifierItem>
-#elif defined(KS_PURE_QT)
-	#include <QSystemTrayIcon>
 #else
-	#include <KSystemTrayIcon> // #kde4
+	#include <QSystemTrayIcon>
 #endif // KS_KF5
 
 class MainWindow;
@@ -44,10 +42,8 @@ private:
 	Q_DISABLE_COPY(USystemTray)
 	#ifdef KS_KF5
 	KStatusNotifierItem *m_trayIcon;
-	#elif defined(KS_PURE_QT)
-	QSystemTrayIcon *m_trayIcon;
 	#else
-	KSystemTrayIcon *m_trayIcon;
+	QSystemTrayIcon *m_trayIcon;
 	#endif // KS_KF5
 	bool m_applyIconHack = true;
 	bool m_sessionRestored;
