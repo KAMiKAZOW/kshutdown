@@ -45,18 +45,13 @@
 
 // TODO: review includes
 
-#ifdef KS_NATIVE_KDE
-	#include <KActionCollection> // #kde4
+#ifdef KS_KF5
+	#include <KGlobalAccel>
 	#include <KHelpMenu>
 	#include <KNotification>
 	#include <KNotifyConfigWidget>
 	#include <KShortcutsDialog>
-	#include <KStandardAction> // #kde4
 	#include <KStandardGuiItem>
-#endif // KS_NATIVE_KDE
-
-#ifdef KS_KF5
-	#include <KGlobalAccel>
 #endif // KS_KF5
 
 MainWindow *MainWindow::m_instance = nullptr;
@@ -711,15 +706,11 @@ void MainWindow::initFileMenu(QMenu *fileMenu) {
 		if (a == LockAction::self())
 			m_confirmLockAction = confirmAction;
 
-#ifdef KS_NATIVE_KDE
-		m_actionCollection->addAction("kshutdown/" + id, confirmAction);
 		#ifdef KS_KF5
+		m_actionCollection->addAction("kshutdown/" + id, confirmAction);
 		KGlobalAccel::setGlobalShortcut(confirmAction, QList<QKeySequence>());
-		#else
-		confirmAction->setGlobalShortcut(KShortcut());
-		#endif // KS_KF5
 // TODO: show global shortcuts: confirmAction->setShortcut(confirmAction->globalShortcut());
-#endif // KS_NATIVE_KDE
+		#endif // KS_KF5
 
 		fileMenu->addAction(confirmAction);
 
@@ -922,18 +913,15 @@ void MainWindow::initWidgets() {
 	setCentralWidget(mainWidget);
 	
 	m_cancelAction = new QAction(this);
-#ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
 	m_cancelAction->setIcon(KStandardGuiItem::cancel().icon());
 	m_actionCollection->addAction("kshutdown/cancel", m_cancelAction);
-	#ifdef KS_KF5
 	KGlobalAccel::setGlobalShortcut(m_cancelAction, QList<QKeySequence>());
-	#else
-	m_cancelAction->setGlobalShortcut(KShortcut());
-	#endif // KS_KF5
 // TODO: show global shortcut: m_cancelAction->setShortcut(m_cancelAction->globalShortcut());
-#else
+	#else
 	m_cancelAction->setIcon(QIcon::fromTheme("dialog-cancel"));
-#endif // KS_NATIVE_KDE
+	#endif // KS_KF5
+
 	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
 }
 

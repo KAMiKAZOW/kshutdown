@@ -26,26 +26,15 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QPointer>
+#include <QSettings>
 #include <QUrl>
 
 #ifdef KS_KF5
-	#include <QSettings>
-#endif // KS_KF5
-
-#ifdef KS_PURE_QT
+	#include <KStandardAction>
+#else
 	#include <QProcess>
 	#include <QSettings>
-#endif // KS_PURE_QT
-
-#ifdef KS_NATIVE_KDE
-	#include <KStandardAction>
-	#ifndef KS_KF5
-		#include <KDesktopFile> // #kde4
-		#include <KRun> // #kde4
-		#include <KService> // #kde4
-		#include <KStandardDirs> // #kde4
-	#endif // !KS_KF5
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 // Extras
 
