@@ -28,10 +28,10 @@
 	#include <QDBusReply>
 #endif // KS_DBUS
 
-#ifdef KS_UNIX
+#ifndef Q_OS_WIN32
 	// HACK: fixes some compilation error (?)
 	#include <sys/types.h>
-#endif // KS_UNIX
+#endif // !Q_OS_WIN32
 
 class BootEntryComboBox;
 class Config;
@@ -321,9 +321,9 @@ private:
 	#ifdef KS_DBUS
 	static bool m_kdeShutDownAvailable;
 	#endif // KS_DBUS
-	#ifdef KS_UNIX
+	#ifndef Q_OS_WIN32
 	pid_t m_lxsession;
-	#endif // KS_UNIX
+	#endif // !Q_OS_WIN32
 	UShutdownType m_type;
 };
 

@@ -27,54 +27,43 @@
 		#define WIN32_LEAN_AND_MEAN
 	#endif // WIN32_LEAN_AND_MEAN
 	#include <windows.h>
-
-	#define KS_TRIGGER_PROCESS_MONITOR
-	#define KS_TRIGGER_PROCESS_MONITOR_WIN
-#endif // Q_OS_WIN32
-
-#ifdef KS_UNIX
-	#define KS_TRIGGER_PROCESS_MONITOR
-	#define KS_TRIGGER_PROCESS_MONITOR_UNIX
-#endif // KS_UNIX
-
-#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+#else
 	// HACK: fixes some compilation error (?)
 	#include <sys/types.h>
-#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
+#endif // Q_OS_WIN32
 
 class Process final: public QObject {
 public:
 	explicit Process(QObject *parent, const QString &command);
 	QIcon icon() const;
 	bool isRunning() const;
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
-	inline bool own() const { return m_own; }
-	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+
+	#ifdef Q_OS_WIN32
 	inline void setPID(const DWORD value) { m_pid = value; }
 	inline bool visible() const { return m_visible; }
 	inline void setVisible(const bool value) { m_visible = value; }
 	inline HWND windowHandle() const { return m_windowHandle; }
 	inline void setWindowHandle(const HWND windowHandle) { m_windowHandle = windowHandle; }
-	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+	#else
+	inline bool own() const { return m_own; }
+	#endif // Q_OS_WIN32
+
 	inline QString toString() const { return m_stringCache; }
 private:
 	Q_DISABLE_COPY(Process)
 	friend class ProcessMonitor;
 	QString m_command; // a process command or window title (e.g. "firefox")
 	QString m_stringCache = "<THEDAILYWTF>";
-	
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_UNIX
+
+	#ifndef Q_OS_WIN32
 	bool m_own = false;
 	pid_t m_pid = 0;
 	QString m_user = QString::null; // an owner of the process (e.g. "root")
-	#endif // KS_TRIGGER_PROCESS_MONITOR_UNIX
-	
-	#ifdef KS_TRIGGER_PROCESS_MONITOR_WIN
+	#else
 	DWORD m_pid = 0;
 	bool m_visible = false;
 	HWND m_windowHandle = NULL;
-	#endif // KS_TRIGGER_PROCESS_MONITOR_WIN
+	#endif // !Q_OS_WIN32
 
 	void makeStringCache();
 };

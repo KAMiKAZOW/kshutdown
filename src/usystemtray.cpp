@@ -139,7 +139,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	// convert base icon to pixmap
 
 	QIcon icon;
-	#ifdef KS_UNIX
+	#ifndef Q_OS_WIN32
 	if (!active && Config::readBool("General", "Use Theme Icon In System Tray", true)) {
 		icon = QIcon::fromTheme("system-shutdown");
 		if (icon.isNull()) {
@@ -158,7 +158,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	}
 	#else
 	icon = QIcon(":/images/hi16-app-kshutdown.png");
-	#endif // KS_UNIX
+	#endif // !Q_OS_WIN32
 
 	QPixmap pixmap = icon.pixmap(64_px);
 	QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);

@@ -44,10 +44,6 @@
 	#define KS_DBUS
 #endif
 
-#if defined(Q_OS_LINUX) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(Q_OS_HURD) || defined(Q_OS_HAIKU)
-	#define KS_UNIX
-#endif
-
 #ifdef KS_PURE_QT
 	#undef KS_KF5
 	#undef KS_NATIVE_KDE

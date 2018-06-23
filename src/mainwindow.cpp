@@ -155,9 +155,7 @@ void MainWindow::initActionsAndTriggers() {
 	addTrigger(new NoDelayTrigger());
 	addTrigger(new TimeFromNowTrigger());
 	addTrigger(new DateTimeTrigger());
-#ifdef KS_TRIGGER_PROCESS_MONITOR
 	addTrigger(new ProcessMonitor());
-#endif // KS_TRIGGER_PROCESS_MONITOR
 
 	auto *idleMonitor = new IdleMonitor();
 	if (idleMonitor->isSupported())

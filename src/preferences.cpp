@@ -212,15 +212,15 @@ QWidget *Preferences::createSystemTrayWidget() {
 // TODO: redesign this option
 	m_bwTrayIcon->hide();
 	#else
-		#ifdef KS_UNIX
+		#ifndef Q_OS_WIN32
 		m_bwTrayIcon->setEnabled(!m_useThemeIconInSystemTray->isChecked());
-		#endif // KS_UNIX
+		#endif // !Q_OS_WIN32
 	#endif // KS_KF5
 	l->addWidget(m_bwTrayIcon);
 
-	#ifndef KS_UNIX
+	#ifdef Q_OS_WIN32
 	m_useThemeIconInSystemTray->hide();
-	#endif // !KS_UNIX
+	#endif // Q_OS_WIN32
 
 // TODO: system tray icon preview
 
