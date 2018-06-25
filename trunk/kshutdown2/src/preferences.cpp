@@ -84,8 +84,8 @@ void Preferences::apply() {
 	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
 	Config::setMinimizeToSystemTrayIcon(!m_noMinimizeToSystemTrayIcon->isChecked());
 	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
-	#ifndef KS_KF5
 	Config::setSystemTrayIconEnabled(m_systemTrayIconEnabled->isChecked());
+	#ifndef KS_KF5
 	Config::write("General", "Use Theme Icon In System Tray", m_useThemeIconInSystemTray->isChecked());
 	#endif // !KS_KF5
 
@@ -185,9 +185,6 @@ QWidget *Preferences::createSystemTrayWidget() {
 
 	m_systemTrayIconEnabled = new QCheckBox(i18n("Enable System Tray Icon"));
 	m_systemTrayIconEnabled->setChecked(Config::systemTrayIconEnabled());
-	#ifdef KS_KF5
-	m_systemTrayIconEnabled->setEnabled(false); // always on
-	#endif // KS_KF5
 	l->addWidget(m_systemTrayIconEnabled);
 
 	m_noMinimizeToSystemTrayIcon = new QCheckBox(i18n("Quit instead of minimizing to System Tray Icon"));

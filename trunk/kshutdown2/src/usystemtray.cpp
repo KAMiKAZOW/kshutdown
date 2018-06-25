@@ -30,33 +30,17 @@
 USystemTray::USystemTray(MainWindow *mainWindow)
 	: QObject(mainWindow)
 {
-	//U_DEBUG << "USystemTray::USystemTray()" U_END;
-
-#ifdef KS_KF5
-	m_sessionRestored = false;
-
-// FIXME: Ubuntu 17.10/Unity: mouse click behavior is a total mess
-	m_trayIcon = new KStatusNotifierItem(mainWindow);
-	m_trayIcon->setCategory(KStatusNotifierItem::ApplicationStatus);
-	m_trayIcon->setStandardActionsEnabled(false);
-// FIXME: m_trayIcon->setToolTipIconByPixmap(QIcon(":/images/kshutdown.png"));
-	m_trayIcon->setToolTipIconByName("kshutdown");
-#else
+	#ifdef KS_PURE_QT
 	m_sessionRestored = qApp->isSessionRestored();
-	m_trayIcon = new QSystemTrayIcon(mainWindow);
+	#endif // KS_PURE_QT
 
-	connect(
-		m_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-		SLOT(onRestore(QSystemTrayIcon::ActivationReason))
-	);
-#endif // KS_KF5
-	
-	updateIcon(mainWindow);
-
-	U_DEBUG << "USystemTray::isSupported:" << isSupported() U_END;
+	qDebug() << "USystemTray::isSupported:" << isSupported();
 }
 
 void USystemTray::info(const QString &message) const {
+	if (m_trayIcon == nullptr)
+		return;
+
 	#ifdef KS_KF5
 	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, "dialog-information");
 	#else
@@ -75,11 +59,12 @@ bool USystemTray::isSupported() const {
 	#endif // KS_KF5
 }
 
-void USystemTray::setContextMenu(QMenu *menu) const {
-	m_trayIcon->setContextMenu(menu);
-}
+void USystemTray::setToolTip(const QString &toolTip) {
+	m_toolTip = toolTip; // save "toolTip" value for later use
 
-void USystemTray::setToolTip(const QString &toolTip) const {
+	if (m_trayIcon == nullptr)
+		return;
+
 	#ifdef KS_KF5
 	m_trayIcon->setToolTipTitle(QApplication::applicationDisplayName());
 	m_trayIcon->setToolTipSubTitle(
@@ -93,18 +78,59 @@ void USystemTray::setToolTip(const QString &toolTip) const {
 }
 
 void USystemTray::setVisible(const bool visible) {
+	#ifdef KS_PURE_QT
 	m_sessionRestored = false; // clear flag
-	#ifdef KS_KF5
-	Q_UNUSED(visible)
-	#else
-	if (visible)
-		m_trayIcon->show();
-	else
-		m_trayIcon->hide();
-	#endif // KS_KF5
+	#endif // KS_PURE_QT
+
+	MainWindow *mainWindow = static_cast<MainWindow *>(parent());
+
+	if (visible && (m_trayIcon == nullptr)) {
+		qDebug() << "Show system tray";
+
+		#ifdef KS_KF5
+// FIXME: Ubuntu 17.10/Unity: mouse click behavior is a total mess
+		m_trayIcon = new KStatusNotifierItem(mainWindow);
+		m_trayIcon->setCategory(KStatusNotifierItem::ApplicationStatus);
+		m_trayIcon->setStandardActionsEnabled(false);
+// FIXME: m_trayIcon->setToolTipIconByPixmap(QIcon(":/images/kshutdown.png"));
+		m_trayIcon->setToolTipIconByName("kshutdown");
+		#else
+		m_trayIcon = new QSystemTrayIcon(mainWindow);
+
+		connect(
+			m_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+			SLOT(onRestore(QSystemTrayIcon::ActivationReason))
+		);
+		#endif // KS_KF5
+
+		auto *menu = new QMenu();
+		mainWindow->initFileMenu(menu);
+		m_trayIcon->setContextMenu(menu);
+
+		updateIcon(mainWindow);
+
+		if (!m_toolTip.isNull()) {
+			//qDebug() << "Init tool tip:" << m_toolTip;
+			setToolTip(m_toolTip);
+		}
+
+		#ifdef KS_PURE_QT
+		m_trayIcon->show(); // after setIcon
+		#endif // KS_PURE_QT
+	}
+	else if (!visible && (m_trayIcon != nullptr)) {
+		qDebug() << "Hide system tray";
+
+		delete m_trayIcon;
+		m_trayIcon = nullptr;
+	}
 }
 
+// TODO: revisit overlay icons
 void USystemTray::updateIcon(MainWindow *mainWindow) {
+	if (m_trayIcon == nullptr)
+		return;
+
 	#ifndef KS_KF5
 	bool active = mainWindow->active();
 	bool bw = Config::blackAndWhiteSystemTrayIcon();
@@ -114,6 +140,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	if (m_applyIconHack) {
 		m_applyIconHack = false;
 		if (Utils::isMATE() && Config::systemTrayIconEnabled()) {
+			//qDebug() << "Apply icon hack";
 			m_trayIcon->setIcon(mainWindow->windowIcon()); // suppress Qt warning
 			m_trayIcon->show();
 		}
@@ -143,7 +170,7 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 	if (!active && Config::readBool("General", "Use Theme Icon In System Tray", true)) {
 		icon = QIcon::fromTheme("system-shutdown");
 		if (icon.isNull()) {
-			U_DEBUG << "System theme icon not found in: " << icon.themeName() U_END;
+			qDebug() << "System theme icon not found in:" << icon.themeName();
 			icon = mainWindow->windowIcon(); // fallback
 		}
 		// HACK: fixes https://sourceforge.net/p/kshutdown/bugs/27/
@@ -206,6 +233,9 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 }
 
 void USystemTray::warning(const QString &message) const {
+	if (m_trayIcon == nullptr)
+		return;
+
 	#ifdef KS_KF5
 	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, "dialog-warning");
 	#else
@@ -217,8 +247,6 @@ void USystemTray::warning(const QString &message) const {
 
 #ifdef KS_PURE_QT
 void USystemTray::onRestore(QSystemTrayIcon::ActivationReason reason) {
-	//U_DEBUG << "USystemTray::onRestore()" U_END;
-
 	if (reason == QSystemTrayIcon::Trigger) {
 		MainWindow *mainWindow = MainWindow::self();
 		if (mainWindow->isVisible() && !mainWindow->isMinimized()) {
