@@ -18,6 +18,7 @@
 #include "bootentry.h"
 
 #include "../udialog.h"
+#include "../utils.h"
 
 #include <QAbstractItemView>
 #include <QFileInfo>

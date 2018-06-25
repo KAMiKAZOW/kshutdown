@@ -21,13 +21,12 @@
 #include "pureqt.h"
 
 #ifdef KS_PURE_QT
+	#include <QApplication>
 	#include <QDir>
-#endif // KS_PURE_QT
-
-#ifdef KS_KF5
+#else
 	#include <KConfig>
 	#include <KSharedConfig>
-#endif // KS_KF5
+#endif // KS_PURE_QT
 
 // Config
 
