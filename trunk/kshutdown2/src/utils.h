@@ -20,8 +20,15 @@
 
 #include "pureqt.h"
 
+#include <QApplication>
 #include <QMenu>
 #include <QProcess>
+
+#ifdef KS_PURE_QT
+	#define i18n(text) QApplication::translate(0, (text))
+#else
+	#include <KLocalizedString> // for i18n
+#endif // KS_PURE_QT
 
 // TODO: use std::chrono and "hrs" literals #C++14 #experimental
 inline int operator "" _px(unsigned long long int value) { return value; }

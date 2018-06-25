@@ -60,7 +60,6 @@ endif()
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 if(KS_PURE_QT)
-	set_target_properties(kshutdown PROPERTIES)
 	target_link_libraries(kshutdown ${Qt5Widgets_LIBRARIES} ${Qt5DBus_LIBRARIES})
 elseif(KS_KF5)
 	target_link_libraries(kshutdown Qt5::DBus Qt5::Widgets KF5::ConfigCore KF5::ConfigWidgets KF5::Crash KF5::DBusAddons KF5::GlobalAccel KF5::I18n KF5::IdleTime KF5::Notifications KF5::NotifyConfig KF5::XmlGui)

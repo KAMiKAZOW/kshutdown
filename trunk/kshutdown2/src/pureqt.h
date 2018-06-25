@@ -20,24 +20,11 @@
 #ifndef KSHUTDOWN_PUREQT_H
 #define KSHUTDOWN_PUREQT_H
 
-#ifdef KS_PURE_QT
-
-// Q-Files
-#include <QApplication>
 #include <QDebug>
 
-#else
-
-	#ifdef KS_KF5
-		#include <QApplication>
-		#include <QDebug>
-	#else
-		// #kde4
-		#include <KApplication>
-		#include <KDebug>
-	#endif // KS_KF5
-
-#endif // KS_PURE_QT
+// TODO: remove:
+#define U_DEBUG qDebug()
+#define U_END
 
 // HACK: Q_OS_FREEBSD undefined (?) <http://sourceforge.net/p/kshutdown/bugs/18/>
 #if defined(Q_OS_LINUX) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(Q_OS_HURD)
@@ -47,27 +34,8 @@
 #ifdef KS_PURE_QT
 	#undef KS_KF5
 	#undef KS_NATIVE_KDE
-
-	#define U_DEBUG qDebug()
-	#define U_END
-
-	#define i18n(text) QApplication::translate(0, (text))
 #else
 	#define KS_NATIVE_KDE
-
-	#ifdef KS_KF5
-		#include <KLocalizedString> // for i18n
-
-		#define U_DEBUG qDebug()
-		#define U_END
-	#else
-		#include <KLocale> // for i18n
-
-		#define U_DEBUG kDebug()
-		#define U_END << endl
-	#endif // KS_KF5
-
-	// use i18n from KLocale
 #endif // KS_PURE_QT
 
 #endif // KSHUTDOWN_PUREQT_H
