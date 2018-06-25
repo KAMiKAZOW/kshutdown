@@ -113,18 +113,12 @@ void Config::setProgressBarEnabled(const bool value) {
 }
 
 bool Config::systemTrayIconEnabled() {
-	#ifdef KS_KF5
-	return true;
-	#else
 	return readBool("General", "System Tray Icon Enabled", true);
-	#endif // KS_KF5
 }
 
-#ifndef KS_KF5
 void Config::setSystemTrayIconEnabled(const bool value) {
 	write("General", "System Tray Icon Enabled", value);
 }
-#endif // KS_KF5
 
 QVariant Config::read(const QString &key, const QVariant &defaultValue) {
 #ifdef KS_NATIVE_KDE

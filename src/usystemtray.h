@@ -33,20 +33,20 @@ public:
 	virtual ~USystemTray() = default;
 	void info(const QString &message) const;
 	bool isSupported() const;
-	void setContextMenu(QMenu *menu) const;
-	void setToolTip(const QString &toolTip) const;
+	void setToolTip(const QString &toolTip);
 	void setVisible(const bool visible);
 	void updateIcon(MainWindow *mainWindow);
 	void warning(const QString &message) const;
 private:
 	Q_DISABLE_COPY(USystemTray)
 	#ifdef KS_KF5
-	KStatusNotifierItem *m_trayIcon;
+	KStatusNotifierItem *m_trayIcon = nullptr;
 	#else
-	QSystemTrayIcon *m_trayIcon;
-	#endif // KS_KF5
 	bool m_applyIconHack = true;
 	bool m_sessionRestored;
+	QSystemTrayIcon *m_trayIcon = nullptr;
+	#endif // KS_KF5
+	QString m_toolTip = QString::null;
 #ifdef KS_PURE_QT
 private slots:
 	void onRestore(QSystemTrayIcon::ActivationReason reason);

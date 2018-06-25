@@ -48,6 +48,7 @@ using namespace KShutdown;
 class MainWindow: public QMainWindow {
 	friend class Mod;
 	friend class TimeOption;
+	friend class USystemTray;
 	Q_OBJECT
 	#ifdef KS_PURE_QT
 	// compatible with KDE

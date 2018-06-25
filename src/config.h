@@ -59,9 +59,7 @@ public:
 	static void setProgressBarEnabled(const bool value);
 
 	static bool systemTrayIconEnabled();
-	#ifndef KS_KF5
 	static void setSystemTrayIconEnabled(const bool value);
-	#endif // KS_KF5
 
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);

@@ -170,7 +170,6 @@ bool MainWindow::maybeShow(const bool forceShow) {
 	if (CLI::isArg("hide-ui")) {
 		hide();
 
-// FIXME: KStatusNotifierItem is always visible
 		m_systemTray->setVisible(false);
 		
 		return true;
@@ -684,6 +683,9 @@ QAction *MainWindow::createQuitAction() {
 }
 
 void MainWindow::initFileMenu(QMenu *fileMenu) {
+	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+	fileMenu->setToolTipsVisible(true);
+
 	Action *a;
 	QString id;
 	for (int i = 0; i < m_actions->count(); ++i) {
@@ -744,21 +746,9 @@ void MainWindow::initMenuBar() {
 
 	auto *fileMenu = new QMenu(i18n("A&ction"), menuBar);
 
-	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-	fileMenu->setToolTipsVisible(true);
-
 	Utils::addTitle(fileMenu, /*QIcon::fromTheme("dialog-warning")*/QIcon(), i18n("No Delay"));
 	initFileMenu(fileMenu);
 	menuBar->addMenu(fileMenu);
-
-	auto *systemTrayFileMenu = new QMenu(); // need copy
-
-	connect(systemTrayFileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
-	systemTrayFileMenu->setToolTipsVisible(true);
-
-	initFileMenu(systemTrayFileMenu);
-
-	m_systemTray->setContextMenu(systemTrayFileMenu);
 
 	// bookmarks menu
 
