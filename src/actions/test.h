@@ -22,7 +22,7 @@
 
 #include <QLineEdit>
 
-class TestAction: public KShutdown::Action {
+class TestAction: public Action {
 public:
 	explicit TestAction();
 	virtual QWidget *getWidget() override;

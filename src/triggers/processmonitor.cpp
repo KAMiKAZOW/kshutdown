@@ -85,7 +85,7 @@ void Process::makeStringCache() {
 // public
 
 ProcessMonitor::ProcessMonitor()
-	: KShutdown::Trigger(i18n("When selected application exit"), "application-exit", "process-monitor"),
+	: Trigger(i18n("When selected application exit"), "application-exit", "process-monitor"),
 	m_processList(QList<Process*>())
 {
 	m_checkTimeout = 2000;

@@ -31,7 +31,7 @@
 QCommandLineParser *CLI::m_args = nullptr;
 bool TimeOption::m_absolute = false;
 bool TimeOption::m_relative = false;
-KShutdown::Action *TimeOption::m_action = nullptr;
+Action *TimeOption::m_action = nullptr;
 QString TimeOption::m_option = QString::null;
 QTime TimeOption::m_time = QTime();
 
@@ -76,7 +76,7 @@ bool CLI::check() {
 
 	if (actionToActivate) {
 		if (actionToActivate == Extras::self()) {
-// TODO: move to KShutdown::Action::onCommandLine #api
+// TODO: move to Action::onCommandLine #api
 			Extras::self()->setStringOption(getOption("extra"));
 		}
 
@@ -126,7 +126,7 @@ void CLI::init(const QString &appDescription) {
 	m_args->setApplicationDescription(appDescription);
 	m_args->setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
 
-// TODO: Ideally this should be in KShutdown::Action to avoid code duplication.
+// TODO: Ideally this should be in Action to avoid code duplication.
 // Unfortunatelly due to chicked-egg circular deps it's not possible (?)
 	m_args->addOption({ { "h", "halt" }, i18n("Turn Off Computer") });
 	m_args->addOption({ { "s", "shutdown" }, i18n("Turn Off Computer") });

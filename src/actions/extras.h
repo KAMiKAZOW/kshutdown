@@ -27,7 +27,7 @@
 
 class CommandAction;
 
-class Extras: public KShutdown::Action {
+class Extras: public Action {
 	Q_OBJECT
 	friend class CommandAction;
 public:
