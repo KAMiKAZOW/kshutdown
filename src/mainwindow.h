@@ -63,14 +63,11 @@ public:
 		DISPLAY_STATUS_OK_HINT = 1 << 4
 	};
 	virtual ~MainWindow();
-	static QHash<QString, Action*> actionHash() { return m_actionHash; }
-	static QList<Action*> actionList() { return m_actionList; }
 	QAction *cancelAction() const { return m_cancelAction; }
 	QString getDisplayStatus(const int options);
 	Action *getSelectedAction() const;
 	Trigger *getSelectedTrigger() const;
 	inline InfoWidget *infoWidget() { return m_infoWidget; }
-	static void initActionsAndTriggers();
 	inline QPushButton *okCancelButton() { return m_okCancelButton; }
 	inline ProgressBar *progressBar() { return m_progressBar; }
 	static MainWindow *self() {
@@ -81,7 +78,6 @@ public:
 	}
 	bool maybeShow(const bool forceShow = false);
 	void setTime(const QString &selectTrigger, const QTime &time, const bool absolute);
-	static QHash<QString, Trigger*> triggerHash() { return m_triggerHash; }
 	#ifdef Q_OS_WIN32
 	QWinTaskbarButton *winTaskbarButton() { return m_winTaskbarButton; }
 	#endif // Q_OS_WIN32
@@ -123,10 +119,6 @@ private:
 	QComboBox *m_triggers;
 	QGroupBox *m_actionBox;
 	QGroupBox *m_triggerBox;
-	static QHash<QString, Action*> m_actionHash;
-	static QHash<QString, Trigger*> m_triggerHash;
-	static QList<Action*> m_actionList;
-	static QList<Trigger*> m_triggerList;
 	QPushButton *m_okCancelButton;
 	QString m_lastNotificationID;
 	QTimer *m_triggerTimer;
@@ -137,14 +129,11 @@ private:
 	#endif // Q_OS_WIN32
 	USystemTray *m_systemTray;
 	explicit MainWindow();
-	static void addAction(Action *action);
-	static void addTrigger(Trigger *trigger);
 	QAction *createQuitAction();
 	void initFileMenu(QMenu *fileMenu);
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();
-	static void pluginConfig(const bool read);
 	void readConfig();
 	void setActive(const bool yes, const bool needAuthorization);
 	void setTitle(const QString &plain, const QString &html);

@@ -16,6 +16,7 @@ set(
 	mainwindow.cpp
 	mod.cpp
 	password.cpp
+	plugins.cpp
 	preferences.cpp
 	progressbar.cpp
 	stats.cpp

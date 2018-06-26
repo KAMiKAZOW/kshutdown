@@ -23,6 +23,7 @@
 #include "log.h"
 #include "mod.h"
 #include "password.h"
+#include "plugins.h"
 #include "preferences.h"
 #include "progressbar.h"
 #include "stats.h"
@@ -55,19 +56,15 @@
 #endif // KS_KF5
 
 MainWindow *MainWindow::m_instance = nullptr;
-QHash<QString, Action*> MainWindow::m_actionHash;
-QHash<QString, Trigger*> MainWindow::m_triggerHash;
-QList<Action*> MainWindow::m_actionList;
-QList<Trigger*> MainWindow::m_triggerList;
 
 // public
 
 MainWindow::~MainWindow() {
 	//U_DEBUG << "MainWindow::~MainWindow()" U_END;
 
-	foreach (Action *action, m_actionList)
+	foreach (Action *action, PluginManager::actionList())
 		delete action;
-	foreach (Trigger *trigger, m_triggerList)
+	foreach (Trigger *trigger, PluginManager::triggerList())
 		delete trigger;
 
 	Config::shutDown();
@@ -136,36 +133,6 @@ QString MainWindow::getDisplayStatus(const int options) {
 	return s;
 }
 
-void MainWindow::initActionsAndTriggers() {
-	U_DEBUG << "MainWindow::init(): Actions" U_END;
-	m_actionHash = QHash<QString, Action*>();
-	m_actionList = QList<Action*>();
-	addAction(new ShutDownAction());
-	addAction(new RebootAction());
-	addAction(new HibernateAction());
-	addAction(new SuspendAction());
-	addAction(LockAction::self());
-	addAction(new LogoutAction());
-	addAction(Extras::self());
-	addAction(new TestAction());
-
-	U_DEBUG << "MainWindow::init(): Triggers" U_END;
-	m_triggerHash = QHash<QString, Trigger*>();
-	m_triggerList = QList<Trigger*>();
-	addTrigger(new NoDelayTrigger());
-	addTrigger(new TimeFromNowTrigger());
-	addTrigger(new DateTimeTrigger());
-	addTrigger(new ProcessMonitor());
-
-	auto *idleMonitor = new IdleMonitor();
-	if (idleMonitor->isSupported())
-		addTrigger(idleMonitor);
-	else
-		delete idleMonitor;
-
-	pluginConfig(true); // read
-}
-
 bool MainWindow::maybeShow(const bool forceShow) {
 	if (CLI::isArg("hide-ui")) {
 		hide();
@@ -199,7 +166,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 				Utils::addTitle(menu, qApp->windowIcon(), QApplication::applicationDisplayName());
 			}
 			else {
-				auto *action = m_actionHash[id];
+				auto *action = PluginManager::action(id);
 // FIXME: missing tool tip (?)
 // TODO: show confirmation dialog at cursor position (?)
 				if (action) {
@@ -271,7 +238,7 @@ void MainWindow::setTime(const QString &selectTrigger, const QTime &time, const 
 
 QStringList MainWindow::actionList(const bool showDescription) {
 	QStringList sl;
-	foreach (const Action *i, m_actionList) {
+	foreach (const Action *i, PluginManager::actionList()) {
 		if (showDescription)
 			sl.append(i->id() + " - " + i->originalText());
 		else
@@ -283,7 +250,7 @@ QStringList MainWindow::actionList(const bool showDescription) {
 
 QStringList MainWindow::triggerList(const bool showDescription) {
 	QStringList sl;
-	foreach (const Trigger *i, m_triggerList) {
+	foreach (const Trigger *i, PluginManager::triggerList()) {
 		if (showDescription)
 			sl.append(i->id() + " - " + i->text());
 		else
@@ -320,7 +287,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 	}
 
 	Trigger *trigger = getSelectedTrigger();
-	if (yes && !m_triggerHash.contains(trigger->id())) {
+	if (yes && !PluginManager::triggerMap().contains(trigger->id())) {
 // TODO: GUI
 		U_DEBUG << "MainWindow::setActive: trigger disabled: " << trigger->text() << ", " << trigger->disableReason() U_END;
 	
@@ -560,7 +527,7 @@ MainWindow::MainWindow() :
 	initWidgets();
 	
 	// init actions
-	foreach (Action *action, m_actionList) {
+	foreach (Action *action, PluginManager::actionList()) {
 		connect(
 			action, SIGNAL(statusChanged(const bool)),
 			this, SLOT(onStatusChange(const bool))
@@ -578,7 +545,7 @@ MainWindow::MainWindow() :
 	m_actions->setMaxVisibleItems(m_actions->count());
 
 	// init triggers
-	foreach (Trigger *trigger, m_triggerList) {
+	foreach (Trigger *trigger, PluginManager::triggerList()) {
 		connect(
 			trigger, SIGNAL(notify(const QString &, const QString &)),
 			this, SLOT(notify(const QString &, const QString &))
@@ -594,8 +561,6 @@ MainWindow::MainWindow() :
 		// insert separator
 		if (id == "date-time")
 			m_triggers->insertSeparator(m_triggers->count());
-
-		//U_DEBUG << "\tMainWindow::addTrigger( " << trigger->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;	
 	}
 	m_triggers->setMaxVisibleItems(m_triggers->count());
 	connect(m_triggerTimer, SIGNAL(timeout()), SLOT(onCheckTrigger()));
@@ -643,24 +608,12 @@ MainWindow::MainWindow() :
 */
 }
 
-void MainWindow::addAction(Action *action) {
-	//qDebug() << "MainWindow::addAction:" << action->id();
-	m_actionHash[action->id()] = action;
-	m_actionList.append(action);
-}
-
-void MainWindow::addTrigger(Trigger *trigger) {
-	//qDebug() << "MainWindow::addTrigger:" << trigger->id();
-	m_triggerHash[trigger->id()] = trigger;
-	m_triggerList.append(trigger);
-}
-
 Action *MainWindow::getSelectedAction() const { // public
-	return m_actionHash[m_actions->itemData(m_actions->currentIndex()).toString()];
+	return PluginManager::action(m_actions->itemData(m_actions->currentIndex()).toString());
 }
 
 Trigger *MainWindow::getSelectedTrigger() const { // public
-	return m_triggerHash[m_triggers->itemData(m_triggers->currentIndex()).toString()];
+	return PluginManager::trigger(m_triggers->itemData(m_triggers->currentIndex()).toString());
 }
 
 QAction *MainWindow::createQuitAction() {
@@ -697,7 +650,7 @@ void MainWindow::initFileMenu(QMenu *fileMenu) {
 		
 		id = data.toString();
 		
-		a = m_actionHash[id];
+		a = PluginManager::action(id);
 
 		if (!a->showInMenu())
 			continue; // for
@@ -913,28 +866,6 @@ void MainWindow::initWidgets() {
 	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
 }
 
-void MainWindow::pluginConfig(const bool read) {
-	Config *config = Config::user();
-
-	foreach (Action *i, m_actionList) {
-		config->beginGroup("KShutdown Action " + i->id());
-		if (read)
-			i->readConfig(config);
-		else
-			i->writeConfig(config);
-		config->endGroup();
-	}
-
-	foreach (Trigger *i, m_triggerList) {
-		config->beginGroup("KShutdown Trigger " + i->id());
-		if (read)
-			i->readConfig(config);
-		else
-			i->writeConfig(config);
-		config->endGroup();
-	}
-}
-
 void MainWindow::readConfig() {
 	//U_DEBUG << "MainWindow::readConfig()" U_END;
 
@@ -1041,7 +972,7 @@ void MainWindow::updateWidgets() {
 void MainWindow::writeConfig() { // public
 	//U_DEBUG << "MainWindow::writeConfig()" U_END;
 
-	pluginConfig(false); // write
+	PluginManager::writeConfig();
 
 	Config *config = Config::user();
 	config->beginGroup("General");

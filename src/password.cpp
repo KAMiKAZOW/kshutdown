@@ -21,6 +21,7 @@
 #include "infowidget.h"
 #include "log.h"
 #include "mainwindow.h"
+#include "plugins.h"
 #include "utils.h"
 
 #include <QCryptographicHash>
@@ -256,7 +257,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	
 	addItem("action/settings", i18n("Settings (recommended)"), QIcon("configure"));
 	
-	foreach (const Action *action, MainWindow::actionList()) {
+	foreach (const Action *action, PluginManager::actionList()) {
 		addItem(
 			"kshutdown/action/" + action->id(),
 			action->originalText(),

@@ -19,6 +19,7 @@
 #include "log.h"
 #include "mainwindow.h"
 #include "mod.h"
+#include "plugins.h"
 #include "utils.h"
 #include "version.h"
 
@@ -52,7 +53,7 @@ bool commonStartup(const QStringList &arguments, const QCommandLineOption &versi
 
 	if (first) {
 		Mod::init();
-		MainWindow::initActionsAndTriggers();
+		PluginManager::init();
 	}
 
 	if (CLI::check()) {
