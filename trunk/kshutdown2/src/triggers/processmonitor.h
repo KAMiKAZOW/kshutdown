@@ -68,7 +68,7 @@ private:
 	void makeStringCache();
 };
 
-class ProcessMonitor: public KShutdown::Trigger {
+class ProcessMonitor: public Trigger {
 	Q_OBJECT
 public:
 	explicit ProcessMonitor();

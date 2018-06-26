@@ -100,7 +100,7 @@ BookmarksMenu::BookmarksMenu(QWidget *parent)
 
 BookmarksMenu::~BookmarksMenu() = default;
 
-QString BookmarksMenu::makeText(KShutdown::Action *action, KShutdown::Trigger *trigger, const QString &actionOption, const QString &triggerOption) const {
+QString BookmarksMenu::makeText(Action *action, Trigger *trigger, const QString &actionOption, const QString &triggerOption) const {
 	QString text = "";
 	
 	if (action) {
@@ -132,7 +132,7 @@ QString BookmarksMenu::makeText(KShutdown::Action *action, KShutdown::Trigger *t
 
 // private:
 
-BookmarkAction *BookmarksMenu::findBookmark(KShutdown::Action *action, KShutdown::Trigger *trigger) {
+BookmarkAction *BookmarksMenu::findBookmark(Action *action, Trigger *trigger) {
 	QString actionOption = action->getStringOption();
 	QString triggerOption = trigger->getStringOption();
 	

@@ -18,6 +18,7 @@
 #ifndef KSHUTDOWN_BOOKMARKS_H
 #define KSHUTDOWN_BOOKMARKS_H
 
+#include "config.h"
 #include "kshutdown.h"
 #include "pureqt.h"
 
@@ -55,11 +56,11 @@ class BookmarksMenu: public QMenu {
 public:
 	explicit BookmarksMenu(QWidget *parent);
 	virtual ~BookmarksMenu();
-	QString makeText(KShutdown::Action *action, KShutdown::Trigger *trigger, const QString &actionOption, const QString &triggerOption) const;
+	QString makeText(Action *action, Trigger *trigger, const QString &actionOption, const QString &triggerOption) const;
 private:
 	Q_DISABLE_COPY(BookmarksMenu)
 	QList<BookmarkAction *> *m_list;
-	BookmarkAction *findBookmark(KShutdown::Action *action, KShutdown::Trigger *trigger);
+	BookmarkAction *findBookmark(Action *action, Trigger *trigger);
 	QList<BookmarkAction *> *list();
 	void syncConfig();
 private slots:

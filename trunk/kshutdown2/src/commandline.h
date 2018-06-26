@@ -40,8 +40,8 @@ private:
 
 class TimeOption final {
 public:
-	inline static KShutdown::Action *action() { return m_action; }
-	inline static void setAction(KShutdown::Action *action) { m_action = action; }
+	inline static Action *action() { return m_action; }
+	inline static void setAction(Action *action) { m_action = action; }
 	static void init();
 	static bool isError();
 	static bool isValid();
@@ -50,7 +50,7 @@ public:
 	static void setupMainWindow();
 private:
 	Q_DISABLE_COPY(TimeOption)
-	static KShutdown::Action *m_action;
+	static Action *m_action;
 	static bool m_absolute;
 	static bool m_relative;
 	static QString m_option;
