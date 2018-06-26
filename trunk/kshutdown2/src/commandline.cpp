@@ -19,6 +19,7 @@
 
 #include "config.h"
 #include "mainwindow.h"
+#include "plugins.h"
 #include "udialog.h"
 #include "utils.h"
 #include "actions/extras.h"
@@ -62,7 +63,7 @@ bool CLI::check() {
 	
 	Action *actionToActivate = nullptr;
 	bool confirm = isConfirm();
-	foreach (Action *action, MainWindow::actionList()) {
+	foreach (Action *action, PluginManager::actionList()) {
 		if (action->isCommandLineArgSupported()) {
 			if (confirm && !action->showConfirmationMessage())
 				return false; // user cancel

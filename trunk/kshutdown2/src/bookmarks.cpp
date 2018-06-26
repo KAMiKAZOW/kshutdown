@@ -20,6 +20,7 @@
 #include "config.h"
 #include "mainwindow.h"
 #include "password.h"
+#include "plugins.h"
 #include "utils.h"
 
 #include <QFormLayout>
@@ -44,8 +45,8 @@ BookmarkAction::BookmarkAction(
 {
 	connect(this, SIGNAL(triggered()), SLOT(onAction()));
 	
-	auto *action = MainWindow::actionHash()[actionID];
-	auto *trigger = MainWindow::triggerHash()[triggerID];
+	auto *action = PluginManager::action(actionID);
+	auto *trigger = PluginManager::trigger(triggerID);
 	
 	if (action)
 		setIcon(action->icon());
