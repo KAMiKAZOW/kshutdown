@@ -635,7 +635,7 @@ HibernateAction::HibernateAction() :
 
 	addCommandLineArg("H", "hibernate");
 
-	setStatusTip(i18n("Save the contents of RAM to disk\nthen turn off the computer."));
+	uiAction()->setStatusTip(i18n("Save the contents of RAM to disk\nthen turn off the computer."));
 }
 
 // SuspendAction
@@ -656,7 +656,7 @@ SuspendAction::SuspendAction() :
 
 	addCommandLineArg("S", "suspend");
 
-	setStatusTip(i18n("Enter in a low-power state mode."));
+	uiAction()->setStatusTip(i18n("Enter in a low-power state mode."));
 }
 
 // StandardAction
@@ -1238,13 +1238,13 @@ RebootAction::RebootAction() :
 */
 	// NOTE: follow the Icon Naming Specification and use "system-reboot" instead of "system-restart"
 	// <http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html>
-	setIcon(QIcon::fromTheme("system-reboot"));
+	uiAction()->setIcon(QIcon::fromTheme("system-reboot"));
 #else
 	if (Utils::isKDE())
-		setIcon(QIcon::fromTheme("system-reboot"));
+		uiAction()->setIcon(QIcon::fromTheme("system-reboot"));
 	// HACK: missing "system-reboot" in some icon themes
 	else
-		setIcon(QIcon::fromTheme("view-refresh"));
+		uiAction()->setIcon(QIcon::fromTheme("view-refresh"));
 #endif // KS_NATIVE_KDE
 
 	addCommandLineArg("r", "reboot");

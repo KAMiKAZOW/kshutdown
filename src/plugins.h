@@ -31,7 +31,7 @@
 class Config;
 class MainWindow;
 
-class Base {
+class Base: public QObject {
 public:
 	enum class State { Start, Stop, InvalidStatus };
 	explicit Base(const QString &id);
@@ -58,6 +58,7 @@ public:
 	inline QString id() const {
 		return m_id;
 	}
+	virtual bool isEnabled() const { return true; }
 	inline QString originalText() const {
 		return m_originalText;
 	}
@@ -89,7 +90,7 @@ private:
 	bool m_canBookmark;
 };
 
-class Action: public QAction, public Base {
+class Action: public Base {
 	Q_OBJECT
 public:
 	explicit Action(const QString &text, const QString &iconName, const QString &id);
@@ -98,7 +99,9 @@ public:
 	inline QStringList getCommandLineArgs() const {
 		return m_commandLineArgs;
 	}
+	QIcon icon() const { return m_uiAction->icon(); }
 	bool isCommandLineArgSupported();
+	virtual bool isEnabled() const override { return m_uiAction->isEnabled(); }
 	virtual bool onAction() = 0;
 	inline bool shouldStopTimer() const {
 		return m_shouldStopTimer;
@@ -117,6 +120,7 @@ public:
 		return m_totalExit;
 	}
 	virtual void updateMainWindow(MainWindow *mainWindow);
+	QAction *uiAction() const { return m_uiAction; }
 protected:
 	bool m_force;
 	static bool m_totalExit;
@@ -134,6 +138,7 @@ private:
 	#endif // KS_DBUS
 	bool m_shouldStopTimer;
 	bool m_showInMenu;
+	QAction *m_uiAction = nullptr;
 	QStringList m_commandLineArgs;
 private slots:
 	void slotFire();
@@ -141,6 +146,7 @@ signals:
 	void statusChanged(const bool updateWidgets);
 };
 
+// TODO: remove
 class ConfirmAction: public QAction {
 	Q_OBJECT
 public:
@@ -152,7 +158,7 @@ private slots:
 	void slotFire();
 };
 
-class Trigger: public QObject, public Base {
+class Trigger: public Base {
 	Q_OBJECT
 public:
 	explicit Trigger(const QString &text, const QString &iconName, const QString &id);
