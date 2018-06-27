@@ -109,11 +109,11 @@ private:
 	bool m_ignoreUpdateWidgets;
 	bool m_showActiveWarning;
 	bool m_showMinimizeInfo;
-	ConfirmAction *m_confirmLockAction;
 	InfoWidget *m_infoWidget;
 	static MainWindow *m_instance;
 	ProgressBar *m_progressBar;
 	QAction *m_cancelAction;
+	QAction *m_confirmLockAction;
 	QCheckBox *m_force;
 	QComboBox *m_actions;
 	QComboBox *m_triggers;

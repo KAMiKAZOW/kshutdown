@@ -96,6 +96,7 @@ public:
 	explicit Action(const QString &text, const QString &iconName, const QString &id);
 	void activate(const bool force);
 	bool authorize(QWidget *parent);
+	QAction *createConfirmAction(const bool alwaysShowConfirmationMessage);
 	inline QStringList getCommandLineArgs() const {
 		return m_commandLineArgs;
 	}
@@ -144,18 +145,6 @@ private slots:
 	void slotFire();
 signals:
 	void statusChanged(const bool updateWidgets);
-};
-
-// TODO: remove
-class ConfirmAction: public QAction {
-	Q_OBJECT
-public:
-	explicit ConfirmAction(QObject *parent, Action *action);
-private:
-	Q_DISABLE_COPY(ConfirmAction)
-	Action *m_impl;
-private slots:
-	void slotFire();
 };
 
 class Trigger: public Base {
