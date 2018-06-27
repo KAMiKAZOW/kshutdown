@@ -167,10 +167,10 @@ Extras::Extras() :
 	m_command(QString::null) {
 
 	setCanBookmark(true);
-	setMenu(createMenu());
+	uiAction()->setMenu(createMenu());
 	setShowInMenu(false);
 	m_menuButton = new QPushButton();
-	m_menuButton->setMenu(menu());
+	m_menuButton->setMenu(uiAction()->menu());
 	
 	//setCommandAction(0);
 

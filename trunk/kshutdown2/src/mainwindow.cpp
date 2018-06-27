@@ -151,6 +151,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 		menu->setToolTipsVisible(true);
 
 		bool confirm = CLI::isConfirm();
+// FIXME: --confirm option broken
 
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
@@ -173,7 +174,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 					if (confirm)
 						menu->addAction(new ConfirmAction(menu, action));
 					else
-						menu->addAction(action);
+						menu->addAction(action->uiAction());
 				}
 				else {
 					U_DEBUG << "Unknown ui-menu element: " << id U_END;
@@ -277,7 +278,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 	
 	if (yes && !action->isEnabled()) {
 // TODO: GUI
-		U_DEBUG << "MainWindow::setActive: action disabled: " << action->text() << ", " << action->disableReason() U_END;
+		qDebug() << "MainWindow::setActive: action disabled: " << action->uiAction()->text() << ", " << action->disableReason();
 	
 		return;
 	}
@@ -534,7 +535,7 @@ MainWindow::MainWindow() :
 		);
 
 		QString id = action->id();
-		m_actions->addItem(action->icon(), action->text(), id);
+		m_actions->addItem(action->icon(), action->uiAction()->text(), id);
 		
 		// insert separator like in menu
 		if ((id == "reboot") || (id == "suspend") || (id == "logout"))
@@ -1122,7 +1123,7 @@ void MainWindow::onActionActivated(int index) {
 		m_currentActionWidget->show();
 	}
 
-	m_actions->setToolTip(action->statusTip()/*toolTip()*/);
+	m_actions->setToolTip(action->uiAction()->statusTip()/*toolTip()*/);
 
 	onStatusChange(true);
 }

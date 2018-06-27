@@ -90,7 +90,6 @@ void Base::setLastError() {
 // public
 
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
-	QAction(nullptr),
 	Base(id),
 	m_force(false),
 	m_shouldStopTimer(true),
@@ -98,20 +97,20 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	m_commandLineArgs(QStringList()) {
 	m_originalText = text;
 
+	m_uiAction = new QAction();
 	if (!iconName.isNull())
-		setIcon(QIcon::fromTheme(iconName));
-	setIconVisibleInMenu(true);
+		m_uiAction->setIcon(QIcon::fromTheme(iconName));
+	m_uiAction->setIconVisibleInMenu(true);
+	m_uiAction->setText(text);
+	connect(m_uiAction, SIGNAL(triggered()), SLOT(slotFire()));
 
 	if (Utils::isRestricted("kshutdown/action/" + id))
 		disable(i18n("Disabled by Administrator"));
-
-	setText(text);
-	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
 }
 
 void Action::activate(const bool force) {
 	m_force = force;
-	QAction::trigger();
+	m_uiAction->trigger();
 }
 
 bool Action::authorize(QWidget *parent) {
@@ -207,7 +206,7 @@ void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) 
 }
 
 void Action::disable(const QString &reason) {
-	setEnabled(false);
+	m_uiAction->setEnabled(false);
 	m_disableReason = reason;
 }
 
@@ -279,7 +278,7 @@ void Action::slotFire() {
 
 	if (!isEnabled()) {
 		QString s = m_disableReason.isEmpty() ? i18n("Unknown error") : m_disableReason;
-		UDialog::error(0, text() + ": " + s);
+		UDialog::error(0, m_uiAction->text() + ": " + s);
 
 		return;
 	}
@@ -289,7 +288,7 @@ void Action::slotFire() {
 		m_totalExit = false;
 		if (!m_error.isNull()) {
 			QString s = m_error.isEmpty() ? i18n("Unknown error") : m_error;
-			UDialog::error(0, text() + ": " + s);
+			UDialog::error(0, m_uiAction->text() + ": " + s);
 		}
 	}
 }
@@ -298,11 +297,12 @@ void Action::slotFire() {
 
 // public
 
-ConfirmAction::ConfirmAction(QObject *parent, Action *action) :
+ConfirmAction::ConfirmAction(QObject *parent, Action *wrappedAction) :
 	QAction(parent),
-	m_impl(action) {
+	m_impl(wrappedAction) {
 
 	// clone basic properties
+	QAction *action = wrappedAction->uiAction();
 	setEnabled(action->isEnabled());
 	setIcon(action->icon());
 	setIconVisibleInMenu(true);
