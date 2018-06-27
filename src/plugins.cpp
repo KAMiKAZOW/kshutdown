@@ -121,6 +121,38 @@ bool Action::authorize(QWidget *parent) {
 	);
 }
 
+QAction *Action::createConfirmAction(const bool alwaysShowConfirmationMessage) {
+	QAction *result = new QAction(this);
+
+	// clone basic properties
+	result->setEnabled(m_uiAction->isEnabled());
+	result->setIcon(m_uiAction->icon());
+	result->setIconVisibleInMenu(m_uiAction->isIconVisibleInMenu());
+	result->setMenu(m_uiAction->menu());
+	result->setShortcut(m_uiAction->shortcut());
+	result->setStatusTip(m_uiAction->statusTip());
+	result->setText(m_uiAction->text());
+
+	// HACK: action->toolTip() is unusable in Qt
+	result->setToolTip(m_uiAction->statusTip()); // for QMenu
+
+	connect(result, &QAction::triggered, [this, /*FU &*/alwaysShowConfirmationMessage] {
+		if (shouldStopTimer())
+			MainWindow::self()->setActive(false);
+
+		bool wantConfirmation =
+			(alwaysShowConfirmationMessage || Config::confirmAction()) &&
+			(this != LockAction::self()); // lock action - no confirmation
+
+		if (!wantConfirmation || showConfirmationMessage()) {
+			if (authorize(MainWindow::self()))
+				activate(false);
+		}
+	});
+
+	return result;
+}
+
 bool Action::isCommandLineArgSupported() {
 	foreach (const QString &i, m_commandLineArgs) {
 		if (CLI::isArg(i))
@@ -290,46 +322,6 @@ void Action::slotFire() {
 			QString s = m_error.isEmpty() ? i18n("Unknown error") : m_error;
 			UDialog::error(0, m_uiAction->text() + ": " + s);
 		}
-	}
-}
-
-// ConfirmAction
-
-// public
-
-ConfirmAction::ConfirmAction(QObject *parent, Action *wrappedAction) :
-	QAction(parent),
-	m_impl(wrappedAction) {
-
-	// clone basic properties
-	QAction *action = wrappedAction->uiAction();
-	setEnabled(action->isEnabled());
-	setIcon(action->icon());
-	setIconVisibleInMenu(true);
-	setMenu(action->menu());
-	setShortcut(action->shortcut());
-	setStatusTip(action->statusTip());
-	setText(action->text());
-
-	// HACK: action->toolTip() is unusable in Qt
-	setToolTip(action->statusTip()); // for QMenu
-
-	connect(this, SIGNAL(triggered()), SLOT(slotFire()));
-}
-
-// private
-
-void ConfirmAction::slotFire() {
-	if (m_impl->shouldStopTimer())
-		MainWindow::self()->setActive(false);
-
-	if (
-		!Config::confirmAction() ||
-		(m_impl == LockAction::self()) || // lock action - no confirmation
-		m_impl->showConfirmationMessage()
-	) {
-		if (m_impl->authorize(MainWindow::self()))
-			m_impl->activate(false);
 	}
 }
 

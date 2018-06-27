@@ -151,7 +151,6 @@ bool MainWindow::maybeShow(const bool forceShow) {
 		menu->setToolTipsVisible(true);
 
 		bool confirm = CLI::isConfirm();
-// FIXME: --confirm option broken
 
 		foreach (const QString &id, menuActions) {
 			if (id == "-") {
@@ -172,7 +171,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 // TODO: show confirmation dialog at cursor position (?)
 				if (action) {
 					if (confirm)
-						menu->addAction(new ConfirmAction(menu, action));
+						menu->addAction(action->createConfirmAction(confirm));
 					else
 						menu->addAction(action->uiAction());
 				}
@@ -656,7 +655,7 @@ void MainWindow::initFileMenu(QMenu *fileMenu) {
 		if (!a->showInMenu())
 			continue; // for
 
-		auto *confirmAction = new ConfirmAction(this, a);
+		auto *confirmAction = a->createConfirmAction(false);
 		if (a == LockAction::self())
 			m_confirmLockAction = confirmAction;
 
