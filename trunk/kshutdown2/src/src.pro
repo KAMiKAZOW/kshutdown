@@ -58,6 +58,10 @@ RESOURCES = kshutdown.qrc
 
 unix {
 	target.path = /usr/bin
+	target.extra = \
+		install -m 755 -p kshutdown "$(INSTALL_ROOT)/usr/bin/kshutdown"; \
+		ln -fs "$(INSTALL_ROOT)/usr/bin/kshutdown" "$(INSTALL_ROOT)/usr/bin/kshutdown-qt"
+	target.uninstall = rm -f "$(INSTALL_ROOT)/usr/bin/kshutdown" "$(INSTALL_ROOT)/usr/bin/kshutdown-qt"
 
 	icon16.path = /usr/share/icons/hicolor/16x16/apps
 	icon16.extra = install -m 644 -p images/hi16-app-kshutdown.png "$(INSTALL_ROOT)/usr/share/icons/hicolor/16x16/apps/kshutdown.png"
