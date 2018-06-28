@@ -153,16 +153,6 @@ QWidget *Preferences::createGeneralWidget() {
 	l->addWidget(m_lockCommand);
 	#endif // Q_OS_LINUX
 
-	#ifdef KS_KF5
-	if (Utils::isKDE()) {
-		l->addSpacing(20_px);
-
-		auto *systemSettingsButton = new QPushButton(QIcon::fromTheme("preferences-system"), i18n("System Settings..."));
-		l->addWidget(systemSettingsButton);
-		connect(systemSettingsButton, SIGNAL(clicked()), SLOT(onSystemSettings()));
-	}
-	#endif // KS_KF5
-
 	return w;
 }
 
@@ -258,12 +248,6 @@ void Preferences::onProgressBarEnabled(bool enabled) {
 	progressBar->setDemo(enabled);
 	progressBar->setVisible(enabled || m_oldProgressBarVisible);
 }
-
-#ifdef KS_KF5
-void Preferences::onSystemSettings() {
-	QProcess::execute("kcmshell5 autostart kcmkded kcmnotify kcmsmserver kcm_energyinfo kcm_sddm kcm_splashscreen keys powerdevilprofilesconfig screenlocker");
-}
-#endif // KS_KF5
 
 #ifndef KS_KF5
 void Preferences::onUseThemeIconInSystemTraySelected(bool selected) {

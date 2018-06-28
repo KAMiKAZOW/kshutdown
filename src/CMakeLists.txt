@@ -68,6 +68,7 @@ else()
 	target_link_libraries(kshutdown kdecore kdeui kio ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KUTILS_LIBS})
 endif()
 
+# TODO: create symlink to "kshutdown-qt" for compat. with Qt5 Build (?)
 if(KS_PURE_QT)
 	set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share)
 	set(XDG_APPS_INSTALL_DIR ${DATA_INSTALL_DIR}/applications)
