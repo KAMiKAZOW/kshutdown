@@ -46,6 +46,7 @@ public:
 	virtual void writeConfig(Config *config) override;
 private:
 	Q_DISABLE_COPY(Extras)
+	bool m_examplesCreated = false;
 	static Extras *m_instance;
 	QMenu *m_menu = nullptr;
 	QPushButton *m_menuButton;
@@ -54,7 +55,7 @@ private:
 	CommandAction *createCommandAction(const QFileInfo &fileInfo, const bool returnNull);
 	QMenu *createMenu();
 	void createMenu(QMenu *parentMenu, const QString &parentDir);
-	QString getFilesDirectory() const;
+	QString getFilesDirectory();
 	QIcon readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip);
 	void setCommandAction(const CommandAction *command);
 private slots:
