@@ -27,6 +27,7 @@
 #include <QMessageBox>
 #include <QPointer>
 #include <QSettings>
+#include <QTextCodec>
 #include <QUrl>
 
 #ifdef KS_KF5
@@ -102,9 +103,10 @@ bool Extras::onAction() {
 
 	if (suffix == "desktop") {
 		QSettings settings(path, QSettings::IniFormat);
+		settings.setIniCodec(QTextCodec::codecForName("UTF-8"));
 		settings.beginGroup("Desktop Entry");
 		QString exec = settings.value("Exec", "").toString();
-		//U_DEBUG << exec U_END;
+		//qDebug() << "Exec:" << exec;
 		if (!exec.isEmpty()) {
 			auto *process = new QProcess(this);
 			QString dir = settings.value("Path", "").toString();
@@ -139,6 +141,7 @@ void Extras::readConfig(Config *config) {
 	// do not override command set via "e" command line option
 	if (m_command.isNull())
 		setStringOption(config->read("Command", "").toString());
+	m_examplesCreated = config->read("Examples Created", false).toBool();
 }
 
 void Extras::updateMainWindow(MainWindow *mainWindow) {
@@ -158,6 +161,7 @@ void Extras::updateMainWindow(MainWindow *mainWindow) {
 
 void Extras::writeConfig(Config *config) {
 	config->write("Command", m_command);
+	config->write("Examples Created", m_examplesCreated);
 }
 
 // private
@@ -265,7 +269,7 @@ void Extras::createMenu(QMenu *parentMenu, const QString &parentDir) {
 	}
 }
 
-QString Extras::getFilesDirectory() const {
+QString Extras::getFilesDirectory() {
 #if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
 	return KGlobal::dirs()->saveLocation("data", "kshutdown/extras");
 #else
@@ -282,7 +286,28 @@ QString Extras::getFilesDirectory() const {
 	if (!dir.mkpath(dir.path())) {
 		U_DEBUG << "Could not create Config dir" U_END;
 	}
-	
+	else if (!m_examplesCreated) {
+		m_examplesCreated = true;
+
+		#ifndef Q_OS_WIN32
+		QFile exampleFile(dir.path() + QDir::separator() + "VLC.desktop");
+		qDebug() << "Creating example file (1):" << exampleFile.fileName();
+		
+		if (!exampleFile.exists() && exampleFile.open(QFile::WriteOnly)) {
+			qDebug() << "Creating example file (2):" << exampleFile.fileName();
+
+			// NOTE: QSettings produces malformed output (%20 in group name)
+			QTextStream out(&exampleFile);
+out << R"([Desktop Entry]
+Version=1.0
+Type=Application
+Exec=dbus-send --print-reply --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
+Icon=vlc
+Name=)" << i18n("Stop VLC Media Player");
+		}
+		#endif // !Q_OS_WIN32
+	}
+
 	return dir.path();
 #endif // KS_NATIVE_KDE
 }
@@ -301,6 +326,7 @@ QIcon Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString 
 	icon = desktopFile.readIcon();
 #else
 	QSettings settings(fileInfo.filePath(), QSettings::IniFormat);
+	settings.setIniCodec(QTextCodec::codecForName("UTF-8"));
 	settings.beginGroup("Desktop Entry");
 	desktopName = settings.value("Name", "").toString();
 	desktopComment = settings.value("Comment", "").toString();
@@ -417,6 +443,10 @@ void Extras::updateMenu() {
 	}
 	#else
 		#ifdef KS_KF5
+		// HACK: init Examples
+		if (!m_examplesCreated)
+			getFilesDirectory();
+
 		QStringList dirs = QStandardPaths::locateAll(
 			QStandardPaths::GenericDataLocation,
 			"kshutdown/extras",
@@ -427,6 +457,7 @@ void Extras::updateMenu() {
 			createMenu(m_menu, i);
 		}
 		#else
+// TODO: unify with KS_KF5
 		createMenu(m_menu, getFilesDirectory());
 		#endif // KS_KF5
 	#endif // KS_NATIVE_KDE
