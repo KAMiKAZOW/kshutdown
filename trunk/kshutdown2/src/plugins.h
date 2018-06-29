@@ -21,7 +21,6 @@
 #include "infowidget.h"
 
 #include <QAction>
-#include <QPointer>
 
 #ifdef KS_DBUS
 	#include <QDBusInterface>
@@ -185,6 +184,7 @@ public:
 	static void add(Action *action);
 	static void add(Trigger *trigger);
 	static void init();
+	static void shutDown();
 	static Trigger *trigger(const QString &id) { return m_triggerMap[id]; }
 	static QList<Trigger*> triggerList() { return m_triggerList; }
 	static QHash<QString, Trigger*> triggerMap() { return m_triggerMap; }

@@ -25,7 +25,6 @@
 
 #include <QFormLayout>
 #include <QLineEdit>
-#include <QPointer>
 #include <QPushButton>
 
 // public:
@@ -216,7 +215,7 @@ void BookmarksMenu::onAddBookmark() {
 	auto *action = mainWindow->getSelectedAction();
 	auto *trigger = mainWindow->getSelectedTrigger();
 
-	QPointer<UDialog> dialog = new UDialog(mainWindow, i18n("Add Bookmark"), false);
+	QScopedPointer<UDialog> dialog(new UDialog(mainWindow, i18n("Add Bookmark"), false));
 	dialog->acceptButton()->setText(i18n("Add"));
 
 	auto *nameField = new QLineEdit(makeText(action, trigger, QString::null, QString::null));
@@ -251,8 +250,6 @@ void BookmarksMenu::onAddBookmark() {
 		
 		syncConfig();
 	}
-	
-	delete dialog;
 }
 
 void BookmarksMenu::onRemoveBookmark() {

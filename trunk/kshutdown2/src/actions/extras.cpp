@@ -25,7 +25,6 @@
 #include <QDesktopServices>
 #include <QDir>
 #include <QMessageBox>
-#include <QPointer>
 #include <QSettings>
 #include <QTextCodec>
 #include <QUrl>
@@ -407,12 +406,13 @@ void Extras::slotModify() {
 	
 	if (showInfo) {
 // TODO: KMessageBox
-		QPointer<QMessageBox> message = new QMessageBox( // krazy:exclude=qclasses
+// TODO: also show in Help menu
+		QScopedPointer<QMessageBox> message(new QMessageBox( // krazy:exclude=qclasses
 			QMessageBox::Information, // krazy:exclude=qclasses
 			originalText(),
 			text,
 			QMessageBox::Ok // krazy:exclude=qclasses
-		);
+		));
 
 		QCheckBox *doNotShowAgainCheckBox = new QCheckBox(i18n("Do not show this message again"));
 		message->setCheckBox(doNotShowAgainCheckBox);
@@ -424,8 +424,6 @@ void Extras::slotModify() {
 			config->write("Show Info", false);
 			config->endGroup();
 		}
-
-		delete message;
 	}
 	#endif // KS_NATIVE_KDE
 	QUrl url = QUrl::fromLocalFile(getFilesDirectory());

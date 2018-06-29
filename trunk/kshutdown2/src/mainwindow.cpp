@@ -41,7 +41,6 @@
 
 #include <QCloseEvent>
 #include <QMenuBar>
-#include <QPointer>
 #include <QTimer>
 
 // TODO: review includes
@@ -62,11 +61,8 @@ MainWindow *MainWindow::m_instance = nullptr;
 MainWindow::~MainWindow() {
 	//U_DEBUG << "MainWindow::~MainWindow()" U_END;
 
-	foreach (Action *action, PluginManager::actionList())
-		delete action;
-	foreach (Trigger *trigger, PluginManager::triggerList())
-		delete trigger;
-
+// FIXME: setAttribute(Qt::WA_DeleteOnClose, true);
+	PluginManager::shutDown();
 	Config::shutDown();
 	Log::shutDown();
 
@@ -1088,7 +1084,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	licenseLayout->addStretch();
 	licenseLayout->addWidget(aboutQtButton);
 
-	QPointer<UDialog> dialog = new UDialog(this, i18n("About"), true);
+	QScopedPointer<UDialog> dialog(new UDialog(this, i18n("About"), true));
 	#ifdef Q_OS_WIN32
 	dialog->rootLayout()->setMargin(5_px);
 	dialog->rootLayout()->setSpacing(5_px);
@@ -1100,7 +1096,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	dialog->mainLayout()->addWidget(tabs);
 
 	dialog->exec();
-	delete dialog;
 }
 #endif // KS_PURE_QT
 
@@ -1236,8 +1231,7 @@ void MainWindow::onPreferences() {
 	if (!PasswordDialog::authorizeSettings(this))
 		return;
 
-	// DOC: http://www.kdedevelopers.org/node/3919
-	QPointer<Preferences> dialog = new Preferences(this);
+	QScopedPointer<Preferences> dialog(new Preferences(this));
 	if (dialog->exec() == Preferences::Accepted) {
 		dialog->apply();
 		
@@ -1245,13 +1239,11 @@ void MainWindow::onPreferences() {
 		m_systemTray->setVisible(Config::systemTrayIconEnabled());
 		m_systemTray->updateIcon(this); // update colors
 	}
-	delete dialog;
 }
 
 void MainWindow::onStats() {
-	QPointer<Stats> dialog = new Stats(this);
+	QScopedPointer<Stats> dialog(new Stats(this));
 	dialog->exec();
-	delete dialog;
 }
 
 void MainWindow::onStatusChange(const bool forceUpdateWidgets) {
