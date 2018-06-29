@@ -30,7 +30,6 @@
 
 #include <QLineEdit>
 #include <QMessageBox>
-#include <QPointer>
 #include <QPushButton>
 
 #ifdef Q_OS_WIN32

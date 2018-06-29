@@ -27,7 +27,6 @@
 #include <QCryptographicHash>
 #include <QFormLayout>
 #include <QLineEdit>
-#include <QPointer>
 #include <QPushButton>
 
 #ifdef KS_PURE_QT
@@ -116,13 +115,12 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 retry:
 
 	#ifdef KS_NATIVE_KDE
-	QPointer<KPasswordDialog> dialog = new KPasswordDialog(parent);
+	QScopedPointer<KPasswordDialog> dialog(new KPasswordDialog(parent));
 // FIXME: dialog->setPixmap(MainWindow::self()->windowIcon().pixmap(48_px));
 	dialog->setPrompt(prompt);
 	bool ok = dialog->exec() == KPasswordDialog::Accepted;
 	QString password = ok ? dialog->password() : QString::null;
-	delete dialog;
-	
+
 	if (!ok)
 		return false;
 	#else
@@ -327,12 +325,11 @@ void PasswordPreferences::onEnablePassword(bool checked) {
 	if (checked) {
 // TODO: consider https://api.kde.org/frameworks/kwidgetsaddons/html/classKNewPasswordDialog.html
 // or https://api.kde.org/frameworks/kwidgetsaddons/html/classKPasswordLineEdit.html
-		QPointer<PasswordDialog> dialog = new PasswordDialog(this);
+		QScopedPointer<PasswordDialog> dialog(new PasswordDialog(this));
 		if (dialog->exec() == PasswordDialog::Accepted)
 			dialog->apply();
 		else
 			m_enablePassword->setChecked(false);
-		delete dialog;
 	}
 	updateWidgets(m_enablePassword->isChecked());
 }

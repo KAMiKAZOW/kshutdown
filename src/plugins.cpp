@@ -175,13 +175,13 @@ bool Action::showConfirmationMessage() {
 		parent = nullptr;
 
 // TODO: KMessageBox
-	QPointer<QMessageBox> message = new QMessageBox(
+	QScopedPointer<QMessageBox> message(new QMessageBox(
 		QMessageBox::Warning,
 		title,
 		text,
 		QMessageBox::Ok | QMessageBox::Cancel,
 		parent
-	);
+	));
 	message->setDefaultButton(QMessageBox::Cancel);
 	if (!icon().isNull()) {
 		int size = qApp->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
@@ -198,10 +198,7 @@ bool Action::showConfirmationMessage() {
 	ok->setText(originalText());
 	#endif // Q_OS_WIN32
 
-	bool accepted = message->exec() == QMessageBox::Ok; // krazy:exclude=qclasses
-	delete message;
-
-	return accepted;
+	return message->exec() == QMessageBox::Ok;
 }
 
 void Action::updateMainWindow(MainWindow *mainWindow) {
@@ -401,6 +398,24 @@ void PluginManager::init() {
 		i->readConfig(config);
 		config->endGroup();
 	}
+}
+
+void PluginManager::shutDown() {
+	//qDebug() << "PluginManager::shutDown (Action)";
+
+	foreach (Action *i, actionList())
+		delete i;
+
+	m_actionList.clear();
+	m_actionMap.clear();
+
+	//qDebug() << "PluginManager::shutDown (Trigger)";
+
+	foreach (Trigger *i, triggerList())
+		delete i;
+
+	m_triggerList.clear();
+	m_triggerMap.clear();
 }
 
 void PluginManager::writeConfig() {
