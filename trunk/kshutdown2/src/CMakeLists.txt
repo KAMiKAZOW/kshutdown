@@ -25,34 +25,8 @@ set(
 	utils.cpp
 )
 
-set(
-	kshutdown_MOC_HEADERS
-	actions/bootentry.h
-	actions/extras.h
-	triggers/idlemonitor.h
-	triggers/processmonitor.h
-	bookmarks.h
-	infowidget.h
-	kshutdown.h
-	mainwindow.h
-	password.h
-	preferences.h
-	progressbar.h
-	stats.h
-	udialog.h
-	usystemtray.h
-)
 if(KS_PURE_QT)
-# TODO: add and test automoc
 	QT5_ADD_RESOURCES(qrc_kshutdown.cpp kshutdown.qrc)
-	QT5_WRAP_CPP(kshutdown_MOC_SOURCES ${kshutdown_MOC_HEADERS})
-elseif(KS_KF5)
-	# automoc
-else()
-	# automoc
-endif()
-
-if(KS_PURE_QT)
 	add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES} qrc_kshutdown.cpp)
 else()
 	add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})

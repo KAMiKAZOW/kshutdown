@@ -17,6 +17,8 @@ if(KS_PURE_QT)
 	include_directories(${Qt5Widgets_INCLUDES} ${Qt5DBus_INCLUDES})
 
 	add_definitions(-DKS_PURE_QT)
+
+	set(CMAKE_AUTOMOC TRUE)
 	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_PURE_QT)
 elseif(KS_KF5)
 	find_package(Qt5 REQUIRED Widgets DBus)
