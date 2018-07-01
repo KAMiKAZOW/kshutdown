@@ -23,9 +23,9 @@
 class LockAction: public Action {
 public:
 	virtual bool onAction() override;
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static QDBusInterface *getQDBusInterface();
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	static LockAction *self() {
 		if (!m_instance)
 			m_instance = new LockAction();
@@ -35,9 +35,9 @@ public:
 private:
 	Q_DISABLE_COPY(LockAction)
 	static LockAction *m_instance;
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static QDBusInterface *m_qdbusInterface;
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	explicit LockAction();
 };
 

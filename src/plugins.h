@@ -22,10 +22,10 @@
 
 #include <QAction>
 
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 	#include <QDBusInterface>
 	#include <QDBusReply>
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 class Config;
 class MainWindow;
@@ -126,16 +126,16 @@ protected:
 	static bool m_totalExit;
 	void addCommandLineArg(const QString &shortArg, const QString &longArg);
 	void disable(const QString &reason);
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static QDBusInterface *getLoginInterface();
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	bool launch(const QString &program, const QStringList &args, const bool detached = false);
 	bool unsupportedAction();
 private:
 	Q_DISABLE_COPY(Action)
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static QDBusInterface *m_loginInterface;
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	bool m_shouldStopTimer;
 	bool m_showInMenu;
 	QAction *m_uiAction = nullptr;

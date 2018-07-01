@@ -36,9 +36,9 @@
 // private
 
 LockAction *LockAction::m_instance = nullptr;
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 QDBusInterface *LockAction::m_qdbusInterface = nullptr;
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 // public
 
@@ -99,19 +99,19 @@ bool LockAction::onAction() {
 
 // TODO: systemd/logind
 
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	// try DBus
 	QDBusInterface *dbus = getQDBusInterface();
 	dbus->call("Lock");
 	QDBusError error = dbus->lastError();
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 
 	delete blackScreen;
 
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	if (error.type() == QDBusError::NoError)
 		return true;
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	
 	QStringList args;
 
@@ -215,7 +215,7 @@ bool LockAction::onAction() {
 #endif // Q_OS_WIN32
 }
 
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 QDBusInterface *LockAction::getQDBusInterface() {
 	if (!m_qdbusInterface) {
 		m_qdbusInterface = new QDBusInterface(
@@ -240,7 +240,7 @@ QDBusInterface *LockAction::getQDBusInterface() {
 	
 	return m_qdbusInterface;
 }
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 // private
 

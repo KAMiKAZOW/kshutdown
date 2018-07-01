@@ -580,7 +580,7 @@ MainWindow::MainWindow() :
 		this, SLOT(onFocusChange(QWidget *, QWidget *))
 	);
 
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 	QDBusConnection dbus = QDBusConnection::sessionBus();
 	#ifdef KS_PURE_QT
 // TODO: allow only one application instance
@@ -591,7 +591,7 @@ MainWindow::MainWindow() :
 		this,
 		QDBusConnection::ExportScriptableSlots
 	);
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 	// Do not focus OK button on startup
 	// to avoid accidental action activation via Enter key.
