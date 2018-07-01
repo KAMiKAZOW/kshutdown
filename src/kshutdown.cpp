@@ -216,7 +216,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 	
 	secsTo = now.secsTo(m_endDateTime);
 	if (secsTo > 0) {
-		const int DAY = 86400;
+		const int DAY = 86'400;
 		
 		QString result;
 		if (secsTo < DAY) {
@@ -841,8 +841,8 @@ bool StandardAction::onAction() {
 			m_force = false;
 		}
 
-		#define SHTDN_REASON_MAJOR_APPLICATION 0x00040000
-		#define SHTDN_REASON_FLAG_PLANNED 0x80000000
+		#define SHTDN_REASON_MAJOR_APPLICATION 0x0004'0000
+		#define SHTDN_REASON_FLAG_PLANNED 0x8000'0000
 		if (::ExitWindowsEx(flags, SHTDN_REASON_MAJOR_APPLICATION | SHTDN_REASON_FLAG_PLANNED) == 0) {
 			setLastError();
 
