@@ -32,6 +32,9 @@ else()
 	add_executable(kshutdown ${kshutdown_SRC} ${kshutdown_MOC_SOURCES})
 endif()
 
+# HACK: Add -std=gnu++14 option (cmake horror):
+target_compile_features(kshutdown PUBLIC cxx_std_14)
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 if(KS_PURE_QT)

@@ -8,7 +8,7 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_definitions(-std=c++0x -Wextra -Wpedantic -Wswitch-enum)
+add_definitions(-Wextra -Wpedantic -Wswitch-enum)
 
 if(KS_PURE_QT)
 # TODO: https://cmake.org/Wiki/CMake_FAQ#Can_I_do_.22make_uninstall.22_with_CMake.3F

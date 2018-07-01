@@ -362,7 +362,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 
 	// flash taskbar button
 	if ((id == "1m") || (id == "5m"))
-		qApp->alert(this, 10000);
+		QApplication::alert(this, 10'000);
 }
 
 void MainWindow::setExtrasCommand(const QString &command) {
