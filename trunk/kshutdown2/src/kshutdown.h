@@ -24,10 +24,10 @@
 #include <QAction>
 #include <QDateTimeEdit>
 
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 	#include <QDBusInterface>
 	#include <QDBusReply>
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 #ifndef Q_OS_WIN32
 	// HACK: fixes some compilation error (?)
@@ -121,11 +121,11 @@ private:
 class PowerAction: public Action {
 public:
 	explicit PowerAction(const QString &text, const QString &iconName, const QString &id);
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static QDBusInterface *getHalDeviceInterface();
 	static QDBusInterface *getHalDeviceSystemPMInterface();
 	static QDBusInterface *getUPowerInterface();
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	virtual bool onAction() override;
 	enum class PowerActionType { Suspend, Hibernate };
 protected:
@@ -133,11 +133,11 @@ protected:
 	bool isAvailable(const PowerActionType feature) const;
 private:
 	Q_DISABLE_COPY(PowerAction)
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static QDBusInterface *m_halDeviceInterface;
 	static QDBusInterface *m_halDeviceSystemPMInterface;
 	static QDBusInterface *m_upowerInterface;
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 };
 
 class HibernateAction: public PowerAction {
@@ -159,18 +159,18 @@ public:
 	explicit StandardAction(const QString &text, const QString &iconName, const QString &id, const UShutdownType type);
 	virtual bool onAction() override;
 protected:
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static QDBusInterface *m_consoleKitInterface;
 	static QDBusInterface *m_kdeSessionInterface;
 	static QDBusInterface *m_lxqtSessionInterface;
 	static QDBusInterface *m_razorSessionInterface;
 	void checkAvailable(const QString &consoleKitName);
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 private:
 	Q_DISABLE_COPY(StandardAction)
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	static bool m_kdeShutDownAvailable;
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	#ifndef Q_OS_WIN32
 	pid_t m_lxsession;
 	#endif // !Q_OS_WIN32

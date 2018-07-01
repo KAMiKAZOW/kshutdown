@@ -26,11 +26,6 @@
 #define U_DEBUG qDebug()
 #define U_END
 
-// HACK: Q_OS_FREEBSD undefined (?) <http://sourceforge.net/p/kshutdown/bugs/18/>
-#if defined(Q_OS_LINUX) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(Q_OS_HURD)
-	#define KS_DBUS
-#endif
-
 #ifdef KS_PURE_QT
 	#undef KS_KF5
 	#undef KS_NATIVE_KDE

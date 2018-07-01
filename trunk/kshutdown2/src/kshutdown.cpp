@@ -47,7 +47,10 @@
 using namespace KShutdown;
 
 bool Action::m_totalExit = false;
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
+
+// TODO: test compilation with undefined QT_DBUS_LIB
+
 QDBusInterface *Action::m_loginInterface = nullptr;
 
 QDBusInterface *PowerAction::m_halDeviceInterface = nullptr;
@@ -59,7 +62,7 @@ QDBusInterface *StandardAction::m_consoleKitInterface = nullptr;
 QDBusInterface *StandardAction::m_kdeSessionInterface = nullptr;
 QDBusInterface *StandardAction::m_lxqtSessionInterface = nullptr;
 QDBusInterface *StandardAction::m_razorSessionInterface = nullptr;
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 // DateTimeEdit
 
@@ -403,7 +406,7 @@ PowerAction::PowerAction(const QString &text, const QString &iconName, const QSt
 	setCanBookmark(true);
 }
 
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 QDBusInterface *PowerAction::getHalDeviceInterface() {
 	if (!m_halDeviceInterface) {
 		// DOC: http://people.freedesktop.org/~dkukawka/hal-spec-git/hal-spec.html
@@ -469,7 +472,7 @@ QDBusInterface *PowerAction::getUPowerInterface() {
 	
 	return m_upowerInterface;
 }
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 bool PowerAction::onAction() {
 #ifdef Q_OS_WIN32
@@ -669,7 +672,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 	setCanBookmark(true);
 
 // TODO: clean up kshutdown.cpp, move this to LogoutAction
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	if (!m_kdeSessionInterface) {
 		m_kdeSessionInterface = new QDBusInterface(
 			"org.kde.ksmserver",
@@ -710,7 +713,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 			disable("No LXQt session found");
 		}
 	}
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 
 	#ifndef Q_OS_WIN32
 	m_lxsession = 0;
@@ -841,8 +844,6 @@ bool StandardAction::onAction() {
 			m_force = false;
 		}
 
-		#define SHTDN_REASON_MAJOR_APPLICATION 0x0004'0000
-		#define SHTDN_REASON_FLAG_PLANNED 0x8000'0000
 		if (::ExitWindowsEx(flags, SHTDN_REASON_MAJOR_APPLICATION | SHTDN_REASON_FLAG_PLANNED) == 0) {
 			setLastError();
 
@@ -914,7 +915,7 @@ bool StandardAction::onAction() {
 
 	// LXQt
 
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	else if (Utils::isLXQt()) {
 		if ((m_type == U_SHUTDOWN_TYPE_LOGOUT) && m_lxqtSessionInterface && m_lxqtSessionInterface->isValid()) {
 			QDBusReply<void> reply = m_lxqtSessionInterface->call("logout");
@@ -930,7 +931,7 @@ bool StandardAction::onAction() {
 			if (launch("lxqt-leave", args))
 				return true;
 */
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 
 	// MATE
 
@@ -946,7 +947,7 @@ bool StandardAction::onAction() {
 
 	// Razor-qt
 	
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	else if (Utils::isRazor()) {
 		if ((m_type == U_SHUTDOWN_TYPE_LOGOUT) && m_razorSessionInterface && m_razorSessionInterface->isValid()) {
 			QDBusReply<void> reply = m_razorSessionInterface->call("logout");
@@ -955,7 +956,7 @@ bool StandardAction::onAction() {
 				return true;
 		}
 	}
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 
 	// Trinity
 
@@ -1022,7 +1023,7 @@ bool StandardAction::onAction() {
 
 	// native KDE shutdown API
 
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	if (
 		Utils::isKDEFullSession() &&
 		(m_kdeShutDownAvailable || (m_type == U_SHUTDOWN_TYPE_LOGOUT))
@@ -1041,7 +1042,7 @@ bool StandardAction::onAction() {
 
 		return true;
 	}
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 
 	// Openbox
 
@@ -1061,7 +1062,7 @@ bool StandardAction::onAction() {
 
 	// fallback to systemd/logind/ConsoleKit/HAL/whatever
 	
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	MainWindow::self()->writeConfig();
 	
 	// try systemd/logind
@@ -1112,7 +1113,7 @@ bool StandardAction::onAction() {
 		if (reply.isValid())
 			return true;
 	}
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 	
 	// show error
 	
@@ -1122,7 +1123,7 @@ bool StandardAction::onAction() {
 
 // protected
 
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 void StandardAction::checkAvailable(const QString &consoleKitName) {
 	bool available = false;
 	QString error = "";
@@ -1188,7 +1189,7 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 	if (!available && !m_kdeShutDownAvailable)
 		disable(error);
 }
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 // LogoutAction
 
@@ -1248,9 +1249,9 @@ RebootAction::RebootAction() :
 
 	addCommandLineArg("r", "reboot");
 	
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	checkAvailable("CanRestart");
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 }
 
 QWidget *RebootAction::getWidget() {
@@ -1273,7 +1274,7 @@ ShutDownAction::ShutDownAction() :
 	addCommandLineArg("h", "halt");
 	addCommandLineArg("s", "shutdown");
 
-	#ifdef KS_DBUS
+	#ifdef QT_DBUS_LIB
 	checkAvailable("CanStop");
-	#endif // KS_DBUS
+	#endif // QT_DBUS_LIB
 }

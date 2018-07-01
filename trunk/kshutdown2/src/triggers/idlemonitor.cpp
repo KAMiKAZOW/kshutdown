@@ -19,6 +19,7 @@
 
 #include "../mainwindow.h"
 #include "../progressbar.h"
+#include "../utils.h"
 
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
@@ -26,7 +27,6 @@
 	#endif // WIN32_LEAN_AND_MEAN
 	#include <windows.h>
 #else
-	#include "../utils.h"
 	#include "../actions/lock.h"
 #endif // Q_OS_WIN32
 
@@ -140,10 +140,10 @@ void IdleMonitor::setState(const State state) {
 #ifdef KS_NATIVE_KDE
 		KIdleTime::instance()->simulateUserActivity();
 #else
-		#ifdef KS_DBUS
+		#ifdef QT_DBUS_LIB
 		if (m_supported)
 			LockAction::getQDBusInterface()->call("SimulateUserActivity");
-		#endif // KS_DBUS
+		#endif // QT_DBUS_LIB
 #endif // KS_NATIVE_KDE
 	}
 	else if (state == State::Stop) {

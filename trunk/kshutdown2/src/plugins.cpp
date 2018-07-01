@@ -239,7 +239,7 @@ void Action::disable(const QString &reason) {
 	m_disableReason = reason;
 }
 
-#ifdef KS_DBUS
+#ifdef QT_DBUS_LIB
 // DOC: http://www.freedesktop.org/wiki/Software/systemd/logind/
 QDBusInterface *Action::getLoginInterface() {
 	if (!m_loginInterface) {
@@ -257,7 +257,7 @@ QDBusInterface *Action::getLoginInterface() {
 
 	return m_loginInterface;
 }
-#endif // KS_DBUS
+#endif // QT_DBUS_LIB
 
 bool Action::launch(const QString &program, const QStringList &args, const bool detached) {
 	if (detached) {

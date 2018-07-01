@@ -104,7 +104,7 @@ void ProgressBar::setValue(const int value) {
 }
 
 void ProgressBar::updateTaskbar(const double progress, const int seconds) {
-	#if defined(Q_OS_LINUX) && defined(KS_DBUS)
+	#if defined(Q_OS_LINUX) && defined(QT_DBUS_LIB)
 	// CREDITS: https://askubuntu.com/questions/65054/unity-launcher-api-for-c/310940
 	// DOC: https://wiki.ubuntu.com/Unity/LauncherAPI
 
@@ -155,7 +155,7 @@ void ProgressBar::updateTaskbar(const double progress, const int seconds) {
 	#else
 	Q_UNUSED(progress)
 	Q_UNUSED(seconds)
-	#endif // defined(Q_OS_LINUX) && defined(KS_DBUS)
+	#endif // defined(Q_OS_LINUX) && defined(QT_DBUS_LIB)
 }
 
 // protected
