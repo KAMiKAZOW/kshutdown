@@ -1,57 +1,51 @@
 project(kshutdown)
 
-if(KS_KF5)
-	cmake_minimum_required(VERSION 3.0.0)
-else()
-	cmake_minimum_required(VERSION 2.4.0)
-endif()
+cmake_minimum_required(VERSION 3.0.0)
+cmake_policy(SET CMP0063 NEW) # disables cmake warning
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_definitions(-Wextra -Wpedantic -Wswitch-enum)
 
-if(KS_PURE_QT)
-# TODO: https://cmake.org/Wiki/CMake_FAQ#Can_I_do_.22make_uninstall.22_with_CMake.3F
-	find_package(Qt5 REQUIRED Widgets DBus)
-	add_definitions(${Qt5Widgets_DEFINITIONS} ${Qt5DBus_DEFINITIONS})
-	include_directories(${Qt5Widgets_INCLUDES} ${Qt5DBus_INCLUDES})
+find_package(Qt5 REQUIRED Widgets DBus)
 
+if(KS_PURE_QT)
 	add_definitions(-DKS_PURE_QT)
 
+	set(DATA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share)
+	set(ICON_INSTALL_DIR ${DATA_INSTALL_DIR}/icons)
+	set(XDG_APPS_INSTALL_DIR ${DATA_INSTALL_DIR}/applications)
+
+# TODO: https://cmake.org/Wiki/CMake_FAQ#Can_I_do_.22make_uninstall.22_with_CMake.3F
 	set(CMAKE_AUTOMOC TRUE)
-	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_PURE_QT)
-elseif(KS_KF5)
-	find_package(Qt5 REQUIRED Widgets DBus)
+else()
+	add_definitions(-DKS_KF5)
 
 	find_package(ECM REQUIRED NO_MODULE)
 	set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 	include(KDEInstallDirs)
 	include(KDECompilerSettings)
+# TODO: include(KDEFrameworkCompilerSettings) (?)
 	include(KDECMakeSettings)
-	include(ECMInstallIcons)
-	include(ECMSetupVersion)
-	include(FeatureSummary)
-	find_package(KF5 REQUIRED COMPONENTS Config ConfigWidgets Crash DBusAddons GlobalAccel I18n IdleTime Notifications NotifyConfig XmlGui)
 
-	feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
-
-	add_definitions(-DKS_KF5)
-# TODO: need this?
-	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_KF5)
-
-	add_subdirectory(po)
-else()
-	set(CMAKE_AUTOMOC TRUE)
-	set(CMAKE_AUTOMOC_MOC_OPTIONS -DKS_NATIVE_KDE)
-
-	find_package(KDE4 REQUIRED)
-	add_definitions(${KDE4_DEFINITIONS})
-
-	include_directories(${KDE4_INCLUDES})
-	link_directories(${KDE4_LIB_DIR})
+	find_package(KF5 REQUIRED COMPONENTS
+		Config
+		ConfigWidgets
+		Crash
+		DBusAddons
+		GlobalAccel
+		I18n
+		IdleTime
+		Notifications
+		NotifyConfig
+		XmlGui
+	)
 
 	add_subdirectory(po)
 endif()
+
+include(FeatureSummary)
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 add_subdirectory(src)
