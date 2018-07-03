@@ -61,7 +61,6 @@ install(TARGETS kshutdown DESTINATION bin)
 install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 if(KS_KF5)
-	install(FILES kshutdown.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 	install(FILES kshutdown.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
 endif()
 

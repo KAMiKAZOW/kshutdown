@@ -45,23 +45,11 @@ Section "-"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "UninstallString" '"$INSTDIR\uninstall.exe"'
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLInfoAbout" "https://kshutdown.sourceforge.io/"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "URLUpdateInfo" "https://kshutdown.sourceforge.io/download.html"
-	
+
+	File /r /x kshutdown.exe /x README.html "kshutdown-portable\*.*"
 	File src\images\kshutdown.ico
 	File src\release\kshutdown.exe
 	File LICENSE
-
-	!define KS_QT_VERSION "5.11.0"
-	!define KS_QT_BIN "C:\Qt\Qt${KS_QT_VERSION}\${KS_QT_VERSION}\mingw53_32\bin"
-
-	File "${KS_QT_BIN}\libgcc_s_dw2-1.dll"
-	File "${KS_QT_BIN}\libwinpthread-1.dll"
-	File "${KS_QT_BIN}\libstdc++-6.dll"
-
-	File "${KS_QT_BIN}\Qt5Core.dll"
-	File "${KS_QT_BIN}\Qt5Gui.dll"
-	File "${KS_QT_BIN}\Qt5Widgets.dll"
-	File "${KS_QT_BIN}\Qt5WinExtras.dll"
-	File "${KS_QT_BIN}\..\plugins\platforms\qwindows.dll"
 	
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\KShutdown.lnk" "$INSTDIR\kshutdown.exe" "" "$INSTDIR\kshutdown.ico"
@@ -81,17 +69,27 @@ Section "Uninstall"
 	Delete "$INSTDIR\kshutdown.exe"
 	Delete "$INSTDIR\kshutdown.ico"
 	Delete "$INSTDIR\LICENSE"
+	
+	# Qt stuff:
+	
 	Delete "$INSTDIR\libgcc_s_dw2-1.dll"
 	Delete "$INSTDIR\libstdc++-6.dll"
 	Delete "$INSTDIR\libwinpthread-1.dll"
-
 	Delete "$INSTDIR\Qt5Core.dll"
 	Delete "$INSTDIR\Qt5Gui.dll"
 	Delete "$INSTDIR\Qt5Widgets.dll"
 	Delete "$INSTDIR\Qt5WinExtras.dll"
-	Delete "$INSTDIR\qwindows.dll"
 
-	# Remove DLLs from olders versions, too
+	Delete "$INSTDIR\platforms\qwindows.dll"
+	RMDir "$INSTDIR\platforms"
+
+	Delete "$INSTDIR\styles\qwindowsvistastyle.dll"
+	RMDir "$INSTDIR\styles"
+
+	Delete "$INSTDIR\translations\*.qm"
+	RMDir "$INSTDIR\translations"
+
+	# Remove DLLs from olders versions, too:
 	Delete "$INSTDIR\mingwm10.dll"
 	Delete "$INSTDIR\QtCore4.dll"
 	Delete "$INSTDIR\QtGui4.dll"
