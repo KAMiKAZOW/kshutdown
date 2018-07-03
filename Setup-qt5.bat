@@ -1,9 +1,8 @@
-set KS_QT_VERSION=5.11.0
+set KS_QT_VERSION=5.11.1
 set KS_QT_BIN=C:\Qt\Qt%KS_QT_VERSION%\%KS_QT_VERSION%\mingw53_32\bin
 pushd .
 call "%KS_QT_BIN%\qtenv2.bat"
 popd
-cd src
 
 rem TEST:
 rem cd ..
@@ -13,14 +12,17 @@ rem goto zip
 
 rem ==== portable version ====
 
+pushd src
 echo DEFINES += KS_PORTABLE>portable.pri
 qmake -config release
 mingw32-make.exe clean
 mingw32-make.exe -j2
+pause
 if not %errorlevel% == 0 goto quit
 mkdir ..\kshutdown-portable
 copy release\kshutdown.exe ..\kshutdown-portable
 del portable.pri
+popd
 
 rem TEST:
 rem cd ..
@@ -30,14 +32,26 @@ rem goto zip
 
 rem ==== normal version ====
 
+pushd src
 qmake -config release
 mingw32-make.exe clean
 mingw32-make.exe -j2
+pause
 if not %errorlevel% == 0 goto quit
+popd
+
+rem ==== portable version package ====
+
+:zip
+copy README.html kshutdown-portable
+pushd kshutdown-portable
+%KS_QT_BIN%\windeployqt.exe -no-angle -no-opengl-sw kshutdown.exe
+del Qt5Svg.dll
+rmdir /Q /S "iconengines"
+rmdir /Q /S "imageformats"
+popd
 
 rem ==== installer package ====
-
-cd ..
 
 :nsis
 if exist "%ProgramFiles(x86)%\NSIS\makensis.exe" (
@@ -45,23 +59,9 @@ if exist "%ProgramFiles(x86)%\NSIS\makensis.exe" (
 ) else (
 	"%ProgramFiles%\NSIS\makensis.exe" kshutdown.nsi
 )
+pause
 if not %errorlevel% == 0 goto quit
 kshutdown-4.99-beta-win32.exe
-
-rem ==== portable version package ====
-
-:zip
-copy README.html kshutdown-portable
-
-copy "%KS_QT_BIN%\libgcc_s_dw2-1.dll" kshutdown-portable
-copy "%KS_QT_BIN%\libwinpthread-1.dll" kshutdown-portable
-copy "%KS_QT_BIN%\libstdc++-6.dll" kshutdown-portable
-
-copy "%KS_QT_BIN%\Qt5Core.dll" kshutdown-portable
-copy "%KS_QT_BIN%\Qt5Gui.dll" kshutdown-portable
-copy "%KS_QT_BIN%\Qt5Widgets.dll" kshutdown-portable
-copy "%KS_QT_BIN%\Qt5WinExtras.dll" kshutdown-portable
-copy "%KS_QT_BIN%\..\plugins\platforms\qwindows.dll" kshutdown-portable
 
 :quit
 echo "DONE"
