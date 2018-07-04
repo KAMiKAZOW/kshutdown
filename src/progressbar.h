@@ -52,6 +52,7 @@ private:
 	Var *m_foregroundColorVar;
 	Var *m_sizeVar;
 	bool authorize();
+	void makeIcon(QAction *action, const Qt::Alignment alignment, const int size);
 	void makeRadioButton(QAction *action, QActionGroup *group, const bool checked);
 	void setSize(const Size size);
 private slots:

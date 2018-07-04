@@ -185,9 +185,11 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	auto *positionGroup = new QActionGroup(this);
 
 	auto *a = positionMenu->addAction(i18n("Top"), this, SLOT(onSetTopAlignment()));
+	makeIcon(a, Qt::AlignTop, height());
 	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignTop));
 		
 	a = positionMenu->addAction(i18n("Bottom"), this, SLOT(onSetBottomAlignment()));
+	makeIcon(a, Qt::AlignBottom, height());
 	makeRadioButton(a, positionGroup, m_alignment.testFlag(Qt::AlignBottom));
 
 	auto *sizeMenu = new QMenu(i18n("Size"), menu);
@@ -197,15 +199,19 @@ void ProgressBar::contextMenuEvent(QContextMenuEvent *e) {
 	auto *sizeGroup = new QActionGroup(this);
 		
 	a = sizeMenu->addAction(i18n("Small"), this, SLOT(onSetSizeSmall()));
+	makeIcon(a, m_alignment, SmallSize);
 	makeRadioButton(a, sizeGroup, height() == SmallSize);
 
 	a = sizeMenu->addAction(i18n("Normal"), this, SLOT(onSetSizeNormal()));
+	makeIcon(a, m_alignment, NormalSize);
 	makeRadioButton(a, sizeGroup, height() == NormalSize);
 
 	a = sizeMenu->addAction(i18n("Medium"), this, SLOT(onSetSizeMedium()));
+	makeIcon(a, m_alignment, MediumSize);
 	makeRadioButton(a, sizeGroup, height() == MediumSize);
 
 	a = sizeMenu->addAction(i18n("Large"), this, SLOT(onSetSizeLarge()));
+	makeIcon(a, m_alignment, LargeSize);
 	makeRadioButton(a, sizeGroup, height() == LargeSize);
 
 	menu->addSeparator();
@@ -314,8 +320,28 @@ bool ProgressBar::authorize() {
 	return PasswordDialog::authorizeSettings(this);
 }
 
+void ProgressBar::makeIcon(QAction *action, const Qt::Alignment alignment, const int size) {
+	int iconSize = qApp->style()->pixelMetric(QStyle::PM_SmallIconSize);
+	QPixmap pixmap(iconSize, iconSize);
+
+	QPainter painter(&pixmap);
+	painter.fillRect(0, 0, iconSize, iconSize, palette().window());
+
+	int by;
+	switch (alignment) {
+		case Qt::AlignTop:
+			by = 0;
+			break;
+		case Qt::AlignBottom:
+			by = iconSize - size;
+			break;
+	}
+	painter.fillRect(0, by, iconSize, size, palette().windowText());
+
+	action->setIcon(pixmap);
+}
+
 void ProgressBar::makeRadioButton(QAction *action, QActionGroup *group, const bool checked) {
-// TODO: icons with size/position preview
 	action->setActionGroup(group);
 	action->setCheckable(true);
 	action->setChecked(checked);
