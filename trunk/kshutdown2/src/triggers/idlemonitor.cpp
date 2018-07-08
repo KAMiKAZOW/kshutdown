@@ -30,9 +30,9 @@
 	#include "../actions/lock.h"
 #endif // Q_OS_WIN32
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#include <KIdleTime>
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 // public
 
@@ -51,11 +51,11 @@ IdleMonitor::IdleMonitor()
 	m_checkTimeout = 5000;
 	m_supportsProgressBar = true;
 
-	#if defined(KS_NATIVE_KDE) || defined(Q_OS_WIN32)
+	#if defined(KS_KF5) || defined(Q_OS_WIN32)
 	m_supported = true;
 	#elif defined(Q_OS_HAIKU)
 	m_supported = false;
-	#else
+	#elif defined(QT_DBUS_LIB)
 // FIXME: returns invalid time on KDE (known bug)
 	m_supported = LockAction::getQDBusInterface()->isValid() && !Utils::isKDE();
 
@@ -63,11 +63,13 @@ IdleMonitor::IdleMonitor()
 	if (m_supported) {
 		QDBusReply<quint32> reply = LockAction::getQDBusInterface()->call("GetSessionIdleTime");
 		if (!reply.isValid()) {
-			U_DEBUG << "GetSessionIdleTime not implemented" U_END;
+			qDebug() << "GetSessionIdleTime not implemented";
 			m_supported = false;
 		}
 	}
-	#endif // Q_OS_WIN32
+	#else
+	m_supported = false;
+	#endif
 
 	setToolTip(i18n("Use this trigger to detect user inactivity\n(example: no mouse clicks)."));
 }
@@ -84,7 +86,7 @@ bool IdleMonitor::canActivateAction() {
 	}
 
 	quint32 maximumIdleTime = getMaximumIdleTime();
-	//U_DEBUG << "maximumIdleTime=" << maximumIdleTime U_END;
+	//qDebug() << "maximumIdleTime=" << maximumIdleTime;
 	
 	if (m_idleTime >= maximumIdleTime)
 		return true;
@@ -137,14 +139,14 @@ void IdleMonitor::setState(const State state) {
 		progressBar->setTotal(getMaximumIdleTime());
 		progressBar->setValue(-1);
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 		KIdleTime::instance()->simulateUserActivity();
 #else
 		#ifdef QT_DBUS_LIB
 		if (m_supported)
 			LockAction::getQDBusInterface()->call("SimulateUserActivity");
 		#endif // QT_DBUS_LIB
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 	}
 	else if (state == State::Stop) {
 		m_idleTime = 0;
@@ -202,21 +204,23 @@ void IdleMonitor::getSessionIdleTime() {
 	else {
 		m_idleTime = 0;
 	}
-#elif defined(KS_NATIVE_KDE)
+#elif defined(KS_KF5)
 	m_idleTime = KIdleTime::instance()->idleTime() / 1000;
 #elif defined(Q_OS_HAIKU)
 	m_idleTime = 0;
-#else
+#elif defined(QT_DBUS_LIB)
 	QDBusReply<quint32> reply = LockAction::getQDBusInterface()->call("GetSessionIdleTime");
 	
 	if (reply.isValid()) {
-		//U_DEBUG << "org.freedesktop.ScreenSaver: reply=" << reply.value() U_END;
+		//qDebug() << "org.freedesktop.ScreenSaver: reply=" << reply.value();
 
 		m_idleTime = reply.value();
 	}
 	else {
-		//U_DEBUG << reply.error() U_END;
+		//qDebug() << reply.error();
 		m_idleTime = 0;
 	}
+#else
+	m_idleTime = 0;
 #endif // Q_OS_WIN32
 }

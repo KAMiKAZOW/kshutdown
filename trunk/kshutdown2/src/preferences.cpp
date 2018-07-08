@@ -25,11 +25,14 @@
 
 #include <QPushButton>
 
+#ifdef KS_KF5
+	#include <KStandardGuiItem>
+#endif // KS_KF5
+
 // public
 
 Preferences::Preferences(QWidget *parent) :
 	UDialog(parent, i18n("Preferences"), false) {
-	//U_DEBUG << "Preferences::Preferences()" U_END;
 
 	#ifdef Q_OS_WIN32
 	rootLayout()->setMargin(5_px);
@@ -52,17 +55,15 @@ Preferences::Preferences(QWidget *parent) :
 	//tabs->addTab(createActionsWidget(), i18n("Actions"));
 	//tabs->addTab(createTriggersWidget(), i18n("Triggers"));
 
-	#ifdef KS_NATIVE_KDE
-/*
-	int iconSize = qApp->style()->pixelMetric(QStyle::PM_);
-// TODO: int iconSize = KIconLoader::global()->currentSize(KIconLoader::Dialog);
-	m_tabs->setIconSize(QSize(iconSize, iconSize));
-	m_tabs->setTabIcon(0, QIcon::fromTheme("edit-bomb")); // General
-	m_tabs->setTabIcon(1, QIcon::fromTheme("user-desktop")); // System Tray
-	m_tabs->setTabIcon(2, QIcon::fromTheme("dialog-password")); // Password
-*/
-// FIXME: vertically misaligned icons. WTF?
-	#endif // KS_NATIVE_KDE
+	#ifdef KS_KF5
+	if (Utils::isKDE()) {
+		int iconSize = QApplication::style()->pixelMetric(QStyle::PM_LargeIconSize);
+		m_tabs->setIconSize(QSize(iconSize, iconSize));
+		m_tabs->setTabIcon(0, QIcon::fromTheme(KStandardGuiItem::configure().iconName())); // General
+		m_tabs->setTabIcon(1, QIcon::fromTheme("user-desktop")); // System Tray
+		m_tabs->setTabIcon(2, QIcon::fromTheme("dialog-password")); // Password
+	}
+	#endif // KS_KF5
 
 	mainLayout()->addWidget(m_tabs);
 
@@ -146,6 +147,7 @@ QWidget *Preferences::createGeneralWidget() {
 	m_lockCommand->setText(config->read("Custom Command", "").toString());
 	config->endGroup();
 
+// TODO: "Test/Presets" button
 	QLabel *lockCommandLabel = new QLabel(i18n("Custom Lock Screen Command:"));
 	lockCommandLabel->setBuddy(m_lockCommand);
 	l->addSpacing(10_px);
@@ -228,7 +230,6 @@ QWidget *Preferences::createTriggersWidget() {
 
 void Preferences::onFinish(int result) {
 	Q_UNUSED(result)
-	//U_DEBUG << "Finish: " << result U_END;
 
 /*
 	ProgressBar *progressBar = MainWindow::self()->progressBar();

@@ -48,9 +48,6 @@ using namespace KShutdown;
 
 bool Action::m_totalExit = false;
 #ifdef QT_DBUS_LIB
-
-// TODO: test compilation with undefined QT_DBUS_LIB
-
 QDBusInterface *Action::m_loginInterface = nullptr;
 
 QDBusInterface *PowerAction::m_halDeviceInterface = nullptr;
@@ -418,7 +415,7 @@ QDBusInterface *PowerAction::getHalDeviceInterface() {
 		);
 	}
 	if (m_halDeviceInterface->isValid())
-		U_DEBUG << "HAL backend found..." U_END;
+		qDebug() << "HAL backend found...";
 	else
 		qCritical() << "HAL backend NOT found: " << m_halDeviceInterface->lastError().message();
 
@@ -454,7 +451,7 @@ QDBusInterface *PowerAction::getUPowerInterface() {
 		if (!m_upowerInterface->isValid()) {
 			// HACK: wait for service start
 			// BUG: https://sourceforge.net/p/kshutdown/bugs/34/
-			U_DEBUG << "UPower: Trying again..." U_END;
+			qDebug() << "UPower: Trying again...";
 			delete m_upowerInterface;
 			m_upowerInterface = new QDBusInterface(
 				"org.freedesktop.UPower",
@@ -465,9 +462,9 @@ QDBusInterface *PowerAction::getUPowerInterface() {
 		}
 
 		if (m_upowerInterface->isValid())
-			U_DEBUG << "UPower backend found..." U_END;
+			qDebug() << "UPower backend found...";
 		else
-			U_DEBUG << "UPower backend NOT found..." U_END;
+			qDebug() << "UPower backend NOT found...";
 	}
 	
 	return m_upowerInterface;
@@ -496,6 +493,7 @@ bool PowerAction::onAction() {
 		QThread::sleep(1);
 	}
 	
+	#ifdef QT_DBUS_LIB
 	QDBusInterface *login = getLoginInterface();
 	QDBusInterface *upower = getUPowerInterface();
 	
@@ -543,6 +541,7 @@ bool PowerAction::onAction() {
 
 		return false;
 	}
+	#endif // QT_DBUS_LIB
 
 	return true;
 #endif // Q_OS_WIN32
@@ -564,18 +563,19 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 
 	return false;
 #else
+	#ifdef QT_DBUS_LIB
 	QDBusInterface *login = getLoginInterface();
 	if (login->isValid()) {
 		switch (feature) {
 			case PowerActionType::Suspend: {
 				QDBusReply<QString> reply = login->call("CanSuspend");
-				U_DEBUG << "systemd: CanSuspend: " << reply U_END;
+				qDebug() << "systemd: CanSuspend: " << reply;
 				
 				return reply.isValid() && (reply.value() == "yes");
 			} break;
 			case PowerActionType::Hibernate: {
 				QDBusReply<QString> reply = login->call("CanHibernate");
-				U_DEBUG << "systemd: CanHibernate: " << reply U_END;
+				qDebug() << "systemd: CanHibernate: " << reply;
 				
 				return reply.isValid() && (reply.value() == "yes");
 			} break;
@@ -620,6 +620,9 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 
 		qCritical() << reply.error();
 	}
+	#else
+	Q_UNUSED(feature)
+	#endif // QT_DBUS_LIB
 	
 	return false;
 #endif // Q_OS_WIN32
@@ -683,7 +686,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 		m_kdeShutDownAvailable = reply.isValid() && reply.value();
 
 		if (Utils::isKDEFullSession() && !m_kdeShutDownAvailable && (type != U_SHUTDOWN_TYPE_LOGOUT))
-			U_DEBUG << "No KDE shutdown API available (check \"Offer shutdown options\" in the \"Session Management\" settings)" U_END;
+			qDebug() << "No KDE shutdown API available (check \"Offer shutdown options\" in the \"Session Management\" settings)";
 	}
 
 	if (Utils::isRazor() && (type == U_SHUTDOWN_TYPE_LOGOUT)) {
@@ -722,7 +725,7 @@ StandardAction::StandardAction(const QString &text, const QString &iconName, con
 		int i = qgetenv("_LXSESSION_PID").toInt(&ok);
 		if (ok) {
 			m_lxsession = i;
-			U_DEBUG << "LXDE session found: " << m_lxsession U_END;
+			qDebug() << "LXDE session found: " << m_lxsession;
 		}
 		else {
 			disable("No lxsession found");
@@ -1063,6 +1066,8 @@ bool StandardAction::onAction() {
 	// fallback to systemd/logind/ConsoleKit/HAL/whatever
 	
 	#ifdef QT_DBUS_LIB
+
+// TODO: move
 	MainWindow::self()->writeConfig();
 	
 	// try systemd/logind
@@ -1151,7 +1156,7 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 		}
 		if (!available && !m_consoleKitInterface->isValid()) {
 			// HACK: wait for service start
-			U_DEBUG << "ConsoleKit: Trying again..." U_END;
+			qDebug() << "ConsoleKit: Trying again...";
 			delete m_consoleKitInterface;
 			m_consoleKitInterface = new QDBusInterface(
 				"org.freedesktop.ConsoleKit",
@@ -1219,7 +1224,7 @@ RebootAction::RebootAction() :
 	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
 	m_bootEntryComboBox(nullptr) {
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 /* HACK: crash on KDE 4.5.0
 	QPixmap p = KIconLoader::global()->loadIcon(
 		"system-reboot",
@@ -1245,7 +1250,7 @@ RebootAction::RebootAction() :
 	// HACK: missing "system-reboot" in some icon themes
 	else
 		uiAction()->setIcon(QIcon::fromTheme("view-refresh"));
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 	addCommandLineArg("r", "reboot");
 	
