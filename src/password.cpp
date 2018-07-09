@@ -33,9 +33,9 @@
 	#include <QInputDialog>
 #endif // KS_PURE_QT
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#include <KPasswordDialog>
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 // PasswordDialog
 
@@ -43,7 +43,7 @@
 
 PasswordDialog::PasswordDialog(QWidget *parent) :
 	UDialog(parent, i18n("Enter New Password"), false) {
-	//U_DEBUG << "PasswordDialog::PasswordDialog()" U_END;
+	//qDebug() << "PasswordDialog::PasswordDialog()";
 
 // TODO: show warning if Caps Lock is turned on (no reliable solution in Qt)
 	m_password = new QLineEdit();
@@ -79,7 +79,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 }
 
 PasswordDialog::~PasswordDialog() {
-	//U_DEBUG << "PasswordDialog::~PasswordDialog()" U_END;
+	//qDebug() << "PasswordDialog::~PasswordDialog()";
 	m_password->setText("");
 	m_confirmPassword->setText("");
 }
@@ -114,7 +114,7 @@ bool PasswordDialog::authorize(QWidget *parent, const QString &caption, const QS
 
 retry:
 
-	#ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
 	QScopedPointer<KPasswordDialog> dialog(new KPasswordDialog(parent));
 // FIXME: dialog->setPixmap(MainWindow::self()->windowIcon().pixmap(48_px));
 	dialog->setPrompt(prompt);
@@ -136,7 +136,7 @@ retry:
 
 	if (!ok)
 		return false;
-	#endif // KS_NATIVE_KDE
+	#endif // KS_KF5
 
 	QString enteredHash = toHash(password);
 	clearPassword(password);
@@ -228,7 +228,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	QWidget(parent),
 	m_configKeyRole(Qt::UserRole)
 {
-	//U_DEBUG << "PasswordPreferences::PasswordPreferences()" U_END;
+	//qDebug() << "PasswordPreferences::PasswordPreferences()";
 
 	auto *mainLayout = new QVBoxLayout(this);
 	mainLayout->setMargin(10_px);
@@ -277,7 +277,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 }
 
 void PasswordPreferences::apply() {
-	//U_DEBUG << "PasswordPreferences::apply()" U_END;
+	//qDebug() << "PasswordPreferences::apply()";
 	
 	Config *config = Config::user();
 	config->beginGroup("Password Protection");
@@ -320,7 +320,7 @@ void PasswordPreferences::updateWidgets(const bool passwordEnabled) {
 // private slots:
 
 void PasswordPreferences::onEnablePassword(bool checked) {
-	//U_DEBUG << "PasswordPreferences::onEnablePassword: " << checked U_END;
+	//qDebug() << "PasswordPreferences::onEnablePassword: " << checked;
 	
 	if (checked) {
 // TODO: consider https://api.kde.org/frameworks/kwidgetsaddons/html/classKNewPasswordDialog.html

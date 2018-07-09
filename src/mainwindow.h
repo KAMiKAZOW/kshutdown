@@ -35,9 +35,9 @@
 	#include <QWinTaskbarButton>
 #endif // Q_OS_WIN32
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#include <KActionCollection>
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 class BookmarksMenu;
 class ProgressBar;
@@ -100,9 +100,9 @@ protected:
 	#endif // Q_OS_WIN32
 private:
 	Q_DISABLE_COPY(MainWindow)
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	KActionCollection *m_actionCollection;
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 	BookmarksMenu *m_bookmarksMenu;
 	bool m_active;
 	bool m_forceQuit;
@@ -145,10 +145,10 @@ private slots:
 	void onActionActivated(int index);
 	void onCancel();
 	void onCheckTrigger();
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	void onConfigureNotifications();
 	void onConfigureShortcuts();
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 	void onFocusChange(QWidget *old, QWidget *now);
 	void onForceClick();
 	void onMenuHovered(QAction *action);

@@ -26,9 +26,9 @@
 	#include <QSettings>
 #endif // KS_PURE_QT
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#include <KConfigGroup>
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 /**
  * A configuration reader/writer.
@@ -84,7 +84,7 @@ public:
 	}
 private:
 	Q_DISABLE_COPY(Config)
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	KConfig *m_engine;
 	KConfigGroup m_group;
 #else

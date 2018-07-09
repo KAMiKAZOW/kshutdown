@@ -27,9 +27,9 @@
 	#include <QStyle>
 #endif // Q_OS_WIN32
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#include <KMessageWidget>
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 class InfoWidget: public QFrame {
 	Q_OBJECT
@@ -42,7 +42,7 @@ private slots:
 	void onLinkActivated(const QString &contents);
 private:
 	Q_DISABLE_COPY(InfoWidget)
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	KMessageWidget *m_messageWidget;
 #else
 	QLabel *m_icon;
@@ -52,7 +52,7 @@ private:
 	#else
 	void setIcon(const QString &iconName);
 	#endif // Q_OS_WIN32
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 };
 
 #endif // KSHUTDOWN_INFOWIDGET_H
