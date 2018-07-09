@@ -95,7 +95,10 @@ void initAboutData(const QString &appDescription) {
 	about.setHomepage(KS_HOME_PAGE);
 	about.setLicense(KAboutLicense::GPL_V2);
 
-// TODO: test dbus compat.
+/* FIXME: missing D-Bus interfaces that existed in KDE4/Qt4 (documented in Wiki):
+qdbus net.sf.kshutdown /MainApplication quit
+qdbus net.sf.kshutdown /kshutdown/main_window hide
+*/
 // TODO: update wiki docs
 	about.setOrganizationDomain("sf.net"); // changed to "net.sf.kshutdown" because default is "org.kde.kshutdown"
 
@@ -261,7 +264,6 @@ int main(int argc, char **argv) {
 
 		commonStartup(arguments, versionOption, false, true);
 
-// FIXME: Qt 5 build
 		if (CLI::isArg("cancel"))
 			MainWindow::self()->setActive(false);
 	} );

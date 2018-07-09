@@ -157,7 +157,9 @@ void CLI::init(const QString &appDescription) {
 // TODO: plain text? options.add(":", ki18n("Other Options:"));
 
 	m_args->addOption({ "help", i18n("Show this help") });
+	#ifdef KS_KF5
 	m_args->addOption({ "cancel", i18n("Cancel an active action") });
+	#endif // KS_KF5
 	m_args->addOption({ "confirm", i18n("Show confirmation message") });
 	m_args->addOption({ "confirm-auto", i18n("Show confirmation message only if the \"Confirm Action\" option is enabled") });
 	m_args->addOption({ "hide-ui", i18n("Hide main window and system tray icon") });
@@ -294,7 +296,7 @@ void TimeOption::init() {
 	if (m_option.isEmpty())
 		return;
 	
-	U_DEBUG << "Time option: " << m_option U_END;
+	qDebug() << "Time option: " << m_option;
 	if ((m_option == "0") || (m_option.compare("NOW", Qt::CaseInsensitive) == 0)) {
 		m_time = QTime(0, 0);
 		m_relative = true;
@@ -329,13 +331,13 @@ void TimeOption::init() {
 			m_relative = true;
 		}
 	}
-	//U_DEBUG << "Absolute: " << m_absolute U_END;
-	//U_DEBUG << "Relative: " << m_relative U_END;
-	//U_DEBUG << "QTime: " << m_time U_END;
-	//U_DEBUG << "QTime.isNull(): " << m_time.isNull() U_END;
-	//U_DEBUG << "QTime.isValid(): " << m_time.isValid() U_END;
-	//U_DEBUG << "TimeOption::isError(): " << isError() U_END;
-	//U_DEBUG << "TimeOption::isValid(): " << isValid() U_END;
+	//qDebug() << "Absolute: " << m_absolute;
+	//qDebug() << "Relative: " << m_relative;
+	//qDebug() << "QTime: " << m_time;
+	//qDebug() << "QTime.isNull(): " << m_time.isNull();
+	//qDebug() << "QTime.isValid(): " << m_time.isValid();
+	//qDebug() << "TimeOption::isError(): " << isError();
+	//qDebug() << "TimeOption::isValid(): " << isValid();
 }
 
 bool TimeOption::isError() {
@@ -357,7 +359,7 @@ QTime TimeOption::parseTime(const QString &time) {
 }
 
 void TimeOption::setupMainWindow() {
-	//U_DEBUG << "TimeOption::setupMainWindow(): " << m_action->text() U_END;
+	//qDebug() << "TimeOption::setupMainWindow(): " << m_action->text();
 	
 	MainWindow *mainWindow = MainWindow::self();
 	mainWindow->setActive(false);
