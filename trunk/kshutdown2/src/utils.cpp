@@ -17,11 +17,15 @@
 
 #include "utils.h"
 
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QStyle>
 #include <QToolTip>
+#include <QWidgetAction>
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#include <KAuthorized>
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 // private
 
@@ -32,36 +36,28 @@ QString Utils::m_xdgCurrentDesktop;
 // public
 
 void Utils::addTitle(QMenu *menu, const QIcon &icon, const QString &text) {
-// FIXME: useless & unimplemented decoy API to annoy developers: menu->addSection(icon, text);
-	auto *action = new QAction(menu);
-	QFont font = action->font();
-	font.setBold(true);
+	// NOTE: "QMenu::addSection" is fully implemented only in Oxygen style...
 
-	action->setEnabled(false);
-	action->setFont(font);
-	action->setIcon(icon);
-	action->setIconVisibleInMenu(true);
-	action->setText(text);
-	menu->addAction(action);
-/* TODO: new title UI
-	int size = font.pointSize();
-	if (size != -1) {
-		font.setPointSize(qMax(8_px, size - 1));
-	}
-	else {
-		size = font.pixelSize();
-		font.setPixelSize(qMax(8_px, size - 1));
+	auto *titleWidget = new QWidget(menu);
+	auto *titleLayout = new QHBoxLayout(titleWidget);
+	titleLayout->setMargin(5_px);
+	titleLayout->setSpacing(5_px);
+
+	if (!icon.isNull()) {
+		auto *iconLabel = new QLabel(titleWidget);
+		iconLabel->setPixmap(icon.pixmap(QApplication::style()->pixelMetric(QStyle::PM_SmallIconSize)));
+		titleLayout->addWidget(iconLabel);
 	}
 
-	QLabel *titleLabel = new QLabel(text);
-	titleLabel->setFont(font);
-	titleLabel->setIndent(5_px);
-	titleLabel->setMargin(1_px);
+	auto *textLabel = new QLabel(text, titleWidget);
+	setFont(textLabel, -1, true);
+	titleLayout->addWidget(textLabel);
 
-	QWidgetAction *widgetAction = new QWidgetAction(menu);
-	widgetAction->setDefaultWidget(titleLabel);
+	titleLayout->addStretch();
+
+	auto *widgetAction = new QWidgetAction(menu);
+	widgetAction->setDefaultWidget(titleWidget);
 	menu->addAction(widgetAction);
-*/
 }
 
 QString Utils::getUser() {
@@ -183,13 +179,13 @@ bool Utils::isRazor() {
 }
 
 bool Utils::isRestricted(const QString &action) {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	return !KAuthorized::authorize(action);
 #else
 	Q_UNUSED(action)
 
 	return false;
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 bool Utils::isTrinity() {
