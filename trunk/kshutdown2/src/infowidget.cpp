@@ -37,7 +37,7 @@ InfoWidget::InfoWidget(QWidget *parent) :
 
 	auto *mainLayout = new QHBoxLayout(this);
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_messageWidget = new KMessageWidget(this);
 	m_messageWidget->setCloseButtonVisible(false);
 	connect(
@@ -64,13 +64,13 @@ InfoWidget::InfoWidget(QWidget *parent) :
 	mainLayout->addWidget(m_icon);
 	mainLayout->addWidget(m_text);
 	mainLayout->addStretch();
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 InfoWidget::~InfoWidget() = default;
 
 void InfoWidget::setText(const QString &text, const Type type) {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	switch (type) {
 		case Type::Error:
 			m_messageWidget->setIcon(QIcon::fromTheme("dialog-error"));
@@ -134,7 +134,7 @@ void InfoWidget::setText(const QString &text, const Type type) {
 	setPalette(p);
 
 	m_text->setText(text);
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 	setVisible(!text.isEmpty() && (text != "<qt></qt>"));
 	if (isVisible())

@@ -63,7 +63,8 @@ bool Extras::onAction() {
 	QFileInfo fileInfo(m_command);
 	QString path = fileInfo.filePath();
 
-#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
+#if defined(KS_KF5) && !defined(KS_KF5)
+// FIXME: dead
 	if (KDesktopFile::isDesktopFile(path)) {
 		KDesktopFile desktopFile(m_command);
 		KService service(&desktopFile);
@@ -76,7 +77,7 @@ bool Extras::onAction() {
 		
 		// HACK: chmod +x to avoid "antivirus" security dialog
 		if (!fileInfo.isExecutable()) {
-			U_DEBUG << "Setting executable permission to: " << path U_END;
+			qDebug() << "Setting executable permission to: " << path;
 			QFile::setPermissions(path, fileInfo.permissions() | QFile::ExeOwner);
 		}
 		
@@ -109,7 +110,7 @@ bool Extras::onAction() {
 		if (!exec.isEmpty()) {
 			auto *process = new QProcess(this);
 			QString dir = settings.value("Path", "").toString();
-			//U_DEBUG << dir U_END;
+			//qDebug() << dir;
 			if (!dir.isEmpty())
 				process->setWorkingDirectory(dir);
 			process->start(exec);
@@ -133,7 +134,7 @@ bool Extras::onAction() {
 		m_error = i18n("Cannot execute \"Extras\" command");
 
 	return ok;
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 void Extras::readConfig(Config *config) {
@@ -269,7 +270,7 @@ void Extras::createMenu(QMenu *parentMenu, const QString &parentDir) {
 }
 
 QString Extras::getFilesDirectory() {
-#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
+#if defined(KS_KF5) && !defined(KS_KF5)
 	return KGlobal::dirs()->saveLocation("data", "kshutdown/extras");
 #else
 	QDir dir;
@@ -280,10 +281,10 @@ QString Extras::getFilesDirectory() {
 		dir = QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QDir::separator() + "extras");
 	}
 
-	//U_DEBUG << "Extras dir: " << dir U_END;
+	//qDebug() << "Extras dir: " << dir;
 	// CREDITS: http://stackoverflow.com/questions/6232631/how-to-recursively-create-a-directory-in-qt ;-)
 	if (!dir.mkpath(dir.path())) {
-		U_DEBUG << "Could not create Config dir" U_END;
+		qDebug() << "Could not create Config dir";
 	}
 	else if (!m_examplesCreated) {
 		m_examplesCreated = true;
@@ -308,7 +309,7 @@ Name=)" << i18n("Stop VLC Media Player");
 	}
 
 	return dir.path();
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 QIcon Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString &statusTip) {
@@ -317,7 +318,7 @@ QIcon Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString 
 	QString exec = "";
 	QString icon = "";
 
-#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
+#if defined(KS_KF5) && !defined(KS_KF5)
 	KDesktopFile desktopFile(fileInfo.filePath());
 	desktopName = desktopFile.readName();
 	desktopComment = desktopFile.readComment();
@@ -332,7 +333,7 @@ QIcon Extras::readDesktopInfo(const QFileInfo &fileInfo, QString &text, QString 
 	exec = settings.value("Exec", "").toString();
 	icon = settings.value("Icon", "").toString();
 	settings.endGroup();
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 	if (!exec.isEmpty())
 		statusTip = Utils::trim(exec, 100);
@@ -355,7 +356,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 	if (command) {
 		m_command = command->m_command;
 		
-		//U_DEBUG << "Extras::setCommandAction: " << m_command U_END;
+		//qDebug() << "Extras::setCommandAction: " << m_command;
 		m_menuButton->setIcon(QIcon(command->icon()));
 		m_menuButton->setText(command->text());
 		//m_status = (originalText() + " - " + command->text());
@@ -363,7 +364,7 @@ void Extras::setCommandAction(const CommandAction *command) {
 	else {
 		m_command = QString::null;
 	
-		//U_DEBUG << "Extras::setCommandAction: NULL" U_END;
+		//qDebug() << "Extras::setCommandAction: NULL";
 		m_menuButton->setIcon(QIcon::fromTheme("arrow-down"));
 		m_menuButton->setText(i18n("Select a command..."));
 		//m_status = QString::null;
@@ -396,7 +397,7 @@ void Extras::slotModify() {
 		"</ul>" +
 		"</qt>";
 
-	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
+	#if defined(KS_KF5) && !defined(KS_KF5)
 	KMessageBox::information(0, text, originalText(), "ModifyExtras");
 	#else
 	Config *config = Config::user();
@@ -425,7 +426,7 @@ void Extras::slotModify() {
 			config->endGroup();
 		}
 	}
-	#endif // KS_NATIVE_KDE
+	#endif // KS_KF5
 	QUrl url = QUrl::fromLocalFile(getFilesDirectory());
 	QDesktopServices::openUrl(url);
 }
@@ -433,10 +434,10 @@ void Extras::slotModify() {
 void Extras::updateMenu() {
 	m_menu->clear();
 
-	#if defined(KS_NATIVE_KDE) && !defined(KS_KF5)
+	#if defined(KS_KF5) && !defined(KS_KF5)
 	QStringList dirs(KGlobal::dirs()->findDirs("data", "kshutdown/extras"));
 	foreach (const QString &i, dirs) {
-		U_DEBUG << "Found Extras Directory: " << i U_END;
+		qDebug() << "Found Extras Directory: " << i;
 		createMenu(m_menu, i);
 	}
 	#else
@@ -451,14 +452,14 @@ void Extras::updateMenu() {
 			QStandardPaths::LocateDirectory
 		);
 		foreach (const QString &i, dirs) {
-			U_DEBUG << "Found Extras Directory: " << i U_END;
+			qDebug() << "Found Extras Directory: " << i;
 			createMenu(m_menu, i);
 		}
 		#else
 // TODO: unify with KS_KF5
 		createMenu(m_menu, getFilesDirectory());
 		#endif // KS_KF5
-	#endif // KS_NATIVE_KDE
+	#endif // KS_KF5
 	
 	if (!m_menu->isEmpty())
 		m_menu->addSeparator();
@@ -468,12 +469,12 @@ void Extras::updateMenu() {
 	connect(modifyAction, SIGNAL(triggered()), this, SLOT(slotModify()));
 	m_menu->addAction(modifyAction);
 	
-	#ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
 	auto *helpAction = KStandardAction::helpContents(this, SLOT(showHelp()), this);
 	#else
 	auto *helpAction = new QAction(i18n("Help"), this);
 	connect(helpAction, SIGNAL(triggered()), SLOT(showHelp()));
-	#endif // KS_NATIVE_KDE
+	#endif // KS_KF5
 	helpAction->setShortcut(QKeySequence());
 	m_menu->addAction(helpAction);
 }

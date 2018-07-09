@@ -102,12 +102,12 @@ QString MainWindow::getDisplayStatus(const int options) {
 		}
 		
 		if (okHint && m_okCancelButton->isEnabled()) {
-			#ifdef KS_NATIVE_KDE
+			#ifdef KS_KF5
 			QString okText = KStandardGuiItem::ok().text();
 			okText.remove('&');
 			#else
 			QString okText = i18n("OK");
-			#endif // KS_NATIVE_KDE
+			#endif // KS_KF5
 			if (!s.isEmpty())
 				s += "<br><br>";
 			s += i18n("Press %0 to activate KShutdown").arg("<b>" + okText + "</b>");
@@ -337,7 +337,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 	m_lastNotificationID = id;
 	
 	QString noHTML = QString(text);
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	// HACK: some tags are not supported in Xfce
 	if (Utils::isXfce()) {
 		noHTML.replace("<br>", "\n");
@@ -352,7 +352,7 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		this,
 		KNotification::CloseOnTimeout
 	);
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 #ifdef KS_PURE_QT
 	noHTML.replace("<br>", "\n");
 	noHTML.remove(QRegExp(R"(\<\w+\>)"));
@@ -498,9 +498,9 @@ MainWindow::MainWindow() :
 
 	//U_DEBUG << "MainWindow::MainWindow()" U_END;
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_actionCollection = new KActionCollection(this);
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 	// HACK: It seems that the "quit on last window closed"
 	// does not work correctly if main window is hidden
@@ -613,7 +613,7 @@ Trigger *MainWindow::getSelectedTrigger() const { // public
 }
 
 QAction *MainWindow::createQuitAction() {
-	#ifdef KS_NATIVE_KDE
+	#ifdef KS_KF5
 	auto *quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
 	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
 	#else
@@ -622,7 +622,7 @@ QAction *MainWindow::createQuitAction() {
 	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
 	//quitAction->setShortcuts(QKeySequence::Quit <- useless);
 	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
-	#endif // KS_NATIVE_KDE
+	#endif // KS_KF5
 
 	// NOTE: Use "Quit KShutdown" instead of "Quit" because
 	// it may be too similar to "Turn Off" in some language translations.
@@ -729,7 +729,7 @@ void MainWindow::initMenuBar() {
 	);
 #endif // KS_PURE_QT
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	auto *configureShortcutsAction = KStandardAction::keyBindings(this, SLOT(onConfigureShortcuts()), this);
 	configureShortcutsAction->setEnabled(!Utils::isRestricted("action/options_configure_keybinding"));
 	toolsMenu->addAction(configureShortcutsAction);
@@ -743,7 +743,7 @@ void MainWindow::initMenuBar() {
 	auto *preferencesAction = KStandardAction::preferences(this, SLOT(onPreferences()), this);
 	preferencesAction->setEnabled(!Utils::isRestricted("action/options_configure"));
 	toolsMenu->addAction(preferencesAction);
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 	menuBar->addMenu(toolsMenu);
 
@@ -877,9 +877,9 @@ void MainWindow::readConfig() {
 	setSelectedTrigger(config->read("Selected Trigger", "time-from-now").toString());
 	config->endGroup();
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_actionCollection->readSettings();
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 void MainWindow::setTitle(const QString &plain, const QString &html) {
@@ -922,7 +922,7 @@ void MainWindow::updateWidgets() {
 
 	Mod::applyMainWindowColors(this);
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#ifdef KS_KF5
 	bool hasIcon = m_okCancelButton->style()->styleHint(QStyle::SH_DialogButtonBox_ButtonsHaveIcons);
 	if (m_active) {
@@ -954,7 +954,7 @@ void MainWindow::updateWidgets() {
 			m_okCancelButton->setIcon(QIcon::fromTheme("dialog-ok"));
 		m_okCancelButton->setText(i18n("OK"));
 	}
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 	m_okCancelButton->setToolTip(i18n("Click to activate/cancel the selected action"));
 
 	Action *action = getSelectedAction();
@@ -982,9 +982,9 @@ void MainWindow::writeConfig() { // public
 	config->write("Selected Trigger", getSelectedTrigger()->id());
 	config->endGroup();
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_actionCollection->writeSettings();
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 	config->sync();
 }
@@ -1162,7 +1162,7 @@ void MainWindow::onCheckTrigger() {
 	}
 }
 
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 void MainWindow::onConfigureNotifications() {
 	if (!PasswordDialog::authorizeSettings(this))
 		return;
@@ -1178,7 +1178,7 @@ void MainWindow::onConfigureShortcuts() {
 	dialog.addCollection(m_actionCollection);
 	dialog.configure();
 }
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 
 void MainWindow::onFocusChange(QWidget *old, QWidget *now) {
 	Q_UNUSED(old)

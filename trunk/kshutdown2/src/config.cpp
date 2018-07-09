@@ -37,7 +37,7 @@ Config *Config::m_user = nullptr;
 // public
 
 Config::~Config() {
-	//U_DEBUG << "Config::~Config()" U_END;
+	//qDebug() << "Config::~Config()";
 #ifdef KS_PURE_QT
 	if (m_engine) {
 		delete m_engine;
@@ -47,11 +47,11 @@ Config::~Config() {
 }
 
 void Config::beginGroup(const QString &name) {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_group = m_engine->group(name);
 #else
 	m_engine->beginGroup(name);
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 void Config::endGroup() {
@@ -121,19 +121,19 @@ void Config::setSystemTrayIconEnabled(const bool value) {
 }
 
 QVariant Config::read(const QString &key, const QVariant &defaultValue) {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	return m_group.readEntry(key, defaultValue);
 #else
 	return m_engine->value(key, defaultValue);
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 void Config::write(const QString &key, const QVariant &value) {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_group.writeEntry(key, value);
 #else
 	m_engine->setValue(key, value);
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 bool Config::readBool(const QString &group, const QString &key, const bool defaultValue) {
@@ -153,11 +153,11 @@ void Config::write(const QString &group, const QString &key, const bool value) {
 }
 
 void Config::removeAllKeys() {
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	m_group.deleteGroup();
 #else
 	m_engine->remove("");
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 void Config::sync() {
@@ -169,9 +169,9 @@ void Config::sync() {
 Config::Config() :
 	QObject(nullptr) {
 
-	//U_DEBUG << "Config::Config()" U_END;
+	//qDebug() << "Config::Config()";
 	
-#ifdef KS_NATIVE_KDE
+#ifdef KS_KF5
 	#ifdef KS_KF5
 	m_engine = KSharedConfig::openConfig().data();
 	#else
@@ -179,12 +179,12 @@ Config::Config() :
 	#endif // KS_KF5
 #else
 	bool portable = isPortable();
-	U_DEBUG << "Config::isPortable(): " << portable U_END;
+	qDebug() << "Config::isPortable(): " << portable;
 	if (portable)
 		m_engine = new QSettings(QApplication::applicationDirPath() + QDir::separator() + "kshutdown.ini", QSettings::IniFormat);
 	else
 		m_engine = new QSettings();
-#endif // KS_NATIVE_KDE
+#endif // KS_KF5
 }
 
 // Var
@@ -195,7 +195,7 @@ void Var::sync() {
 	QVariant value = variant();
 
 	Config *config = Config::user();
-	//U_DEBUG << "Sync var: " << m_group << " / " << m_key << " = " << value U_END;
+	//qDebug() << "Sync var: " << m_group << " / " << m_key << " = " << value;
 
 	config->beginGroup(m_group);
 	config->write(m_key, value);
@@ -214,7 +214,7 @@ QVariant Var::variant() {
 		m_lazyVariant = config->read(m_key, m_defaultVariant);
 		config->endGroup();
 
-		//U_DEBUG << "Read var: " << m_group << " / " << m_key << " = " << m_lazyVariant U_END;
+		//qDebug() << "Read var: " << m_group << " / " << m_key << " = " << m_lazyVariant;
 	}
 	
 	return m_lazyVariant;
