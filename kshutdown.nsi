@@ -97,8 +97,9 @@ Section "Uninstall"
 	Delete "$INSTDIR\uninstall.exe"
 	RMDir "$INSTDIR"
 
-# FIXME: should ask user
+	MessageBox MB_YESNO "Remove KShutdown settings? (HKEY_CURRENT_USER\Software\kshutdown.sf.net registry entry)" IDNO NoSettingsRemove
 	DeleteRegKey HKCU "Software\kshutdown.sf.net"
+NoSettingsRemove:
 
 	DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\kshutdown.exe"
 	DeleteRegKey HKLM "${APP_UNINSTALL_REG}"

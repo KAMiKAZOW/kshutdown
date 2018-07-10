@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -d "src" ]; then
-	echo "Usage: ./tools/`basename $0`"
+	echo "Usage: ./tools/$(basename "$0")"
 	exit 1
 fi
 
@@ -28,6 +28,8 @@ cat > "src/version.h" <<EOF
 #ifndef KSHUTDOWN_VERSION_H
 #define KSHUTDOWN_VERSION_H
 
+#include <QtGlobal>
+
 #define KS_FILE_VERSION "$KS_FILE_VERSION"
 #define KS_FULL_VERSION "$KS_FULL_VERSION"
 #define KS_RELEASE_DATE "$KS_RELEASE_DATE"
@@ -35,6 +37,18 @@ cat > "src/version.h" <<EOF
 #if QT_VERSION < $KS_QT_INT_VERSION
 	#error "KShutdown $KS_FULL_VERSION requires Qt $KS_QT_FULL_VERSION or newer"
 #endif // QT_VERSION
+
+#if defined(KS_KF5) && defined(KS_PURE_QT)
+	#error "Please use only one -DKS_KF5 or -DKS_PURE_QT compiler option"
+#endif
+
+#if !defined(KS_KF5) && !defined(KS_PURE_QT)
+	#error "Please use either -DKS_KF5 or -DKS_PURE_QT compiler option (see Setup*.sh)"
+#endif
+
+#ifdef KS_NATIVE_KDE
+	#error "Please use KS_KF5 instead of KS_NATIVE_KDE"
+#endif // KS_NATIVE_KDE
 
 #endif // KSHUTDOWN_VERSION_H
 EOF
