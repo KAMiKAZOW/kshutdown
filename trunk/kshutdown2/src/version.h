@@ -2,6 +2,8 @@
 #ifndef KSHUTDOWN_VERSION_H
 #define KSHUTDOWN_VERSION_H
 
+#include <QtGlobal>
+
 #define KS_FILE_VERSION "4.99-beta"
 #define KS_FULL_VERSION "4.99 Beta"
 #define KS_RELEASE_DATE "2018-06-21"
@@ -9,5 +11,17 @@
 #if QT_VERSION < 0x050900
 	#error "KShutdown 4.99 Beta requires Qt 5.9 or newer"
 #endif // QT_VERSION
+
+#if defined(KS_KF5) && defined(KS_PURE_QT)
+	#error "Please use only one -DKS_KF5 or -DKS_PURE_QT compiler option"
+#endif
+
+#if !defined(KS_KF5) && !defined(KS_PURE_QT)
+	#error "Please use either -DKS_KF5 or -DKS_PURE_QT compiler option (see Setup*.sh)"
+#endif
+
+#ifdef KS_NATIVE_KDE
+	#error "Please use KS_KF5 instead of KS_NATIVE_KDE"
+#endif // KS_NATIVE_KDE
 
 #endif // KSHUTDOWN_VERSION_H

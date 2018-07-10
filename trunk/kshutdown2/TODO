@@ -1,15 +1,39 @@
 
-Tracker @ SourceForge.net:
+# 5.x
 
-* Bugs: https://sourceforge.net/p/kshutdown/bugs/
-* RFE: https://sourceforge.net/p/kshutdown/feature-requests/
-* Patches: https://sourceforge.net/p/kshutdown/patches/
+* Remove "DEAD:" code
+* Remove remaining old KDE4/Qt4 code
+* Doc: bootentry.h: No such file or directory
+* Doc: https://bugs.launchpad.net/ubuntu/+source/kde-systemsettings/+bug/1764076
+* Doc: Extras and scripts
+* Review KF5 deps and classes: https://api.kde.org/frameworks/
+* Wiki: KDE Connect (remote shutdown)
+* Add Qt Creator project file
+* Cleanup various README paths/URIs
+* Fix license links: http://www.gnu.org/licenses/gpl.html
+* Cleanup registry keys in kshutdown.nsi (like in Makagiga)
+* Update Wiki docs
+* Review InitiateSystemShutdownEx API
+* API: http://doc.qt.io/qt-5/qaction.html#shortcutVisibleInContextMenu-prop
+* API: http://doc.qt.io/qt-5/qdbusservicewatcher.html
+* API: http://doc.qt.io/qt-5/qelapsedtimer.html (?)
+* Use QLockFile to force only one application instance (?)
+* Review "HACK:"
+* Modernize C++:
+  - "final" methods
+  - unique_ptr/shared_ptr
 
-Qt 5.x Based:
+# Haiku
 
-* Use QLockFile to force only one application instance
+* Application icon
+* System tray
+* Commit existing patches
 
-Old KShutDown 1.0.x features:
+# Tracker @ SourceForge.net
+
+* https://kshutdown.sourceforge.io/contact.html
+
+# Old KShutDown 1.0.x features
 
 * Settings: Link creator (e.g. in KDE menu or on Desktop)
 * Help: Handbook
@@ -17,10 +41,9 @@ Old KShutDown 1.0.x features:
 * Lock screen after login
 * Close CD-ROM before logout; add test button for "Close CD"
 
-Misc.:
+# Misc.
 
 * Warn if other application can block logout/shutdown
-* Use http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKStatusNotifierItem.html (?)
 * Extras: Recent items
 * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=538873
 * Optionally (--delay <seconds>) show warning message before action,

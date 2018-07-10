@@ -15,22 +15,14 @@
 // with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-// krazy:excludeall=qclasses
+// TODO: remove this file
 
 #ifndef KSHUTDOWN_PUREQT_H
 #define KSHUTDOWN_PUREQT_H
 
 #include <QDebug>
 
-// TODO: remove:
 #define U_DEBUG qDebug()
 #define U_END
-
-#ifdef KS_PURE_QT
-	#undef KS_KF5
-	#undef KS_NATIVE_KDE
-#else
-	#define KS_NATIVE_KDE
-#endif // KS_PURE_QT
 
 #endif // KSHUTDOWN_PUREQT_H

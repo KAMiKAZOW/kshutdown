@@ -18,6 +18,8 @@
 #ifndef KSHUTDOWN_BOOKMARKS_H
 #define KSHUTDOWN_BOOKMARKS_H
 
+#include "version.h" // HACK: check KS_* defines early
+
 #include "config.h"
 #include "kshutdown.h"
 #include "pureqt.h"
