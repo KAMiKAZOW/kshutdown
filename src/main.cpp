@@ -273,10 +273,10 @@ int main(int argc, char **argv) {
 
 	static bool first = true;
 
-	if (!commonStartup(program.arguments(), versionOption, first, false))
+	if (!commonStartup(QApplication::arguments(), versionOption, first, false))
 		return 0;
 
 	first = false;
 
-	return program.exec();
+	return QApplication::exec();
 }

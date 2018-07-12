@@ -88,7 +88,7 @@ bool CLI::check() {
 		}
 		else {
 			if (TimeOption::isError()) {
-				UDialog::error(0, i18n("Invalid time: %0").arg(TimeOption::value()));
+				UDialog::error(nullptr, i18n("Invalid time: %0").arg(TimeOption::value()));
 				
 				return false;
 			}

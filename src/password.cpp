@@ -125,7 +125,7 @@ retry:
 		return false;
 	#else
 	bool ok;
-	QString password = QInputDialog::getText( // krazy:exclude=qclasses
+	QString password = QInputDialog::getText(
 		parent,
 		QApplication::applicationDisplayName(), // title
 		prompt,

@@ -82,7 +82,7 @@ void USystemTray::setVisible(const bool visible) {
 	m_sessionRestored = false; // clear flag
 	#endif // KS_PURE_QT
 
-	MainWindow *mainWindow = static_cast<MainWindow *>(parent());
+	auto *mainWindow = static_cast<MainWindow *>(parent());
 
 	if (visible && (m_trayIcon == nullptr)) {
 		qDebug() << "Show system tray";

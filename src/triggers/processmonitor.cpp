@@ -205,7 +205,7 @@ BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 	::GetWindowThreadProcessId(windowHandle, &pid);
 
 	if (pid == qApp->applicationPid())
-		return TRUE; // krazy:exclude=captruefalse
+		return TRUE;
 
 	ProcessMonitor *processMonitor = (ProcessMonitor *)param;
 
@@ -224,7 +224,7 @@ BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 		processMonitor->addProcess(p);
 	}
 	
-	return TRUE; // krazy:exclude=captruefalse
+	return TRUE;
 }
 
 // sort alphabetically, visible first
