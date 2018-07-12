@@ -474,7 +474,7 @@ QDBusInterface *PowerAction::getUPowerInterface() {
 bool PowerAction::onAction() {
 #ifdef Q_OS_WIN32
 	BOOL hibernate = (m_methodName == "Hibernate");
-	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE); // krazy:exclude=captruefalse
+	BOOL result = ::SetSuspendState(hibernate, TRUE, FALSE);
 	if (result == 0) {
 		setLastError();
 
@@ -769,7 +769,7 @@ bool StandardAction::onAction() {
 		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 		if (!::AdjustTokenPrivileges(
 			hToken,
-			FALSE, // krazy:exclude=captruefalse
+			FALSE,
 			&tp,
 			sizeof(TOKEN_PRIVILEGES),
 			(PTOKEN_PRIVILEGES)NULL,
@@ -808,10 +808,10 @@ bool StandardAction::onAction() {
 		(m_type == U_SHUTDOWN_TYPE_HALT) ||
 		(m_type == U_SHUTDOWN_TYPE_REBOOT)
 	) {
-		BOOL bForceAppsClosed = m_force ? TRUE : FALSE; // krazy:exclude=captruefalse
+		BOOL bForceAppsClosed = m_force ? TRUE : FALSE;
 		m_force = false;
 		
-		BOOL bRebootAfterShutdown = (m_type == U_SHUTDOWN_TYPE_REBOOT) ? TRUE : FALSE; // krazy:exclude=captruefalse
+		BOOL bRebootAfterShutdown = (m_type == U_SHUTDOWN_TYPE_REBOOT) ? TRUE : FALSE;
 		
 		if (::InitiateSystemShutdown(
 			NULL, NULL, 0, // unused
@@ -821,7 +821,7 @@ bool StandardAction::onAction() {
 // TODO: handle ERROR_NOT_READY
 			if (::GetLastError() == ERROR_MACHINE_LOCKED) {
 				
-				bForceAppsClosed = TRUE; // krazy:exclude=captruefalse
+				bForceAppsClosed = TRUE;
 				
 				if (::InitiateSystemShutdown(
 					NULL, NULL, 0, // unused

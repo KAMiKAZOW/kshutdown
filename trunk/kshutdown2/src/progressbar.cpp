@@ -329,11 +329,11 @@ void ProgressBar::makeIcon(QAction *action, const Qt::Alignment alignment, const
 
 	int by;
 	switch (alignment) {
-		case Qt::AlignTop:
-			by = 0;
-			break;
 		case Qt::AlignBottom:
 			by = iconSize - size;
+			break;
+		default: // Qt::AlignTop
+			by = 0;
 			break;
 	}
 	painter.fillRect(0, by, iconSize, size, palette().windowText());

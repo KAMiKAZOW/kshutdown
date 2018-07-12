@@ -197,7 +197,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 	}
 	else if (CLI::isArg("init") || qApp->isSessionRestored()) {
 		if (!trayIconEnabled)
-			showMinimized(); // krazy:exclude=qmethods
+			showMinimized();
 	}
 	else {
 		show();
@@ -310,7 +310,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 		action->setState(Base::State::Start);
 		trigger->setState(Base::State::Start);
 
-		if (trigger->supportsProgressBar() && Config::user()->progressBarEnabled())
+		if (trigger->supportsProgressBar() && Config::progressBarEnabled())
 			m_progressBar->show();
 	}
 	else {
@@ -443,7 +443,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		!m_systemTray->isSupported() ||
 		Utils::isUnity() // HACK: QSystemTrayIcon::activated not called in Unity
 	) {
-		showMinimized(); // krazy:exclude=qmethods
+		showMinimized();
 	}
 	// hide in system tray instead of close
 	else {

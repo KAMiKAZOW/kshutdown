@@ -69,7 +69,7 @@ bool Extras::onAction() {
 		KDesktopFile desktopFile(m_command);
 		KService service(&desktopFile);
 		
-		if (service.exec().isEmpty()) { // krazy:exclude=crashy
+		if (service.exec().isEmpty()) {
 			m_error = i18n("Invalid \"Extras\" command");
 		
 			return false;
@@ -408,11 +408,11 @@ void Extras::slotModify() {
 	if (showInfo) {
 // TODO: KMessageBox
 // TODO: also show in Help menu
-		QScopedPointer<QMessageBox> message(new QMessageBox( // krazy:exclude=qclasses
-			QMessageBox::Information, // krazy:exclude=qclasses
+		QScopedPointer<QMessageBox> message(new QMessageBox(
+			QMessageBox::Information,
 			originalText(),
 			text,
-			QMessageBox::Ok // krazy:exclude=qclasses
+			QMessageBox::Ok
 		));
 
 		QCheckBox *doNotShowAgainCheckBox = new QCheckBox(i18n("Do not show this message again"));

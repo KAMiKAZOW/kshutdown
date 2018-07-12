@@ -122,7 +122,7 @@ bool Action::authorize(QWidget *parent) {
 }
 
 QAction *Action::createConfirmAction(const bool alwaysShowConfirmationMessage) {
-	QAction *result = new QAction(this);
+	auto *result = new QAction(this);
 
 	// clone basic properties
 	result->setEnabled(m_uiAction->isEnabled());
@@ -307,7 +307,7 @@ void Action::slotFire() {
 
 	if (!isEnabled()) {
 		QString s = m_disableReason.isEmpty() ? i18n("Unknown error") : m_disableReason;
-		UDialog::error(0, m_uiAction->text() + ": " + s);
+		UDialog::error(nullptr, m_uiAction->text() + ": " + s);
 
 		return;
 	}
@@ -317,7 +317,7 @@ void Action::slotFire() {
 		m_totalExit = false;
 		if (!m_error.isNull()) {
 			QString s = m_error.isEmpty() ? i18n("Unknown error") : m_error;
-			UDialog::error(0, m_uiAction->text() + ": " + s);
+			UDialog::error(nullptr, m_uiAction->text() + ": " + s);
 		}
 	}
 }
