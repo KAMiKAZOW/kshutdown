@@ -119,6 +119,7 @@ bool Extras::onAction() {
 		settings.endGroup();
 	}
 	#ifdef Q_OS_WIN32
+// FIXME: "exe", shortcut dragged from Start menu
 	else if (suffix == "lnk") { // shortcut
 		ok = QDesktopServices::openUrl(QUrl::fromLocalFile(path));
 	}
