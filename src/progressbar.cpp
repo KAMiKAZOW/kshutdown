@@ -271,7 +271,10 @@ ProgressBar::ProgressBar() // public
 		Qt::NoDropShadowWindowHint |
 		Qt::WindowDoesNotAcceptFocus |
 		Qt::WindowStaysOnTopHint |
+
+// FIXME: GNOME - no context menu, no tool tip
 		Qt::X11BypassWindowManagerHint |
+
 		Qt::Tool
 	) {
 

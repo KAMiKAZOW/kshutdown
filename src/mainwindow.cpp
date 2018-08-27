@@ -335,29 +335,31 @@ void MainWindow::notify(const QString &id, const QString &text) {
 		return;
 
 	m_lastNotificationID = id;
-	
-	QString noHTML = QString(text);
-#ifdef KS_KF5
-	// HACK: some tags are not supported in Xfce
-	if (Utils::isXfce()) {
-		noHTML.replace("<br>", "\n");
-		noHTML.remove("<qt>");
-		noHTML.remove("</qt>");
-	}
 
+	//qDebug() << "Raw notification:" << text;
+
+	QString fixedHTML = QString(text);
+	fixedHTML.remove("<qt>");
+	fixedHTML.remove("</qt>");
+	fixedHTML.replace("<br>", "\n");
+
+#ifdef KS_KF5
 	KNotification::event(
 		id,
-		noHTML,
+		fixedHTML,
 		QPixmap(),
 		this,
 		KNotification::CloseOnTimeout
 	);
 #endif // KS_KF5
 #ifdef KS_PURE_QT
-	noHTML.replace("<br>", "\n");
-	noHTML.remove(QRegExp(R"(\<\w+\>)"));
-	noHTML.remove(QRegExp(R"(\</\w+\>)"));
-	m_systemTray->warning(noHTML);
+	// Qt supports notifications only in *some* DEs...
+	if (!Utils::isKDE()) {
+		// remove unsupported markup tags
+		fixedHTML.remove(QRegExp(R"(\<\w+\>)"));
+		fixedHTML.remove(QRegExp(R"(\</\w+\>)"));
+	}
+	m_systemTray->warning(fixedHTML);
 #endif // KS_PURE_QT
 
 	// flash taskbar button
