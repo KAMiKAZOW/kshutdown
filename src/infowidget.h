@@ -32,14 +32,11 @@
 #endif // KS_KF5
 
 class InfoWidget: public QFrame {
-	Q_OBJECT
 public:
 	enum class Type { Error, Info, Warning };
 	explicit InfoWidget(QWidget *parent);
 	virtual ~InfoWidget();
 	void setText(const QString &text, const Type type = Type::Info);
-private slots:
-	void onLinkActivated(const QString &contents);
 private:
 	Q_DISABLE_COPY(InfoWidget)
 #ifdef KS_KF5

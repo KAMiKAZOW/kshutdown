@@ -266,7 +266,7 @@ int main(int argc, char **argv) {
 
 		if (CLI::isArg("cancel"))
 			MainWindow::self()->setActive(false);
-	} );
+	});
 	#endif // KS_KF5
 
 	// start the application

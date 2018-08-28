@@ -773,9 +773,10 @@ void MainWindow::initMenuBar() {
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()), QKeySequence("Ctrl+H,E,L,P"));
 #endif // KS_KF5
 
-// TODO: review lambdas
 	auto *cliAction = new QAction(i18n("Command Line Options"), helpMenu);
-	connect(cliAction, &QAction::triggered, [this]() { CLI::showHelp(this); });
+	connect(cliAction, &QAction::triggered, [this]() {
+		CLI::showHelp(this);
+	});
 
 // TODO: D-Bus help
 // TODO: misc. help from Wiki
@@ -867,7 +868,9 @@ void MainWindow::initWidgets() {
 	m_cancelAction->setIcon(QIcon::fromTheme("dialog-cancel"));
 	#endif // KS_KF5
 
-	connect(m_cancelAction, SIGNAL(triggered()), SLOT(onCancel()));
+	connect(m_cancelAction, &QAction::triggered, [this]() {
+		setActive(false);
+	});
 }
 
 void MainWindow::readConfig() {
@@ -1128,10 +1131,6 @@ void MainWindow::onActionActivated(int index) {
 	m_actions->setToolTip(action->uiAction()->statusTip()/*toolTip()*/);
 
 	onStatusChange(true);
-}
-
-void MainWindow::onCancel() {
-	setActive(false);
 }
 
 void MainWindow::onCheckTrigger() {

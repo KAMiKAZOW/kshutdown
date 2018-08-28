@@ -46,21 +46,20 @@ PasswordDialog::PasswordDialog(QWidget *parent) :
 	//qDebug() << "PasswordDialog::PasswordDialog()";
 
 // TODO: show warning if Caps Lock is turned on (no reliable solution in Qt)
+
 	m_password = new QLineEdit();
 	m_password->setClearButtonEnabled(true);
 	m_password->setEchoMode(QLineEdit::Password);
-	connect(
-		m_password, SIGNAL(textChanged(const QString &)),
-		SLOT(onPasswordChange(const QString &))
-	);
+	connect(m_password, &QLineEdit::textChanged, [this]() {
+		updateStatus();
+	});
 
 	m_confirmPassword = new QLineEdit();
 	m_confirmPassword->setClearButtonEnabled(true);
 	m_confirmPassword->setEchoMode(QLineEdit::Password);
-	connect(
-		m_confirmPassword, SIGNAL(textChanged(const QString &)),
-		SLOT(onConfirmPasswordChange(const QString &))
-	);
+	connect(m_confirmPassword, &QLineEdit::textChanged, [this]() {
+		updateStatus();
+	});
 
 	m_status = new InfoWidget(this);
 
@@ -204,20 +203,6 @@ void PasswordDialog::updateStatus() {
 
 	clearPassword(password);
 	clearPassword(confirmPassword);
-}
-
-// private slots:
-
-void PasswordDialog::onConfirmPasswordChange(const QString &text) {
-	Q_UNUSED(text)
-
-	updateStatus();
-}
-
-void PasswordDialog::onPasswordChange(const QString &text) {
-	Q_UNUSED(text)
-
-	updateStatus();
 }
 
 // PasswordPreferences

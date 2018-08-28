@@ -57,9 +57,6 @@ private:
 private slots:
 	void onFinish(int result);
 	void onProgressBarEnabled(bool enabled);
-	#ifndef KS_KF5
-	void onUseThemeIconInSystemTraySelected(bool selected);
-	#endif // !KS_KF5
 };
 
 #endif // KSHUTDOWN_PREFERENCES_H

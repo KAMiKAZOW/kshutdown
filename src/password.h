@@ -27,7 +27,6 @@
 class InfoWidget;
 
 class PasswordDialog: public UDialog {
-	Q_OBJECT
 public:
 	explicit PasswordDialog(QWidget *parent);
 	virtual ~PasswordDialog();
@@ -42,9 +41,6 @@ private:
 	QLineEdit *m_confirmPassword;
 	QLineEdit *m_password;
 	void updateStatus();
-private slots:
-	void onConfirmPasswordChange(const QString &text);
-	void onPasswordChange(const QString &text);
 };
 
 class PasswordPreferences: public QWidget {
