@@ -191,7 +191,9 @@ QWidget *Preferences::createSystemTrayWidget() {
 	#ifndef KS_KF5
 	m_useThemeIconInSystemTray = new QCheckBox(i18n("Use System Icon Theme"));
 	m_useThemeIconInSystemTray->setChecked(Config::readBool("General", "Use Theme Icon In System Tray", true));
-	connect(m_useThemeIconInSystemTray, SIGNAL(toggled(bool)), SLOT(onUseThemeIconInSystemTraySelected(bool)));
+	connect(m_useThemeIconInSystemTray, &QCheckBox::toggled, [this](const bool selected) {
+		m_bwTrayIcon->setEnabled(!selected);
+	});
 	l->addWidget(m_useThemeIconInSystemTray);
 	#endif // !KS_KF5
 
@@ -249,9 +251,3 @@ void Preferences::onProgressBarEnabled(bool enabled) {
 	progressBar->setDemo(enabled);
 	progressBar->setVisible(enabled || m_oldProgressBarVisible);
 }
-
-#ifndef KS_KF5
-void Preferences::onUseThemeIconInSystemTraySelected(bool selected) {
-	m_bwTrayIcon->setEnabled(!selected);
-}
-#endif // !KS_KF5

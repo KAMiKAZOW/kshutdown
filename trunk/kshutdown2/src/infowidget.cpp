@@ -40,10 +40,9 @@ InfoWidget::InfoWidget(QWidget *parent) :
 #ifdef KS_KF5
 	m_messageWidget = new KMessageWidget(this);
 	m_messageWidget->setCloseButtonVisible(false);
-	connect(
-		m_messageWidget, SIGNAL(linkActivated(const QString &)),
-		SLOT(onLinkActivated(const QString &))
-	);
+	connect(m_messageWidget, &KMessageWidget::linkActivated, [](const QString &contents) {
+		QDesktopServices::openUrl(QUrl(contents));
+	});
 
 	mainLayout->setMargin(0_px);
 	mainLayout->addWidget(m_messageWidget);
@@ -139,12 +138,6 @@ void InfoWidget::setText(const QString &text, const Type type) {
 	setVisible(!text.isEmpty() && (text != "<qt></qt>"));
 	if (isVisible())
 		repaint(0_px, 0_px, width(), height());
-}
-
-// private slots
-
-void InfoWidget::onLinkActivated(const QString &contents) {
-	QDesktopServices::openUrl(QUrl(contents));
 }
 
 // private

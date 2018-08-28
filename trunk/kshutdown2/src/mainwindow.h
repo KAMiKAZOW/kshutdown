@@ -143,7 +143,6 @@ private slots:
 	void onAbout();
 #endif // KS_PURE_QT
 	void onActionActivated(int index);
-	void onCancel();
 	void onCheckTrigger();
 #ifdef KS_KF5
 	void onConfigureNotifications();
