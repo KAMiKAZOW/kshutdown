@@ -6,7 +6,7 @@
 
 #define KS_FILE_VERSION "4.99-beta"
 #define KS_FULL_VERSION "4.99 Beta"
-#define KS_RELEASE_DATE "2018-06-21"
+#define KS_RELEASE_DATE "2018-10-15"
 
 #if QT_VERSION < 0x050900
 	#error "KShutdown 4.99 Beta requires Qt 5.9 or newer"

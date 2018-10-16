@@ -1,6 +1,111 @@
 
   Previous Versions and Screenshots: https://kshutdown.sourceforge.io/releases/
 
+2018-10-15  4.99 Beta (5.x)
+
+* CHANGED: KShutdown 5.x now requires Qt 5.9 or newer
+* REMOVED: Qt 4 support
+* REMOVED: KDE 4 support
+* REMOVED: Windows XP/Vista support (requires Windows 7/10 or newer, 32/64-bit)
+
+If you need any of the above, there are other options for you:
+
+KShutdown 4.x downloads:
+https://sourceforge.net/projects/kshutdown/files/KShutdown/
+
+KShutdown 4.x source branch (minor bugfixes and updates only):
+Clone: svn co https://svn.code.sf.net/p/kshutdown/code/branches/kshutdown-4.x
+
+----
+
+KF5 = a KShutdown version compiled using KDE Frameworks
+Qt5 = a KShutdown version compiled using plain Qt 5 libraries only
+
+Misc.:
+
+* CHANGED: New command line option parser.
+  This fixes some previous issues. However, the new parser is more strict
+  and may print a warning if passed application options are malformed or incomplete.
+* NEW: Progress Bar context menu: Show size/position preview icons
+* NEW: Added Help|Command Line Options menu item
+* NEW: Added "--confirm-auto" command line option (see --help)
+* UPDATED: Spanish translation (by Pier Jose Gotta Perez)
+* Improve info/warning message bars (smaller icons, nicer colors)
+* CHANGED: Version format is now slightly different:
+  - $MAJOR.$MINOR_EVEN - stable version (e.g. 5.0, 5.2)
+  - $MAJOR.$MINOR_ODD-beta - Beta version (e.g. 5.1-beta, 5.3-beta)
+  - Note that package file names now include "-" (dash) before "beta".
+  - Version numbers displayed in UI are formatted like before (e.g. 5.1 Beta)
+* FIXED: "--confirm" option can now work together with "--ui-menu" option
+* REMOVED: Unused "?" button from window title bars
+* Enable hi-dpi UI icons
+* + Minor bugfixes and updates
+
+Linux:
+
+* CHANGED: Executable name in all build types is now "kshutdown[.exe]" instead of "kshutdown-qt[.exe]".
+           NOTE: "make install" will create a "kshutdown-qt" symbolic link for compatibility.
+           The launcher shortcut also has changed from "/usr/share/applications/kshutdown-qt.desktop"
+           to "/usr/share/applications/kshutdown.desktop"
+* FIXED/CHANGED: Install icons in "share/icons/hicolor/*/apps/kshutdown.png"
+                 instead in "share/icons/hicolor/*/actions/kshutdown.png"
+* NEW: Show countdown progress bar in taskbar entry. Works with Plasma (sort of), GNOME, and Unity.
+* NEW: (KF5) Added application crash handler with option to restart KShutdown or report an issue
+* (KF5) Better integration with Plasma desktop
+* CHANGED: Respect "Confirm Action" option in app launcher context menu
+* CHANGED: "--help" contents is now always displayed in a window rather than printed to stdout
+* System Tray settings: Show "May not work correctly with some Desktop Environments" warning
+* FIXED: GNOME/Unity: Do not display "<br>" and "<qt>" markup tags in a notification text
+* KDE: Show icons in Preferences tabs
+* CHANGED: (KF5) Move "System Settings..." button to the Tools menu
+* NEW: (Qt5 on Plasma) Show "System Settings..." in Tools menu
+* FIXED: (KF5) "Enable System Tray Icon" option can be used like in other KShutdown builds
+* FIXED: (KF5) "--hide-ui" option hides system tray icon like in other builds
+
+Extras menu:
+
+* FIXED: Display folder names with a "dot" correctly
+* REMOVED: Obsolete example folders
+  (any existing "/usr/share/kshutdown/extras" directory can be removed manually)
+* CHANGED: Create a single "Stop VLC Media Player" example on first KShutdown run
+* FIXED: Garbled UTF-8 text in some menu elements
+
+MS Windows:
+
+* NEW: Show countdown progress in taskbar entry
+* CHANGED: Using Qt 5.x instead of old 4.8.x
+* REMOVED: "/?" command line option; use "--help" instead
+* FIXED: Uninstaller: Ask before removing user settings
+
+Source:
+
+* CHANGED: Require Qt 5.9 or newer to compile
+* NEW: Enable and use c++14 standard
+* CHANGED: Incorrect combination of KS_PURE_QT/KS_KF5 defines will result in a compile error
+* CHANGED: Cleaned up #defines:
+  - KS_NATIVE_KDE -> KS_KF5
+  - KS_DBUS -> QT_DBUS_LIB
+  - KS_UNIX -> !Q_OS_WIN32
+* CHANGED: Require NSIS 3.x to create an installer for Windows with Unicode support
+* CHANGED: In all build types (KF5/Qt5), executable name is now "kshutdown" instead of "kshutdown-qt"
+* NEW: Setup-qt5.bat
+* REMOVED: Setup-qt4.bat and Setup-qt4.sh
+* REMOVED: U_* macros
+* REMOVED: Unused KDE 4 code
+* Fixed and clean up "tools" scripts
+* CHANGED: Setup-wine.sh: Use a separated Wine profile (~/.wine-kshutdown) and force 32-bit architecture
+* Move command line related stuff to "commandline.*" files and "CLI" class
+* Move all action/trigger classes to a dedicated plugins.cpp/h files
+* Cleanup build scripts
+* (Qt5): cmake: Enable "automoc" for faster compilation
+* + Various code cleanups
+
+New Known Issues:
+
+* cmake: If you get "(...) bootentry.h: No such file or directory" error
+  try to run cmake from non-symlinked directory, e.g. cd "$(realpath .)"
+
+
 2017-10-16  4.2
 
 * Fixed: Password on Cancel bypasses the Action setting (bug #33)
@@ -1044,4 +1149,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 878:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 936:HEAD|xsel -i -b && kwrite ChangeLog
