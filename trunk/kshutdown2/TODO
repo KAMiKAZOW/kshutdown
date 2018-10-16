@@ -67,3 +67,4 @@
   <http://www.autoshutdown.org/index.html>
   [by aaron-koensgen, luckymancvp]
 * Activate action when selected window disapear
+* kshutdown.desktop: "Desktop Action" separators

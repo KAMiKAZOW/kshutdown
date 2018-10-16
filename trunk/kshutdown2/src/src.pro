@@ -84,6 +84,8 @@ SOURCES += \
 
 RESOURCES = kshutdown.qrc
 
+# BUG: Qt does not support whitespace in INSTALL_ROOT!
+#      https://bugreports.qt.io/browse/QTBUG-1941
 unix {
 	target.path = /usr/bin
 	target.extra = \
@@ -91,6 +93,7 @@ unix {
 		ln -fs "$(INSTALL_ROOT)/usr/bin/kshutdown" "$(INSTALL_ROOT)/usr/bin/kshutdown-qt"
 	target.uninstall = rm -f "$(INSTALL_ROOT)/usr/bin/kshutdown" "$(INSTALL_ROOT)/usr/bin/kshutdown-qt"
 
+# TODO: remove empty "hicolor" directories
 	icon16.path = /usr/share/icons/hicolor/16x16/apps
 	icon16.extra = install -m 644 -p images/hi16-app-kshutdown.png "$(INSTALL_ROOT)/usr/share/icons/hicolor/16x16/apps/kshutdown.png"
 	icon16.uninstall = rm -f "$(INSTALL_ROOT)/usr/share/icons/hicolor/16x16/apps/kshutdown.png"
