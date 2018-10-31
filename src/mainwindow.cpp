@@ -709,11 +709,25 @@ void MainWindow::initMenuBar() {
 	// tools menu
 
 	auto *toolsMenu = new QMenu(i18n("&Tools"), menuBar);
-// TODO: add more related tools
 
 	#ifndef Q_OS_WIN32
-	auto *statsAction = toolsMenu->addAction(i18n("Statistics"), this, SLOT(onStats()));
-	statsAction->setShortcut(QKeySequence("Ctrl+Shift+S"));
+	auto *runMenu = new QMenu(i18n("Run"), toolsMenu);
+
+	QList<QStringList> runList;
+	runList << QStringList({ "free", "--human" });
+	runList << QStringList({ "systemd-analyze", "blame" });
+	runList << QStringList({ "uptime", "--pretty" });
+	runList << QStringList({ "w" });
+	//runList << QStringList({ "__ERROR__", "TEST", "X" });
+
+	for (const QStringList &programAndArgs : runList) {
+		runMenu->addAction(programAndArgs.join(" "), [this, /* copy capture */programAndArgs] {
+			QScopedPointer<Stats> dialog(new Stats(this, programAndArgs));
+			dialog->exec();
+		});
+	}
+
+	toolsMenu->addMenu(runMenu);
 
 	auto systemSettingsAction = toolsMenu->addAction(QIcon::fromTheme("preferences-system"), i18n("System Settings..."), [] {
 		QProcess::execute("kcmshell5 autostart kcmkded kcmnotify kcmsmserver kcm_energyinfo kcm_sddm kcm_splashscreen keys powerdevilprofilesconfig screenlocker");
@@ -1240,11 +1254,6 @@ void MainWindow::onPreferences() {
 		m_systemTray->setVisible(Config::systemTrayIconEnabled());
 		m_systemTray->updateIcon(this); // update colors
 	}
-}
-
-void MainWindow::onStats() {
-	QScopedPointer<Stats> dialog(new Stats(this));
-	dialog->exec();
 }
 
 void MainWindow::onStatusChange(const bool forceUpdateWidgets) {

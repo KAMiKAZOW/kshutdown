@@ -21,8 +21,8 @@
 
 // public:
 
-Stats::Stats(QWidget *parent) :
-	UDialog(parent, i18n("Statistics"), true) {
+Stats::Stats(QWidget *parent, const QStringList &programAndArgs) :
+	UDialog(parent, programAndArgs.join(" "), true) {
 
 	resize(800_px, 600_px);
 
@@ -35,9 +35,22 @@ Stats::Stats(QWidget *parent) :
 	mainLayout()->addWidget(m_textView);
 
 	QProcess process;
-	process.start("w");
+
+	QString program = programAndArgs[0];
+	QStringList args = QStringList(programAndArgs);
+	args.removeFirst();
+	//qDebug() << program;
+	//qDebug() << args;
+	process.start(program, args);
+
+	QString header = "$ " + programAndArgs.join(" ");
+
 	bool ok;
-	m_textView->setPlainText(Utils::read(process, ok));
+	m_textView->setPlainText(
+		header + "\n" +
+		QString("-").repeated(header.count()) + "\n" +
+		Utils::read(process, ok)
+	);
 }
 
 Stats::~Stats() = default;

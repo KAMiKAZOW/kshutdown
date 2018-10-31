@@ -25,7 +25,7 @@
 class Stats: public UDialog {
 	Q_OBJECT
 public:
-	explicit Stats(QWidget *parent);
+	explicit Stats(QWidget *parent, const QStringList &programAndArgs);
 	virtual ~Stats();
 private:
 	Q_DISABLE_COPY(Stats)
