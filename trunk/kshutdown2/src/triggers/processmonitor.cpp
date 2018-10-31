@@ -118,7 +118,6 @@ QWidget *ProcessMonitor::getWidget() {
 		m_processesComboBox = new QComboBox(m_widget);
 		m_processesComboBox->view()->setAlternatingRowColors(true);
 		m_processesComboBox->setFocusPolicy(Qt::StrongFocus);
-		m_processesComboBox->setToolTip(i18n("List of the running processes"));
 		connect(m_processesComboBox, SIGNAL(activated(int)), SLOT(onProcessSelect(const int)));
 		layout->addWidget(m_processesComboBox);
 		
@@ -168,14 +167,16 @@ void ProcessMonitor::clearAll() {
 	m_processList.clear();
 }
 
-void ProcessMonitor::errorMessage(const QString &message) {
+void ProcessMonitor::errorMessage() {
 	clearAll();
 	m_processesComboBox->setEnabled(false);
 
 	m_processesComboBox->addItem(
 		QIcon::fromTheme("dialog-error"),
-		message
+		i18n("Error")
 	);
+
+	m_processesComboBox->setToolTip(m_errorMessage);
 }
 
 #ifndef Q_OS_WIN32
@@ -214,7 +215,7 @@ BOOL CALLBACK EnumWindowsCallback(HWND windowHandle, LPARAM param) {
 	int result = ::GetWindowTextW(windowHandle, textBuf, textLength);
 	if (result > 0) {
 		QString title = QString::fromWCharArray(textBuf);
-	delete[] textBuf;
+		delete[] textBuf;
 
 // TODO: show process name (*.exe)
 		Process *p = new Process(processMonitor, Utils::trim(title, 30));
@@ -263,11 +264,15 @@ void ProcessMonitor::refreshProcessList() {
 	process.waitForStarted(-1);
 	Q_PID psPID = process.pid();
 
+	m_errorMessage = "";
 	bool ok;
 	QString text = Utils::read(process, ok);
 
-	if (!ok)
+	if (!ok) {
+		m_errorMessage = text;
+
 		return;
+	}
 
 	qint64 appPID = QApplication::applicationPid();
 	QString user = Utils::getUser();
@@ -299,6 +304,7 @@ void ProcessMonitor::refreshProcessList() {
 		}
 	}
 	#else
+// TODO: error message
 	::EnumWindows(EnumWindowsCallback, (LPARAM)this);
 /* TODO: also use tasklist.exe
 	QStringList args;
@@ -380,10 +386,11 @@ void ProcessMonitor::onRefresh() {
 	refreshProcessList();
 
 	if (m_processList.isEmpty()) {
-// TODO: error message
-		errorMessage(i18n("Error"));
+		errorMessage();
 	}
 	else {
+		m_processesComboBox->setToolTip(i18n("List of the running processes"));
+
 		qSort(m_processList.begin(), m_processList.end(), compareProcess);
 
 		bool separatorAdded = false;

@@ -82,10 +82,11 @@ private:
 	Q_DISABLE_COPY(ProcessMonitor)
 	QComboBox *m_processesComboBox = nullptr;
 	QList<Process*> m_processList;
+	QString m_errorMessage = "";
 	QString m_recentCommand = "";
 	QWidget *m_widget = nullptr;
 	void clearAll();
-	void errorMessage(const QString &message);
+	void errorMessage();
 	void refreshProcessList();
 	void updateStatus(const Process *process);
 public slots:

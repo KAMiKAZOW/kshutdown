@@ -209,9 +209,14 @@ bool Utils::isXfce() {
 QString Utils::read(QProcess &process, bool &ok) {
 	ok = false;
 
-	if (!process.waitForStarted(-1))
-// TODO: show process.program()/arguments() #5.x
-		return process.errorString();
+	if (!process.waitForStarted(-1)) {
+		QString message = i18n("Error: %0").arg(
+			process.program() + " " + process.arguments().join(" ") + "\n" +
+			process.errorString()
+		);
+
+		return message;
+	}
 
 	QString err = "";
 	QString out = "";

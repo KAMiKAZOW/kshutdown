@@ -154,7 +154,6 @@ private slots:
 	void onOKCancel();
 	void onPreferences();
 	void onQuit();
-	void onStats();
 	void onStatusChange(const bool forceUpdateWidgets);
 	void onTriggerActivated(int index);
 };
