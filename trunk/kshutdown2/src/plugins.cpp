@@ -182,7 +182,12 @@ bool Action::showConfirmationMessage() {
 		QMessageBox::Ok | QMessageBox::Cancel,
 		parent
 	));
-	message->setDefaultButton(QMessageBox::Cancel);
+
+	if (Config::cancelDefaultVar.getBool())
+		message->setDefaultButton(QMessageBox::Cancel);
+	else
+		message->setDefaultButton(QMessageBox::Ok);
+
 	if (!icon().isNull()) {
 		int size = qApp->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
 		message->setIconPixmap(icon().pixmap(size));

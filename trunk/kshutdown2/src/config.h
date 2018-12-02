@@ -30,6 +30,8 @@
 	#include <KConfigGroup>
 #endif // KS_KF5
 
+class Var;
+
 /**
  * A configuration reader/writer.
  *
@@ -37,6 +39,8 @@
  */
 class Config final: public QObject {
 public:
+	static Var cancelDefaultVar;
+
 	virtual ~Config();
 
 	void beginGroup(const QString &name);
@@ -96,16 +100,26 @@ private:
 
 class Var final {
 public:
+	explicit Var(const QString &group, const QString &key, const bool defaultValue)
+		: m_group(group), m_key(key), m_defaultVariant(defaultValue), m_lazyVariant(QVariant()) { }
 	explicit Var(const QString &group, const QString &key, const int defaultValue)
 		: m_group(group), m_key(key), m_defaultVariant(defaultValue), m_lazyVariant(QVariant()) { }
 	explicit Var(const QString &group, const QString &key, const QColor &defaultValue)
 		: m_group(group), m_key(key), m_defaultVariant(defaultValue), m_lazyVariant(QVariant()) { }
 
+	bool getBool() {
+		return variant().toBool();
+	}
+
+	void setBool(const bool value) {
+		m_lazyVariant.setValue(value);
+	}
+
 	QColor getColor() {
 		return variant().value<QColor>();
 	}
 
-	void set(const QColor &value) {
+	void setColor(const QColor &value) {
 		m_lazyVariant.setValue(value);
 	}
 
@@ -115,7 +129,7 @@ public:
 		return variant().value<int>();
 	}
 
-	void set(const int value) {
+	void setInt(const int value) {
 		m_lazyVariant.setValue(value);
 	}
 

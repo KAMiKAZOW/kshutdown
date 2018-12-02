@@ -98,6 +98,9 @@ void Preferences::apply() {
 	config->endGroup();
 	#endif // Q_OS_LINUX
 
+	Config::cancelDefaultVar.setBool(m_cancelDefault->isChecked());
+	Config::cancelDefaultVar.sync();
+
 	config->sync();
 }
 
@@ -120,12 +123,20 @@ QWidget *Preferences::createGeneralWidget() {
 	m_confirmAction->setChecked(Config::confirmAction());
 	l->addWidget(m_confirmAction);
 
-	m_progressBarEnabled = new QCheckBox(i18n("Progress Bar"));
+	m_cancelDefault = new QCheckBox(i18n("Select \"Cancel\" button by default"));
+	m_cancelDefault->setChecked(Config::cancelDefaultVar.getBool());
+	QString attr = QApplication::isRightToLeft() ? "margin-right" : "margin-left";
+	m_cancelDefault->setStyleSheet("QCheckBox { " + attr + ": 20px; }");
+	l->addWidget(m_cancelDefault);
+
+	l->addSpacing(20_px);
+
+	m_progressBarEnabled = new QCheckBox(i18n("Show progress bar on top/bottom of the screen"));
 	m_progressBarEnabled->setChecked(Config::progressBarEnabled());
-	m_progressBarEnabled->setToolTip(i18n("Show a small progress bar on top/bottom of the screen."));
 // TODO: connect(m_progressBarEnabled, SIGNAL(toggled(bool)), SLOT(onProgressBarEnabled(bool)));
 	l->addWidget(m_progressBarEnabled);
 
+	l->addSpacing(20_px);
 	l->addStretch();
 
 	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate/Suspend"));
