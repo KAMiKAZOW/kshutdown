@@ -36,6 +36,8 @@ Config *Config::m_user = nullptr;
 
 // public
 
+Var Config::cancelDefaultVar = Var("General", "Cancel Default", true);
+
 Config::~Config() {
 	//qDebug() << "Config::~Config()";
 #ifdef KS_PURE_QT

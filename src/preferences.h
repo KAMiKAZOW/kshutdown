@@ -38,6 +38,7 @@ private:
 	bool m_oldProgressBarVisible;
 	PasswordPreferences *m_passwordPreferences;
 	QCheckBox *m_bwTrayIcon;
+	QCheckBox *m_cancelDefault;
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
 	QCheckBox *m_noMinimizeToSystemTrayIcon;

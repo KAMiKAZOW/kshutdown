@@ -39,7 +39,7 @@
 
 void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfig) {
 	if (updateConfig) {
-		m_alignmentVar->set(value);
+		m_alignmentVar->setInt(value);
 		m_alignmentVar->sync();
 	}
 
@@ -355,7 +355,7 @@ void ProgressBar::setSize(const Size size) {
 	setHeight(size);
 	setAlignment(m_alignment, false);
 
-	m_sizeVar->set(size);
+	m_sizeVar->setInt(size);
 	m_sizeVar->sync();
 }
 
@@ -417,7 +417,7 @@ void ProgressBar::onSetColor() {
 		setPalette(p);
 		repaint();
 
-		m_foregroundColorVar->set(newColor);
+		m_foregroundColorVar->setColor(newColor);
 		m_foregroundColorVar->sync();
 	}
 }
