@@ -16,6 +16,7 @@ QT += widgets
 CONFIG += c++14
 
 QMAKE_CXXFLAGS += -Wextra -Wpedantic -Wswitch-enum
+# TODO: enable more warnings
 
 unix {
 	haiku-g++ {

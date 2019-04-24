@@ -1,4 +1,4 @@
-set KS_QT_VERSION=5.11.1
+set KS_QT_VERSION=5.11.2
 set KS_QT_BIN=C:\Qt\Qt%KS_QT_VERSION%\%KS_QT_VERSION%\mingw53_32\bin
 pushd .
 call "%KS_QT_BIN%\qtenv2.bat"
@@ -61,7 +61,7 @@ if exist "%ProgramFiles(x86)%\NSIS\makensis.exe" (
 )
 pause
 if not %errorlevel% == 0 goto quit
-kshutdown-4.99-beta-win32.exe
+kshutdown-5.0-win32.exe
 
 :quit
 echo "DONE"

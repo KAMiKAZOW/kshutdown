@@ -1,6 +1,7 @@
 
 # 5.x
 
+* Update README.html
 * Remove "DEAD:" code
 * Remove remaining old KDE4/Qt4 code
 * Doc: bootentry.h: No such file or directory
