@@ -35,6 +35,7 @@ X-DBUS-ServiceName=net.sf.kshutdown
 # DOC: http://standards.freedesktop.org/menu-spec/latest/apa.html
 Categories=Utility;KDE;Qt;X-SuSE-DesktopUtility;
 StartupNotify=true
+# TODO: StartupWMClass
 
 Actions=Halt;Reboot;Hibernate;Suspend;Lock;Logout;
 

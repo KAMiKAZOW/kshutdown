@@ -26,6 +26,7 @@ rm -f ./kshutdown-*-win32.exe ./kshutdown-portable-*-win32.7z
 rm -fR ./kshutdown-portable
 rm -fR ./src/debug ./src/release
 rm -f \
+	./src/portable.pri \
 	./src/Makefile.Debug ./src/Makefile.Release \
 	./src/object_script.kshutdown.Debug ./src/object_script.kshutdown.Release
 rm -fR "$KS_DIR"
@@ -39,7 +40,7 @@ popd
 # copy source files
 
 mkdir "$KS_DIR"
-cp -- * "$KS_DIR"
+cp -- * .editorconfig "$KS_DIR"
 cp -r "po" "$KS_DIR"
 cp -r "src" "$KS_DIR"
 cp -r "tools" "$KS_DIR"
@@ -47,7 +48,11 @@ cp -r "tools" "$KS_DIR"
 # zip and checksum
 
 mkdir "$KS_DIST_DIR"
-zip -r9 "$KS_DIST_DIR/$KS_ZIP" "$KS_DIR" -x "*~" -x "*/src/extras/*" -x "*/src/kshutdown.ini"
+
+zip -r9 "$KS_DIST_DIR/$KS_ZIP" "$KS_DIR" \
+	-x "*~" -x "*/src/extras/*" -x "*/src/kshutdown.ini" \
+	-x "*/src/*.o" -x "*/src/moc_*.*" -x "*/src/qrc_*.*"
+
 pushd "$KS_DIST_DIR"
 sha256sum "$KS_ZIP">SHA256SUM
 popd
