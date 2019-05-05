@@ -24,6 +24,7 @@
 #include "utils.h"
 #include "actions/extras.h"
 
+#include <QDebug>
 #include <QTextEdit>
 
 // private

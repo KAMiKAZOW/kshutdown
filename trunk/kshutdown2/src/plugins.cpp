@@ -29,6 +29,7 @@
 #include "triggers/idlemonitor.h"
 #include "triggers/processmonitor.h"
 
+#include <QDebug>
 #include <QMessageBox>
 
 // Base
@@ -255,9 +256,9 @@ QDBusInterface *Action::getLoginInterface() {
 			QDBusConnection::systemBus()
 		);
 		if (m_loginInterface->isValid())
-			U_DEBUG << "systemd/logind backend found..." U_END;
+			qDebug() << "systemd/logind backend found...";
 		else
-			U_DEBUG << "systemd/logind backend NOT found..." U_END;
+			qDebug() << "systemd/logind backend NOT found...";
 	}
 
 	return m_loginInterface;
@@ -266,32 +267,32 @@ QDBusInterface *Action::getLoginInterface() {
 
 bool Action::launch(const QString &program, const QStringList &args, const bool detached) {
 	if (detached) {
-		U_DEBUG << "Launching detached \"" << program << "\" with \"" << args << "\" arguments" U_END;
+		qDebug() << "Launching detached \"" << program << "\" with \"" << args << "\" arguments";
 
 		// HACK: start detached to fix session manager hang in GNOME-based DEs
 		bool ok = QProcess::startDetached(program, args);
-		U_DEBUG << "Started OK: " << ok U_END;
+		qDebug() << "Started OK: " << ok;
 
 		return ok;
 	}
 
-	U_DEBUG << "Launching \"" << program << "\" with \"" << args << "\" arguments" U_END;
+	qDebug() << "Launching \"" << program << "\" with \"" << args << "\" arguments";
 
 	int exitCode = QProcess::execute(program, args);
 
 	if (exitCode == -2) {
-		U_DEBUG << "Process failed to start (-2)" U_END;
+		qDebug() << "Process failed to start (-2)";
 
 		return false;
 	}
 
 	if (exitCode == -1) {
-		U_DEBUG << "Process crashed (-1)" U_END;
+		qDebug() << "Process crashed (-1)";
 
 		return false;
 	}
 
-	U_DEBUG << "Exit code: " << exitCode U_END;
+	qDebug() << "Exit code: " << exitCode;
 
 	return (exitCode == 0);
 }
@@ -308,7 +309,7 @@ bool Action::unsupportedAction() {
 void Action::slotFire() {
 	Log::info("Execute action: " + m_id + " (" + m_originalText + ')');
 
-	U_DEBUG << "Action::slotFire() [ id=" << m_id << " ]" U_END;
+	qDebug() << "Action::slotFire() [ id=" << m_id << " ]";
 
 	if (!isEnabled()) {
 		QString s = m_disableReason.isEmpty() ? i18n("Unknown error") : m_disableReason;
@@ -366,7 +367,7 @@ void PluginManager::add(Trigger *trigger) {
 }
 
 void PluginManager::init() {
-	qDebug() << "PluginManager::init (Action)" U_END;
+	qDebug() << "PluginManager::init (Action)";
 
 	add(new ShutDownAction());
 	add(new RebootAction());
@@ -377,7 +378,7 @@ void PluginManager::init() {
 	add(Extras::self());
 	add(new TestAction());
 
-	qDebug() << "PluginManager::init (Trigger)" U_END;
+	qDebug() << "PluginManager::init (Trigger)";
 
 	add(new NoDelayTrigger());
 	add(new TimeFromNowTrigger());

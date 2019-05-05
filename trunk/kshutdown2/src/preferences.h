@@ -18,7 +18,6 @@
 #ifndef KSHUTDOWN_PREFERENCES_H
 #define KSHUTDOWN_PREFERENCES_H
 
-#include "pureqt.h"
 #include "udialog.h"
 
 #include <QCheckBox>

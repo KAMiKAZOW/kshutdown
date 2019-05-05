@@ -21,6 +21,7 @@
 #include "config.h"
 #include "mainwindow.h"
 
+#include <QDebug>
 #include <QMenuBar>
 #include <QPushButton>
 
@@ -134,7 +135,7 @@ void Mod::init() {
 	if (list.isEmpty())
 		return;
 	
-	U_DEBUG << "Mod value:" << mod U_END;
+	qDebug() << "Mod value:" << mod;
 	
 	foreach(const QString &item, list) {
 		QString token = item.trimmed();
@@ -155,7 +156,7 @@ void Mod::init() {
 
 		name = name.trimmed();
 
-		U_DEBUG << "Mod insert: " << name << "=" << value U_END;
+		qDebug() << "Mod insert: " << name << "=" << value;
 		m_map->insert(name, value);
 	}
 }

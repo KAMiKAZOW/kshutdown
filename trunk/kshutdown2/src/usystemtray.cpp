@@ -21,6 +21,7 @@
 #include "mainwindow.h"
 #include "utils.h"
 
+#include <QDebug>
 #include <QPainter>
 
 // TODO: better support for dock(ish) taskbars (Windows 7/Unity)

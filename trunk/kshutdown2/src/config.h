@@ -18,8 +18,6 @@
 #ifndef KSHUTDOWN_CONFIG_H
 #define KSHUTDOWN_CONFIG_H
 
-#include "pureqt.h"
-
 #include <QColor>
 
 #ifdef KS_PURE_QT

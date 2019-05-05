@@ -18,8 +18,6 @@
 #ifndef KSHUTDOWN_UTILS_H
 #define KSHUTDOWN_UTILS_H
 
-#include "pureqt.h"
-
 #include <QApplication>
 #include <QMenu>
 #include <QProcess>

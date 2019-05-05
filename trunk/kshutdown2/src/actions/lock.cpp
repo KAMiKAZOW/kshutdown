@@ -22,6 +22,8 @@
 #include "../config.h"
 #include "../utils.h"
 
+#include <QDebug>
+
 #ifdef Q_OS_WIN32
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
@@ -61,10 +63,10 @@ bool LockAction::onAction() {
 
 	customCommand = customCommand.trimmed();
 	if (!customCommand.isEmpty()) {
-		U_DEBUG << "Using custom lock command: " << customCommand U_END;
+		qDebug() << "Using custom lock command: " << customCommand;
 		int exitCode = QProcess::execute(customCommand);
 		if (exitCode != 0)
-			U_DEBUG << "Lock command failed to start" U_END;
+			qDebug() << "Lock command failed to start";
 		else
 			return true;
 	}
@@ -226,7 +228,7 @@ QDBusInterface *LockAction::getQDBusInterface() {
 		if (!m_qdbusInterface->isValid() && Utils::isKDE()) {
 			delete m_qdbusInterface;
 			
-			U_DEBUG << "LockAction::getQDBusInterface(): using org.kde.krunner" U_END;
+			qDebug() << "LockAction::getQDBusInterface(): using org.kde.krunner";
 			m_qdbusInterface = new QDBusInterface(
 				"org.kde.krunner",
 				"/ScreenSaver",
@@ -234,7 +236,7 @@ QDBusInterface *LockAction::getQDBusInterface() {
 			);
 		}
 		else {
-			U_DEBUG << "LockAction::getQDBusInterface(): using org.freedesktop.ScreenSaver" U_END;
+			qDebug() << "LockAction::getQDBusInterface(): using org.freedesktop.ScreenSaver";
 		}
 	}
 	
