@@ -23,11 +23,11 @@
 #include "mainwindow.h"
 #include "password.h"
 #include "progressbar.h"
-#include "pureqt.h"
 #include "utils.h"
 #include "actions/bootentry.h"
 #include "actions/lock.h"
 
+#include <QDebug>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPushButton>

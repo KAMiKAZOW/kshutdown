@@ -21,6 +21,7 @@
 #include "../utils.h"
 
 #include <QAbstractItemView>
+#include <QDebug>
 #include <QFileInfo>
 
 // BootEntry
@@ -101,10 +102,10 @@ QStringList BootEntry::getList() {
 				qCritical() << "Error parsing menuentry: " << line;
 
 			if (line.contains("(memtest86+")) {
-				U_DEBUG << "Skipping Boot Entry: " << line U_END;
+				qDebug() << "Skipping Boot Entry: " << line;
 			}
 			else {
-				U_DEBUG << "Adding Boot Entry: " << line U_END;
+				qDebug() << "Adding Boot Entry: " << line;
 				m_list << line;
 			}
 		}
@@ -138,7 +139,7 @@ BootEntryAction::BootEntryAction(const QString &name) :
 // private slots:
 
 void BootEntryAction::onAction() {
-	U_DEBUG << m_name U_END;
+	qDebug() << m_name;
 }
 
 // BootEntryComboBox

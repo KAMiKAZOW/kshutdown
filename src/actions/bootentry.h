@@ -18,8 +18,6 @@
 #ifndef KSHUTDOWN_BOOTENTRY_H
 #define KSHUTDOWN_BOOTENTRY_H
 
-#include "../pureqt.h"
-
 #include <QComboBox>
 #include <QMenu>
 

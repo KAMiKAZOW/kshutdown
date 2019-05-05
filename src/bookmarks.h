@@ -22,7 +22,6 @@
 
 #include "config.h"
 #include "kshutdown.h"
-#include "pureqt.h"
 
 #include <QMenu>
 

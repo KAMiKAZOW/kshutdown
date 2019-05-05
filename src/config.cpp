@@ -18,10 +18,10 @@
 #include "config.h"
 
 #include "commandline.h"
-#include "pureqt.h"
 
 #ifdef KS_PURE_QT
 	#include <QApplication>
+	#include <QDebug>
 	#include <QDir>
 #else
 	#include <KConfig>

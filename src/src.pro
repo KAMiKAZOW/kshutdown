@@ -46,7 +46,6 @@ HEADERS += \
 	plugins.h \
 	preferences.h \
 	progressbar.h \
-	pureqt.h \
 	stats.h \
 	udialog.h \
 	usystemtray.h \

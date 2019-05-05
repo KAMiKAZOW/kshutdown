@@ -18,7 +18,6 @@
 #ifndef KSHUTDOWN_PASSWORD_H
 #define KSHUTDOWN_PASSWORD_H
 
-#include "pureqt.h"
 #include "udialog.h"
 
 #include <QCheckBox>

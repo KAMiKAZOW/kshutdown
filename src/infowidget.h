@@ -18,8 +18,6 @@
 #ifndef KSHUTDOWN_INFOWIDGET_H
 #define KSHUTDOWN_INFOWIDGET_H
 
-#include "pureqt.h"
-
 #include <QFrame>
 #include <QLabel>
 

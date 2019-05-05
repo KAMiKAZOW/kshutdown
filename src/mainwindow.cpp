@@ -40,6 +40,7 @@
 #endif // KS_PURE_QT
 
 #include <QCloseEvent>
+#include <QDebug>
 #include <QMenuBar>
 #include <QTimer>
 
@@ -172,7 +173,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 						menu->addAction(action->uiAction());
 				}
 				else {
-					U_DEBUG << "Unknown ui-menu element: " << id U_END;
+					qDebug() << "Unknown ui-menu element: " << id;
 				}
 			}
 		}
@@ -264,7 +265,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 	if (m_active == yes)
 		return;
 
-	U_DEBUG << "MainWindow::setActive( " << yes << " )" U_END;
+	qDebug() << "MainWindow::setActive( " << yes << " )";
 
 	if (needAuthorization && !yes && !PasswordDialog::authorize(this, i18n("Cancel"), "kshutdown/action/cancel"))
 		return;
@@ -285,7 +286,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 	Trigger *trigger = getSelectedTrigger();
 	if (yes && !PluginManager::triggerMap().contains(trigger->id())) {
 // TODO: GUI
-		U_DEBUG << "MainWindow::setActive: trigger disabled: " << trigger->text() << ", " << trigger->disableReason() U_END;
+		qDebug() << "MainWindow::setActive: trigger disabled: " << trigger->text() << ", " << trigger->disableReason();
 	
 		return;
 	}
@@ -1149,7 +1150,7 @@ void MainWindow::onActionActivated(int index) {
 
 void MainWindow::onCheckTrigger() {
 	if (!m_active) {
-		U_DEBUG << "MainWindow::onCheckTrigger(): INTERNAL ERROR"  U_END;
+		qDebug() << "MainWindow::onCheckTrigger(): INTERNAL ERROR";
 
 		return;
 	}
@@ -1162,7 +1163,7 @@ void MainWindow::onCheckTrigger() {
 
 		Action *action = getSelectedAction();
 		if (action->isEnabled()) {
-			U_DEBUG << "Activate action: force=" << m_force->isChecked() U_END;
+			qDebug() << "Activate action: force=" << m_force->isChecked();
 			action->activate(m_force->isChecked());
 		}
 		

@@ -32,6 +32,8 @@
 
 #ifdef KS_KF5
 	#include <KIdleTime>
+#else
+	#include <QDebug>
 #endif // KS_KF5
 
 // public

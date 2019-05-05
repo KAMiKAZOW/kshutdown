@@ -22,6 +22,7 @@
 #include "../password.h"
 #include "../utils.h"
 
+#include <QDebug>
 #include <QDesktopServices>
 #include <QDir>
 #include <QMessageBox>

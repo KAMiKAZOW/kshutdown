@@ -25,6 +25,7 @@
 #include "utils.h"
 
 #include <QColorDialog>
+#include <QDebug>
 #include <QDesktopWidget>
 #include <QMenu>
 #include <QMouseEvent>
@@ -60,7 +61,7 @@ void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfi
 
 
 void ProgressBar::setDemo(const bool active) {
-	U_DEBUG << "ProgressBar::setDemo: " << active U_END;
+	qDebug() << "ProgressBar::setDemo: " << active;
 
 	if (active) {
 		m_demoWidth = 0_px;
