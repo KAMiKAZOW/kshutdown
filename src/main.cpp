@@ -86,7 +86,7 @@ void initAboutData(const QString &appDescription) {
 	KAboutData about(
 		"kshutdown", // app name - used in config file name etc.
 		"KShutdown", // program display name
-		KS_FULL_VERSION
+		KS_APP_VERSION
 	);
 
 	about.setBugAddress(KS_CONTACT);
@@ -116,7 +116,7 @@ qdbus net.sf.kshutdown /kshutdown/main_window hide
 void initAppProperties() {
 	QApplication::setApplicationName("KShutdown"); // used as file name in ~/.config/kshutdown.sf.net/KShutdown.conf
 	QApplication::setApplicationDisplayName("KShutdown"); // no i18n
-	QApplication::setApplicationVersion(KS_FULL_VERSION);
+	QApplication::setApplicationVersion(KS_APP_VERSION);
 
 	// NOTE: do not modify!
 	#ifdef KS_PURE_QT

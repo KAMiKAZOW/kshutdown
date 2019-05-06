@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -u
+
 if [ ! -d "src" ]; then
 	echo "Usage: ./tools/$(basename "$0")"
 	exit 1
@@ -12,13 +14,13 @@ fi
 # make version number
 
 ./tools/make-version.sh
-KS_FILE_VERSION=$(sed 1!d VERSION)
+KS_APP_VERSION=$(sed 1!d VERSION)
 
 # init variables
 
-KS_DIR="kshutdown-$KS_FILE_VERSION"
+KS_DIR="kshutdown-$KS_APP_VERSION"
 KS_DIST_DIR="dist.tmp"
-KS_ZIP="kshutdown-source-$KS_FILE_VERSION.zip"
+KS_ZIP="kshutdown-source-$KS_APP_VERSION.zip"
 
 # clean before copy
 

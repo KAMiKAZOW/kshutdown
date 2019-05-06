@@ -1,5 +1,7 @@
 5.0
-5.0
-2019-05-04
+2019-05-06
 0x050900
 5.9
+5.11.2
+
+# HINT: Run "./tools/make-version.sh" to update version numbers and see its descriptions
