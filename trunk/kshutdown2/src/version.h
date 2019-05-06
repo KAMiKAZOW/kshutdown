@@ -4,9 +4,8 @@
 
 #include <QtGlobal>
 
-#define KS_FILE_VERSION "5.0"
-#define KS_FULL_VERSION "5.0"
-#define KS_RELEASE_DATE "2019-05-04"
+#define KS_APP_VERSION "5.0"
+#define KS_RELEASE_DATE "2019-05-06"
 
 #if QT_VERSION < 0x050900
 	#error "KShutdown 5.0 requires Qt 5.9 or newer"

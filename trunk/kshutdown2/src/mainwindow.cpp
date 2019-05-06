@@ -1047,7 +1047,7 @@ void MainWindow::onAbout() {
 	titleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
 	QString releaseNotes =
-		"https://kshutdown.sourceforge.io/releases/" KS_FILE_VERSION ".html";
+		"https://kshutdown.sourceforge.io/releases/" KS_APP_VERSION ".html";
 	auto *aboutLabel = new QLabel(
 		"<qt>" +
 		CLI::getArgs()->applicationDescription() + "<br />" \
