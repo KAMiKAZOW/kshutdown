@@ -2,10 +2,9 @@
 Unicode true
 
 !include "MUI.nsh"
-!include "kshutdown.nsh"
 
 Name "KShutdown"
-OutFile "kshutdown-${APP_FILE_VERSION}-win32.exe"
+OutFile "kshutdown-${APP_VERSION}-win32.exe"
 InstallDir "$PROGRAMFILES\KShutdown"
 InstallDirRegKey HKCU "Software\kshutdown.sf.net" ""
 
@@ -38,7 +37,7 @@ Section "-"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\kshutdown.exe" "" "$INSTDIR\kshutdown.exe"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayIcon" "$INSTDIR\kshutdown.ico"
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayName" "KShutdown"
-	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayVersion" "${APP_FULL_VERSION}"
+	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "DisplayVersion" "${APP_VERSION}"
 	WriteRegDWORD HKLM "${APP_UNINSTALL_REG}" "NoModify" 1
 	WriteRegDWORD HKLM "${APP_UNINSTALL_REG}" "NoRepair" 1
 	WriteRegStr HKLM "${APP_UNINSTALL_REG}" "Publisher" "Konrad Twardowski"
