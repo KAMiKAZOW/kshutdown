@@ -41,6 +41,7 @@
 
 #include <QCloseEvent>
 #include <QDebug>
+#include <QDesktopServices>
 #include <QMenuBar>
 #include <QTimer>
 
@@ -788,9 +789,19 @@ void MainWindow::initMenuBar() {
 	helpMenu->addAction(i18n("About"), this, SLOT(onAbout()), QKeySequence("Ctrl+H,E,L,P"));
 #endif // KS_KF5
 
+	connect(helpMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
+	helpMenu->setToolTipsVisible(true);
+
 	auto *cliAction = new QAction(i18n("Command Line Options"), helpMenu);
 	connect(cliAction, &QAction::triggered, [this]() {
 		CLI::showHelp(this);
+	});
+
+	auto *whatsNewAction = new QAction(i18n("What's New?"), helpMenu);
+	QString releaseNotes = "https://kshutdown.sourceforge.io/releases/" + KS_APP_VERSION + ".html";
+	whatsNewAction->setToolTip(releaseNotes);
+	connect(whatsNewAction, &QAction::triggered, [releaseNotes]() {
+		QDesktopServices::openUrl(releaseNotes);
 	});
 
 // TODO: D-Bus help
@@ -799,6 +810,7 @@ void MainWindow::initMenuBar() {
 	// insert before other menu items
 	auto *firstAction = helpMenu->actions().first();
 	helpMenu->insertAction(firstAction, cliAction);
+	helpMenu->insertAction(firstAction, whatsNewAction);
 	helpMenu->insertSeparator(firstAction);
 
 	menuBar->addMenu(helpMenu);
@@ -1046,14 +1058,10 @@ void MainWindow::onAbout() {
 	);
 	titleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
-	QString releaseNotes =
-		"https://kshutdown.sourceforge.io/releases/" KS_APP_VERSION ".html";
 	auto *aboutLabel = new QLabel(
 		"<qt>" +
 		CLI::getArgs()->applicationDescription() + "<br />" \
-		"<a href=\"" KS_HOME_PAGE "\">kshutdown.sourceforge.io</a><br />" \
-		"<br />" \
-		"<a href=\"" + releaseNotes + "\">" + i18n("What's New?") + "</a><br />" \
+		"<a href=\"" KS_HOME_PAGE "\">kshutdown.sourceforge.io</a>" \
 		"</qt>"
 	);
 	aboutLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);

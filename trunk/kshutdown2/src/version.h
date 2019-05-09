@@ -2,13 +2,13 @@
 #ifndef KSHUTDOWN_VERSION_H
 #define KSHUTDOWN_VERSION_H
 
-#include <QtGlobal>
+#include <QString>
 
-#define KS_APP_VERSION "5.0"
-#define KS_RELEASE_DATE "2019-05-06"
+const QString KS_APP_VERSION = "5.1-beta";
+const QString KS_RELEASE_DATE = "2019-05-09";
 
 #if QT_VERSION < 0x050900
-	#error "KShutdown 5.0 requires Qt 5.9 or newer"
+	#error "KShutdown 5.1-beta requires Qt 5.9 or newer"
 #endif // QT_VERSION
 
 #if defined(KS_KF5) && defined(KS_PURE_QT)

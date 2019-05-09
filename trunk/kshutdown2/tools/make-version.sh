@@ -22,10 +22,10 @@ cat > "src/version.h" <<EOF
 #ifndef KSHUTDOWN_VERSION_H
 #define KSHUTDOWN_VERSION_H
 
-#include <QtGlobal>
+#include <QString>
 
-#define KS_APP_VERSION "$KS_APP_VERSION"
-#define KS_RELEASE_DATE "$KS_RELEASE_DATE"
+const QString KS_APP_VERSION = "$KS_APP_VERSION";
+const QString KS_RELEASE_DATE = "$KS_RELEASE_DATE";
 
 #if QT_VERSION < $KS_QT_INT_VERSION
 	#error "KShutdown $KS_APP_VERSION requires Qt $KS_QT_FULL_VERSION or newer"

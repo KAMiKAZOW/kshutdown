@@ -41,7 +41,7 @@ bool commonStartup(const QStringList &arguments, const QCommandLineOption &versi
 		qWarning() << CLI::getArgs()->errorText();
 
 	if (CLI::getArgs()->isSet(versionOption)) {
-		QString text = QApplication::applicationDisplayName() + " " + QApplication::applicationVersion() + " (" KS_RELEASE_DATE ")\n";
+		QString text = QApplication::applicationDisplayName() + " " + QApplication::applicationVersion() + " (" + KS_RELEASE_DATE + ")\n";
 		text += "Qt ";
 		text += qVersion();
 		text += " (compiled using " QT_VERSION_STR ")";
