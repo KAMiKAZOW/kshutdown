@@ -1096,6 +1096,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 
 	auto *licenseLabel = new QLabel(licenseText.replace("\n", "<br />"));
 	licenseLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+// TODO: https://doc.qt.io/qt-5/qlabel.html#textInteractionFlags-prop
 	licenseLabel->setOpenExternalLinks(true);
 
 	auto *aboutQtButton = new QPushButton(i18n("About Qt"));
@@ -1122,6 +1123,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	tabs->addTab(aboutTab, i18n("About"));
 	tabs->addTab(licenseTab, i18n("License"));
 	dialog->mainLayout()->addWidget(tabs);
+	tabs->setFocus();
 
 	dialog->exec();
 }
