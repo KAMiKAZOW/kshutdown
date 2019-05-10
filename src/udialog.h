@@ -28,6 +28,7 @@ public:
 	explicit UDialog(QWidget *parent, const QString &windowTitle, const bool simple);
 	virtual ~UDialog() = default;
 	inline QPushButton *acceptButton() { return m_acceptButton; }
+	QDialogButtonBox *buttonBox() { return m_dialogButtonBox; }
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
 	inline QVBoxLayout *rootLayout() { return m_rootLayout; }
 	// messages

@@ -25,6 +25,7 @@
 #include "actions/extras.h"
 
 #include <QDebug>
+#include <QDesktopServices>
 #include <QTextEdit>
 
 // private
@@ -42,20 +43,7 @@ QTime TimeOption::m_time = QTime();
 
 bool CLI::check() {
 	if (isArg("help")) {
-		//#ifdef Q_OS_WIN32
 		showHelp(nullptr);
-/* DEAD:
-		#else
-		QString moreInfo =
-			"\n" +
-			i18n("More Info...") + "\n" +
-			"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/";
-
-		QTextStream out(stdout);
-		out << m_args->helpText();
-		out << moreInfo << endl;
-		#endif // Q_OS_WIN32
-*/
 
 		return true;
 	}
@@ -262,13 +250,6 @@ void CLI::showHelp(QWidget *parent) {
 		html += "</tr>\n";
 	}
 
-// FIXME: clickable link opens two invalid browser tabs
-// (https://sourceforge.net/auth/?return_to=%2Fp%2Fkshutdown%2Fwiki%2FCommand and http://www.line.com/)
-// because for some reason "%20" is interpreted as " " :/
-// TODO: rename wiki page to fix the above problem ;)
-	//html += moreInfo;
-	//html += "\n<a href=\"https://sourceforge.net/p/kshutdown/wiki/Command%20Line/\">https://sourceforge.net/p/kshutdown/wiki/Command%20Line/</a>";
-
 	html += "</table>\n";
 	html += "</qt>\n";
 
@@ -280,7 +261,20 @@ void CLI::showHelp(QWidget *parent) {
 */
 
 	QScopedPointer<UDialog> dialog(new UDialog(parent, i18n("Command Line Options"), true));
+
+	auto *closeButton = dialog->buttonBox()->button(QDialogButtonBox::Close);
+	closeButton->setDefault(true);
+
+	auto *wikiButton = dialog->buttonBox()->addButton("Wiki", QDialogButtonBox::ActionRole);
+	QString wikiURL = "https://sourceforge.net/p/kshutdown/wiki/Command%20Line/";
+	wikiButton->setToolTip(wikiURL);
+	QObject::connect(wikiButton, &QPushButton::clicked, [wikiURL]() {
+		QDesktopServices::openUrl(wikiURL);
+	});
+
 	dialog->mainLayout()->addWidget(htmlWidget);
+	htmlWidget->setFocus();
+
 // FIXME: is there any easy way to avoid hardcoded dialog sizes in Qt?
 	dialog->resize(1000_px, 600_px);
 	dialog->exec();

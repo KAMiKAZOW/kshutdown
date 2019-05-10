@@ -66,6 +66,7 @@ Preferences::Preferences(QWidget *parent) :
 	#endif // KS_KF5
 
 	mainLayout()->addWidget(m_tabs);
+	m_tabs->setFocus();
 
 	// show recently used tab
 	Config *config = Config::user();

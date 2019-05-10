@@ -33,6 +33,7 @@ Stats::Stats(QWidget *parent, const QStringList &programAndArgs) :
 	m_textView->setStyleSheet("QPlainTextEdit { font-family: monospace; }");
 
 	mainLayout()->addWidget(m_textView);
+	m_textView->setFocus();
 
 	QProcess process;
 
