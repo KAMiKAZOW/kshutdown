@@ -89,7 +89,7 @@ void initAboutData(const QString &appDescription) {
 		KS_APP_VERSION
 	);
 
-	about.setBugAddress(KS_CONTACT);
+	about.setBugAddress(KS_CONTACT.toUtf8());
 
 	about.setCopyrightStatement(KS_COPYRIGHT);
 	about.setHomepage(KS_HOME_PAGE);
