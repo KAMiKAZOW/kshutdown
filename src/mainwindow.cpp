@@ -1057,15 +1057,18 @@ void MainWindow::onAbout() {
 		"</qt>"
 	);
 	titleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+	titleLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
+	QUrl homePage = QUrl(KS_HOME_PAGE);
 	auto *aboutLabel = new QLabel(
 		"<qt>" +
 		CLI::getArgs()->applicationDescription() + "<br />" \
-		"<a href=\"" KS_HOME_PAGE "\">kshutdown.sourceforge.io</a>" \
+		"<a href=\"" + homePage.toString() + "\">" + homePage.host() + "</a>" \
 		"</qt>"
 	);
 	aboutLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	aboutLabel->setOpenExternalLinks(true);
+	aboutLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
 	auto *titleWidget = new QWidget();
 	auto *titleLayout = new QHBoxLayout(titleWidget);
@@ -1083,8 +1086,10 @@ void MainWindow::onAbout() {
 	aboutLayout->addWidget(aboutLabel);
 	aboutLayout->addStretch();
 
-QString licenseText =
-R"(<qt>This program is <b>free software</b>; you can redistribute it and/or modify
+QString licenseText = "<qt>" +
+	KS_COPYRIGHT + "<br>" +
+	"<br>" +
+R"(This program is <b>free software</b>; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
@@ -1096,8 +1101,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 
 	auto *licenseLabel = new QLabel(licenseText.replace("\n", "<br />"));
 	licenseLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-// TODO: https://doc.qt.io/qt-5/qlabel.html#textInteractionFlags-prop
 	licenseLabel->setOpenExternalLinks(true);
+	licenseLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
 	auto *aboutQtButton = new QPushButton(i18n("About Qt"));
 	aboutQtButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
@@ -1107,7 +1112,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	auto *licenseLayout = new QVBoxLayout(licenseTab);
 	licenseLayout->setMargin(20_px);
 	licenseLayout->setSpacing(20_px);
-	licenseLayout->addWidget(new QLabel(KS_COPYRIGHT));
 // TODO: https://sourceforge.net/p/kshutdown/wiki/Credits/
 	licenseLayout->addWidget(licenseLabel);
 	licenseLayout->addStretch();

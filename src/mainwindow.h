@@ -18,11 +18,6 @@
 #ifndef KSHUTDOWN_MAINWINDOW_H
 #define KSHUTDOWN_MAINWINDOW_H
 
-// used in both main.cpp and mainwindow.cpp
-#define KS_CONTACT "https://kshutdown.sourceforge.io/contact.html"
-#define KS_COPYRIGHT "(C) 2003-3000 Konrad Twardowski"
-#define KS_HOME_PAGE "https://kshutdown.sourceforge.io/"
-
 #include "kshutdown.h"
 
 #include <QCheckBox>

@@ -27,6 +27,10 @@ cat > "src/version.h" <<EOF
 const QString KS_APP_VERSION = "$KS_APP_VERSION";
 const QString KS_RELEASE_DATE = "$KS_RELEASE_DATE";
 
+const QString KS_CONTACT = "https://kshutdown.sourceforge.io/contact.html";
+const QString KS_COPYRIGHT = "(C) 2003-3000 Konrad Twardowski";
+const QString KS_HOME_PAGE = "https://kshutdown.sourceforge.io/";
+
 #if QT_VERSION < $KS_QT_INT_VERSION
 	#error "KShutdown $KS_APP_VERSION requires Qt $KS_QT_FULL_VERSION or newer"
 #endif // QT_VERSION
