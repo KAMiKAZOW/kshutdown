@@ -37,6 +37,7 @@ Config *Config::m_user = nullptr;
 // public
 
 Var Config::cancelDefaultVar = Var("General", "Cancel Default", true);
+Var Config::oldActionNamesVar = Var("General", "Old Action Names", false);
 
 Config::~Config() {
 	//qDebug() << "Config::~Config()";

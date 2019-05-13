@@ -42,27 +42,27 @@ Actions=Halt;Reboot;Hibernate;Suspend;Lock;Logout;
 # NOTE: The localized action names should match translations in ./po directory.
 
 [Desktop Action Halt]
-Name=Turn Off Computer
+Name=Shut Down
 Icon=system-shutdown
 Exec=kshutdown --halt --confirm-auto
 
 [Desktop Action Reboot]
-Name=Restart Computer
+Name=Reboot
 Icon=system-reboot
 Exec=kshutdown --reboot --confirm-auto
 
 [Desktop Action Hibernate]
-Name=Hibernate Computer
+Name=Hibernate
 Icon=system-suspend-hibernate
 Exec=kshutdown --hibernate --confirm-auto
 
 [Desktop Action Suspend]
-Name=Suspend Computer
+Name=Sleep
 Icon=system-suspend
 Exec=kshutdown --suspend --confirm-auto
 
 [Desktop Action Lock]
-Name=Lock Screen
+Name=Lock
 Icon=system-lock-screen
 Exec=kshutdown --lock
 

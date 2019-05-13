@@ -633,14 +633,20 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 // public
 
 HibernateAction::HibernateAction() :
-	PowerAction(i18n("Hibernate Computer"), "system-suspend-hibernate", "hibernate") {
+	PowerAction(
+		Config::oldActionNamesVar.getBool() ? i18n("Hibernate Computer") : i18n("Hibernate"),
+		"system-suspend-hibernate", "hibernate"
+) {
 	m_methodName = "Hibernate";
 	if (!isAvailable(PowerActionType::Hibernate))
 		disable(i18n("Cannot hibernate computer"));
 
 	addCommandLineArg("H", "hibernate");
 
-	uiAction()->setStatusTip(i18n("Save the contents of RAM to disk\nthen turn off the computer."));
+	uiAction()->setStatusTip(
+		i18n("Hibernate Computer") + "\n" +
+		i18n("Save the contents of RAM to disk\nthen turn off the computer.")
+	);
 }
 
 // SuspendAction
@@ -652,7 +658,8 @@ SuspendAction::SuspendAction() :
 		#ifdef Q_OS_WIN32
 		i18n("Sleep"),
 		#else
-		i18n("Suspend Computer"),
+		// NOTE: Matches https://phabricator.kde.org/D19184
+		Config::oldActionNamesVar.getBool() ? i18n("Suspend Computer") : i18n("Sleep"),
 		#endif // Q_OS_WIN32
 		"system-suspend", "suspend") {
 	m_methodName = "Suspend";
@@ -661,7 +668,10 @@ SuspendAction::SuspendAction() :
 
 	addCommandLineArg("S", "suspend");
 
-	uiAction()->setStatusTip(i18n("Enter in a low-power state mode."));
+	uiAction()->setStatusTip(
+		i18n("Suspend Computer") + "\n" +
+		i18n("Enter in a low-power state mode.")
+	);
 }
 
 // StandardAction
@@ -1209,6 +1219,8 @@ LogoutAction::LogoutAction() :
 		#endif // Q_OS_WIN32
 		"system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT
 ) {
+	uiAction()->setStatusTip(i18n("End Session"));
+
 	addCommandLineArg("l", "logout");
 
 	#ifdef Q_OS_HAIKU
@@ -1221,8 +1233,13 @@ LogoutAction::LogoutAction() :
 // public
 
 RebootAction::RebootAction() :
-	StandardAction(i18n("Restart Computer"), QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
+	StandardAction(
+		Config::oldActionNamesVar.getBool() ? i18n("Restart Computer") : i18n("Reboot"),
+		QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
 	m_bootEntryComboBox(nullptr) {
+
+	if (!Config::oldActionNamesVar.getBool())
+		uiAction()->setStatusTip(i18n("Restart Computer"));
 
 #ifdef KS_KF5
 /* HACK: crash on KDE 4.5.0
@@ -1274,7 +1291,12 @@ QWidget *RebootAction::getWidget() {
 // public
 
 ShutDownAction::ShutDownAction() :
-	StandardAction(i18n("Turn Off Computer"), "system-shutdown", "shutdown", U_SHUTDOWN_TYPE_HALT) {
+	StandardAction(
+		Config::oldActionNamesVar.getBool() ? i18n("Turn Off Computer") : i18n("Shut Down"),
+		"system-shutdown", "shutdown", U_SHUTDOWN_TYPE_HALT
+) {
+	if (!Config::oldActionNamesVar.getBool())
+		uiAction()->setStatusTip(i18n("Turn Off Computer"));
 
 	addCommandLineArg("h", "halt");
 	addCommandLineArg("s", "shutdown");

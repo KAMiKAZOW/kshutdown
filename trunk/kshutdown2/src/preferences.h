@@ -41,6 +41,7 @@ private:
 	QCheckBox *m_confirmAction;
 	QCheckBox *m_lockScreenBeforeHibernate;
 	QCheckBox *m_noMinimizeToSystemTrayIcon;
+	QCheckBox *m_oldActionNames;
 	QCheckBox *m_progressBarEnabled;
 	QCheckBox *m_systemTrayIconEnabled;
 	#ifndef KS_KF5

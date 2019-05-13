@@ -247,10 +247,16 @@ QDBusInterface *LockAction::getQDBusInterface() {
 // private
 
 LockAction::LockAction() :
-	Action(i18n("Lock Screen"), "system-lock-screen", "lock") {
+	Action(
+		Config::oldActionNamesVar.getBool() ? i18n("Lock Screen") : i18n("Lock"),
+		"system-lock-screen", "lock"
+) {
 	
 	setCanBookmark(true);
 	setShouldStopTimer(false);
+
+	if (!Config::oldActionNamesVar.getBool())
+		uiAction()->setStatusTip(i18n("Lock Screen"));
 
 	addCommandLineArg("k", "lock");
 	
