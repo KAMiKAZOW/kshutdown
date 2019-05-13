@@ -102,6 +102,9 @@ void Preferences::apply() {
 	Config::cancelDefaultVar.setBool(m_cancelDefault->isChecked());
 	Config::cancelDefaultVar.sync();
 
+	Config::oldActionNamesVar.setBool(m_oldActionNames->isChecked());
+	Config::oldActionNamesVar.sync();
+
 	config->sync();
 }
 
@@ -131,6 +134,14 @@ QWidget *Preferences::createGeneralWidget() {
 	l->addWidget(m_cancelDefault);
 
 	l->addSpacing(20_px);
+
+	m_oldActionNames = new QCheckBox(i18n("Use old action names"));
+	m_oldActionNames->setChecked(Config::oldActionNamesVar.getBool());
+	m_oldActionNames->setToolTip(
+		i18n("Old: %0").arg(i18n("Turn Off Computer") + ", " + i18n("Suspend Computer") + ", ...") + "\n" +
+		i18n("New: %0").arg(i18n("Shut Down") + ", " + i18n("Sleep") + ", ...")
+	);
+	l->addWidget(m_oldActionNames);
 
 	m_progressBarEnabled = new QCheckBox(i18n("Show progress bar on top/bottom of the screen"));
 	m_progressBarEnabled->setChecked(Config::progressBarEnabled());

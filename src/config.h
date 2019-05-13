@@ -38,6 +38,7 @@ class Var;
 class Config final: public QObject {
 public:
 	static Var cancelDefaultVar;
+	static Var oldActionNamesVar;
 
 	virtual ~Config();
 

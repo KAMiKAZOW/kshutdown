@@ -117,15 +117,22 @@ void CLI::init(const QString &appDescription) {
 
 // TODO: Ideally this should be in Action to avoid code duplication.
 // Unfortunatelly due to chicked-egg circular deps it's not possible (?)
-	m_args->addOption({ { "h", "halt" }, i18n("Turn Off Computer") });
-	m_args->addOption({ { "s", "shutdown" }, i18n("Turn Off Computer") });
-	m_args->addOption({ { "r", "reboot" }, i18n("Restart Computer") });
+	m_args->addOption({ { "h", "halt" }, i18n("Shut Down") + " — " + i18n("Turn Off Computer") });
+	m_args->addOption({ { "s", "shutdown" }, i18n("Shut Down") + " — " + i18n("Turn Off Computer") });
+	m_args->addOption({ { "r", "reboot" }, i18n("Reboot") + " — " + i18n("Restart Computer") });
 
 	m_args->addOption({ { "H", "hibernate" }, i18n("Hibernate Computer") });
-	m_args->addOption({ { "S", "suspend" }, i18n("Suspend Computer") });
+	m_args->addOption({ { "S", "suspend" }, i18n("Sleep") + " — " + i18n("Suspend Computer") });
 
 	m_args->addOption({ { "k", "lock" }, i18n("Lock Screen") });
-	m_args->addOption({ { "l", "logout" }, i18n("Logout") });
+	m_args->addOption({ { "l", "logout" },
+		#ifdef Q_OS_WIN32
+		i18n("Log Off")
+		#else
+		i18n("Logout")
+		#endif // Q_OS_WIN32
+		+ " — " + i18n("End Session")
+	});
 
 	m_args->addOption({
 		{ "e", "extra" },
