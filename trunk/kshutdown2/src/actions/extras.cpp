@@ -174,7 +174,9 @@ Extras::Extras() :
 
 	setCanBookmark(true);
 	uiAction()->setMenu(createMenu());
-	setShowInMenu(false);
+	setVisibleInMainMenu(false);
+	setVisibleInSystemTrayMenu(false);
+
 	m_menuButton = new QPushButton();
 	m_menuButton->setMenu(uiAction()->menu());
 	

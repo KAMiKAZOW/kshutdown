@@ -125,7 +125,7 @@ private:
 	USystemTray *m_systemTray;
 	explicit MainWindow();
 	QAction *createQuitAction();
-	void initFileMenu(QMenu *fileMenu);
+	void initFileMenu(QMenu *fileMenu, const bool mainMenu);
 	void initMenuBar();
 	void initTriggers();
 	void initWidgets();

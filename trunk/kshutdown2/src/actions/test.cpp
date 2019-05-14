@@ -32,7 +32,8 @@ TestAction::TestAction() :
 {
 // TODO: sound beep
 	setCanBookmark(true);
-	setShowInMenu(false);
+	setVisibleInMainMenu(false);
+	setVisibleInSystemTrayMenu(false);
 
 	addCommandLineArg(QString::null, "test");
 }
