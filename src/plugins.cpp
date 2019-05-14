@@ -94,7 +94,6 @@ Action::Action(const QString &text, const QString &iconName, const QString &id) 
 	Base(id),
 	m_force(false),
 	m_shouldStopTimer(true),
-	m_showInMenu(true),
 	m_commandLineArgs(QStringList()) {
 	m_originalText = text;
 
@@ -152,6 +151,19 @@ QAction *Action::createConfirmAction(const bool alwaysShowConfirmationMessage) {
 	});
 
 	return result;
+}
+
+int Action::getUIGroup() const {
+	if ((m_id == "shutdown") || (m_id == "reboot"))
+		return 0;
+
+	if ((m_id == "hibernate") || (m_id == "suspend"))
+		return 1;
+
+	if ((m_id == "lock") || (m_id == "logout"))
+		return 2;
+
+	return 3;
 }
 
 bool Action::isCommandLineArgSupported() {
@@ -304,6 +316,14 @@ bool Action::unsupportedAction() {
 	return false;
 }
 
+// private:
+
+void Action::readProperties(Config *config) {
+	m_visibleInMainMenu = config->read("Visible In Main Menu", m_visibleInMainMenu).toBool();
+	m_visibleInSystemTrayMenu = config->read("Visible In System Tray Menu", m_visibleInSystemTrayMenu).toBool();
+	m_visibleInWindow = config->read("Visible In Window", m_visibleInWindow).toBool();
+}
+
 // private slots
 
 void Action::slotFire() {
@@ -395,6 +415,7 @@ void PluginManager::init() {
 
 	foreach (Action *i, actionList()) {
 		config->beginGroup("KShutdown Action " + i->id());
+		i->readProperties(config);
 		i->readConfig(config);
 		config->endGroup();
 	}

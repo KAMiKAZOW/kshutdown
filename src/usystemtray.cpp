@@ -105,7 +105,7 @@ void USystemTray::setVisible(const bool visible) {
 		#endif // KS_KF5
 
 		auto *menu = new QMenu();
-		mainWindow->initFileMenu(menu);
+		mainWindow->initFileMenu(menu, false);
 		m_trayIcon->setContextMenu(menu);
 
 		updateIcon(mainWindow);

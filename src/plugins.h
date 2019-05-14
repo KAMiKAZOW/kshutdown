@@ -90,6 +90,7 @@ private:
 };
 
 class Action: public Base {
+	friend class PluginManager;
 	Q_OBJECT
 public:
 	explicit Action(const QString &text, const QString &iconName, const QString &id);
@@ -99,6 +100,7 @@ public:
 	inline QStringList getCommandLineArgs() const {
 		return m_commandLineArgs;
 	}
+	int getUIGroup() const;
 	QIcon icon() const { return m_uiAction->icon(); }
 	bool isCommandLineArgSupported();
 	virtual bool isEnabled() const override { return m_uiAction->isEnabled(); }
@@ -109,18 +111,21 @@ public:
 	inline void setShouldStopTimer(const bool value) {
 		m_shouldStopTimer = value;
 	}
-	inline bool showInMenu() const {
-		return m_showInMenu;
-	}
-	inline void setShowInMenu(const bool value) {
-		m_showInMenu = value;
-	}
 	bool showConfirmationMessage();
 	inline static bool totalExit() {
 		return m_totalExit;
 	}
 	virtual void updateMainWindow(MainWindow *mainWindow);
 	QAction *uiAction() const { return m_uiAction; }
+
+	bool visibleInMainMenu() const { return m_visibleInMainMenu; }
+	void setVisibleInMainMenu(const bool value) { m_visibleInMainMenu = value; }
+
+	bool visibleInSystemTrayMenu() const { return m_visibleInSystemTrayMenu; }
+	void setVisibleInSystemTrayMenu(const bool value) { m_visibleInSystemTrayMenu = value; }
+
+	bool visibleInWindow() const { return m_visibleInWindow; }
+	void setVisibleInWindow(const bool value) { m_visibleInWindow = value; }
 protected:
 	bool m_force;
 	static bool m_totalExit;
@@ -137,9 +142,13 @@ private:
 	static QDBusInterface *m_loginInterface;
 	#endif // QT_DBUS_LIB
 	bool m_shouldStopTimer;
-	bool m_showInMenu;
+	bool m_visibleInMainMenu = true;
+	bool m_visibleInSystemTrayMenu = true;
+	bool m_visibleInWindow = true;
 	QAction *m_uiAction = nullptr;
 	QStringList m_commandLineArgs;
+
+	void readProperties(Config *config);
 private slots:
 	void slotFire();
 signals:

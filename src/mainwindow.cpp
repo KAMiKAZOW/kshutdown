@@ -527,18 +527,24 @@ MainWindow::MainWindow() :
 	initWidgets();
 	
 	// init actions
+	int lastActionGroup = 0;
 	foreach (Action *action, PluginManager::actionList()) {
 		connect(
 			action, SIGNAL(statusChanged(const bool)),
 			this, SLOT(onStatusChange(const bool))
 		);
 
-		QString id = action->id();
-		m_actions->addItem(action->icon(), action->uiAction()->text(), id);
-		
-		// insert separator like in menu
-		if ((id == "reboot") || (id == "suspend") || (id == "logout"))
-			m_actions->insertSeparator(m_actions->count());
+		if (action->visibleInWindow()) {
+			int actionGroup = action->getUIGroup();
+			if (actionGroup != lastActionGroup) {
+				lastActionGroup = actionGroup;
+				m_actions->insertSeparator(m_actions->count());
+			}
+
+			QString id = action->id();
+// TODO: review "m_actions" usage
+			m_actions->addItem(action->icon(), action->uiAction()->text(), id);
+		}
 
 		//U_DEBUG << "\tMainWindow::addAction( " << action->text() << " ) [ id=" << id << ", index=" << index << " ]" U_END;
 	}
@@ -635,39 +641,39 @@ QAction *MainWindow::createQuitAction() {
 	return quitAction;
 }
 
-void MainWindow::initFileMenu(QMenu *fileMenu) {
+void MainWindow::initFileMenu(QMenu *fileMenu, const bool mainMenu) {
 	connect(fileMenu, SIGNAL(hovered(QAction *)), SLOT(onMenuHovered(QAction *)));
 	fileMenu->setToolTipsVisible(true);
 
-	Action *a;
-	QString id;
-	for (int i = 0; i < m_actions->count(); ++i) {
-		QVariant data = m_actions->itemData(i);
-		
-		// skip separator
-		if (data.type() == QVariant::Invalid)
-			continue; // for
-		
-		id = data.toString();
-		
-		a = PluginManager::action(id);
+	int lastActionGroup = 0;
+	foreach (Action *action, PluginManager::actionList()) {
+		if (mainMenu) {
+			if (!action->visibleInMainMenu())
+				continue; // for
+		}
+		else {
+			if (!action->visibleInSystemTrayMenu())
+				continue; // for
+		}
 
-		if (!a->showInMenu())
-			continue; // for
-
-		auto *confirmAction = a->createConfirmAction(false);
-		if (a == LockAction::self())
+		auto *confirmAction = action->createConfirmAction(false);
+		if (action == LockAction::self())
 			m_confirmLockAction = confirmAction;
 
 		#ifdef KS_KF5
-		m_actionCollection->addAction("kshutdown/" + id, confirmAction);
+		m_actionCollection->addAction("kshutdown/" + action->id(), confirmAction);
 		KGlobalAccel::setGlobalShortcut(confirmAction, QList<QKeySequence>());
 // TODO: show global shortcuts: confirmAction->setShortcut(confirmAction->globalShortcut());
 		#endif // KS_KF5
 
+		int actionGroup = action->getUIGroup();
+		if (actionGroup != lastActionGroup) {
+			lastActionGroup = actionGroup;
+			fileMenu->addSeparator();
+		}
+
 		fileMenu->addAction(confirmAction);
 
-		if (id == "reboot") {
 /* TODO: boot menu
 			#ifdef Q_OS_LINUX
 			QStringList bootEntryList = BootEntry::getList();
@@ -675,11 +681,6 @@ void MainWindow::initFileMenu(QMenu *fileMenu) {
 				fileMenu->addMenu(new BootEntryMenu(this));
 			#endif // Q_OS_LINUX
 */
-			fileMenu->addSeparator();
-		}
-		else if (id == "suspend") {
-			fileMenu->addSeparator();
-		}
 	}
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_cancelAction);
@@ -700,7 +701,7 @@ void MainWindow::initMenuBar() {
 	auto *fileMenu = new QMenu(i18n("A&ction"), menuBar);
 
 	Utils::addTitle(fileMenu, /*QIcon::fromTheme("dialog-warning")*/QIcon(), i18n("No Delay"));
-	initFileMenu(fileMenu);
+	initFileMenu(fileMenu, true);
 	menuBar->addMenu(fileMenu);
 
 	// bookmarks menu
