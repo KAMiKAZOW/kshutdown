@@ -134,13 +134,13 @@ void USystemTray::updateIcon(MainWindow *mainWindow) {
 
 	#ifndef KS_KF5
 	bool active = mainWindow->active();
-	bool bw = Config::blackAndWhiteSystemTrayIcon();
+	bool bw = Config::blackAndWhiteSystemTrayIconVar.getBool();
 
 	// HACK: We need to show an empty system tray icon first
 	// to fix wrong icon alignment and background repaint issues...
 	if (m_applyIconHack) {
 		m_applyIconHack = false;
-		if (Utils::isMATE() && Config::systemTrayIconEnabled()) {
+		if (Utils::isMATE() && Config::systemTrayIconEnabledVar) {
 			//qDebug() << "Apply icon hack";
 			m_trayIcon->setIcon(mainWindow->windowIcon()); // suppress Qt warning
 			m_trayIcon->show();

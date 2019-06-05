@@ -41,7 +41,8 @@
 void ProgressBar::setAlignment(const Qt::Alignment value, const bool updateConfig) {
 	if (updateConfig) {
 		m_alignmentVar->setInt(value);
-		m_alignmentVar->sync();
+		m_alignmentVar->write();
+		Config::user()->sync();
 	}
 
 	m_alignment = value;
@@ -357,7 +358,8 @@ void ProgressBar::setSize(const Size size) {
 	setAlignment(m_alignment, false);
 
 	m_sizeVar->setInt(size);
-	m_sizeVar->sync();
+	m_sizeVar->write();
+	Config::user()->sync();
 }
 
 // private slots
@@ -419,7 +421,8 @@ void ProgressBar::onSetColor() {
 		repaint();
 
 		m_foregroundColorVar->setColor(newColor);
-		m_foregroundColorVar->sync();
+		m_foregroundColorVar->write();
+		Config::user()->sync();
 	}
 }
 

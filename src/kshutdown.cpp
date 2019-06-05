@@ -486,7 +486,7 @@ bool PowerAction::onAction() {
 	return false;
 #else
 	// lock screen before hibernate/suspend
-	if (Config::lockScreenBeforeHibernate()) {
+	if (Config::lockScreenBeforeHibernateVar) {
 		LockAction::self()->activate(false);
 
 		// HACK: wait for screensaver
@@ -634,7 +634,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 
 HibernateAction::HibernateAction() :
 	PowerAction(
-		Config::oldActionNamesVar.getBool() ? i18n("Hibernate Computer") : i18n("Hibernate"),
+		Config::oldActionNamesVar ? i18n("Hibernate Computer") : i18n("Hibernate"),
 		"system-suspend-hibernate", "hibernate"
 ) {
 	m_methodName = "Hibernate";
@@ -659,7 +659,7 @@ SuspendAction::SuspendAction() :
 		i18n("Sleep"),
 		#else
 		// NOTE: Matches https://phabricator.kde.org/D19184
-		Config::oldActionNamesVar.getBool() ? i18n("Suspend Computer") : i18n("Sleep"),
+		Config::oldActionNamesVar ? i18n("Suspend Computer") : i18n("Sleep"),
 		#endif // Q_OS_WIN32
 		"system-suspend", "suspend") {
 	m_methodName = "Suspend";
@@ -1234,11 +1234,11 @@ LogoutAction::LogoutAction() :
 
 RebootAction::RebootAction() :
 	StandardAction(
-		Config::oldActionNamesVar.getBool() ? i18n("Restart Computer") : i18n("Reboot"),
+		Config::oldActionNamesVar ? i18n("Restart Computer") : i18n("Reboot"),
 		QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
 	m_bootEntryComboBox(nullptr) {
 
-	if (!Config::oldActionNamesVar.getBool())
+	if (!Config::oldActionNamesVar)
 		uiAction()->setStatusTip(i18n("Restart Computer"));
 
 #ifdef KS_KF5
@@ -1292,10 +1292,10 @@ QWidget *RebootAction::getWidget() {
 
 ShutDownAction::ShutDownAction() :
 	StandardAction(
-		Config::oldActionNamesVar.getBool() ? i18n("Turn Off Computer") : i18n("Shut Down"),
+		Config::oldActionNamesVar ? i18n("Turn Off Computer") : i18n("Shut Down"),
 		"system-shutdown", "shutdown", U_SHUTDOWN_TYPE_HALT
 ) {
-	if (!Config::oldActionNamesVar.getBool())
+	if (!Config::oldActionNamesVar)
 		uiAction()->setStatusTip(i18n("Turn Off Computer"));
 
 	addCommandLineArg("h", "halt");

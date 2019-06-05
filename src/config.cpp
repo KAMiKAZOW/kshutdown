@@ -36,8 +36,14 @@ Config *Config::m_user = nullptr;
 
 // public
 
+Var Config::blackAndWhiteSystemTrayIconVar = Var("General", "Black and White System Tray Icon", false);
 Var Config::cancelDefaultVar = Var("General", "Cancel Default", true);
+Var Config::confirmActionVar = Var("General", "Confirm Action", false);
+Var Config::lockScreenBeforeHibernateVar = Var("General", "Lock Screen Before Hibernate", true);
+Var Config::minimizeToSystemTrayIconVar = Var("General", "Minimize To System Tray Icon", true);
 Var Config::oldActionNamesVar = Var("General", "Old Action Names", false);
+Var Config::progressBarEnabledVar = Var("Progress Bar", "Enabled", false);
+Var Config::systemTrayIconEnabledVar = Var("General", "System Tray Icon Enabled", true);
 
 Config::~Config() {
 	//qDebug() << "Config::~Config()";
@@ -73,54 +79,6 @@ bool Config::isPortable() {
 		return false;
 		#endif // KS_PURE_QT
 	#endif // KS_PORTABLE
-}
-
-bool Config::blackAndWhiteSystemTrayIcon() {
-	return readBool("General", "Black and White System Tray Icon", false);
-}
-
-void Config::setBlackAndWhiteSystemTrayIcon(const bool value) {
-	return write("General", "Black and White System Tray Icon", value);
-}
-
-bool Config::confirmAction() {
-	return readBool("General", "Confirm Action", false);
-}
-
-void Config::setConfirmAction(const bool value) {
-	write("General", "Confirm Action", value);
-}
-
-bool Config::lockScreenBeforeHibernate() {
-	return readBool("General", "Lock Screen Before Hibernate", true);
-}
-
-void Config::setLockScreenBeforeHibernate(const bool value) {
-	write("General", "Lock Screen Before Hibernate", value);
-}
-
-bool Config::minimizeToSystemTrayIcon() {
-	return readBool("General", "Minimize To System Tray Icon", true);
-}
-
-void Config::setMinimizeToSystemTrayIcon(const bool value) {
-	write("General", "Minimize To System Tray Icon", value);
-}
-
-bool Config::progressBarEnabled() {
-	return readBool("Progress Bar", "Enabled", false);
-}
-
-void Config::setProgressBarEnabled(const bool value) {
-	write("Progress Bar", "Enabled", value);
-}
-
-bool Config::systemTrayIconEnabled() {
-	return readBool("General", "System Tray Icon Enabled", true);
-}
-
-void Config::setSystemTrayIconEnabled(const bool value) {
-	write("General", "System Tray Icon Enabled", value);
 }
 
 QVariant Config::read(const QString &key, const QVariant &defaultValue) {
@@ -194,17 +152,27 @@ Config::Config() :
 
 // public
 
-void Var::sync() {
+QCheckBox *Var::newCheckBox(const QString &text) {
+	auto *result = new QCheckBox(text);
+	result->setChecked(getBool());
+
+	return result;
+}
+
+void Var::write() {
 	QVariant value = variant();
 
 	Config *config = Config::user();
-	//qDebug() << "Sync var: " << m_group << " / " << m_key << " = " << value;
+	//qDebug() << "WRITE VAR: [" << m_group << "] " << m_key << " = " << value;
 
 	config->beginGroup(m_group);
 	config->write(m_key, value);
 	config->endGroup();
+}
 
-	config->sync();
+void Var::write(QCheckBox *checkBox) {
+	setBool(checkBox->isChecked());
+	write();
 }
 
 // private

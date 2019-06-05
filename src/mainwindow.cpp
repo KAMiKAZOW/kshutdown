@@ -190,7 +190,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 		return true;
 	}
 
-	bool trayIconEnabled = Config::systemTrayIconEnabled();
+	bool trayIconEnabled = Config::systemTrayIconEnabledVar.getBool();
 	if (trayIconEnabled)
 		m_systemTray->setVisible(true);
 
@@ -312,7 +312,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 		action->setState(Base::State::Start);
 		trigger->setState(Base::State::Start);
 
-		if (trigger->supportsProgressBar() && Config::progressBarEnabled())
+		if (trigger->supportsProgressBar() && Config::progressBarEnabledVar)
 			m_progressBar->show();
 	}
 	else {
@@ -427,7 +427,7 @@ void MainWindow::setWaitForProcess(const qint64 pid) {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 	// normal close
-	bool hideInTray = Config::minimizeToSystemTrayIcon() && Config::systemTrayIconEnabled();
+	bool hideInTray = Config::minimizeToSystemTrayIconVar && Config::systemTrayIconEnabledVar;
 	if (!e->spontaneous() || m_forceQuit || Action::totalExit() || !hideInTray) {
 		writeConfig();
 	
@@ -1266,8 +1266,8 @@ void MainWindow::onPreferences() {
 	if (dialog->exec() == Preferences::Accepted) {
 		dialog->apply();
 		
-		m_progressBar->setVisible(m_active && getSelectedTrigger()->supportsProgressBar() && Config::progressBarEnabled());
-		m_systemTray->setVisible(Config::systemTrayIconEnabled());
+		m_progressBar->setVisible(m_active && getSelectedTrigger()->supportsProgressBar() && Config::progressBarEnabledVar);
+		m_systemTray->setVisible(Config::systemTrayIconEnabledVar.getBool());
 		m_systemTray->updateIcon(this); // update colors
 	}
 }

@@ -18,6 +18,7 @@
 #ifndef KSHUTDOWN_CONFIG_H
 #define KSHUTDOWN_CONFIG_H
 
+#include <QCheckBox>
 #include <QColor>
 
 #ifdef KS_PURE_QT
@@ -37,32 +38,20 @@ class Var;
  */
 class Config final: public QObject {
 public:
+	static Var blackAndWhiteSystemTrayIconVar;
 	static Var cancelDefaultVar;
+	static Var confirmActionVar;
+	static Var lockScreenBeforeHibernateVar;
+	static Var minimizeToSystemTrayIconVar;
 	static Var oldActionNamesVar;
+	static Var progressBarEnabledVar;
+	static Var systemTrayIconEnabledVar;
 
 	virtual ~Config();
 
 	void beginGroup(const QString &name);
 	void endGroup();
 	static bool isPortable();
-
-	static bool blackAndWhiteSystemTrayIcon();
-	static void setBlackAndWhiteSystemTrayIcon(const bool value);
-
-	static bool confirmAction();
-	static void setConfirmAction(const bool value);
-
-	static bool lockScreenBeforeHibernate();
-	static void setLockScreenBeforeHibernate(const bool value);
-
-	static bool minimizeToSystemTrayIcon();
-	static void setMinimizeToSystemTrayIcon(const bool value);
-
-	static bool progressBarEnabled();
-	static void setProgressBarEnabled(const bool value);
-
-	static bool systemTrayIconEnabled();
-	static void setSystemTrayIconEnabled(const bool value);
 
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);
@@ -106,6 +95,10 @@ public:
 	explicit Var(const QString &group, const QString &key, const QColor &defaultValue)
 		: m_group(group), m_key(key), m_defaultVariant(defaultValue), m_lazyVariant(QVariant()) { }
 
+	explicit operator bool() {
+		return getBool();
+	}
+
 	bool getBool() {
 		return variant().toBool();
 	}
@@ -132,7 +125,9 @@ public:
 		m_lazyVariant.setValue(value);
 	}
 
-	void sync();
+	QCheckBox *newCheckBox(const QString &text);
+	void write();
+	void write(QCheckBox *checkBox);
 private:
 	QString m_group;
 	QString m_key;
