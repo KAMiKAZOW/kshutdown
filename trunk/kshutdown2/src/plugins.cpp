@@ -141,7 +141,7 @@ QAction *Action::createConfirmAction(const bool alwaysShowConfirmationMessage) {
 			MainWindow::self()->setActive(false);
 
 		bool wantConfirmation =
-			(alwaysShowConfirmationMessage || Config::confirmAction()) &&
+			(alwaysShowConfirmationMessage || Config::confirmActionVar) &&
 			(this != LockAction::self()); // lock action - no confirmation
 
 		if (!wantConfirmation || showConfirmationMessage()) {
@@ -196,7 +196,7 @@ bool Action::showConfirmationMessage() {
 		parent
 	));
 
-	if (Config::cancelDefaultVar.getBool())
+	if (Config::cancelDefaultVar)
 		message->setDefaultButton(QMessageBox::Cancel);
 	else
 		message->setDefaultButton(QMessageBox::Ok);

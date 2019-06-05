@@ -81,12 +81,15 @@ Preferences::Preferences(QWidget *parent) :
 void Preferences::apply() {
 	Config *config = Config::user();
 
-	Config::setBlackAndWhiteSystemTrayIcon(m_bwTrayIcon->isChecked());
-	Config::setConfirmAction(m_confirmAction->isChecked());
-	Config::setLockScreenBeforeHibernate(m_lockScreenBeforeHibernate->isChecked());
-	Config::setMinimizeToSystemTrayIcon(!m_noMinimizeToSystemTrayIcon->isChecked());
-	Config::setProgressBarEnabled(m_progressBarEnabled->isChecked());
-	Config::setSystemTrayIconEnabled(m_systemTrayIconEnabled->isChecked());
+	Config::blackAndWhiteSystemTrayIconVar.write(m_bwTrayIcon);
+	Config::confirmActionVar.write(m_confirmAction);
+	Config::lockScreenBeforeHibernateVar.write(m_lockScreenBeforeHibernate);
+
+	Config::minimizeToSystemTrayIconVar.setBool(!m_noMinimizeToSystemTrayIcon->isChecked());
+	Config::minimizeToSystemTrayIconVar.write();
+
+	Config::progressBarEnabledVar.write(m_progressBarEnabled);
+	Config::systemTrayIconEnabledVar.write(m_systemTrayIconEnabled);
 	#ifndef KS_KF5
 	Config::write("General", "Use Theme Icon In System Tray", m_useThemeIconInSystemTray->isChecked());
 	#endif // !KS_KF5
@@ -99,11 +102,8 @@ void Preferences::apply() {
 	config->endGroup();
 	#endif // Q_OS_LINUX
 
-	Config::cancelDefaultVar.setBool(m_cancelDefault->isChecked());
-	Config::cancelDefaultVar.sync();
-
-	Config::oldActionNamesVar.setBool(m_oldActionNames->isChecked());
-	Config::oldActionNamesVar.sync();
+	Config::cancelDefaultVar.write(m_cancelDefault);
+	Config::oldActionNamesVar.write(m_oldActionNames);
 
 	config->sync();
 }
@@ -123,36 +123,31 @@ QWidget *Preferences::createGeneralWidget() {
 	auto *l = new QVBoxLayout(w);
 	l->setMargin(10);
 
-	m_confirmAction = new QCheckBox(i18n("Confirm Action"));
-	m_confirmAction->setChecked(Config::confirmAction());
+	m_confirmAction = Config::confirmActionVar.newCheckBox(i18n("Confirm Action"));
 	l->addWidget(m_confirmAction);
 
-	m_cancelDefault = new QCheckBox(i18n("Select \"Cancel\" button by default"));
-	m_cancelDefault->setChecked(Config::cancelDefaultVar.getBool());
+	m_cancelDefault = Config::cancelDefaultVar.newCheckBox(i18n("Select \"Cancel\" button by default"));
 	QString attr = QApplication::isRightToLeft() ? "margin-right" : "margin-left";
 	m_cancelDefault->setStyleSheet("QCheckBox { " + attr + ": 20px; }");
 	l->addWidget(m_cancelDefault);
 
 	l->addSpacing(20_px);
 
-	m_oldActionNames = new QCheckBox(i18n("Use old action names"));
-	m_oldActionNames->setChecked(Config::oldActionNamesVar.getBool());
+	m_oldActionNames = Config::oldActionNamesVar.newCheckBox(i18n("Use old action names"));
 	m_oldActionNames->setToolTip(
 		i18n("Old: %0").arg(i18n("Turn Off Computer") + ", " + i18n("Suspend Computer") + ", ...") + "\n" +
 		i18n("New: %0").arg(i18n("Shut Down") + ", " + i18n("Sleep") + ", ...")
 	);
 	l->addWidget(m_oldActionNames);
 
-	m_progressBarEnabled = new QCheckBox(i18n("Show progress bar on top/bottom of the screen"));
-	m_progressBarEnabled->setChecked(Config::progressBarEnabled());
+	m_progressBarEnabled = Config::progressBarEnabledVar.newCheckBox(i18n("Show progress bar on top/bottom of the screen"));
 // TODO: connect(m_progressBarEnabled, SIGNAL(toggled(bool)), SLOT(onProgressBarEnabled(bool)));
 	l->addWidget(m_progressBarEnabled);
 
 	l->addSpacing(20_px);
 	l->addStretch();
 
-	m_lockScreenBeforeHibernate = new QCheckBox(i18n("Lock Screen Before Hibernate/Suspend"));
-	m_lockScreenBeforeHibernate->setChecked(Config::lockScreenBeforeHibernate());
+	m_lockScreenBeforeHibernate = Config::lockScreenBeforeHibernateVar.newCheckBox(i18n("Lock Screen Before Hibernate/Suspend"));
 	l->addWidget(m_lockScreenBeforeHibernate);
 #if defined(Q_OS_WIN32) || defined(Q_OS_HAIKU)
 	m_lockScreenBeforeHibernate->hide();
@@ -198,12 +193,11 @@ QWidget *Preferences::createSystemTrayWidget() {
 	l->addSpacing(10_px);
 	#endif // Q_OS_LINUX
 
-	m_systemTrayIconEnabled = new QCheckBox(i18n("Enable System Tray Icon"));
-	m_systemTrayIconEnabled->setChecked(Config::systemTrayIconEnabled());
+	m_systemTrayIconEnabled = Config::systemTrayIconEnabledVar.newCheckBox(i18n("Enable System Tray Icon"));
 	l->addWidget(m_systemTrayIconEnabled);
 
 	m_noMinimizeToSystemTrayIcon = new QCheckBox(i18n("Quit instead of minimizing to System Tray Icon"));
-	m_noMinimizeToSystemTrayIcon->setChecked(!Config::minimizeToSystemTrayIcon());
+	m_noMinimizeToSystemTrayIcon->setChecked(!Config::minimizeToSystemTrayIconVar);
 	l->addWidget(m_noMinimizeToSystemTrayIcon);
 
 	m_noMinimizeToSystemTrayIcon->setEnabled(m_systemTrayIconEnabled->isChecked());
@@ -220,8 +214,7 @@ QWidget *Preferences::createSystemTrayWidget() {
 	l->addWidget(m_useThemeIconInSystemTray);
 	#endif // !KS_KF5
 
-	m_bwTrayIcon = new QCheckBox(i18n("Black and White System Tray Icon"));
-	m_bwTrayIcon->setChecked(Config::blackAndWhiteSystemTrayIcon());
+	m_bwTrayIcon = Config::blackAndWhiteSystemTrayIconVar.newCheckBox(i18n("Black and White System Tray Icon"));
 	#ifdef KS_KF5
 // TODO: redesign this option
 	m_bwTrayIcon->hide();

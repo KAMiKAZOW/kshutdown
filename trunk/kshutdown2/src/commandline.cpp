@@ -191,7 +191,7 @@ bool CLI::isConfirm() {
 	if (isArg("confirm"))
 		return true;
 
-	return isArg("confirm-auto") && Config::confirmAction();
+	return isArg("confirm-auto") && Config::confirmActionVar;
 }
 
 void CLI::showHelp(QWidget *parent) {
