@@ -45,7 +45,12 @@ QDBusInterface *LockAction::m_qdbusInterface = nullptr;
 // public
 
 bool LockAction::onAction() {
-#ifdef Q_OS_WIN32
+
+#ifdef Q_OS_HAIKU
+	QStringList args;
+	
+	return launch("screen_blanker", args);
+#elif defined(Q_OS_WIN32)
 	BOOL result = ::LockWorkStation();
 	if (result == 0) {
 		setLastError();
@@ -259,8 +264,4 @@ LockAction::LockAction() :
 		uiAction()->setStatusTip(i18n("Lock Screen"));
 
 	addCommandLineArg("k", "lock");
-	
-	#ifdef Q_OS_HAIKU
-	disable("");
-	#endif // Q_OS_HAIKU
 }

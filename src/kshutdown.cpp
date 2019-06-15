@@ -872,14 +872,22 @@ bool StandardAction::onAction() {
 		QStringList args;
 		args << "-r";
 		
-		if (launch("shutdown", args))
+		if (launch("shutdown", args)) {
+			// HACK: fixes "Asking kshutdown to quit" message
+			QApplication::quit();
+
 			return true;
+		}
 	}
 	else if (m_type == U_SHUTDOWN_TYPE_HALT) {
 		QStringList args;
 		
-		if (launch("shutdown", args))
+		if (launch("shutdown", args)) {
+			// HACK: fixes "Asking kshutdown to quit" message
+			QApplication::quit();
+
 			return true;
+		}
 	}
 	
 	return false;
