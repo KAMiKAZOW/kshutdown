@@ -634,7 +634,7 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 
 HibernateAction::HibernateAction() :
 	PowerAction(
-		Config::oldActionNamesVar ? i18n("Hibernate Computer") : i18n("Hibernate"),
+		getDisplayName(ActionType::HIBERNATE),
 		"system-suspend-hibernate", "hibernate"
 ) {
 	m_methodName = "Hibernate";
@@ -655,12 +655,7 @@ HibernateAction::HibernateAction() :
 
 SuspendAction::SuspendAction() :
 	PowerAction(
-		#ifdef Q_OS_WIN32
-		i18n("Sleep"),
-		#else
-		// NOTE: Matches https://phabricator.kde.org/D19184
-		Config::oldActionNamesVar ? i18n("Suspend Computer") : i18n("Sleep"),
-		#endif // Q_OS_WIN32
+		getDisplayName(ActionType::SUSPEND),
 		"system-suspend", "suspend") {
 	m_methodName = "Suspend";
 	if (!isAvailable(PowerActionType::Suspend))
@@ -1220,11 +1215,7 @@ void StandardAction::checkAvailable(const QString &consoleKitName) {
 
 LogoutAction::LogoutAction() :
 	StandardAction(
-		#ifdef Q_OS_WIN32
-		i18n("Log Off"),
-		#else
-		i18n("Logout"),
-		#endif // Q_OS_WIN32
+		getDisplayName(ActionType::LOGOUT),
 		"system-log-out", "logout", U_SHUTDOWN_TYPE_LOGOUT
 ) {
 	uiAction()->setStatusTip(i18n("End Session"));
@@ -1242,7 +1233,7 @@ LogoutAction::LogoutAction() :
 
 RebootAction::RebootAction() :
 	StandardAction(
-		Config::oldActionNamesVar ? i18n("Restart Computer") : i18n("Reboot"),
+		getDisplayName(ActionType::REBOOT),
 		QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
 	m_bootEntryComboBox(nullptr) {
 
@@ -1300,7 +1291,7 @@ QWidget *RebootAction::getWidget() {
 
 ShutDownAction::ShutDownAction() :
 	StandardAction(
-		Config::oldActionNamesVar ? i18n("Turn Off Computer") : i18n("Shut Down"),
+		getDisplayName(ActionType::SHUT_DOWN),
 		"system-shutdown", "shutdown", U_SHUTDOWN_TYPE_HALT
 ) {
 	if (!Config::oldActionNamesVar)

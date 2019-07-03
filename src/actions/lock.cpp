@@ -253,7 +253,7 @@ QDBusInterface *LockAction::getQDBusInterface() {
 
 LockAction::LockAction() :
 	Action(
-		Config::oldActionNamesVar.getBool() ? i18n("Lock Screen") : i18n("Lock"),
+		getDisplayName(ActionType::LOCK),
 		"system-lock-screen", "lock"
 ) {
 	

@@ -39,7 +39,8 @@ StartupNotify=true
 
 Actions=Halt;Reboot;Hibernate;Suspend;Lock;Logout;
 
-# NOTE: The localized action names should match translations in ./po directory.
+# NOTE: The localized action names should match translations in ./po directory
+#       and in ./src/plugins.cpp file (Action::getDisplayName)
 
 [Desktop Action Halt]
 Name=Shut Down
@@ -47,7 +48,7 @@ Icon=system-shutdown
 Exec=kshutdown --halt --confirm-auto
 
 [Desktop Action Reboot]
-Name=Reboot
+Name=Restart
 Icon=system-reboot
 Exec=kshutdown --reboot --confirm-auto
 

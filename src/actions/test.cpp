@@ -28,7 +28,7 @@
 // public
 
 TestAction::TestAction() :
-	Action(i18n("Show Message (no shutdown)"), "dialog-ok", "test")
+	Action(getDisplayName(ActionType::TEST), "dialog-ok", "test")
 {
 // TODO: sound beep
 	setCanBookmark(true);
