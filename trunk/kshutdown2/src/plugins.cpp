@@ -153,6 +153,43 @@ QAction *Action::createConfirmAction(const bool alwaysShowConfirmationMessage) {
 	return result;
 }
 
+QString Action::getDisplayName(const ActionType type) {
+	switch (type) {
+		case ActionType::SHUT_DOWN:
+			return Config::oldActionNamesVar ? i18n("Turn Off Computer") : i18n("Shut Down");
+
+		case ActionType::REBOOT:
+			return Config::oldActionNamesVar ? i18n("Restart Computer") : i18n("Restart");
+
+		case ActionType::HIBERNATE:
+			return Config::oldActionNamesVar ? i18n("Hibernate Computer") : i18n("Hibernate");
+
+		case ActionType::SUSPEND:
+			#ifdef Q_OS_WIN32
+			return i18n("Sleep");
+			#else
+			// NOTE: Matches https://phabricator.kde.org/D19184
+			return Config::oldActionNamesVar ? i18n("Suspend Computer") : i18n("Sleep");
+			#endif // Q_OS_WIN32
+
+		case ActionType::LOCK:
+			return Config::oldActionNamesVar.getBool() ? i18n("Lock Screen") : i18n("Lock");
+
+		case ActionType::LOGOUT:
+			#ifdef Q_OS_WIN32
+			return i18n("Log Off");
+			#else
+			return i18n("Logout");
+			#endif // Q_OS_WIN32
+
+		case ActionType::TEST:
+			return i18n("Show Message (no shutdown)");
+
+		default:
+			return ""; // unused
+	}
+}
+
 int Action::getUIGroup() const {
 	if ((m_id == "shutdown") || (m_id == "reboot"))
 		return 0;

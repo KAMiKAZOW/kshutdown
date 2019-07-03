@@ -89,6 +89,8 @@ private:
 	bool m_canBookmark;
 };
 
+enum class ActionType { SHUT_DOWN, REBOOT, HIBERNATE, SUSPEND, LOCK, LOGOUT, TEST };
+
 class Action: public Base {
 	friend class PluginManager;
 	Q_OBJECT
@@ -100,6 +102,7 @@ public:
 	inline QStringList getCommandLineArgs() const {
 		return m_commandLineArgs;
 	}
+	static QString getDisplayName(const ActionType type);
 	int getUIGroup() const;
 	QIcon icon() const { return m_uiAction->icon(); }
 	bool isCommandLineArgSupported();
