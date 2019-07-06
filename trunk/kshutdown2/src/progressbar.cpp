@@ -408,11 +408,7 @@ void ProgressBar::onSetColor() {
 		return;
 
 	QColor currentColor = palette().color(QPalette::WindowText);
-	QColor newColor = QColorDialog::getColor(
-		currentColor,
-		this,
-		QString::null // use default title
-	);
+	QColor newColor = QColorDialog::getColor(currentColor, this);
 
 	if (newColor.isValid()) {
 		QPalette p(palette());

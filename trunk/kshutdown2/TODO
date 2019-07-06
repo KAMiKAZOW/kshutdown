@@ -1,6 +1,7 @@
 
 # 5.x
 
+* Use "native" Action names for Lock/Logout/Shut Down to match the ones used in OS/DEs
 * Update README.html
 * Remove "DEAD:" code
 * Remove remaining old KDE4/Qt4 code
@@ -27,6 +28,8 @@
 # Haiku
 
 * Application icon
+  - https://www.haiku-os.org/documents/dev/compile_them_resources/
+  - https://discuss.haiku-os.org/t/building-icons-in-qt-apps-help/2769/8
 * Commit existing patches
 
 # Tracker @ SourceForge.net
