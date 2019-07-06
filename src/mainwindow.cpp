@@ -713,32 +713,41 @@ void MainWindow::initMenuBar() {
 
 	auto *toolsMenu = new QMenu(i18n("&Tools"), menuBar);
 
-	#ifndef Q_OS_WIN32
-	auto *runMenu = new QMenu(i18n("Run"), toolsMenu);
+	QList<QStringList> runList {
+		#ifdef Q_OS_LINUX
+		{ "free", "--human" },
+// TODO: show previous shutdown/reboot log
+		{ "journalctl", "--boot", "--system" },
+		{ "journalctl", "--boot", "--user" },
+		{ "systemd-analyze", "blame" },
+		{ "uptime", "--pretty" },
+		{ "w" },
+		#endif // Q_OS_LINUX
+		//{ "__ERROR__", "TEST", "X" },
+	};
 
-	QList<QStringList> runList;
-	runList << QStringList({ "free", "--human" });
-	runList << QStringList({ "systemd-analyze", "blame" });
-	runList << QStringList({ "uptime", "--pretty" });
-	runList << QStringList({ "w" });
-	//runList << QStringList({ "__ERROR__", "TEST", "X" });
+	if (!runList.isEmpty()) {
+		auto *runMenu = new QMenu(i18n("Run"), toolsMenu);
 
-	for (const QStringList &programAndArgs : runList) {
-		runMenu->addAction(programAndArgs.join(" "), [this, /* copy capture */programAndArgs] {
-			QScopedPointer<Stats> dialog(new Stats(this, programAndArgs));
-			dialog->exec();
-		});
+		for (const QStringList &programAndArgs : runList) {
+			runMenu->addAction(programAndArgs.join(" "), [this, /* copy capture */programAndArgs] {
+// TODO: line wrap option
+				QScopedPointer<Stats> dialog(new Stats(this, programAndArgs));
+				dialog->exec();
+			});
+		}
+
+		toolsMenu->addMenu(runMenu);
 	}
 
-	toolsMenu->addMenu(runMenu);
-
+	#ifndef Q_OS_WIN32
 	auto systemSettingsAction = toolsMenu->addAction(QIcon::fromTheme("preferences-system"), i18n("System Settings..."), [] {
 		QProcess::execute("kcmshell5 autostart kcmkded kcmnotify kcmsmserver kcm_energyinfo kcm_sddm kcm_splashscreen keys powerdevilprofilesconfig screenlocker");
 	});
 	systemSettingsAction->setEnabled(Utils::isKDE());
 
 	toolsMenu->addSeparator();
-	#endif // Q_OS_WIN32
+	#endif // !Q_OS_WIN32
 
 #ifdef KS_PURE_QT
 	toolsMenu->addAction(

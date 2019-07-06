@@ -27,13 +27,14 @@ if "%KS_COMMAND%" == "setup" (
 	goto nsis
 )
 
-set KS_QT_BIN=C:\Qt\Qt%KS_QT_VERSION%\%KS_QT_VERSION%\mingw53_32\bin
+set KS_QT_BIN=C:\Qt\Qt%KS_QT_VERSION%\%KS_QT_VERSION%\mingw73_32\bin
 pushd .
 call "%KS_QT_BIN%\qtenv2.bat"
 popd
 
 if "%KS_COMMAND%" == "test" (
 	pushd src
+	qmake -config release
 	mingw32-make.exe -j2 && release\kshutdown.exe
 	pause
 	popd
