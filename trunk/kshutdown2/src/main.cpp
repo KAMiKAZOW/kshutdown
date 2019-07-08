@@ -37,6 +37,8 @@
 
 // TODO: move more things to commandline.*
 bool commonStartup(const QStringList &arguments, const QCommandLineOption &versionOption, const bool first, const bool forceShow) {
+// FIXME: warning: QCommandLineParser: argument list cannot be empty, it should contain at least the executable name
+//        in single instance mode
 	if (!CLI::getArgs()->parse(arguments))
 		qWarning() << CLI::getArgs()->errorText();
 
@@ -53,7 +55,7 @@ bool commonStartup(const QStringList &arguments, const QCommandLineOption &versi
 
 	if (first) {
 		Mod::init();
-		PluginManager::init();
+		PluginManager::readConfig();
 	}
 
 	if (CLI::check()) {
@@ -246,9 +248,13 @@ int main(int argc, char **argv) {
 
 // TODO: about.setTranslator(ki18n("Your names"), ki18n("Your emails"));
 
+
+	CLI::init(appDescription); // 1.
+	PluginManager::initActionsAndTriggers(); // 2.
+
 	// init command line options
 
-	CLI::init(appDescription);
+	CLI::initOptions();
 	// NOTE: clash with -h: parser->addHelpOption();
 	QCommandLineOption versionOption = CLI::getArgs()->addVersionOption();
 

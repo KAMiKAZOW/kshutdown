@@ -641,7 +641,7 @@ HibernateAction::HibernateAction() :
 	if (!isAvailable(PowerActionType::Hibernate))
 		disable(i18n("Cannot hibernate computer"));
 
-	addCommandLineArg("H", "hibernate");
+	setCommandLineOption({ "H", "hibernate" });
 
 	uiAction()->setStatusTip(
 		i18n("Hibernate Computer") + "\n" +
@@ -661,7 +661,7 @@ SuspendAction::SuspendAction() :
 	if (!isAvailable(PowerActionType::Suspend))
 		disable(i18n("Cannot suspend computer"));
 
-	addCommandLineArg("S", "suspend");
+	setCommandLineOption({ "S", "suspend" });
 
 	uiAction()->setStatusTip(
 		i18n("Suspend Computer") + "\n" +
@@ -1220,7 +1220,7 @@ LogoutAction::LogoutAction() :
 ) {
 	uiAction()->setStatusTip(i18n("End Session"));
 
-	addCommandLineArg("l", "logout");
+	setCommandLineOption({ "l", "logout" }, originalText() + " — " + i18n("End Session"));
 
 	#ifdef Q_OS_HAIKU
 	disable("");
@@ -1268,7 +1268,8 @@ RebootAction::RebootAction() :
 		uiAction()->setIcon(QIcon::fromTheme("view-refresh"));
 #endif // KS_KF5
 
-	addCommandLineArg("r", "reboot");
+// TODO: aliases "restart", "logoff", etc.
+	setCommandLineOption({ "r", "reboot" });
 	
 	#ifdef QT_DBUS_LIB
 	checkAvailable("CanRestart");
@@ -1297,8 +1298,10 @@ ShutDownAction::ShutDownAction() :
 	if (!Config::oldActionNamesVar)
 		uiAction()->setStatusTip(i18n("Turn Off Computer"));
 
-	addCommandLineArg("h", "halt");
-	addCommandLineArg("s", "shutdown");
+	setCommandLineOption({
+		"h", "halt",
+		"s", "shutdown"
+	});
 
 	#ifdef QT_DBUS_LIB
 	checkAvailable("CanStop");

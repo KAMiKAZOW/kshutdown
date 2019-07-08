@@ -93,8 +93,7 @@ void Base::setLastError() {
 Action::Action(const QString &text, const QString &iconName, const QString &id) :
 	Base(id),
 	m_force(false),
-	m_shouldStopTimer(true),
-	m_commandLineArgs(QStringList()) {
+	m_shouldStopTimer(true) {
 	m_originalText = text;
 
 	m_uiAction = new QAction();
@@ -203,13 +202,8 @@ int Action::getUIGroup() const {
 	return 3;
 }
 
-bool Action::isCommandLineArgSupported() {
-	foreach (const QString &i, m_commandLineArgs) {
-		if (CLI::isArg(i))
-			return true;
-	}
-
-	return false;
+bool Action::isCommandLineOptionSet() const {
+	return (m_commandLineOption != nullptr) && CLI::getArgs()->isSet(*m_commandLineOption);
 }
 
 bool Action::showConfirmationMessage() {
@@ -277,18 +271,6 @@ void Action::updateMainWindow(MainWindow *mainWindow) {
 
 // protected
 
-// NOTE: Sync. with commandline.cpp/CLI::init
-void Action::addCommandLineArg(const QString &shortArg, const QString &longArg) {
-	if (!shortArg.isEmpty())
-		m_commandLineArgs.append(shortArg);
-	if (!longArg.isEmpty())
-		m_commandLineArgs.append(longArg);
-/* TODO:
-	CLI::getArgs()
-		->addOption(QCommandLineOption(m_commandLineArgs, originalText()));
-*/
-}
-
 void Action::disable(const QString &reason) {
 	m_uiAction->setEnabled(false);
 	m_disableReason = reason;
@@ -344,6 +326,19 @@ bool Action::launch(const QString &program, const QStringList &args, const bool 
 	qDebug() << "Exit code: " << exitCode;
 
 	return (exitCode == 0);
+}
+
+void Action::setCommandLineOption(const QCommandLineOption *option) {
+	//qDebug() << "Action::setCommandLineOption: " << option->names() << option->description();
+	m_commandLineOption = option;
+	CLI::getArgs()->addOption(*m_commandLineOption);
+}
+
+void Action::setCommandLineOption(const QStringList &names, const QString &description) {
+	setCommandLineOption(new QCommandLineOption(
+		names,
+		description.isEmpty() ? originalText() : description
+	));
 }
 
 bool Action::unsupportedAction() {
@@ -423,8 +418,8 @@ void PluginManager::add(Trigger *trigger) {
 	m_triggerList.append(trigger);
 }
 
-void PluginManager::init() {
-	qDebug() << "PluginManager::init (Action)";
+void PluginManager::initActionsAndTriggers() {
+	qDebug() << "Init Actions";
 
 	add(new ShutDownAction());
 	add(new RebootAction());
@@ -435,7 +430,7 @@ void PluginManager::init() {
 	add(Extras::self());
 	add(new TestAction());
 
-	qDebug() << "PluginManager::init (Trigger)";
+	qDebug() << "Init Triggers";
 
 	add(new NoDelayTrigger());
 	add(new TimeFromNowTrigger());
@@ -447,9 +442,14 @@ void PluginManager::init() {
 		add(idleMonitor);
 	else
 		delete idleMonitor;
+}
+
+void PluginManager::readConfig() {
+	//qDebug() << "PluginManager::readConfig";
 
 	Config *config = Config::user();
 
+// TODO: foreach -> for (new C++ syntax)
 	foreach (Action *i, actionList()) {
 		config->beginGroup("KShutdown Action " + i->id());
 		i->readProperties(config);

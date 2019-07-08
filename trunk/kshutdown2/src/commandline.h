@@ -31,6 +31,7 @@ public:
 	static QString getOption(const QString &name);
 	static QString getTimeOption();
 	static void init(const QString &appDescription);
+	static void initOptions();
 	static bool isArg(const QString &name);
 	static bool isConfirm();
 	static void showHelp(QWidget *parent);

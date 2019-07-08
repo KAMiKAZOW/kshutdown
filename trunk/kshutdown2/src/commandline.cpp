@@ -53,7 +53,7 @@ bool CLI::check() {
 	Action *actionToActivate = nullptr;
 	bool confirm = isConfirm();
 	foreach (Action *action, PluginManager::actionList()) {
-		if (action->isCommandLineArgSupported()) {
+		if (action->isCommandLineOptionSet()) {
 			if (confirm && !action->showConfirmationMessage())
 				return false; // user cancel
 			
@@ -114,30 +114,9 @@ void CLI::init(const QString &appDescription) {
 	m_args = new QCommandLineParser();
 	m_args->setApplicationDescription(appDescription);
 	m_args->setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
+}
 
-// TODO: Ideally this should be in Action to avoid code duplication.
-// Unfortunatelly due to chicked-egg circular deps it's not possible (?)
-
-// TODO: merge the two lines
-	m_args->addOption({ { "h", "halt" }, Action::getDisplayName(ActionType::SHUT_DOWN) });
-	m_args->addOption({ { "s", "shutdown" }, Action::getDisplayName(ActionType::SHUT_DOWN) });
-
-	m_args->addOption({ { "r", "reboot" }, Action::getDisplayName(ActionType::REBOOT) });
-
-	m_args->addOption({ { "H", "hibernate" }, Action::getDisplayName(ActionType::HIBERNATE) });
-	m_args->addOption({ { "S", "suspend" }, Action::getDisplayName(ActionType::SUSPEND) });
-
-	m_args->addOption({ { "k", "lock" }, /*Action::getDisplayName(ActionType::LOCK)*/i18n("Lock Screen") });
-	m_args->addOption({ { "l", "logout" }, Action::getDisplayName(ActionType::LOGOUT) + " — " + i18n("End Session") });
-
-	m_args->addOption({
-		{ "e", "extra" },
-		i18n("Run executable file (example: Desktop shortcut or Shell script)"),
-		"file"
-	});
-	
-	m_args->addOption({ "test", Action::getDisplayName(ActionType::TEST) });
-
+void CLI::initOptions() {
 	m_args->addOption({
 		{ "i", "inactivity" },
 		i18n(

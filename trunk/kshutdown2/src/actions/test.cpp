@@ -32,10 +32,9 @@ TestAction::TestAction() :
 {
 // TODO: sound beep
 	setCanBookmark(true);
+	setCommandLineOption({ "test" });
 	setVisibleInMainMenu(false);
 	setVisibleInSystemTrayMenu(false);
-
-	addCommandLineArg(QString::null, "test");
 }
 
 QWidget *TestAction::getWidget() {

@@ -21,6 +21,7 @@
 #include "infowidget.h"
 
 #include <QAction>
+#include <QCommandLineOption>
 
 #ifdef QT_DBUS_LIB
 	#include <QDBusInterface>
@@ -99,13 +100,10 @@ public:
 	void activate(const bool force);
 	bool authorize(QWidget *parent);
 	QAction *createConfirmAction(const bool alwaysShowConfirmationMessage);
-	inline QStringList getCommandLineArgs() const {
-		return m_commandLineArgs;
-	}
 	static QString getDisplayName(const ActionType type);
 	int getUIGroup() const;
 	QIcon icon() const { return m_uiAction->icon(); }
-	bool isCommandLineArgSupported();
+	bool isCommandLineOptionSet() const;
 	virtual bool isEnabled() const override { return m_uiAction->isEnabled(); }
 	virtual bool onAction() = 0;
 	inline bool shouldStopTimer() const {
@@ -132,12 +130,13 @@ public:
 protected:
 	bool m_force;
 	static bool m_totalExit;
-	void addCommandLineArg(const QString &shortArg, const QString &longArg);
 	void disable(const QString &reason);
 	#ifdef QT_DBUS_LIB
 	static QDBusInterface *getLoginInterface();
 	#endif // QT_DBUS_LIB
 	bool launch(const QString &program, const QStringList &args, const bool detached = false);
+	void setCommandLineOption(const QCommandLineOption *option);
+	void setCommandLineOption(const QStringList &names, const QString &description = "");
 	bool unsupportedAction();
 private:
 	Q_DISABLE_COPY(Action)
@@ -149,7 +148,9 @@ private:
 	bool m_visibleInSystemTrayMenu = true;
 	bool m_visibleInWindow = true;
 	QAction *m_uiAction = nullptr;
-	QStringList m_commandLineArgs;
+
+// TODO: use std::optional (C++17)
+	const QCommandLineOption *m_commandLineOption = nullptr;
 
 	void readProperties(Config *config);
 private slots:
@@ -195,7 +196,8 @@ public:
 	static QHash<QString, Action*> actionMap() { return m_actionMap; }
 	static void add(Action *action);
 	static void add(Trigger *trigger);
-	static void init();
+	static void initActionsAndTriggers();
+	static void readConfig();
 	static void shutDown();
 	static Trigger *trigger(const QString &id) { return m_triggerMap[id]; }
 	static QList<Trigger*> triggerList() { return m_triggerList; }
