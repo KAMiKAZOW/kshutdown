@@ -661,7 +661,7 @@ SuspendAction::SuspendAction() :
 	if (!isAvailable(PowerActionType::Suspend))
 		disable(i18n("Cannot suspend computer"));
 
-	setCommandLineOption({ "S", "suspend" });
+	setCommandLineOption({ "S", "sleep", "suspend" });
 
 	uiAction()->setStatusTip(
 		i18n("Suspend Computer") + "\n" +
@@ -1220,7 +1220,7 @@ LogoutAction::LogoutAction() :
 ) {
 	uiAction()->setStatusTip(i18n("End Session"));
 
-	setCommandLineOption({ "l", "logout" }, originalText() + " — " + i18n("End Session"));
+	setCommandLineOption({ "l", "logoff", "logout" }, originalText() + " — " + i18n("End Session"));
 
 	#ifdef Q_OS_HAIKU
 	disable("");
@@ -1268,8 +1268,7 @@ RebootAction::RebootAction() :
 		uiAction()->setIcon(QIcon::fromTheme("view-refresh"));
 #endif // KS_KF5
 
-// TODO: aliases "restart", "logoff", etc.
-	setCommandLineOption({ "r", "reboot" });
+	setCommandLineOption({ "r", "reboot", "restart" });
 	
 	#ifdef QT_DBUS_LIB
 	checkAvailable("CanRestart");
