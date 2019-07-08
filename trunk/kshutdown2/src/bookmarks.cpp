@@ -135,7 +135,7 @@ BookmarkAction *BookmarksMenu::findBookmark(Action *action, Trigger *trigger) {
 	QString actionOption = action->getStringOption();
 	QString triggerOption = trigger->getStringOption();
 	
-	foreach (BookmarkAction *i, *list()) {
+	for (BookmarkAction *i : *list()) {
 		if (
 			(action->id() == i->m_actionID) && (actionOption == i->m_actionOption) &&
 			(trigger->id() == i->m_triggerID) && (triggerOption == i->m_triggerOption)
@@ -184,7 +184,7 @@ void BookmarksMenu::syncConfig() {
 	config->write("Count", list()->count());
 	
 	int i = 0;
-	foreach (BookmarkAction *bookmarkAction, *list()) {
+	for (const BookmarkAction *bookmarkAction : *list()) {
 		QString index = QString::number(i);
 		config->write("Text " + index, bookmarkAction->m_userText ? bookmarkAction->originalText() : "");
 		config->write("Action " + index, bookmarkAction->m_actionID);
@@ -304,7 +304,7 @@ void BookmarksMenu::onUpdateMenu() {
 		QString triggerOption = trigger->getStringOption();
 
 		auto *group = new QActionGroup(this);
-		foreach (BookmarkAction *i, *list()) {
+		for (BookmarkAction *i : *list()) {
 			bool current =
 				(action->id() == i->m_actionID) && (actionOption == i->m_actionOption) &&
 				(trigger->id() == i->m_triggerID) && (triggerOption == i->m_triggerOption);

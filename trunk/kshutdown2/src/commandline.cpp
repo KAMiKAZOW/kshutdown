@@ -52,14 +52,14 @@ bool CLI::check() {
 	
 	Action *actionToActivate = nullptr;
 	bool confirm = isConfirm();
-	foreach (Action *action, PluginManager::actionList()) {
+	for (Action *action : PluginManager::actionList()) {
 		if (action->isCommandLineOptionSet()) {
 			if (confirm && !action->showConfirmationMessage())
 				return false; // user cancel
 			
 			actionToActivate = action;
 
-			break; // foreach
+			break; // for
 		}
 	}
 

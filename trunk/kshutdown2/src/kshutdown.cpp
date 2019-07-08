@@ -612,8 +612,9 @@ bool PowerAction::isAvailable(const PowerActionType feature) const {
 		QDBusReply<bool> reply;
 		
 		// Try the alternative feature names in order; if we get a valid answer, return it
-		foreach (const QString &featureName, featureNames) {
-			reply = hal->call("GetProperty", featureName);
+		for (const QString &i : featureNames) {
+			reply = hal->call("GetProperty", i);
+
 			if (reply.isValid())
 				return reply.value();
 		}

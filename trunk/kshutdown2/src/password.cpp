@@ -240,7 +240,7 @@ PasswordPreferences::PasswordPreferences(QWidget *parent) :
 	
 	addItem("action/settings", i18n("Settings (recommended)"), QIcon("configure"));
 	
-	foreach (const Action *action, PluginManager::actionList()) {
+	for (const Action *action : PluginManager::actionList()) {
 		addItem(
 			"kshutdown/action/" + action->id(),
 			action->originalText(),

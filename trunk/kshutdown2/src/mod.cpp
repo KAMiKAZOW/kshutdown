@@ -129,17 +129,12 @@ void Mod::init() {
 	
 	if (mod.isEmpty())
 		return;
-	
-	QStringList list = mod.split(',');
-	
-	if (list.isEmpty())
-		return;
-	
+
 	qDebug() << "Mod value:" << mod;
-	
-	foreach(const QString &item, list) {
+
+	for (const QString &item : mod.split(',')) {
 		QString token = item.trimmed();
-		//U_DEBUG << "Mod token:" << token U_END;
+		//qDebug() << "Mod token:" << token;
 		
 		QString name;
 		QVariant value;
