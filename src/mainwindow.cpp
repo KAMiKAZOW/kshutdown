@@ -150,7 +150,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 
 		bool confirm = CLI::isConfirm();
 
-		foreach (const QString &id, menuActions) {
+		for (const QString &id : menuActions) {
 			if (id == "-") {
 				menu->addSeparator();
 			}
@@ -646,7 +646,7 @@ void MainWindow::initFileMenu(QMenu *fileMenu, const bool mainMenu) {
 	fileMenu->setToolTipsVisible(true);
 
 	int lastActionGroup = 0;
-	foreach (Action *action, PluginManager::actionList()) {
+	for (Action *action : PluginManager::actionList()) {
 		if (mainMenu) {
 			if (!action->visibleInMainMenu())
 				continue; // for
