@@ -173,16 +173,22 @@ Extras::Extras() :
 	m_command(QString::null) {
 
 	setCanBookmark(true);
+
+	setCommandLineOption(new QCommandLineOption{
+		{ "e", "extra" },
+		i18n("Run executable file (example: Desktop shortcut or Shell script)"),
+		"file"
+	});
+
 	uiAction()->setMenu(createMenu());
 	setVisibleInMainMenu(false);
 	setVisibleInSystemTrayMenu(false);
 
+// TODO: lazy Action init for faster app startup
 	m_menuButton = new QPushButton();
 	m_menuButton->setMenu(uiAction()->menu());
 	
 	//setCommandAction(0);
-
-	addCommandLineArg("e", "extra");
 }
 
 CommandAction *Extras::createCommandAction(const QFileInfo &fileInfo, const bool returnNull) {

@@ -256,12 +256,12 @@ LockAction::LockAction() :
 		getDisplayName(ActionType::LOCK),
 		"system-lock-screen", "lock"
 ) {
-	
+	QString longDisplayName = i18n("Lock Screen");
+
 	setCanBookmark(true);
+	setCommandLineOption({ "k", "lock" }, longDisplayName);
 	setShouldStopTimer(false);
 
 	if (!Config::oldActionNamesVar.getBool())
-		uiAction()->setStatusTip(i18n("Lock Screen"));
-
-	addCommandLineArg("k", "lock");
+		uiAction()->setStatusTip(longDisplayName);
 }
