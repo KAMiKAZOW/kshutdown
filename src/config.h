@@ -51,7 +51,9 @@ public:
 
 	void beginGroup(const QString &name);
 	void endGroup();
-	static bool isPortable();
+
+	static void init();
+	static bool isPortable() { return m_portable; }
 
 	QVariant read(const QString &key, const QVariant &defaultValue);
 	void write(const QString &key, const QVariant &value);
@@ -82,6 +84,7 @@ private:
 #else
 	QSettings *m_engine;
 #endif
+	static bool m_portable;
 	static Config *m_user;
 	explicit Config();
 };

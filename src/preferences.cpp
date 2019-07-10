@@ -138,7 +138,19 @@ QWidget *Preferences::createGeneralWidget() {
 		i18n("Old: %0").arg(i18n("Turn Off Computer") + ", " + i18n("Suspend Computer") + ", ...") + "\n" +
 		i18n("New: %0").arg(i18n("Shut Down") + ", " + i18n("Sleep") + ", ...")
 	);
+
+// TODO: InfoWidget - smaller margin; more compact size in dialogs
+	InfoWidget *infoWidget = new InfoWidget(nullptr);
+
+	connect(m_oldActionNames, &QCheckBox::toggled, [infoWidget](const bool selected) {
+		if (selected != Config::oldActionNamesVar.getBool())
+			infoWidget->setText(i18n("Restart application to apply changes"));
+		else
+			infoWidget->setText("");
+	});
+
 	l->addWidget(m_oldActionNames);
+	l->addWidget(infoWidget);
 
 	m_progressBarEnabled = Config::progressBarEnabledVar.newCheckBox(i18n("Show progress bar on top/bottom of the screen"));
 // TODO: connect(m_progressBarEnabled, SIGNAL(toggled(bool)), SLOT(onProgressBarEnabled(bool)));

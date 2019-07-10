@@ -16,6 +16,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "commandline.h"
+#include "config.h"
 #include "log.h"
 #include "mainwindow.h"
 #include "mod.h"
@@ -248,9 +249,9 @@ int main(int argc, char **argv) {
 
 // TODO: about.setTranslator(ki18n("Your names"), ki18n("Your emails"));
 
-
 	CLI::init(appDescription); // 1.
-	PluginManager::initActionsAndTriggers(); // 2.
+	Config::init(); // 2.
+	PluginManager::initActionsAndTriggers(); // 3.
 
 	// init command line options
 
