@@ -32,6 +32,7 @@
 
 // private
 
+bool Config::m_portable = false;
 Config *Config::m_user = nullptr;
 
 // public
@@ -69,14 +70,17 @@ void Config::endGroup() {
 #endif // KS_PURE_QT
 }
 
-bool Config::isPortable() {
+void Config::init() {
 	#ifdef KS_PORTABLE
-	return true;
+	m_portable = true;
 	#else
 		#ifdef KS_PURE_QT
-		return CLI::isArg("portable");
+		// HACK: QCommandLineParser is not initialized at this stage yet
+		//m_portable = CLI::isArg("portable");
+		const QStringList &args = QApplication::arguments();
+		m_portable = args.contains("-portable") || args.contains("--portable");
 		#else
-		return false;
+		m_portable = false;
 		#endif // KS_PURE_QT
 	#endif // KS_PORTABLE
 }
@@ -139,9 +143,8 @@ Config::Config() :
 	m_engine = KGlobal::config().data();
 	#endif // KS_KF5
 #else
-	bool portable = isPortable();
-	qDebug() << "Config::isPortable(): " << portable;
-	if (portable)
+	qDebug() << "Config::isPortable(): " << isPortable();
+	if (isPortable())
 		m_engine = new QSettings(QApplication::applicationDirPath() + QDir::separator() + "kshutdown.ini", QSettings::IniFormat);
 	else
 		m_engine = new QSettings();
