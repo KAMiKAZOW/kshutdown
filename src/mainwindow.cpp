@@ -158,7 +158,7 @@ bool MainWindow::maybeShow(const bool forceShow) {
 				menu->addAction(m_cancelAction);
 			}
 			else if (id == "quit") {
-				menu->addAction(createQuitAction());
+				menu->addAction(createQuitAction(false));
 			}
 			else if (id == "title") {
 				Utils::addTitle(menu, qApp->windowIcon(), QApplication::applicationDisplayName());
@@ -622,17 +622,26 @@ Trigger *MainWindow::getSelectedTrigger() const { // public
 	return PluginManager::trigger(m_triggers->itemData(m_triggers->currentIndex()).toString());
 }
 
-QAction *MainWindow::createQuitAction() {
+QAction *MainWindow::createQuitAction(const bool mainMenu) {
 	#ifdef KS_KF5
 	auto *quitAction = KStandardAction::quit(this, SLOT(onQuit()), this);
 	quitAction->setEnabled(!Utils::isRestricted("action/file_quit"));
+
+	if (!mainMenu)
+		quitAction->setShortcut(QKeySequence()); // hide shortcut
 	#else
 	auto *quitAction = new QAction(this);
 	quitAction->setIcon(QIcon::fromTheme("application-exit"));
-	quitAction->setShortcut(QKeySequence("Ctrl+Q"));
+
+	if (mainMenu)
+		quitAction->setShortcut(QKeySequence("Ctrl+Q"));
 	//quitAction->setShortcuts(QKeySequence::Quit <- useless);
+
 	connect(quitAction, SIGNAL(triggered()), SLOT(onQuit()));
 	#endif // KS_KF5
+
+	// NOTE: does not work with system tray icon context menu
+	//quitAction->setShortcutVisibleInContextMenu(mainMenu);
 
 	// NOTE: Use "Quit KShutdown" instead of "Quit" because
 	// it may be too similar to "Turn Off" in some language translations.
@@ -684,7 +693,7 @@ void MainWindow::initFileMenu(QMenu *fileMenu, const bool mainMenu) {
 	}
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_cancelAction);
-	fileMenu->addAction(createQuitAction());
+	fileMenu->addAction(createQuitAction(mainMenu));
 }
 
 void MainWindow::initMenuBar() {

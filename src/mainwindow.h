@@ -124,7 +124,7 @@ private:
 	#endif // Q_OS_WIN32
 	USystemTray *m_systemTray;
 	explicit MainWindow();
-	QAction *createQuitAction();
+	QAction *createQuitAction(const bool mainMenu);
 	void initFileMenu(QMenu *fileMenu, const bool mainMenu);
 	void initMenuBar();
 	void initTriggers();
