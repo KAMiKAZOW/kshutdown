@@ -485,7 +485,8 @@ void Extras::updateMenu() {
 	auto *helpAction = new QAction(i18n("Help"), this);
 	connect(helpAction, SIGNAL(triggered()), SLOT(showHelp()));
 	#endif // KS_KF5
-	helpAction->setShortcut(QKeySequence());
+
+	helpAction->setShortcutVisibleInContextMenu(false);
 	m_menu->addAction(helpAction);
 }
 
