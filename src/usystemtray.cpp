@@ -42,10 +42,12 @@ void USystemTray::info(const QString &message) const {
 	if (m_trayIcon == nullptr)
 		return;
 
+	const int timeout = 5'000; // use shorter timeout for less important notifications
+
 	#ifdef KS_KF5
-	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, "dialog-information");
+	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, "dialog-information", timeout);
 	#else
-	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, QSystemTrayIcon::Information, 4000);
+	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, QSystemTrayIcon::Information, timeout);
 	#endif // KS_KF5
 }
 
@@ -240,7 +242,7 @@ void USystemTray::warning(const QString &message) const {
 	#ifdef KS_KF5
 	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, "dialog-warning");
 	#else
-	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, QSystemTrayIcon::Warning, 4000);
+	m_trayIcon->showMessage(QApplication::applicationDisplayName(), message, QSystemTrayIcon::Warning);
 	#endif // KS_KF5
 }
 

@@ -457,7 +457,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	if (m_active) {
 		if (m_showActiveWarning) {
 			m_showActiveWarning = false;
-			m_systemTray->warning(i18n("KShutdown is still active!"));
+			m_systemTray->info(i18n("KShutdown is still active!"));
 		}
 	}
 	else {
