@@ -117,34 +117,37 @@ void CLI::init(const QString &appDescription) {
 }
 
 void CLI::initOptions() {
-	m_args->addOption({
-		{ "i", "inactivity" },
-		i18n(
-			"Detect user inactivity. Example:\n"
-			"--logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
-		)
-	});
-
 // TODO: plain text? options.add(":", ki18n("Other Options:"));
 
-	m_args->addOption({ "help", i18n("Show this help") });
-	#ifdef KS_KF5
-	m_args->addOption({ "cancel", i18n("Cancel an active action") });
-	#endif // KS_KF5
-	m_args->addOption({ "confirm", i18n("Show confirmation message") });
-	m_args->addOption({ "confirm-auto", i18n("Show confirmation message only if the \"Confirm Action\" option is enabled") });
-	m_args->addOption({ "hide-ui", i18n("Hide main window and system tray icon") });
-	m_args->addOption({ "init", i18n("Do not show main window on startup") });
-	m_args->addOption({ "mod", i18n("A list of modifications"), "value" });
+	m_args->addOptions({
+		{
+			{ "i", "inactivity" },
+			i18n(
+				"Detect user inactivity. Example:\n"
+				"--logout --inactivity 90 - automatically logout after 90 minutes of user inactivity"
+			)
+		},
+
+		{ "help", i18n("Show this help") },
+		#ifdef KS_KF5
+		{ "cancel", i18n("Cancel an active action") },
+		#endif // KS_KF5
+		{ "confirm", i18n("Show confirmation message") },
+		{ "confirm-auto", i18n("Show confirmation message only if the \"Confirm Action\" option is enabled") },
+		{ "hide-ui", i18n("Hide main window and system tray icon") },
+		{ "init", i18n("Do not show main window on startup") },
+		{ "mod", i18n("A list of modifications"), "value" },
 
 // TODO: docs
-	m_args->addOption({ "style", i18n("Widget Style"), "value" });
+		{ "style", i18n("Widget Style"), "value" },
 
-	#if defined(KS_PURE_QT) && !defined(KS_PORTABLE)
-	m_args->addOption({ "portable", i18n("Run in \"portable\" mode") });
-	#endif
+		#if defined(KS_PURE_QT) && !defined(KS_PORTABLE)
+		{ "portable", i18n("Run in \"portable\" mode") },
+		#endif
 
-	m_args->addOption({ "ui-menu", i18n("Show custom popup menu instead of main window"), "value" });
+		{ "ui-menu", i18n("Show custom popup menu instead of main window"), "value" },
+	});
+
 	m_args->addPositionalArgument(
 		"time",
 		i18n(

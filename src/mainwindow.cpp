@@ -358,8 +358,8 @@ void MainWindow::notify(const QString &id, const QString &text) {
 	// Qt supports notifications only in *some* DEs...
 	if (!Utils::isKDE()) {
 		// remove unsupported markup tags
-		fixedHTML.remove(QRegExp(R"(\<\w+\>)"));
-		fixedHTML.remove(QRegExp(R"(\</\w+\>)"));
+		fixedHTML.remove(QRegularExpression(R"(\<\w+\>)"));
+		fixedHTML.remove(QRegularExpression(R"(\</\w+\>)"));
 	}
 	m_systemTray->warning(fixedHTML);
 #endif // KS_PURE_QT

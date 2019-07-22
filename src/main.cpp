@@ -104,6 +104,7 @@ qdbus net.sf.kshutdown /kshutdown/main_window hide
 */
 // TODO: update wiki docs
 	about.setOrganizationDomain("sf.net"); // changed to "net.sf.kshutdown" because default is "org.kde.kshutdown"
+// FIXME: QApplication::desktopFileName() returns "org.kde.kshutdown" (?)
 
 	about.setShortDescription(appDescription);
 
