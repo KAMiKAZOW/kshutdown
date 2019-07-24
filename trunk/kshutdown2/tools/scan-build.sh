@@ -9,5 +9,5 @@ fi
 
 pushd src
 make clean
-scan-build-6.0 make -j2
+scan-build make -j2
 popd

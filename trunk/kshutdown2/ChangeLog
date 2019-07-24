@@ -1,6 +1,56 @@
 
   Previous Versions and Screenshots: https://kshutdown.sourceforge.io/releases/
 
+2019-07-24  5.1-beta
+
+* CHANGED: New action names that matches more closely
+  the terminology used in current Desktop Environments.
+  You can select "Use old action names" option if don't like the change.
+
+* NEW: Added Help|What's New? menu item
+
+* NEW: Added --logoff, --restart, and --sleep command line option aliases
+  (run kshutdown --help for details)
+
+Misc.:
+
+* CHANGED: Do not show "Ctrl+Q" shortcut in system tray menu
+* CHANGED: Tweaked popup notifications autohide timeout
+* FIXED: Better default keyboard focus in dialog windows
+* NEW: Added "Wiki" link button to the "Command Line Option" help window
+* Qt5: About window:
+  - Links can be selected and opened using Tab/Enter keys
+  - Selectable text
+
+Linux:
+
+* NEW: Tools|Run menu: Added boot-related "journalctl" commands
+
+Windows:
+
+* UPDATED: Qt library in version 5.13.0
+* UPDATED: NSIS installer in version 3.04
+
+Haiku OS:
+
+* Partially fixed Shut Down and Restart actions
+* NEW: Added Lock action support
+
+Source:
+
+* CHANGED: Simplify and normalize application versioning.
+  Now all versions are in format: "mm.ii" plus optional "-beta" suffix.
+  This mostly apply to:
+  - versions displayed in KShutdown GUI
+  - default download URLs
+    (e.g. sourceforge.net/projects/kshutdown/files/KShutdown/$VERSION/kshutdown-source-$VERSION.zip/download)
+
+* UPDATED: "VERSION" file format and related files
+* REMOVED: "test-wine.bat"; use "Setup-wine.sh" instead
+* REMOVED: Obsolete "kshutdown.nsh" file (version number is now passed as /DAPP_VERSION option)
+* Code cleanup
+
+
 2019-05-04  5.0
 
 * NEW: Added option to focus/select "Cancel" button by default in confirmation message
@@ -1172,4 +1222,4 @@ http://sourceforge.net/p/kshutdown/code/HEAD/tree/trunk/kshutdown/ChangeLog?forc
 
 2003/10/27  0.1.0 Beta
 
-// svn log -r 940:HEAD|xsel -i -b && kwrite ChangeLog
+// svn log -r 960:HEAD|xsel -i -b && kwrite ChangeLog

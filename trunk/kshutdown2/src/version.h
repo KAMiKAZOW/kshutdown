@@ -5,7 +5,7 @@
 #include <QString>
 
 const QString KS_APP_VERSION = "5.1-beta";
-const QString KS_RELEASE_DATE = "2019-05-09";
+const QString KS_RELEASE_DATE = "2019-07-24";
 
 const QString KS_CONTACT = "https://kshutdown.sourceforge.io/contact.html";
 const QString KS_COPYRIGHT = "(C) 2003-3000 Konrad Twardowski";
