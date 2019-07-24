@@ -31,6 +31,9 @@
 
 #include <QDebug>
 #include <QMessageBox>
+#ifdef Q_OS_WIN32
+	#include <QtWin>
+#endif // Q_OS_WIN32
 
 // Base
 
@@ -67,22 +70,12 @@ void Base::writeConfig(Config *config) {
 // protected
 
 #ifdef Q_OS_WIN32
-// CREDITS: http://lists.trolltech.com/qt-solutions/2005-05/msg00005.html
 void Base::setLastError() {
 	DWORD lastError = ::GetLastError();
-	wchar_t *buffer = 0;
-	::FormatMessageW(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-		0,
-		lastError,
-		0,
-		(wchar_t *)&buffer,
-		0,
-		0
-	);
-	m_error = QString::fromWCharArray(buffer) + " (error code: " + QString::number(lastError) + ", 0x" + QString::number(lastError, 16) + ')';
-	if (buffer)
-		::LocalFree(buffer);
+
+	m_error = QtWin::stringFromHresult(static_cast<HRESULT>(lastError)) +
+		" (error code: " + QString::number(lastError) +
+		" | 0x" + QString::number(lastError, 16).toUpper() + ')';
 }
 #endif // Q_OS_WIN32
 
