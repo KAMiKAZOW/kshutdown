@@ -46,7 +46,6 @@ HEADERS += \
 	plugins.h \
 	preferences.h \
 	progressbar.h \
-	stats.h \
 	udialog.h \
 	usystemtray.h \
 	utils.h \
@@ -71,7 +70,6 @@ SOURCES += \
 	plugins.cpp \
 	preferences.cpp \
 	progressbar.cpp \
-	stats.cpp \
 	udialog.cpp \
 	usystemtray.cpp \
 	utils.cpp \

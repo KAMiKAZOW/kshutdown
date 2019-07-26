@@ -26,7 +26,6 @@
 #include "plugins.h"
 #include "preferences.h"
 #include "progressbar.h"
-#include "stats.h"
 #include "usystemtray.h"
 #include "utils.h"
 #include "actions/extras.h"
@@ -739,10 +738,29 @@ void MainWindow::initMenuBar() {
 		auto *runMenu = new QMenu(i18n("Run"), toolsMenu);
 
 		for (const QStringList &programAndArgs : runList) {
-			runMenu->addAction(programAndArgs.join(" "), [this, /* copy capture */programAndArgs] {
-// TODO: line wrap option
-				QScopedPointer<Stats> dialog(new Stats(this, programAndArgs));
-				dialog->exec();
+			const QString title = programAndArgs.join(" ");
+
+			runMenu->addAction(title, [this, /* copy capture */programAndArgs, title] {
+				QString program = programAndArgs[0];
+				QStringList args = QStringList(programAndArgs);
+				args.removeFirst();
+
+				QString header = "$ " + title;
+				QString text =
+					header + "\n" +
+					QString("-").repeated(header.count()) + "\n";
+
+				QApplication::setOverrideCursor(Qt::WaitCursor);
+
+				QProcess process;
+				process.start(program, args);
+
+				bool ok;
+				text += Utils::read(process, ok);
+
+				QApplication::restoreOverrideCursor();
+
+				UDialog::plainText(this, text, title);
 			});
 		}
 
