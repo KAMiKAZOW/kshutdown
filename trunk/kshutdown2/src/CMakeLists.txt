@@ -12,7 +12,6 @@ set(kshutdown_SRC
 	plugins.cpp
 	preferences.cpp
 	progressbar.cpp
-	stats.cpp
 	udialog.cpp
 	usystemtray.cpp
 	utils.cpp

@@ -19,6 +19,8 @@
 
 #include "utils.h"
 
+#include <QPlainTextEdit>
+
 #ifdef KS_KF5
 	#include <KMessageBox>
 #else
@@ -88,4 +90,23 @@ void UDialog::info(QWidget *parent, const QString &text) {
 	#else
 	QMessageBox::information(parent, i18n("Information"), text);
 	#endif // KS_KF5
+}
+
+void UDialog::plainText(QWidget *parent, const QString &text, const QString &windowTitle) {
+	QScopedPointer<UDialog> dialog(new UDialog(parent, windowTitle, true));
+	dialog->resize(800_px, 600_px);
+
+	auto m_textView = new QPlainTextEdit(dialog.get());
+
+// TODO: line wrap option
+	m_textView->setLineWrapMode(QPlainTextEdit::NoWrap);
+
+	m_textView->setPlainText(text);
+	m_textView->setReadOnly(true);
+	m_textView->setStyleSheet("QPlainTextEdit { font-family: monospace; }");
+
+	dialog->mainLayout()->addWidget(m_textView);
+	m_textView->setFocus();
+
+	dialog->exec();
 }

@@ -31,10 +31,17 @@ public:
 	QDialogButtonBox *buttonBox() { return m_dialogButtonBox; }
 	inline QVBoxLayout *mainLayout() { return m_mainLayout; }
 	inline QVBoxLayout *rootLayout() { return m_rootLayout; }
+
 	// messages
+
 	static bool confirm(QWidget *parent, const QString &text);
 	static void error(QWidget *parent, const QString &text);
 	static void info(QWidget *parent, const QString &text);
+
+	// misc
+
+	static void plainText(QWidget *parent, const QString &text, const QString &windowTitle);
+
 private:
 	Q_DISABLE_COPY(UDialog)
 	QDialogButtonBox *m_dialogButtonBox;
