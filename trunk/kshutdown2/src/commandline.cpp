@@ -22,7 +22,6 @@
 #include "plugins.h"
 #include "udialog.h"
 #include "utils.h"
-#include "actions/extras.h"
 
 #include <QDebug>
 #include <QDesktopServices>
@@ -63,11 +62,9 @@ bool CLI::check() {
 		}
 	}
 
-	if (actionToActivate) {
-		if (actionToActivate == Extras::self()) {
-// TODO: move to Action::onCommandLine #api
-			Extras::self()->setStringOption(getOption("extra"));
-		}
+	if (actionToActivate != nullptr) {
+		if (!actionToActivate->onCommandLineOption())
+			return false;
 
 		// setup main window and execute action later
 		if (TimeOption::isValid()) {

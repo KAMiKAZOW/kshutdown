@@ -137,11 +137,7 @@ Config::Config() :
 	//qDebug() << "Config::Config()";
 	
 #ifdef KS_KF5
-	#ifdef KS_KF5
 	m_engine = KSharedConfig::openConfig().data();
-	#else
-	m_engine = KGlobal::config().data();
-	#endif // KS_KF5
 #else
 	qDebug() << "Config::isPortable(): " << isPortable();
 	if (isPortable())

@@ -106,6 +106,7 @@ public:
 	bool isCommandLineOptionSet() const;
 	virtual bool isEnabled() const override { return m_uiAction->isEnabled(); }
 	virtual bool onAction() = 0;
+	virtual bool onCommandLineOption() { return true; }
 	inline bool shouldStopTimer() const {
 		return m_shouldStopTimer;
 	}

@@ -17,6 +17,7 @@
 
 #include "extras.h"
 
+#include "../commandline.h"
 #include "../config.h"
 #include "../mainwindow.h"
 #include "../password.h"
@@ -137,6 +138,12 @@ bool Extras::onAction() {
 
 	return ok;
 #endif // KS_KF5
+}
+
+bool Extras::onCommandLineOption() {
+	setStringOption(CLI::getOption("extra"));
+
+	return true;
 }
 
 void Extras::readConfig(Config *config) {
