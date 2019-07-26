@@ -35,6 +35,7 @@ public:
 	virtual void setStringOption(const QString &option) override;
 	virtual QWidget *getWidget() override;
 	virtual bool onAction() override;
+	virtual bool onCommandLineOption() override;
 	virtual void readConfig(Config *config) override;
 	static Extras *self() {
 		if (!m_instance)

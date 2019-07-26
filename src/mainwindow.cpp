@@ -1057,6 +1057,7 @@ void MainWindow::onQuit() {
 // private slots
 
 #ifdef KS_PURE_QT
+// TODO: move to UDialog::about
 void MainWindow::onAbout() {
 	auto *iconLabel = new QLabel();
 	iconLabel->setAlignment(Qt::AlignCenter);
@@ -1123,20 +1124,21 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	licenseLabel->setOpenExternalLinks(true);
 	licenseLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-	auto *aboutQtButton = new QPushButton(i18n("About Qt"));
-	aboutQtButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
-	connect(aboutQtButton, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
-
 	auto *licenseTab = new QWidget();
 	auto *licenseLayout = new QVBoxLayout(licenseTab);
 	licenseLayout->setMargin(20_px);
 	licenseLayout->setSpacing(20_px);
 // TODO: https://sourceforge.net/p/kshutdown/wiki/Credits/
 	licenseLayout->addWidget(licenseLabel);
-	licenseLayout->addStretch();
-	licenseLayout->addWidget(aboutQtButton);
 
 	QScopedPointer<UDialog> dialog(new UDialog(this, i18n("About"), true));
+
+	auto *closeButton = dialog->buttonBox()->button(QDialogButtonBox::Close);
+	closeButton->setDefault(true);
+
+	auto *aboutQtButton = dialog->buttonBox()->addButton(i18n("About Qt"), QDialogButtonBox::ActionRole);
+	connect(aboutQtButton, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
+
 	#ifdef Q_OS_WIN32
 	dialog->rootLayout()->setMargin(5_px);
 	dialog->rootLayout()->setSpacing(5_px);
@@ -1147,6 +1149,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	tabs->addTab(licenseTab, i18n("License"));
 	dialog->mainLayout()->addWidget(tabs);
 	tabs->setFocus();
+
+// TODO: dialog->layout()->setSizeConstraint(QLayout::SetFixedSize); (all)
 
 	dialog->exec();
 }
