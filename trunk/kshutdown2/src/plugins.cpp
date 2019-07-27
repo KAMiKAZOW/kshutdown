@@ -302,6 +302,7 @@ bool Action::launch(const QString &program, const QStringList &args, const bool 
 
 	qDebug() << "Launching \"" << program << "\" with \"" << args << "\" arguments";
 
+// TODO: use startDetached
 	int exitCode = QProcess::execute(program, args);
 
 	if (exitCode == -2) {

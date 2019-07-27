@@ -107,7 +107,10 @@ bool Extras::onAction() {
 		QSettings settings(path, QSettings::IniFormat);
 		settings.setIniCodec(QTextCodec::codecForName("UTF-8"));
 		settings.beginGroup("Desktop Entry");
+
+// FIXME: command arguments; need new parser because QSettings can't read Desktop Entry format...
 		QString exec = settings.value("Exec", "").toString();
+
 		//qDebug() << "Exec:" << exec;
 		if (!exec.isEmpty()) {
 			auto *process = new QProcess(this);
@@ -127,7 +130,7 @@ bool Extras::onAction() {
 	}
 	#endif // Q_OS_WIN32
 	else if (fileInfo.isExecutable()) {
-		ok = (QProcess::execute(path, QStringList()) == 0);
+		ok = QProcess::startDetached(path, QStringList());
 	}
 	else {
 		ok = QDesktopServices::openUrl(QUrl::fromLocalFile(path));
