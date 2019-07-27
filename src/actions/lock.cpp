@@ -69,8 +69,8 @@ bool LockAction::onAction() {
 	customCommand = customCommand.trimmed();
 	if (!customCommand.isEmpty()) {
 		qDebug() << "Using custom lock command: " << customCommand;
-		int exitCode = QProcess::execute(customCommand);
-		if (exitCode != 0)
+
+		if (!QProcess::startDetached(customCommand))
 			qDebug() << "Lock command failed to start";
 		else
 			return true;

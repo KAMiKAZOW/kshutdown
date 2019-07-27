@@ -769,7 +769,7 @@ void MainWindow::initMenuBar() {
 
 	#ifndef Q_OS_WIN32
 	auto systemSettingsAction = toolsMenu->addAction(QIcon::fromTheme("preferences-system"), i18n("System Settings..."), [] {
-		QProcess::execute("kcmshell5 autostart kcmkded kcmnotify kcmsmserver kcm_energyinfo kcm_sddm kcm_splashscreen keys powerdevilprofilesconfig screenlocker");
+		QProcess::startDetached("kcmshell5 autostart kcmkded kcmnotify kcmsmserver kcm_energyinfo kcm_sddm kcm_splashscreen keys powerdevilprofilesconfig screenlocker");
 	});
 	systemSettingsAction->setEnabled(Utils::isKDE());
 
