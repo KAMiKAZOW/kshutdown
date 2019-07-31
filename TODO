@@ -12,7 +12,6 @@
 * Wiki: KDE Connect (remote shutdown)
 * Add Qt Creator project file
 * Cleanup various README paths/URIs
-* Fix license links: http://www.gnu.org/licenses/gpl.html
 * Cleanup registry keys in kshutdown.nsi (like in Makagiga)
 * Update Wiki docs
 * Review InitiateSystemShutdownEx API
@@ -24,6 +23,7 @@
 * Modernize C++:
   - "final" methods
   - unique_ptr/shared_ptr
+* Use QCompleter in text fields
 
 # Haiku
 

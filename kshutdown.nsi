@@ -17,7 +17,7 @@ SetCompressor /SOLID lzma
 !define MUI_COMPONENTSPAGE_NODESC
 
 # GNU GPL is not an EULA
-#!define MUI_LICENSEPAGE_TEXT_TOP "tl;dr http://tldrlegal.com/l/gpl2"
+#!define MUI_LICENSEPAGE_TEXT_TOP "tl;dr https://tldrlegal.com/l/gpl2"
 #!insertmacro MUI_PAGE_LICENSE "LICENSE"
 
 !insertmacro MUI_PAGE_COMPONENTS

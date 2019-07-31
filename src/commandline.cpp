@@ -33,7 +33,7 @@ QCommandLineParser *CLI::m_args = nullptr;
 bool TimeOption::m_absolute = false;
 bool TimeOption::m_relative = false;
 Action *TimeOption::m_action = nullptr;
-QString TimeOption::m_option = QString::null;
+QString TimeOption::m_option = "";
 QTime TimeOption::m_time = QTime();
 
 // public
@@ -74,6 +74,7 @@ bool CLI::check() {
 		}
 		else {
 			if (TimeOption::isError()) {
+// TODO: show valid example
 				UDialog::error(nullptr, i18n("Invalid time: %0").arg(TimeOption::value()));
 				
 				return false;
@@ -101,10 +102,7 @@ QString CLI::getOption(const QString &name) {
 QString CLI::getTimeOption() {
 	QStringList pa = m_args->positionalArguments();
 
-	if (pa.count())
-		return pa.front();
-	
-	return QString::null;
+	return pa.isEmpty() ? "" : pa.front();
 }
 
 void CLI::init(const QString &appDescription) {
