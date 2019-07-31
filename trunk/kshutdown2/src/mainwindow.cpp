@@ -1135,7 +1135,7 @@ the Free Software Foundation; either version 2 of the License, or
 This program is distributed in the hope that it will be useful,
 but <b>WITHOUT ANY WARRANTY</b>; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a> for more details. (<a href="http://tldrlegal.com/l/gpl2">tl;dr</a>)</qt>)";
+<a href="https://www.gnu.org/licenses/gpl.html">GNU General Public License</a> for more details. (<a href="https://tldrlegal.com/l/gpl2">tl;dr</a>)</qt>)";
 
 	auto *licenseLabel = new QLabel(licenseText.replace("\n", "<br />"));
 	licenseLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
