@@ -96,7 +96,7 @@ QString CLI::getOption(const QString &name) {
 
 	QString option = m_args->value(name);
 
-	return option.isEmpty() ? QString::null : option;
+	return option.isEmpty() ? QString() : option;
 }
 
 QString CLI::getTimeOption() {
