@@ -299,7 +299,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 	//U_DEBUG << "\tMainWindow::getSelectedTrigger() == " << trigger->id() U_END;
 
 	// reset notifications
-	m_lastNotificationID = QString::null;
+	m_lastNotificationID = QString();
 
 	if (m_active) {
 #ifdef Q_OS_WIN32
@@ -326,7 +326,7 @@ void MainWindow::setActive(const bool yes, const bool needAuthorization) { // pr
 		m_progressBar->hide();
 	}
 
-	setTitle(QString::null, QString::null);
+	setTitle(QString(), QString());
 	onStatusChange(true);
 }
 
@@ -494,7 +494,7 @@ MainWindow::MainWindow() :
 	m_showActiveWarning(true),
 	m_showMinimizeInfo(true),
 	m_progressBar(nullptr),
-	m_lastNotificationID(QString::null),
+	m_lastNotificationID(QString()),
 	m_triggerTimer(new QTimer(this)),
 	m_currentActionWidget(nullptr),
 	m_currentTriggerWidget(nullptr) {
@@ -575,7 +575,7 @@ MainWindow::MainWindow() :
 
 	readConfig();
 
-	setTitle(QString::null, QString::null);
+	setTitle(QString(), QString());
 	m_ignoreUpdateWidgets = false;
 	updateWidgets();
 	
@@ -1323,7 +1323,7 @@ void MainWindow::onStatusChange(const bool forceUpdateWidgets) {
 
 	QString displayStatus =
 		m_active
-		? QString::null
+		? QString()
 		: getDisplayStatus(DISPLAY_STATUS_HTML | DISPLAY_STATUS_HTML_NO_ACTION | DISPLAY_STATUS_OK_HINT);
 	
 	InfoWidget::Type type;
