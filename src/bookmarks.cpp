@@ -218,7 +218,7 @@ void BookmarksMenu::onAddBookmark() {
 	QScopedPointer<UDialog> dialog(new UDialog(mainWindow, i18n("Add Bookmark"), false));
 	dialog->acceptButton()->setText(i18n("Add"));
 
-	auto *nameField = new QLineEdit(makeText(action, trigger, QString::null, QString::null));
+	auto *nameField = new QLineEdit(makeText(action, trigger, QString(), QString()));
 	nameField->setClearButtonEnabled(true);
 
 	auto *confirmActionField = new QCheckBox(i18n("Confirm Action"));
@@ -284,7 +284,7 @@ void BookmarksMenu::onUpdateMenu() {
 		toggleBookmarkAction->setEnabled(action->canBookmark() && trigger->canBookmark());
 		
 		toggleBookmarkAction->setIcon(QIcon("bookmark-new"));
-		QString text = makeText(action, trigger, QString::null, QString::null);
+		QString text = makeText(action, trigger, QString(), QString());
 		toggleBookmarkAction->setText(i18n("Add: %0").arg(text));
 		connect(toggleBookmarkAction, SIGNAL(triggered()), SLOT(onAddBookmark()));
 	}
