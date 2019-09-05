@@ -371,7 +371,7 @@ void ProcessMonitor::updateStatus(const Process *process) {
 	}
 	else {
 		m_recentCommand = "";
-		m_status = QString::null;
+		m_status = QString();
 	}
 }
 
