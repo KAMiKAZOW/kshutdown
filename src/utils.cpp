@@ -71,7 +71,7 @@ QString Utils::getUser() {
 	if (!USER.isEmpty())
 		return USER;
 		
-	return QString::null;
+	return QString();
 }
 
 void Utils::init() {

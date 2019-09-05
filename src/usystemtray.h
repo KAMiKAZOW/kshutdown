@@ -46,7 +46,7 @@ private:
 	bool m_sessionRestored;
 	QSystemTrayIcon *m_trayIcon = nullptr;
 	#endif // KS_KF5
-	QString m_toolTip = QString::null;
+	QString m_toolTip = QString();
 #ifdef KS_PURE_QT
 private slots:
 	void onRestore(QSystemTrayIcon::ActivationReason reason);

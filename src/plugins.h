@@ -48,7 +48,7 @@ public:
 		return m_error;
 	}
 
-	virtual QString getStringOption() { return QString::null; }
+	virtual QString getStringOption() { return QString(); }
 
 	virtual void setStringOption(const QString &option) {
 		Q_UNUSED(option)
@@ -184,7 +184,7 @@ private:
 	Q_DISABLE_COPY(Trigger)
 	QIcon m_icon;
 	QString m_text;
-	QString m_toolTip = QString::null;
+	QString m_toolTip = QString();
 signals:
 	void notify(const QString &id, const QString &text);
 	void statusChanged(const bool updateWidgets);

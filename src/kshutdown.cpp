@@ -116,7 +116,7 @@ bool DateTimeTriggerBase::canActivateAction() {
 		MainWindow *mainWindow = MainWindow::self();
 		mainWindow->progressBar()->setValue(secsTo);
 		
-		QString id = QString::null;
+		QString id = QString();
 		if ((secsTo < 60) && (secsTo > 55))
 			id = "1m";
 		else if ((secsTo < 300) && (secsTo > 295))
@@ -238,7 +238,7 @@ QString DateTimeTriggerBase::createStatus(const QDateTime &now, int &secsTo) {
 		return result;
 	}
 	else if (secsTo == 0) {
-		return QString::null;
+		return QString();
 	}
 	else /* if (secsTo < 0) */ {
 		m_statusType = InfoWidget::Type::Warning;
@@ -268,7 +268,7 @@ QDateTime DateTimeTrigger::dateTime() {
 
 QString DateTimeTrigger::getStringOption() {
 	if (!m_edit)
-		return QString::null;
+		return QString();
 	
 	return m_edit->time().toString(TIME_PARSE_FORMAT);
 }
@@ -360,7 +360,7 @@ TimeFromNowTrigger::TimeFromNowTrigger() :
 
 QString TimeFromNowTrigger::getStringOption() {
 	if (!m_edit)
-		return QString::null;
+		return QString();
 
 	return m_edit->time().toString(TIME_PARSE_FORMAT);
 }
@@ -398,7 +398,7 @@ QDateTime TimeFromNowTrigger::calcEndTime() {
 
 PowerAction::PowerAction(const QString &text, const QString &iconName, const QString &id) :
 	Action(text, iconName, id),
-	m_methodName(QString::null) {
+	m_methodName(QString()) {
 	
 	setCanBookmark(true);
 }
@@ -1235,7 +1235,7 @@ LogoutAction::LogoutAction() :
 RebootAction::RebootAction() :
 	StandardAction(
 		getDisplayName(ActionType::REBOOT),
-		QString::null, "reboot", U_SHUTDOWN_TYPE_REBOOT),
+		QString(), "reboot", U_SHUTDOWN_TYPE_REBOOT),
 	m_bootEntryComboBox(nullptr) {
 
 	if (!Config::oldActionNamesVar)
