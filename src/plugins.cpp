@@ -41,11 +41,11 @@
 
 Base::Base(const QString &id) :
 	m_statusType(InfoWidget::Type::Info),
-	m_disableReason(QString::null),
-	m_error(QString::null),
+	m_disableReason(QString() ),
+	m_error(QString() ),
 	m_id(id),
-	m_originalText(QString::null),
-	m_status(QString::null),
+	m_originalText(QString() ),
+	m_status(QString() ),
 	m_canBookmark(false) {
 }
 
@@ -364,7 +364,7 @@ void Action::slotFire() {
 		return;
 	}
 
-	m_error = QString::null;
+	m_error = QString();
 	if (!onAction()) {
 		m_totalExit = false;
 		if (!m_error.isNull()) {
