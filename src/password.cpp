@@ -118,7 +118,7 @@ retry:
 // FIXME: dialog->setPixmap(MainWindow::self()->windowIcon().pixmap(48_px));
 	dialog->setPrompt(prompt);
 	bool ok = dialog->exec() == KPasswordDialog::Accepted;
-	QString password = ok ? dialog->password() : QString::null;
+	QString password = ok ? dialog->password() : QString();
 
 	if (!ok)
 		return false;
@@ -195,7 +195,7 @@ void PasswordDialog::updateStatus() {
 		if (!ok)
 			m_status->setText(i18n("Confirmation password is different"), InfoWidget::Type::Error);
 		else
-			m_status->setText(QString::null, InfoWidget::Type::Error);
+			m_status->setText(QString(), InfoWidget::Type::Error);
 	}
 
 	acceptButton()->setEnabled(ok);
