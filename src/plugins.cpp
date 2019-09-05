@@ -41,11 +41,11 @@
 
 Base::Base(const QString &id) :
 	m_statusType(InfoWidget::Type::Info),
-	m_disableReason(QString() ),
-	m_error(QString() ),
+	m_disableReason(QString()),
+	m_error(QString()),
 	m_id(id),
-	m_originalText(QString() ),
-	m_status(QString() ),
+	m_originalText(QString()),
+	m_status(QString()),
 	m_canBookmark(false) {
 }
 
