@@ -58,7 +58,7 @@ private:
 	#ifndef Q_OS_WIN32
 	bool m_own = false;
 	pid_t m_pid = 0;
-	QString m_user = QString::null; // an owner of the process (e.g. "root")
+	QString m_user = QString(); // an owner of the process (e.g. "root")
 	#else
 	DWORD m_pid = 0;
 	bool m_visible = false;
