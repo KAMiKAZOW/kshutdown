@@ -180,7 +180,7 @@ void Extras::writeConfig(Config *config) {
 
 Extras::Extras() :
 	Action(i18n("Extras"), "rating", "extras"),
-	m_command(QString::null) {
+	m_command(QString()) {
 
 	setCanBookmark(true);
 
@@ -382,12 +382,12 @@ void Extras::setCommandAction(const CommandAction *command) {
 		//m_status = (originalText() + " - " + command->text());
 	}
 	else {
-		m_command = QString::null;
+		m_command = QString();
 	
 		//qDebug() << "Extras::setCommandAction: NULL";
 		m_menuButton->setIcon(QIcon::fromTheme("arrow-down"));
 		m_menuButton->setText(i18n("Select a command..."));
-		//m_status = QString::null;
+		//m_status = QString();
 	}
 	emit statusChanged(true);
 }
