@@ -107,7 +107,7 @@ bool IdleMonitor::canActivateAction() {
 
 QString IdleMonitor::getStringOption() {
 	if (!m_edit)
-		return QString::null;
+		return QString();
 
 	return m_edit->time().toString(KShutdown::TIME_PARSE_FORMAT);
 }
@@ -170,7 +170,7 @@ QDateTime IdleMonitor::calcEndTime() {
  */
 void IdleMonitor::updateStatus() {
 	m_dateTime = m_edit->dateTime();
-	m_status = QString::null;
+	m_status = QString();
 }
 
 // private
